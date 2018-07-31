@@ -1,0 +1,8 @@
+<div class="embed-responsive embed-responsive-16by9 {{self.settings.custom_css_clas}}"
+{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+	{% if self.place_id %}
+		<iframe class="embed-responsive-item" width="100%" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:{{ self.place_id }}&zoom={{ self.map_zoom_level }}&key={{ self.api_key }}" allowfullscreen></iframe>
+	{% else %}
+		<iframe class="embed-responsive-item" width="100%" style="border:0" src="https://maps.google.com/maps?q={{ self.search }}&output=embed" allowfullscreen></iframe>
+	{% endif %}
+</div>

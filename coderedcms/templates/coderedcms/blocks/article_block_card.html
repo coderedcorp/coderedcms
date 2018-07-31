@@ -1,0 +1,17 @@
+{% load wagtailimages_tags %}
+
+<div class="card mb-3">
+    {% if article.cover_image %}
+        {% image article.cover_image fill-600x300 as cover_image %}
+        <a href="{{article.url}}" title="{{article.title}}"><img class="card-img-top" src="{{cover_image.url}}" alt="{{cover_image.title}}"></a>
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{article.title}}</h5>
+        <div class="card-subtitle mb-2 text-muted">{{article.get_pub_date}} {% if article.get_pub_date and article.get_author_name %} &bull; {% endif %} {{article.get_author_name}}</div>
+        <div class="card-subtitle mb-2 text-muted">{{article.caption}}</div>
+        {% if self.show_preview %}
+        <p class="card-text">{{article.body_preview}}</p>
+        {% endif %}
+        <a href="{{article.url}}" title="{{article.title}}">Read more &raquo;</a>
+    </div>
+</div>

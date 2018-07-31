@@ -1,0 +1,12 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags wagtailsettings_tags %}
+
+
+{% block branding_logo %}
+    {% if settings.coderedcms.LayoutSettings.logo %}
+        {% image settings.coderedcms.LayoutSettings.logo max-150x100 as logo_image %}
+        <img src="{{ logo_image.url }}" alt="Admin Home"/>
+    {% else %}
+        {{block.super}}
+    {% endif %}
+{% endblock %}

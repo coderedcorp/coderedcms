@@ -1,0 +1,12 @@
+{% extends "coderedcms/blocks/base_block.html" %}
+
+{% block block_render %}
+
+{% if self.title %}
+<div class="code-title bg-primary text-white">{{self.title}}</div>
+{% endif %}
+<div class="pygments bg-light">
+    {{code_html}}
+</div>
+
+{% endblock %}

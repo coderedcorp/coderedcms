@@ -1,0 +1,33 @@
+{% extends "coderedcms/pages/web_page.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block index_content %}
+<div class="container">
+
+    {% for article in index_paginated %}
+    <div class="row">
+        {% if self.show_images %}
+        <div class="col-md">
+            {% if article.cover_image %}
+                {% image article.cover_image fill-1000x500 as cover_image %}
+                <a href="{{article.url}}" title="{{article.title}}"><img src="{{cover_image.url}}" class="w-100" alt="{{article.title}}" /></a>
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="col-md">
+            <h3><a href="{{article.url}}">{{article.title}}</a></h3>
+            {% if self.show_captions and article.caption %}<p class="lead">{{article.caption}}</p>{% endif %}
+            {% if self.show_meta %}<p>{{article.get_pub_date}}{% if article.get_author_name %} &bull; {{article.get_author_name}}{% endif %}</p>{% endif %}
+            {% if self.show_preview_text %}<p>{{article.body_preview}}</p>{% endif %}
+        </div>
+    </div>
+    {% if not forloop.last %}
+    <hr>
+    {% endif %}
+    {% endfor %}
+
+    {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
+
+</div>
+{% endblock %}

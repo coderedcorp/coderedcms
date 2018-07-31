@@ -1,0 +1,9 @@
+<div class="d-flex align-items-center">
+    <h4><a href="{{page.url}}">{{page.title}}</a></h4>
+    {% if page.content_type.model_class in pagetypes %}<small class="ml-3 badge badge-secondary">{{page.search_name}}</small>{% endif %}
+</div>
+{% if page.search_description %}
+    <p>{{page.search_description|safe}}</p>
+{% elif page.body_preview %}
+    <p>{{page.body_preview}}</p>
+{% endif %}

@@ -1,0 +1,45 @@
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block menu_item %}
+    {% is_menu_item_dropdown value as has_dropdown %}
+
+    <a href="{% block url %}#{% endblock %}"
+    {% if value.settings.custom_id %}id="{{value.settings.custom_id}}"{% endif %}
+    class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %} {% if value.settings.custom_css_class %}{{value.settings.custom_css_class}}{% endif %}"
+    {% if has_dropdown %}data-toggle="dropdown"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    {% endif %}>
+
+        {% if value.image %}
+            {% image value.image max-200x200 as img %}
+            <img src="{{img.url}}" class="w-100" alt="{{img.image.title}}"/>
+        {% elif value.display_text %}
+            {{value.display_text|safe}}
+        {% elif value.page %}
+            {{value.page.title}}
+        {% elif value.document %}
+            {{value.document.title}}
+        {% endif %}
+
+        {% if has_dropdown and settings.coderedcms.LayoutSettings.bootstrap_major_version == 3 %}
+        <span class="caret"></span>
+        {% endif %}
+    </a>
+
+
+    {% if has_dropdown %}
+    <ul class="dropdown-menu">
+        {% for sub_link in value.sub_links %}
+            <li>{% include_block sub_link with aclass="dropdown-item" %}</li>
+        {% endfor %}
+        {% if value.show_child_links %}
+            {% for child in value.page.get_children %}
+                <li><a class="dropdown-item" href="{% pageurl child %}">{{child.title}}</a></li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    {% endif %}
+
+{% endblock %}

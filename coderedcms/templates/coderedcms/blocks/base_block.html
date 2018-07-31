@@ -1,0 +1,6 @@
+<div class="{{self.settings.custom_css_class}}"
+     {% if self.settings.custom_id %}
+     id="{{self.settings.custom_id}}"
+     {% endif %} >
+{% block block_render %}{% endblock %}
+</div>

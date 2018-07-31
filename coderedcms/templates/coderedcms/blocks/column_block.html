@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+
+<div class="col{% if self.settings.column_breakpoint %}-{{ self.settings.column_breakpoint }}{% endif %}{% if self.column_size %}-{{ self.column_size }}{% endif %}
+{{self.settings.custom_css_class}}"
+{% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+      {% for block in self.content %}
+      {% include_block block %}
+      {% endfor %}
+</div>

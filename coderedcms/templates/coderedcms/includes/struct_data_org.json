@@ -1,0 +1,80 @@
+{% load wagtailimages_tags %}
+
+{# Passing org_mode=True will render this as an "Organization" type #}
+{# which is required for some other objects such as publisher of an article. #}
+
+{
+    "@context": "http://schema.org",
+    "@type": "{% if org_mode %}Organization{% else %}{{page.struct_org_type}}{% endif %}",
+    "url": "{{page.get_full_url}}",
+    "name": "{{page.get_struct_org_name}}",
+
+    {% if page.get_struct_org_logo %}
+        {% image page.get_struct_org_logo original as logo_img %}
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{page.get_site.root_url}}{{logo_img.url}}"
+        },
+    {% endif %}
+
+    {% if page.struct_org_image %}
+        {# Get different aspect ratios. Use huge numbers because wagtail will not upscale, #}
+        {# but will max out at the image's original resultion using the specified aspect ratio. #}
+        {# Google wants them high resolution. #}
+        {% image page.struct_org_image fill-10000x10000 as img_11 %}
+        {% image page.struct_org_image fill-40000x30000 as img_21 %}
+        {% image page.struct_org_image fill-16000x9000 as img_169 %}
+        "image": [
+            "{{self.get_site.root_url}}{{img_11.url}}",
+            "{{self.get_site.root_url}}{{img_21.url}}",
+            "{{self.get_site.root_url}}{{img_169.url}}"
+        ],
+    {% endif %}
+
+    {% if page.struct_org_phone %}
+        "telephone": "{{page.struct_org_phone}}",
+    {% endif %}
+
+    {% if page.struct_org_address_street %}
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{page.struct_org_address_street}}",
+            "addressLocality": "{{page.struct_org_address_locality}}",
+            "addressRegion": "{{page.struct_org_address_region}}",
+            "postalCode": "{{page.struct_org_address_postal}}",
+            "addressCountry": "{{page.struct_org_address_country}}"
+        },
+    {% endif %}
+
+    {% if page.struct_org_geo_lat and page.struct_org_geo_lng and not org_mode %}
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": {{page.struct_org_geo_lat}},
+            "longitude": {{page.struct_org_geo_lng}}
+        },
+    {% endif %}
+
+    {% if page.struct_org_hours and not org_mode %}
+        "openingHoursSpecification": [
+        {% for spec in page.struct_org_hours %}
+            {{spec}}
+            {% if not forloop.last %},{% endif %}
+        {% endfor %}
+        ],
+    {% endif %}
+
+    {% if page.struct_org_actions and not org_mode %}
+        "potentialAction": [
+        {% for action in page.struct_org_actions %}
+            {{action}}
+            {% if not forloop.last %},{% endif %}
+        {% endfor %}
+        ],
+    {% endif %}
+
+    {% if page.struct_org_extra_json %}
+        {{page.struct_org_extra_json|safe}},
+    {% endif %}
+
+    "sameAs": {{settings.coderedcms.SocialMediaSettings.social_json|safe}}
+}

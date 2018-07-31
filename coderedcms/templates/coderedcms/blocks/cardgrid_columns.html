@@ -1,0 +1,10 @@
+{% extends "coderedcms/blocks/grid_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block grid_content %}
+<div class="card-columns {{self.settings.custom_css_class}}">
+      {% for block in self.content %}
+            {% include_block block %}
+      {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_render %}
+
+    <div class="card-columns">
+        {% for page in pages %}
+        {% with page.specific as article %}
+            {% include "coderedcms/blocks/article_block_card.html" %}
+        {% endwith %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

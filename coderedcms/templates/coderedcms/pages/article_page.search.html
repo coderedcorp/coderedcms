@@ -1,0 +1,38 @@
+{% load wagtailimages_tags %}
+
+<div class="row">
+    {% if page.cover_image %}
+    {% image page.cover_image fill-500x500 as cover_image %}
+    <div class="col-4 col-md-3 col-lg-2">
+        <a href="{{page.url}}" title="{{page.title}}"><img src="{{cover_image.url}}" class="w-100" alt="{{page.title}}" /></a>
+    </div>
+    {% endif %}
+    <div class="col">
+
+        <div class="d-flex align-items-center">
+            <h4><a href="{{page.url}}">{{page.title}}</a></h4>
+            {% if page.content_type.model_class in pagetypes %}<small class="ml-3 badge badge-secondary">{{page.search_name}}</small>{% endif %}
+        </div>
+
+        {% if page.caption %}
+            <p class="lead">{{page.caption}}</p>
+        {% endif %}
+
+        <p class="text-muted">
+            {% if page.get_author_name %}
+            <span class="article-author">{{page.get_author_name}}</span>
+            {% endif %}
+
+            {% if page.get_author_name and page.get_pub_date %}
+            <span class="mx-2">&bull;</span>
+            {% endif %}
+
+            {% if page.get_pub_date %}
+            <span class="article-date">{{ page.get_pub_date }}</span>
+            {% endif %}
+        </p>
+
+        <p>{{page.body_preview}}</p>
+
+    </div>
+</div>

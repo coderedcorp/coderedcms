@@ -1,0 +1,26 @@
+{% load wagtailcore_tags %}
+
+<a href="{{self.downloadable_file.url}}" download="{{self.downloadable_file.url}}"
+	{% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks or self.onclick %}
+	{% if not format == 'amp' %}
+		onclick="{% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}ga('send', 'event', '{{self.settings.ga_tracking_event_category}}', 'click', '{{self.settings.ga_tracking_event_label}}');{% endif %}
+		{% if self.onclick %}{{ self.onclick }}{% endif %}"
+	{% endif %}
+	{% endif %}
+  title="{{ self.alt_text|safe }}"
+  class='btn {{ self.button_style }} {{ self.button_size }} {{ self.settings.custom_css_class }}'
+  {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
+{% if self.button_title %}
+  {{ self.button_title|safe }}
+{% else %}
+  Download {{ self.downloadable_file.title }}
+{% endif %}
+</a>
+
+{% if self.automatic_download and not format == 'amp' %}
+<script>
+	$(document).ready(function(){
+		window.open("{{self.downloadable_file.url}}", '_blank');
+	});
+</script>
+{% endif %}

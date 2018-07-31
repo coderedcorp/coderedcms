@@ -1,0 +1,34 @@
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% get_pictures self.collection.id as pictures %}
+{% generate_random_id as modal_id %}
+
+<section class="{{self.settings.custom_css_class}}"
+    {% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+
+<div class="row">
+{% for picture in pictures %}
+    {% image picture fill-900x600 as picture_image %}
+    {% image picture original as original_image %}
+
+    {# insert a break every 4 columns #}
+    {% cycle '' '' '' '' '<div class="w-100"></div>' %}
+
+    <div class="col-sm my-3">
+        <a href="#" class="lightbox-preview" data-toggle="modal" data-target="#modal-{{modal_id}}">
+        <img class="thumbnail w-100" src="{{picture_image.url}}" data-original-src="{{original_image.url}}" alt="{{picture_image.image.title}}" title="{{picture_image.image.title}}" />
+        </a>
+    </div>
+
+{% endfor %}
+</div>
+
+<div id="modal-{{modal_id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lightbox">
+        <div class="modal-body">
+            <img src="" alt="" />
+        </div>
+    </div>
+</div>
+
+</section>

@@ -1,0 +1,22 @@
+{
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{self.target}}",
+      "inLanguage": "{{self.language}}",
+      "actionPlatform": [
+        "http://schema.org/DesktopWebPlatform",
+        "http://schema.org/IOSPlatform",
+        "http://schema.org/AndroidPlatform"
+      ]
+    },
+    {% if self.result_type %}
+    "result": {
+      "@type": "{{self.result_type}}",
+      "name": "{{self.result_name}}"
+    },
+    {% endif %}
+    {% if self.extra_json %}
+    {{self.extra_json}},
+    {% endif %}
+    "@type": "{{self.action_type}}"
+}

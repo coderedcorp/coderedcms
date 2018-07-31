@@ -1,0 +1,6 @@
+{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": {{self.days_json|safe}},
+    "opens": "{{self.start_time|date:'H:i'}}",
+    "closes": "{{self.end_time|date:'H:i'}}"
+}

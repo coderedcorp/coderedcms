@@ -1,0 +1,354 @@
+/* Font sizes and inputs */
+
+html, body {
+    color: #000;
+    background-color:#fff;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif !important;
+    font-size:1rem;
+}
+
+.content-wrapper {
+    background-color:unset;
+    border:unset;
+}
+
+header {
+    font-size:0.9rem;
+}
+
+.summary ul.stats span {
+    font-family:inherit !important;
+    font-weight:600 !important;
+}
+
+@media screen and (min-width:50em) {
+    .summary ul.stats li::before {
+        font-size:5em !important;
+    }
+    .summary ul.stats span {
+        font-size:3.5em !important;
+    }
+}
+
+code, pre,
+.monospace textarea {
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    font-size: 87%;
+}
+
+h1, h2, h3, h4, h5, h6,
+.button, .halloeditor, .tagit, input, select, textarea {
+    font-family:inherit;
+}
+
+.button, .halloeditor, .tagit, input, select, textarea {
+    font-size:1em;
+}
+
+.halloeditor, .tagit, input, select, textarea {
+    background-color:#eee;
+    border:1px solid #eee;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    font-weight:normal;
+}
+input[type='checkbox'], input[type='radio'] {
+    border:1.5px solid #ccc;
+}
+.halloeditor:hover, .tagit:hover, input:hover, select:hover, textarea:hover {
+    background-color:#eee;
+    border:1px solid #eee;
+}
+input[type='checkbox']:hover, input[type='radio']:hover {
+    border:1.5px solid #ccc;
+}
+input[type="checkbox"]::before, input[type="radio"]::before {
+    position: relative;
+    top:unset;
+}
+.date_field .input::after, .date_field .input::before, .date_time_field .input::after, .date_time_field .input::before, .iconfield .input::after, .iconfield .input::before, .time_field .input::after, .time_field .input::before, .url_field .input::after, .url_field .input::before {
+    font-size:1.5em;
+    top:0.35em;
+}
+.full input {
+    background-color:white;
+}
+.full input:focus, .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus {
+    border-color:#54d0d0;
+    background-color:#f4fcfc;
+}
+.button,
+.search-bar .button-filter {
+    height:2.25em;
+}
+a.button {
+    line-height:2.2em;
+}
+.dropdown .button, .dropdown button, .dropdown input[type="button"], .dropdown input[type="reset"], .dropdown input[type="submit"] {
+    height:2.5em;
+    line-height:2.5em;
+}
+.dropdown .dropdown-toggle {
+    line-height:2.5em;
+}
+.dropdown ul a {
+    padding:0.5em 1em;
+}
+.c-dropdown__button, .c-dropdown__toggle {
+    vertical-align: middle;
+}
+.choice_field .input select,
+.model_choice_field .input select,
+.typed_choice_field .input select {
+    margin-right:-3em;
+}
+.choice_field .input select ~ span:after,
+.model_choice_field .input select ~ span:after,
+.typed_choice_field .input select ~ span:after {
+    font-size:2em !important;
+    right:unset;
+}
+
+.field-content {
+    width:100%;
+}
+
+@media screen and (min-width:50em) {
+    li.sequence-member .fields > li,
+    ul.fields > li > .field {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    label {
+        display:block;
+        float:none;
+        margin: 0 auto;
+        width:15em;
+        min-width:15em;
+    }
+    .sequence-member label,
+    .sequence-member .label {
+        margin: 0;
+        width:10em;
+        min-width:10em;
+    }
+    .object.full .field-content {
+        flex-grow: 1;
+        margin: 0 auto;
+    }
+    li.sequence-member .struct-block .sequence-container {
+        display:block;
+        flex-grow: 1;
+        margin: 0 auto;
+    }
+    li.codered-collapsible label+.field,
+    ul.fields > li label+.field-content,
+    ul.fields > li label+.field {
+        display:block;
+        flex-grow: 1;
+        float:none;
+        margin: 0 auto;
+    }
+    .input {
+        width:100%;
+    }
+    .row-flush {
+        margin: unset;
+    }
+    .breadcrumb {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+}
+
+
+/* General layout */
+
+.content {
+    padding-bottom:100px;
+    background-color:unset;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+table.listing colgroup col {
+    width:auto;
+}
+
+label {
+    padding-top:0;
+    color:inherit;
+    font-weight:normal;
+}
+
+.post-page-meta {
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.no-padding
+{
+    padding: 0px;
+}
+
+.tab-nav a {
+    font-size:0.9em;
+    padding:0.5em 1.5em;
+    max-height:1.5em;
+}
+.tab-nav li.settings a {
+    padding:0.5em 1.5em;
+}
+.tab-nav li.seo a::before {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "FontAwesome";
+    vertical-align: middle;
+    text-transform: none;
+    content: "\f201";
+    margin-right: .5em;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.logo {
+    margin: 0 auto;
+    padding: 15px;
+}
+.logo img {
+    width:auto;
+    height:auto;
+    max-height:80px;
+    max-width:100%;
+}
+
+.nav-search input {
+    padding: 0.5em;
+}
+.nav-search button::before {
+    line-height:2.5em
+}
+
+.nav-main a {
+    padding: 0.6em 0.8em;
+}
+.nav-submenu .menu-item a {
+    font-size:0.9em;
+    padding: 0.6em 0 0.6em 2em;
+}
+.nav-submenu .menu-item a::before {
+    margin-left:0;
+}
+
+.nav-main-solo {
+  top: 43px;
+  bottom: 0;
+  overflow: auto;
+  width: 100%;
+  list-style: none;
+  background-color: #222;
+}
+
+.nav-main-solo a {
+  text-decoration: none;
+  display: block;
+  color: #aaa;
+  padding: 0.39em;
+  font-size: 0.85em;
+  font-weight: 300;
+}
+
+.nav-main-solo a:hover, .nav-main-solo a:focus,
+.nav-main .account:hover, .nav-main .account:focus {
+  outline: none;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+
+.nav-main .footer {
+    font-size:0.9em;
+}
+
+.submenu-active * {
+    box-sizing: border-box;
+}
+.nav-submenu .footer {
+    color:#666;
+    position:relative;
+    width:100%;
+}
+
+@media screen and (min-width:50em) {
+    li.submenu-active .nav-submenu a {
+        padding-left:1em;
+        width:100%;
+    }
+    .nav-submenu {
+        display:none;
+    }
+    .nav-submenu h2, .nav-submenu ul {
+        width:100%;
+    }
+    .nav-main .account em {
+        margin-top:1em;
+        font-size:0.9em;
+    }
+    .submenu-active .nav-submenu {
+        display:block;
+    }
+}
+
+.c-explorer__item__link {
+    padding: 1em;
+}
+
+.nice-padding {
+    padding-left:20px;
+    padding-right:20px;
+}
+
+
+/* Custom */
+
+.button-advanced-settings {
+    display:block;
+    background-color:#aaa;
+    font-size:0.8em;
+    font-weight:600;
+}
+.button-advanced-settings:hover {
+    background-color:#999;
+}
+
+.power-by {
+    background-color:#1a1a1a;
+    border-top:1px solid #333;
+    font-size:12px;
+    text-align: center;
+}
+
+.power-by a {
+    color:#fff;
+    padding: 5px;
+}
+.power-by a:hover {
+    background-color:#f00;
+}
+
+.power-by img {
+    width:85px;
+    height:auto;
+    padding-left:2px;
+}

@@ -1,0 +1,12 @@
+{% load coderedcms_tags %}
+
+<div class="embed-responsive embed-responsive-16by9 {{self.settings.custom_css_class}}"
+{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+	{% if self.url|get_embed_video_provider == 'youtube' %}
+		<iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/{{ self.url|get_embed_video_code }}" frameborder="0" allowfullscreen></iframe>
+	{% endif %}
+
+	{% if self.url|get_embed_video_provider == 'vimeo' %}
+    	<iframe class="embed-responsive-item" width="640" height="360" src="https://player.vimeo.com/video/{{ self.url|get_embed_video_code }}" frameborder="0" allowfullscreen></iframe>
+	{% endif %}
+</div>

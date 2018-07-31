@@ -1,0 +1,25 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_render %}
+
+    {% for page in pages %}
+    {% with page.specific as article %}
+    <div class="media">
+        {% if article.cover_image %}
+            {% image article.cover_image fill-150x100 as cover_image %}
+            <a href="{{article.url}}"><img class="mr-3" src="{{cover_image.url}}" alt="{{cover_image.title}}"></a>
+        {% endif %}
+        <div class="media-body">
+            <h5 class="mt-0"><a href="{{article.url}}">{{article.title}}</a></h5>
+            <div class="mb-2 text-muted">{{article.get_pub_date}} {% if article.get_pub_date and article.get_author_name %} &bull; {% endif %} {{article.get_author_name}}</div>
+            <div class="mb-2 text-muted">{{article.caption}}</div>
+            {% if self.show_preview %}
+            <p>{{article.body_preview}}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endwith %}
+    {% endfor %}
+
+{% endblock %}

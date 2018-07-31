@@ -1,0 +1,71 @@
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags %}
+
+{% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
+<div class="container">
+{% endif %}
+
+<nav class="navbar
+  {% if settings.coderedcms.LayoutSettings.navbar_fixed %}fixed-top{% endif %}
+  {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}
+  {{settings.coderedcms.LayoutSettings.navbar_color_scheme}}
+  {{settings.coderedcms.LayoutSettings.navbar_class}}
+  {{settings.coderedcms.LayoutSettings.navbar_format}}" >
+
+  {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+  <div class="container">
+  {% endif %}
+
+    <a class="navbar-brand" href="/">
+      {% if settings.coderedcms.LayoutSettings.logo %}
+        {% image settings.coderedcms.LayoutSettings.logo original as logo %}
+        <img src="{{logo.url}}" alt="{{request.site.site_name}}" />
+      {% else %}
+        {{request.site.site_name}}
+      {% endif %}
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      {% get_navbars as navbars %}
+      {% for navbar in navbars %}
+      <ul class="navbar-nav {% if navbar.custom_css_class %}{{navbar.custom_css_class}}{% endif %}"
+        {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
+        {% for item in navbar.menu_items %}
+        {% is_menu_item_dropdown item.value as has_dropdown %}
+        <li class="nav-item {% if has_dropdown %}dropdown{% endif %}">{% include_block item with aclass="nav-link" %}</li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+      {% if settings.coderedcms.LayoutSettings.navbar_search %}
+      <form class="form-inline ml-auto" action="{% url 'codered_search' %}" method="GET">
+          {% load bootstrap4 %}
+          {% get_searchform request as form %}
+          {% bootstrap_form form layout='inline' %}
+          <div class="form-group">
+            <button class="btn btn-outline-primary ml-2" type="submit">Search</button>
+          </div>
+      </form>
+      {% endif %}
+    </div>
+
+  {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+  </div><!-- /.container -->
+  {% endif %}
+
+</nav>
+
+{% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
+</div><!-- /.container -->
+{% endif %}
+
+{# Navbar offset #}
+{% if settings.coderedcms.LayoutSettings.navbar_fixed %}
+    {% if settings.coderedcms.LayoutSettings.logo %}
+      <div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
+    {% else %}
+      <div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
+    {% endif %}
+{% endif %}

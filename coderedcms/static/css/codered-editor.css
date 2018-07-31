@@ -1,0 +1,240 @@
+/* Reset fonts to system */
+.title .halloeditor, .title input, .title textarea,
+.Draftail-Editor .DraftEditor-root {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+}
+
+
+/* Inputs and form fields */
+.title .halloeditor, .title input, .title textarea {
+    font-size:2.5em;
+}
+.full .halloeditor, .full input, .full textarea {
+    padding-top:1em;
+    padding-bottom:1em;
+    background-color:transparent;
+}
+
+label,
+.sequence-member label,
+.sequence-member .label {
+    font-size:0.9em;
+    padding:0.5em 0.5em 0.5em 0;
+}
+
+.sequence-member input[type='text'],
+.sequence-member input[type='email'],
+.sequence-member input[type='url'],
+.sequence-member input[type='number'],
+.sequence-member input[type='date'],
+.sequence-member input[type='time'],
+.sequence-member input[type='datetime'],
+.sequence-member input[type='datetime-local'],
+.sequence-member textarea,
+.sequence-member select,
+.sequence-member .richtext,
+.sequence-member .tagit {
+    background-color:white;
+    border:1px solid #ddd;
+}
+
+.sequence-member input:focus,
+.sequence-member textarea:focus,
+.sequence-member select:focus,
+.sequence-member .richtext:focus,
+.sequence-member .tagit:focus {
+    border-color:#54d0d0;
+    background-color:#f4fcfc;
+}
+
+.input input[type='text'],
+.input input[type='email'],
+.input input[type='url'],
+.input input[type='number'],
+.input input[type='date'],
+.input input[type='time'],
+.input input[type='datetime'],
+.input input[type='datetime-local'],
+.input select,
+.input textarea {
+    min-width:300px;
+    width:auto;
+}
+.input textarea,
+.full .input input {
+    width:100%;
+}
+
+
+/* Override and enhance the streamfield editor */
+
+.chooser .unchosen::before, .chooser .chosen::before {
+    color:rgba(0,0,0,0.2)
+}
+
+li.sequence-member {
+    border:none;
+}
+
+li.sequence-member li.sequence-member {
+    background-color:rgba(0,0,0,0.05);
+    border:none;
+    margin:0 0 50px 0;
+
+}
+li.sequence-member:hover {
+    background-color:rgba(0,0,0,0.05);
+    border:none;
+}
+
+li.sequence-member .sequence-member-inner,
+li.sequence-member .struct-block .sequence-container .sequence-member-inner {
+    padding:1em;
+}
+
+@media screen and (max-width:49.99em) {
+    li.sequence-member .struct-block .sequence-container {
+        width:100%;
+    }
+}
+
+.field.char_field.widget-draftail_rich_text_area .field-content,
+.field.char_field.widget-textarea .field-content {
+    width:100%;
+    max-width:100%;
+}
+
+.sequence-controls {
+    border: none;
+    background-color: inherit;
+}
+.sequence-controls h3 label {
+    font-weight: bold;
+    display: inline;
+    vertical-align: middle;
+}
+
+.objects * {
+    box-sizing: border-box;
+}
+
+.object.stream-field {
+    margin-top:50px;
+}
+
+.object > h2 {
+    font-weight: 600;
+    height: 3em;
+    line-height: 1em;
+}
+.object > h2 label::before, .object > h2::before {
+    line-height:1.5em;
+}
+.object.empty .add .button::before {
+    line-height:2em;
+    height:2em;
+    width:2.3em;
+
+}
+
+.object .multiple {
+    width:100%;
+    max-width:100%;
+}
+
+.object fieldset {
+    width:100%;
+    max-width:100%;
+}
+.object > fieldset {
+    padding-top:6em;
+}
+.object > fieldset fieldset {
+    padding-top:0;
+}
+
+li.sequence-member .struct-block .fields {
+    width:100%;
+    max-width:100%;
+}
+
+.stream-menu.stream-menu-closed .toggle {
+    color:#888;
+}
+
+.tab-content section {
+    padding-top:0;
+}
+
+.fields > li, .field-col {
+    padding-bottom:0.5em;
+}
+
+.tagit, input, select, textarea {
+    color:#000;
+}
+.tagit, input, select, textarea {
+    font-weight:normal;
+}
+
+
+/* Draftail */
+
+
+.Draftail-Toolbar {
+    background-color:transparent !important;
+    border-radius:0 !important;
+    color:rgba(0,0,0,0.2) !important;
+    padding: 0 !important;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar:hover {
+    color:rgba(0,0,0,0.7) !important;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar .Draftail-ToolbarButton--active {
+    background-color:rgba(0,0,0,0.05) !important;
+    border:none;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar:hover .Draftail-ToolbarButton--active {
+    background-color:rgba(0,0,0,0.2) !important;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar .Draftail-ToolbarGroup + .Draftail-ToolbarGroup::before {
+    content: none;
+}
+.Draftail-Toolbar .Draftail-ToolbarGroup + .Draftail-ToolbarGroup {
+    margin-left: 1em;
+}
+li.sequence-member li > .field .Draftail-Editor,
+li.sequence-member li.sequence-member .Draftail-Editor {
+    background-color: #fff !important;
+    border-radius:5px;
+    border:1px solid #ddd !important;
+    padding: 0.5em 1em;
+}
+li.sequence-member li.sequence-member .Draftail-Editor {
+    margin:-1em;
+}
+li.sequence-member li > .field .Draftail-Editor {
+    margin: 0;
+}
+
+.Draftail-Editor .DraftEditor-root {
+    color:#000 !important;
+}
+.Draftail-DividerBlock {
+    background-color:#ccc !important;
+}
+
+
+/* custom */
+
+.codered-collapsible {
+    padding:0;
+}
+
+.codered-collapsible fieldset {
+    padding: 10px 0 0;
+}

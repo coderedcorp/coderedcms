@@ -1,0 +1,4 @@
+<h1 {% if self.custom_css_class %}class="{{self.settings.custom_css_class}}"{% endif %}
+{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+	{{ self.text }}
+</h1>

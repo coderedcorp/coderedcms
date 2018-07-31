@@ -1,0 +1,4 @@
+<input type="time" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %} {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}" {% endif %}>
+<noscript>
+    <small class="form-text text-muted">Format 4:00 PM</small>
+</noscript>

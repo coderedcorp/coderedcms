@@ -1,0 +1,20 @@
+{% load wagtailimages_tags %}
+
+{% if not self.fluid %}
+<div class="container">
+{% endif %}
+
+{% image self.background_image max-2000x2000 as background_image %}
+<div class="hero-bg {% if self.is_parallax %}parallax{% endif %} {% if self.tile_image %}tile{% endif %} {% if self.settings.custom_css_class %}{{self.settings.custom_css_class}}{% endif %}"
+	style="{% if self.background_color %}background-color:{{self.background_color}};{% endif %}
+		   {% if background_image %}background-image: url({{background_image.url}});{% endif %}"
+	{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+	<div class="hero-fg"
+		style="{% if self.foreground_color %}color:{{self.foreground_color}};{% endif %}">
+		{{self.content}}
+	</div>
+</div>
+
+{% if not self.fluid %}
+</div>
+{% endif %}

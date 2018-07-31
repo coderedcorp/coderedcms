@@ -1,0 +1,21 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_render %}
+
+<div class="list-group">
+    {% for page in pages %}
+    {% with page=page.specific %}
+    <a class="list-group-item list-group-item-action flex-column align-items-start {% if request.path == page.url %}active{% endif %}" href="{{page.url}}">
+    {% if self.show_preview %}
+        <h5 class="mb-1">{{page.title}}</h5>
+        <p class="mb-1">{{page.body_preview}}</p>
+    {% else %}
+        {{page.title}}
+    {% endif %}
+    </a>
+    {% endwith %}
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load coderedcms_tags %}
+
+<div class="field">
+    <label>Page cache:</label>
+    <div class="field-content">
+        {% if 'CACHE_PAGES'|codered_settings %}
+        <p>
+            <b>ENABLED</b>
+        </p>
+        <p>
+            Cached pages are automatically refreshed every <b>{% cache_timeout %}</b>.<br>
+            To modify this, change the <code>TIMEOUT</code> value of the <code>{{'CACHE_BACKEND'|codered_settings}}</code> cache backend in the project settings.
+        </p>
+        <p>
+            {% include "coderedcms/includes/wagtailadmin_clearcache.html" %}
+        </p>
+        {% else %}
+        <p>
+            <b>DISABLED</b>
+        </p>
+        <p>
+            To enable caching, set <code>CODERED_CACHE_PAGES = True</code> in the project settings.
+        </p>
+        {% endif %}
+    </div>
+</div>

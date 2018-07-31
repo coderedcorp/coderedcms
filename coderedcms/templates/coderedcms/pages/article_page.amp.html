@@ -1,0 +1,56 @@
+{% extends "coderedcms/pages/base.amp.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block amp_css %}
+    {{block.super}}
+    .mx-2 {
+        padding: 0 1em;
+    }
+    .lead {
+        font-size:1.2em;
+        font-weight: 200;
+    }
+{% endblock %}
+
+{% block content %}
+<article class="codered-article">
+    {% if self.cover_image %}
+    {% image self.cover_image fill-2000x1000 as cover_image %}
+    <div>
+        <amp-img src="{{cover_image.url}}" width="{{cover_image.width}}" height="{{cover_image.height}}" layout="responsive" ></app-img>
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="article-header">
+            <h1>{{ self.title }}</h1>
+            {% if self.caption %}
+            <p class="lead">{{self.caption}}</p>
+            {% endif %}
+            <p>
+                {% if self.get_author_name %}
+                <span class="article-author">{{self.get_author_name}}</span>
+                <span class="mx-2">&bull;</span>
+                {% endif %}
+                <span class="article-date">{{self.get_pub_date}}</span>
+            </p>
+            <hr>
+        </div>
+        <div class="article-body">
+            {% include_block self.body with format='amp' settings=settings %}
+        </div>
+    </div>
+</article>
+
+{% endblock %}
+
+{% block footer %}
+  {% include 'coderedcms/snippets/footer.html' with format='amp' %}
+{% endblock %}
+
+{% block struct_seo %}
+    {% if settings.coderedcms.SeoSettings.struct_meta %}
+    <script type="application/ld+json">
+        {% include "coderedcms/includes/struct_data_article.json" with page=self %}
+    </script>
+    {% endif %}
+{% endblock %}

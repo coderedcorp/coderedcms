@@ -1,0 +1,12 @@
+{% extends "coderedcms/pages/web_page.html" %}
+
+{% load i18n wagtailcore_tags coderedcms_tags bootstrap4 %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1>{% trans 'Thank You' %}</h1>
+    <p>{% trans 'We have successfully recieved your submission for:' %} {{self.title}}.</p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block block_render %}
+
+{% generate_random_id as modal_id %}
+<a href="#" data-toggle="modal" data-target="#{{modal_id}}" type="button" class="btn {{self.button_size}} {{self.button_style}}">{{self.button_title}}</a>
+
+<div id="{{modal_id}}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{% include_block self.header %}</h5>
+        <button type="button" class="close modal-close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div>
+          {% include_block self.content %}
+        </div>
+      </div>
+
+      <div class="modal-footer">
+          {% include_block self.footer %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% load wagtailcore_tags %}
+
+<div class="{{sidebar.custom_css_class}}">
+    <h4>{{sidebar.name}}</h4>
+    {% if sidebar.menu_items %}
+        <ul class="nav flex-column">
+        {% for item in sidebar.menu_items %}
+            <li class="nav-item">{% include_block item with aclass="nav-link" %}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if sidebar.content %}
+        {{sidebar.content}}
+    {% endif %}
+</div>

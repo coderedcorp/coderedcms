@@ -1,0 +1,29 @@
+<table class="table {{ self.settings.custom_css_class }}" {% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+    {% if self.table.first_row_is_table_header %}
+        <thead>
+            <tr>
+                {% for cell in self.table.data.0 %}
+                    <th scope="col">{{ cell|default_if_none:'' }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+    {% endif %}
+
+    <tbody>
+        {% for cell in self.table.data.0 %}
+            {% if not self.table.first_row_is_table_header %}<td>{{ cell|default_if_none:'' }}</td>{% endif %}
+        {% endfor %}        
+
+        {% for row in self.table.data|slice:"1:" %}
+            <tr>
+                {% for cell in row %}
+                    {% if self.table.first_col_is_header and cell == row.0 %}
+                        <th scope="row">{{ cell|default_if_none:'' }}</th>
+                    {% else %}
+                        <td>{{ cell|default_if_none:'' }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

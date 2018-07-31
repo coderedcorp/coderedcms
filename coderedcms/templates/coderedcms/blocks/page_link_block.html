@@ -1,0 +1,8 @@
+{% extends 'coderedcms/blocks/base_link_block.html' %}
+{% load wagtailcore_tags %}
+
+{% block url %}
+	{% if value.page %}
+    	{% pageurl value.page %}
+    {% endif %}
+{% endblock %}

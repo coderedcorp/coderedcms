@@ -1,0 +1,62 @@
+{% extends "coderedcms/pages/web_page.html" %}
+{% load bootstrap4 i18n coderedcms_tags %}
+
+{% block title %}{% trans 'Search for' %} “{{form.s.value}}”{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="mt-5">
+            <h2>{% trans 'Search for' %} “{{form.s.value}}”</h2>
+        </div>
+
+        {% if not settings.coderedcms.LayoutSettings.navbar_search %}
+        <form class="mt-5" action="{% url 'codered_search' %}" method="GET">
+            <div class="row">
+                <div class="col-9">
+                    {% bootstrap_form form size='large' layout='inline' %}
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-block btn-outline-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+
+        {% if pagetypes %}
+        {% query_update request.GET 'p' None as qs_nop %}
+        <div class="mt-5">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    {% query_update qs_nop 't' None as qs_t %}
+                    <a class="nav-link {% if not form.t.value %}active{% endif %}" href="?{{qs_t.urlencode}}">{% trans 'All Results' %}</a>
+                </li>
+                {% for pt in pagetypes %}
+                <li class="nav-item">
+                    {% query_update qs_nop 't' pt.content_type.model as qs_t %}
+                    <a class="nav-link {% if form.t.value == pt.content_type.model %}active{% endif %}" href="?{{qs_t.urlencode}}">{{pt.search_name_plural}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <hr class="mb-5">
+
+
+        {% if results_paginated.object_list %}
+            {% for page in results_paginated %}
+            <div class="mb-5">
+                {% with page=page.specific %}
+                    {% include page.search_template %}
+                {% endwith %}
+            </div>
+            {% endfor %}
+            {% include "coderedcms/includes/pagination.html" with items=results_paginated %}
+        {% else %}
+            <p>{% trans 'No results found.' %}</p>
+        {% endif %}
+    </div>
+{% endblock %}

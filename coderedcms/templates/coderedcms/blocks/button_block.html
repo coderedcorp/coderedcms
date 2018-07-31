@@ -1,0 +1,13 @@
+<a href="{{self.url}}"
+	{% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks and not format == 'amp' %}
+		onclick="ga('send', 'event', '{{self.settings.ga_tracking_event_category|default:'Button'}}', 'click', '{{self.settings.ga_tracking_event_label|default:self.button_title}}');"
+	{% endif %}
+  title="{{ self.button_title|safe }}"
+  class="btn {{ self.button_style }} {{ self.button_size }} {{ self.settings.custom_css_class }}"
+  {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
+	{% if self.button_title %}
+		{{ self.button_title|safe }}
+	{% else %}
+		{{ self.url }}
+	{% endif %}
+</a>

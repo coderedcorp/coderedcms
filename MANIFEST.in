@@ -1,0 +1,4 @@
+include LICENSE *.md *.rst *.txt
+graft coderedcms
+global-exclude __pycache__
+global-exclude *.py[co]

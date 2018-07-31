@@ -1,0 +1,16 @@
+{% load wagtailimages_tags %}
+
+<div class="row">
+{% if self.image %}
+    <div class="col-md-4">
+    {% image self.image original as imagedata %}
+    <img src="{{imagedata.url}}" alt="Photo of {{self.name}}" class="w-100" />
+    </div>
+    <div class="col-md-8" style="overflow-x: hidden;">
+{% else %}
+    <div class="col-md-12" style="overflow-x: hidden;">
+{% endif %}
+    <strong class="leaders"><span>{{self.name}}</span><span>{{self.price}}</span></strong>
+    <p>{{self.description}}</p>
+    </div>
+</div>

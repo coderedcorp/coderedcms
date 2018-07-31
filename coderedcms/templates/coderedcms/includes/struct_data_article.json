@@ -1,0 +1,50 @@
+{% load wagtailimages_tags %}
+
+{
+  "@context": "http://schema.org",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{page.get_full_url}}"
+  },
+  "headline": "{{page.title}}",
+  "description": "{{page.get_description}}",
+
+  {# Get different aspect ratios. Use huge numbers because wagtail will not upscale, #}
+  {# but will max out at the image's original resultion using the specified aspect ratio. #}
+  {# Google wants them high resolution. #}
+  {% if page.og_image %}
+    {% image page.struct_org_image fill-10000x10000 as img_11 %}
+    {% image page.struct_org_image fill-40000x30000 as img_21 %}
+    {% image page.struct_org_image fill-16000x9000 as img_169 %}
+    "image": [
+        "{{self.get_site.root_url}}{{img_11.url}}",
+        "{{self.get_site.root_url}}{{img_21.url}}",
+        "{{self.get_site.root_url}}{{img_169.url}}"
+    ],
+  {% elif page.cover_image %}
+    {% image page.cover_image fill-10000x10000 as img_11 %}
+    {% image page.cover_image fill-40000x30000 as img_21 %}
+    {% image page.cover_image fill-16000x9000 as img_169 %}
+    "image": [
+        "{{self.get_site.root_url}}{{img_11.url}}",
+        "{{self.get_site.root_url}}{{img_21.url}}",
+        "{{self.get_site.root_url}}{{img_169.url}}"
+    ],
+  {% endif %}
+
+  "datePublished": "{{page.get_pub_date|date:'c'}}",
+  "dateModified": "{{page.last_published_at|date:'c'}}",
+
+  "author": {
+    "@type": "Person",
+    "name": "{{page.get_author_name}}"
+  },
+
+  {% if page.struct_org_type %}
+  "publisher": {% include "coderedcms/includes/struct_data_org.json" with page=page org_mode=True %},
+  {% elif page.get_site.root_page.specific.struct_org_type %}
+  "publisher": {% include "coderedcms/includes/struct_data_org.json" with page=page.get_site.root_page.specific org_mode=True %},
+  {% endif %}
+
+  "@type": "Article"
+}

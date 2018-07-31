@@ -1,0 +1,22 @@
+{% load i18n coderedcms_tags %}
+
+{% if items.paginator.num_pages > 1 %}
+<hr>
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {% if not items.has_previous %}disabled{% endif %}">
+            <a class="page-link" href="{% if items.has_previous %}?{% query_update request.GET 'p' items.previous_page_number as q %}{{q.urlencode}}{% else %}#{% endif %}" aria-label="Previous">
+                &laquo; {% trans 'Previous' %}
+            </a>
+        </li>
+        <li class="page-item disabled">
+            <span class="page-link">{% trans 'Page' %} {{ items.number }} {% trans 'of' %} {{ items.paginator.num_pages }}</span>
+        </li>
+        <li class="page-item {% if not items.has_next %}disabled{% endif %}">
+            <a class="page-link" href="{% if items.has_next %}?{% query_update request.GET 'p' items.next_page_number as q %}{{q.urlencode}}{% else %}#{% endif %}" aria-label="Next">
+                {% trans 'Next' %} &raquo;
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endif %}

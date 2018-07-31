@@ -1,0 +1,238 @@
+{% load wagtailimages_tags %}
+
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }} - {{self.get_site.site_name}}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+    <link rel="canonical" href="{% block canonical %}{{self.get_full_url}}{% endblock %}">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-custom>
+        {% block amp_css %}
+        /* Some really basic Bootstrap styles */
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            margin: 0 auto;
+        }
+        hr {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            max-width:960px;
+            padding: 0 15px;
+            margin:auto;
+        }
+
+        .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        }
+
+        .navbar-light .navbar-brand {
+        color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
+        color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+        color: rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+        color: rgba(0, 0, 0, 0.7);
+        }
+
+        .navbar-light .navbar-nav .nav-link.disabled {
+        color: rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-light .navbar-nav .show > .nav-link,
+        .navbar-light .navbar-nav .active > .nav-link,
+        .navbar-light .navbar-nav .nav-link.show,
+        .navbar-light .navbar-nav .nav-link.active {
+        color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar-light .navbar-text {
+        color: rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-light .navbar-text a {
+        color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar-light .navbar-text a:hover, .navbar-light .navbar-text a:focus {
+        color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar-dark .navbar-brand {
+        color: #fff;
+        }
+
+        .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
+        color: #fff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+        color: rgba(255, 255, 255, 0.75);
+        }
+
+        .navbar-dark .navbar-nav .nav-link.disabled {
+        color: rgba(255, 255, 255, 0.25);
+        }
+
+        .navbar-dark .navbar-nav .show > .nav-link,
+        .navbar-dark .navbar-nav .active > .nav-link,
+        .navbar-dark .navbar-nav .nav-link.show,
+        .navbar-dark .navbar-nav .nav-link.active {
+        color: #fff;
+        }
+
+        .navbar-dark .navbar-text {
+        color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-dark .navbar-text a {
+        color: #fff;
+        }
+
+        .navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {
+        color: #fff;
+        }
+
+        .bg-primary {
+        background-color: #007bff !important;
+        }
+
+        a.bg-primary:hover, a.bg-primary:focus,
+        button.bg-primary:hover,
+        button.bg-primary:focus {
+        background-color: #0062cc !important;
+        }
+
+        .bg-secondary {
+        background-color: #6c757d !important;
+        }
+
+        a.bg-secondary:hover, a.bg-secondary:focus,
+        button.bg-secondary:hover,
+        button.bg-secondary:focus {
+        background-color: #545b62 !important;
+        }
+
+        .bg-success {
+        background-color: #28a745 !important;
+        }
+
+        a.bg-success:hover, a.bg-success:focus,
+        button.bg-success:hover,
+        button.bg-success:focus {
+        background-color: #1e7e34 !important;
+        }
+
+        .bg-info {
+        background-color: #17a2b8 !important;
+        }
+
+        a.bg-info:hover, a.bg-info:focus,
+        button.bg-info:hover,
+        button.bg-info:focus {
+        background-color: #117a8b !important;
+        }
+
+        .bg-warning {
+        background-color: #ffc107 !important;
+        }
+
+        a.bg-warning:hover, a.bg-warning:focus,
+        button.bg-warning:hover,
+        button.bg-warning:focus {
+        background-color: #d39e00 !important;
+        }
+
+        .bg-danger {
+        background-color: #dc3545 !important;
+        }
+
+        a.bg-danger:hover, a.bg-danger:focus,
+        button.bg-danger:hover,
+        button.bg-danger:focus {
+        background-color: #bd2130 !important;
+        }
+
+        .bg-light {
+        background-color: #f8f9fa !important;
+        }
+
+        a.bg-light:hover, a.bg-light:focus,
+        button.bg-light:hover,
+        button.bg-light:focus {
+        background-color: #dae0e5 !important;
+        }
+
+        .bg-dark {
+        background-color: #343a40 !important;
+        }
+
+        a.bg-dark:hover, a.bg-dark:focus,
+        button.bg-dark:hover,
+        button.bg-dark:focus {
+        background-color: #1d2124 !important;
+        }
+
+        .bg-white {
+        background-color: #fff !important;
+        }
+
+        .bg-transparent {
+        background-color: transparent !important;
+        }
+        {% endblock %}
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+  </head>
+  <body>
+    {% block amp_nav %}
+    <nav class="navbar
+        {% if settings.coderedcms.LayoutSettings.navbar_fixed %}fixed-top{% endif %}
+        {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}
+        {{settings.coderedcms.LayoutSettings.navbar_color_scheme}}
+        {{settings.coderedcms.LayoutSettings.navbar_class}}
+        {{settings.coderedcms.LayoutSettings.navbar_format}}" >
+        <a class="navbar-brand" href="/">
+            {% if settings.coderedcms.LayoutSettings.logo %}
+            {% image settings.coderedcms.LayoutSettings.logo max-300x50 as logo %}
+            <amp-img src="{{logo.url}}" width="{{logo.width}}" height={{logo.height}} alt="{{self.get_site.site_name}}" />
+            {% else %}
+            {{self.get_site.site_name}}
+            {% endif %}
+        </a>
+    </nav>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}{% endblock %}
+
+    {% block struct_seo %}{% endblock %}
+
+  </body>
+</html>

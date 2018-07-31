@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+<div class="container{% if self.fluid %}-fluid{% endif %}"
+  {% if self.settings.custom_id %} id="{{self.settings.custom_id}}"{% endif %} >
+
+  {% block grid_content %}
+  <div class="row {{self.settings.custom_css_class}}">
+      {% for column in self.content %}
+            {% include_block column %}
+      {% endfor %}
+  </div>
+  {% endblock %}
+
+</div>

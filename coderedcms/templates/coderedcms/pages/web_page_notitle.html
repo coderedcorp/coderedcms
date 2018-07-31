@@ -1,0 +1,17 @@
+{% extends "coderedcms/pages/base.html" %}
+
+{% block navbar %}
+    {% include 'coderedcms/snippets/navbar.html' %}
+{% endblock %}
+
+{% block index_content %}
+  {% if page.index_show_subpages %}
+  <div class="container">
+    {{block.super}}
+  </div>
+  {% endif %}
+{% endblock %}
+
+{% block footer %}
+  {% include 'coderedcms/snippets/footer.html' %}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "coderedcms/blocks/base_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_render %}
+
+<div id="carousel-{{self.carousel.id}}" class="carousel slide {{self.carousel.animation}}" data-ride="carousel">
+
+    {% if self.carousel.show_indicators %}
+    <ol class="carousel-indicators">
+    {% for item in self.carousel.carousel_slides.all %}
+        <li data-target="#carousel-{{self.carousel.id}}" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active"{% endif %}></li>
+    {% endfor %}
+    </ol>
+    {% endif %}
+
+    <div class="carousel-inner">
+    {% for item in self.carousel.carousel_slides.all %}
+        {% block carousel_slide %}
+        <div class="carousel-item {% if not item.image %}no-img{% endif %} {% if forloop.counter0 == 0 %}active{% endif %} {{item.custom_css_class}}" %{% if item.custom_id %}id="#{{item.custom_id}}"{% endif %} style="{% if item.background_color %}background-color: {{item.background_color}};{% endif %}">
+            {% block carousel_slide_image %}
+                {% if item.image %}
+                {% image item.image fill-2000x1000 as carouselimage %}
+                <img class="d-block w-100" src="{{carouselimage.url}}" alt="{{carouselimage.image.title}}" />
+                {% endif %}
+            {% endblock %}
+            <div class="carousel-caption">
+                {% include_block item.content %}
+            </div>
+        </div>
+        {% endblock %}
+    {% endfor %}
+    </div>
+
+    {% if self.carousel.show_controls %}
+    <a class="carousel-control-prev" href="#carousel-{{self.carousel.id}}" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-{{self.carousel.id}}" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    {% endif %}
+
+</div>
+
+{% endblock %}

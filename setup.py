@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='coderedcms',
-    version='0.5.0',
+    version='0.5.1',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',
@@ -35,6 +35,7 @@ setup(
     ],
     install_requires=[
         'django-bootstrap4',
+        'django>=1.11,<2.1',
         'pygments>=2.2.0,<3.0',
         'wagtail==2.1.*',
         'wagtailfontawesome>=1.1.3,<2.0',

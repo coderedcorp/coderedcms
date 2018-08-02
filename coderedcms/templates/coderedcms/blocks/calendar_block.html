@@ -1,0 +1,17 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+{% load static coderedcms_tags %}
+
+{% block block_render %}
+
+<div data-block="calendar" data-default-date='{% get_calendar_default_date %}' data-default-view='{{self.default_view}}' data-tags="{{self.tags}}">
+    <noscript>Javascript is required to view the Calendar.</noscript>
+</div>
+
+
+{% if self.show_ical %}
+<br />
+{% include 'coderedcms/includes/ical/calendar_ical_button.html' %}
+<br />
+{% endif %}
+
+{% endblock %}

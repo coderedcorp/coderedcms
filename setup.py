@@ -35,6 +35,8 @@ setup(
     ],
     install_requires=[
         'django-bootstrap4',
+        'django-eventtools==0.9.*',
+        'icalendar==4.0.*',
         'pygments>=2.2.0,<3.0',
         'wagtail==2.1.*',
         'wagtailfontawesome>=1.1.3,<2.0',

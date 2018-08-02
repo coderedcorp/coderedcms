@@ -1,20 +1,26 @@
+import ast
 import os
 import mimetypes
 from itertools import chain
 
+from datetime import datetime
+from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
+from icalendar import Calendar
+from taggit.models import Tag
+from wagtail.contrib.forms.views import SubmissionsListView as BaseSubmissionsListView
 from wagtail.core.models import Page
+from wagtail.core.utils import resolve_model_string
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
 
 from coderedcms import utils
 from coderedcms.forms import SearchForm
-from coderedcms.models import CoderedPage, get_page_models, GeneralSettings
-from coderedcms.settings import cr_settings
+from coderedcms.models import CoderedPage, CoderedEventPage, get_page_models, GeneralSettings
 
 
 def search(request):
@@ -92,7 +98,6 @@ def search(request):
         'results_paginated': results_paginated
     })
 
-
 @login_required
 def serve_protected_file(request, path):
     """
@@ -110,12 +115,10 @@ def serve_protected_file(request, path):
     else:
         raise Http404()
 
-
 @login_required
 def clear_cache(request):
     utils.clear_cache()
     return HttpResponse("Cache has been cleared.")
-
 
 def robots(request):
     robots = GeneralSettings.for_site(request.site).robots
@@ -125,3 +128,80 @@ def robots(request):
         {'robots': robots},
         content_type='text/plain'
     )
+
+def generate_single_ical_for_event(request):
+    if request.method == "POST":
+        event_pk = request.POST['event_pk']
+        event_page_models = CoderedEventPage.__subclasses__()
+        dt_start_str = utils.fix_ical_datetime_format(request.POST['datetime_start'])
+        dt_end_str = utils.fix_ical_datetime_format(request.POST['datetime_end'])
+
+        dt_start = datetime.strptime(dt_start_str, "%Y-%m-%dT%H:%M:%S%z") if dt_start_str else None
+        dt_end = datetime.strptime(dt_end_str, "%Y-%m-%dT%H:%M:%S%z") if dt_end_str else None
+        for event_page_model in event_page_models:
+            try:
+                event = event_page_model.objects.get(pk=event_pk)
+                break
+            except ObjectDoesNotExist:
+                pass
+        ical = Calendar()
+        ical.add_component(event.create_single_ical(dt_start=dt_start, dt_end=dt_end))
+        response = HttpResponse(ical.to_ical(), content_type="text/calendar")
+        response['Filename'] = "{0}.ics".format(event.slug)
+        response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
+        return response
+    raise Http404()
+
+def generate_recurring_ical_for_event(request):
+    if request.method == "POST":
+        event_pk = request.POST['event_pk']
+        event_page_models = CoderedEventPage.__subclasses__()
+        for event_page_model in event_page_models:
+            try:
+                event = event_page_model.objects.get(pk=event_pk)
+                break
+            except ObjectDoesNotExist:
+                pass
+        ical = Calendar()
+        for e in event.create_recurring_ical():
+            ical.add_component(e)
+        response = HttpResponse(ical.to_ical(), content_type="text/calendar")
+        response['Filename'] = "{0}.ics".format(event.slug)
+        response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
+        return response
+    raise Http404()
+
+def generate_ical_for_calendar(request):
+    if request.method == "POST":
+        tag_pks = request.POST.getlist('tag_pks')
+        event_page_models = CoderedEventPage.__subclasses__()
+        event_pages = []
+        if tag_pks:
+            for event_page_model in event_page_models:
+                event_pages += list(event_page_model.objects.filter(tags__pk__in=tag_pks).distinct())
+        else:
+            for event_page_model in event_page_models:
+                event_pages += list(event_page_model.objects.all())
+        
+        ical = Calendar()
+        for event_page in event_pages:
+            for e in event_page.specific.create_recurring_ical():
+                ical.add_component(e)
+        response = HttpResponse(ical.to_ical(), content_type="text/calendar")
+        response['Filename'] = "calendar.ics"
+        response['Content-Disposition'] = 'attachment; filename=calendar.ics'
+        return response
+    raise Http404()
+
+def get_calendar_events(request):
+    if request.is_ajax():
+        try:
+            tags = ast.literal_eval(request.POST.get('tags'))
+        except ValueError:
+            tags = None
+        start_str = request.POST.get('start')
+        start = datetime.strptime(start_str[:10], "%Y-%m-%d") if start_str else None
+        end_str = request.POST.get('end')
+        end = datetime.strptime(end_str[:10], "%Y-%m-%d") if end_str else None
+        return JsonResponse(CoderedEventPage.get_calendar_events(tags=tags, start=start, end=end), safe=False)
+    raise Http404()

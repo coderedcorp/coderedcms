@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='coderedcms',
-    version='0.5.0',
+    version='0.6.0',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',
@@ -34,6 +34,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
+        'django>=1.11,<2.1',
         'django-bootstrap4',
         'django-eventtools==0.9.*',
         'icalendar==4.0.*',

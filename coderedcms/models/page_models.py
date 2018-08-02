@@ -743,7 +743,6 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             address_string += '<br />'
         if self.address_country:
             address_string += '{0}<br />'.format(self.address_country)
-        print(address_string)
         return mark_safe(address_string)
 
     

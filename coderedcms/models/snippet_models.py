@@ -211,6 +211,31 @@ class Footer(models.Model):
     def __str__(self):
         return self.name
 
+@register_snippet
+class ReusableContent(models.Model):
+    """
+    Snippet for resusable content in streamfields.
+    """
+    class Meta:
+        verbose_name = _('Reusable Content')
+        verbose_name_plural = _('Reusable Content')
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    content = StreamField(
+        LAYOUT_STREAMBLOCKS,
+        verbose_name=_('content')
+    )
+
+    panels = [
+        FieldPanel('name'),
+        StreamFieldPanel('content')
+    ]
+
+    def __str__(self):
+        return self.name
 
 class CoderedEmail(ClusterableModel):
     """

@@ -295,3 +295,14 @@ class PriceListBlock(BaseBlock):
         template = 'coderedcms/blocks/pricelist_block.html'
         icon = 'fa-usd'
         label = _('Price List')
+
+class ReusableContentBlock(BaseBlock):
+    """
+    Enables choosing a ResusableContent snippet.
+    """
+    content = SnippetChooserBlock('coderedcms.ReusableContent')
+
+    class Meta:
+        icon = 'fa-recycle'
+        label = _('Reusable Content')
+        template = 'coderedcms/blocks/reusable_content_block.html'

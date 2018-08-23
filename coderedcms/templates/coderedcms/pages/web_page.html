@@ -2,6 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
+
   {% if self.cover_image %}
     {% image page.cover_image fill-2000x1000 as cover_image %}
     <div class="hero-bg mb-5" style="background-image:url({{cover_image.url}});">

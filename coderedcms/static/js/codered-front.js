@@ -100,4 +100,7 @@ $(document).ready(function()
         $lightbox.find('img').attr('alt', orig_alt);
         $lightbox.find('img').attr('title', orig_ttl);
     });
+
+    /*** Content Walls ***/
+    $('.content-wall').modal('show')
 });

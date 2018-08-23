@@ -295,3 +295,15 @@ class PriceListBlock(BaseBlock):
         template = 'coderedcms/blocks/pricelist_block.html'
         icon = 'fa-usd'
         label = _('Price List')
+
+
+class ContentWallBlock(BaseBlock):
+    """
+    Enables choosing a ContentWall snippet.
+    """
+    content_wall = SnippetChooserBlock('coderedcms.ContentWall')
+
+    class Meta:
+        icon = 'fa-stop'
+        label = _('Content Wall')
+        template = 'coderedcms/blocks/content_wall_block.html'

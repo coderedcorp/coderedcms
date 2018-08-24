@@ -302,7 +302,12 @@ class ContentWallBlock(BaseBlock):
     Enables choosing a ContentWall snippet.
     """
     content_wall = SnippetChooserBlock('coderedcms.ContentWall')
-
+    show_content_wall_on_children = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        verbose_name=_('Show content walls on children pages?'),
+        help_text=_('If this is checked, the content walls will be displayed on all children pages of this page.')
+    )
     class Meta:
         icon = 'fa-stop'
         label = _('Content Wall')

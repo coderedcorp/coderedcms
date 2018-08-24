@@ -106,7 +106,7 @@
         <div id="content-walls">
             {% block content_walls %}
                 {% for content_wall in content_walls %}
-                        {{content_wall}}
+                        {% include_block content_wall with settings=settings %}
                 {% endfor %}
             {% endblock %}
         </div>

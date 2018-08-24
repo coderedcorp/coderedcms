@@ -287,11 +287,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_('Content Walls')
     )
-    show_content_wall_on_children = models.BooleanField(
-        default=False,
-        verbose_name=_('Show content walls on children pages?'),
-        help_text=_('If this is checked, the content walls will be displayed on all children pages of this page.')
-    )
 
     ###############
     # Search
@@ -388,14 +383,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     settings_panels = (
         Page.settings_panels + 
         [
-            MultiFieldPanel(
-                [
-                    StreamFieldPanel('content_walls'),
-                    FieldPanel('show_content_wall_on_children'),
-                ],
-                heading=_('Content Wall Settings'),
-            )
-
+            StreamFieldPanel('content_walls'),
         ]
     )
 
@@ -477,11 +465,14 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 
     def get_content_walls(self, check_child_setting=True):
         current_content_walls = []
-
         if check_child_setting:
-            current_content_walls = self.content_walls if self.show_content_wall_on_children else []
+            for wall in self.content_walls:
+                content_wall = wall.value
+                if wall.value['show_content_wall_on_children']:
+                    current_content_walls.append(wall.value)
         else:
             current_content_walls = self.content_walls
+            
         try:
             return list(current_content_walls) + self.get_parent().specific.get_content_walls()
         except AttributeError:

@@ -102,5 +102,8 @@ $(document).ready(function()
     });
 
     /*** Content Walls ***/
-    $('.content-wall').modal('show')
+    $('.content-wall').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 });

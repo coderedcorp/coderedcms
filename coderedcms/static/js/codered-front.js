@@ -101,9 +101,14 @@ $(document).ready(function()
         $lightbox.find('img').attr('title', orig_ttl);
     });
 
-    /*** Content Walls ***/
-    $('.content-wall').modal({
-        backdrop: 'static',
-        keyboard: false
+
+    /*** Content walls ***/
+    $(".modal[data-cr-wall-showonce='true']").on('hide.bs.modal', function() {
+        localStorage["cr_wall_" + $(this).data("cr-wall-id")] = "dismissed";
+    });
+    $(".modal[data-cr-wall-id]").each(function() {
+        if(localStorage["cr_wall_" + $(this).data("cr-wall-id")] === undefined) {
+            $(this).modal('show');
+        }
     });
 });

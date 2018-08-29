@@ -211,6 +211,7 @@ class Footer(models.Model):
     def __str__(self):
         return self.name
 
+
 @register_snippet
 class ContentWall(models.Model):
     """
@@ -229,18 +230,30 @@ class ContentWall(models.Model):
     )
     is_dismissible = models.BooleanField(
         default=True,
-        verbose_name=_('Is Dismissible')
+        verbose_name=_('Dismissible'),
+    )
+    show_once = models.BooleanField(
+        default=True,
+        verbose_name=_('Show once'),
+        help_text=_('Do not show the content wall to the same user again after it has been closed.')
     )
 
     panels = [
-        FieldPanel('name'),
+        MultiFieldPanel(
+            [
+                FieldPanel('name'),
+                FieldPanel('is_dismissible'),
+                FieldPanel('show_once'),
+            ],
+            heading=_('Content Wall')
+        ),
         StreamFieldPanel('content'),
-        FieldPanel('is_dismissible'),
     ]
 
     def __str__(self):
         return self.name
-        
+
+
 class CoderedEmail(ClusterableModel):
     """
     General purpose abstract clusterable model used for holding email information.

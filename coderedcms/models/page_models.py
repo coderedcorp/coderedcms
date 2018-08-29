@@ -39,6 +39,7 @@ from coderedcms import schema, utils
 from coderedcms.blocks import (
     CONTENT_STREAMBLOCKS,
     LAYOUT_STREAMBLOCKS,
+    ContentWallBlock,
     OpenHoursBlock,
     StructuredDataActionBlock)
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
@@ -276,6 +277,18 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 
 
     ###############
+    # Settings
+    ###############
+
+    content_walls = StreamField(
+        [
+            ('content_wall', ContentWallBlock())
+        ],
+        blank=True,
+        verbose_name=_('Content Walls')
+    )
+
+    ###############
     # Search
     ###############
 
@@ -367,7 +380,12 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         ),
     ]
 
-    settings_panels = Page.settings_panels
+    settings_panels = (
+        Page.settings_panels + 
+        [
+            StreamFieldPanel('content_walls'),
+        ]
+    )
 
     def __init__(self, *args, **kwargs):
         """
@@ -445,6 +463,21 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 
         return super().get_children().live()
 
+    def get_content_walls(self, check_child_setting=True):
+        current_content_walls = []
+        if check_child_setting:
+            for wall in self.content_walls:
+                content_wall = wall.value
+                if wall.value['show_content_wall_on_children']:
+                    current_content_walls.append(wall.value)
+        else:
+            current_content_walls = self.content_walls
+            
+        try:
+            return list(current_content_walls) + self.get_parent().specific.get_content_walls()
+        except AttributeError:
+            return list(current_content_walls)
+
     def get_context(self, request, *args, **kwargs):
         """
         Add child pages and paginated child pages to context.
@@ -462,7 +495,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 
             context['index_paginated'] = paged_children
             context['index_children'] = all_children
-
+        context['content_walls'] = self.get_content_walls(check_child_setting=False)
         return context
 
 

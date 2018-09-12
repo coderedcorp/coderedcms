@@ -1,0 +1,19 @@
+<div class="modal fade content-wall {{self.settings.custom_css_class}}" tabindex="-1" role="dialog" data-cr-wall-id="{{self.content_wall.id}}"
+    {% if not self.content_wall.is_dismissible %} data-backdrop="static" data-keyboard="false" {% endif %}
+    {% if self.content_wall.show_once %} data-cr-wall-showonce="true" {% endif %}
+    {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %} >
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            {% if self.content_wall.is_dismissible %}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+            <div class="modal-body">
+                {{self.content_wall.content}}
+            </div>
+        </div>
+    </div>
+</div>

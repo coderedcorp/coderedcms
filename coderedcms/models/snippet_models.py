@@ -280,6 +280,48 @@ class ContentWall(models.Model):
         return self.name
 
 
+@register_snippet
+class ContentWall(models.Model):
+    """
+    Snippet that restricts access to a page with a modal.
+    """
+    class Meta:
+        verbose_name = _('Content Wall')
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    content = StreamField(
+        LAYOUT_STREAMBLOCKS,
+        verbose_name=_('Content'),
+    )
+    is_dismissible = models.BooleanField(
+        default=True,
+        verbose_name=_('Dismissible'),
+    )
+    show_once = models.BooleanField(
+        default=True,
+        verbose_name=_('Show once'),
+        help_text=_('Do not show the content wall to the same user again after it has been closed.')
+    )
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('name'),
+                FieldPanel('is_dismissible'),
+                FieldPanel('show_once'),
+            ],
+            heading=_('Content Wall')
+        ),
+        StreamFieldPanel('content'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
 class CoderedEmail(ClusterableModel):
     """
     General purpose abstract clusterable model used for holding email information.

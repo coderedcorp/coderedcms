@@ -312,3 +312,15 @@ class ContentWallBlock(BaseBlock):
         icon = 'fa-stop'
         label = _('Content Wall')
         template = 'coderedcms/blocks/content_wall_block.html'
+
+
+class ReusableContentBlock(BaseBlock):
+    """
+    Enables choosing a ResusableContent snippet.
+    """
+    content = SnippetChooserBlock('coderedcms.ReusableContent')
+
+    class Meta:
+        icon = 'fa-recycle'
+        label = _('Reusable Content')
+        template = 'coderedcms/blocks/reusable_content_block.html'

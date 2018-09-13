@@ -5,8 +5,6 @@ from django.utils.html import format_html
 from wagtail.contrib.forms.models import AbstractForm
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
-from wagtail.utils import sendfile_streaming_backend
-from wagtail.utils.sendfile import sendfile
 
 from coderedcms import utils
 from coderedcms.models import CoderedFormPage

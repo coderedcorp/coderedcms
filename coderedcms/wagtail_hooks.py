@@ -63,3 +63,4 @@ def serve_document_directly(document, request):
     response['Content-Disposition'] = 'inline;filename="{0}"'.format(document.filename)
     response['Content-Encoding'] = content_encoding
     return response
+    

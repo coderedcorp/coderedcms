@@ -26,7 +26,7 @@ def initial_data(apps, schema_editor):
     homepage = WebPage.objects.create(
         title = "Home Page",
         slug='home',
-        custom_template='coderedcms/pages/web_page_notitle.html',
+        custom_template='core/pages/web_page_notitle.html',
         content_type=webpage_content_type,
         path='00010001',
         depth=2,
@@ -46,7 +46,7 @@ def initial_data(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0001_initial'),
+        ('coderedcmscore', '0001_initial'),
         ('wagtailcore', '0002_initial_data'),
         ('website', '0001_initial'),
     ]

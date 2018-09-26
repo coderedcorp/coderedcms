@@ -4,8 +4,8 @@ Createable pages used in CodeRed CMS.
 
 from modelcluster.fields import ParentalKey
 
-from coderedcms.forms import CoderedFormField
-from coderedcms.models import (
+from coderedcms.core.forms import CoderedFormField
+from coderedcms.core.models import (
     CoderedArticlePage,
     CoderedArticleIndexPage,
     CoderedEmail,
@@ -19,14 +19,14 @@ class ArticlePage(CoderedArticlePage):
     Article, suitable for news or blog content.
     """
     class Meta:
-        verbose_name = 'Article'
+        verbose_name = 'Article Page'
 
     # Only allow this page to be created beneath an ArticleIndexPage.
     parent_page_types = ['website.ArticleIndexPage']
 
-    template = 'coderedcms/pages/article_page.html'
-    amp_template = 'coderedcms/pages/article_page.amp.html'
-    search_template = 'coderedcms/pages/article_page.search.html'
+    template = 'core/pages/article_page.html'
+    amp_template = 'core/pages/article_page.amp.html'
+    search_template = 'core/pages/article_page.search.html'
 
 
 class ArticleIndexPage(CoderedArticleIndexPage):
@@ -45,7 +45,7 @@ class ArticleIndexPage(CoderedArticleIndexPage):
     # Only allow ArticlePages beneath this page.
     subpage_types = ['website.ArticlePage']
 
-    template = 'coderedcms/pages/article_index_page.html'
+    template = 'core/pages/article_index_page.html'
 
 
 class FormPage(CoderedFormPage):
@@ -53,9 +53,9 @@ class FormPage(CoderedFormPage):
     A page with an html <form>.
     """
     class Meta:
-        verbose_name = 'Form'
+        verbose_name = 'Form Page'
 
-    template = 'coderedcms/pages/form_page.html'
+    template = 'core/pages/form_page.html'
 
 
 class FormPageField(CoderedFormField):
@@ -79,4 +79,4 @@ class WebPage(CoderedWebPage):
     class Meta:
         verbose_name = 'Web Page'
 
-    template = 'coderedcms/pages/web_page.html'
+    template = 'core/pages/web_page.html'

@@ -1,0 +1,21 @@
+{% extends "core/pages/web_page_notitle.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+  {% if self.cover_image %}
+    {% image page.cover_image fill-2000x1000 as cover_image %}
+    <div class="hero-bg mb-5" style="background-image:url({{cover_image.url}});">
+      <div class="hero-fg">
+        <div class="container">
+          <h1>{{page.title}}</h1>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container my-5">
+      <h1>{{page.title}}</h1>
+    </div>
+  {% endif %}
+  {% include_block page.body with settings=settings %}
+{% endblock %}

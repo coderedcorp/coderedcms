@@ -1,0 +1,17 @@
+{% extends "core/pages/base.html" %}
+
+{% block navbar %}
+    {% include 'core/snippets/navbar.html' %}
+{% endblock %}
+
+{% block index_content %}
+  {% if page.index_show_subpages %}
+  <div class="container">
+    {{block.super}}
+  </div>
+  {% endif %}
+{% endblock %}
+
+{% block footer %}
+  {% include 'core/snippets/footer.html' %}
+{% endblock %}

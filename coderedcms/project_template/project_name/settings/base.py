@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'website',
 
     # CodeRed CMS
-    'coderedcms',
+    'coderedcms.core',
+    'coderedcms.search',
     'bootstrap4',
     'modelcluster',
     'taggit',

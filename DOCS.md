@@ -48,7 +48,7 @@ Similar to Navbars, footers are also managed as snippets and also render top dow
 A django app called `website` has been created to hold your custom changes. In website/static/ there are custom.css and custom.js files that get loaded on every page by default. Adding anything to these files will automatically populate on the site and override any default styles. By default, Bootstrap 4 and jQuery are already included on the site.
 
 ### Custom templates
-The templates directory inside the `website` app is empty by default. Any templates you put in here will override the default coderedcms templates if they follow the same name and diretory structure. This uses the standard Django template rendering engine. For example, to change the formatting of the article page, copy `coderedcms/templates/coderedcms/pages/article_page.html` to `website/templates/coderedcms/pages/article_page.html` and modify it.
+The templates directory inside the `website` app is empty by default. Any templates you put in here will override the default coderedcms templates if they follow the same name and diretory structure. This uses the standard Django template rendering engine. For example, to change the formatting of the article page, copy `core/templates/core/pages/article_page.html` to `website/templates/core/pages/article_page.html` and modify it.
 
 ### Custom models
 The django app `website` has been created with default models based on pre-built abstract CodeRed CMS models. You can use these as-is, override existing fields and function, and add custom fields to these models. After making a change to any of these models, be sure to run `python manage.py makemigrations` and `python manage.py migrate` to apply the database changes.
@@ -58,7 +58,7 @@ The django app `website` has been created with default models based on pre-built
 A search page is available by default at the `/search/` URL, which can be customized in the `urls.py` file in your project. To enable a search bar in the navigation bar, check Settings > Layout > Search box. Search results are paginated; to specify the number of results per page, edit the value in Settings > General > Search Settings.
 
 ### Search result formatting
-Each search result is rendered using the template at `coderedcms/pages/search_result.html`. The template can be overriden per model with the `search_template` attribute.
+Each search result is rendered using the template at `core/pages/search_result.html`. The template can be overriden per model with the `search_template` attribute.
 
 ### Search result filtering
 To enable additional filtering by page type, add `search_filterable = True` to the page model. The `search_name` and `search_name_plural` fields are then used to display the labels for these filters (defaults to `verbose_name` and `verbose_name_plural` if not specified). For example, to enable search filtering by Blog or by Products in addition to All Results:

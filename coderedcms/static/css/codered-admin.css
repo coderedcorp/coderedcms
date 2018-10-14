@@ -45,6 +45,11 @@ h1, h2, h3, h4, h5, h6,
     font-size:1em;
 }
 
+body.ready input[type='checkbox'], body.ready input[type='radio'] {
+    background-color:unset;
+    border:none;
+}
+
 .halloeditor, .tagit, input, select, textarea {
     background-color:#eee;
     border:1px solid #eee;
@@ -52,17 +57,17 @@ h1, h2, h3, h4, h5, h6,
     padding-bottom:0.5em;
     font-weight:normal;
 }
-input[type='checkbox'], input[type='radio'] {
-    border:1.5px solid #ccc;
-}
+
 .halloeditor:hover, .tagit:hover, input:hover, select:hover, textarea:hover {
     background-color:#eee;
     border:1px solid #eee;
 }
-input[type='checkbox']:hover, input[type='radio']:hover {
-    border:1.5px solid #ccc;
+
+input[type='checkbox'], input[type='radio'] {
+    height:unset;
 }
-input[type="checkbox"]::before, input[type="radio"]::before {
+input[type='checkbox']::before, input[type='radio']::before {
+    border:1.5px solid #ccc;
     position: relative;
     top:unset;
 }

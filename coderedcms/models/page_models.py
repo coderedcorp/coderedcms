@@ -570,7 +570,6 @@ class CoderedArticlePage(CoderedWebPage):
         blank=True,
         editable=True,
         on_delete=models.SET_NULL,
-        related_name='articles',
         verbose_name=_('Author'),
     )
     author_display = models.CharField(

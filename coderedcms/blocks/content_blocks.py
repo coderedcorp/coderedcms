@@ -10,7 +10,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChooserBlock
+from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChooserBlock, MultiSelectBlock
 from .html_blocks import ButtonBlock
 
 
@@ -324,3 +324,49 @@ class ReusableContentBlock(BaseBlock):
         icon = 'fa-recycle'
         label = _('Reusable Content')
         template = 'coderedcms/blocks/reusable_content_block.html'
+
+
+class CalendarDefaultViewChoices():
+    MONTH = 'month'
+    AGENDA_WEEK = 'agendaWeek'
+    AGENDA_DAY = 'agendaDay'
+    LIST_MONTH = 'listMonth'
+
+    CHOICES = (
+            (MONTH, 'Monthly Calendar'),
+            (AGENDA_WEEK, 'Weekly Calendar'),
+            (AGENDA_DAY, 'Daily Calendar'),
+            (LIST_MONTH, 'Monthly List'),
+        )
+
+def calendar_get_event_tags():
+    from coderedcms.models.page_models import get_event_tags
+    return get_event_tags()
+
+class CalendarBlock(BaseBlock):
+    """
+    A calendar that will display events with the given tags.
+    """
+
+    default_view = blocks.ChoiceBlock(
+        choices=CalendarDefaultViewChoices.CHOICES,
+        label=_('Default View'),
+        help_text=_('Determines the display of the calendar.')
+    )
+    tags = MultiSelectBlock(
+        choices=calendar_get_event_tags,
+        required=False,
+        label=_('Tags'),
+        help_text=_("Choosing no categories will show all events"),
+    )
+    show_ical = blocks.BooleanBlock(
+        default=True,
+        required=False,
+        label=_('Show iCal'),
+        help_text=_("Toggles a button that will allow users to download this calendar.")
+    )
+
+    class Meta:
+        template = 'coderedcms/blocks/calendar_block.html'
+        icon = 'date'
+        label = 'Calendar'

@@ -37,6 +37,7 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ('modal', ModalBlock(HTML_STREAMBLOCKS)),
     ('pricelist', PriceListBlock()),
     ('reusable_content', ReusableContentBlock()),
+    ('calendar', CalendarBlock()),
 ]
 
 NAVIGATION_STREAMBLOCKS = [

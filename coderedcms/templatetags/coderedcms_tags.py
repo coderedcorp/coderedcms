@@ -1,9 +1,11 @@
 import string
 import random
+from datetime import datetime
 from django import template
 from django.conf import settings
 from django.core.cache import caches
 from django.forms import ClearableFileInput
+from django.utils import timezone
 from django.utils.html import mark_safe
 from django.utils.formats import localize
 from wagtail.core.models import Collection
@@ -117,3 +119,20 @@ def query_update(querydict, key=None, value=None):
             except:
                 pass
     return get
+
+@register.simple_tag()
+def get_calendar_default_date():
+    """
+    Returns the default date that CalendarBlock should start on.
+    Currently, it just returns today's date.
+    """
+    return timezone.now().date().strftime('%Y-%m-%d')
+
+@register.filter
+def structured_data_datetime(dt):
+    """
+    Formats datetime object to structured data compatible datetime string.
+    """
+    if dt.time():
+        return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
+    return datetime.strftime(dt, "%Y-%m-%d")

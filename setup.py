@@ -34,8 +34,10 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
-        'django-bootstrap4',
         'django>=1.11,<2.1',
+        'django-bootstrap4',
+        'django-eventtools==0.9.*',
+        'icalendar==4.0.*',
         'pygments>=2.2.0,<3.0',
         'wagtail==2.2.*',
         'wagtailfontawesome>=1.1.3,<2.0',

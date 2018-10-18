@@ -18,8 +18,6 @@ from django.utils.html import mark_safe, strip_tags
 from django.utils.translation import ugettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
-from modelcluster.fields import ParentalKey
-from modelcluster.tags import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     HelpPanel,
@@ -402,7 +400,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     ]
 
     settings_panels = (
-        Page.settings_panels + 
+        Page.settings_panels +
         [
             StreamFieldPanel('content_walls'),
         ]
@@ -493,7 +491,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
                     current_content_walls.append(wall.value)
         else:
             current_content_walls = self.content_walls
-            
+
         try:
             return list(current_content_walls) + self.get_parent().specific.get_content_walls()
         except AttributeError:
@@ -666,6 +664,50 @@ class CoderedArticlePage(CoderedWebPage):
     )
 
 
+class CoderedArticleIndexPage(CoderedWebPage):
+    """
+    Shows a list of article sub-pages.
+    """
+    class Meta:
+        verbose_name = _('CodeRed Article Index Page')
+        abstract = True
+
+    template = 'coderedcms/pages/article_index_page.html'
+
+    index_show_subpages_default = True
+
+    show_images = models.BooleanField(
+        default=True,
+        verbose_name=_('Show images'),
+    )
+    show_captions = models.BooleanField(
+        default=True,
+    )
+    show_meta = models.BooleanField(
+        default=True,
+        verbose_name=_('Show author and date info'),
+    )
+    show_preview_text = models.BooleanField(
+        default=True,
+        verbose_name=_('Show preview text'),
+    )
+
+    layout_panels = (
+        CoderedWebPage.layout_panels +
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('show_images'),
+                    FieldPanel('show_captions'),
+                    FieldPanel('show_meta'),
+                    FieldPanel('show_preview_text'),
+                ],
+                heading=_('Child page display')
+            ),
+        ]
+    )
+
+
 class CoderedEventTag(TaggedItemBase):
     class Meta:
         verbose_name = _('CodeRed Event Tag')
@@ -678,8 +720,8 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         abstract = True
 
     body = StreamField(
-        CONTENT_STREAMBLOCKS, 
-        null=True, 
+        CONTENT_STREAMBLOCKS,
+        null=True,
         blank=True
     )
     location = models.CharField(
@@ -731,7 +773,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         help_text=_('For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1')
     )
     content_panels = (
-        CoderedWebPage.content_panels + 
+        CoderedWebPage.content_panels +
         [
             MultiFieldPanel(
                 [
@@ -749,11 +791,12 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
                     FieldPanel('address_locality'),
                     FieldPanel('address_region'),
                     FieldPanel('address_postal'),
-                    FieldPanel('address_country')
+                    FieldPanel('address_country'),
                 ],
                 heading=_('Event Address')
             ),
-            InlinePanel('occurrences',
+            InlinePanel(
+                'occurrences',
                 heading="Occurrences",
             ),
         ]
@@ -776,8 +819,6 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         if self.address_country:
             address_string += '{0}<br />'.format(self.address_country)
         return mark_safe(address_string)
-
-    
 
     @property
     def upcoming_occurrences(self):
@@ -887,11 +928,60 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         return event_instances
 
 
+class CoderedEventIndexPage(CoderedWebPage):
+    """
+    Shows a list of event sub-pages.
+    """
+    class Meta:
+        verbose_name = _('CodeRed Event Index Page')
+        abstract = True
+
+    template = 'coderedcms/pages/event_index_page.html'
+
+    index_show_subpages_default = True
+
+    NEXT_OCCURRENCE_ATTR = 'next_occurrence'
+
+    show_images = models.BooleanField(
+        default=True,
+        verbose_name=_('Show images'),
+    )
+    show_meta = models.BooleanField(
+        default=True,
+        verbose_name=_('Show author and date info'),
+    )
+    show_preview_text = models.BooleanField(
+        default=True,
+        verbose_name=_('Show preview text'),
+    )
+    layout_panels = (
+        CoderedWebPage.layout_panels +
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('show_images'),
+                    FieldPanel('show_meta'),
+                    FieldPanel('show_preview_text'),
+                ],
+                heading=_('Index subpages display')
+            )
+        ]
+    )
+
+    def get_index_children(self):
+        if self.index_query_pagemodel and self.index_order_by == self.NEXT_OCCURRENCE_ATTR:
+            querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
+            qs = querymodel.objects.child_of(self).live()
+            qs = sorted(qs.all(), key=lambda e: e.next_occurrence())
+            return qs
+
+        return super().get_index_children()
+
+
 class CoderedEventOccurrence(Orderable, BaseOccurrence):
     class Meta:
         verbose_name = _('CodeRed Event Occurrence')
         abstract = True
-
 
 
 class CoderedFormPage(CoderedWebPage):

@@ -4,7 +4,7 @@ CodeRed CMS is a content management system built with [Wagtail](https://wagtail.
 
 [Documentation](DOCS.md) | [CodeRed](https://www.coderedcorp.com/) - makers of CodeRed CMS.
 
-** This project is still early on in it's development lifecycle. ** It is possible for breaking changes to occur between versions.
+**This project is still early on in it's development lifecycle.** It is possible for breaking changes to occur between versions.
 
 ## Quick start
 1. Run `pip install coderedcms`

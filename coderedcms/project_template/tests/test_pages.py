@@ -13,43 +13,55 @@ from website.models import (
     FormPage,
     WebPage
 )
-class CoderedCMSPageTestCase(TestCase):
 
-    def test_CoderedArticleIndexPage_not_available(self):
-        self.assertFalse(CoderedArticleIndexPage.is_creatable)
-        self.assertFalse(CoderedArticleIndexPage in get_page_models())
+class NotCreatablePageTestCase():
 
-    def test_CoderedArticlePage_not_available(self):
-        self.assertFalse(CoderedArticlePage.is_creatable)
-        self.assertFalse(CoderedArticlePage in get_page_models())
+    def test_not_available(self):
+        self.assertFalse(self.model.is_creatable)
+        self.assertFalse(self.model in get_page_models())
 
-    def test_CoderedFormPage_not_available(self):
-        self.assertFalse(CoderedFormPage.is_creatable)
-        self.assertFalse(CoderedFormPage in get_page_models())
+class CreatablePageTestCase():
 
-    def test_CoderedPage_not_available(self):
-        self.assertFalse(CoderedPage.is_creatable)
-        self.assertTrue(CoderedPage in get_page_models())
-
-    def test_CoderedWebPage_not_available(self):
-        self.assertFalse(CoderedWebPage.is_creatable)
-        self.assertFalse(CoderedWebPage in get_page_models())
+    def test_is_available(self):
+        self.assertTrue(self.model.is_creatable)
+        self.assertTrue(self.model in get_page_models())
 
 
-class WebsitePageTestCase(TestCase):
+class CoderedArticleIndexPageTestCase(NotCreatablePageTestCase, TestCase):
+    model = CoderedArticleIndexPage
 
-    def test_ArticlePage_available(self):
-        self.assertTrue(ArticlePage.is_creatable)
-        self.assertTrue(WebPage in get_page_models())
 
-    def test_ArticleIndexPage_available(self):
-        self.assertTrue(ArticleIndexPage.is_creatable)
-        self.assertTrue(ArticleIndexPage in get_page_models())
+class CoderedArticlePageTestCase(NotCreatablePageTestCase, TestCase):
+    model = CoderedArticlePage
 
-    def test_FormPage_available(self):
-        self.assertTrue(FormPage.is_creatable)
-        self.assertTrue(FormPage in get_page_models())
 
-    def test_WebPage_available(self):
-        self.assertTrue(WebPage.is_creatable)
-        self.assertTrue(WebPage in get_page_models())
+class CoderedFormPageTestCase(NotCreatablePageTestCase, TestCase):
+    model = CoderedFormPage
+
+
+class CoderedPageTestCase(NotCreatablePageTestCase, TestCase):
+    model = CoderedPage
+
+    def test_not_available(self):
+        self.assertFalse(self.model.is_creatable)
+        self.assertTrue(self.model in get_page_models())
+
+
+class CoderedWebPageTestCase(NotCreatablePageTestCase, TestCase):
+    model = CoderedWebPage
+
+
+class ArticlePageTestCase(CreatablePageTestCase, TestCase):
+    model = ArticlePage
+
+
+class ArticleIndexPageTestCase(CreatablePageTestCase, TestCase):
+    model = ArticleIndexPage
+
+
+class FormPageTestCase(CreatablePageTestCase, TestCase):
+    model = FormPage
+
+
+class WebPageTestCase(CreatablePageTestCase, TestCase):
+    model = WebPage

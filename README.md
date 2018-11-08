@@ -2,7 +2,7 @@
 
 CodeRed CMS is a content management system built with [Wagtail](https://wagtail.io/) specifically geared towards marketing websites as a professionally-managed WordPress replacement.
 
-[Documentation](DOCS.md) | [CodeRed](https://www.coderedcorp.com/) - makers of CodeRed CMS.
+[Documentation](DOCS.md) | [Brainwash - coderedcorp.com/cms](https://www.coderedcorp.com/cms/) 
 
 **This project is still early on in its development lifecycle.** It is possible for breaking changes to occur between versions until reaching a stable 1.0, however we will clearly note any breaking changes between releases if applicable. Feedback and pull requests are welcome.
 

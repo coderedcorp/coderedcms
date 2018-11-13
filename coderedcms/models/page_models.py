@@ -2,6 +2,7 @@
 Base and abstract pages used in CodeRed CMS.
 """
 
+import geocoder
 import json
 import os
 from django.conf import settings
@@ -11,10 +12,12 @@ from django.core.mail import send_mail, EmailMessage
 from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template import Context, Template
 from django.utils import timezone
 from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from wagtail.admin.edit_handlers import (
     HelpPanel,
@@ -43,7 +46,7 @@ from coderedcms.blocks import (
     OpenHoursBlock,
     StructuredDataActionBlock)
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
-from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings
+from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, IntegrationSettings
 from coderedcms.settings import cr_settings
 
 
@@ -1053,3 +1056,239 @@ class CoderedFormPage(CoderedWebPage):
             return self.render_landing_page(request)
 
         return super().serve_preview(request, mode)
+
+
+class CoderedLocationPage(CoderedWebPage):
+    """
+    Location, suitable for store locations or help centers.
+    """
+    class Meta:
+        verbose_name = _('CodeRed Location')
+        abstract = True
+
+    template = 'coderedcms/pages/location_page.html'
+
+    # Override body to provide simpler content
+    body = StreamField(CONTENT_STREAMBLOCKS, null=True, blank=True)
+
+    address = models.TextField(
+        blank=True,
+        verbose_name=_("Address")
+    )
+    latitude = models.FloatField(
+        blank=True,
+        null=True,
+        verbose_name=_("Latitude")
+    )
+    longitude = models.FloatField(
+        blank=True,
+        null=True,
+        verbose_name=_("Longitude")
+    )
+    auto_update_latlng = models.BooleanField(
+        default=True,
+        verbose_name=_("Auto Update Latitude and Longitude"),
+        help_text=_("If checked, automatically update the latitude and longitude for Google Maps when the address is updated.")
+    )
+    show_map = models.BooleanField(
+        default=True,
+        help_text=_("If checked, this will show a Google Map with this location."),
+        verbose_name=_("Show Google Map")
+    )
+    map_title = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Map Title"),
+        help_text=_("If this is filled out, this is the title that will be used on Google Maps.")
+    )
+    map_description = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Map Description"),
+        help_text=_("If this is filled out, this is the description that will be used on Google Maps.")
+    )
+
+    layout_panels = (
+        CoderedWebPage.layout_panels +
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('show_map'),
+                    FieldPanel('map_title'),
+                    FieldPanel('map_description'),
+                ],
+                heading=_('Map Layout')
+            ),
+        ]
+    )
+
+    settings_panels = (
+        CoderedWebPage.settings_panels + 
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('address'),
+                    FieldPanel('auto_update_latlng'),
+                    FieldPanel('latitude'),
+                    FieldPanel('longitude'),
+                ],
+                heading=_("Location Settings")
+            ),
+        ]
+    )
+
+    @property
+    def get_geojson_name(self):
+        return self.map_title or self.title
+
+    @property
+    def get_geojson_description(self):
+        return self.map_description
+
+    def to_geojson(self):
+        return {
+            "type": "Feature",
+            "geometry":{
+                "type": "Point",
+                "coordinates": [self.longitude, self.latitude]
+            },
+            "properties":{
+                "name": self.get_geojson_name,
+                "description": self.get_geojson_description,
+                "url": self.get_url()
+            }
+        }
+
+
+    def serve(self, request, *args, **kwargs):
+        data_format = request.GET.get('data_format', None)
+        if data_format == 'geojson':
+            return self.serve_geojson(request, *args, **kwargs)
+        return super().serve(request, *args, **kwargs)
+
+    def serve_geojson(self, request, *args, **kwargs):
+        viewport = request.GET.get('viewport', None)
+        return JsonResponse({
+            "type": "FeatureCollection",
+            "features": [
+                self.to_geojson()
+            ]
+            })
+
+    def save(self, *args, **kwargs):
+        if self.auto_update_latlng:
+            g = geocoder.google(self.address, key=IntegrationSettings.for_site(Site.objects.get(is_default_site=True)).google_api_key)
+            self.latitude = g.latlng[0]
+            self.longitude = g.latlng[1]
+        return super(CoderedLocationPage, self).save(*args, **kwargs)
+
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request)
+        context['google_api_key'] = IntegrationSettings.for_site(Site.objects.get(is_default_site=True)).google_api_key
+        return context
+
+
+class CoderedLocationIndexPage(CoderedWebPage):
+    """
+    Shows a google maps view of the children CoderedLocationPage.
+    """
+    class Meta:
+        verbose_name = _('CodeRed Location Index Page')
+        abstract = True
+
+    template = 'coderedcms/pages/location_index_page.html'
+
+    index_show_subpages_default = True
+    default_zoom = 12
+    default_center_lat = 0
+    default_center_lng = 0
+
+    center_latitude = models.FloatField(
+        null=True,
+        blank=True, 
+        help_text=_('The default latitude you want the map set to.')
+    )
+    center_longitude = models.FloatField(
+        null=True,
+        blank=True, 
+        help_text=_('The default longitude you want the map set to.')
+    )
+    zoom = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text=_('The default zoom level you want the map set to.  Valid levels are 1-20.')
+    )
+    show_map = models.BooleanField(
+        default=True,
+        help_text=_("If checked, a Google Map will be shown on this page.")
+    )
+    is_searchable = models.BooleanField(
+        default=False,
+        help_text=_('If checked, this will allow your locations to be searchable.')
+    )
+    show_list = models.BooleanField(
+        default=False,
+        help_text=_('If checked, this will how a list of locations currently viewable on the map.')
+    )
+
+    layout_panels = (
+        CoderedWebPage.layout_panels +
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('show_map'),
+                    FieldPanel('center_latitude'),
+                    FieldPanel('center_longitude'),
+                    FieldPanel('zoom'),
+                    FieldPanel('is_searchable'),
+                    FieldPanel('show_list')
+                ],
+                heading=_('Map Display')
+            ),
+        ]
+    )
+
+    @property
+    def get_latitude(self):
+        return self.center_latitude or self.default_center_lat
+
+    @property
+    def get_longitude(self):
+        return self.center_longitude or self.default_center_lng
+
+    @property
+    def get_zoom(self):
+        return self.zoom or self.default_zoom
+        
+    def geojson_data(self, viewport=None):
+        qs = self.get_index_children().live()
+
+        if viewport:
+            southwest, northeast = viewport.split('|')
+            southwest = [float(x) for x in southwest.split(',')]
+            northeast = [float(x) for x in northeast.split(',')]
+
+            qs = qs.filter(latitude__gte=southwest[0], latitude__lte=northeast[0], longitude__gte=southwest[1], longitude__lte=northeast[1])
+
+        return {
+            "type": "FeatureCollection",
+            "features": [
+                location.to_geojson() for location in qs
+            ]
+        }
+
+    def serve(self, request, *args, **kwargs):
+        data_format = request.GET.get('data_format', None)
+        if data_format == 'geojson':
+            return self.serve_geojson(request, *args, **kwargs)
+        return super().serve(request, *args, **kwargs)
+
+    def serve_geojson(self, request, *args, **kwargs):
+        viewport = request.GET.get('viewport', None)
+        return JsonResponse(self.geojson_data(viewport=viewport))
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request)
+        context['google_api_key'] = IntegrationSettings.for_site(Site.objects.get(is_default_site=True)).google_api_key
+        return context

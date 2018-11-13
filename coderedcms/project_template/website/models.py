@@ -10,8 +10,11 @@ from coderedcms.models import (
     CoderedArticleIndexPage,
     CoderedEmail,
     CoderedFormPage,
+    CoderedLocationIndexPage,
+    CoderedLocationPage,
     CoderedWebPage
 )
+from django.utils.translation import ugettext_lazy as _
 
 
 class ArticlePage(CoderedArticlePage):
@@ -19,7 +22,7 @@ class ArticlePage(CoderedArticlePage):
     Article, suitable for news or blog content.
     """
     class Meta:
-        verbose_name = 'Article'
+        verbose_name = _('Article')
 
     # Only allow this page to be created beneath an ArticleIndexPage.
     parent_page_types = ['website.ArticleIndexPage']
@@ -34,7 +37,7 @@ class ArticleIndexPage(CoderedArticleIndexPage):
     Shows a list of article sub-pages.
     """
     class Meta:
-        verbose_name = 'Article Landing Page'
+        verbose_name = _('Article Landing Page')
 
     # Override to specify custom index ordering choice/default.
     index_query_pagemodel = 'website.ArticlePage'
@@ -53,7 +56,7 @@ class FormPage(CoderedFormPage):
     A page with an html <form>.
     """
     class Meta:
-        verbose_name = 'Form'
+        verbose_name = _('Form Page')
 
     template = 'coderedcms/pages/form_page.html'
 
@@ -77,6 +80,34 @@ class WebPage(CoderedWebPage):
     Template renders all Navbar and Footer snippets in existance.
     """
     class Meta:
-        verbose_name = 'Web Page'
+        verbose_name = _('Web Page')
 
     template = 'coderedcms/pages/web_page.html'
+
+class LocationPage(CoderedLocationPage):
+    """
+    A page that holds a location.  This could be a store, a restaurant, etc.
+    """
+    class Meta:
+        verbose_name = _('Location Page')
+
+    template = 'coderedcms/pages/location_page.html'
+
+    # Only allow LocationIndexPages above this page.
+    parent_page_types = ['website.LocationIndexPage']
+
+
+class LocationIndexPage(CoderedLocationIndexPage):
+    """
+    A page that holds a list of locations and displays them with a Google Map.
+    """
+    class Meta:
+        verbose_name =_('Location Landing Page')
+
+    # Override to specify custom index ordering choice/default.
+    index_query_pagemodel = 'website.LocationPage'
+
+    # Only allow LocationPages beneath this page.
+    subpage_types = ['website.LocationPage']
+
+    template = 'coderedcms/pages/location_index_page.html'

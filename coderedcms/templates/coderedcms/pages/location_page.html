@@ -1,0 +1,33 @@
+{% extends "coderedcms/pages/web_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block content_body %}
+<div class="container">
+    <div class="row">
+        {% if page.address %}
+        <div class="card address-card text-center">
+          <div class="card-body">
+            {{ page.address|linebreaks }}
+          </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row mb-5">
+        {% include_block page.body with settings=settings %}
+    </div>
+    {% block map %}
+    <div class="row">
+        {% if page.latitude and page.longitude and page.show_map %}
+        <div class="map-container" id="map">
+        </div>        
+        {% endif %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    {% if page.latitude and page.longitude %}
+        {% include 'coderedcms/includes/google_map_js.html' with zoom=12 lat=page.latitude lng=page.longitude map_id="map" %}
+    {% endif %}
+{% endblock %}

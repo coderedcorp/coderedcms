@@ -1,0 +1,46 @@
+{% extends "coderedcms/pages/index_page.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block index_container_content %}
+  <div class="row">
+      {% block map_list %}
+        {% if page.show_list %}
+        <div class="{% if page.show_map %}col-md-4{% else %}col-md-12{% endif %}">
+          <div class="list-group" id="LocationList">
+            {% if not page.show_map %}
+              {% for item in geojson_data.features %}
+              <div class='list-group-item flex column align-items'>
+                <div class='d-flex w-100 justify-content-between'>
+                  <a href="{{ item.properties.url }}"><h5 class='mb-1'>{{ item.properties.name }}</h5></a>
+                </div>
+                <p class='mb-1'>{{ item.properties.description }}</p>
+              </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+      {% endblock %}
+      {% block map %}
+        {% if page.show_map %}
+          {% block map_search %}
+            {% if page.is_searchable %}
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+            {% endif %}
+          {% endblock %}
+          <div class="{% if page.show_list %}col-md-8{% else %}col-md-12{% endif %}">
+            <div class="map-container" id="map">
+            </div>
+          </div>
+        {% endif %}
+      {% endblock %}
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+{% if page.show_map %}
+{% include 'coderedcms/includes/google_map_js.html' with zoom=page.get_zoom lat=page.get_latitude lng=page.get_longitude map_id="map" is_searchable=page.is_searchable show_list=page.show_list %}
+{% endif %}
+{% endblock %}

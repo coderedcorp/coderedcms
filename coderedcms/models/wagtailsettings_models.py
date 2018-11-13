@@ -368,3 +368,19 @@ class SeoSettings(BaseSetting):
             heading=_('Search Engine Optimization')
         )
     ]
+
+
+@register_setting(icon='fa-puzzle-piece')
+class IntegrationSettings(BaseSetting):
+    """
+    Settings that will hold API keys for varying services used by the CMS.
+    """
+    class Meta:
+        verbose_name = _('Integrations')
+
+    google_api_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Google API Key'),
+        help_text=_('The API Key used for Google Services, like maps.')
+    )

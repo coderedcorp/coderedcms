@@ -11,6 +11,7 @@ from django.shortcuts import render
 from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmissionsListView
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
+from wagtail.core.models import Site
 
 from coderedcms.settings import cr_settings
 

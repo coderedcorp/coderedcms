@@ -94,6 +94,47 @@ CodeRed CMS is a pip package that essentially wraps Wagtail and provides marketi
 One major point of difference between between CodeRed and stock Wagtail is the approach to design and content. Wagtail being more of a CMS framework, is focused on a clear separation between design (UX) and content. We agree with this approach for larger informational sites. But as is usually the case with marketing sites, design and information are more tightly coupled. Developers shouldn’t *need* to create a new page type or a new block just to handle a design deviation that is used in one place on the site. Designers and editors shouldn’t *need* to engage the developer for every minor design-related change such as changing a CSS class. For this reason, CodeRed blurs the lines of design and content by enabling editors to specify templates on a per-page and per-block basis, CSS classes per-block, and many other logo, layout, and branding settings. We realize this is not the right approach for every site - but we do believe it adds a lot of value for marketing sites.
 
 
+### Additional Page Types
+When you start a project, you will have a generated `models.py` file with some implementations of the CMS's base pages.  There exist additional base pages that we feel are useful, but not needed for most projects.  Below you can see basic, recommended implmentations of those base pages.
+```
+from django.utils.translation import ugettext_lazy as _
+from coderedcms.models import (
+    CoderedLocationIndexPage,
+    CoderedLocationPage,
+)
+
+class LocationPage(CoderedLocationPage):
+    """
+    A page that holds a location.  This could be a store, a restaurant, etc.
+    """
+    class Meta:
+        verbose_name = _('Location Page')
+
+    template = 'coderedcms/pages/location_page.html'
+
+    # Only allow LocationIndexPages above this page.
+    parent_page_types = ['website.LocationIndexPage']
+
+
+class LocationIndexPage(CoderedLocationIndexPage):
+    """
+    A page that holds a list of locations and displays them with a Google Map.
+    This does require a Google Maps API Key that can be defined in your 
+    wagtail settings.
+    """
+    class Meta:
+        verbose_name =_('Location Landing Page')
+
+    # Override to specify custom index ordering choice/default.
+    index_query_pagemodel = 'website.LocationPage'
+
+    # Only allow LocationPages beneath this page.
+    subpage_types = ['website.LocationPage']
+
+    template = 'coderedcms/pages/location_index_page.html'
+
+```
+
 
 ## Contact
 We would love to hear your questions, comments, and feedback. Contact us on github or at info@coderedcorp.com.

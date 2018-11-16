@@ -11,6 +11,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail, EmailMessage
 from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -46,7 +47,7 @@ from coderedcms.blocks import (
     OpenHoursBlock,
     StructuredDataActionBlock)
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
-from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, IntegrationSettings
+from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleAPISettings
 from coderedcms.settings import cr_settings
 
 
@@ -1088,24 +1089,25 @@ class CoderedLocationPage(CoderedWebPage):
     auto_update_latlng = models.BooleanField(
         default=True,
         verbose_name=_("Auto Update Latitude and Longitude"),
-        help_text=_("If checked, automatically update the latitude and longitude for Google Maps when the address is updated.")
-    )
-    show_map = models.BooleanField(
-        default=True,
-        help_text=_("If checked, this will show a Google Map with this location."),
-        verbose_name=_("Show Google Map")
+        help_text=_("If checked, automatically update the latitude and longitude for maps when the address is updated.")
     )
     map_title = models.CharField(
         blank=True,
         max_length=255,
         verbose_name=_("Map Title"),
-        help_text=_("If this is filled out, this is the title that will be used on Google Maps.")
+        help_text=_("If this is filled out, this is the title that will be used on maps.")
     )
     map_description = models.CharField(
         blank=True,
         max_length=255,
         verbose_name=_("Map Description"),
-        help_text=_("If this is filled out, this is the description that will be used on Google Maps.")
+        help_text=_("If this is filled out, this is the description that will be used on maps.")
+    )
+
+    content_panels = (
+        CoderedWebPage.content_panels[:1] + 
+           [FieldPanel('address'),] +
+        CoderedWebPage.content_panels[1:]
     )
 
     layout_panels = (
@@ -1113,7 +1115,6 @@ class CoderedLocationPage(CoderedWebPage):
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('show_map'),
                     FieldPanel('map_title'),
                     FieldPanel('map_description'),
                 ],
@@ -1127,7 +1128,6 @@ class CoderedLocationPage(CoderedWebPage):
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('address'),
                     FieldPanel('auto_update_latlng'),
                     FieldPanel('latitude'),
                     FieldPanel('longitude'),
@@ -1161,23 +1161,22 @@ class CoderedLocationPage(CoderedWebPage):
 
 
     def serve(self, request, *args, **kwargs):
-        data_format = request.GET.get('data_format', None)
+        data_format = request.GET.get('data-format', None)
         if data_format == 'geojson':
             return self.serve_geojson(request, *args, **kwargs)
         return super().serve(request, *args, **kwargs)
 
     def serve_geojson(self, request, *args, **kwargs):
-        viewport = request.GET.get('viewport', None)
         return JsonResponse({
             "type": "FeatureCollection",
             "features": [
                 self.to_geojson()
             ]
-            })
+        })
 
     def save(self, *args, **kwargs):
-        if self.auto_update_latlng:
-            g = geocoder.google(self.address, key=IntegrationSettings.for_site(Site.objects.get(is_default_site=True)).google_api_key)
+        if self.auto_update_latlng and GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key:
+            g = geocoder.google(self.address, key=GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
             self.latitude = g.latlng[0]
             self.longitude = g.latlng[1]
         return super(CoderedLocationPage, self).save(*args, **kwargs)
@@ -1185,7 +1184,7 @@ class CoderedLocationPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = IntegrationSettings.for_site(Site.objects.get(is_default_site=True)).google_api_key
+        context['google_api_key'] = GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
         return context
 
 
@@ -1200,36 +1199,26 @@ class CoderedLocationIndexPage(CoderedWebPage):
     template = 'coderedcms/pages/location_index_page.html'
 
     index_show_subpages_default = True
-    default_zoom = 12
-    default_center_lat = 0
-    default_center_lng = 0
 
     center_latitude = models.FloatField(
         null=True,
         blank=True, 
-        help_text=_('The default latitude you want the map set to.')
+        help_text=_('The default latitude you want the map set to.'),
+        default=0
     )
     center_longitude = models.FloatField(
         null=True,
         blank=True, 
-        help_text=_('The default longitude you want the map set to.')
+        help_text=_('The default longitude you want the map set to.'),
+        default=0
     )
-    zoom = models.CharField(
-        max_length=255,
-        blank=True,
+    zoom = models.IntegerField(
+        default=10,
+        validators=[
+            MaxValueValidator(20),
+            MinValueValidator(1),
+        ],
         help_text=_('The default zoom level you want the map set to.  Valid levels are 1-20.')
-    )
-    show_map = models.BooleanField(
-        default=True,
-        help_text=_("If checked, a Google Map will be shown on this page.")
-    )
-    is_searchable = models.BooleanField(
-        default=False,
-        help_text=_('If checked, this will allow your locations to be searchable.')
-    )
-    show_list = models.BooleanField(
-        default=False,
-        help_text=_('If checked, this will how a list of locations currently viewable on the map.')
     )
 
     layout_panels = (
@@ -1237,29 +1226,14 @@ class CoderedLocationIndexPage(CoderedWebPage):
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('show_map'),
                     FieldPanel('center_latitude'),
                     FieldPanel('center_longitude'),
                     FieldPanel('zoom'),
-                    FieldPanel('is_searchable'),
-                    FieldPanel('show_list')
                 ],
                 heading=_('Map Display')
             ),
         ]
     )
-
-    @property
-    def get_latitude(self):
-        return self.center_latitude or self.default_center_lat
-
-    @property
-    def get_longitude(self):
-        return self.center_longitude or self.default_center_lng
-
-    @property
-    def get_zoom(self):
-        return self.zoom or self.default_zoom
         
     def geojson_data(self, viewport=None):
         qs = self.get_index_children().live()
@@ -1279,7 +1253,7 @@ class CoderedLocationIndexPage(CoderedWebPage):
         }
 
     def serve(self, request, *args, **kwargs):
-        data_format = request.GET.get('data_format', None)
+        data_format = request.GET.get('data-format', None)
         if data_format == 'geojson':
             return self.serve_geojson(request, *args, **kwargs)
         return super().serve(request, *args, **kwargs)
@@ -1290,5 +1264,5 @@ class CoderedLocationIndexPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = IntegrationSettings.for_site(Site.objects.get(is_default_site=True)).google_api_key
+        context['google_api_key'] = GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
         return context

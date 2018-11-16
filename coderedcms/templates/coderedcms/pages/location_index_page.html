@@ -1,14 +1,14 @@
-{% extends "coderedcms/pages/index_page.html" %}
+{% extends "coderedcms/pages/web_page.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+{% load wagtailcore_tags static %}
 
-{% block index_container_content %}
+{% block content %}
+{% include_block page.body with settings=settings %}
+<div class="container">
   <div class="row">
       {% block map_list %}
-        {% if page.show_list %}
-        <div class="{% if page.show_map %}col-md-4{% else %}col-md-12{% endif %}">
+        <div class="col-md-4">
           <div class="list-group" id="LocationList">
-            {% if not page.show_map %}
               {% for item in geojson_data.features %}
               <div class='list-group-item flex column align-items'>
                 <div class='d-flex w-100 justify-content-between'>
@@ -17,30 +17,27 @@
                 <p class='mb-1'>{{ item.properties.description }}</p>
               </div>
               {% endfor %}
-            {% endif %}
           </div>
         </div>
-        {% endif %}
       {% endblock %}
       {% block map %}
-        {% if page.show_map %}
-          {% block map_search %}
-            {% if page.is_searchable %}
-              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-            {% endif %}
-          {% endblock %}
-          <div class="{% if page.show_list %}col-md-8{% else %}col-md-12{% endif %}">
-            <div class="map-container" id="map">
+          <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+          <div class="col-md-8">
+            <div class="map-container" 
+            id="cr-map" 
+            data-zoom="{{ page.zoom }}" 
+            data-latitude="{{ page.center_latitude }}" 
+            data-longitude="{{ page.center_longitude }}" 
+            data-geojson-url="{{ request.path }}?data-format=geojson"
+            data-key="{{ google_api_key }}"
+            data-callback="initMap"
+            data-libraries="places"
+            data-show-list="True"
+            data-show-search="True">
             </div>
           </div>
-        {% endif %}
       {% endblock %}
   </div>
-
+</div>
 {% endblock %}
 
-{% block extra_js %}
-{% if page.show_map %}
-{% include 'coderedcms/includes/google_map_js.html' with zoom=page.get_zoom lat=page.get_latitude lng=page.get_longitude map_id="map" is_searchable=page.is_searchable show_list=page.show_list %}
-{% endif %}
-{% endblock %}

@@ -17,17 +17,21 @@
     </div>
     {% block map %}
     <div class="row">
-        {% if page.latitude and page.longitude and page.show_map %}
-        <div class="map-container" id="map">
-        </div>        
+        {% if page.latitude and page.longitude %}
+            <div class="map-container" 
+            id="cr-map" 
+            data-zoom="14" 
+            data-latitude="{{ page.latitude }}" 
+            data-longitude="{{ page.longitude }}" 
+            data-geojson-url="{{ request.path }}?data-format=geojson"
+            data-key="{{ google_api_key }}"
+            data-callback="initMap"
+            data-libraries="places"
+            data-show-list="False"
+            data-show-search="False">
+            </div>      
         {% endif %}
     </div>
     {% endblock %}
 </div>
-{% endblock %}
-
-{% block extra_js %}
-    {% if page.latitude and page.longitude %}
-        {% include 'coderedcms/includes/google_map_js.html' with zoom=12 lat=page.latitude lng=page.longitude map_id="map" %}
-    {% endif %}
 {% endblock %}

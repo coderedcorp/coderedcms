@@ -21,6 +21,9 @@ libs = {
         url: "https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.time.js",
         integrity: "sha256-vFMKre5X5oQN63N+oJU9cJzn22opMuJ+G9FWChlH5n8=",
         head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/themes/default.time.css" integrity="sha256-0GwWH1zJVNiu4u+bL27FHEpI0wjV0hZ4nSSRM2HmpK8=" crossorigin="anonymous" />'
+    },
+    coderedmaps: {
+        url: "/static/js/codered-maps.js",
     }
 }
 
@@ -29,13 +32,15 @@ function load_script(lib, success) {
     if(lib.head) {
         $('head').append(lib.head);
     }
-    $.ajax({
-        url: lib.url,
-        dataType: "script",
-        integrity: lib.integrity,
-        crossorigin: "anonymous",
-        success: success
-    });
+    if(lib.url){
+        $.ajax({
+            url: lib.url,
+            dataType: "script",
+            integrity: lib.integrity,
+            crossorigin: "anonymous",
+            success: success
+        });
+    }
 }
 
 
@@ -82,6 +87,20 @@ $(document).ready(function()
                         if (clean != '') {
                             clean = moment(clean).format("L LT");
                             $(this).val(clean);
+                        }
+                    });
+                });
+            }
+            if ($('#cr-map').length > 0) {
+                load_script(libs.coderedmaps, function() {
+                    $.ajax({
+                        url: 'https://maps.googleapis.com/maps/api/js',
+                        type: "get",
+                        dataType: "script",
+                        data: {
+                            'key': $("#cr-map").data( "key" ),
+                            'callback': $("#cr-map").data( "callback" ),
+                            'libraries': $("#cr-map").data( "libraries" ),
                         }
                     });
                 });

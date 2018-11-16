@@ -2,9 +2,11 @@
 Base and abstract pages used in CodeRed CMS.
 """
 
-import geocoder
 import json
 import os
+
+import geocoder
+
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.core.files.storage import FileSystemStorage

@@ -6,12 +6,13 @@ import os
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render
 from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmissionsListView
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
 
+from coderedcms import utils
 from coderedcms.settings import cr_settings
 
 FORM_FIELD_CHOICES = (

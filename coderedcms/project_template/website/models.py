@@ -80,3 +80,4 @@ class WebPage(CoderedWebPage):
         verbose_name = 'Web Page'
 
     template = 'coderedcms/pages/web_page.html'
+    

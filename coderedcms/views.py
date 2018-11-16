@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
-from wagtail.core.models import Page
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
 

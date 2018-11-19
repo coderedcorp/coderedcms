@@ -1,6 +1,5 @@
 import copy
 import csv
-import json
 import mimetypes
 import os
 import re
@@ -11,7 +10,6 @@ from django import forms
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import Http404, HttpResponse
@@ -19,8 +17,7 @@ from django.shortcuts import redirect, render
 from django.utils.translation import ungettext, ugettext_lazy as _
 
 from wagtailimportexport.forms import ImportFromFileForm
-from wagtailimportexport.importing import import_pages, update_page_references
-from wagtailimportexport.views import import_from_file
+from wagtailimportexport.importing import update_page_references
 from wagtail.admin import messages
 from wagtail.core.models import Page
 from wagtail.search.backends import db, get_search_backend
@@ -121,8 +118,7 @@ def serve_protected_file(request, path):
             response["Content-Encoding"] = encoding
 
         return response
-    else:
-        raise Http404()
+    raise Http404()
 
 
 @login_required
@@ -206,6 +202,11 @@ class ImportPagesFromCSVFileForm(ImportFromFileForm):
     page_type = forms.ChoiceField(choices=get_page_model_choices)
 
 def import_pages_from_csv_file(request):
+    """
+    Overwrite of the `import_pages` view from wagtailimportexport.  By default, the `import_pages` view
+    expects a json file to be uploaded.  This view converts the uploaded csv into the json format that
+    the importer expects.
+    """
 
     def convert_csv_to_json(csv_file, page_type):
         pages_json = {
@@ -215,14 +216,13 @@ def import_pages_from_csv_file(request):
         default_page_data = {
           "app_label": "website",
           "content": {
-            "auto_update_latlng": False,
             "pk": None,
           },
           "model": page_type
         }
 
         pages_csv_dict = csv.DictReader(csv_file)
-        for (i, row) in enumerate(pages_csv_dict):
+        for row in pages_csv_dict:
             page_dict = copy.deepcopy(default_page_data)
             page_dict['content'].update(row)
             pages_json['pages'].append(page_dict)

@@ -1,4 +1,5 @@
   // Initialize the map on the gooogle maps api js callback.
+
   function initMap() {
     // Set defaults
     const map = new google.maps.Map(document.querySelector('#cr-map'), {
@@ -10,6 +11,15 @@
     });
     // Create an infowindow object.
     var infowindow = new google.maps.InfoWindow({  });
+
+    if (navigator.geolocation) {
+          var currentLocationControlDiv = document.createElement('div');
+          var currentLocation = new CurrentLocationControl(currentLocationControlDiv, map);
+
+          currentLocationControlDiv.index = 1;
+          map.controls[google.maps.ControlPosition.TOP_LEFT].push(currentLocationControlDiv);
+    }
+
 
     // Listener to update the map markers when the map is idling.
     google.maps.event.addListener(map, 'idle', () => {
@@ -25,7 +35,7 @@
           });
           locationDataFeatures = features;
           if ($("#cr-map").data( "show-list" ) == "True"){
-            update_list(locationDataFeatures);
+            updateList(locationDataFeatures);
           }
         }
       );
@@ -78,7 +88,7 @@
     }
 
   // Updates the list to the side of the map with markers that are in the viewport.
-  function update_list(features) {
+  function updateList(features) {
       new_html = "";
       if(features.length == 0){
         new_html = "<h5>Sorry, there are no locations in this area.</h5>";
@@ -97,3 +107,36 @@
       $("#LocationList").html(new_html);
     }
   }
+
+  function CurrentLocationControl(controlDiv, map){
+    var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = '#fff';
+      controlUI.style.border = '2px solid #fff';
+      controlUI.style.borderRadius = '3px';
+      controlUI.style.boxShadow = '0 2px 2px rgba(0,0,0,.3)';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.marginTop = '10px'
+      controlUI.style.marginBottom = '22px';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Near Me';
+      controlDiv.appendChild(controlUI);
+
+      // Set CSS for the control interior.
+      var controlText = document.createElement('div');
+      controlText.style.color = 'rgb(25,25,25)';
+      controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+      controlText.style.fontSize = '16px';
+      controlText.style.lineHeight = '36px';
+      controlText.style.paddingLeft = '5px';
+      controlText.style.paddingRight = '5px';
+      controlText.innerHTML = 'Near Me';
+      controlUI.appendChild(controlText);
+
+      // Setup the click event listeners: simply set the map to Chicago.
+      controlUI.addEventListener('click', function() {
+          navigator.geolocation.getCurrentPosition(function (position){
+            currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(currentPosition);
+          });
+      });
+    }

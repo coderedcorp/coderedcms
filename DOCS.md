@@ -9,6 +9,7 @@ Table of Contents:
 * [Hooks](#hooks)
 * [Settings](#codered-cms-settings)
 * [Developing coderedcms](#developing-and-testing-codered-cms)
+* [Additional Features](#additional-features)
 
 
 
@@ -158,3 +159,48 @@ To build a publicly consumable pip package, run:
     python setup.py sdist bdist_wheel
 
 which will build a source distribution and a wheel in the `dist/` directory.
+
+
+### Additional Features
+
+When you start a project, you will have a generated `models.py` file with some implementations of the CMS's base pages.  There exist additional base pages that we feel are useful, but not needed for most projects.  Below you can see basic, recommended implmentations of those base pages.
+
+#### Location
+```
+from django.utils.translation import ugettext_lazy as _
+from coderedcms.models import (
+    CoderedLocationIndexPage,
+    CoderedLocationPage,
+)
+
+class LocationPage(CoderedLocationPage):
+    """
+    A page that holds a location.  This could be a store, a restaurant, etc.
+    """
+    class Meta:
+        verbose_name = _('Location Page')
+
+    template = 'coderedcms/pages/location_page.html'
+
+    # Only allow LocationIndexPages above this page.
+    parent_page_types = ['website.LocationIndexPage']
+
+
+class LocationIndexPage(CoderedLocationIndexPage):
+    """
+    A page that holds a list of locations and displays them with a Google Map.
+    This does require a Google Maps API Key that can be defined in your 
+    wagtail settings.
+    """
+    class Meta:
+        verbose_name =_('Location Landing Page')
+
+    # Override to specify custom index ordering choice/default.
+    index_query_pagemodel = 'website.LocationPage'
+
+    # Only allow LocationPages beneath this page.
+    subpage_types = ['website.LocationPage']
+
+    template = 'coderedcms/pages/location_index_page.html'
+
+```

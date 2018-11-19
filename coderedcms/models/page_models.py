@@ -49,7 +49,7 @@ from coderedcms.blocks import (
     OpenHoursBlock,
     StructuredDataActionBlock)
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
-from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleAPISettings
+from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.settings import cr_settings
 
 
@@ -88,7 +88,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     """
     class Meta:
         verbose_name = _('CodeRed Page')
-
     # Do not allow this page type to be created in wagtail admin
     is_creatable = False
 
@@ -99,7 +98,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     # amp_template = ''
     # ajax_template = ''
     # search_template = ''
-
 
     ###############
     # Content fields
@@ -112,7 +110,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         related_name='+',
         verbose_name=_('Cover image'),
     )
-
 
     ###############
     # Index fields
@@ -504,7 +501,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         context['content_walls'] = self.get_content_walls(check_child_setting=False)
         return context
 
-
 ###############################################################################
 # Abstract pages providing pre-built common website functionality, suitable for subclassing.
 # These are abstract so subclasses can override fields if desired.
@@ -549,6 +545,18 @@ class CoderedWebPage(CoderedPage):
         body = strip_tags(body)
         # truncate and add ellipses
         return body[:200] + "..."
+
+
+    @property
+    def page_ptr(self):
+        """
+        Overwrite of `page_ptr` to make it compatible with wagtailimportexport.
+        """
+        return self.base_page_ptr
+
+    @page_ptr.setter
+    def page_ptr(self, value):
+        self.base_page_ptr = value    
 
 
 class CoderedArticlePage(CoderedWebPage):
@@ -1091,19 +1099,19 @@ class CoderedLocationPage(CoderedWebPage):
     auto_update_latlng = models.BooleanField(
         default=True,
         verbose_name=_("Auto Update Latitude and Longitude"),
-        help_text=_("If checked, automatically update the latitude and longitude for maps when the address is updated.")
+        help_text=_("If checked, automatically update the latitude and longitude when the address is updated.")
     )
     map_title = models.CharField(
         blank=True,
         max_length=255,
         verbose_name=_("Map Title"),
-        help_text=_("If this is filled out, this is the title that will be used on maps.")
+        help_text=_("If this is filled out, this is the title that will be used on the map.")
     )
     map_description = models.CharField(
         blank=True,
         max_length=255,
         verbose_name=_("Map Description"),
-        help_text=_("If this is filled out, this is the description that will be used on maps.")
+        help_text=_("If this is filled out, this is the description that will be used on the map.")
     )
 
     content_panels = (
@@ -1177,8 +1185,8 @@ class CoderedLocationPage(CoderedWebPage):
         })
 
     def save(self, *args, **kwargs):
-        if self.auto_update_latlng and GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key:
-            g = geocoder.google(self.address, key=GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
+        if self.auto_update_latlng and GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key:
+            g = geocoder.google(self.address, key=GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
             self.latitude = g.latlng[0]
             self.longitude = g.latlng[1]
         return super(CoderedLocationPage, self).save(*args, **kwargs)
@@ -1186,13 +1194,13 @@ class CoderedLocationPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
+        context['google_api_key'] = GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
         return context
 
 
 class CoderedLocationIndexPage(CoderedWebPage):
     """
-    Shows a google maps view of the children CoderedLocationPage.
+    Shows a map view of the children CoderedLocationPage.
     """
     class Meta:
         verbose_name = _('CodeRed Location Index Page')
@@ -1215,12 +1223,12 @@ class CoderedLocationIndexPage(CoderedWebPage):
         default=0
     )
     zoom = models.IntegerField(
-        default=10,
+        default=8,
         validators=[
             MaxValueValidator(20),
             MinValueValidator(1),
         ],
-        help_text=_('The default zoom level you want the map set to.  Valid levels are 1-20.')
+        help_text=_('Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings')
     )
 
     layout_panels = (
@@ -1266,5 +1274,5 @@ class CoderedLocationIndexPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = GoogleAPISettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
+        context['google_api_key'] = GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
         return context

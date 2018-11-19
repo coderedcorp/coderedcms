@@ -1,0 +1,23 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans %}Import / export pages{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Import / export pages" as title_str %}
+    {% include "wagtailadmin/shared/header.html" with title=title_str icon="download" %}
+
+    <div class="nice-padding">
+        <h3>JSON</h3>
+        <ul>
+            <li><a href="{% url 'wagtailimportexport_admin:import_from_file' %}">{% trans "Import from JSON file" %}</a></li>
+            <li><a href="{% url 'wagtailimportexport_admin:export_to_file' %}">{% trans "Export to JSON file" %}</a></li>
+        </ul>
+        <h3>CSV</h3>
+        <ul>
+            <li><a href="{% url 'import_from_csv' %}">{% trans "Import from CSV file" %}</a></li>
+        </ul>
+        <h3>API</h3>
+        <ul>
+            <li><a href="{% url 'wagtailimportexport_admin:import_from_api' %}">{% trans "Import from API" %}</a></li>
+        </ul>
+    </div>
+{% endblock %}

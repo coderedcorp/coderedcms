@@ -389,7 +389,7 @@ GOOGLE MAPS
     margin-left: 12px;
     padding: 10px;
     text-overflow: ellipsis;
-    width: 400px;
+    width: 200px;
     top: 10px !important;
 }
 
@@ -414,4 +414,25 @@ GOOGLE MAPS
 .address-card{
     margin: 0 auto;
     font-size:1.4em;
+}
+
+.map-button{
+    background-color:white;
+    color: black;
+    border-radius: 1px;
+    z-index:999;
+}
+
+@media(max-width: 767px){
+    #pac-input{
+        display:none;
+    }
+}
+
+@media(min-width: 768px){
+    .map-button{
+        position: absolute;
+        top: 13px;
+        left: 430px;
+    }
 }

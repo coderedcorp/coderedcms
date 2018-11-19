@@ -371,7 +371,7 @@ class SeoSettings(BaseSetting):
 
 
 @register_setting(icon='fa-puzzle-piece')
-class GoogleAPISettings(BaseSetting):
+class GoogleApiSettings(BaseSetting):
     """
     Settings for Google API services..
     """

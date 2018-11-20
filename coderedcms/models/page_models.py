@@ -1187,8 +1187,13 @@ class CoderedLocationPage(CoderedWebPage):
     def save(self, *args, **kwargs):
         if self.auto_update_latlng and GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key:
             g = geocoder.google(self.address, key=GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
-            self.latitude = g.latlng[0]
-            self.longitude = g.latlng[1]
+            try:
+                self.latitude = g.latlng[0]
+                self.longitude = g.latlng[1]
+            except TypeError:
+                """Raised if google denied the request"""
+                pass
+
         return super(CoderedLocationPage, self).save(*args, **kwargs)
 
 

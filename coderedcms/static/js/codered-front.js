@@ -47,7 +47,6 @@ function load_script(lib, success) {
 
 $(document).ready(function()
 {
-    console.log("LOADING");
     /*** Forms ***/
     if ( $('form').length > 0) {
         load_script(libs.modernizr, function() {
@@ -96,7 +95,6 @@ $(document).ready(function()
         });
     }
     if ($('#cr-map').length > 0) {
-        console.log("Loading Script");
         load_script(libs.coderedmaps, function() {
             $.ajax({
                 url: 'https://maps.googleapis.com/maps/api/js',
@@ -110,11 +108,6 @@ $(document).ready(function()
             });
         });
     }
-    else {
-        console.log($("cr-map").length);
-    }
-    
-
 
     /*** Lightbox ***/
     $('.lightbox-preview').on('click', function(event) {

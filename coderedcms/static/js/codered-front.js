@@ -24,6 +24,7 @@ libs = {
     },
     coderedmaps: {
         url: "/static/js/codered-maps.js",
+        integrity: "",
     }
 }
 
@@ -46,6 +47,7 @@ function load_script(lib, success) {
 
 $(document).ready(function()
 {
+    console.log("LOADING");
     /*** Forms ***/
     if ( $('form').length > 0) {
         load_script(libs.modernizr, function() {
@@ -91,22 +93,27 @@ $(document).ready(function()
                     });
                 });
             }
-            if ($('#cr-map').length > 0) {
-                load_script(libs.coderedmaps, function() {
-                    $.ajax({
-                        url: 'https://maps.googleapis.com/maps/api/js',
-                        type: "get",
-                        dataType: "script",
-                        data: {
-                            'key': $("#cr-map").data( "key" ),
-                            'callback': $("#cr-map").data( "callback" ),
-                            'libraries': $("#cr-map").data( "libraries" ),
-                        }
-                    });
-                });
-            }
         });
     }
+    if ($('#cr-map').length > 0) {
+        console.log("Loading Script");
+        load_script(libs.coderedmaps, function() {
+            $.ajax({
+                url: 'https://maps.googleapis.com/maps/api/js',
+                type: "get",
+                dataType: "script",
+                data: {
+                    'key': $("#cr-map").data( "key" ),
+                    'callback': $("#cr-map").data( "callback" ),
+                    'libraries': $("#cr-map").data( "libraries" ),
+                }
+            });
+        });
+    }
+    else {
+        console.log($("cr-map").length);
+    }
+    
 
 
     /*** Lightbox ***/

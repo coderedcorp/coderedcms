@@ -1155,6 +1155,43 @@ class CoderedLocationPage(CoderedWebPage):
     def get_geojson_description(self):
         return self.map_description
 
+    @property
+    def render_pin_description(self):
+        return mark_safe(
+            """
+                <b>{0}</b>
+                <p>{1}</p>
+                <p><a href='{2}''>View Location</a></p>
+            """
+            .format(
+                self.title,
+                self.address,
+                self.url
+            )
+        )
+
+    @property
+    def render_list_description(self):
+        return mark_safe(
+            """
+            <div class='list-group-item flex-column align-items'>
+                <div class='d-flex w-100 justify-content-between'>
+                    <a href='{0}'><b class='mb-1'>{1}</b></a>
+                </div>
+                <small>{2}</small>
+                <br />
+                <small>{3}</small>
+            </div>
+            """
+            .format(
+                self.url,
+                self.get_geojson_name,
+                self.address,
+                self.get_geojson_description
+            )
+
+        )
+    
     def to_geojson(self):
         return {
             "type": "Feature",
@@ -1163,9 +1200,8 @@ class CoderedLocationPage(CoderedWebPage):
                 "coordinates": [self.longitude, self.latitude]
             },
             "properties":{
-                "name": self.get_geojson_name,
-                "description": self.get_geojson_description,
-                "url": self.get_url()
+                "list_description": self.render_list_description,
+                "pin_description": self.render_pin_description
             }
         }
 

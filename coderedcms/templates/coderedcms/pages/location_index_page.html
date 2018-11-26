@@ -2,7 +2,7 @@
 
 {% load wagtailcore_tags static %}
 
-{% block content %}
+{% block content_body %}
 {% include_block page.body with settings=settings %}
 <div class="container">
   <div class="row">
@@ -10,12 +10,7 @@
         <div class="col-md-4">
           <div class="list-group" id="LocationList">
               {% for item in geojson_data.features %}
-              <div class='list-group-item flex column align-items'>
-                <div class='d-flex w-100 justify-content-between'>
-                  <a href="{{ item.properties.url }}"><h5 class='mb-1'>{{ item.properties.name }}</h5></a>
-                </div>
-                <p class='mb-1'>{{ item.properties.description }}</p>
-              </div>
+                {{ item.render_list_description }}
               {% endfor %}
           </div>
         </div>
@@ -33,7 +28,8 @@
             data-callback="initMap"
             data-libraries="places"
             data-show-list="True"
-            data-show-search="True">
+            data-show-search="True"
+            data-empty-state="There are no locations in this area.  Try zooming out or moving the map to find a location.">
             </div>
           </div>
       {% endblock %}

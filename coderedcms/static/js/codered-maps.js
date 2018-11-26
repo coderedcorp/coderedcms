@@ -44,10 +44,7 @@
     // Listener to update the info window when a marker is clicked.
     map.data.addListener('click', ev => {
       const f = ev.feature;
-      const title = f.getProperty('name');
-      const description = f.getProperty('description');
-
-      infowindow.setContent(`<b>${title}</b><br/> ${description}`);
+      infowindow.setContent(f.getProperty('pin_description'));
       infowindow.setPosition(f.getGeometry().get());
       infowindow.setOptions({
         pixelOffset: new google.maps.Size(0, -30)
@@ -91,17 +88,11 @@
   function updateList(features) {
       new_html = "";
       if(features.length == 0){
-        new_html = "<h5>Sorry, there are no locations in this area.</h5>";
+        new_html = $("#cr-map").data( "empty-state" );
       } else {
         for (i=0; i < features.length; i++){
-            new_list_item = "";
-            new_list_item += "<div class='list-group-item flex-column align-items'>";
-            new_list_item += "<div class='d-flex w-100 justify-content-between'>";
-            new_list_item += "<a href='" + features[i].l.url + "'><h5 class='mb-1'>" + features[i].l.name + "</h5></a>";
-            new_list_item += "</div>";
-            new_list_item += "<p class='mb-1'>" + features[i].l.description + "</p>";
-            new_list_item += "</div>";
-            new_html += new_list_item;
+            feature = features[i];
+            new_html += feature.getProperty('list_description');
         }
       }
       $("#LocationList").html(new_html);

@@ -436,3 +436,8 @@ GOOGLE MAPS
         left: 430px;
     }
 }
+
+#LocationList{
+    max-height: 600px;
+    overflow-y: scroll;
+}

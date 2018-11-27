@@ -6,17 +6,8 @@
 {% include_block page.body with settings=settings %}
 <div class="container">
   <div class="row">
-      {% block map_list %}
-        <div class="col-md-4">
-          <div class="list-group" id="LocationList">
-              {% for item in geojson_data.features %}
-                {{ item.render_list_description }}
-              {% endfor %}
-          </div>
-        </div>
-      {% endblock %}
       {% block map %}
-          <div class="col-md-8">
+          <div class="col-md-8 col-xs-12 order-md-12 mb-5">
           <input id="pac-input" class="controls" type="text" placeholder="Enter your location">
             <div class="map-container" 
             id="cr-map" 
@@ -32,6 +23,15 @@
             data-empty-state="There are no locations in this area.  Try zooming out or moving the map to find a location.">
             </div>
           </div>
+      {% endblock %}
+      {% block map_list %}
+        <div class="col-md-4 col-xs-12 order-md-1 mb-5">
+          <div class="list-group" id="LocationList">
+              {% for item in geojson_data.features %}
+                {{ item.render_list_description }}
+              {% endfor %}
+          </div>
+        </div>
       {% endblock %}
   </div>
 </div>

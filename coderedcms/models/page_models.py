@@ -1113,11 +1113,26 @@ class CoderedLocationPage(CoderedWebPage):
         verbose_name=_("Map Description"),
         help_text=_("If this is filled out, this is the description that will be used on the map.")
     )
+    website = models.TextField(
+        blank=True,
+        verbose_name=_("Website")
+    )
+    phone_number = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Phone Number")
+    )
 
     content_panels = (
         CoderedWebPage.content_panels[:1] + 
-           [FieldPanel('address'),] +
-        CoderedWebPage.content_panels[1:]
+        [
+            FieldPanel('address'),
+        ] +
+        CoderedWebPage.content_panels[1:] +
+        [
+            FieldPanel('website'),
+            FieldPanel('phone_number'),
+        ]
     )
 
     layout_panels = (

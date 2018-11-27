@@ -4,10 +4,24 @@
 {% block content_body %}
 <div class="container">
     <div class="row">
-        {% if page.address %}
+        {% if page.address or page.phone_number or page.website %}
         <div class="card address-card text-center">
           <div class="card-body">
+            {% if page.address %}
+            <p>
             {{ page.address|linebreaks }}
+            </p>
+            {% endif %}
+            {% if page.phone_number %}
+            <p>
+            {{ page.phone_number }}
+            </p>
+            {% endif %}
+            {% if page.website %}
+            <p>
+                <a href="{{ page.website }}">Website</a>
+            </p>
+            {% endif %}
           </div>
         </div>
         {% endif %}

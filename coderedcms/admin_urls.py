@@ -6,7 +6,7 @@ from coderedcms.views import clear_cache, import_pages_from_csv_file
 
 urlpatterns = [
     url(r'^codered/clearcache$', clear_cache, name="clear_cache"),
-    url(r'^import-export/import_from_csv/$', import_pages_from_csv_file, name="import_from_csv"),
+    url(r'^codered/import-export/import_from_csv/$', import_pages_from_csv_file, name="import_from_csv"),
     url(r'', include(wagtailadmin_urls)),
     url(r'', include(wagtailimportexport_urls)),
 ]

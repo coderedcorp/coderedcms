@@ -18,10 +18,12 @@ from django.db import models
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template import Context, Template
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
     HelpPanel,
     FieldPanel,
@@ -1127,12 +1129,10 @@ class CoderedLocationPage(CoderedWebPage):
         CoderedWebPage.content_panels[:1] + 
         [
             FieldPanel('address'),
-        ] +
-        CoderedWebPage.content_panels[1:] +
-        [
             FieldPanel('website'),
             FieldPanel('phone_number'),
-        ]
+        ] +
+        CoderedWebPage.content_panels[1:]
     )
 
     layout_panels = (
@@ -1163,48 +1163,34 @@ class CoderedLocationPage(CoderedWebPage):
     )
 
     @property
-    def get_geojson_name(self):
+    def geojson_name(self):
         return self.map_title or self.title
 
     @property
-    def get_geojson_description(self):
+    def geojson_description(self):
         return self.map_description
 
     @property
     def render_pin_description(self):
-        return mark_safe(
-            """
-                <b>{0}</b>
-                <p>{1}</p>
-                <p><a href='{2}''>View Location</a></p>
-            """
-            .format(
-                self.title,
-                self.address,
-                self.url
-            )
+        return render_to_string(
+            'coderedcms/includes/map_pin_description.html',
+            {
+                'name': self.geojson_name,
+                'address': self.address,
+                'url': self.url
+            }
         )
 
     @property
     def render_list_description(self):
-        return mark_safe(
-            """
-            <div class='list-group-item flex-column align-items'>
-                <div class='d-flex w-100 justify-content-between'>
-                    <a href='{0}'><b class='mb-1'>{1}</b></a>
-                </div>
-                <small>{2}</small>
-                <br />
-                <small>{3}</small>
-            </div>
-            """
-            .format(
-                self.url,
-                self.get_geojson_name,
-                self.address,
-                self.get_geojson_description
-            )
-
+        return render_to_string(
+            'coderedcms/includes/map_list_description.html',
+            {
+                'url': self.url,
+                'name': self.geojson_name,
+                'address': self.address,
+                'description': self.geojson_description
+            }
         )
     
     def to_geojson(self):
@@ -1220,25 +1206,10 @@ class CoderedLocationPage(CoderedWebPage):
             }
         }
 
-
-    def serve(self, request, *args, **kwargs):
-        data_format = request.GET.get('data-format', None)
-        if data_format == 'geojson':
-            return self.serve_geojson(request, *args, **kwargs)
-        return super().serve(request, *args, **kwargs)
-
-    def serve_geojson(self, request, *args, **kwargs):
-        return JsonResponse({
-            "type": "FeatureCollection",
-            "features": [
-                self.to_geojson()
-            ]
-        })
-
     def save(self, *args, **kwargs):
         if self.auto_update_latlng and GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key:
-            g = geocoder.google(self.address, key=GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
             try:
+                g = geocoder.google(self.address, key=GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
                 self.latitude = g.latlng[0]
                 self.longitude = g.latlng[1]
             except TypeError:
@@ -1302,6 +1273,16 @@ class CoderedLocationIndexPage(CoderedWebPage):
     )
         
     def geojson_data(self, viewport=None):
+        """
+        function that will return all locations under this index as geoJSON compliant data.
+        It is filtered by a latitude/longitude viewport if given.
+
+        viewport is a string in the format of :
+        'southwest.latitude,southwest.longitude|northeast.latitude,northeast.longitude'
+
+        An example viewport that covers Cleveland, OH would look like this:
+        '41.354912150983964,-81.95331736661791|41.663427748126935,-81.45206614591478'
+        """
         qs = self.get_index_children().live()
 
         if viewport:

@@ -93,5 +93,7 @@ CodeRed CMS is a pip package that essentially wraps Wagtail and provides marketi
 
 One major point of difference between between CodeRed and stock Wagtail is the approach to design and content. Wagtail being more of a CMS framework, is focused on a clear separation between design (UX) and content. We agree with this approach for larger informational sites. But as is usually the case with marketing sites, design and information are more tightly coupled. Developers shouldn’t *need* to create a new page type or a new block just to handle a design deviation that is used in one place on the site. Designers and editors shouldn’t *need* to engage the developer for every minor design-related change such as changing a CSS class. For this reason, CodeRed blurs the lines of design and content by enabling editors to specify templates on a per-page and per-block basis, CSS classes per-block, and many other logo, layout, and branding settings. We realize this is not the right approach for every site - but we do believe it adds a lot of value for marketing sites.
 
+
+
 ## Contact
 We would love to hear your questions, comments, and feedback. Contact us on github or at info@coderedcorp.com.

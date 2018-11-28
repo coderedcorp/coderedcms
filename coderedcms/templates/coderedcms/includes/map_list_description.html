@@ -1,0 +1,10 @@
+<div class='list-group-item flex-column align-items'>
+    <div class='d-flex w-100 justify-content-between'>
+        <a href='{{ url }}'><b class='mb-1'>{{ name }}</b></a>
+    </div>
+    <small>{{ address }}</small>
+    {% if description %}
+    <br />
+    <small>{{ description }}</small>
+    {% endif %}
+</div>

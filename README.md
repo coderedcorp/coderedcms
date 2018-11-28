@@ -1,9 +1,21 @@
-# CodeRed CMS
+<p align="center">
+  <a href="https://www.coderedcorp.com/cms/"><img src="https://www.coderedcorp.com/static/img/cms-hero.png" width="75%" alt=""></a>
+</p>
+<h3 align="center">CodeRed CMS</h3>
+<p align="center">
+  The professional WordPress alternative for building modern marketing websites. Based on Python, Django, Wagtail, and Bootstrap 4.
+</p>
+<p align="center">
+  <a href="https://www.coderedcorp.com/cms/">Website</a>
+  |
+  <a href="https://github.com/coderedcorp/coderedcms/blob/master/DOCS.md">Documentation</a>  
+  |
+  <a href="https://www.coderedcorp.com/blog/tag/django-wagtail/">Blog</a>
+</p>
 
-CodeRed CMS is a content management system built with [Wagtail](https://wagtail.io/) specifically geared towards marketing websites as a professionally-managed WordPress replacement.
 
-[Documentation](DOCS.md) | [Brainwash - coderedcorp.com/cms](https://www.coderedcorp.com/cms/) 
 
+## Note
 **This project is still early on in its development lifecycle.** It is possible for breaking changes to occur between versions until reaching a stable 1.0, however we will clearly note any breaking changes between releases if applicable. Feedback and pull requests are welcome.
 
 ## Quick start
@@ -17,7 +29,7 @@ CodeRed CMS is a content management system built with [Wagtail](https://wagtail.
 
 5. Run `python manage.py runserver` to launch the development server, and go to `http://localhost:8000` in your browser, or `http://localhost:8000/admin/` to log in with your admin account.
 
-See the [documentation](DOCS.md) for next steps and customizing your new site.
+See the [documentation](https://github.com/coderedcorp/coderedcms/blob/master/DOCS.md) for next steps and customizing your new site.
 
 
 

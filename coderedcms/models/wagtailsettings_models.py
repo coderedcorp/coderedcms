@@ -368,3 +368,19 @@ class SeoSettings(BaseSetting):
             heading=_('Search Engine Optimization')
         )
     ]
+
+
+@register_setting(icon='fa-puzzle-piece')
+class GoogleApiSettings(BaseSetting):
+    """
+    Settings for Google API services..
+    """
+    class Meta:
+        verbose_name = _('Google API Settings')
+
+    google_maps_api_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Google Maps API Key'),
+        help_text=_('The API Key used for Google Maps.')
+    )

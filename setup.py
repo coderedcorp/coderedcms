@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='coderedcms',
-    version='0.8.0',
+    version='0.9.0',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',
@@ -39,6 +39,8 @@ setup(
         'pygments>=2.2.0,<3.0',
         'wagtail==2.2.*',
         'wagtailfontawesome>=1.1.3,<2.0',
+        'geocoder>=1.38.1,<2.0',
+        'wagtail-import-export>=0.1,<0.2'
     ],
     entry_points="""
             [console_scripts]

@@ -9,6 +9,7 @@ Table of Contents:
 * [Hooks](#hooks)
 * [Settings](#codered-cms-settings)
 * [Developing coderedcms](#developing-and-testing-codered-cms)
+* [Additional Features](#additional-features)
 
 
 
@@ -158,3 +159,62 @@ To build a publicly consumable pip package, run:
     python setup.py sdist bdist_wheel
 
 which will build a source distribution and a wheel in the `dist/` directory.
+
+
+### Additional Features
+
+#### Import/Export
+
+`wagtail-import-export` is included in the CMS.  You can find documentation for it [here](https://github.com/torchbox/wagtail-import-export).  In addition to the JSON import/export functionality that the package includes, we have added the ability to create pages by importing csv's.  In the csv each row will be a new page and each column header will correspond to an attribute of that page.  On the import csv page, you will select where you want the pages to live and what page type they should be created as.  A use case for this functionality would be if your site needs to add several hundred locations as pages.  These locations come from a csv dump from some report generating software.  Your csv could look something like this:
+```
+title       address         latitude    longitude
+Store 1     123 Street      20.909      -15.32
+Store 2     456 Avenue      34.223      87.2331
+...
+...
+```
+`title`, `address`, `latitude`, `longitude` are all fields on your Page model that you will be importing as.
+
+### Additional Page Types
+
+When you start a project, you will have a generated `models.py` file with some implementations of the CMS's base pages.  There exist additional base pages that we feel are useful, but not needed for most projects.  Below you can see basic, recommended implmentations of those base pages.
+
+#### Location
+```
+from django.utils.translation import ugettext_lazy as _
+from coderedcms.models import (
+    CoderedLocationIndexPage,
+    CoderedLocationPage,
+)
+
+class LocationPage(CoderedLocationPage):
+    """
+    A page that holds a location.  This could be a store, a restaurant, etc.
+    """
+    class Meta:
+        verbose_name = _('Location Page')
+
+    template = 'coderedcms/pages/location_page.html'
+
+    # Only allow LocationIndexPages above this page.
+    parent_page_types = ['website.LocationIndexPage']
+
+
+class LocationIndexPage(CoderedLocationIndexPage):
+    """
+    A page that holds a list of locations and displays them with a Google Map.
+    This does require a Google Maps API Key that can be defined in your 
+    wagtail settings.
+    """
+    class Meta:
+        verbose_name =_('Location Landing Page')
+
+    # Override to specify custom index ordering choice/default.
+    index_query_pagemodel = 'website.LocationPage'
+
+    # Only allow LocationPages beneath this page.
+    subpage_types = ['website.LocationPage']
+
+    template = 'coderedcms/pages/location_index_page.html'
+
+```

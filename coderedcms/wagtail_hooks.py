@@ -1,3 +1,5 @@
+import mimetypes
+
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http.response import HttpResponse
@@ -8,8 +10,6 @@ from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 
 from coderedcms import utils
 from coderedcms.models import CoderedFormPage
-
-import mimetypes
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():

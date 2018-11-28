@@ -1175,9 +1175,7 @@ class CoderedLocationPage(CoderedWebPage):
         return render_to_string(
             'coderedcms/includes/map_pin_description.html',
             {
-                'name': self.geojson_name,
-                'address': self.address,
-                'url': self.url
+                'page': self
             }
         )
 
@@ -1186,10 +1184,7 @@ class CoderedLocationPage(CoderedWebPage):
         return render_to_string(
             'coderedcms/includes/map_list_description.html',
             {
-                'url': self.url,
-                'name': self.geojson_name,
-                'address': self.address,
-                'description': self.geojson_description
+                'page': self
             }
         )
     

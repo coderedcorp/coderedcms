@@ -128,7 +128,7 @@ def robots(request):
         content_type='text/plain'
     )
 
-
+@login_required
 def import_pages_from_csv_file(request):
     """
     Overwrite of the `import_pages` view from wagtailimportexport.  By default, the `import_pages` view

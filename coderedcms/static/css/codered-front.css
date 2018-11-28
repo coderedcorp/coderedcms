@@ -384,13 +384,18 @@ GOOGLE MAPS
 #pac-input {
     background-color: #fff;
     font-family: Roboto;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 300;
     margin-left: 12px;
-    padding: 10px;
+    line-height: 34px;
     text-overflow: ellipsis;
     width: 200px;
     top: 10px !important;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #pac-input:focus {
@@ -425,7 +430,8 @@ GOOGLE MAPS
 
 @media(max-width: 767px){
     #pac-input{
-        display:none;
+        top: 60px !important;
+        left: 0 !important;
     }
 }
 

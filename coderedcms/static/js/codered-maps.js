@@ -7,7 +7,9 @@
       center: {
         lat: parseFloat($("#cr-map").data( "latitude" )),
         lng: parseFloat($("#cr-map").data( "longitude" )),
-      }
+      },
+      mapTypeControl : $("#cr-map").data( "map-type-control"),
+      streetViewControl: $("#cr-map").data( "street-view-control"),
     });
     // Create an infowindow object.
     var infowindow = new google.maps.InfoWindow({  });
@@ -108,13 +110,14 @@
       controlUI.style.cursor = 'pointer';
       controlUI.style.marginTop = '10px'
       controlUI.style.marginBottom = '22px';
+      controlUI.style.marginLeft = '10px';
       controlUI.style.textAlign = 'center';
       controlUI.title = 'Near Me';
       controlDiv.appendChild(controlUI);
 
       // Set CSS for the control interior.
       var controlText = document.createElement('div');
-      controlText.style.color = 'rgb(25,25,25)';
+      controlText.style.color = 'rgb(25,25,25,.65)';
       controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
       controlText.style.fontSize = '16px';
       controlText.style.lineHeight = '36px';

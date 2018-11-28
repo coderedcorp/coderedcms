@@ -428,12 +428,6 @@ GOOGLE MAPS
     z-index:999;
 }
 
-@media(max-width: 767px){
-    #pac-input{
-        top: 60px !important;
-        left: 0 !important;
-    }
-}
 
 @media(min-width: 768px){
     .map-button{

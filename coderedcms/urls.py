@@ -21,7 +21,6 @@ urlpatterns = [
     url(r'^_util/login/$', auth_views.login, {'template_name': WAGTAIL_FRONTEND_LOGIN_TEMPLATE},
         name='wagtailcore_login'),
 
-
     # Wrap the serve function with coderedcms cache
     url(serve_pattern, cache_page(wagtail_views.serve), name='wagtail_serve'),
 

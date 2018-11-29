@@ -9,7 +9,6 @@ from coderedcms.views import robots, serve_protected_file
 from coderedcms.utils import cache_page
 
 urlpatterns = [
-
     # CodeRed custom URLs
     re_path(r'^sitemap\.xml$', cache_page(sitemap), name='codered_sitemap'),
     re_path(r'^robots\.txt$', cache_page(robots), name='codered_robots'),

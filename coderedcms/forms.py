@@ -45,13 +45,14 @@ FORM_FIELD_CHOICES = (
 )
 
 
-### Files
+# Files
 
 class SecureFileField(forms.FileField):
     custom_error_messages = {
         'blacklist_file': _('Submitted file is not allowed.'),
         'whitelist_file': _('Submitted file is not allowed.')
     }
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.error_messages.update(self.custom_error_messages)
@@ -73,7 +74,7 @@ class SecureFileField(forms.FileField):
                 raise ValidationError(self.error_messages['blacklist_file'])
 
 
-### Date
+# Date
 
 class CoderedDateInput(forms.DateInput):
     template_name = 'coderedcms/formfields/date.html'
@@ -82,7 +83,7 @@ class CoderedDateField(forms.DateField):
     widget = CoderedDateInput()
 
 
-### Datetime
+# Datetime
 
 class CoderedDateTimeInput(forms.DateTimeInput):
     template_name = 'coderedcms/formfields/datetime.html'
@@ -92,7 +93,7 @@ class CoderedDateTimeField(forms.DateTimeField):
     input_formats = ['%Y-%m-%dT%H:%M', '%m/%d/%Y %I:%M %p', '%m/%d/%Y %I:%M%p', '%m/%d/%Y %H:%M']
 
 
-### Time
+# Time
 
 class CoderedTimeInput(forms.TimeInput):
     template_name = 'coderedcms/formfields/time.html'

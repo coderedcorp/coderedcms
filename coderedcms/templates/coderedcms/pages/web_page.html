@@ -2,22 +2,31 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-
-  {% if self.cover_image %}
-    {% image page.cover_image fill-2000x1000 as cover_image %}
-    <div class="hero-bg mb-5" style="background-image:url({{cover_image.url}});">
-      <div class="hero-fg">
-        <div class="container">
-          <h1>{{page.title}}</h1>
+  {% block content_header %}
+    {% if self.cover_image %}
+      {% image page.cover_image fill-2000x1000 as cover_image %}
+      <div class="hero-bg mb-5" style="background-image:url({{cover_image.url}});">
+        <div class="hero-fg">
+          <div class="container">
+            <h1>{{page.title}}</h1>
+          </div>
         </div>
       </div>
-    </div>
-  {% else %}
-    <div class="container my-5">
-      <h1>{{page.title}}</h1>
-    </div>
-  {% endif %}
+    {% else %}
+      <div class="container my-5">
+        <h1>{{page.title}}</h1>
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block pre_content_body %}
+  {% endblock %}
+
   {% block content_body %}
     {% include_block page.body with settings=settings %}
   {% endblock %}
+
+  {% block post_content_body %}
+  {% endblock %}
+
 {% endblock %}

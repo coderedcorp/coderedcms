@@ -86,9 +86,17 @@
 
         {% block navbar %}{% endblock %}
 
-        <div id="content" {% if page.page_content_width %}class="col-md-{{page.page_content_width}}"{% endif %}>
+        <div id="content">
             {% block content %}
+
+                {% block content_pre_body %}{% endblock %}
+
+                {% block content_body %}
                 {% include_block page.body with settings=settings %}
+                {% endblock %}
+
+                {% block content_post_body %}{% endblock %}
+
             {% endblock %}
 
             {% block index_content %}

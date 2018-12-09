@@ -1,6 +1,8 @@
 CodeRed CMS Documentation
 =======================================
 
+`Official website <https://www.coderedcorp.com/cms/>`_ | `Source code on GitHub <https://github.com/coderedcorp/coderedcms>`_
+
 CodeRed CMS is a fully featured content management system for building marketing websites.
 It aims to be general purpose and ready to use out of the box as a more professional and performant
 alternative to WordPress.

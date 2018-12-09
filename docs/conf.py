@@ -24,9 +24,9 @@ copyright = '2018, CodeRed LLC'
 author = 'CodeRed LLC'
 
 # The short X.Y version
-version = ''
+version = '0.9'
 # The full version, including alpha/beta/rc tags
-release = ''
+release = version
 
 
 # -- General configuration ---------------------------------------------------
@@ -81,12 +81,13 @@ html_theme = 'classic'
 # documentation.
 #
 html_theme_options = {
+    'sidebarwidth': '260px',
     'bodyfont': 'initial',
     'headfont': 'inherit',
     'footerbgcolor': '#001834',
     'footertextcolor': '#fff',
     'sidebarbgcolor': '#d33',
-    'sidebartextcolor': 'rgba(255,255,255,0.7)',
+    'sidebartextcolor': '#fff',
     'sidebarlinkcolor': '#fff',
     'relbarbgcolor': '#001834',
     'relbartextcolor': 'rgba(255,255,255,0.7)',
@@ -114,7 +115,7 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
+html_sidebars = { '**': ['searchbox.html', 'globaltoc.html', 'relations.html', 'versions.html'] }
 
 html_context = {
     'css_files': ['_static/docs.css'],

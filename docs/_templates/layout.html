@@ -1,0 +1,15 @@
+{%- extends "basic/layout.html" %}
+
+{# Show the current document in the navigation bar. #}
+{% block relbaritems %}
+<li class="nav-item">{{ title|striptags|e }}</li>
+{% endblock %}
+
+{%- block sidebarlogo %}
+{%- if logo %}
+  <p class="logo"><a href="{{ pathto(master_doc) }}" title="{{ project }}">
+    <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="{{ project }}"/>
+  </a></p>
+  <p class="version">v {{release}}</p>
+{%- endif %}
+{%- endblock %}

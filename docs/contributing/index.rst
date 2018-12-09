@@ -5,9 +5,9 @@ Developing and testing coderedcms
 ---------------------------------
 To create a test project locally before committing your changes:
 
-#. Run ``pip install -e ./`` from the coderedcms directory. The -e flag makes the install editable,
+#. Run ``pip install -e ./[dev]`` from the coderedcms directory. The -e flag makes the install editable,
    which is relevant when running makemigrations in test project to actually generate the migration
-   files in the coderedcms pip package.
+   files in the coderedcms pip package. The ``[dev]`` installs extras such as sphinx for generating docs.
 #. Follow steps 4 through 6 in :doc:`/getting_started/index`. Use "testproject" or "testapp" for
    your project name to ensure it is ignored by git.
 #. When making model or block changes within coderedcms, run ``makemigrations coderedcms`` in the
@@ -21,6 +21,20 @@ To create a test project locally before committing your changes:
 When making changes that are potentially destructive or backwards incompatible, increment the minor
 version number until coderedcms reaches a stable 1.0 release. Each production project that uses
 coderedcms should specify the appropriate version in its requirements.txt to prevent breakage.
+
+Contributor guidelines
+----------------------
+
+We are happy to accept pull requests from the community if it aligns with our vision for coderedcms.
+When created a pull request, please make sure you include the following:
+
+* A description in the pull request of what this change does and how it works.
+* Reference to an issue if the change is related to one of the issues on our github page.
+* Documentation updates describing your change.
+
+Following submission of your pull request, a CodeRed member will review and test your change.
+
+**All changes, even by CodeRed members, must go through a pull request process to ensure quality.**
 
 Building pip packages
 ---------------------

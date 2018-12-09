@@ -2,7 +2,7 @@ Features
 ========
 
 .. toctree::
-   :maxdepth: 1
+    :maxdepth: 1
 
-   import_export
-   store_locator
+    import_export
+    store_locator

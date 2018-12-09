@@ -6,6 +6,7 @@
 *.tgz
 media/
 build/
+_build/
 dist/
 __pycache__
 codered_cms.egg-info/

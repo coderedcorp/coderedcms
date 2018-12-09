@@ -1,0 +1,112 @@
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
+    line-height: 1.4em;
+}
+
+code, pre {
+    background-color:#f0f0f3;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    font-size: 0.85em;
+    line-height: unset;
+}
+
+div.body {
+    padding: 0 40px 40px 40px;
+    line-height: unset;
+}
+
+div.body h1,
+div.body h2,
+div.body h3,
+div.body h4,
+div.body h5,
+div.body h6 {
+    border: none;
+    font-weight: 600;
+}
+div.body h1 {
+    font-weight: 300;
+    font-size: 2.5em;
+    padding-top: 1em;
+    margin-bottom: 1em;
+}
+div.body h2 {
+    font-size: 1.5em;
+}
+div.body h3 {
+    font-size: 1.2em;
+}
+
+div.body p,
+div.body dd,
+div.body li,
+div.body blockquote {
+    line-height: unset;
+    text-align: unset;
+}
+
+div.bodywrapper {
+    background-color:#f0f0f3;
+}
+
+div.sphinxsidebarwrapper {
+    padding: 0;
+}
+
+div.sphinxsidebar {
+    padding: 20px;
+}
+
+div.bodywrapper {
+    margin: 0 0 0 270px;
+}
+
+div.related {
+    line-height: 60px;
+}
+div.related ul {
+    padding: 0 20px;
+
+}
+div.related a {
+    border-bottom: 3px solid transparent;
+    transition: 0.2s ease all;
+}
+div.related a:hover {
+    border-bottom: 3px solid #0aa;
+    text-decoration: none;
+    transition: 0.2s ease all;
+}
+
+div.body li {
+    margin: 0.5em 0;
+}
+div.body li li {
+    margin: 0.1em 0;
+}
+
+p.logo {
+    margin-bottom: 30px;
+    padding: 10px 20px;
+}
+
+code {
+    padding: 0.1em 0.5em;
+    border-radius: 4px;
+}
+
+pre {
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    line-height: 1.2em;
+}
+
+a.headerlink {
+    color: #0aa;
+    margin-left: 0.3em;
+}
+a.headerlink:hover {
+    background-color: #0aa;
+    color: #fff;
+}

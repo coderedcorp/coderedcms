@@ -13,8 +13,10 @@ from wagtailimportexport.importing import update_page_references
 
 from coderedcms.forms import get_page_model_choices
 
+
 class ImportPagesFromCSVFileForm(ImportFromFileForm):
     page_type = forms.ChoiceField(choices=get_page_model_choices)
+
 
 @transaction.atomic()
 def import_pages(import_data, parent_page):
@@ -70,16 +72,17 @@ def import_pages(import_data, parent_page):
 
     return len(import_data['pages'])
 
+
 def convert_csv_to_json(csv_file, page_type):
     pages_json = {
         "pages": []
     }
     default_page_data = {
-      "app_label": "website",
-      "content": {
-        "pk": None
-      },
-      "model": page_type
+        "app_label": "website",
+        "content": {
+            "pk": None
+        },
+        "model": page_type
     }
 
     pages_csv_dict = csv.DictReader(csv_file)

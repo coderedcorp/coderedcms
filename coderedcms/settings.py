@@ -10,8 +10,8 @@ DEFAULTS = {
     'CACHE_PAGES': True,
     'CACHE_BACKEND': 'default',
 
-    'PROTECTED_MEDIA_URL' : '/protected/',
-    'PROTECTED_MEDIA_ROOT' :  os.path.join(BASE_DIR, 'protected'),
+    'PROTECTED_MEDIA_URL': '/protected/',
+    'PROTECTED_MEDIA_ROOT': os.path.join(BASE_DIR, 'protected'),
     'PROTECTED_MEDIA_UPLOAD_WHITELIST': [],
     'PROTECTED_MEDIA_UPLOAD_BLACKLIST': ['.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'],
 
@@ -53,16 +53,16 @@ DEFAULTS = {
     'FRONTEND_COL_SIZE_CHOICES': (
         ('', 'Automatically size'),
         ('12', 'Full row'),
-        ('6',  'Half - 1/2 column'),
-        ('4',  'Thirds - 1/3 column'),
-        ('8',  'Thirds - 2/3 column'),
-        ('3',  'Quarters - 1/4 column'),
-        ('9',  'Quarters - 3/4 column'),
-        ('2',  'Sixths - 1/6 column'),
+        ('6', 'Half - 1/2 column'),
+        ('4', 'Thirds - 1/3 column'),
+        ('8', 'Thirds - 2/3 column'),
+        ('3', 'Quarters - 1/4 column'),
+        ('9', 'Quarters - 3/4 column'),
+        ('2', 'Sixths - 1/6 column'),
         ('10', 'Sixths - 5/6 column'),
-        ('1',  'Twelfths - 1/12 column'),
-        ('5',  'Twelfths - 5/12 column'),
-        ('7',  'Twelfths - 7/12 column'),
+        ('1', 'Twelfths - 1/12 column'),
+        ('5', 'Twelfths - 5/12 column'),
+        ('7', 'Twelfths - 7/12 column'),
         ('11', 'Twelfths - 11/12 column'),
     ),
 
@@ -165,6 +165,7 @@ DEFAULTS = {
     },
 }
 
+
 @lru_cache()
 def get_config():
     config = DEFAULTS.copy()
@@ -174,11 +175,12 @@ def get_config():
             config[var] = getattr(settings, cr_var)
     return config
 
+
 cr_settings = get_config()
 
 try:
     import bootstrap4.bootstrap as bootstrap
-except:
+except ImportError:
     import bootstrap3.bootstrap as bootstrap
 
 get_bootstrap_setting = bootstrap.get_bootstrap_setting

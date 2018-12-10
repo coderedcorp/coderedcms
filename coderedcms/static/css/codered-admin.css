@@ -296,6 +296,9 @@ label {
 }
 
 @media screen and (min-width:50em) {
+    li.submenu-active .nav-submenu {
+        width: 220px;
+    }
     li.submenu-active .nav-submenu a {
         padding-left:1em;
         width:100%;

@@ -4,6 +4,20 @@
 <!doctype html>
 <html prefix="og: http://ogp.me/ns#">
   <head>
+        {% block tracking %}
+        {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
+            </script>
+        {% endif %}
+        {% endblock %}
+
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -127,21 +141,6 @@
 
         {% block custom_scripts %}
         <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
-        {% endblock %}
-
-
-        {% block tracking %}
-        {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id != '' %}
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}"></script>
-            <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
-            </script>
-        {% endif %}
         {% endblock %}
 
         {# Structured data JSON-LD #}

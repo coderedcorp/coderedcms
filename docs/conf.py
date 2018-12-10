@@ -84,14 +84,14 @@ html_theme_options = {
     'sidebarwidth': '260px',
     'bodyfont': 'initial',
     'headfont': 'inherit',
-    'footerbgcolor': '#001834',
-    'footertextcolor': '#fff',
-    'sidebarbgcolor': '#d33',
+    'footerbgcolor': 'inherit',
+    'footertextcolor': '#888',
+    'sidebarbgcolor': '#001834',
     'sidebartextcolor': '#fff',
     'sidebarlinkcolor': '#fff',
-    'relbarbgcolor': '#001834',
-    'relbartextcolor': 'rgba(255,255,255,0.7)',
-    'relbarlinkcolor': '#fff',
+    'relbarbgcolor': 'inherit',
+    'relbartextcolor': '#888',
+    'relbarlinkcolor': '#888',
     'bgcolor': '#fff',
     'textcolor': '#000',
     'linkcolor': '#0aa',
@@ -120,6 +120,8 @@ html_sidebars = { '**': ['searchbox.html', 'globaltoc.html', 'relations.html', '
 html_context = {
     'css_files': ['_static/docs.css'],
 }
+
+html_last_updated_fmt = ''
 
 
 # -- Options for HTMLHelp output ---------------------------------------------

@@ -1,15 +1,86 @@
 {%- extends "basic/layout.html" %}
 
-{# Show the current document in the navigation bar. #}
-{% block relbaritems %}
-<li class="nav-item">{{ title|striptags|e }}</li>
-{% endblock %}
+{%- macro custom_relbar() %}
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>{{ _('Navigation') }}</h3>
+      <ul>
+        {%- block rootrellink %}
+        <li class="nav-item nav-item-0"><a href="{{ pathto(master_doc) }}">{{ shorttitle|e }}</a>{{ reldelim1 }}</li>
+        {%- endblock %}
+        {%- for parent in parents %}
+          <li class="nav-item nav-item-{{ loop.index }}"><a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a>{{ reldelim1 }}</li>
+        {%- endfor %}
+        <li class="nav-item">{{ title|striptags|e }}</li>
+        {%- block relbaritems %} {% endblock %}
+      </ul>
+    </div>
+{%- endmacro %}
+
+{%- macro custom_prevnext() %}
+<div class="prevnext">
+  {%- if prev %}
+  <div class="item left">
+    <a href="{{ prev.link|e }}">← {{ prev.title }}</a>
+  </div>
+  {%- endif %}
+  {%- if next %}
+  <div class="item right">
+    <a href="{{ next.link|e }}">{{ next.title }} →</a>
+  </div>
+  {%- endif %}
+  <div class="clearfix"></div>
+</div>
+{%- endmacro %}
 
 {%- block sidebarlogo %}
-{%- if logo %}
+<div class="logowrapper">
   <p class="logo"><a href="{{ pathto(master_doc) }}" title="{{ project }}">
-    <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="{{ project }}"/>
+    {%- if logo %}
+      <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="{{ project }}"/>
+    {%- else %}
+      <span>{{ project }}</span>
+    {%- endif %}
   </a></p>
   <p class="version">v {{release}}</p>
-{%- endif %}
+</div>
 {%- endblock %}
+
+{%- block relbar1 %}{% endblock %}
+{%- block relbar2 %}{% endblock %}
+
+{%- block document %}
+  <div class="documentwrapper">
+  {%- if render_sidebar %}
+    <div class="bodywrapper">
+  {%- endif %}
+      <div class="body" role="main">
+
+        {{ custom_relbar() }}
+
+        {% block body %} {% endblock %}
+
+        {{ custom_prevnext() }}
+
+        <div class="footer" role="contentinfo">
+            {%- if show_copyright %}
+              {%- if hasdoc('copyright') %}
+                {% trans path=pathto('copyright'), copyright=copyright|e %}&#169; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
+              {%- else %}
+                {% trans copyright=copyright|e %}&#169; Copyright {{ copyright }}.{% endtrans %}
+              {%- endif %}
+            {%- endif %}
+            {%- if last_updated %}
+              {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+            {%- endif %}
+            {%- if show_sphinx %}
+              {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx-doc.org/">Sphinx</a>.{% endtrans %}
+            {%- endif %}
+            </div>
+      </div>
+  {%- if render_sidebar %}
+    </div>
+  {%- endif %}
+  </div>
+{%- endblock %}
+
+{%- block footer %}{%- endblock %}

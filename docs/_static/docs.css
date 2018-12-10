@@ -13,6 +13,7 @@ code, pre {
 div.body {
     padding: 0 40px 40px 40px;
     line-height: unset;
+    min-height: 100vh;
 }
 
 div.body h1,
@@ -23,12 +24,15 @@ div.body h5,
 div.body h6 {
     border: none;
     font-weight: 600;
+    margin: unset;
+    padding: 0;
 }
 div.body h1 {
     font-weight: 300;
     font-size: 2.5em;
     padding-top: 1em;
     margin-bottom: 1em;
+    line-height: 1;
 }
 div.body h2 {
     font-size: 1.5em;
@@ -44,30 +48,6 @@ div.body blockquote {
     line-height: unset;
     text-align: unset;
 }
-
-div.bodywrapper {
-    background-color:#f0f0f3;
-    margin: 0 0 0 300px;
-    min-height: 100vh;
-}
-
-div.related {
-    line-height: 60px;
-}
-div.related ul {
-    padding: 0 20px;
-
-}
-div.related a {
-    border-bottom: 3px solid transparent;
-    transition: 0.2s ease all;
-}
-div.related a:hover {
-    border-bottom: 3px solid #0aa;
-    text-decoration: none;
-    transition: 0.2s ease all;
-}
-
 div.body li {
     margin: 0.5em 0;
 }
@@ -75,13 +55,48 @@ div.body li li {
     margin: 0.1em 0;
 }
 
+div.bodywrapper {
+    background-color:#f0f0f3;
+    margin: 0 0 0 300px;
+}
+
+div.related {
+    line-height: unset;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+div.related ul {
+    padding: 0;
+}
+div.related a,
+div.sphinxsidebar .toctree-l1 a,
+div.sphinxsidebar .topless a,
+div.prevnext a {
+    border-bottom: 3px solid transparent;
+    transition: 0.2s ease all;
+}
+div.related a:hover,
+div.sphinxsidebar .toctree-l1 a:hover,
+div.sphinxsidebar .topless a:hover,
+div.prevnext a:hover {
+    border-bottom: 3px solid #0aa;
+    text-decoration: none;
+    transition: 0.2s ease all;
+}
+
+div.logowrapper {
+    margin: -20px -20px 40px -20px;
+    padding: 20px;
+    background-color: #d33;
+    text-align: center;
+}
+
 p.logo {
     padding: 10px 20px;
 }
 
 p.version {
-    text-align: center;
-    margin: 0 0 40px 0;
+    margin: 0 0 10px 0;
     font-size: 1rem;
 }
 
@@ -183,8 +198,33 @@ div.sphinxsidebar a.current.reference {
     margin: 0.25em;
     transition: .2s ease all;
 }
-
 #other-versions a:hover {
     background-color: rgba(255,255,255,0.2);
     transition: .2s ease all;
+}
+
+div.prevnext {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 40px 0 0;
+    padding: 20px 0;
+}
+div.prevnext a {
+    color:#666;
+}
+div.prevnext .item.right {
+    float: right;
+    text-align: right;
+}
+div.prevnext .item.left {
+    float: left;
+    text-align: left;
+}
+
+div.footer {
+    font-size: 0.8em;
+}
+
+.clearfix {
+    clear: both;
 }

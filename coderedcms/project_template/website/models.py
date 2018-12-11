@@ -81,36 +81,3 @@ class WebPage(CoderedWebPage):
         verbose_name = 'Web Page'
 
     template = 'coderedcms/pages/web_page.html'
-
-class EventPage(CoderedEventPage):
-    class Meta:
-        verbose_name = 'Event Page'
-
-    parent_page_types = ['website.EventIndexPage']
-    subpage_types = []
-    template = 'coderedcms/pages/event_page.html'
-
-class EventIndexPage(CoderedEventIndexPage):
-    """
-    Shows a list of event sub-pages.
-    """
-    class Meta:
-        verbose_name = 'Events Landing Page'
-
-    # Override to specify custom index ordering choice/default.
-    NEXT_OCCURRENCE_ATTR = 'next_occurrence'
-    index_query_pagemodel = 'website.EventPage'
-    index_order_by_default = NEXT_OCCURRENCE_ATTR
-    index_order_by_choices = (
-            (NEXT_OCCURRENCE_ATTR, 'Display next occurrence, soonest first'),
-        ) + \
-        CoderedEventIndexPage.index_order_by_choices
-
-    # Only allow EventPages beneath this page.
-    subpage_types = ['website.EventPage']
-
-    template = 'coderedcms/pages/event_index_page.html'
-
-
-class EventOccurrence(CoderedEventOccurrence):
-    event = ParentalKey(EventPage, related_name='occurrences')

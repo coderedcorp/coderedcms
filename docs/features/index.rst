@@ -6,3 +6,4 @@ Features
 
     import_export
     store_locator
+    events

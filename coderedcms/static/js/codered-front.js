@@ -34,6 +34,10 @@ libs = {
         url: "https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js",
         integrity: "sha256-uKe4jCg18Q60qLNG8dIei2y3ZVhcHADuEQFlpQ/hBRY=",
         head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" integrity="sha256-IGidWbiBOL+/w1glLnZWR5dCXpBrtQbY3XOUt2TTQOM=" crossorigin="anonymous" />'
+    },
+    coderedmaps: {
+        url: "/static/js/codered-maps.js",
+        integrity: "",
     }
 }
 
@@ -44,13 +48,15 @@ function load_script(lib, success) {
     if(lib.head) {
         $('head').append(lib.head);
     }
-    $.ajax({
-        url: lib.url,
-        dataType: "script",
-        integrity: lib.integrity,
-        crossorigin: "anonymous",
-        success: success
-    });
+    if(lib.url){
+        $.ajax({
+            url: lib.url,
+            dataType: "script",
+            integrity: lib.integrity,
+            crossorigin: "anonymous",
+            success: success
+        });
+    }
 }
 
 
@@ -173,6 +179,20 @@ $(document).ready(function()
         });
     }
 
+    if ($('#cr-map').length > 0) {
+        load_script(libs.coderedmaps, function() {
+            $.ajax({
+                url: 'https://maps.googleapis.com/maps/api/js',
+                type: "get",
+                dataType: "script",
+                data: {
+                    'key': $("#cr-map").data( "key" ),
+                    'callback': $("#cr-map").data( "callback" ),
+                    'libraries': $("#cr-map").data( "libraries" ),
+                }
+            });
+        });
+    }
 
     /*** Lightbox ***/
     $('.lightbox-preview').on('click', function(event) {

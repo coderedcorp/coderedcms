@@ -1,0 +1,33 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans %}Import pages{% endblocktrans %}{% endblock %}
+{% block css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+{% block js %}
+    {{ block.super }}
+    {{ form.media.js }}
+{% endblock %}
+{% block content %}
+    {% trans "Import pages" as title_str %}
+    {% include "wagtailadmin/shared/header.html" with title=title_str icon="download" %}
+
+    <div class="nice-padding">
+        <form action="{% url 'import_from_csv' %}" enctype="multipart/form-data" method="POST" novalidate>
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% include "wagtailadmin/shared/field_as_li.html" %}
+                {% endfor %}
+            </ul>
+
+            <input type="submit" value="{% trans 'Import' %}" class="button">
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}

@@ -107,12 +107,6 @@ class EmbedGoogleMapBlock(BaseBlock):
         label=_('Search query'),
         help_text=_('Address or search term used to find your location on the map.'),
     )
-    api_key = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        label=_('API key'),
-        help_text=_('Optional. Only required to use place ID and zoom features.')
-    )
     place_id = blocks.CharBlock(
         required=False,
         max_length=255,

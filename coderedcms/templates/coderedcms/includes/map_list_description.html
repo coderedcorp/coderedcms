@@ -1,0 +1,10 @@
+<div class='list-group-item flex-column align-items'>
+    <div class='d-flex w-100 justify-content-between'>
+        <a href='{{ page.url }}'><b class='mb-1'>{{ page.geojson_name }}</b></a>
+    </div>
+    <small>{{ page.address }}</small>
+    {% if description %}
+    <br />
+    <small>{{ page.description }}</small>
+    {% endif %}
+</div>

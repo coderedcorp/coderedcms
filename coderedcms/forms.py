@@ -3,17 +3,18 @@ Enhancements to wagtail.contrib.forms.
 """
 import csv
 import os
+import re
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render
 from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmissionsListView
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
 
 from coderedcms.settings import cr_settings
-
+from coderedcms.utils import attempt_protected_media_value_conversion
 
 FORM_FIELD_CHOICES = (
     (_('Text'), (
@@ -130,7 +131,7 @@ class CoderedSubmissionsListView(WagtailSubmissionsListView):
         for data_row in context['data_rows']:
             modified_data_row = []
             for cell in data_row:
-                modified_cell = utils.attempt_protected_media_value_conversion(self.request, cell)
+                modified_cell = attempt_protected_media_value_conversion(self.request, cell)
                 modified_data_row.append(modified_cell)
 
             writer.writerow(modified_data_row)
@@ -155,4 +156,13 @@ class SearchForm(forms.Form):
         max_length=255,
         required=False,
         label=_('Page type'),
+    )
+
+def get_page_model_choices():
+    """
+    Returns a list of tuples of all creatable Codered pages in the format of ("Custom Codered Page", "CustomCoderedPage")
+    """
+    from coderedcms.models import get_page_models
+    return (
+        (page.__name__, re.sub(r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))', r' \1', page.__name__)) for page in get_page_models() if page.is_creatable
     )

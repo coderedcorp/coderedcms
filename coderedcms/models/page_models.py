@@ -4,21 +4,29 @@ Base and abstract pages used in CodeRed CMS.
 
 import json
 import os
+
+import geocoder
+
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail, EmailMessage
 from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template import Context, Template
+from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.html import mark_safe, strip_tags
+from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
 from taggit.models import TaggedItemBase
+from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
     HelpPanel,
     FieldPanel,
@@ -47,7 +55,7 @@ from coderedcms.blocks import (
     StructuredDataActionBlock)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
-from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings
+from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.settings import cr_settings
 
 CODERED_PAGE_MODELS = []
@@ -101,7 +109,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     """
     class Meta:
         verbose_name = _('CodeRed Page')
-
     # Do not allow this page type to be created in wagtail admin
     is_creatable = False
 
@@ -112,7 +119,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     # amp_template = ''
     # ajax_template = ''
     # search_template = ''
-
 
     ###############
     # Content fields
@@ -125,7 +131,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         related_name='+',
         verbose_name=_('Cover image'),
     )
-
 
     ###############
     # Index fields
@@ -517,7 +522,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         context['content_walls'] = self.get_content_walls(check_child_setting=False)
         return context
 
-
 ###############################################################################
 # Abstract pages providing pre-built common website functionality, suitable for subclassing.
 # These are abstract so subclasses can override fields if desired.
@@ -562,6 +566,18 @@ class CoderedWebPage(CoderedPage):
         body = strip_tags(body)
         # truncate and add ellipses
         return body[:200] + "..."
+
+
+    @property
+    def page_ptr(self):
+        """
+        Overwrite of `page_ptr` to make it compatible with wagtailimportexport.
+        """
+        return self.base_page_ptr
+
+    @page_ptr.setter
+    def page_ptr(self, value):
+        self.base_page_ptr = value    
 
 
 class CoderedArticlePage(CoderedWebPage):
@@ -738,39 +754,9 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         blank=True,
         help_text=_('The color that the event will use when displayed on a calendar.'),
     )
-    show_ical = models.BooleanField(
-        default=True,
-        help_text=_('If enabled, this allows people to download this event to their calendar.'),
-    )
-    address_street = models.CharField(
+    address = models.TextField(
         blank=True,
-        max_length=255,
-        verbose_name=_('Street address'),
-        help_text=_('House number and street. For example, 55 Public Square Suite 1710')
-    )
-    address_locality = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('City'),
-        help_text=_('City or locality. For example, Cleveland')
-    )
-    address_region = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('State'),
-        help_text=_('State, province, county, or region. For example, OH')
-    )
-    address_postal = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Postal code'),
-        help_text=_('Zip or postal code. For example, 44113')
-    )
-    address_country = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Country'),
-        help_text=_('For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1')
+        verbose_name=_("Address")
     )
     content_panels = (
         CoderedWebPage.content_panels +
@@ -1348,3 +1334,242 @@ class CoderedFormPage(CoderedWebPage):
             return self.render_landing_page(request)
 
         return super().serve_preview(request, mode)
+
+
+class CoderedLocationPage(CoderedWebPage):
+    """
+    Location, suitable for store locations or help centers.
+    """
+    class Meta:
+        verbose_name = _('CodeRed Location')
+        abstract = True
+
+    template = 'coderedcms/pages/location_page.html'
+
+    # Override body to provide simpler content
+    body = StreamField(CONTENT_STREAMBLOCKS, null=True, blank=True)
+
+    address = models.TextField(
+        blank=True,
+        verbose_name=_("Address")
+    )
+    latitude = models.FloatField(
+        blank=True,
+        null=True,
+        verbose_name=_("Latitude")
+    )
+    longitude = models.FloatField(
+        blank=True,
+        null=True,
+        verbose_name=_("Longitude")
+    )
+    auto_update_latlng = models.BooleanField(
+        default=True,
+        verbose_name=_("Auto Update Latitude and Longitude"),
+        help_text=_("If checked, automatically update the latitude and longitude when the address is updated.")
+    )
+    map_title = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Map Title"),
+        help_text=_("If this is filled out, this is the title that will be used on the map.")
+    )
+    map_description = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Map Description"),
+        help_text=_("If this is filled out, this is the description that will be used on the map.")
+    )
+    website = models.TextField(
+        blank=True,
+        verbose_name=_("Website")
+    )
+    phone_number = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Phone Number")
+    )
+
+    content_panels = (
+        CoderedWebPage.content_panels[:1] + 
+        [
+            FieldPanel('address'),
+            FieldPanel('website'),
+            FieldPanel('phone_number'),
+        ] +
+        CoderedWebPage.content_panels[1:]
+    )
+
+    layout_panels = (
+        CoderedWebPage.layout_panels +
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('map_title'),
+                    FieldPanel('map_description'),
+                ],
+                heading=_('Map Layout')
+            ),
+        ]
+    )
+
+    settings_panels = (
+        CoderedWebPage.settings_panels + 
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('auto_update_latlng'),
+                    FieldPanel('latitude'),
+                    FieldPanel('longitude'),
+                ],
+                heading=_("Location Settings")
+            ),
+        ]
+    )
+
+    @property
+    def geojson_name(self):
+        return self.map_title or self.title
+
+    @property
+    def geojson_description(self):
+        return self.map_description
+
+    @property
+    def render_pin_description(self):
+        return render_to_string(
+            'coderedcms/includes/map_pin_description.html',
+            {
+                'page': self
+            }
+        )
+
+    @property
+    def render_list_description(self):
+        return render_to_string(
+            'coderedcms/includes/map_list_description.html',
+            {
+                'page': self
+            }
+        )
+    
+    def to_geojson(self):
+        return {
+            "type": "Feature",
+            "geometry":{
+                "type": "Point",
+                "coordinates": [self.longitude, self.latitude]
+            },
+            "properties":{
+                "list_description": self.render_list_description,
+                "pin_description": self.render_pin_description
+            }
+        }
+
+    def save(self, *args, **kwargs):
+        if self.auto_update_latlng and GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key:
+            try:
+                g = geocoder.google(self.address, key=GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
+                self.latitude = g.latlng[0]
+                self.longitude = g.latlng[1]
+            except TypeError:
+                """Raised if google denied the request"""
+                pass
+
+        return super(CoderedLocationPage, self).save(*args, **kwargs)
+
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request)
+        context['google_api_key'] = GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
+        return context
+
+
+class CoderedLocationIndexPage(CoderedWebPage):
+    """
+    Shows a map view of the children CoderedLocationPage.
+    """
+    class Meta:
+        verbose_name = _('CodeRed Location Index Page')
+        abstract = True
+
+    template = 'coderedcms/pages/location_index_page.html'
+
+    index_show_subpages_default = True
+
+    center_latitude = models.FloatField(
+        null=True,
+        blank=True, 
+        help_text=_('The default latitude you want the map set to.'),
+        default=0
+    )
+    center_longitude = models.FloatField(
+        null=True,
+        blank=True, 
+        help_text=_('The default longitude you want the map set to.'),
+        default=0
+    )
+    zoom = models.IntegerField(
+        default=8,
+        validators=[
+            MaxValueValidator(20),
+            MinValueValidator(1),
+        ],
+        help_text=_('Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings')
+    )
+
+    layout_panels = (
+        CoderedWebPage.layout_panels +
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('center_latitude'),
+                    FieldPanel('center_longitude'),
+                    FieldPanel('zoom'),
+                ],
+                heading=_('Map Display')
+            ),
+        ]
+    )
+        
+    def geojson_data(self, viewport=None):
+        """
+        function that will return all locations under this index as geoJSON compliant data.
+        It is filtered by a latitude/longitude viewport if given.
+
+        viewport is a string in the format of :
+        'southwest.latitude,southwest.longitude|northeast.latitude,northeast.longitude'
+
+        An example viewport that covers Cleveland, OH would look like this:
+        '41.354912150983964,-81.95331736661791|41.663427748126935,-81.45206614591478'
+        """
+        qs = self.get_index_children().live()
+
+        if viewport:
+            southwest, northeast = viewport.split('|')
+            southwest = [float(x) for x in southwest.split(',')]
+            northeast = [float(x) for x in northeast.split(',')]
+
+            qs = qs.filter(latitude__gte=southwest[0], latitude__lte=northeast[0], longitude__gte=southwest[1], longitude__lte=northeast[1])
+
+        return {
+            "type": "FeatureCollection",
+            "features": [
+                location.to_geojson() for location in qs
+            ]
+        }
+
+    def serve(self, request, *args, **kwargs):
+        data_format = request.GET.get('data-format', None)
+        if data_format == 'geojson':
+            return self.serve_geojson(request, *args, **kwargs)
+        return super().serve(request, *args, **kwargs)
+
+    def serve_geojson(self, request, *args, **kwargs):
+        viewport = request.GET.get('viewport', None)
+        return JsonResponse(self.geojson_data(viewport=viewport))
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request)
+        context['google_api_key'] = GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
+        return context

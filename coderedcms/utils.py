@@ -103,6 +103,7 @@ def seconds_to_readable(seconds):
         pretty_time += ' {0} {1}'.format(str(secs), _('seconds') if secs > 1  else _('second'))
     return pretty_time
 
+
 def fix_ical_datetime_format(dt_str):
     """
     ICAL generation gives timezones in the format of 2018-06-30T14:00:00-04:00.

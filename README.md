@@ -1,10 +1,22 @@
-# CodeRed CMS
+<p align="center">
+  <a href="https://www.coderedcorp.com/cms/"><img src="https://www.coderedcorp.com/static/img/cms-hero.png" width="75%" alt=""></a>
+</p>
+<h3 align="center">CodeRed CMS</h3>
+<p align="center">
+  The professional WordPress alternative for building modern marketing websites. Based on Python, Django, Wagtail, and Bootstrap 4.
+</p>
+<p align="center">
+  <a href="https://www.coderedcorp.com/cms/">Website</a>
+  |
+  <a href="https://github.com/coderedcorp/coderedcms/blob/master/DOCS.md">Documentation</a>  
+  |
+  <a href="https://www.coderedcorp.com/blog/tag/django-wagtail/">Blog</a>
+</p>
 
-CodeRed CMS is a content management system built with [Wagtail](https://wagtail.io/) specifically geared towards marketing websites as a professionally-managed WordPress replacement.
-
-[Documentation](DOCS.md) | [CodeRed](https://www.coderedcorp.com/) - makers of CodeRed CMS.
 
 
+## Note
+**This project is still early on in its development lifecycle.** It is possible for breaking changes to occur between versions until reaching a stable 1.0, however we will clearly note any breaking changes between releases if applicable. Feedback and pull requests are welcome.
 
 ## Quick start
 1. Run `pip install coderedcms`
@@ -17,14 +29,14 @@ CodeRed CMS is a content management system built with [Wagtail](https://wagtail.
 
 5. Run `python manage.py runserver` to launch the development server, and go to `http://localhost:8000` in your browser, or `http://localhost:8000/admin/` to log in with your admin account.
 
-See the [documentation](DOCS.md) for next steps and customizing your new site.
+See the [documentation](https://github.com/coderedcorp/coderedcms/blob/master/DOCS.md) for next steps and customizing your new site.
 
 
 
 ## Why use CodeRed CMS?
 In addition to the numerous benefits of [Wagtail](https://wagtail.io/features/), CodeRed has features that are *great* for marketing websites:
 
-* **The entire editing experience is tailored for marketing content.** Create flashy hero units, callouts, and forms using a beautiful editing interface. Full SEO attributes and detailed Google Analytics tracking is enabled out of the box. Editors and Designers can easily update content, designs, and layout without fear of breakage and without the need to consult developers. Developers can fully customize the site without relying on plugins or undocumented hacks.
+* **The entire editing experience is tailored for marketing content.** Create flashy hero units, callouts, and forms using a beautiful editing interface. Full SEO attributes and detailed Google Analytics tracking is available out of the box. Editors and Designers can easily update content, designs, and layout without fear of breakage and without the need to consult developers. Developers can fully customize the site without relying on plugins or undocumented hacks.
 
 * **Built-in SEO** including Opengraph, structured data, and many other meta tags automatically applied. A sitemap and robots.txt are also present and automatically updated. Articles and blog posts support Google’s preferred AMP format.
 

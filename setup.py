@@ -1,5 +1,6 @@
 import os
 from setuptools import find_packages, setup
+from coderedcms import __version__
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf8') as readme:
     README = readme.read()
@@ -9,7 +10,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='coderedcms',
-    version='0.9.0',
+    version=__version__,
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',
@@ -39,16 +40,21 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
-        'django>=1.11,<2.1',
-        'django-bootstrap4',
         'django-eventtools==0.9.*',
+        'django-bootstrap4',
+        'django>=1.11,<2.2',
+        'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
         'pygments>=2.2.0,<3.0',
-        'wagtail==2.2.*',
+        'wagtail==2.3.*',
         'wagtailfontawesome>=1.1.3,<2.0',
-        'geocoder>=1.38.1,<2.0',
         'wagtail-import-export>=0.1,<0.2'
     ],
+    extras_require={
+        'dev': [
+            'sphinx',
+        ]
+    },
     entry_points="""
             [console_scripts]
             coderedcms=coderedcms.bin.coderedcms:main

@@ -43,8 +43,8 @@ label,
 .sequence-member select:focus,
 .sequence-member .richtext:focus,
 .sequence-member .tagit:focus {
-    border-color:#54d0d0;
-    background-color:#f4fcfc;
+    border-color:#00b0b1;
+    background-color:#f2fcfc;
 }
 
 .input input[type='text'],

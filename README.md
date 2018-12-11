@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://www.coderedcorp.com/cms/">Website</a>
   |
-  <a href="https://github.com/coderedcorp/coderedcms/blob/master/DOCS.md">Documentation</a>  
+  <a href="https://docs.coderedcorp.com/cms/">Documentation</a>
   |
   <a href="https://www.coderedcorp.com/blog/tag/django-wagtail/">Blog</a>
 </p>
@@ -23,13 +23,15 @@
 
 2. Run `coderedcms start mysite`
 
-3. Run `python manage.py migrate` to create the core models.
+3. Enter the project `cd mysite/`
 
-4. Run `python manage.py createsuperuser` to create the initial admin user.
+4. Run `python manage.py migrate` to create the core models.
 
-5. Run `python manage.py runserver` to launch the development server, and go to `http://localhost:8000` in your browser, or `http://localhost:8000/admin/` to log in with your admin account.
+5. Run `python manage.py createsuperuser` to create the initial admin user.
 
-See the [documentation](https://github.com/coderedcorp/coderedcms/blob/master/DOCS.md) for next steps and customizing your new site.
+6. Run `python manage.py runserver` to launch the development server, and go to `http://localhost:8000` in your browser, or `http://localhost:8000/admin/` to log in with your admin account.
+
+See the [documentation](https://docs.coderedcorp.com/cms/) for next steps and customizing your new site.
 
 
 

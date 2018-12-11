@@ -11,7 +11,7 @@ from django.utils.formats import localize
 from wagtail.core.models import Collection
 from wagtail.images.models import Image
 
-from coderedcms import utils
+from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
 from coderedcms.models import Footer, Navbar
@@ -44,6 +44,10 @@ def is_advanced_setting(obj):
 @register.filter
 def is_file_form(form):
     return any([isinstance(field.field.widget, ClearableFileInput) for field in form])
+
+@register.simple_tag
+def coderedcms_version():
+    return __version__
 
 @register.simple_tag
 def generate_random_id():

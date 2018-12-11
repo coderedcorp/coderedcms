@@ -11,6 +11,7 @@ from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from coderedcms import utils
 from coderedcms.models import CoderedFormPage
 
+
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     return format_html('<link rel="stylesheet" type="text/css" href="{}">', static('css/codered-admin.css'))

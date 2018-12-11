@@ -48,6 +48,11 @@ setup(
         'geocoder>=1.38.1,<2.0',
         'wagtail-import-export>=0.1,<0.2'
     ],
+    extras_require={
+        'dev': [
+            'sphinx',
+        ]
+    },
     entry_points="""
             [console_scripts]
             coderedcms=coderedcms.bin.coderedcms:main

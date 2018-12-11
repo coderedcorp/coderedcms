@@ -1,5 +1,5 @@
 from django.urls import re_path
-from wagtailcache import cache_page
+from wagtailcache.cache import cache_page
 
 from coderedcms.views import search
 

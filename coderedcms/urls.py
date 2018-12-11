@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.core.urls import serve_pattern, WAGTAIL_FRONTEND_LOGIN_TEMPLATE
 from wagtail.core import views as wagtail_views
-from wagtailcache import cache_page
+from wagtailcache.cache import cache_page
 
 from coderedcms.settings import cr_settings
 from coderedcms.views import robots, serve_protected_file

@@ -79,8 +79,8 @@ input[type='checkbox']::before, input[type='radio']::before {
     background-color:white;
 }
 .full input:focus, .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus {
-    border-color:#54d0d0;
-    background-color:#f4fcfc;
+    border-color:#00b0b1;
+    background-color:#f2fcfc;
 }
 .button,
 .search-bar .button-filter {

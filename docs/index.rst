@@ -23,3 +23,4 @@ Index
    getting_started/index
    features/index
    contributing/index
+   releases/index

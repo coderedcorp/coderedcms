@@ -68,6 +68,14 @@ div.related {
 div.related ul {
     padding: 0;
 }
+
+div.body li.nav-item {
+    margin-left: 0.5em;
+}
+div.body li.nav-item a {
+    margin-right: 0.5em;
+}
+
 div.related a,
 div.sphinxsidebar .toctree-l1 a,
 div.sphinxsidebar .topless a,
@@ -183,11 +191,10 @@ div.sphinxsidebar li.toctree-l1,
 div.sphinxsidebar p.topless {
     margin: 1em 0;
 }
-div.sphinxsidebar li.toctree-l1.current > a {
-    font-weight: bold;
-}
+div.sphinxsidebar li.toctree-l1.current > a,
 div.sphinxsidebar a.current.reference {
-    font-weight: bold;
+    color: #fff;
+    font-weight: 600;
 }
 
 #other-versions a {
@@ -206,11 +213,11 @@ div.sphinxsidebar a.current.reference {
 div.prevnext {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    margin: 40px 0 0;
+    margin: 40px 0;
     padding: 20px 0;
 }
 div.prevnext a {
-    color:#666;
+    color:#888;
 }
 div.prevnext .item.right {
     float: right;

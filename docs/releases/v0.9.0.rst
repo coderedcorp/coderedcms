@@ -1,0 +1,15 @@
+CodeRed CMS 0.9.0 release notes
+===============================
+
+New Features:
+
+* NEW Store Locator feature powered by Google Maps. See :doc:`/features/store_locator`.
+* NEW import export functionality. Import or export existing pages as JSON. Import new pages from CSV files. See :doc:`/features/import_export`.
+* Replaced Google Analytics with Google Tag Manager.
+* Added additional blocks to WebPage HTML template to ease template extending.
+
+Maintenance:
+
+* Updated Bootstrap to 4.1.3.
+* Added additional trove classifiers.
+* Updated readme and documentation.

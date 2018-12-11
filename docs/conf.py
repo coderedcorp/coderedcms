@@ -16,6 +16,8 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+from coderedcms import __shortversion__
+
 
 # -- Project information -----------------------------------------------------
 
@@ -24,9 +26,9 @@ copyright = '2018, CodeRed LLC'
 author = 'CodeRed LLC'
 
 # The short X.Y version
-version = '0.9'
+version = __shortversion__
 # The full version, including alpha/beta/rc tags
-release = version
+release = __shortversion__
 
 
 # -- General configuration ---------------------------------------------------
@@ -87,8 +89,8 @@ html_theme_options = {
     'footerbgcolor': 'inherit',
     'footertextcolor': '#888',
     'sidebarbgcolor': '#001834',
-    'sidebartextcolor': '#fff',
-    'sidebarlinkcolor': '#fff',
+    'sidebartextcolor': 'rgba(255,255,255,0.7)',
+    'sidebarlinkcolor': 'rgba(255,255,255,0.7)',
     'relbarbgcolor': 'inherit',
     'relbartextcolor': '#888',
     'relbarlinkcolor': '#888',

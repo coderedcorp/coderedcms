@@ -39,8 +39,31 @@ Following submission of your pull request, a CodeRed member will review and test
 Building pip packages
 ---------------------
 
-To build a publicly consumable pip package, run::
+To build a publicly consumable pip package and upload to pypi, run::
 
     python setup.py sdist bdist_wheel
+    twine upload dist/*
 
-which will build a source distribution and a wheel in the ``dist/`` directory.
+Building & publishing documentation
+-----------------------------------
+
+For every code or feature change, be sure to update the docs in the repository. To build and publish
+the documentation run::
+
+    cd docs/
+    make clean
+    make html
+
+Output will be in ``docs/_build/html/`` directory. To publish:
+
+* If updating docs for an existing minor version release:
+    #. Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under the existing version directory.
+
+* If this is a new major or minor version release:
+    #. Create a new major.minor directory on the CodeRed docs server.
+    #. Update the ``.htaccess`` file to point to the new version directory.
+    #. Add the new version to the ``versions.txt`` file on the docs server.
+    #. Copy the contents of ``docs/_build/html`` to the CodeRed docs server under the new version directory.
+
+Note that we do not release separate documentation for maintenance releases. Just update the existing minor
+version docs if there are any maintenance release doc changes.

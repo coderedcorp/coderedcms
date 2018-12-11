@@ -7,9 +7,6 @@ from coderedcms.models import (
     CoderedArticlePage,
     CoderedArticleIndexPage,
     CoderedEmail,
-    CoderedEventOccurrence,
-    CoderedEventPage,
-    CoderedEventIndexPage,
     CoderedFormPage,
     CoderedWebPage
 )

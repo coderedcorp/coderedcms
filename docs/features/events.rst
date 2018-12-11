@@ -12,6 +12,7 @@ add the following to your ``website/models.py``::
     from coderedcms.models import (
         CoderedEventPage,
         CoderedEventIndexPage,
+        CoderedEventOccurrence
     )
 
     class EventPage(CoderedEventPage):

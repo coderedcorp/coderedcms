@@ -64,23 +64,6 @@ CODERED_PAGE_MODELS = []
 def get_page_models():
     return CODERED_PAGE_MODELS
 
-def get_event_tags():
-    """
-    Returns a tuple of (tag.id, tag.name) for all unique tags attached to subclasses of CoderedEventPage.
-    """
-    subclasses = CoderedEventPage.__subclasses__()
-    tags = set()
-
-    event_page_models = [
-        model for model in get_page_models()
-        if model in subclasses
-    ]
-
-    for model in event_page_models:
-        for tag in model.tags.all():
-            tags.add((tag.id, tag.name))
-    return tags
-
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)

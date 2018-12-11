@@ -29,52 +29,48 @@
     {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
 {% endif %}
 
-{% block content %}
-    <article class="codered-article {%if self.cover_image %}has-img{% endif %}">
-        {% if self.cover_image %}
-        {% image self.cover_image fill-2000x1000 as cover_image %}
-        <img src="{{cover_image.url}}" class="w-100" />
-        {% endif %}
+{% block post_content_body %}
+    {% block map %}
         <div class="container">
-            <div class="article-header">
-                <h1 {% if not self.cover_image %}class="mt-5"{% endif %}>{{ self.title }}</h1>
-                {% if self.caption %}
-                <p class="lead">{{self.caption}}</p>
-                {% endif %}
-                <p>
-                    {% if self.address %}
-                    {{ self.address }}
-                    {% endif %}
-                </p>
-                <hr>
-            </div>
-            <div class="article-body">
-                {% include_block self.body with settings=settings %}
+            {% include 'coderedcms/includes/iframe_gmap.html' with address=page.address %}
+        </div>
+    {% endblock %}
 
-                {% block upcoming_dates %}
-                <h3 style="display:inline-block;">Upcoming Dates</h3>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Starting Time</th>
-                            <th>Ending Time</th>
-                            <th>Actions</th>
-                        </tr>
-                        {% for date in self.upcoming_occurrences %}
-                        <tr>
-                            <td>{{date.0}}</td>
-                            <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
-                            <td>{% if self.show_ical %}{% include "coderedcms/includes/ical/single_ical_button.html" with event=self datetime_start=date.0|date:"c" datetime_end=date.1|date:"c" %}{% endif %}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+    {% block upcoming_dates %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 style="display:inline-block;">Upcoming Dates</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Starting Time</th>
+                                <th>Ending Time</th>
+                                <th>Actions</th>
+                            </tr>
+                            {% for date in self.upcoming_occurrences %}
+                            <tr>
+                                <td>{{date.0}}</td>
+                                <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
+                                <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self datetime_start=date.0|date:"c" datetime_end=date.1|date:"c" %}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 </div>
-                    {% if self.show_ical %}
-                        {% include "coderedcms/includes/ical/recurring_ical_button.html" with event=self %}
-                    {% endif %}
-                {% endblock %}
             </div>
-    </article>
+        </div>
+    {% endblock %}
+
+    {% block ical %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    {% include "coderedcms/includes/ical/recurring_ical_button.html" with event=self %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
 {% endblock %}
 
 {% if settings.coderedcms.SeoSettings.struct_meta %}

@@ -1,7 +1,5 @@
 <form data-attribute="calendar-ical-form" class="calendar-ical-form" action="{% url 'generate_ical_for_calendar' %}" method="POST">
-        {% for category in self.categories %}
-            <input name="category_pks" type="number" hidden value="{{category}}" />
-        {% endfor %}
+        <input name="page_id" type="number" hidden value="{{ page.id }}" />
         {% csrf_token %}
     <button class="btn btn-primary" type="submit">Download Calendar</button>
 </form>

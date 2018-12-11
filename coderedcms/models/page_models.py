@@ -25,6 +25,8 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
+from modelcluster.fields import ParentalKey
+from modelcluster.tags import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
@@ -101,6 +103,10 @@ class CoderedPageMeta(PageBase):
         if not cls._meta.abstract:
             CODERED_PAGE_MODELS.append(cls)
 
+class CoderedTag(TaggedItemBase):
+    class Meta:
+        verbose_name = _('CodeRed Tag')
+    content_object = ParentalKey('coderedcms.CoderedPage', related_name='tagged_items')
 
 class CoderedPage(Page, metaclass=CoderedPageMeta):
     """
@@ -154,7 +160,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         ('title', _('Title, alphabetical')),
         ('-title', _('Title, reverse alphabetical')),
     )
-
     index_show_subpages = models.BooleanField(
         default=index_show_subpages_default,
         verbose_name=_('Show list of child pages')
@@ -170,6 +175,12 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         verbose_name=_('Number per page'),
     )
 
+    tags = ClusterTaggableManager(
+        through=CoderedTag,
+        verbose_name='Tags',
+        blank=True,
+        help_text='Used to categorize your pages.'
+    )
 
     ###############
     # Layout fields
@@ -365,6 +376,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     ]
 
     promote_panels = [
+        FieldPanel('tags'),
         MultiFieldPanel(
             [
                 FieldPanel('slug'),
@@ -565,8 +577,7 @@ class CoderedWebPage(CoderedPage):
         # strip tags
         body = strip_tags(body)
         # truncate and add ellipses
-        return body[:200] + "..."
-
+        return body[:200] + "..." if body else ""
 
     @property
     def page_ptr(self):
@@ -724,32 +735,11 @@ class CoderedArticleIndexPage(CoderedWebPage):
     )
 
 
-class CoderedEventTag(TaggedItemBase):
-    class Meta:
-        verbose_name = _('CodeRed Event Tag')
-        abstract = True
-
-
 class CoderedEventPage(CoderedWebPage, BaseEvent):
     class Meta:
         verbose_name = _('CodeRed Event')
         abstract = True
 
-    body = StreamField(
-        CONTENT_STREAMBLOCKS,
-        null=True,
-        blank=True
-    )
-    location = models.CharField(
-        blank=True,
-        max_length=255,
-        help_text=_('The name of the location of the event.')
-    )
-    caption = models.CharField(
-        max_length=255,
-        blank=True,
-        verbose_name=_('Caption'),
-    )
     calendar_color = ColorField(
         blank=True,
         help_text=_('The color that the event will use when displayed on a calendar.'),
@@ -763,48 +753,17 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('tags'),
-                    FieldPanel('caption'),
                     FieldPanel('calendar_color'),
-                    FieldPanel('show_ical'),
                 ],
                 heading=_('Event information')
             ),
-            MultiFieldPanel(
-                [
-                    FieldPanel('location'),
-                    FieldPanel('address_street'),
-                    FieldPanel('address_locality'),
-                    FieldPanel('address_region'),
-                    FieldPanel('address_postal'),
-                    FieldPanel('address_country'),
-                ],
-                heading=_('Event Address')
-            ),
+            FieldPanel('address'),
             InlinePanel(
                 'occurrences',
                 heading="Occurrences",
             ),
         ]
     )
-
-    @property
-    def address(self):
-        address_string = ''
-        if self.location:
-            address_string += '{0}<br />'.format(self.location)
-        if self.address_street:
-            address_string += '{0}<br />'.format(self.address_street)
-        if self.address_locality:
-            address_string += '{0}'.format(self.address_locality)
-            if self.address_region:
-                address_string += ', {0}'.format(self.address_region)
-            if self.address_postal:
-                address_string += ' {0}'.format(self.address_postal)
-            address_string += '<br />'
-        if self.address_country:
-            address_string += '{0}<br />'.format(self.address_country)
-        return mark_safe(address_string)
 
     @property
     def upcoming_occurrences(self):
@@ -846,8 +805,6 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     def convert_to_ical_format(self, dt_start=None, dt_end=None, occurrence=None):
         ical_event = ICalEvent()
         ical_event.add('summary', self.title)
-        ical_event.add('description', self.description)
-
         if dt_start:
             ical_event.add('dtstart', dt_start)
 
@@ -880,39 +837,18 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             events.append(self.convert_to_ical_format(occurrence=occurrence))
         return events
 
-    @classmethod
-    def get_calendar_events(cls, tags, start, end):
-        events = set()
-        event_pages = cls.__subclasses__()
+class DefaultCalendarViewChoices():
+    MONTH = 'month'
+    AGENDA_WEEK = 'agendaWeek'
+    AGENDA_DAY = 'agendaDay'
+    LIST_MONTH = 'listMonth'
 
-        if tags:
-            for event_page in event_pages:
-                for event in event_page.objects.filter(event_tags__tag__pk__in=tags):
-                    events.add(event)
-        else:
-            for event_page in event_pages:
-                for event in event_page.objects.all():
-                    events.add(event)
-
-        event_instances = []
-        for event in events:
-            occurrences = event.query_occurrences(limit=None, from_date=start, to_date=end)
-            for occurrence in occurrences:
-                event_data = {
-                    'title': event.title,
-                    'start': occurrence[0].strftime('%Y-%m-%dT%H:%M:%S'),
-                    'end' : occurrence[1].strftime('%Y-%m-%dT%H:%M:%S') if occurrence[1] else "",
-                    'description': "",
-                }
-                if event.url:
-                    event_data['url'] = event.url
-                if event.calendar_color:
-                    event_data['backgroundColor'] = event.calendar_color
-                if event.description:
-                    event_data['description'] = event.description
-                event_instances.append(event_data)
-        return event_instances
-
+    CHOICES = (
+            (MONTH, 'Monthly Calendar'),
+            (AGENDA_WEEK, 'Weekly Calendar'),
+            (AGENDA_DAY, 'Daily Calendar'),
+            (LIST_MONTH, 'Monthly List'),
+        )
 
 class CoderedEventIndexPage(CoderedWebPage):
     """
@@ -928,29 +864,18 @@ class CoderedEventIndexPage(CoderedWebPage):
 
     NEXT_OCCURRENCE_ATTR = 'next_occurrence'
 
-    show_images = models.BooleanField(
-        default=True,
-        verbose_name=_('Show images'),
+    default_calendar_view = models.CharField(
+        blank=True,
+        choices=DefaultCalendarViewChoices.CHOICES,
+        max_length=255,
+        verbose_name=_('Default Calendar View'),
+        help_text=_('The default look of the calendar on this page.')
     )
-    show_meta = models.BooleanField(
-        default=True,
-        verbose_name=_('Show author and date info'),
-    )
-    show_preview_text = models.BooleanField(
-        default=True,
-        verbose_name=_('Show preview text'),
-    )
+
     layout_panels = (
         CoderedWebPage.layout_panels +
         [
-            MultiFieldPanel(
-                [
-                    FieldPanel('show_images'),
-                    FieldPanel('show_meta'),
-                    FieldPanel('show_preview_text'),
-                ],
-                heading=_('Index subpages display')
-            )
+            FieldPanel('default_calendar_view'),
         ]
     )
 
@@ -962,6 +887,29 @@ class CoderedEventIndexPage(CoderedWebPage):
             return qs
 
         return super().get_index_children()
+
+    def get_calendar_events(self, start, end):
+        events = set()
+
+        for event_page in self.get_index_children():
+            events.add(event_page)
+
+        event_instances = []
+        for event in events:
+            occurrences = event.query_occurrences(limit=None, from_date=start, to_date=end)
+            for occurrence in occurrences:
+                event_data = {
+                    'title': event.title,
+                    'start': occurrence[0].strftime('%Y-%m-%dT%H:%M:%S'),
+                    'end' : occurrence[1].strftime('%Y-%m-%dT%H:%M:%S') if occurrence[1] else "",
+                    'description': "",
+                }
+                if event.url:
+                    event_data['url'] = event.url
+                if event.calendar_color:
+                    event_data['backgroundColor'] = event.calendar_color
+                event_instances.append(event_data)
+        return event_instances
 
 
 class CoderedEventOccurrence(Orderable, BaseOccurrence):

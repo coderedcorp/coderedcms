@@ -114,7 +114,3 @@ def fix_ical_datetime_format(dt_str):
         dt_str = dt_str[:-3] + dt_str[-2:]
         return dt_str
     return dt_str
-
-def get_calendar_events(tags, start, end):
-    from coderedcms.models import CoderedEventPage
-    return CoderedEventPage.get_calendar_events(tags, start, end)

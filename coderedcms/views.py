@@ -179,18 +179,14 @@ def generate_recurring_ical_for_event(request):
 
 def generate_ical_for_calendar(request):
     if request.method == "POST":
-        tag_pks = request.POST.getlist('tag_pks')
-        event_page_models = CoderedEventPage.__subclasses__()
-        event_pages = []
-        if tag_pks:
-            for event_page_model in event_page_models:
-                event_pages += list(event_page_model.objects.filter(tags__pk__in=tag_pks).distinct())
-        else:
-            for event_page_model in event_page_models:
-                event_pages += list(event_page_model.objects.all())
-        
+        try:
+            page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific
+            print(page)
+        except ValueError:
+            raise Http404
+
         ical = Calendar()
-        for event_page in event_pages:
+        for event_page in page.get_index_children():
             for e in event_page.specific.create_recurring_ical():
                 ical.add_component(e)
         response = HttpResponse(ical.to_ical(), content_type="text/calendar")
@@ -202,14 +198,14 @@ def generate_ical_for_calendar(request):
 def get_calendar_events(request):
     if request.is_ajax():
         try:
-            tags = ast.literal_eval(request.POST.get('tags'))
+            page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific
         except ValueError:
-            tags = None
+            raise Http404
         start_str = request.POST.get('start')
         start = datetime.strptime(start_str[:10], "%Y-%m-%d") if start_str else None
         end_str = request.POST.get('end')
         end = datetime.strptime(end_str[:10], "%Y-%m-%d") if end_str else None
-        return JsonResponse(CoderedEventPage.get_calendar_events(tags=tags, start=start, end=end), safe=False)
+        return JsonResponse(page.get_calendar_events(start=start, end=end), safe=False)
     raise Http404()
 
 

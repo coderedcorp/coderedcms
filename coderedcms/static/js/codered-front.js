@@ -148,11 +148,11 @@ $(document).ready(function()
             load_script(libs.jquery_qtip, function(){
                 load_script(libs.moment, function(){
                     load_script(libs.fullcalendar, function(){
-                        var tags = "";
+                        var pageId = "";
                         var defaultDate = "";
                         var defaultView = "";
                         $('[data-block="calendar"]').each(function(index, obj){
-                            tags = $(obj).data('tags');
+                            pageId = $(obj).data('page-id');
                             defaultDate = $(obj).data('default-date');
                             defaultView = $(obj).data('default-view');
                             $(obj).fullCalendar({
@@ -168,7 +168,7 @@ $(document).ready(function()
                                     url: '/ajax/calendar/events/',
                                     type: 'POST',
                                     data: {
-                                        'tags': tags
+                                        'page_id': pageId
                                     }
                                 }
                             });

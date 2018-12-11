@@ -2,7 +2,6 @@
 Createable pages used in CodeRed CMS.
 """
 from modelcluster.fields import ParentalKey
-from modelcluster.tags import ClusterTaggableManager
 from coderedcms.forms import CoderedFormField
 from coderedcms.models import (
     CoderedArticlePage,
@@ -11,7 +10,6 @@ from coderedcms.models import (
     CoderedEventOccurrence,
     CoderedEventPage,
     CoderedEventIndexPage,
-    CoderedEventTag,
     CoderedFormPage,
     CoderedWebPage
 )
@@ -84,11 +82,6 @@ class WebPage(CoderedWebPage):
 
     template = 'coderedcms/pages/web_page.html'
 
-
-class EventTag(CoderedEventTag):
-    content_object = ParentalKey('website.EventPage', related_name='event_tags')
-
-
 class EventPage(CoderedEventPage):
     class Meta:
         verbose_name = 'Event Page'
@@ -96,14 +89,6 @@ class EventPage(CoderedEventPage):
     parent_page_types = ['website.EventIndexPage']
     subpage_types = []
     template = 'coderedcms/pages/event_page.html'
-
-    tags = ClusterTaggableManager(
-        through=EventTag,
-        verbose_name='Tags',
-        blank=True,
-        help_text='These are ways to categorize your events.'
-    )
-
 
 class EventIndexPage(CoderedEventIndexPage):
     """

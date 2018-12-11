@@ -1,4 +1,3 @@
-import ast
 import mimetypes
 import os
 
@@ -9,14 +8,11 @@ from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
-from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import ungettext, ugettext_lazy as _
 from icalendar import Calendar
-from taggit.models import Tag
 
 from wagtail.admin import messages
-from wagtail.contrib.forms.views import SubmissionsListView as BaseSubmissionsListView
 from wagtail.core.models import Page
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
@@ -25,7 +21,6 @@ from coderedcms import utils
 from coderedcms.forms import SearchForm
 from coderedcms.models import CoderedPage, CoderedEventPage, get_page_models, GeneralSettings
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
-from coderedcms.models import CoderedPage, get_page_models, GeneralSettings
 from coderedcms.settings import cr_settings
 
 
@@ -148,7 +143,7 @@ def generate_single_ical_for_event(request):
             try:
                 event = event_page_model.objects.get(pk=event_pk)
                 break
-            except ObjectDoesNotExist:
+            except event_page_model.DoesNotExist:
                 pass
         ical = Calendar()
         ical.add_component(event.create_single_ical(dt_start=dt_start, dt_end=dt_end))
@@ -166,7 +161,7 @@ def generate_recurring_ical_for_event(request):
             try:
                 event = event_page_model.objects.get(pk=event_pk)
                 break
-            except ObjectDoesNotExist:
+            except event_page_modal.DoesNotExist:
                 pass
         ical = Calendar()
         for e in event.create_recurring_ical():

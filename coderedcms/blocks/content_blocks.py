@@ -324,17 +324,3 @@ class ReusableContentBlock(BaseBlock):
         icon = 'fa-recycle'
         label = _('Reusable Content')
         template = 'coderedcms/blocks/reusable_content_block.html'
-
-
-class CalendarDefaultViewChoices():
-    MONTH = 'month'
-    AGENDA_WEEK = 'agendaWeek'
-    AGENDA_DAY = 'agendaDay'
-    LIST_MONTH = 'listMonth'
-
-    CHOICES = (
-            (MONTH, 'Monthly Calendar'),
-            (AGENDA_WEEK, 'Weekly Calendar'),
-            (AGENDA_DAY, 'Daily Calendar'),
-            (LIST_MONTH, 'Monthly List'),
-        )

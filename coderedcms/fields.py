@@ -1,5 +1,6 @@
-from coderedcms.widgets import ColorPickerWidget
 from django.db import models
+
+from coderedcms.widgets import ColorPickerWidget
 
 class ColorField(models.CharField):    
     def __init__(self, *args, **kwargs):

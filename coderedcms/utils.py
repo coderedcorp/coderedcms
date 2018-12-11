@@ -1,5 +1,5 @@
-from datetime import datetime
-from django import template
+from functools import wraps
+
 from django.core.cache import caches
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
@@ -7,13 +7,9 @@ from django.middleware.cache import CacheMiddleware
 from django.utils.html import mark_safe
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from functools import wraps
 from wagtail.core import hooks
-from wagtail.core.utils import resolve_model_string
 
 from coderedcms.settings import cr_settings
-
-import json
 
 def get_protected_media_link(request, path, render_link=False):
     if render_link:

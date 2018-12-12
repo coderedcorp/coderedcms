@@ -30,13 +30,7 @@
         {% include_block page.body with settings=settings %}
     </div>
     {% block map %}
-    <div class="row mb-5">
-        {% if page.address %}
-        <div class="embed-responsive embed-responsive-16by9 mb-5">
-            <iframe class="embed-responsive-item" width="100%" style="border:0" src="https://maps.google.com/maps?q={{ page.address }}&output=embed" allowfullscreen></iframe>
-        </div>
-    {% endif %}
-    </div>
+        {% include 'coderedcms/includes/iframe_gmap.html' with address=page.address %}
     {% endblock %}
 </div>
 {% endblock %}

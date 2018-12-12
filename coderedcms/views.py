@@ -17,7 +17,6 @@ from wagtail.core.models import Page
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
 
-from coderedcms import utils
 from coderedcms.forms import SearchForm
 from coderedcms.models import CoderedPage, CoderedEventPage, get_page_models, GeneralSettings
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
@@ -116,11 +115,6 @@ def serve_protected_file(request, path):
         return response
     raise Http404()
 
-@login_required
-def clear_cache(request):
-    utils.clear_cache()
-    return HttpResponse("Cache has been cleared.")
-
 def robots(request):
     robots = GeneralSettings.for_site(request.site).robots
     return render(
@@ -202,7 +196,6 @@ def event_get_calendar_events(request):
         end = datetime.strptime(end_str[:10], "%Y-%m-%d") if end_str else None
         return JsonResponse(page.get_calendar_events(start=start, end=end), safe=False)
     raise Http404()
-
 
 @login_required
 def import_pages_from_csv_file(request):

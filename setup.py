@@ -48,11 +48,14 @@ setup(
         'pygments>=2.2.0,<3.0',
         'wagtail==2.3.*',
         'wagtailfontawesome>=1.1.3,<2.0',
+        'wagtail-cache==0.2.*',
         'wagtail-import-export>=0.1,<0.2'
     ],
     extras_require={
         'dev': [
+            'pylint-django',
             'sphinx',
+            'twine',
         ]
     },
     entry_points="""

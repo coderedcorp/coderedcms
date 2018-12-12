@@ -3,7 +3,6 @@ import random
 from datetime import datetime
 from django import template
 from django.conf import settings
-from django.core.cache import caches
 from django.forms import ClearableFileInput
 from django.utils import timezone
 from django.utils.html import mark_safe
@@ -100,13 +99,6 @@ def bootstrap_settings(value):
 @register.filter
 def django_settings(value):
     return getattr(settings, value)
-
-@register.simple_tag
-def cache_timeout():
-    timeout = caches[cr_settings['CACHE_BACKEND']].default_timeout
-    if isinstance(timeout, int):
-        return utils.seconds_to_readable(timeout)
-    return str(timeout)
 
 @register.simple_tag
 def query_update(querydict, key=None, value=None):

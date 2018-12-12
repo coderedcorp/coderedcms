@@ -845,13 +845,11 @@ class CoderedEventIndexPage(CoderedWebPage):
 
     template = 'coderedcms/pages/event_index_page.html'
 
-    NEXT_OCCURRENCE_ATTR = 'next_occurrence'
-
     index_show_subpages_default = True
 
-    index_order_by_default = NEXT_OCCURRENCE_ATTR
+    index_order_by_default = 'next_occurrence'
     index_order_by_choices = (
-            (NEXT_OCCURRENCE_ATTR, 'Display next occurrence, soonest first'),
+            ('next_occurrence', 'Display next occurrence, soonest first'),
         ) + \
         CoderedWebPage.index_order_by_choices
 
@@ -871,7 +869,7 @@ class CoderedEventIndexPage(CoderedWebPage):
     )
 
     def get_index_children(self):
-        if self.index_query_pagemodel and self.index_order_by == self.NEXT_OCCURRENCE_ATTR:
+        if self.index_query_pagemodel and self.index_order_by == 'next_occurrence':
             querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
             qs = querymodel.objects.child_of(self).live()
             qs = sorted(qs.all(), key=lambda e: e.next_occurrence())

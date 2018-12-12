@@ -30,12 +30,12 @@ urlpatterns = [
     path('_util/login/', LoginView.as_view(template_name=WAGTAIL_FRONTEND_LOGIN_TEMPLATE), name='wagtailcore_login'),
 
     #ICAL URLS
-    url(r'^ical/generate/single/$', generate_single_ical_for_event, name='generate_single_ical'),
-    url(r'^ical/generate/recurring/$', generate_recurring_ical_for_event, name='generate_recurring_ical'),
-    url(r'^ical/generate/calendar/$', generate_ical_for_calendar, name='generate_ical_for_calendar'),
+    path('ical/generate/single/', generate_single_ical_for_event, name='generate_single_ical'),
+    path('ical/generate/recurring/', generate_recurring_ical_for_event, name='generate_recurring_ical'),
+    path('ical/generate/calendar/', generate_ical_for_calendar, name='generate_ical_for_calendar'),
 
     #Calendar URLS
-    url(r'^ajax/calendar/events/$', get_calendar_events, name='get_calendar_events'),
+    path('ajax/calendar/events/', get_calendar_events, name='get_calendar_events'),
 
     # Wrap the serve function with coderedcms cache
     re_path(serve_pattern, cache_page(wagtail_views.serve), name='wagtail_serve'),

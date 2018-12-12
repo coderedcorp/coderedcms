@@ -29,7 +29,7 @@
     {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
 {% endif %}
 
-{% block post_content_body %}
+{% block content_post_body %}
     {% block map %}
         <div class="container">
             {% include 'coderedcms/includes/iframe_gmap.html' with address=page.address %}

@@ -7,9 +7,6 @@ PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.p
 BASE_DIR = settings.BASE_DIR if getattr(settings, 'BASE_DIR') else os.path.dirname(PROJECT_DIR)
 
 DEFAULTS = {
-    'CACHE_PAGES': True,
-    'CACHE_BACKEND': 'default',
-
     'PROTECTED_MEDIA_URL': '/protected/',
     'PROTECTED_MEDIA_ROOT': os.path.join(BASE_DIR, 'protected'),
     'PROTECTED_MEDIA_UPLOAD_WHITELIST': [],

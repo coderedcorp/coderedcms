@@ -10,7 +10,7 @@ ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-CODERED_CACHE_PAGES = False
+WAGTAIL_CACHE = False
 
 try:
     from .local import *

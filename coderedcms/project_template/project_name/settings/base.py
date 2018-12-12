@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'wagtailfontawesome',
+    'wagtailcache',
+    'wagtailimportexport',
 
     # Wagtail
     'wagtail.contrib.forms',
@@ -49,7 +51,6 @@ INSTALLED_APPS = [
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
     'wagtail.admin',
-    'wagtailimportexport',
 
     # Django
     'django.contrib.admin',

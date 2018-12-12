@@ -14,7 +14,6 @@ from wagtail.admin import messages
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
 
-from coderedcms import utils
 from coderedcms.forms import SearchForm
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from coderedcms.models import CoderedPage, get_page_models, GeneralSettings
@@ -113,12 +112,6 @@ def serve_protected_file(request, path):
     raise Http404()
 
 
-@login_required
-def clear_cache(request):
-    utils.clear_cache()
-    return HttpResponse("Cache has been cleared.")
-
-
 def robots(request):
     robots = GeneralSettings.for_site(request.site).robots
     return render(
@@ -127,6 +120,7 @@ def robots(request):
         {'robots': robots},
         content_type='text/plain'
     )
+
 
 @login_required
 def import_pages_from_csv_file(request):

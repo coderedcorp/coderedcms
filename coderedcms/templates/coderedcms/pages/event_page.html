@@ -3,14 +3,10 @@
 {% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags coderedcms_tags %}
 
 {% block description %}{{self.get_description}}{% endblock %}
-{% block html_seo_extra %}
-<meta name="created" content="{{self.get_pub_date|date:'c'}}" />
-<meta name="revised" content="{{self.last_published_at|date:'c'}}" />
-{% endblock %}
+
 
 {% if settings.coderedcms.SeoSettings.og_meta %}
     {% block og_description %}{{self.get_description}}{% endblock %}
-    {% block og_type %}article{% endblock %}
     {% block og_image %}
         {% if self.cover_image %}
             {% image self.cover_image fill-2000x1000 as cover_image %}
@@ -18,10 +14,6 @@
         {% else %}
             {{block.super}}
         {% endif %}
-    {% endblock %}
-    {% block og_seo_extra %}
-        <meta property="og:article:published_time" content="{{self.get_pub_date}}" />
-        <meta property="og:article:modified_time" content="{{self.last_published_at}}" />
     {% endblock %}
 {% endif %}
 

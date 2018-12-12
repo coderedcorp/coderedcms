@@ -29,29 +29,31 @@
     {% endblock %}
 
     {% block upcoming_dates %}
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h3 style="display:inline-block;">Upcoming Dates</h3>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <tr>
-                                <th>Starting Time</th>
-                                <th>Ending Time</th>
-                                <th>Actions</th>
-                            </tr>
-                            {% for date in self.upcoming_occurrences %}
-                            <tr>
-                                <td>{{date.0}}</td>
-                                <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
-                                <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self datetime_start=date.0|date:"c" datetime_end=date.1|date:"c" %}</td>
-                            </tr>
-                            {% endfor %}
-                        </table>
+        {% if self.upcoming_occurrences %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3 style="display:inline-block;">Upcoming Dates</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Starting Time</th>
+                                    <th>Ending Time</th>
+                                    <th>Actions</th>
+                                </tr>
+                                {% for date in self.upcoming_occurrences %}
+                                <tr>
+                                    <td>{{date.0}}</td>
+                                    <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
+                                    <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self datetime_start=date.0|date:"c" datetime_end=date.1|date:"c" %}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% endblock %}
 
     {% block ical %}

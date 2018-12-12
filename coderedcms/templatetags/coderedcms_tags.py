@@ -124,14 +124,6 @@ def query_update(querydict, key=None, value=None):
                 pass
     return get
 
-@register.simple_tag()
-def get_calendar_default_date():
-    """
-    Returns the default date that Calendar should start on.
-    Currently, it just returns today's date.
-    """
-    return timezone.now().date().strftime('%Y-%m-%d')
-
 @register.filter
 def structured_data_datetime(dt):
     """

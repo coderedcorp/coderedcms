@@ -155,12 +155,11 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         default=10,
         verbose_name=_('Number per page'),
     )
-
     tags = ClusterTaggableManager(
         through=CoderedTag,
         verbose_name='Tags',
         blank=True,
-        help_text='Used to categorize your pages.'
+        help_text=_('Used to categorize your pages.')
     )
 
     ###############
@@ -336,6 +335,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         Page.content_panels +
         [
             ImageChooserPanel('cover_image'),
+            FieldPanel('tags'),
         ]
     )
 
@@ -357,7 +357,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     ]
 
     promote_panels = [
-        FieldPanel('tags'),
         MultiFieldPanel(
             [
                 FieldPanel('slug'),
@@ -558,7 +557,8 @@ class CoderedWebPage(CoderedPage):
         # strip tags
         body = strip_tags(body)
         # truncate and add ellipses
-        return body[:200] + "..." if body else ""
+
+        return body[:200] + "..." if len(body) > 200 else body
 
     @property
     def page_ptr(self):
@@ -683,6 +683,10 @@ class CoderedArticleIndexPage(CoderedWebPage):
     template = 'coderedcms/pages/article_index_page.html'
 
     index_show_subpages_default = True
+
+    index_order_by_default = '-date_display'
+    index_order_by_choices = (('-date_display', 'Display publish date, newest first'),) + \
+        CoderedWebPage.index_order_by_choices
 
     show_images = models.BooleanField(
         default=True,
@@ -841,9 +845,15 @@ class CoderedEventIndexPage(CoderedWebPage):
 
     template = 'coderedcms/pages/event_index_page.html'
 
+    NEXT_OCCURRENCE_ATTR = 'next_occurrence'
+
     index_show_subpages_default = True
 
-    NEXT_OCCURRENCE_ATTR = 'next_occurrence'
+    index_order_by_default = NEXT_OCCURRENCE_ATTR
+    index_order_by_choices = (
+            (NEXT_OCCURRENCE_ATTR, 'Display next occurrence, soonest first'),
+        ) + \
+        CoderedWebPage.index_order_by_choices
 
     default_calendar_view = models.CharField(
         blank=True,

@@ -36,9 +36,6 @@ class ArticleIndexPage(CoderedArticleIndexPage):
 
     # Override to specify custom index ordering choice/default.
     index_query_pagemodel = 'website.ArticlePage'
-    index_order_by_default = '-date_display'
-    index_order_by_choices = (('-date_display', 'Display publish date, newest first'),) + \
-        CoderedArticleIndexPage.index_order_by_choices
 
     # Only allow ArticlePages beneath this page.
     subpage_types = ['website.ArticlePage']

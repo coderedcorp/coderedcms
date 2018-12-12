@@ -33,14 +33,10 @@
 
   "location":{
     "@type": "Place",
-    "name": "{{self.location}}",
+    "name": "{{self.title}}",
     "address":{
       "@type": "PostalAddress",
-      "streetAddress": "{{self.address_street}}",
-      "addressLocality": "{{self.address_locality}}",
-      "postalCode": "{{self.address_postal}}",
-      "addressRegion": "{{self.address_region}}",
-      "addressCountry": "{{self.address_country}}",
+      "streetAddress": "{{self.address}}",
     }
   },
   "name": "{{self.title}}",

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col pt-5 pb-5">
-                <div data-block="calendar" data-default-date='{% get_calendar_default_date %}' data-default-view='{{self.default_calendar_view}}' data-page-id="{{ page.id }}">
+                <div data-block="calendar" data-default-date='{% now "Y-m-d" %}' data-default-view='{{self.default_calendar_view}}' data-page-id="{{ page.id }}">
                     <noscript>Javascript is required to view the Calendar.</noscript>
                 </div>
             </div>

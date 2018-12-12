@@ -130,7 +130,7 @@ def robots(request):
         content_type='text/plain'
     )
 
-def generate_single_ical_for_event(request):
+def event_generate_single_ical_for_event(request):
     if request.method == "POST":
         event_pk = request.POST['event_pk']
         event_page_models = CoderedEventPage.__subclasses__()
@@ -153,7 +153,7 @@ def generate_single_ical_for_event(request):
         return response
     raise Http404()
 
-def generate_recurring_ical_for_event(request):
+def event_generate_recurring_ical_for_event(request):
     if request.method == "POST":
         event_pk = request.POST['event_pk']
         event_page_models = CoderedEventPage.__subclasses__()
@@ -172,7 +172,7 @@ def generate_recurring_ical_for_event(request):
         return response
     raise Http404()
 
-def generate_ical_for_calendar(request):
+def event_generate_ical_for_calendar(request):
     if request.method == "POST":
         try:
             page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific
@@ -190,7 +190,7 @@ def generate_ical_for_calendar(request):
         return response
     raise Http404()
 
-def get_calendar_events(request):
+def event_get_calendar_events(request):
     if request.is_ajax():
         try:
             page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific

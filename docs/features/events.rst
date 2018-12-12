@@ -1,6 +1,9 @@
 Events
 =============
 
+Event pages allow users to create a calendar or list of events.  These lists/calendars allow
+users to download ical invitations to their own calendars.
+
 There are two abstract pages when dealing with events.  The first ``CoderedEventPage`` holds 
 the information regarding the event.  Dates, location, etc all will fall under this page.  The
 ``CoderedEventIndexPage`` will aggregate its children ``CoderedEventPage`` and display them in a calendar.  
@@ -31,14 +34,7 @@ add the following to your ``website/models.py``::
         class Meta:
             verbose_name = 'Events Landing Page'
 
-        # Override to specify custom index ordering choice/default.
-        NEXT_OCCURRENCE_ATTR = 'next_occurrence'
         index_query_pagemodel = 'website.EventPage'
-        index_order_by_default = NEXT_OCCURRENCE_ATTR
-        index_order_by_choices = (
-                (NEXT_OCCURRENCE_ATTR, 'Display next occurrence, soonest first'),
-            ) + \
-            CoderedEventIndexPage.index_order_by_choices
 
         # Only allow EventPages beneath this page.
         subpage_types = ['website.EventPage']

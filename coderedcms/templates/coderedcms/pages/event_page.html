@@ -7,21 +7,26 @@
 
 {% if settings.coderedcms.SeoSettings.og_meta %}
     {% block og_description %}{{self.get_description}}{% endblock %}
-    {% block og_image %}
-        {% if self.cover_image %}
-            {% image self.cover_image fill-2000x1000 as cover_image %}
-            {{self.get_site.root_url}}{{cover_image.url}}
-        {% else %}
-            {{block.super}}
-        {% endif %}
-    {% endblock %}
 {% endif %}
 
 {% if settings.coderedcms.SeoSettings.twitter_meta %}
     {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
 {% endif %}
 
+{% block content_pre_body %}
+    {{ block.super }}
+    {% with self.most_recent_occurrence as nextup %}
+    <div class="container my-5">
+        <p class="d-md-inline-block mr-4"><b>When:</b> {{nextup.0}}</p>
+        <p class="d-md-inline-block mr-4"><b>Where:</b> {{self.address}}</p>
+        <div class="float-lg-right">{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=nextup.0 end=nextup.1 %}</div>
+        <hr>
+    </div>
+    {% endwith %}
+{% endblock %}
+
 {% block content_post_body %}
+
     {% block map %}
         <div class="container">
             {% include 'coderedcms/includes/iframe_gmap.html' with address=page.address %}
@@ -29,42 +34,32 @@
     {% endblock %}
 
     {% block upcoming_dates %}
-        {% if self.upcoming_occurrences %}
+        {% if self.upcoming_occurrences|length > 1 %}
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h3 style="display:inline-block;">Upcoming Dates</h3>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>Starting Time</th>
-                                    <th>Ending Time</th>
-                                    <th>Actions</th>
-                                </tr>
-                                {% for date in self.upcoming_occurrences %}
-                                <tr>
-                                    <td>{{date.0}}</td>
-                                    <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
-                                    <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self datetime_start=date.0|date:"c" datetime_end=date.1|date:"c" %}</td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
+                <h2>Upcoming Dates</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for date in self.upcoming_occurrences %}
+                        <tr>
+                            <td>{{date.0}}</td>
+                            <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
+                            <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=date.0 end=date.1 %}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
                 </div>
+                {% block ical %}
+                    {% include "coderedcms/includes/ical/recurring_ical_button.html" with event=self %}
+                {% endblock %}
             </div>
         {% endif %}
     {% endblock %}
 
-    {% block ical %}
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    {% include "coderedcms/includes/ical/recurring_ical_button.html" with event=self %}
-                </div>
-            </div>
-        </div>
-    {% endblock %}
 {% endblock %}
 
 {% if settings.coderedcms.SeoSettings.struct_meta %}

@@ -99,6 +99,7 @@ def search(request):
         'results_paginated': results_paginated
     })
 
+
 @login_required
 def serve_protected_file(request, path):
     """
@@ -115,6 +116,7 @@ def serve_protected_file(request, path):
         return response
     raise Http404()
 
+
 def robots(request):
     robots = GeneralSettings.for_site(request.site).robots
     return render(
@@ -123,6 +125,7 @@ def robots(request):
         {'robots': robots},
         content_type='text/plain'
     )
+
 
 def event_generate_single_ical_for_event(request):
     if request.method == "POST":
@@ -147,6 +150,7 @@ def event_generate_single_ical_for_event(request):
         return response
     raise Http404()
 
+
 def event_generate_recurring_ical_for_event(request):
     if request.method == "POST":
         event_pk = request.POST['event_pk']
@@ -166,6 +170,7 @@ def event_generate_recurring_ical_for_event(request):
         return response
     raise Http404()
 
+
 def event_generate_ical_for_calendar(request):
     if request.method == "POST":
         try:
@@ -184,6 +189,7 @@ def event_generate_ical_for_calendar(request):
         return response
     raise Http404()
 
+
 def event_get_calendar_events(request):
     if request.is_ajax():
         try:
@@ -196,6 +202,7 @@ def event_get_calendar_events(request):
         end = datetime.strptime(end_str[:10], "%Y-%m-%d") if end_str else None
         return JsonResponse(page.get_calendar_events(start=start, end=end), safe=False)
     raise Http404()
+
 
 @login_required
 def import_pages_from_csv_file(request):

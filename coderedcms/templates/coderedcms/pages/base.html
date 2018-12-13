@@ -42,6 +42,9 @@
                 {% if self.og_image %}
                     {% image self.og_image original as og_logo %}
                     {{og_logo.url}}
+                {% elif self.cover_image %}
+                    {% image self.cover_image original as og_logo %}
+                    {{og_logo.url}}
                 {% elif settings.coderedcms.LayoutSettings.logo %}
                     {% image settings.coderedcms.LayoutSettings.logo original as og_logo %}
                     {{og_logo.url}}

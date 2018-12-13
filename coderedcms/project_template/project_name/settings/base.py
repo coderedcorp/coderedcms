@@ -188,3 +188,8 @@ BOOTSTRAP4 = {
     # remove green highlight on inputs
     'success_css_class': ''
 }
+
+
+# Tags
+
+TAGGIT_CASE_INSENSITIVE = True

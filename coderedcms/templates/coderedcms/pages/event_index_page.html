@@ -1,0 +1,50 @@
+{% extends "coderedcms/pages/web_page.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block content_post_body %}
+{% if self.default_calendar_view %}
+    <div class="container">
+        <div class="row">
+            <div class="col pt-5 pb-5">
+                <div data-block="calendar" data-default-date='{% now "Y-m-d" %}' data-default-view='{{self.default_calendar_view}}' data-page-id="{{ page.id }}">
+                    <noscript>Javascript is required to view the Calendar.</noscript>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col pb-5">
+                {% include 'coderedcms/includes/ical/calendar_ical_button.html' %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block index_content %}
+    <div class="container">
+        {% for event in index_paginated %}
+            <div class="row">
+                {% block event_cover_image %}
+                    {% if event.cover_image %}
+                    <div class="col-md">
+                        {% image event.cover_image fill-1000x500 as cover_image %}
+                        <a href="{{ event.url }}" title="{{ event.title }}"><img src="{{ cover_image.url }}" class="w-100" alt="{{ event.title }}" /></a>
+                    </div>
+                    {% endif %}
+                {% endblock %}
+                {% block event_body_preview %}
+                    <div class="col-md">
+                        <h3><a href="{{ event.url }}">{{ event.title }}</a></h3>
+                        <p>{{ event.most_recent_occurrence.0 }}</p>
+                        <p>{{ event.body_preview }}</p>
+                    </div>
+                {% endblock %}
+            </div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+        {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
+    </div>
+{% endblock %}

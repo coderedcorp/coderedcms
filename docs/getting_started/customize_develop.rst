@@ -17,10 +17,11 @@ Building on the concept of wagtail hooks, there are some additional hooks in Cod
 is_request_cacheable
 ^^^^^^^^^^^^^^^^^^^^
 
+This hook is provided by `wagtail-cache <https://github.com/coderedcorp/wagtail-cache>`_.
 The callable passed into this hook should take a ``request`` argument, and return a ``bool``
-indicating whether or not the response to this request should be cached (served from the
-cache if it is already cached). Not returning, or returning anything other than a bool will
-not affect the caching decision. For example::
+indicating whether or not the response to this request should be cached (served from the cache
+if it is already cached). Not returning, or returning anything other than a bool will not
+affect the caching decision. For example::
 
     from wagtail.core import hooks
 

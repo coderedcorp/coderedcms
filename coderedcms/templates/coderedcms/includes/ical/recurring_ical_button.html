@@ -1,0 +1,5 @@
+<form data-attribute="recurring-ical-form-{{event.pk}}" class="recurring-ical-form" action="{% url 'event_generate_recurring_ical' %}" method="POST">
+    {% csrf_token %}
+    <input name="event_pk" type="number" hidden value="{{event.pk}}" />
+    <button class="btn btn-primary" title="Download events in .ical format" type="submit">{% block button_text %}Add All Events To Calendar{% endblock %}</button>
+</form>

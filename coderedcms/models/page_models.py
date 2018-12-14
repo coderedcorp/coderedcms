@@ -335,9 +335,14 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         Page.content_panels +
         [
             ImageChooserPanel('cover_image'),
-            FieldPanel('tags'),
         ]
     )
+
+    body_content_panels = []
+
+    bottom_content_panels = [
+        FieldPanel('tags'),
+    ]
 
     layout_panels = [
         MultiFieldPanel(
@@ -427,7 +432,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         Override to "lazy load" the panels overriden by subclasses.
         """
         return TabbedInterface([
-            ObjectList(cls.content_panels, heading='Content'),
+            ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading='Content'),
             ObjectList(cls.layout_panels, heading='Layout'),
             ObjectList(cls.promote_panels, heading='SEO', classname="seo"),
             ObjectList(cls.settings_panels, heading='Settings', classname="settings"),
@@ -514,6 +519,9 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         context['content_walls'] = self.get_content_walls(check_child_setting=False)
         return context
 
+
+
+
 ###############################################################################
 # Abstract pages providing pre-built common website functionality, suitable for subclassing.
 # These are abstract so subclasses can override fields if desired.
@@ -542,10 +550,9 @@ class CoderedWebPage(CoderedPage):
     )
 
     # Panels
-    content_panels = (
-        CoderedPage.content_panels +
-        [StreamFieldPanel('body'),]
-    )
+    body_content_panels = [
+        StreamFieldPanel('body'),
+    ]
 
     @property
     def body_preview(self):
@@ -569,7 +576,7 @@ class CoderedWebPage(CoderedPage):
 
     @page_ptr.setter
     def page_ptr(self, value):
-        self.base_page_ptr = value    
+        self.base_page_ptr = value
 
 
 class CoderedArticlePage(CoderedWebPage):
@@ -654,12 +661,7 @@ class CoderedArticlePage(CoderedWebPage):
     content_panels = (
         CoderedWebPage.content_panels +
         [
-            MultiFieldPanel(
-                [
-                    FieldPanel('caption'),
-                ],
-                _('Additional Content')
-            ),
+            FieldPanel('caption'),
             MultiFieldPanel(
                 [
                     FieldPanel('author'),
@@ -739,13 +741,14 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             MultiFieldPanel(
                 [
                     FieldPanel('calendar_color'),
+                    FieldPanel('address'),
                 ],
                 heading=_('Event information')
             ),
-            FieldPanel('address'),
             InlinePanel(
                 'occurrences',
-                heading="Occurrences",
+                min_num=1,
+                heading=_("Dates and times"),
             ),
         ]
     )
@@ -754,10 +757,25 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     def upcoming_occurrences(self):
         """
         Returns the next x occurrences for this event.
-
         By default, it returns 10.
         """
         return self.query_occurrences(num_of_instances_to_return=10)
+
+    @property
+    def most_recent_occurrence(self):
+        """
+        Gets the next upcoming, or last occurrence if the event has no more occurrences.
+        """
+        noc = self.next_occurrence()
+        if noc:
+            return noc
+        else:
+            aoc = []
+            for occurrence in self.occurrences.all():
+                aoc += [instance for instance in occurrence.all_occurrences()]
+            if len(aoc) > 0:
+                return aoc[-1] # last one in the list
+            return None
 
     def query_occurrences(self, num_of_instances_to_return=None, **kwargs):
         """
@@ -790,6 +808,9 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     def convert_to_ical_format(self, dt_start=None, dt_end=None, occurrence=None):
         ical_event = ICalEvent()
         ical_event.add('summary', self.title)
+        if self.address:
+            ical_event.add('location', self.address)
+
         if dt_start:
             ical_event.add('dtstart', dt_start)
 
@@ -829,10 +850,11 @@ class DefaultCalendarViewChoices():
     LIST_MONTH = 'listMonth'
 
     CHOICES = (
-            (MONTH, 'Monthly Calendar'),
-            (AGENDA_WEEK, 'Weekly Calendar'),
-            (AGENDA_DAY, 'Daily Calendar'),
-            (LIST_MONTH, 'Monthly List'),
+            ('', _('No calendar')),
+            (MONTH, _('Monthly Calendar')),
+            (AGENDA_WEEK, _('Weekly Calendar')),
+            (AGENDA_DAY, _('Daily Calendar')),
+            (LIST_MONTH, _('Calendar List View')),
         )
 
 class CoderedEventIndexPage(CoderedWebPage):
@@ -857,7 +879,7 @@ class CoderedEventIndexPage(CoderedWebPage):
         blank=True,
         choices=DefaultCalendarViewChoices.CHOICES,
         max_length=255,
-        verbose_name=_('Default Calendar View'),
+        verbose_name=_('Calendar Style'),
         help_text=_('The default look of the calendar on this page.')
     )
 
@@ -872,19 +894,22 @@ class CoderedEventIndexPage(CoderedWebPage):
         if self.index_query_pagemodel and self.index_order_by == 'next_occurrence':
             querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
             qs = querymodel.objects.child_of(self).live()
-            qs = sorted(qs.all(), key=lambda e: e.next_occurrence())
-            return qs
+            # filter out events that don't have a next_occurrence
+            upcoming = []
+            for event in qs.all():
+                if event.next_occurrence():
+                    upcoming.append(event)
+            # sort the events by next_occurrence
+            return sorted(upcoming, key=lambda e: e.next_occurrence())
 
         return super().get_index_children()
 
     def get_calendar_events(self, start, end):
-        events = set()
-
-        for event_page in self.get_index_children():
-            events.add(event_page)
-
+        # start with all child events, regardless of get_index_children rules.
+        querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
+        qs = querymodel.objects.child_of(self).live()
         event_instances = []
-        for event in events:
+        for event in qs:
             occurrences = event.query_occurrences(limit=None, from_date=start, to_date=end)
             for occurrence in occurrences:
                 event_data = {
@@ -1002,8 +1027,8 @@ class CoderedFormPage(CoderedWebPage):
         help_text=_('Date and time when the FORM will no longer be available on the page.'),
     )
 
-    content_panels = (
-        CoderedWebPage.content_panels +
+    body_content_panels = (
+        CoderedWebPage.body_content_panels +
         [
             FormSubmissionsPanel(),
             InlinePanel('form_fields', label="Form fields"),
@@ -1328,13 +1353,12 @@ class CoderedLocationPage(CoderedWebPage):
     )
 
     content_panels = (
-        CoderedWebPage.content_panels[:1] + 
+        CoderedWebPage.content_panels +
         [
             FieldPanel('address'),
             FieldPanel('website'),
             FieldPanel('phone_number'),
-        ] +
-        CoderedWebPage.content_panels[1:]
+        ]
     )
 
     layout_panels = (
@@ -1351,7 +1375,7 @@ class CoderedLocationPage(CoderedWebPage):
     )
 
     settings_panels = (
-        CoderedWebPage.settings_panels + 
+        CoderedWebPage.settings_panels +
         [
             MultiFieldPanel(
                 [
@@ -1389,7 +1413,7 @@ class CoderedLocationPage(CoderedWebPage):
                 'page': self
             }
         )
-    
+
     def to_geojson(self):
         return {
             "type": "Feature",
@@ -1436,13 +1460,13 @@ class CoderedLocationIndexPage(CoderedWebPage):
 
     center_latitude = models.FloatField(
         null=True,
-        blank=True, 
+        blank=True,
         help_text=_('The default latitude you want the map set to.'),
         default=0
     )
     center_longitude = models.FloatField(
         null=True,
-        blank=True, 
+        blank=True,
         help_text=_('The default longitude you want the map set to.'),
         default=0
     )
@@ -1468,7 +1492,7 @@ class CoderedLocationIndexPage(CoderedWebPage):
             ),
         ]
     )
-        
+
     def geojson_data(self, viewport=None):
         """
         function that will return all locations under this index as geoJSON compliant data.

@@ -35,7 +35,7 @@ label,
 .sequence-member .richtext,
 .sequence-member .tagit {
     background-color:white;
-    border:1px solid #ddd;
+    border:1.5px solid #ddd;
 }
 
 .sequence-member input:focus,
@@ -67,6 +67,7 @@ label,
 }
 .input input[type='color']{
     height: 40px;
+    padding: 5px;
 }
 
 
@@ -215,7 +216,7 @@ li.sequence-member li > .field .Draftail-Editor,
 li.sequence-member li.sequence-member .Draftail-Editor {
     background-color: #fff !important;
     border-radius:5px;
-    border:1px solid #ddd !important;
+    border:1.5px solid #ddd !important;
     padding: 0.5em 1em;
 }
 li.sequence-member li.sequence-member .Draftail-Editor {

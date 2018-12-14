@@ -3,6 +3,7 @@
 {% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
 
 {% block content_post_body %}
+{% if self.default_calendar_view %}
     <div class="container">
         <div class="row">
             <div class="col pt-5 pb-5">
@@ -17,6 +18,7 @@
             </div>
         </div>
     </div>
+{% endif %}
 {% endblock %}
 
 {% block index_content %}
@@ -34,7 +36,7 @@
                 {% block event_body_preview %}
                     <div class="col-md">
                         <h3><a href="{{ event.url }}">{{ event.title }}</a></h3>
-                        <p>{{ event.next_occurrence.0 }}</p>
+                        <p>{{ event.most_recent_occurrence.0 }}</p>
                         <p>{{ event.body_preview }}</p>
                     </div>
                 {% endblock %}

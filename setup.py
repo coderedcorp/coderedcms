@@ -42,7 +42,6 @@ setup(
     install_requires=[
         'django-bootstrap4',
         'django>=1.11,<2.2',
-        'pygments>=2.2.0,<3.0',
         'wagtail==2.3.*',
         'wagtailfontawesome>=1.1.3,<2.0',
         'geocoder>=1.38.1,<2.0',

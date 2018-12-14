@@ -1,13 +1,5 @@
 {% extends "coderedcms/pages/web_page.html" %}
-
 {% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags coderedcms_tags %}
-
-{% block description %}{{self.get_description}}{% endblock %}
-
-
-{% if settings.coderedcms.SeoSettings.og_meta %}
-    {% block og_description %}{{self.get_description}}{% endblock %}
-{% endif %}
 
 {% if settings.coderedcms.SeoSettings.twitter_meta %}
     {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}

@@ -2,11 +2,14 @@
 
 {
   "@context": "http://schema.org",
- "mainEntityOfPage": {
+  "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{page.get_full_url}}"
   },
-  "description": "{{page.get_description}}",
+
+  {% if page.search_description %}
+  "description": "{{page.search_description}}",
+  {% endif %}
 
   {# Get different aspect ratios. Use huge numbers because wagtail will not upscale, #}
   {# but will max out at the image's original resultion using the specified aspect ratio. #}

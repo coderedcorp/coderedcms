@@ -519,6 +519,9 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         context['content_walls'] = self.get_content_walls(check_child_setting=False)
         return context
 
+
+
+
 ###############################################################################
 # Abstract pages providing pre-built common website functionality, suitable for subclassing.
 # These are abstract so subclasses can override fields if desired.

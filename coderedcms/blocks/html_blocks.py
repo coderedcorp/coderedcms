@@ -3,12 +3,7 @@ HTML blocks are simple blocks used to represent common HTML elements,
 with additional styling and attributes.
 """
 
-from django.utils.html import format_html
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from pygments import highlight
-from pygments.lexers import get_all_lexers, get_lexer_by_name
-from pygments.formatters import HtmlFormatter
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock

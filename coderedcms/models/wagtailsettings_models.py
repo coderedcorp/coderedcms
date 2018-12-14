@@ -314,12 +314,6 @@ Sitemap: /sitemap.xml"""
             ],
             _('Robots.txt')
         ),
-        MultiFieldPanel(
-            [
-                HelpPanel(template='coderedcms/includes/wagtailadmin_cache.html',),
-            ],
-            _('Performance')
-        )
     ]
 
     class Meta:

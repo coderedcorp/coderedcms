@@ -55,6 +55,7 @@ label,
 .input input[type='time'],
 .input input[type='datetime'],
 .input input[type='datetime-local'],
+.input input[type='color'],
 .input select,
 .input textarea {
     min-width:300px;
@@ -63,6 +64,9 @@ label,
 .input textarea,
 .full .input input {
     width:100%;
+}
+.input input[type='color']{
+    height: 40px;
 }
 
 

@@ -195,12 +195,12 @@ def event_generate_ical_for_calendar(request):
 def event_get_calendar_events(request):
     if request.is_ajax():
         try:
-            page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific
+            page = CoderedPage.objects.get(id=request.GET.get('pid')).specific
         except ValueError:
             raise Http404
-        start_str = request.POST.get('start')
+        start_str = request.GET.get('start')
         start = datetime.strptime(start_str[:10], "%Y-%m-%d") if start_str else None
-        end_str = request.POST.get('end')
+        end_str = request.GET.get('end')
         end = datetime.strptime(end_str[:10], "%Y-%m-%d") if end_str else None
         return JsonResponse(page.get_calendar_events(start=start, end=end), safe=False)
     raise Http404()

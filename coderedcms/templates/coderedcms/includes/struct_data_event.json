@@ -49,7 +49,7 @@
 
   {% with self.most_recent_occurrence as nextup %}
   "startDate": "{{nextup.0|structured_data_datetime}}",
-  {% if nextup.1 != '' %}
+  {% if nextup.1 %}
   "endDate": "{{nextup.1|structured_data_datetime}}",
   {% endif %}
   {% endwith %}

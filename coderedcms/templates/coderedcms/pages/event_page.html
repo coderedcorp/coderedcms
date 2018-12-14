@@ -10,7 +10,9 @@
     {% with self.most_recent_occurrence as nextup %}
     <div class="container my-5">
         <p class="d-md-inline-block mr-4"><b>When:</b> {{nextup.0}}</p>
+        {% if self.address %}
         <p class="d-md-inline-block mr-4"><b>Where:</b> {{self.address}}</p>
+        {% endif %}
         <div class="float-lg-right">{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=nextup.0 end=nextup.1 %}</div>
         <hr>
     </div>

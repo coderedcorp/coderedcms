@@ -747,6 +747,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             ),
             InlinePanel(
                 'occurrences',
+                min_num=1,
                 heading=_("Dates and times"),
             ),
         ]
@@ -763,14 +764,18 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     @property
     def most_recent_occurrence(self):
         """
-        Gets the next upcoming, or last occurence if the event has no more occurrences.
+        Gets the next upcoming, or last occurrence if the event has no more occurrences.
         """
         noc = self.next_occurrence()
         if noc:
             return noc
         else:
-            aoc = self.query_occurrences(1)
-            return aoc[0]
+            aoc = []
+            for occurrence in self.occurrences.all():
+                aoc += [instance for instance in occurrence.all_occurrences()]
+            if len(aoc) > 0:
+                return aoc[-1] # last one in the list
+            return None
 
     def query_occurrences(self, num_of_instances_to_return=None, **kwargs):
         """
@@ -803,6 +808,9 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     def convert_to_ical_format(self, dt_start=None, dt_end=None, occurrence=None):
         ical_event = ICalEvent()
         ical_event.add('summary', self.title)
+        if self.address:
+            ical_event.add('location', self.address)
+
         if dt_start:
             ical_event.add('dtstart', dt_start)
 
@@ -886,19 +894,22 @@ class CoderedEventIndexPage(CoderedWebPage):
         if self.index_query_pagemodel and self.index_order_by == 'next_occurrence':
             querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
             qs = querymodel.objects.child_of(self).live()
-            qs = sorted(qs.all(), key=lambda e: e.next_occurrence())
-            return qs
+            # filter out events that don't have a next_occurrence
+            upcoming = []
+            for event in qs.all():
+                if event.next_occurrence():
+                    upcoming.append(event)
+            # sort the events by next_occurrence
+            return sorted(upcoming, key=lambda e: e.next_occurrence())
 
         return super().get_index_children()
 
     def get_calendar_events(self, start, end):
-        events = set()
-
-        for event_page in self.get_index_children():
-            events.add(event_page)
-
+        # start with all child events, regardless of get_index_children rules.
+        querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
+        qs = querymodel.objects.child_of(self).live()
         event_instances = []
-        for event in events:
+        for event in qs:
             occurrences = event.query_occurrences(limit=None, from_date=start, to_date=end)
             for occurrence in occurrences:
                 event_data = {

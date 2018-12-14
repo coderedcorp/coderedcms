@@ -67,7 +67,7 @@ label,
 }
 .input input[type='color']{
     height: 40px;
-    padding: 0;
+    padding: 5px;
 }
 
 

@@ -166,9 +166,9 @@ $(document).ready(function()
                                 fixedWeekCount: false,
                                 events: {
                                     url: '/ajax/calendar/events/',
-                                    type: 'POST',
+                                    type: 'GET',
                                     data: {
-                                        'page_id': pageId
+                                        'pid': pageId
                                     }
                                 }
                             });

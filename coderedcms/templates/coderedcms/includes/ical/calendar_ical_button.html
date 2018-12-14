@@ -1,0 +1,5 @@
+<form data-attribute="calendar-ical-form" class="calendar-ical-form" action="{% url 'event_generate_ical_for_calendar' %}" method="POST">
+        <input name="page_id" type="number" hidden value="{{ page.id }}" />
+        {% csrf_token %}
+    <button class="btn btn-primary" title="Download calendar in .ical format" type="submit">{% block button_text %}Download Calendar{% endblock %}</button>
+</form>

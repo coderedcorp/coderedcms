@@ -52,7 +52,7 @@ body.ready input[type='checkbox'], body.ready input[type='radio'] {
 
 .halloeditor, .tagit, input, select, textarea {
     background-color:#eee;
-    border:1px solid #eee;
+    border:1.5px solid #ddd;
     padding-top:0.5em;
     padding-bottom:0.5em;
     font-weight:normal;
@@ -60,7 +60,7 @@ body.ready input[type='checkbox'], body.ready input[type='radio'] {
 
 .halloeditor:hover, .tagit:hover, input:hover, select:hover, textarea:hover {
     background-color:#eee;
-    border:1px solid #eee;
+    border:1.5px solid #ddd;
 }
 
 input[type='checkbox'], input[type='radio'] {
@@ -78,7 +78,8 @@ input[type='checkbox']::before, input[type='radio']::before {
 .full input {
     background-color:white;
 }
-.full input:focus, .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus {
+.full input:focus, .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus,
+.tag_field.focused .tagit {
     border-color:#00b0b1;
     background-color:#f2fcfc;
 }

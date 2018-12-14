@@ -10,4 +10,5 @@ New features:
 
 Maintenance:
 
-* Replace Wagtail version in admin with CodeRed CMS version.
+* Replace Wagtail version with CodeRed CMS version in admin.
+* Replace built-in cache with `wagtail-cache <https://github.com/coderedcorp/wagtail-cache/>`_.

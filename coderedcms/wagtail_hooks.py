@@ -7,6 +7,7 @@ from django.utils.html import format_html
 from wagtail.contrib.forms.models import AbstractForm
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
+from wagtailcache.cache import clear_cache
 
 from coderedcms import utils
 from coderedcms.models import CoderedFormPage
@@ -29,9 +30,9 @@ def collapsible_js():
 
 @hooks.register('after_create_page')
 @hooks.register('after_edit_page')
-def clear_cache(request, page):
+def clear_wagtailcache(request, page):
     if page.live:
-        utils.clear_cache()
+        clear_cache()
 
 
 @hooks.register('filter_form_submissions_for_user')
@@ -64,4 +65,3 @@ def serve_document_directly(document, request):
     response['Content-Disposition'] = 'inline;filename="{0}"'.format(document.filename)
     response['Content-Encoding'] = content_encoding
     return response
-    

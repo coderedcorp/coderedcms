@@ -12,6 +12,7 @@ from pygments.formatters import HtmlFormatter
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 from .base_blocks import BaseBlock, BaseLinkBlock, ButtonMixin, CoderedAdvTrackingSettings, LinkStructValue
@@ -128,18 +129,18 @@ class EmbedGoogleMapBlock(BaseBlock):
 
 class EmbedVideoBlock(BaseBlock):
     """
-    An embedded video on the page in an <iframe>. Currently supports youtube and vimeo.
+    Emedded media using stock wagtail functionality.
     """
-    url = blocks.URLBlock(
+    url = EmbedBlock(
         required=True,
         label=_('URL'),
-        help_text=_('Link to a YouTube or Vimeo video.'),
+        help_text=_('Link to a YouTube/Vimeo video, tweet, facebook post, etc.')
     )
 
     class Meta:
         template = 'coderedcms/blocks/embed_video_block.html'
         icon = 'media'
-        label = _('Embed Video')
+        label = _('Embed Media')
 
 
 class H1Block(BaseBlock):

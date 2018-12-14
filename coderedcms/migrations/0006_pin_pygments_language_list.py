@@ -13,7 +13,7 @@ import wagtail.snippets.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0004_auto_20181119_1507'),
+        ('coderedcms', '0005_auto_20181211_1536'),
     ]
 
     operations = [

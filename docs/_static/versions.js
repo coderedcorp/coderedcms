@@ -1,10 +1,11 @@
-vfile = '/cms/versions.txt';
+vroot = '/cms/';
+vfile = 'versions.txt';
 
 function setversions(data) {
     data.split('\n').forEach((item, index) => {
         if(item.trim() != '') {
             newa = document.createElement('a', );
-            newa.setAttribute('href', '/cms/' + item + '/');
+            newa.setAttribute('href', vroot + item + '/');
             newa.innerHTML = item;
             document.getElementById("other-versions").appendChild(newa);
         }
@@ -17,7 +18,7 @@ $(document).ready(function() {
     }
     else {
         $.ajax({
-            url: '/cms/versions.txt',
+            url: vroot + vfile,
             success: function(data) {
                 sessionStorage.setItem(vfile, data);
                 setversions(data);

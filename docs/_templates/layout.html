@@ -32,6 +32,13 @@
 </div>
 {%- endmacro %}
 
+
+
+
+{%- block extrahead %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{%- endblock %}
+
 {%- block sidebarlogo %}
 <div class="logowrapper">
   <p class="logo"><a href="{{ pathto(master_doc) }}" title="{{ project }}">
@@ -50,6 +57,9 @@
 
 {%- block document %}
   <div class="documentwrapper">
+    <div class="mobile-header">
+        <a href="{{ pathto(master_doc) }}" title="{{ project }}">{{ project }}</a>
+    </div>
   {%- if render_sidebar %}
     <div class="bodywrapper">
   {%- endif %}
@@ -57,7 +67,9 @@
 
         {{ custom_relbar() }}
 
+        <article>
         {% block body %} {% endblock %}
+        </article>
 
         {{ custom_prevnext() }}
 

@@ -5,7 +5,7 @@ body {
 
 code, pre {
     background-color:#f0f0f3;
-    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,monospace;
     font-size: 0.85em;
     line-height: unset;
 }
@@ -36,6 +36,7 @@ div.body h1 {
 }
 div.body h2 {
     font-size: 1.5em;
+    margin-top: 1.5em;
 }
 div.body h3 {
     font-size: 1.2em;
@@ -101,6 +102,12 @@ div.logowrapper {
 
 p.logo {
     padding: 10px 20px;
+    font-size: 1.5em;
+}
+
+div.sphinxsidebar div.logowrapper p,
+div.sphinxsidebar div.logowrapper a {
+    color: #fff;
 }
 
 p.version {
@@ -234,4 +241,60 @@ div.footer {
 
 .clearfix {
     clear: both;
+}
+
+div.admonition {
+    background-color: #fafcff;
+    border-radius: 4px;
+    color: #248;
+    border: 1.5px solid #d0e0f0;
+    padding: 1em;
+}
+
+.mobile-header {
+    display:none;
+    background-color: #d33;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 15px;
+}
+.mobile-header a {
+    color: inherit;
+}
+
+/** Responsive utilities **/
+@media(max-width: 800px) {
+    html * {
+        box-sizing: border-box;
+    }
+    div.sphinxsidebar {
+        width: 100%;
+        margin: 0;
+    }
+    div.bodywrapper {
+        margin: 0;
+    }
+    div.body {
+        padding: 10px;
+        min-height: unset;
+        min-width: 100%;
+        max-width: 100%;
+        width: 100%;
+    }
+    div.body h1 {
+        font-size: 1.7em;
+    }
+    div.body h2 {
+        font-size: 1.3em;
+    }
+    div.body h3 {
+        font-size: 1.1em;
+    }
+    div.logowrapper {
+        padding: 40px 20px;
+    }
+    .mobile-header {
+        display: block;
+    }
 }

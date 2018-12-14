@@ -45,7 +45,6 @@ setup(
         'django>=1.11,<2.2',
         'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
-        'pygments>=2.2.0,<3.0',
         'wagtail==2.3.*',
         'wagtailfontawesome>=1.1.3,<2.0',
         'wagtail-cache==0.2.*',

@@ -26,7 +26,6 @@ HTML_STREAMBLOCKS = [
     ('quote', QuoteBlock()),
     ('table', TableBlock()),
     ('google_map', EmbedGoogleMapBlock()),
-    ('code', CodeBlock()),
 ]
 
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [

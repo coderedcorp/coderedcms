@@ -1,0 +1,21 @@
+{% load wagtailembeds_tags %}
+
+{% if embed.ratio %}
+    {# If an aspect ratio is included, use the appropriate Bootstrap 4 class #}
+    {% if embed.ratio > 0.9 %}
+        <div class="embed-responsive embed-responsive-1by1">
+    {% elif embed.ratio > 0.7 %}
+        <div class="embed-responsive embed-responsive-4by3">
+    {% elif embed.ratio > 0.5 %}
+        <div class="embed-responsive embed-responsive-16by9">
+    {% else %}
+        <div class="embed-responsive embed-responsive-21by9">
+    {% endif %}
+{% else %}
+    {# Otherwise, center it in a row, for things like Tweets. #}
+    <div class="row justify-content-center">
+{% endif %}
+
+{# Embed the video with an absurdly high max width. #}
+{% embed embed.url max_width=3840 %}
+</div>

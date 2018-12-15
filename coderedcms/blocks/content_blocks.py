@@ -95,6 +95,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
             ('text', blocks.CharBlock(icon='fa-file-text-o', max_length=255, label=_('Simple Text'))),
             ('button', ButtonBlock()),
         ],
+        required=False,
         label=_('Modal footer'),
     )
 

@@ -36,7 +36,7 @@
 
 
 {%- block extrahead %}
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 {%- endblock %}
 
 {%- block sidebarlogo %}
@@ -63,13 +63,13 @@
   {%- if render_sidebar %}
     <div class="bodywrapper">
   {%- endif %}
-      <div class="body" role="main">
+      <div class="body">
 
         {{ custom_relbar() }}
 
-        <article>
+        <div role="main">
         {% block body %} {% endblock %}
-        </article>
+        </div>
 
         {{ custom_prevnext() }}
 

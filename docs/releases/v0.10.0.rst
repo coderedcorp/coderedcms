@@ -18,6 +18,12 @@ New features
 * Added additional template blocks in ``coderedcms/pages/base.html`` for easier extending.
 
 
+Bug fixes
+---------
+
+* Modals no longer require a footer.
+
+
 Maintenance
 -----------
 
@@ -34,5 +40,3 @@ Upgrade considerations
   block instead such as `wagtailcodeblock <https://github.com/FlipperPA/wagtailcodeblock>`_,
   or use the new "Embed Media" block with GitHub gists.
 * Making and applying new migrations will be required in your website app.
-* Some sites may experience data loss of videos using the "Embed Video" block when upgrading to the
-  new "Embed Media" block.

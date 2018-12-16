@@ -4,7 +4,8 @@ Contributing
 
 Developing and testing coderedcms
 ---------------------------------
-To create a test project locally before committing your changes:
+
+To create a test project locally:
 
 #. Clone the code from https://github.com/coderedcorp/coderedcms.
 #. Run ``pip install -e ./[dev]`` from the root coderedcms directory. The -e flag makes the install editable,
@@ -24,6 +25,11 @@ When making changes that are potentially destructive or backwards incompatible, 
 version number until coderedcms reaches a stable 1.0 release. Each production project that uses
 coderedcms should specify the appropriate version in its requirements.txt to prevent breakage.
 
+.. note:
+    When testing existing projects with coderedcms installed from the master or development branches,
+    be sure to use a disposable database, as it is likely that the migrations in master will
+    not be the same migrations that get released.
+
 
 Contributor guidelines
 ----------------------
@@ -37,24 +43,6 @@ When creating a pull request, please make sure you include the following:
 
 Following submission of your pull request, a CodeRed member will review and test your change.
 **All changes, even by CodeRed members, must go through a pull request process to ensure quality.**
-
-
-Versioning
-----------
-
-CodeRed CMS follows the ``[major].[minor].[maintenance]`` versioning scheme.
-
-* **Major** version changes mean there is most likely significant changes that may not be backwards
-  compatible.
-* **Minor** version changes indicate new features, enhancements, and bug fixes that are most likely
-  but not guaranteed to be backwards compatible with other releases in the existing major version.
-* **Maintenance** version changes are guaranteed to be backwards compatible with other releases with
-  the same major and minor version numbers. These changes are reserved for bug, security, or documentation
-  fixes only.
-
-.. note::
-    CodeRed CMS may have breaking changes between minor version upgrades until reaching a stable
-    1.0 status. Releases with a zero major version number are considered "beta" quality.
 
 
 Building pip packages

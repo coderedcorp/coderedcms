@@ -39,4 +39,7 @@ Upgrade considerations
 * "Formatted Code" block (``coderedcms.blocks.CodeBlock``) was removed. If needed, use a 3rd party
   block instead such as `wagtailcodeblock <https://github.com/FlipperPA/wagtailcodeblock>`_,
   or use the new "Embed Media" block with GitHub gists.
-* Making and applying new migrations will be required in your website app.
+* ``CODERED_CACHE_PAGES`` setting replaced with ``WAGTAIL_CACHE``.
+* ``CODERED_CACHE_BACKEND`` setting replaced with ``WAGTAIL_CACHE_BACKEND``.
+* Existing projects must add ``wagtailcache`` to ``INSTALLED_APPS`` in project settings.
+* Existing projects must make and apply new migrations.

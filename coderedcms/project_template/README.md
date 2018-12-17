@@ -1,16 +1,19 @@
-# {{ sitename }}
+# {{ sitename }} website
 
 ## Getting started
 
-#. Install requirements `pip install requirements.txt`
-#. Run the development server `python manage.py runserver`
-#. Go to http://localhost:8000/admin/ in your browser to log in.
+Make sure Python 3.4 or higher is installed on your system.
+Open this directory in a command prompt, then:
 
-## See also
+1. Install the software: `pip install -r requirements.txt`
+2. Run the development server: `python manage.py runserver`
+3. Go to http://localhost:8000/ in your browser, or http://localhost:8000/admin/ to log in and get to work!
 
-* To customize the design and functionality of your site, see [CodeRed CMS](https://docs.coderedcorp.com/cms/)
-* For deeper customization of backend code see [Wagtail](http://docs.wagtail.io/) and [Django](https://docs.djangoproject.com/)
-* For HTML template design see [Bootstrap](https://getbootstrap.com/)
+## Documentation links
+
+* To customize the content, design, and features of the site see [CodeRed CMS](https://docs.coderedcorp.com/cms/).
+* For deeper customization of backend code see [Wagtail](http://docs.wagtail.io/) and [Django](https://docs.djangoproject.com/).
+* For HTML template design see [Bootstrap](https://getbootstrap.com/).
 
 ---
 

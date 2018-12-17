@@ -23,8 +23,8 @@ class CreateProject(TemplateCommand):
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
-        parser.add_argument('--sitename', help='Human readable name of your website')
-        parser.add_argument('--domain', help='Domain name that will be used for your website')
+        parser.add_argument('--sitename', help='Human readable name of your website or brand, e.g. "Mega Corp Inc."')
+        parser.add_argument('--domain', help='Domain that will be used for your website in production, e.g. "www.example.com"')
         super().add_arguments(parser)
 
     def handle(self, **options):
@@ -45,7 +45,7 @@ class CreateProject(TemplateCommand):
         # Create a random SECRET_KEY to put it in the main settings.
         options['secret_key'] = get_random_secret_key()
 
-        # add custom args
+        # Add custom args
         import coderedcms
         codered_path = os.path.dirname(coderedcms.__file__)
         template_path = os.path.join(codered_path, 'project_template')
@@ -53,17 +53,32 @@ class CreateProject(TemplateCommand):
         options['extensions'] = ['py', 'html', 'rst', 'md']
         options['files'] = ['Dockerfile']
 
-        # Set default options and print a friendly message
-        output = "Creating a CodeRed CMS project called %(project_name)s"
+        # Set options
+        message = "Creating a CodeRed CMS project called %(project_name)s"
+
         if options.get('sitename'):
-            output += " for %(sitename)s"
+            message += " for %(sitename)s"
         else:
             options['sitename'] = project_name
+
         if options.get('domain'):
-            output += " (%(domain)s)"
+            message += " (%(domain)s)"
+            # Stip protocol out of domain if it is present.
+            options['domain'] = options['domain'].split('://')[-1]
+            # Figure out www logic.
+            if options['domain'].startswith('www.'):
+                options['domain_www'] = options['domain']
+                options['domain_nowww'] = options['domain'].split('www.')[-1]
+            else:
+                options['domain_www'] = 'www.' + options['domain']
+                options['domain_nowww'] = options['domain']
         else:
             options['domain'] = 'localhost'
-        print(output % {
+            options['domain_www'] = options['domain']
+            options['domain_nowww'] = options['domain']
+
+        # Print a friendly message
+        print(message % {
             'project_name': project_name,
             'sitename': options.get('sitename'),
             'domain': options.get('domain'),
@@ -128,7 +143,7 @@ def main():
             unknown_command(help_command_name)
             return
 
-        command.print_help(help_command_name, help_command_name)
+        command.print_help(prog_name(), help_command_name)
         return
 
     try:

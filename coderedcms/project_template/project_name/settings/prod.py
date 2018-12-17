@@ -7,18 +7,18 @@ DEBUG = False
 SECRET_KEY = '{{ secret_key }}'
 
 # Add your site's domain name(s) here.
-ALLOWED_HOSTS = ['{{ domain }}']
+ALLOWED_HOSTS = ['{{ domain_www }}', '{{ domain_nowww }}']
 
 # To send email from the server, we recommend django_sendmail_backend
 # Or specify your own email backend such as an SMTP server.
 EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
 
 # Default email address used to send messages from the website.
-DEFAULT_FROM_EMAIL = 'info@{{ domain }}'
+DEFAULT_FROM_EMAIL = '{{ sitename }} <info@{{ domain_nowww }}>'
 
 # A list of people who get error notifications.
 ADMINS = [
-    ('Admin Name', 'admin@{{ domain }}'),
+    ('Administrator', 'admin@{{ domain_nowww }}'),
 ]
 
 # A list in the same format as ADMINS that specifies who should get broken link

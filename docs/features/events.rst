@@ -71,7 +71,7 @@ To implement, add the following to your ``website/models.py``::
         event = ParentalKey(EventPage, related_name='occurrences')
 
 
-Next run ``python manage.py makemigrations`` and ``python manage.py migrate`` to create the new pages
-in your project.
+Next run ``python manage.py makemigrations website`` and ``python manage.py migrate`` to
+create the new pages in your project.
 
 Now when going to the wagtail admin, you can create an Event Landing Page, and child Event Pages.

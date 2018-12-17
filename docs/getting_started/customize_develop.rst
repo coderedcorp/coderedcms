@@ -7,7 +7,8 @@ Page models
 The django app ``website`` has been created with default models based on pre-built abstract
 CodeRed CMS models. You can use these as-is, override existing fields and function, and add
 custom fields to these models. After making a change to any of these models, be sure to run
-``python manage.py makemigrations`` and ``python manage.py migrate`` to apply the database changes.
+``python manage.py makemigrations website`` and ``python manage.py migrate`` to apply the
+database changes.
 
 Hooks
 -----

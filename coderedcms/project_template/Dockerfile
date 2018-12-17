@@ -1,5 +1,5 @@
 FROM python:3.6
-LABEL maintainer="info@coderedcorp.com"
+LABEL maintainer="{{ project_name }}"
 
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev

@@ -12,9 +12,14 @@ it is extremely quick and easy to customize the website's design due to a respon
 editing interface and a pure Bootstrap 4 front-end. Features needed by marketing teams are also
 built-in including proper SEO tagging, Google Analytics tracking, and publishing tools.
 
+Join us
+-------
 
-Index
------
+Have questions or ideas? Join us in the **#coderedcms** channel on the
+`Wagtail Slack <https://wagtail.io/slack/>`_.
+
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2

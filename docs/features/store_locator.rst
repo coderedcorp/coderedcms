@@ -39,8 +39,8 @@ the following to your ``website/models.py``::
 
         template = 'coderedcms/pages/location_index_page.html'
 
-Next run ``python manage.py makemigrations`` and ``python manage.py migrate`` to create the new pages
-in your project.
+Next run ``python manage.py makemigrations website`` and ``python manage.py migrate`` to create
+the new pages in your project.
 
 Now when going to the wagtail admin, you can create a Location Index Page, and child Location Pages.
 Also be sure to add a Google Maps API key under Settings > Google API Settings.

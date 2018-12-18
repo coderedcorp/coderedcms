@@ -2,7 +2,11 @@ Installation
 ============
 
 #. Run ``pip install coderedcms``
-#. Run ``coderedcms start mysite``
+#. Run ``coderedcms start mysite --sitename "My Company Inc." --domain example.com``
+
+    .. note::
+        ``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.
+
 #. Enter the mysite project with ``cd mysite/``.
 #. Run ``python manage.py migrate`` to create the core models.
 #. Run ``python manage.py createsuperuser`` to create the initial admin user.

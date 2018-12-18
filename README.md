@@ -21,7 +21,9 @@
 ## Quick start
 1. Run `pip install coderedcms`
 
-2. Run `coderedcms start mysite`
+2. Run `coderedcms start mysite --sitename "My Company Inc." --domain example.com`
+
+    *Note: `--sitename` and `--domain` are optional to pre-populate settings of your website.*
 
 3. Enter the project `cd mysite/`
 

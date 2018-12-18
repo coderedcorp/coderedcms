@@ -331,12 +331,9 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
     # Panels
     ###############
 
-    content_panels = (
-        Page.content_panels +
-        [
-            ImageChooserPanel('cover_image'),
-        ]
-    )
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('cover_image'),
+    ]
 
     body_content_panels = []
 
@@ -401,12 +398,9 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         ),
     ]
 
-    settings_panels = (
-        Page.settings_panels +
-        [
-            StreamFieldPanel('content_walls'),
-        ]
-    )
+    settings_panels = Page.settings_panels + [
+        StreamFieldPanel('content_walls'),
+    ]
 
     def __init__(self, *args, **kwargs):
         """
@@ -658,20 +652,17 @@ class CoderedArticlePage(CoderedWebPage):
         ]
     )
 
-    content_panels = (
-        CoderedWebPage.content_panels +
-        [
-            FieldPanel('caption'),
-            MultiFieldPanel(
-                [
-                    FieldPanel('author'),
-                    FieldPanel('author_display'),
-                    FieldPanel('date_display'),
-                ],
-                _('Publication Info')
-            )
-        ]
-    )
+    content_panels = CoderedWebPage.content_panels + [
+        FieldPanel('caption'),
+        MultiFieldPanel(
+            [
+                FieldPanel('author'),
+                FieldPanel('author_display'),
+                FieldPanel('date_display'),
+            ],
+            _('Publication Info')
+        )
+    ]
 
 
 class CoderedArticleIndexPage(CoderedWebPage):
@@ -706,20 +697,17 @@ class CoderedArticleIndexPage(CoderedWebPage):
         verbose_name=_('Show preview text'),
     )
 
-    layout_panels = (
-        CoderedWebPage.layout_panels +
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('show_images'),
-                    FieldPanel('show_captions'),
-                    FieldPanel('show_meta'),
-                    FieldPanel('show_preview_text'),
-                ],
-                heading=_('Child page display')
-            ),
-        ]
-    )
+    layout_panels = CoderedWebPage.layout_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('show_images'),
+                FieldPanel('show_captions'),
+                FieldPanel('show_meta'),
+                FieldPanel('show_preview_text'),
+            ],
+            heading=_('Child page display')
+        ),
+    ]
 
 
 class CoderedEventPage(CoderedWebPage, BaseEvent):
@@ -735,23 +723,20 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         blank=True,
         verbose_name=_("Address")
     )
-    content_panels = (
-        CoderedWebPage.content_panels +
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('calendar_color'),
-                    FieldPanel('address'),
-                ],
-                heading=_('Event information')
-            ),
-            InlinePanel(
-                'occurrences',
-                min_num=1,
-                heading=_("Dates and times"),
-            ),
-        ]
-    )
+    content_panels = CoderedWebPage.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('calendar_color'),
+                FieldPanel('address'),
+            ],
+            heading=_('Event information')
+        ),
+        InlinePanel(
+            'occurrences',
+            min_num=1,
+            heading=_("Dates and times"),
+        ),
+    ]
 
     @property
     def upcoming_occurrences(self):
@@ -883,12 +868,9 @@ class CoderedEventIndexPage(CoderedWebPage):
         help_text=_('The default look of the calendar on this page.')
     )
 
-    layout_panels = (
-        CoderedWebPage.layout_panels +
-        [
-            FieldPanel('default_calendar_view'),
-        ]
-    )
+    layout_panels = CoderedWebPage.layout_panels + [
+        FieldPanel('default_calendar_view'),
+    ]
 
     def get_index_children(self):
         if self.index_query_pagemodel and self.index_order_by == 'next_occurrence':
@@ -1027,52 +1009,46 @@ class CoderedFormPage(CoderedWebPage):
         help_text=_('Date and time when the FORM will no longer be available on the page.'),
     )
 
-    body_content_panels = (
-        CoderedWebPage.body_content_panels +
-        [
-            FormSubmissionsPanel(),
-            InlinePanel('form_fields', label="Form fields"),
-            MultiFieldPanel(
-                [
-                    PageChooserPanel('thank_you_page'),
-                    FieldPanel('button_text'),
-                    FieldPanel('button_style'),
-                    FieldPanel('button_size'),
-                    FieldPanel('button_css_class'),
-                    FieldPanel('form_css_class'),
-                    FieldPanel('form_id'),
-                ],
-                _('Form Settings')
-            ),
-            MultiFieldPanel(
-                [
-                    FieldPanel('save_to_database'),
-                    FieldPanel('to_address'),
-                    FieldPanel('subject'),
-                ],
-                _('Form Submissions')
-            ),
-            InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
-        ]
-    )
+    body_content_panels = CoderedWebPage.body_content_panels + [
+        FormSubmissionsPanel(),
+        InlinePanel('form_fields', label="Form fields"),
+        MultiFieldPanel(
+            [
+                PageChooserPanel('thank_you_page'),
+                FieldPanel('button_text'),
+                FieldPanel('button_style'),
+                FieldPanel('button_size'),
+                FieldPanel('button_css_class'),
+                FieldPanel('form_css_class'),
+                FieldPanel('form_id'),
+            ],
+            _('Form Settings')
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('save_to_database'),
+                FieldPanel('to_address'),
+                FieldPanel('subject'),
+            ],
+            _('Form Submissions')
+        ),
+        InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
+    ]
 
-    settings_panels = (
-        CoderedPage.settings_panels +
-        [
-            MultiFieldPanel(
-                [
-                    FieldRowPanel(
-                        [
-                            FieldPanel('form_golive_at'),
-                            FieldPanel('form_expire_at'),
-                        ],
-                        classname='label-above',
-                    ),
-                ],
-                _('Form Scheduled Publishing'),
-            )
-        ]
-    )
+    settings_panels = CoderedPage.settings_panels + [
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel('form_golive_at'),
+                        FieldPanel('form_expire_at'),
+                    ],
+                    classname='label-above',
+                ),
+            ],
+            _('Form Scheduled Publishing'),
+        )
+    ]
 
     @property
     def form_live(self):
@@ -1352,41 +1328,32 @@ class CoderedLocationPage(CoderedWebPage):
         verbose_name=_("Phone Number")
     )
 
-    content_panels = (
-        CoderedWebPage.content_panels +
-        [
-            FieldPanel('address'),
-            FieldPanel('website'),
-            FieldPanel('phone_number'),
-        ]
-    )
+    content_panels = CoderedWebPage.content_panels + [
+        FieldPanel('address'),
+        FieldPanel('website'),
+        FieldPanel('phone_number'),
+    ]
 
-    layout_panels = (
-        CoderedWebPage.layout_panels +
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('map_title'),
-                    FieldPanel('map_description'),
-                ],
-                heading=_('Map Layout')
-            ),
-        ]
-    )
+    layout_panels = CoderedWebPage.layout_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('map_title'),
+                FieldPanel('map_description'),
+            ],
+            heading=_('Map Layout')
+        ),
+    ]
 
-    settings_panels = (
-        CoderedWebPage.settings_panels +
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('auto_update_latlng'),
-                    FieldPanel('latitude'),
-                    FieldPanel('longitude'),
-                ],
-                heading=_("Location Settings")
-            ),
-        ]
-    )
+    settings_panels = CoderedWebPage.settings_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('auto_update_latlng'),
+                FieldPanel('latitude'),
+                FieldPanel('longitude'),
+            ],
+            heading=_("Location Settings")
+        ),
+    ]
 
     @property
     def geojson_name(self):
@@ -1479,19 +1446,16 @@ class CoderedLocationIndexPage(CoderedWebPage):
         help_text=_('Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings')
     )
 
-    layout_panels = (
-        CoderedWebPage.layout_panels +
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('center_latitude'),
-                    FieldPanel('center_longitude'),
-                    FieldPanel('zoom'),
-                ],
-                heading=_('Map Display')
-            ),
-        ]
-    )
+    layout_panels = CoderedWebPage.layout_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('center_latitude'),
+                FieldPanel('center_longitude'),
+                FieldPanel('zoom'),
+            ],
+            heading=_('Map Display')
+        ),
+    ]
 
     def geojson_data(self, viewport=None):
         """

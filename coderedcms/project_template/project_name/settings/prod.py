@@ -7,10 +7,11 @@ DEBUG = False
 SECRET_KEY = '{{ secret_key }}'
 
 # Add your site's domain name(s) here.
-ALLOWED_HOSTS = ['{{ domain_www }}', '{{ domain_nowww }}']
+ALLOWED_HOSTS = ['{{ domain }}']
 
 # To send email from the server, we recommend django_sendmail_backend
 # Or specify your own email backend such as an SMTP server.
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#email-backend
 EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
 
 # Default email address used to send messages from the website.

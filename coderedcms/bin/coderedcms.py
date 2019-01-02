@@ -67,14 +67,11 @@ class CreateProject(TemplateCommand):
             options['domain'] = options['domain'].split('://')[-1]
             # Figure out www logic.
             if options['domain'].startswith('www.'):
-                options['domain_www'] = options['domain']
                 options['domain_nowww'] = options['domain'].split('www.')[-1]
             else:
-                options['domain_www'] = 'www.' + options['domain']
                 options['domain_nowww'] = options['domain']
         else:
             options['domain'] = 'localhost'
-            options['domain_www'] = options['domain']
             options['domain_nowww'] = options['domain']
 
         # Print a friendly message

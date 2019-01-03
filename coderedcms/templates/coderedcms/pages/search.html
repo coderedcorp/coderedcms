@@ -7,7 +7,11 @@
     <div class="container">
 
         <div class="mt-5">
-            <h2>{% trans 'Search for' %} “{{form.s.value}}”</h2>
+          {% if not form.s.value %}
+              <h2>{% trans 'Search' %}</h2>
+          {% else %}
+              <h2>{% trans 'Search for' %} “{{form.s.value}}”</h2>
+          {%endif%}
         </div>
 
         {% if not settings.coderedcms.LayoutSettings.navbar_search %}
@@ -56,7 +60,9 @@
             {% endfor %}
             {% include "coderedcms/includes/pagination.html" with items=results_paginated %}
         {% else %}
-            <p>{% trans 'No results found.' %}</p>
+            {% if form.s.value %}
+              <p>{% trans 'No results found.' %}</p>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}

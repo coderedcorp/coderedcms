@@ -57,6 +57,9 @@ class FormPageField(CoderedFormField):
     """
     A field that links to a FormPage.
     """
+    class Meta:
+        ordering = ['sort_order']
+
     page = ParentalKey('FormPage', related_name='form_fields')
 
 class FormConfirmEmail(CoderedEmail):

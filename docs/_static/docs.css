@@ -251,6 +251,9 @@ div.admonition {
     color: #248;
     padding: 1em;
 }
+div.admonition code {
+    background-color: #edeff2;
+}
 div.admonition.warning {
     background-color:#fffcfa;
     border-color:#f0e0d0;

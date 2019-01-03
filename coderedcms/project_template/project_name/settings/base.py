@@ -74,8 +74,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    # Error reporting
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # Error reporting. Uncomment this to recieve emails when a 404 is triggered.
+    #'django.middleware.common.BrokenLinkEmailsMiddleware',
 
     # CMS functionality
     'wagtail.core.middleware.SiteMiddleware',
@@ -170,13 +170,13 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "{{ project_name }}"
+WAGTAIL_SITE_NAME = "{{ sitename }}"
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'http://{{ domain }}'
 
 
 # Bootstrap

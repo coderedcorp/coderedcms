@@ -24,7 +24,7 @@ urlpatterns = [
 
     # Alternatively, if you want CMS pages to be served from a subpath
     # of your site, rather than the site root:
-    #    url(r'^pages/', include(codered_urls)),
+    #    re_path(r'^pages/', include(codered_urls)),
 ]
 
 

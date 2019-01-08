@@ -109,6 +109,11 @@ class CarouselSlide(Orderable, models.Model):
         blank=True,
         verbose_name=_('Custom ID'),
     )
+    custom_style = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Custom Style'),
+    )
 
     content = StreamField(HTML_STREAMBLOCKS, blank=True)
 
@@ -118,6 +123,7 @@ class CarouselSlide(Orderable, models.Model):
             FieldPanel('background_color'),
             FieldPanel('custom_css_class'),
             FieldPanel('custom_id'),
+            FieldPanel('custom_style'),
             StreamFieldPanel('content'),
         ]
     )
@@ -148,6 +154,11 @@ class Navbar(models.Model):
         blank=True,
         verbose_name=_('Custom ID'),
     )
+    custom_style = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Custom Style'),
+    )
     menu_items = StreamField(
         NAVIGATION_STREAMBLOCKS,
         verbose_name=_('Navigation links'),
@@ -157,6 +168,7 @@ class Navbar(models.Model):
         FieldPanel('name'),
         MultiFieldPanel(
             [
+                FieldPanel('custom_style'),
                 FieldPanel('custom_css_class'),
                 FieldPanel('custom_id'),
             ],
@@ -191,6 +203,11 @@ class Footer(models.Model):
         blank=True,
         verbose_name=_('Custom ID'),
     )
+    custom_style = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=('Custom Style'),
+    )
     content = StreamField(
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('Content'),
@@ -200,6 +217,7 @@ class Footer(models.Model):
         FieldPanel('name'),
         MultiFieldPanel(
             [
+                FieldPanel('custom_style'),
                 FieldPanel('custom_css_class'),
                 FieldPanel('custom_id'),
             ],

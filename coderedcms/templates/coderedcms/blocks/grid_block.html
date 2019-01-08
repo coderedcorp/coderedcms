@@ -4,7 +4,7 @@
   {% if self.settings.custom_id %} id="{{self.settings.custom_id}}"{% endif %} >
 
   {% block grid_content %}
-  <div class="row {{self.settings.custom_css_class}}">
+  <div class="row {{self.settings.custom_css_class}}" style="{{self.settings.custom_style}}">
       {% for column in self.content %}
             {% include_block column %}
       {% endfor %}

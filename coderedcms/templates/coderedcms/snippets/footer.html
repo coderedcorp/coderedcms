@@ -1,16 +1,11 @@
 {% load wagtailcore_tags coderedcms_tags %}
 <footer>
-
 {% get_footers as footers %}
 {% for footer in footers %}
-    <div
-        {% if footer.custom_id %} id="{{footer.custom_id}}"{% endif %}
-        {% if footer.custom_css_class %} class="{{footer.custom_css_class}}"{% endif %}
-    >
+<div {% if footer.custom_id %} id="{{footer.custom_id}}"{% endif %}{% if footer.custom_css_class %} class="{{footer.custom_css_class}}"{% endif %} {% if footer.custom_style %}style="{{footer.custom_style}}"{% endif %}>
         {% for item in footer.content %}
             {% include_block item with format=format settings=settings %}
         {% endfor %}
     </div>
 {% endfor %}
-
 </footer>

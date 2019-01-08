@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block grid_content %}
-<div class="card-columns {{self.settings.custom_css_class}}">
+<div class="card-columns {{self.settings.custom_css_class}}" style="{{self.settings.custom_style}}">
       {% for block in self.content %}
             {% include_block block %}
       {% endfor %}

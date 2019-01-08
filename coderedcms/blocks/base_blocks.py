@@ -76,6 +76,12 @@ class CoderedAdvSettings(blocks.StructBlock):
     # placeholder, real value get set in __init__()
     custom_template = blocks.Block()
 
+    custom_style = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_('Custom Style'),
+    )
+
     custom_css_class = blocks.CharBlock(
         required=False,
         max_length=255,

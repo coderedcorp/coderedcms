@@ -12,7 +12,6 @@
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-
               gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
             </script>
         {% endif %}
@@ -25,7 +24,7 @@
         {# HTML SEO #}
         {% block html_seo_base %}
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% if not self.seo_title %} - {{request.site.site_name}}{% endif %}{% endblock %}</title>
-        <meta name="description" content="{% block description %}{% if self.search_description %}{{ self.search_description }}{% endif %}{% endblock %}" />
+        <meta name="description" content="{% block description %}{% if self.search_description %}{{ self.search_description }}{% endif %}{% endblock %}"/>
         <link rel="canonical" href="{% block canonical %}{{self.get_full_url}}{% endblock %}">
         {% endblock %}
         {% block html_seo_extra %}{% endblock %}
@@ -33,11 +32,11 @@
         {# Open Graph SEO #}
         {% if settings.coderedcms.SeoSettings.og_meta %}
             {% block og_seo_base %}
-            <meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{self.seo_title}}{% else %}{{self.title}}{% endif %}{% endblock %}" />
-            <meta property="og:description" content="{% block og_description %}{% if self.search_description %}{{ self.search_description }}{% endif %}{% endblock %}" />
-            <meta property="og:site_name" content="{% block og_site_name %}{{self.get_site.site_name}}{% endblock %}" />
-            <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
-            <meta property="og:url" content="{% block og_url %}{{self.get_full_url}}{% endblock %}" />
+            <meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{self.seo_title}}{% else %}{{self.title}}{% endif %}{% endblock %}"/>
+            <meta property="og:description" content="{% block og_description %}{% if self.search_description %}{{ self.search_description }}{% endif %}{% endblock %}"/>
+            <meta property="og:site_name" content="{% block og_site_name %}{{self.get_site.site_name}}{% endblock %}"/>
+            <meta property="og:type" content="{% block og_type %}website{% endblock %}"/>
+            <meta property="og:url" content="{% block og_url %}{{self.get_full_url}}{% endblock %}"/>
             <meta property="og:image" content="{% block og_image %}
                 {% if self.og_image %}
                     {% image self.og_image original as og_logo %}
@@ -49,7 +48,7 @@
                     {% image settings.coderedcms.LayoutSettings.logo original as og_logo %}
                     {{og_logo.url}}
                 {% endif %}
-                {% endblock %}" />
+                {% endblock %}"/>
             {% endblock %}
             {% block og_seo_extra %}{% endblock %}
         {% endif %}
@@ -57,9 +56,9 @@
         {# Twitter SEO #}
         {% if settings.coderedcms.SeoSettings.twitter_meta %}
             {% block twitter_seo_base %}
-            <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}" />
+            <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}"/>
             {% if settings.coderedcms.SocialMediaSettings.twitter %}
-            <meta name="twitter:site" content="{% block twitter_site %}@{{settings.coderedcms.SocialMediaSettings.twitter_handle}}{% endblock %}" />
+            <meta name="twitter:site" content="{% block twitter_site %}@{{settings.coderedcms.SocialMediaSettings.twitter_handle}}{% endblock %}"/>
             {% endif %}
             {% endblock %}
             {% block twitter_seo_extra %}{% endblock %}
@@ -67,9 +66,9 @@
 
         {% block frontend_assets %}
             {% if settings.coderedcms.LayoutSettings.frontend_theme %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css"/>
             {% else %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous"/>
             {% endif %}
         {% endblock %}
 
@@ -131,7 +130,7 @@
         <div id="content-walls">
             {% block content_walls %}
                 {% for content_wall in content_walls %}
-                        {% include_block content_wall with settings=settings %}
+                    {% include_block content_wall with settings=settings %}
                 {% endfor %}
             {% endblock %}
         </div>

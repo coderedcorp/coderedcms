@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-<div class="{{sidebar.custom_css_class}}">
+<div {% if sidebar.custom_css_class %}class="{{sidebar.custom_css_class}}"{% endif %} {% if sidebar.custom_style %}style="{{sidebar.custom_style}}"{% endif %}>
     <h4>{{sidebar.name}}</h4>
     {% if sidebar.menu_items %}
         <ul class="nav flex-column">
@@ -9,7 +9,6 @@
         {% endfor %}
         </ul>
     {% endif %}
-
     {% if sidebar.content %}
         {{sidebar.content}}
     {% endif %}

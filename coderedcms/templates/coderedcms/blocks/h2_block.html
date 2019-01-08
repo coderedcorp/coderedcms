@@ -1,4 +1,5 @@
-<h2 {% if self.custom_css_class %}class="{{self.settings.custom_css_class}}"{% endif %}
-{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+<h2 class="{{self.settings.custom_css_class}}"
+{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}
+style="{{self.settings.custom_style}}">
 	{{ self.text }}
 </h2>

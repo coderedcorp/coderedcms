@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="card mb-3 {{self.settings.custom_css_class}}"
-{% if self.settings.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+{% if self.settings.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %} style="{{self.settings.custom_style}}">
     {% if self.image %}
     {% image self.image fill-900x600 as card_img %}
     <img class="card-img-top w-100" src="{{card_img.url}}" alt="{{card_img.title}}">

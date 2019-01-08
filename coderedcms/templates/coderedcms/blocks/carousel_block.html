@@ -16,7 +16,7 @@
     <div class="carousel-inner">
     {% for item in self.carousel.carousel_slides.all %}
         {% block carousel_slide %}
-        <div class="carousel-item {% if not item.image %}no-img{% endif %} {% if forloop.counter0 == 0 %}active{% endif %} {{item.custom_css_class}}" %{% if item.custom_id %}id="#{{item.custom_id}}"{% endif %} style="{% if item.background_color %}background-color: {{item.background_color}};{% endif %}">
+        <div class="carousel-item {% if not item.image %}no-img{% endif %} {% if forloop.counter0 == 0 %}active{% endif %} {{item.custom_css_class}}" %{% if item.custom_id %}id="#{{item.custom_id}}"{% endif %} style="{{self.settings.custom_style}}{% if item.background_color %}background-color: {{item.background_color}};{% endif %}">
             {% block carousel_slide_image %}
                 {% if item.image %}
                 {% image item.image fill-2000x1000 as carouselimage %}

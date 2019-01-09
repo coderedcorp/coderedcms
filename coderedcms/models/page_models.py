@@ -57,6 +57,7 @@ from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.settings import cr_settings
+from coderedcms.signals import form_page_submit
 
 CODERED_PAGE_MODELS = []
 
@@ -420,17 +421,22 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
 
+
+    @classmethod
+    def get_edit_handler_object_list(cls):
+        return [
+            ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading='Content'),
+            ObjectList(cls.layout_panels, heading='Layout'),
+            ObjectList(cls.promote_panels, heading='SEO', classname="seo"),
+            ObjectList(cls.settings_panels, heading='Settings', classname="settings"),
+        ]
+
     @classmethod
     def get_edit_handler(cls):
         """
         Override to "lazy load" the panels overriden by subclasses.
         """
-        return TabbedInterface([
-            ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading='Content'),
-            ObjectList(cls.layout_panels, heading='Layout'),
-            ObjectList(cls.promote_panels, heading='SEO', classname="seo"),
-            ObjectList(cls.settings_panels, heading='Settings', classname="settings"),
-        ]).bind_to_model(cls)
+        return TabbedInterface(cls.get_edit_handler_object_list()).bind_to_model(cls)
 
     def get_struct_org_name(self):
         """
@@ -1050,6 +1056,7 @@ class CoderedFormPage(CoderedWebPage):
         )
     ]
 
+
     @property
     def form_live(self):
         """
@@ -1179,6 +1186,8 @@ class CoderedFormPage(CoderedWebPage):
 
                 message.content_subtype = 'html'
                 message.send()
+
+        form_page_submit.send(sender=self.specific.__class__, instance=self, form_submission=form_submission)
 
         return processed_data
 

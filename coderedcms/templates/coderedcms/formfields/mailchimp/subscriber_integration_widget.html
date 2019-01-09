@@ -1,0 +1,87 @@
+{% load coderedcms_tags %}
+
+<input type="hidden" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+<select name="list-selection-{{ widget.name }}">
+    {% for list_id, list_name in widget.selectable_mailchimp_lists %}
+        <option value="{{ list_id }}" {% if list_id == widget.stored_mailchimp_list %}selected{% endif %}>{{ list_name }}</option>
+    {% endfor %}
+</select>
+<div name="email-field-{{ widget.name }}">
+    <br />
+    <label style="float:left;">EMAIL</label>
+    <div class="input">
+        <input type="text" name="email-{{ widget.name }}" value="" />
+    </div>
+</div>
+<div name="merge-fields-{{ widget.name }}">
+
+</div>
+
+<script>
+
+    {% if widget.stored_mailchimp_list %}
+    $(document).ready(function(){
+        populate_merge_fields_for_{{ widget.name|transform_dashes }}("{{ widget.stored_mailchimp_list}}");
+        populate_email_field_for_{{ widget.name|transform_dashes }}();
+    });
+    {% endif %}
+    $("select[name='list-selection-{{ widget.name }}']").change(function(){
+        populate_merge_fields_for_{{ widget.name|transform_dashes }}($(this).val());
+    });
+
+    function populate_merge_fields_for_{{ widget.name|transform_dashes }}(value){
+        var stored_merge_fields = {{ widget.stored_merge_fields|safe }};
+        var retrieved_merge_fields = get_merge_fields_for_{{ widget.name|transform_dashes }}(value);
+        var populated_merge_fields = {};
+        var merge_field_html = '';
+        
+        var mailchimp_list_json = JSON.parse($("input[name='{{ widget.name }}']").val());
+        mailchimp_list_json['list_id'] = value;
+
+        for (var i=0; i < retrieved_merge_fields.length; i++){
+            merge_field = retrieved_merge_fields[i];
+            populated_merge_fields[merge_field] = "";
+            if(stored_merge_fields.hasOwnProperty(merge_field)){
+                populated_merge_fields[merge_field] = stored_merge_fields[merge_field];
+            }
+        }
+
+        mailchimp_list_json['merge_fields'] = {};
+        for (var key in populated_merge_fields){
+            mailchimp_list_json['merge_fields'][key] = populated_merge_fields[key];
+            merge_field_html += '<br /><label style="float:left;">' + key + '</label>';
+            merge_field_html += '<div class="input"><input type="text" name="' + key + '"" value="' + populated_merge_fields[key] + '"></div>';
+        }
+
+        $("input[name='{{ widget.name }}']").val(JSON.stringify(mailchimp_list_json));
+        $("div[name='merge-fields-{{ widget.name }}']").html(merge_field_html);
+
+    }
+
+    function populate_email_field_for_{{ widget.name|transform_dashes }}(){
+        var mailchimp_list_json = JSON.parse($("input[name='{{ widget.name }}']").val());
+        $("input[name='email-{{ widget.name }}").val(mailchimp_list_json['email_field']);
+    }
+
+    function get_merge_fields_for_{{ widget.name|transform_dashes }}( value ){
+        if(value == ""){
+            return []
+        }
+        var merge_field_library = {{ widget.merge_fields_library|safe }}
+        return merge_field_library[value]
+
+    }
+
+    $("div[name='merge-fields-{{ widget.name }}']").on('input', 'input', function(){
+        var mailchimp_list_json = JSON.parse($("input[name='{{ widget.name }}']").val());
+        mailchimp_list_json['merge_fields'][$(this).attr('name')] = $(this).val();
+        $("input[name='{{ widget.name }}']").val(JSON.stringify(mailchimp_list_json));
+    });
+
+    $("div[name='email-field-{{ widget.name }}']").on('input', 'input', function(){
+        var mailchimp_list_json = JSON.parse($("input[name='{{ widget.name }}']").val());
+        mailchimp_list_json['email_field'] = $(this).val();
+        $("input[name='{{ widget.name }}']").val(JSON.stringify(mailchimp_list_json));
+    });
+
+</script>

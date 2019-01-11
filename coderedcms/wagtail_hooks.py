@@ -11,7 +11,6 @@ from wagtailcache.cache import clear_cache
 
 from coderedcms import utils
 from coderedcms.models import CoderedFormPage
-from coderedcms.signals import form_page_submit
 
 
 @hooks.register('insert_global_admin_css')

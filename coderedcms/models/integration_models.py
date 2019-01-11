@@ -4,6 +4,7 @@ from django.template import Context, Template
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core import hooks
 from wagtail.core.models import Orderable, Page
 from modelcluster.fields import ParentalKey
 
@@ -12,6 +13,7 @@ from coderedcms.api.mailchimp import MailchimpApi
 from ast import literal_eval
 import json
 
+
 class MailchimpSubscriberIntegrationWidget(Input):
     template_name = 'coderedcms/formfields/mailchimp/subscriber_integration_widget.html'
 
@@ -19,16 +21,15 @@ class MailchimpSubscriberIntegrationWidget(Input):
         ctx = super(MailchimpSubscriberIntegrationWidget, self).get_context(name, value, attrs)
 
         json_value = self.get_json_value(value)
-        selectable_lists = self.get_selectable_mailchimp_lists()
+        list_library = self.build_list_library()
         ctx['widget']['value'] = json.dumps(json_value)
+        ctx['widget']['list_library'] = self.build_list_library()
         ctx['widget']['stored_mailchimp_list'] = self.get_stored_mailchimp_list(json_value)
         ctx['widget']['stored_merge_fields'] = self.get_stored_merge_fields(json_value)
-        ctx['widget']['merge_fields_library'] = self.get_merge_fields_library(selectable_lists)
-        ctx['widget']['selectable_mailchimp_lists'] = [("", "Please select one of your Mailchimp Lists")] + selectable_lists
+        ctx['widget']['selectable_mailchimp_lists'] = self.get_selectable_mailchimp_lists(list_library)
         return ctx
 
     def get_json_value(self, value):
-        initial_value = '{"list_id": "", "merge_fields": {}, "email_field": ""}'
         if value:
             json_value = json.loads(value)
         else:
@@ -39,6 +40,8 @@ class MailchimpSubscriberIntegrationWidget(Input):
             json_value['merge_fields'] = {}
         if 'email_field' not in json_value:
             json_value['email_field'] = ""
+        if 'interest_categories' not in json_value:
+            json_value['interest_categories'] = {}
         return json_value
 
     def get_stored_mailchimp_list(self, value):
@@ -50,23 +53,32 @@ class MailchimpSubscriberIntegrationWidget(Input):
             return json.dumps(value['merge_fields'])
         return json.dumps({})
 
-    def get_selectable_mailchimp_lists(self):
+    def get_selectable_mailchimp_lists(self, library):
+        selectable_lists = [('', 'Please select one of your Mailchimp Lists.')]
+        for k, v in library.items():
+            selectable_lists.append((k, v['name']))
+
+        return selectable_lists
+
+    def build_list_library(self):
         mailchimp = MailchimpApi()
+        list_library = {}
         if mailchimp.is_active:
             lists = mailchimp.get_lists()
-            return [(l['id'], l['name']) for l in lists['lists']]
-        return [("", "Please add a Mailchimp API key in your settings to enable the Mailchimp integrations.")]  
+            for l in lists['lists']:
+                list_library[l['id']] = {
+                    'name': l['name'],
+                    'merge_fields': {},
+                    'interest_categories': {}
+                }
+                
+                list_library[l['id']]['merge_fields'] = mailchimp.get_merge_fields_for_list(l['id'])['merge_fields']
+                list_library[l['id']]['interest_categories'] = mailchimp.get_interest_categories_for_list(l['id'])['categories']
 
-    def get_merge_fields_library(self, mailchimp_list_tuples):
-        mailchimp = MailchimpApi()
-        if mailchimp.is_active:
-            merge_fields_library = {}
-            for tup in mailchimp_list_tuples:
-                merge_fields_library[tup[0]] = []
-                for merge_field in mailchimp.get_list_merge_fields(tup[0])['merge_fields']:
-                    merge_fields_library[tup[0]].append(merge_field['tag'])
-            return merge_fields_library
-        return {}
+                for category in list_library[l['id']]['interest_categories']:
+                    category['interests'] = mailchimp.get_interests_for_interest_category(l['id'], category['id'])['interests']
+
+        return list_library
 
 class MailchimpSubscriberIntegration(models.Model):
     class Meta:
@@ -77,10 +89,9 @@ class MailchimpSubscriberIntegration(models.Model):
         verbose_name=_("List")
     )
 
-    def integration_signal_operation(self, instance, **kwargs):
+    def integration_operation(self, instance, **kwargs):
         mailchimp = MailchimpApi()
         rendered_dictionary = self.render_dictionary(self.format_form_submission(kwargs['form_submission']))
-
         if mailchimp.is_active:
             mailchimp.add_user_to_list(list_id=self.get_list_id(), data=rendered_dictionary)
 
@@ -102,16 +113,25 @@ class MailchimpSubscriberIntegration(models.Model):
         if 'list_id' in self.get_data():
             return self.get_data()['list_id']
 
+    def combine_interest_categories(self):
+        interest_dict = {}
+        for category_id, value in self.get_data()['interest_categories'].items():
+            interest_dict.update(value['interests'])
+
+        return interest_dict
+
     def render_dictionary(self, form_submission):
         rendered_dictionary_template = json.dumps({
             'members': [
                 {
                     'email_address': self.get_data()['email_field'],
                     'merge_fields': self.get_data()['merge_fields'],
+                    'interests': self.combine_interest_categories(),
                     'status': 'subscribed',
                 }
             ]
         })
+
 
         rendered_dictionary = Template(rendered_dictionary_template).render(Context(form_submission))
         return rendered_dictionary
@@ -119,3 +139,10 @@ class MailchimpSubscriberIntegration(models.Model):
     panels = [
         FieldPanel('subscriber_json_data', widget=MailchimpSubscriberIntegrationWidget)
     ]
+
+@hooks.register('form_page_submit')
+def run_mailchimp_subscriber_integrations(instance, **kwargs):
+    if hasattr(instance, 'integration_panels'):
+        for panel in instance.integration_panels:
+            for integration in getattr(instance, panel.relation_name).all():
+                integration.integration_operation(instance, **kwargs)

@@ -37,6 +37,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
     StreamFieldPanel,
     TabbedInterface)
+from wagtail.core import hooks
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable, PageBase, Page, Site
 from wagtail.core.utils import resolve_model_string
@@ -57,7 +58,6 @@ from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.settings import cr_settings
-from coderedcms.signals import form_page_submit
 
 CODERED_PAGE_MODELS = []
 
@@ -1187,7 +1187,8 @@ class CoderedFormPage(CoderedWebPage):
                 message.content_subtype = 'html'
                 message.send()
 
-        form_page_submit.send(sender=self.specific.__class__, instance=self, form_submission=form_submission)
+        for fn in hooks.get_hooks('form_page_submit'):
+            fn(instance=self, form_submission=form_submission)
 
         return processed_data
 

@@ -193,3 +193,5 @@ BOOTSTRAP4 = {
 # Tags
 
 TAGGIT_CASE_INSENSITIVE = True
+
+PASSWORD_REQUIRED_TEMPLATE = 'coderedcms/pages/password_required.html'

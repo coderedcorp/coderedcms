@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms.widgets import Select, Input
 from django.template import Context, Template
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import FieldPanel
@@ -16,6 +17,7 @@ import json
 
 class MailchimpSubscriberIntegrationWidget(Input):
     template_name = 'coderedcms/formfields/mailchimp/subscriber_integration_widget.html'
+    js_template_name = 'coderedcms/formfields/mailchimp/subscriber_integration_js.html'
 
     def get_context(self, name, value, attrs):
         ctx = super(MailchimpSubscriberIntegrationWidget, self).get_context(name, value, attrs)
@@ -23,11 +25,23 @@ class MailchimpSubscriberIntegrationWidget(Input):
         json_value = self.get_json_value(value)
         list_library = self.build_list_library()
         ctx['widget']['value'] = json.dumps(json_value)
-        ctx['widget']['list_library'] = self.build_list_library()
-        ctx['widget']['stored_mailchimp_list'] = self.get_stored_mailchimp_list(json_value)
-        ctx['widget']['stored_merge_fields'] = self.get_stored_merge_fields(json_value)
+        ctx['widget']['extra_js'] = self.render_js(name, list_library, json_value)
         ctx['widget']['selectable_mailchimp_lists'] = self.get_selectable_mailchimp_lists(list_library)
+        ctx['widget']['stored_mailchimp_list'] = self.get_stored_mailchimp_list(json_value)
+
         return ctx
+
+    def render_js(self, name, list_library, json_value):
+        ctx = {
+            'widget_name': name,
+            'widget_js_name' : name.replace('-', '_'),
+            'list_library' : list_library,
+            'stored_mailchimp_list': self.get_stored_mailchimp_list(json_value),
+            'stored_merge_fields' : self.get_stored_merge_fields(json_value),
+        }
+
+        return render_to_string(self.js_template_name, ctx)
+
 
     def get_json_value(self, value):
         if value:
@@ -91,8 +105,8 @@ class MailchimpSubscriberIntegration(models.Model):
 
     def integration_operation(self, instance, **kwargs):
         mailchimp = MailchimpApi()
-        rendered_dictionary = self.render_dictionary(self.format_form_submission(kwargs['form_submission']))
         if mailchimp.is_active:
+            rendered_dictionary = self.render_dictionary(self.format_form_submission(kwargs['form_submission']))
             mailchimp.add_user_to_list(list_id=self.get_list_id(), data=rendered_dictionary)
 
     def format_form_submission(self, form_submission):

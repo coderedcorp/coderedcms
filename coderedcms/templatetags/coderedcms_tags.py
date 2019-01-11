@@ -124,8 +124,3 @@ def structured_data_datetime(dt):
     if dt.time():
         return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
     return datetime.strftime(dt, "%Y-%m-%d")
-
-
-@register.filter
-def transform_dashes(string):
-    return string.replace("-", "_")

@@ -19,6 +19,9 @@ class MailchimpApi:
             self.is_active = False
 
     def set_base_url(self):
+        """
+        The base url for the mailchimip api is dependaent on the api key.
+        """
         key, datacenter = self.access_token.split('-')
         self.base_url = self.proto_base_url.format(datacenter)
 
@@ -53,7 +56,6 @@ class MailchimpApi:
     def add_user_to_list(self, list_id, data):
         endpoint = "lists/{0}".format(list_id)
         json_response = self.post(endpoint, data=data)
-        print(json_response)
         return json_response
 
     def get(self, endpoint, data={}, auth=None, headers=None, **kwargs):

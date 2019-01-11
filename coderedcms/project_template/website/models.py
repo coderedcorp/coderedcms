@@ -11,6 +11,7 @@ from coderedcms.models import (
     CoderedWebPage
 )
 
+
 class ArticlePage(CoderedArticlePage):
     """
     Article, suitable for news or blog content.

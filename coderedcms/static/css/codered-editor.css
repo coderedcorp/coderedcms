@@ -15,12 +15,6 @@
     background-color:transparent;
 }
 
-label,
-.sequence-member label,
-.sequence-member .label {
-    font-size:0.9em;
-    padding:0.5em 0.5em 0.5em 0;
-}
 
 .sequence-member input[type='text'],
 .sequence-member input[type='email'],
@@ -71,7 +65,7 @@ label,
 }
 
 
-/* Override and enhance the streamfield editor */
+/* Override and enhance the streamfield editor to support our deeply nested streamfields. */
 
 .chooser .unchosen::before, .chooser .chosen::before {
     color:rgba(0,0,0,0.2)
@@ -84,7 +78,7 @@ li.sequence-member {
 li.sequence-member li.sequence-member {
     background-color:rgba(0,0,0,0.05);
     border:none;
-    margin:0 0 50px 0;
+    margin:0 0 20px 0;
 
 }
 li.sequence-member:hover {
@@ -111,7 +105,8 @@ li.sequence-member .struct-block .sequence-container .sequence-member-inner {
 
 .sequence-controls {
     border: none;
-    background-color: inherit;
+    background-color: transparent;
+    top: unset;
 }
 .sequence-controls h3 label {
     font-weight: bold;
@@ -123,23 +118,8 @@ li.sequence-member .struct-block .sequence-container .sequence-member-inner {
     box-sizing: border-box;
 }
 
-.object.stream-field {
-    margin-top:50px;
-}
-
 .object > h2 {
     font-weight: 600;
-    height: 3em;
-    line-height: 1em;
-}
-.object > h2 label::before, .object > h2::before {
-    line-height:1.5em;
-}
-.object.empty .add .button::before {
-    line-height:2em;
-    height:2em;
-    width:2.3em;
-
 }
 
 .object .multiple {

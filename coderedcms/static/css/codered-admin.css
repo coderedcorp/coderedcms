@@ -87,17 +87,17 @@ input[type='checkbox']::before, input[type='radio']::before {
 /* Display labels and fields horizontally, except .label-above */
 
 @media screen and (min-width:50em) {
-    li.sequence-member .fields > li,
-    ul.fields > li:not(.label-above) > .field {
+    body:not(.login) li.sequence-member .fields > li,
+    body:not(.login) ul.fields > li:not(.label-above) > .field {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: flex-start;
         justify-content: flex-start;
     }
-    ul.fields > li:not(.label-above) ul.fields > li > label,
-    ul.fields > li:not(.label-above) .field > label,
-    .field-content ul > li:not(.label-above) > label {
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
+    body:not(.login) ul.fields > li:not(.label-above) .field > label,
+    body:not(.login) .field-content ul > li:not(.label-above) > label {
         color:inherit;
         font-weight:normal;
         display:block;
@@ -106,10 +106,10 @@ input[type='checkbox']::before, input[type='radio']::before {
         width:15em;
         min-width:15em;
     }
-    ul.fields > li:not(.label-above) ul.fields > li > label,
-    ul.fields > li:not(.label-above) ul.fields > li > .label,
-    .multiple ul.fields > li:not(.label-above) .field > label,
-    .field-content ul > li:not(.label-above) > label {
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
+    body:not(.login) .multiple ul.fields > li:not(.label-above) .field > label,
+    body:not(.login) .field-content ul > li:not(.label-above) > label {
         width:10em;
         min-width:10em;
     }
@@ -123,8 +123,8 @@ input[type='checkbox']::before, input[type='radio']::before {
         margin: 0 auto;
     }
     li.codered-collapsible label+.field,
-    ul.fields > li:not(.label-above) > label+.field-content,
-    ul.fields > li:not(.label-above) > label+.field {
+    body:not(.login) ul.fields > li:not(.label-above) > label+.field-content,
+    body:not(.login) ul.fields > li:not(.label-above) > label+.field {
         display:block;
         flex-grow: 1;
         float:none;

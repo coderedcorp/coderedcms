@@ -88,7 +88,7 @@ input[type='checkbox']::before, input[type='radio']::before {
 
 @media screen and (min-width:50em) {
     body:not(.login) li.sequence-member .fields > li,
-    body:not(.login) ul.fields > li:not(.label-above) > .field {
+    body:not(.login) ul.fields > li:not(.label-above) .field {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -103,13 +103,16 @@ input[type='checkbox']::before, input[type='radio']::before {
         display:block;
         float:none;
         margin: 0;
+        width: auto;
+    }
+    body:not(.login) ul.fields > li:not(.label-above) .field > label {
         width:15em;
         min-width:15em;
     }
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
-    body:not(.login) .multiple ul.fields > li:not(.label-above) .field > label,
-    body:not(.login) .field-content ul > li:not(.label-above) > label {
+    body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > label,
+    body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > label {
         width:10em;
         min-width:10em;
     }

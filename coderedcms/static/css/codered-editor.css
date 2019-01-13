@@ -110,8 +110,6 @@ li.sequence-member .struct-block .sequence-container .sequence-member-inner {
 }
 .sequence-controls h3 label {
     font-weight: bold;
-    display: inline;
-    vertical-align: middle;
 }
 
 .objects * {

@@ -7,8 +7,8 @@ class MailchimpApi:
     user_string = "Website"
     proto_base_url = "https://{0}.api.mailchimp.com/3.0/"
 
-    def __init__(self):
-        self.set_access_token()
+    def __init__(self, site=None):
+        self.set_access_token(site=None)
 
     def set_access_token(self, site=None):
         site = site or Site.objects.get(is_default_site=True)

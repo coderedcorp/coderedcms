@@ -22,7 +22,6 @@ To get the functionality working, you need to do the following:
 
 Here is what the resulting code will look like in ``website/models.py``::
 
-    from django.utils.translation import ugettext_lazy as _
     from modelcluster.fields import ParentalKey
     from coderedcms.models import CoderedFormPage, MailchimpSubscriberIntegration
     from wagtail.admin.edit_handlers import InlinePanel
@@ -42,7 +41,7 @@ Here is what the resulting code will look like in ``website/models.py``::
 
         integration_panels = [
             InlinePanel('mailchimp_subscriber_integrations',
-                heading=_("Mailchimp Subscriber Integrations"),
+                heading="Mailchimp Subscriber Integrations",
             )
         ]
 

@@ -437,7 +437,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         ]
 
         if cls.integration_panels:
-            panels.append(ObjectList(cls.integration_panels, heading='Integrations'))
+            panels.append(ObjectList(cls.integration_panels, heading='Integrations', classname='integrations'))
 
         return TabbedInterface(panels).bind_to_model(cls)
 

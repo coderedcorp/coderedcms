@@ -217,7 +217,8 @@ label {
 .tab-nav li.settings a {
     padding:0.5em 1.5em;
 }
-.tab-nav li.seo a::before {
+.tab-nav li.seo a::before, 
+.tab-nav li.integrations a::before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: "FontAwesome";
@@ -227,6 +228,10 @@ label {
     margin-right: .5em;
     font-size: 1.2em;
     font-weight: 400;
+}
+
+.tab-nav li.integrations a::before {
+    content: "\f12e";
 }
 
 .logo {

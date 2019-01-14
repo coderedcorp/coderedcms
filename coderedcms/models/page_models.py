@@ -403,6 +403,8 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         StreamFieldPanel('content_walls'),
     ]
 
+    integration_panels = []
+
     def __init__(self, *args, **kwargs):
         """
         Inject custom choices and defalts into the form fields
@@ -423,20 +425,21 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 
 
     @classmethod
-    def get_edit_handler_object_list(cls):
-        return [
+    def get_edit_handler(cls):
+        """
+        Override to "lazy load" the panels overriden by subclasses.
+        """
+        panels = [
             ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading='Content'),
             ObjectList(cls.layout_panels, heading='Layout'),
             ObjectList(cls.promote_panels, heading='SEO', classname="seo"),
             ObjectList(cls.settings_panels, heading='Settings', classname="settings"),
         ]
 
-    @classmethod
-    def get_edit_handler(cls):
-        """
-        Override to "lazy load" the panels overriden by subclasses.
-        """
-        return TabbedInterface(cls.get_edit_handler_object_list()).bind_to_model(cls)
+        if cls.integration_panels:
+            panels.append(ObjectList(cls.integration_panels, heading='Integrations'))
+
+        return TabbedInterface(panels).bind_to_model(cls)
 
     def get_struct_org_name(self):
         """

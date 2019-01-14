@@ -10,8 +10,9 @@ class MailchimpApi:
     def __init__(self):
         self.set_access_token()
 
-    def set_access_token(self):
-        self.access_token = MailchimpApiSettings.for_site(Site.objects.get(is_default_site=True)).mailchimp_api_key
+    def set_access_token(self, site=None):
+        site = site or Site.objects.get(is_default_site=True)
+        self.access_token = MailchimpApiSettings.for_site(site).mailchimp_api_key
         if self.access_token:
             self.set_base_url()
             self.is_active = True
@@ -20,7 +21,7 @@ class MailchimpApi:
 
     def set_base_url(self):
         """
-        The base url for the mailchimip api is dependaent on the api key.
+        The base url for the mailchimip api is dependent on the api key.
         """
         key, datacenter = self.access_token.split('-')
         self.base_url = self.proto_base_url.format(datacenter)
@@ -35,37 +36,37 @@ class MailchimpApi:
 
     def get_lists(self):
         endpoint = "lists?fields=lists.name,lists.id"
-        json_response = self.get(endpoint)
+        json_response = self._get(endpoint)
         return json_response
 
     def get_merge_fields_for_list(self, list_id):
         endpoint = "lists/{0}/merge-fields?fields=merge_fields.tag,merge_fields.merge_id,merge_fields.name".format(list_id)
-        json_response = self.get(endpoint)
+        json_response = self._get(endpoint)
         return json_response
 
     def get_interest_categories_for_list(self, list_id):
         endpoint = "lists/{0}/interest-categories?fields=categories.id,categories.title".format(list_id)
-        json_response = self.get(endpoint)
+        json_response = self._get(endpoint)
         return json_response
 
     def get_interests_for_interest_category(self, list_id, interest_category_id):
         endpoint = "lists/{0}/interest-categories/{1}/interests?fields=interests.id,interests.name".format(list_id, interest_category_id)
-        json_response = self.get(endpoint)
+        json_response = self._get(endpoint)
         return json_response
 
     def add_user_to_list(self, list_id, data):
         endpoint = "lists/{0}".format(list_id)
-        json_response = self.post(endpoint, data=data)
+        json_response = self._post(endpoint, data=data)
         return json_response
 
-    def get(self, endpoint, data={}, auth=None, headers=None, **kwargs):
+    def _get(self, endpoint, data={}, auth=None, headers=None, **kwargs):
         auth = auth or self.default_auth()
         headers = headers or self.default_headers()
         full_url = "{0}{1}".format(self.base_url, endpoint)
         r = requests.get(full_url, auth=auth, headers=headers, data=data, **kwargs)
         return r.json()
 
-    def post(self, endpoint, data={}, auth=None, headers=None, **kwargs):
+    def _post(self, endpoint, data={}, auth=None, headers=None, **kwargs):
         auth = auth or self.default_auth()
         headers = headers or self.default_headers()
         full_url = "{0}{1}".format(self.base_url, endpoint)

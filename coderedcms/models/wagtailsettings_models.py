@@ -370,7 +370,7 @@ class GoogleApiSettings(BaseSetting):
     Settings for Google API services.
     """
     class Meta:
-        verbose_name = _('Google API Settings')
+        verbose_name = _('Google API')
 
     google_maps_api_key = models.CharField(
         blank=True,
@@ -386,7 +386,7 @@ class MailchimpApiSettings(BaseSetting):
     Settings for Mailchimp API services.
     """
     class Meta:
-        verbose_name = _('Mailchimp API Settings')
+        verbose_name = _('Mailchimp API')
 
     mailchimp_api_key = models.CharField(
         blank=True,

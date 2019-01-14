@@ -1,0 +1,33 @@
+CodeRed CMS 0.11.0 release notes
+================================
+
+
+New features
+------------
+
+* Updated to Wagtail 2.4
+* ``coderedcms start`` command has new ``--sitename`` and ``--domain`` options to help pre-populate
+  settings. The command also has more helpful output for beginners.
+
+
+Bug fixes
+---------
+
+* Fixed invalid HTML syntax in "Latest Pages" block.
+* Fix appearance of search page when no query is specified.
+* Allow reordering form fields in generated website app.
+* Fixed bug in ``prod.py`` settings in generated website app.
+* Added ``__init__.py`` and ``apps.py`` to generated website app for better compatibility with uWSGI.
+
+
+Maintenance
+-----------
+
+* Standardized edit handler definitions in `coderedcms/models/page_models.py`
+* Removed unused CSS from deprecated "Formatted Code Block"
+
+
+Upgrade considerations
+----------------------
+
+* Django 1.11 support has been removed per Wagtail 2.4

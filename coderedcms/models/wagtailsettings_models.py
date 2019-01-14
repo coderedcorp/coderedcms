@@ -367,14 +367,30 @@ class SeoSettings(BaseSetting):
 @register_setting(icon='fa-puzzle-piece')
 class GoogleApiSettings(BaseSetting):
     """
-    Settings for Google API services..
+    Settings for Google API services.
     """
     class Meta:
-        verbose_name = _('Google API Settings')
+        verbose_name = _('Google API')
 
     google_maps_api_key = models.CharField(
         blank=True,
         max_length=255,
         verbose_name=_('Google Maps API Key'),
         help_text=_('The API Key used for Google Maps.')
+    )
+
+
+@register_setting(icon='fa-puzzle-piece')
+class MailchimpApiSettings(BaseSetting):
+    """
+    Settings for Mailchimp API services.
+    """
+    class Meta:
+        verbose_name = _('Mailchimp API')
+
+    mailchimp_api_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Mailchimp API Key'),
+        help_text=_('The API Key used for Mailchimp.')
     )

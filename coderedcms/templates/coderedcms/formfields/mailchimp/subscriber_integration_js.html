@@ -1,0 +1,127 @@
+<script>
+    var mailchimp_master_library = {{ list_library|safe }};
+    $(document).ready(function(){
+        populate_fields_for_{{ widget_js_name }}("{{ stored_mailchimp_list }}");
+    });
+
+    function populate_fields_for_{{ widget_js_name }}(list_id_as_str){
+        populate_merge_fields_for_{{ widget_js_name }}(list_id_as_str);
+        populate_email_fields_for_{{ widget_js_name }}(list_id_as_str);
+        populate_interest_categories_for_{{ widget_js_name }}(list_id_as_str);
+    }
+
+    function populate_merge_fields_for_{{ widget_js_name }}(list_id_as_str){
+        var subscriber_data = get_subscriber_json_data_for_{{ widget_js_name }}();
+        var populated_merge_fields = [];
+        var merge_field_html = '';
+
+        if(list_id_as_str != ""){
+
+            if(mailchimp_master_library[list_id_as_str]['merge_fields'].length > 0){
+                merge_field_html = '<br /><div><strong>MERGE FIELDS</h3></div>';
+            }
+
+            for(var i=0; i < mailchimp_master_library[list_id_as_str]['merge_fields'].length; i++){
+                var merge_field = mailchimp_master_library[list_id_as_str]['merge_fields'][i];
+                merge_field_html += '<label style="float:left;">' + merge_field['name'] + '</label>';
+                if(subscriber_data['merge_fields'].hasOwnProperty(merge_field['tag'])){
+                    merge_field_html += '<div class="input"><input type="text" name="' + merge_field['tag'] + '"" value="' + subscriber_data['merge_fields'][merge_field['tag']] + '"></div>';
+                } else {
+                    merge_field_html += '<div class="input"><input type="text" name="' + merge_field['tag'] + '"" value=""></div>';                
+                }
+                merge_field_html += "<br />";
+            }
+        }
+
+        $("div[name='merge-fields-{{ widget_name }}']").html(merge_field_html);
+
+    }
+
+    function populate_email_fields_for_{{ widget_js_name }}(list_id_as_str){
+        var subscriber_data = get_subscriber_json_data_for_{{ widget_js_name }}(list_id_as_str);
+        $("input[name='email-{{ widget_name }}").val(subscriber_data['email_field']);
+    }
+
+    function populate_interest_categories_for_{{ widget_js_name }}(list_id_as_str){
+
+        function is_interest_checked(interest_category_library, interest_category_id, interest_id){
+            if(interest_category_library.hasOwnProperty(interest_category_id)){
+                if(interest_category_library[interest_category_id].hasOwnProperty('interests')){
+                    if(interest_category_library[interest_category_id]['interests'].hasOwnProperty(interest_id)){
+                        return interest_category_library[interest_category_id]['interests'][interest_id]
+                    }
+                } 
+            }
+            return false;
+        }
+        var subscriber_data = get_subscriber_json_data_for_{{ widget_js_name }}();
+        var interest_category_field_html = '';
+
+        if(list_id_as_str != ""){
+            if(mailchimp_master_library[list_id_as_str]['interest_categories'].length > 0){
+                interest_category_field_html += '<br /><div><strong>GROUPS</strong></div>';
+            }
+
+            for(var i in mailchimp_master_library[list_id_as_str]['interest_categories']){
+                var interest_category = mailchimp_master_library[list_id_as_str]['interest_categories'][i];
+                interest_category_field_html += '<br /><label style="float:left;">' + interest_category['title'] + '</label>';
+                for(var j in interest_category['interests']){
+                    var interest = interest_category['interests'][j];
+                    if(is_interest_checked(subscriber_data['interest_categories'], interest_category['id'], interest['id']) == true){
+                        interest_category_field_html += '<div class="input"><input type="checkbox" data-category-id="' + interest_category['id'] +'" name="' + interest['id'] + '" checked value="true">' + interest['name'] + '</span>';
+                    } else {
+                        interest_category_field_html += '<div class="input"><input type="checkbox" data-category-id="' + interest_category['id'] + '" name="' + interest['id'] + '" value="true"><span>' + interest['name'] + '</span>';
+                    }
+                    interest_category_field_html += '<br />'
+                }
+            }
+        }
+
+        $("div[name='interest-categories-{{ widget_name }}']").html(interest_category_field_html);
+    }
+
+    function get_subscriber_json_data_for_{{ widget_js_name }}(){
+        return JSON.parse($("input[name='{{ widget_name }}']").val());
+    }
+
+    function set_subscriber_json_data_for_{{ widget_js_name }}(json_data){
+        $("input[name='{{ widget_name }}']").val(JSON.stringify(json_data));
+    }
+
+    $("select[name='list-selection-{{ widget_name }}']").change(function(){
+        populate_fields_for_{{ widget_js_name }}($(this).val());
+    });
+
+    $("div[name='merge-fields-{{ widget_name }}']").on('input', 'input', function(){
+        var subscriber_data = get_subscriber_json_data_for_{{ widget_js_name }}();
+        subscriber_data['merge_fields'][$(this).attr('name')] = $(this).val();
+        set_subscriber_json_data_for_{{ widget_js_name }}(subscriber_data);
+    });
+
+    $("div[name='email-field-{{ widget_name }}']").on('input', 'input', function(){
+        var subscriber_data = get_subscriber_json_data_for_{{ widget_js_name }}();
+        subscriber_data['email_field'] = $(this).val();
+        set_subscriber_json_data_for_{{ widget_js_name }}(subscriber_data);
+    });
+
+    $("div[name='interest-categories-{{ widget_name }}']").on('change', 'input', function(){
+        var subscriber_data = get_subscriber_json_data_for_{{ widget_js_name }}();
+        var checked;
+        var category_id = $(this).data("category-id").toString();
+        var interest_id = $(this).attr("name").toString();
+
+        if($(this).is(':checked')){
+            checked = true;
+        } else {
+            checked = false;
+        }
+
+        if(!subscriber_data['interest_categories'].hasOwnProperty(category_id)){
+            subscriber_data['interest_categories'][category_id] = {};
+            subscriber_data['interest_categories'][category_id]['interests'] = {};
+        }
+
+        subscriber_data['interest_categories'][category_id]['interests'][interest_id] = checked;
+        set_subscriber_json_data_for_{{ widget_js_name }}(subscriber_data);
+    });
+</script>

@@ -37,6 +37,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
     StreamFieldPanel,
     TabbedInterface)
+from wagtail.core import hooks
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable, PageBase, Page, Site
 from wagtail.core.utils import resolve_model_string
@@ -402,6 +403,8 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         StreamFieldPanel('content_walls'),
     ]
 
+    integration_panels = []
+
     def __init__(self, *args, **kwargs):
         """
         Inject custom choices and defalts into the form fields
@@ -420,17 +423,23 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
 
+
     @classmethod
     def get_edit_handler(cls):
         """
         Override to "lazy load" the panels overriden by subclasses.
         """
-        return TabbedInterface([
+        panels = [
             ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading='Content'),
             ObjectList(cls.layout_panels, heading='Layout'),
             ObjectList(cls.promote_panels, heading='SEO', classname="seo"),
             ObjectList(cls.settings_panels, heading='Settings', classname="settings"),
-        ]).bind_to_model(cls)
+        ]
+
+        if cls.integration_panels:
+            panels.append(ObjectList(cls.integration_panels, heading='Integrations', classname='integrations'))
+
+        return TabbedInterface(panels).bind_to_model(cls)
 
     def get_struct_org_name(self):
         """
@@ -1050,6 +1059,7 @@ class CoderedFormPage(CoderedWebPage):
         )
     ]
 
+
     @property
     def form_live(self):
         """
@@ -1179,6 +1189,9 @@ class CoderedFormPage(CoderedWebPage):
 
                 message.content_subtype = 'html'
                 message.send()
+
+        for fn in hooks.get_hooks('form_page_submit'):
+            fn(instance=self, form_submission=form_submission)
 
         return processed_data
 

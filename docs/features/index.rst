@@ -6,5 +6,5 @@ Features
 
     events
     import_export
-    integrations
+    mailchimp
     store_locator

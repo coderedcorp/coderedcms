@@ -1,17 +1,11 @@
-Integrations
-=============
-
-Information about various integrations with 3rd party services can be found here.
-
-
-Mailchimp
----------
+Mailchimp Integration
+=====================
 
 Implementations of the abstract `CoderedFormPage` can add their form submissions to a Mailchimp list.
 When this functionality is enabled, you can map form submission variables to merge variables and add 
 form submissions to specific interest groups.
 
-Implmenetation
+Implementation
 ~~~~~~~~~~~~~~
 
 By default, when you generate a website, you will get an implementation of `CoderedFormPage`.

@@ -15,12 +15,6 @@
     background-color:transparent;
 }
 
-label,
-.sequence-member label,
-.sequence-member .label {
-    font-size:0.9em;
-    padding:0.5em 0.5em 0.5em 0;
-}
 
 .sequence-member input[type='text'],
 .sequence-member input[type='email'],
@@ -47,19 +41,10 @@ label,
     background-color:#f2fcfc;
 }
 
-.input input[type='text'],
-.input input[type='email'],
-.input input[type='url'],
-.input input[type='number'],
-.input input[type='date'],
-.input input[type='time'],
-.input input[type='datetime'],
-.input input[type='datetime-local'],
-.input input[type='color'],
-.input select,
-.input textarea {
-    min-width:300px;
-    width:auto;
+.input input,
+.input select {
+    width: 350px;
+    max-width: 100%;
 }
 .input textarea,
 .full .input input {
@@ -71,7 +56,7 @@ label,
 }
 
 
-/* Override and enhance the streamfield editor */
+/* Override and enhance the streamfield editor to support our deeply nested streamfields. */
 
 .chooser .unchosen::before, .chooser .chosen::before {
     color:rgba(0,0,0,0.2)
@@ -84,7 +69,7 @@ li.sequence-member {
 li.sequence-member li.sequence-member {
     background-color:rgba(0,0,0,0.05);
     border:none;
-    margin:0 0 50px 0;
+    margin:0 0 20px 0;
 
 }
 li.sequence-member:hover {
@@ -111,35 +96,19 @@ li.sequence-member .struct-block .sequence-container .sequence-member-inner {
 
 .sequence-controls {
     border: none;
-    background-color: inherit;
+    background-color: transparent;
+    top: unset;
 }
 .sequence-controls h3 label {
     font-weight: bold;
-    display: inline;
-    vertical-align: middle;
 }
 
 .objects * {
     box-sizing: border-box;
 }
 
-.object.stream-field {
-    margin-top:50px;
-}
-
 .object > h2 {
     font-weight: 600;
-    height: 3em;
-    line-height: 1em;
-}
-.object > h2 label::before, .object > h2::before {
-    line-height:1.5em;
-}
-.object.empty .add .button::before {
-    line-height:2em;
-    height:2em;
-    width:2.3em;
-
 }
 
 .object .multiple {
@@ -165,10 +134,6 @@ li.sequence-member .struct-block .fields {
 
 .stream-menu.stream-menu-closed .toggle {
     color:#888;
-}
-
-.tab-content section {
-    padding-top:0;
 }
 
 .fields > li, .field-col {

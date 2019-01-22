@@ -13,6 +13,7 @@ New features
 Bug fixes
 ---------
 
+* Can now create Card Grids inside of a Hero Unit.
 * Fixed invalid HTML syntax in "Latest Pages" block.
 * Fix appearance of search page when no query is specified.
 * Allow reordering form fields in generated website app.

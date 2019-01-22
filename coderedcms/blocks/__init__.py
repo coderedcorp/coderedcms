@@ -50,13 +50,16 @@ BASIC_LAYOUT_STREAMBLOCKS = [
 ]
 
 LAYOUT_STREAMBLOCKS = [
+    ('hero', HeroBlock([
+        ('row', GridBlock(CONTENT_STREAMBLOCKS)),
+        ('cardgrid', CardGridBlock([
+            ('card', CardBlock()),])
+        ),
+        ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),])
+    ),
     ('row', GridBlock(CONTENT_STREAMBLOCKS)),
     ('cardgrid', CardGridBlock([
         ('card', CardBlock()),])
-    ),
-    ('hero', HeroBlock([
-        ('row', GridBlock(CONTENT_STREAMBLOCKS)),
-        ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),])
     ),
     ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
 ]

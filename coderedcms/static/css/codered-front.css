@@ -11,6 +11,9 @@ CodeRed CMS custom styles
     background-position: center center;
     color:white;
 }
+.hero-bg .card {
+    color: #212529; /* reset to bootstrap default. See bug https://github.com/twbs/bootstrap/issues/28102 */
+}
 
 .hero-bg.parallax {
     background-attachment: fixed;

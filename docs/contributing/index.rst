@@ -18,8 +18,14 @@ To create a test project locally:
    4 and 5 in :doc:`/getting_started/install` with a fresh database before making migrations.
 #. When model or block changes affect the local test project (i.e. the "website" app), run
    ``makemigrations website`` in the test project to generate the relevant migration files locally.
-   Apply and test the migrations. When satisfied, copy the new migration files to the
-   ``project_template/website/migrations/`` directory.
+   Apply and test the migrations. When satisfied, re-generate the 0001_initial.py migration in
+   ``project_template/website/migrations/`` as so:
+
+       #. Create a new test project using ``coderedcms start testproject``.
+       #. Before running migrations, DELETE all migrations in ``testproject/website/migrations/``.
+       #. Run ``python manage.py makemigrations website``. This should generate an ``0001_initial.py``
+          migration.
+       #. Replace ``project_template/website/migrations/0001_initial.py`` with your newly generated migration.
 
 When making changes that are potentially destructive or backwards incompatible, increment the minor
 version number until coderedcms reaches a stable 1.0 release. Each production project that uses

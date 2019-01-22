@@ -83,8 +83,17 @@
 
         {% block favicon %}
             {% if settings.coderedcms.LayoutSettings.favicon %}
-                {% image settings.coderedcms.LayoutSettings.favicon fill-128x128 format-png as favicon %}
-                <link rel="icon" type="image/png" href="{{favicon.url}}" />
+                {# See https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/ #}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-120x120 format-png as favicon_iphone %}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-180x180 format-png as favicon_iphone_plus %}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-152x152 format-png as favicon_ipad %}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-167x167 format-png as favicon_ipad_pro %}
+                <link rel="icon" type="image/png" href="{{ favicon_iphone_plus.url }}" />
+                <link rel="apple-touch-icon" href="{{ favicon_iphone_plus.url }}">
+                <link rel="apple-touch-icon" sizes="120x120" href="{{ favicon_iphone.url }}">
+                <link rel="apple-touch-icon" sizes="180x180" href="{{ favicon_iphone_plus.url }}">
+                <link rel="apple-touch-icon" sizes="152x152" href="{{ favicon_ipad.url }}">
+                <link rel="apple-touch-icon" sizes="167x167" href="{{ favicon_ipad_pro.url }}">
             {% endif %}
         {% endblock %}
 

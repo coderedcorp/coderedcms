@@ -83,6 +83,10 @@ input[type='checkbox']::before, input[type='radio']::before {
     width:100%;
 }
 
+.field-row {
+    margin-bottom: 0;
+}
+
 
 /* Display labels and fields horizontally, except .label-above */
 
@@ -106,15 +110,15 @@ input[type='checkbox']::before, input[type='radio']::before {
         width: auto;
     }
     body:not(.login) ul.fields > li:not(.label-above) .field > label {
-        width:15em;
-        min-width:15em;
+        width:40%;
+        max-width:15em;
     }
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
     body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > label,
     body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > label {
-        width:10em;
-        min-width:10em;
+        width:25%;
+        max-width:10em;
     }
     .object.full .field-content {
         flex-grow: 1;

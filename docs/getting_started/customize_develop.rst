@@ -1,6 +1,7 @@
 Developing your website
 =======================
 
+
 Page models
 -------------
 
@@ -9,6 +10,7 @@ CodeRed CMS models. You can use these as-is, override existing fields and functi
 custom fields to these models. After making a change to any of these models, be sure to run
 ``python manage.py makemigrations website`` and ``python manage.py migrate`` to apply the
 database changes.
+
 
 Hooks
 -----
@@ -27,7 +29,7 @@ affect the caching decision. For example::
     from wagtail.core import hooks
 
     @hooks.register('is_request_cacheable')
-    def nocache_in_query(request):
+    def nocache_in_query(request, curr_cache_decision):
         # if the querystring contains a "nocache" key, return False to forcibly not cache.
         # otherwise, do not return to let the CMS decide how to cache.
         if 'nocache' in request.GET:

@@ -43,8 +43,12 @@
 
 .input input,
 .input select {
-    width: 350px;
+    width: 300px;
     max-width: 100%;
+}
+.input input[type='radio'],
+.input input[type='checkbox'] {
+    width: auto;
 }
 .input textarea,
 .full .input input {
@@ -101,6 +105,10 @@ li.sequence-member .struct-block .sequence-container .sequence-member-inner {
 }
 .sequence-controls h3 label {
     font-weight: bold;
+}
+
+.tab-content {
+    width: 100%;
 }
 
 .objects * {

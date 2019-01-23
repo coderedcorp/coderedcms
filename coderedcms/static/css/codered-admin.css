@@ -110,14 +110,14 @@ input[type='checkbox']::before, input[type='radio']::before {
         width: auto;
     }
     body:not(.login) ul.fields > li:not(.label-above) .field > label {
-        width:40%;
+        width:100%;
         max-width:15em;
     }
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
     body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > label,
     body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > label {
-        width:25%;
+        width:20%;
         max-width:10em;
     }
     .object.full .field-content {

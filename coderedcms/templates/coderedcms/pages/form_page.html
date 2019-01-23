@@ -2,9 +2,9 @@
 
 {% load wagtailcore_tags coderedcms_tags bootstrap4 %}
 
-{% block content %}
+{% block content_body %}
 
-{% include_block page.body with settings=settings %}
+{{ block.super }}
 
 {% if page.form_live %}
 <div class="container">

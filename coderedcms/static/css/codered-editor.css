@@ -46,6 +46,10 @@
     width: 350px;
     max-width: 100%;
 }
+.input input[type='radio'],
+.input input[type='checkbox'] {
+    width: auto;
+}
 .input textarea,
 .full .input input {
     width:100%;

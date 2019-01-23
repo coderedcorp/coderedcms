@@ -25,7 +25,7 @@ def initial_data(apps, schema_editor):
     homepage = WebPage.objects.create(
         title = "Home",
         slug='home',
-        custom_template='coderedcms/pages/web_page_notitle.html',
+        custom_template='coderedcms/pages/home_page.html',
         content_type=webpage_content_type,
         path='00010001',
         depth=2,

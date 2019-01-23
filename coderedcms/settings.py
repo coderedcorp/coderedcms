@@ -156,6 +156,7 @@ DEFAULTS = {
             ('', 'Default'),
             ('coderedcms/pages/web_page.html', 'Web page showing title and cover image'),
             ('coderedcms/pages/web_page_notitle.html', 'Web page without title and cover image'),
+            ('coderedcms/pages/home_page.html', 'Home page without title and cover image'),
             ('coderedcms/pages/base.html', 'Blank page - no navbar or footer'),
         ),
 

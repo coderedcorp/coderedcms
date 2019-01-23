@@ -530,7 +530,6 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 # These are abstract so subclasses can override fields if desired.
 ###############################################################################
 
-
 class CoderedWebPage(CoderedPage):
     """
     Provides a body and body-related functionality.
@@ -580,7 +579,7 @@ class CoderedWebPage(CoderedPage):
     @page_ptr.setter
     def page_ptr(self, value):
         self.base_page_ptr = value
-
+    
 
 class CoderedArticlePage(CoderedWebPage):
     """

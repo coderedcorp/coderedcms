@@ -44,3 +44,6 @@ the new pages in your project.
 
 Now when going to the wagtail admin, you can create a Location Index Page, and child Location Pages.
 Also be sure to add a Google Maps API key under Settings > Google API Settings.
+
+.. note::
+    Before creating or importing location pages, add your Google API key for automatic geolocation.

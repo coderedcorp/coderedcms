@@ -11,7 +11,6 @@
     aria-haspopup="true"
     aria-expanded="false"
     {% endif %}>
-
         {% if value.image %}
             {% image value.image max-200x200 as img %}
             <img src="{{img.url}}" class="w-100" alt="{{img.image.title}}"/>
@@ -36,7 +35,9 @@
         {% endfor %}
         {% if value.show_child_links %}
             {% for child in value.page.get_children %}
-                <li><a class="dropdown-item" href="{% pageurl child %}">{{child.title}}</a></li>
+                {% if child.live %}
+                    <li><a class="dropdown-item" href="{% pageurl child %}">{{child.title}}</a></li>
+                {% endif %}
             {% endfor %}
         {% endif %}
     </ul>

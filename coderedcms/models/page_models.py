@@ -133,8 +133,9 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 
     # Subclasses can override these fields to enable custom
     # ordering based on specific subpage fields.
-    index_order_by_default = '-first_published_at'
+    index_order_by_default = ''
     index_order_by_choices = (
+        ('', _('Default Ordering')),
         ('-first_published_at', _('Date first published, newest to oldest')),
         ('first_published_at', _('Date first published, oldest to newest')),
         ('-last_published_at', _('Date updated, newest to oldest')),
@@ -151,6 +152,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         choices=index_order_by_choices,
         default=index_order_by_default,
         verbose_name=_('Order child pages by'),
+        blank=True,
     )
     index_num_per_page = models.PositiveIntegerField(
         default=10,
@@ -481,7 +483,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         """
         Override to return query of subpages as defined by `index_` variables.
         """
-        if self.index_query_pagemodel:
+        if self.index_query_pagemodel and self.index_order_by:
             querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
             return querymodel.objects.child_of(self).live().order_by(self.index_order_by)
 

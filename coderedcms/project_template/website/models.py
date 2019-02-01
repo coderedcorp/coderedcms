@@ -18,6 +18,7 @@ class ArticlePage(CoderedArticlePage):
     """
     class Meta:
         verbose_name = 'Article'
+        ordering = ['-first_published_at',]
 
     # Only allow this page to be created beneath an ArticleIndexPage.
     parent_page_types = ['website.ArticleIndexPage']

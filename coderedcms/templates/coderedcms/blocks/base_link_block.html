@@ -34,10 +34,8 @@
             <li>{% include_block sub_link with aclass="dropdown-item" %}</li>
         {% endfor %}
         {% if value.show_child_links %}
-            {% for child in value.page.get_children %}
-                {% if child.live %}
-                    <li><a class="dropdown-item" href="{% pageurl child %}">{{child.title}}</a></li>
-                {% endif %}
+            {% for child in value.page.specific.get_index_children %}
+                <li><a class="dropdown-item" href="{% pageurl child %}">{{child.title}}</a></li>
             {% endfor %}
         {% endif %}
     </ul>

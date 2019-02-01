@@ -485,7 +485,8 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         """
         if self.index_query_pagemodel and self.index_order_by:
             querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
-            return querymodel.objects.child_of(self).order_by(self.index_order_by)
+            return querymodel.objects.child_of(self).live().order_by(self.index_order_by)
+
         return super().get_children().live()
 
     def get_content_walls(self, check_child_setting=True):

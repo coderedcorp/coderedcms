@@ -11,7 +11,6 @@
     aria-haspopup="true"
     aria-expanded="false"
     {% endif %}>
-
         {% if value.image %}
             {% image value.image max-200x200 as img %}
             <img src="{{img.url}}" class="w-100" alt="{{img.image.title}}"/>

@@ -133,7 +133,7 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
 
     # Subclasses can override these fields to enable custom
     # ordering based on specific subpage fields.
-    index_order_by_default = 'default'
+    index_order_by_default = ''
     index_order_by_choices = (
         ('', _('Default Ordering')),
         ('-first_published_at', _('Date first published, newest to oldest')),

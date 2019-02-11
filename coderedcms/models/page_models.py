@@ -483,11 +483,14 @@ class CoderedPage(Page, metaclass=CoderedPageMeta):
         """
         Override to return query of subpages as defined by `index_` variables.
         """
-        if self.index_query_pagemodel and self.index_order_by:
+        if self.index_query_pagemodel:
             querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
-            return querymodel.objects.child_of(self).live().order_by(self.index_order_by)
-
-        return super().get_children().live()
+            query = querymodel.objects.child_of(self).live()
+        else:
+            query = super().get_children().live()
+        if self.index_order_by:
+            return query.order_by(self.index_order_by)
+        return query
 
     def get_content_walls(self, check_child_setting=True):
         current_content_walls = []

@@ -19,8 +19,6 @@ Bug fixes
 * Only show live pages in navbar
 * Respect ordering of **Layout > Order child pages by** setting for navbar links.
 * Form page template now shows title by default.
-* Search results when using the database search backend without specifying specific search models
-  (default behavior) are now returned based on date last published, newest to oldest.
 
 
 Maintenance

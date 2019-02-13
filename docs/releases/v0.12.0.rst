@@ -10,6 +10,7 @@ New features
 * New default home page template at ``coderedcms/pages/home_page.html`` for developer convenience.
   This template provides a "blank slate" to be extended and customized as needed.
 
+
 Bug fixes
 ---------
 

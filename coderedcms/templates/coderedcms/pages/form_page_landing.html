@@ -2,11 +2,11 @@
 
 {% load i18n wagtailcore_tags coderedcms_tags bootstrap4 %}
 
-{% block content %}
+{% block content_body %}
 
 <div class="container mt-5">
     <h1>{% trans 'Thank You' %}</h1>
-    <p>{% trans 'We have successfully recieved your submission for:' %} {{self.title}}.</p>
+    <p>{% trans 'We have successfully recieved your submission.' %}</p>
 </div>
 
 {% endblock %}

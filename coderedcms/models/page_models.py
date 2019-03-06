@@ -771,16 +771,23 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         """
         Gets the next upcoming, or last occurrence if the event has no more occurrences.
         """
-        noc = self.next_occurrence()
-        if noc:
-            return noc
-        else:
+
+        try:
+            noc = self.next_occurrence()
+            if noc:
+                return noc
             aoc = []
             for occurrence in self.occurrences.all():
                 aoc += [instance for instance in occurrence.all_occurrences()]
             if len(aoc) > 0:
                 return aoc[-1] # last one in the list
-            return None
+                
+        except AttributeError:
+            # Triggers when a preview is initiated on an EventPage because it uses a FakeQuerySet object.
+            # Here we manually compute the next_occurrence
+            occurrences = [e.next_occurrence() for e in self.occurrences.all()]
+            if occurrences:
+                return sorted(occurrences, key=lambda tup: tup[0])[0]
 
     def query_occurrences(self, num_of_instances_to_return=None, **kwargs):
         """

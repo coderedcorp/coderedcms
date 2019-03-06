@@ -781,7 +781,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
                 aoc += [instance for instance in occurrence.all_occurrences()]
             if len(aoc) > 0:
                 return aoc[-1] # last one in the list
-                
+
         except AttributeError:
             # Triggers when a preview is initiated on an EventPage because it uses a FakeQuerySet object.
             # Here we manually compute the next_occurrence

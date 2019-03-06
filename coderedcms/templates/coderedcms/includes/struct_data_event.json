@@ -47,10 +47,12 @@
 
   "name": "{{self.title}}",
 
-  {% with self.most_recent_occurrence as nextup %}
+  {% with self.next_or_most_recent_ocurrence as nextup %}
+  {% if nextup %}
   "startDate": "{{nextup.0|structured_data_datetime}}",
-  {% if nextup.1 %}
+    {% if nextup.1 %}
   "endDate": "{{nextup.1|structured_data_datetime}}",
+    {% endif %}
   {% endif %}
   {% endwith %}
 

@@ -36,7 +36,7 @@
                 {% block event_body_preview %}
                     <div class="col-md">
                         <h3><a href="{{ event.url }}">{{ event.title }}</a></h3>
-                        <p>{{ event.most_recent_occurrence.0 }}</p>
+                        <p>{{ event.next_or_most_recent_occurrence.0 }}</p>
                         <p>{{ event.body_preview }}</p>
                     </div>
                 {% endblock %}

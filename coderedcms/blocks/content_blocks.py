@@ -4,6 +4,7 @@ contain sub-blocks, and may require javascript to function properly.
 """
 
 from django.utils.translation import ugettext_lazy as _
+from taggit.forms import TagField, TagWidget
 from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -203,6 +204,13 @@ class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
         label = _('Document link with sub-links')
 
 
+class TagBlock(blocks.CharBlock):
+    widget = TagWidget
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.field = TagField()
+
 class PageListBlock(BaseBlock):
     """
     Renders a preview of selected pages.
@@ -221,6 +229,10 @@ class PageListBlock(BaseBlock):
         label=_('Limit to'),
         help_text=_('Only show pages that are children of the selected page. Uses the subpage sorting as specified in the page’s LAYOUT tab.'),
     )
+    limit_tags = TagBlock(
+        required=False,
+        label=_('Limit Tags'),
+        help_text=_('Only show pages that use these tags.'))
 
     class Meta:
         template = 'coderedcms/blocks/pagelist_block.html'

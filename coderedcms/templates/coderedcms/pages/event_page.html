@@ -7,7 +7,7 @@
 
 {% block content_pre_body %}
     {{ block.super }}
-    {% with self.most_recent_occurrence as nextup %}
+    {% with self.next_or_most_recent_occurrence as nextup %}
     <div class="container my-5">
         <p class="d-md-inline-block mr-4"><b>When:</b> {{nextup.0}}</p>
         {% if self.address %}

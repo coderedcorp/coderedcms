@@ -1,7 +1,13 @@
 {% extends "coderedcms/pages/web_page.html" %}
 {% load bootstrap4 i18n coderedcms_tags %}
 
-{% block title %}{% trans 'Search for' %} “{{form.s.value}}”{% endblock %}
+{% block title %}
+    {% if not form.s.value %}
+        {% trans 'Search' %}
+    {% else %}
+        {% trans 'Search for' %} “{{form.s.value}}”
+    {%endif%}
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -17,12 +23,12 @@
         {% if not settings.coderedcms.LayoutSettings.navbar_search %}
         <form class="mt-5" action="{% url 'codered_search' %}" method="GET">
             <div class="row">
-                <div class="col-9">
+                <div class="col-sm-9">
                     {% bootstrap_form form size='large' layout='inline' %}
                 </div>
-                <div class="col-3">
+                <div class="col-sm-3">
                     <div class="form-group">
-                        <button class="btn btn-lg btn-block btn-outline-primary" type="submit">Search</button>
+                        <button class="btn btn-lg btn-block btn-outline-primary" type="submit">{% trans 'Search' %}</button>
                     </div>
                 </div>
             </div>

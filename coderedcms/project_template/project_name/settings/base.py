@@ -63,6 +63,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Save pages to cache. Must be FIRST.
+    'wagtailcache.cache.UpdateCacheMiddleware',
+
     # Common functionality
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -80,6 +83,9 @@ MIDDLEWARE = [
     # CMS functionality
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+    # Fetch from cache. Must be LAST.
+    'wagtailcache.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = '{{ project_name }}.urls'

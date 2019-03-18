@@ -1263,8 +1263,6 @@ class CoderedFormPage(CoderedWebPage):
             self.get_landing_page_template(request),
             context
         )
-        # Never cache form landing response, due to content changing with same URL.
-        response['Cache-Control'] = 'no-cache'
         return response
 
     def serve_submissions_list_view(self, request, *args, **kwargs):
@@ -1294,8 +1292,6 @@ class CoderedFormPage(CoderedWebPage):
             self.get_template(request),
             context
         )
-        # Never cache form pages, due to content changing with same URL, and CSRF token.
-        response['Cache-Control'] = 'no-cache'
         return response
 
     preview_modes = [

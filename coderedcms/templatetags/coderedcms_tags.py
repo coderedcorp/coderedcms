@@ -135,3 +135,4 @@ def richtext_amp(value):
     
     value = utils.convert_to_amp(value)
     return mark_safe(value)
+    

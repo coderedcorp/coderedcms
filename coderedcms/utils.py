@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.utils.html import mark_safe
-from wagtail.core.rich_text import RichText
 
 from coderedcms.settings import cr_settings
 
@@ -50,6 +49,6 @@ def convert_to_amp(value):
         img_tags = soup.find('img')
         img_tags.name = 'amp-img'
     except AttributeError:
-        print("soup")
+        pass
 
     return soup.prettify()

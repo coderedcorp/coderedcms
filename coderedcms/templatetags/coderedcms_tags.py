@@ -132,6 +132,8 @@ def richtext_amp(value):
 
     if isinstance(value, RichText):
         value = richtext(value.source)
+    else:
+        value = richtext(value)
     
     value = utils.convert_to_amp(value)
     return mark_safe(value)

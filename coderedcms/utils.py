@@ -46,8 +46,10 @@ def convert_to_amp(value):
     soup = BeautifulSoup(value)
 
     #Replace img tags with amp-img
-
-    img_tags = soup.find('img')
-    img_tags.name = 'amp-img'
+    try:
+        img_tags = soup.find('img')
+        img_tags.name = 'amp-img'
+    except AttributeError:
+        print("soup")
 
     return soup.prettify()

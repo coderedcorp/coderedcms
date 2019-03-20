@@ -289,10 +289,11 @@ class CoderedEmail(ClusterableModel):
         abstract = True
         verbose_name = _('CodeRed Email')
 
-    to_address = models.CharField(max_length=255, blank=True, verbose_name=_('To Addresses'), help_text=_('Comma separated list'))
-    from_address = models.CharField(max_length=255, blank=True, verbose_name=_('From Address'))
-    cc_address = models.CharField(max_length=255, blank=True, verbose_name=_('CC'), help_text=_('Comma separated list'))
-    bcc_address = models.CharField(max_length=255, blank=True, verbose_name=_('BCC'), help_text=_('Comma separated list'))
+    to_address = models.CharField(max_length=255, blank=True, verbose_name=_('To Addresses'), help_text=_('Separate multiple email addresses with commas.'))
+    from_address = models.CharField(max_length=255, blank=True, verbose_name=_('From Address'), help_text=_('For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes).'))
+    reply_address = models.CharField(max_length=255, blank=True, verbose_name=_('Reply-To Address'), help_text=_('Separate multiple email addresses with commas.'))
+    cc_address = models.CharField(max_length=255, blank=True, verbose_name=_('CC'), help_text=_('Separate multiple email addresses with commas.'))
+    bcc_address = models.CharField(max_length=255, blank=True, verbose_name=_('BCC'), help_text=_('Separate multiple email addresses with commas.'))
     subject = models.CharField(max_length=255, blank=True, verbose_name=_('Subject'))
     body = models.TextField(blank=True, verbose_name=_('Body'))
 

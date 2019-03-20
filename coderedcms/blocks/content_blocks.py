@@ -325,3 +325,7 @@ class ReusableContentBlock(BaseBlock):
         icon = 'fa-recycle'
         label = _('Reusable Content')
         template = 'coderedcms/blocks/reusable_content_block.html'
+
+class RichTextBlock(blocks.RichTextBlock):
+    class Meta:
+        template = 'coderedcms/blocks/rich_text_block.html'

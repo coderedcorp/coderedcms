@@ -48,8 +48,7 @@ setup(
         'wagtail==2.4.*',
         'wagtailfontawesome>=1.1.3,<2.0',
         'wagtail-cache==0.5.*',
-        'wagtail-import-export>=0.1,<0.2',
-        'beautifulsoup4==4.4.0'
+        'wagtail-import-export>=0.1,<0.2'
     ],
     extras_require={
         'dev': [

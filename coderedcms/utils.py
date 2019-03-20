@@ -41,6 +41,7 @@ def fix_ical_datetime_format(dt_str):
 def convert_to_amp(value):
     """
     Function that converts non-amp compliant html to valid amp html.
+    value must be a string
     """
     soup = BeautifulSoup(value)
 

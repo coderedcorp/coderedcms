@@ -40,7 +40,7 @@
     "name": "{{self.title}}",
     "address":{
       "@type": "PostalAddress",
-      "streetAddress": "{{self.address}}",
+      "streetAddress": "{{self.address}}"
     }
   },
   {% endif %}

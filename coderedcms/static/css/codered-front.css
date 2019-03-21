@@ -29,6 +29,22 @@ CodeRed CMS custom styles
 }
 
 
+/* Rich text */
+
+.richtext-image.left {
+    float: left;
+    margin: 0 1em 1em 0;
+}
+.richtext-image.right {
+    float: right;
+    margin: 0 0 1em 1em;
+}
+.richtext-image.full-width {
+    width: 100%;
+    height: auto;
+}
+
+
 /* Articles */
 
 #content,
@@ -248,11 +264,7 @@ Bootstrap 4 overrides and enhancements
 }
 
 
-/************
-
-GOOGLE MAPS
-
-************/
+/* Store locator map */
 
 .map-container{
     min-height: 600px;

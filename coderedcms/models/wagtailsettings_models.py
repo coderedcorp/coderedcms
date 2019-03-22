@@ -267,11 +267,13 @@ class GeneralSettings(BaseSetting):
     Various site-wide settings. A good place to put
     one-off settings that don't belong anywhere else.
     """
-    from_email_address = models.EmailField(
+
+    from_email_address = models.CharField(
+
         blank=True,
         max_length=255,
         verbose_name=_('From email address'),
-        help_text=_('The default email address this site uses to send emails.'),
+        help_text=_('The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)'),
     )
     search_num_results = models.PositiveIntegerField(
         default=10,

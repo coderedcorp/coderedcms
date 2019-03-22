@@ -267,32 +267,17 @@ class GeneralSettings(BaseSetting):
     Various site-wide settings. A good place to put
     one-off settings that don't belong anywhere else.
     """
-    default_robot = """User-agent: *
-Disallow: /admin/
 
-User-agent: *
-Disallow: /django-admin/
+    from_email_address = models.CharField(
 
-User-agent: *
-Allow: /
-
-Sitemap: /sitemap.xml"""
-
-    from_email_address = models.EmailField(
         blank=True,
         max_length=255,
         verbose_name=_('From email address'),
-        help_text=_('The default email address this site uses to send emails.'),
+        help_text=_('The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)'),
     )
     search_num_results = models.PositiveIntegerField(
         default=10,
         verbose_name=_('Number of results per page'),
-    )
-    robots = models.TextField(
-        blank=True,
-        default=default_robot,
-        verbose_name=_('robots.txt'),
-        help_text=_('Enter the contents of a robots.txt file.'),
     )
 
     panels = [
@@ -307,12 +292,6 @@ Sitemap: /sitemap.xml"""
                 FieldPanel('search_num_results'),
             ],
             _('Search Settings')
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel('robots'),
-            ],
-            _('Robots.txt')
         ),
     ]
 

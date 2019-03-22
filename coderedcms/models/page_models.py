@@ -21,6 +21,7 @@ from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
@@ -571,15 +572,15 @@ class CoderedWebPage(CoderedPage):
     @property
     def body_preview(self):
         """
-        A shortened, non-HTML version of the body.
+        A shortened version of the body without HTML tags.
         """
         # add spaces between tags for legibility
         body = str(self.body).replace('>', '> ')
         # strip tags
         body = strip_tags(body)
         # truncate and add ellipses
-
-        return body[:200] + "..." if len(body) > 200 else body
+        preview = body[:200] + "..." if len(body) > 200 else body
+        return mark_safe(preview)
 
     @property
     def page_ptr(self):
@@ -967,6 +968,12 @@ class CoderedFormPage(CoderedWebPage):
         verbose_name=_('Email form submissions to'),
         help_text=_('Optional - email form submissions to this address. Separate multiple addresses by comma.')
     )
+    reply_address = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Reply-to address'),
+        help_text=_('Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}')
+    )
     subject = models.CharField(
         max_length=255,
         blank=True,
@@ -1055,6 +1062,7 @@ class CoderedFormPage(CoderedWebPage):
             [
                 FieldPanel('save_to_database'),
                 FieldPanel('to_address'),
+                FieldPanel('reply_address'),
                 FieldPanel('subject'),
             ],
             _('Form Submissions')
@@ -1182,29 +1190,48 @@ class CoderedFormPage(CoderedWebPage):
             self.send_summary_mail(request, form, processed_data)
 
         if self.confirmation_emails:
+            # Convert form data into a context.
+            context = Context(self.data_to_dict(processed_data))
+            # Render emails as if they are django templates.
             for email in self.confirmation_emails.all():
-                from_address = email.from_address
 
-                if from_address == '':
-                    from_address = GeneralSettings.for_site(request.site).from_email_address
-
+                # Build email message parameters.
+                message_args = {}
+                # From
+                if email.from_address:
+                    template_from_email = Template(email.from_address)
+                    message_args['from_email'] = template_from_email.render(context)
+                else:
+                    genemail = GeneralSettings.for_site(request.site).from_email_address
+                    if genemail:
+                        message_args['from_email'] = genemail
+                # Reply-to
+                if email.reply_address:
+                    template_reply_to = Template(reply_address)
+                    message_args['reply_to'] = template_reply_to.render(context).split(',')
+                # CC
+                if email.cc_address:
+                    template_cc = Template(email.cc_address)
+                    message_args['cc'] = template_cc.render(context).split(',')
+                # BCC
+                if email.bcc_address:
+                    template_bcc = Template(email.bcc_address)
+                    message_args['bcc'] = template_bcc.render(context).split(',')
+                # Subject
+                if email.subject:
+                    template_subject = Template(email.subject)
+                    message_args['subject'] = template_subject.render(context)
+                else:
+                    message_args['subject'] = self.title
+                # Body
                 template_body = Template(email.body)
+                message_args['body'] = template_body.render(context)
+                # To
                 template_to = Template(email.to_address)
-                template_from_email = Template(from_address)
-                template_cc = Template(email.cc_address)
-                template_bcc = Template(email.bcc_address)
-                template_subject = Template(email.subject)
-                context = Context(self.data_to_dict(processed_data))
+                message_args['to'] = template_to.render(context).split(',')
 
-                message = EmailMessage(
-                    body=template_body.render(context),
-                    to=template_to.render(context).split(','),
-                    from_email=template_from_email.render(context),
-                    cc=template_cc.render(context).split(','),
-                    bcc=template_bcc.render(context).split(','),
-                    subject=template_subject.render(context),
-                )
-
+                # Send email
+                message = EmailMessage(**message_args)
                 message.content_subtype = 'html'
                 message.send()
 
@@ -1221,16 +1248,36 @@ class CoderedFormPage(CoderedWebPage):
         content = []
         for field in form:
             value = processed_data[field.name]
+            # Convert lists into human readable comma separated strings.
             if isinstance(value, list):
                 value = ', '.join(value)
-            content.append('{0}: {1}'.format(field.label, utils.attempt_protected_media_value_conversion(request, value)))
-        content = '\n'.join(content)
-        send_mail(
-            self.subject,
-            content,
-            GeneralSettings.for_site(Site.objects.get(is_default_site=True)).from_email_address,
-            addresses
-        )
+            content.append('{0}: {1}'.format(
+                field.label,
+                utils.attempt_protected_media_value_conversion(request, value)
+            ))
+        content = '\n\n'.join(content)
+
+        # Build email message parameters
+        message_args = {
+            'body': content,
+            'to': addresses,
+        }
+        if self.subject:
+            message_args['subject'] = self.subject
+        else:
+            message_args['subject'] = self.title
+        genemail = GeneralSettings.for_site(request.site).from_email_address
+        if genemail:
+            message_args['from_email'] = genemail
+        if self.reply_address:
+            # Render reply-to field using form submission as context.
+            context = Context(self.data_to_dict(processed_data))
+            template_reply_to = Template(self.reply_address)
+            message_args['reply_to'] = reply_to=template_reply_to.render(context).split(',')
+
+        # Send email
+        message = EmailMessage(**message_args)
+        message.send()
 
     def data_to_dict(self, processed_data):
         """

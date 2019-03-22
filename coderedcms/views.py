@@ -120,11 +120,9 @@ def serve_protected_file(request, path):
 
 
 def robots(request):
-    robots = GeneralSettings.for_site(request.site).robots
     return render(
         request,
         'robots.txt',
-        {'robots': robots},
         content_type='text/plain'
     )
 

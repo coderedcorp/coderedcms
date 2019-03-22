@@ -1,1 +1,10 @@
-{{robots}}
+User-agent: *
+Disallow: /admin/
+
+User-agent: *
+Disallow: /django-admin/
+
+User-agent: *
+Allow: /
+
+Sitemap: /sitemap.xml

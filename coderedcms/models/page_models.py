@@ -21,6 +21,7 @@ from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
@@ -571,15 +572,15 @@ class CoderedWebPage(CoderedPage):
     @property
     def body_preview(self):
         """
-        A shortened, non-HTML version of the body.
+        A shortened version of the body without HTML tags.
         """
         # add spaces between tags for legibility
         body = str(self.body).replace('>', '> ')
         # strip tags
         body = strip_tags(body)
         # truncate and add ellipses
-
-        return body[:200] + "..." if len(body) > 200 else body
+        preview = body[:200] + "..." if len(body) > 200 else body
+        return mark_safe(preview)
 
     @property
     def page_ptr(self):

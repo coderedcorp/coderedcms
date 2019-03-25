@@ -10,7 +10,14 @@
     role="button"
     aria-haspopup="true"
     aria-expanded="false"
-    {% endif %}>
+    {% endif %}
+    {% if gtag_event_label %}
+    data-gtag-event_label="{{ gtag_event_label }}"
+    {% endif %}
+    {% if gtag_event_category %}
+    data-gtag-event_category="{{ gtag_event_category }}"
+    {% endif %}
+    >
         {% if value.image %}
             {% image value.image max-200x200 as img %}
             <img src="{{img.url}}" class="w-100" alt="{{img.image.title}}"/>

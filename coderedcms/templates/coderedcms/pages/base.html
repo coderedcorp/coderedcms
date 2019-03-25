@@ -6,6 +6,9 @@
   <head>
         {% block tracking %}
         {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
+            {% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}
+                <meta name="tracking:click" value="True" />
+            {% endif %}
             <!-- Global site tag (gtag.js) - Google Analytics -->
             <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}"></script>
             <script>

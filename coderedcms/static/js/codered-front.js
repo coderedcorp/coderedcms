@@ -216,4 +216,19 @@ $(document).ready(function()
             $(this).modal('show');
         }
     });
+
+
+    /*** Tracking ***/
+
+    $('a').on('click', function(){
+        if($("meta[name='tracking:click']").length){
+            if ($(this).data('gtag')){
+                gtag_data = JSON.parse($(this).data('gtag'));
+            }
+            else{
+                gtag_data = {}
+            }
+            gtag('event', 'click', gtag_data);
+        }
+    })
 });

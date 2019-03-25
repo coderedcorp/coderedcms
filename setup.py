@@ -40,6 +40,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
+        "beautifulsoup4>=4.5.1,<4.6.1",
         'django-eventtools==0.9.*',
         'django-bootstrap4',
         'django>=2.0,<2.2',

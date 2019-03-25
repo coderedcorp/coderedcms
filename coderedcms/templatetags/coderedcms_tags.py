@@ -8,6 +8,8 @@ from django.utils import timezone
 from django.utils.html import mark_safe
 from django.utils.formats import localize
 from wagtail.core.models import Collection
+from wagtail.core.rich_text import RichText
+from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.images.models import Image
 
 from coderedcms import utils, __version__
@@ -124,3 +126,14 @@ def structured_data_datetime(dt):
     if dt.time():
         return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
     return datetime.strftime(dt, "%Y-%m-%d")
+
+@register.filter
+def richtext_amp(value):
+
+    if isinstance(value, RichText):
+        value = richtext(value.source)
+    else:
+        value = richtext(value)
+    
+    value = utils.convert_to_amp(value)
+    return mark_safe(value)

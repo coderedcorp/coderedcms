@@ -16,7 +16,7 @@ from .layout_blocks import * #noqa
 # Collections of blocks commonly used together.
 
 HTML_STREAMBLOCKS = [
-    ('text', blocks.RichTextBlock(icon='fa-file-text-o')),
+    ('text', RichTextBlock(icon='fa-file-text-o')),
     ('button', ButtonBlock()),
     ('image', ImageBlock()),
     ('image_link', ImageLinkBlock()),

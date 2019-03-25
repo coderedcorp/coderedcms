@@ -1,4 +1,4 @@
-
+from bs4 import BeautifulSoup
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.utils.html import mark_safe
@@ -37,3 +37,19 @@ def fix_ical_datetime_format(dt_str):
         dt_str = dt_str[:-3] + dt_str[-2:]
         return dt_str
     return dt_str
+
+def convert_to_amp(value):
+    """
+    Function that converts non-amp compliant html to valid amp html.
+    value must be a string
+    """
+    soup = BeautifulSoup(value)
+
+    #Replace img tags with amp-img
+    try:
+        img_tags = soup.find('img')
+        img_tags.name = 'amp-img'
+    except AttributeError:
+        pass
+
+    return soup.prettify()

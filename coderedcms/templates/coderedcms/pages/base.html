@@ -9,6 +9,7 @@
             <!-- Global site tag (gtag.js) - Google Analytics -->
             <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}"></script>
             <script>
+              cr_track_clicks = {{settings.coderedcms.AnalyticsSettings.ga_track_button_clicks|yesno:"true,false"}};
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());

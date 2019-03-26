@@ -1,6 +1,7 @@
 <a href="{{self.url}}"
 	{% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks and not format == 'amp' %}
-		onclick="gtag('event', 'click', {'event_category': '{{self.settings.ga_tracking_event_category|default:"Button"}}', 'event_label': '{{self.settings.ga_tracking_event_label|default:self.button_title}}'});"
+        data-gtag-event_category='{{self.settings.ga_tracking_event_category|default:"Button"}}' 
+        data-gtag-event_label='{{self.settings.ga_tracking_event_label|default:self.button_title}}'
 	{% endif %}
   title="{{ self.button_title|safe }}"
   class="btn {{ self.button_style }} {{ self.button_size }} {{ self.settings.custom_css_class }}"

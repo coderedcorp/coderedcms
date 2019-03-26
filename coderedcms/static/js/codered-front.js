@@ -219,21 +219,20 @@ $(document).ready(function()
 
 
     /*** Tracking ***/
-    $('a').on('click', function(){
-        if($("meta[name='tracking:click']").length){
+    if(typeof cr_track_clicks !== 'undefined' && cr_track_clicks) {
+        $('a').on('click', function(){
             gtag_data = {
                 "event_category": "Link",
                 "event_label": $(this).text().trim().substring(0, 30)
             };
-
-            if ($(this).data('gtag-event_category')){
+            if ($(this).data('gtag-event_category')) {
                 gtag_data['event_category'] = $(this).data('gtag-event_category');
-            };
-
-            if ($(this).data('gtag-event_label')){
+            }
+            if ($(this).data('gtag-event_label')) {
                 gtag_data['event_label'] = $(this).data('gtag-event_label');
-            };
+            }
             gtag('event', 'click', gtag_data);
-        }
-    })
+        });
+    }
+
 });

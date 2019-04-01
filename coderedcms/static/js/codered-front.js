@@ -225,11 +225,11 @@ $(document).ready(function()
                 "event_category": "Link",
                 "event_label": $(this).text().trim().substring(0, 30)
             };
-            if ($(this).data('gtag-event_category')) {
-                gtag_data['event_category'] = $(this).data('gtag-event_category');
+            if ($(this).data('ga-event-category')) {
+                gtag_data['event_category'] = $(this).data('ga-event-category');
             }
-            if ($(this).data('gtag-event_label')) {
-                gtag_data['event_label'] = $(this).data('gtag-event_label');
+            if ($(this).data('ga-event-label')) {
+                gtag_data['event_label'] = $(this).data('ga-event-label');
             }
             gtag('event', 'click', gtag_data);
         });

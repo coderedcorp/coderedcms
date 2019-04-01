@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% if not self.fluid %}
 <div class="container">
@@ -11,7 +11,7 @@
 	{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
 	<div class="hero-fg"
 		style="{% if self.foreground_color %}color:{{self.foreground_color}};{% endif %}">
-		{{self.content}}
+		{% include_block self.content %}
 	</div>
 </div>
 

@@ -36,7 +36,7 @@
         {% for item in navbar.menu_items %}
           {% if item.value.page.live %}
             {% is_menu_item_dropdown item.value as has_dropdown %}
-            <li class="nav-item {% if has_dropdown %}dropdown{% endif %}">{% include_block item with aclass="nav-link" gtag_event_category="Navbar Link" %}</li>
+            <li class="nav-item {% if has_dropdown %}dropdown{% endif %}">{% include_block item with aclass="nav-link" ga_event_category="Navbar" %}</li>
           {% endif %}
         {% endfor %}
       </ul>

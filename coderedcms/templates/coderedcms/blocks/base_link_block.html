@@ -1,11 +1,12 @@
-{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+{% load coderedcms_tags wagtailcore_tags wagtailimages_tags %}
 
 {% block menu_item %}
     {% is_menu_item_dropdown value as has_dropdown %}
-
+    {% if value.page %}{% is_active_page page value.page request as is_active_url %}{% endif %}
+    {% block test %}{% endblock %}
     <a href="{% block url %}#{% endblock %}"
     {% if value.settings.custom_id %}id="{{value.settings.custom_id}}"{% endif %}
-    class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %} {% if value.settings.custom_css_class %}{{value.settings.custom_css_class}}{% endif %}"
+    class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %} {% if is_active_url %}active{% endif %} {% if value.settings.custom_css_class %}{{value.settings.custom_css_class}}{% endif %}"
     {% if has_dropdown %}data-toggle="dropdown"
     role="button"
     aria-haspopup="true"

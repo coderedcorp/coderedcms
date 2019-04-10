@@ -144,6 +144,10 @@ DEFAULTS = {
             ('coderedcms/blocks/pagelist_article_card_deck.html', 'Article, card deck - separate cards of equal size'),
             ('coderedcms/blocks/pagelist_article_card_columns.html', 'Article, card masonry - fluid brick pattern'),
         ),
+        'pagepreviewblock': (
+            ('coderedcms/blocks/pagepreview_card.html', 'Card'),
+            ('coderedcms/blocks/pagepreview_form.html', 'Form inputs'),
+        ),
         # templates that are available for all block types
         '*': (
             ('', 'Default'),

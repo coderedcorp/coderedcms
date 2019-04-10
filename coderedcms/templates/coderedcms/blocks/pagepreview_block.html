@@ -1,0 +1,12 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+{% load wagtailcore_tags %}
+
+{% block block_render %}
+
+    {% with page=self.page.specific %}
+    <a href="{% pageurl page %}">
+        {{page.title}} <small class="text-muted">– {{page.body_preview}}</small>
+    </a>
+    {% endwith %}
+
+{% endblock %}

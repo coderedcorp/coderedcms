@@ -1,11 +1,16 @@
 """
 HTML blocks are simple blocks used to represent common HTML elements,
 with additional styling and attributes.
+
+HTML blocks should NOT contain more sub-blocks or sub-streamfields.
+They must be safe to nest within more robust "content blocks" without
+creating recursion.
 """
 
 from django.utils.translation import ugettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.core import blocks
+from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -178,6 +183,65 @@ class ImageLinkBlock(BaseLinkBlock):
         value_class = LinkStructValue
 
 
+class PageListBlock(BaseBlock):
+    """
+    Renders a preview of selected pages.
+    """
+    show_preview = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        label=_('Show body preview'),
+    )
+    num_posts = blocks.IntegerBlock(
+        default=3,
+        label=_('Number of pages to show'),
+    )
+    indexed_by = blocks.PageChooserBlock(
+        required=False,
+        label=_('Limit to'),
+        help_text=_('Only show pages that are children of the selected page. Uses the subpage sorting as specified in the page’s LAYOUT tab.'),
+    )
+
+    class Meta:
+        template = 'coderedcms/blocks/pagelist_block.html'
+        icon = 'list-ul'
+        label = _('Latest Pages')
+
+    def get_context(self, value, parent_context=None):
+
+        context = super().get_context(value, parent_context=parent_context)
+
+        if value['indexed_by']:
+            indexer = value['indexed_by'].specific
+            # try to use the CoderedPage `get_index_children()`,
+            # but fall back to get_children if this is a non-CoderedPage
+            try:
+                pages = indexer.get_index_children()
+            except AttributeError:
+                pages = indexer.get_children().live()
+        else:
+            pages = Page.objects.live().order_by('-first_published_at')
+
+        context['pages'] = pages[:value['num_posts']]
+        return context
+
+
+class PagePreviewBlock(BaseBlock):
+    """
+    Renders a preview of a specific page.
+    """
+    page = blocks.PageChooserBlock(
+        required=True,
+        label=_('Page to preview'),
+        help_text=_('Show a mini preview of the selected page.'),
+    )
+
+    class Meta:
+        template = 'coderedcms/blocks/pagepreview_block.html'
+        icon = 'doc-empty-inverse'
+        label = _('Page Preview')
+
+
 class QuoteBlock(BaseBlock):
     """
     A <blockquote>.
@@ -197,3 +261,8 @@ class QuoteBlock(BaseBlock):
         template = 'coderedcms/blocks/quote_block.html'
         icon = 'openquote'
         label = _('Quote')
+
+
+class RichTextBlock(blocks.RichTextBlock):
+    class Meta:
+        template = 'coderedcms/blocks/rich_text_block.html'

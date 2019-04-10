@@ -1,0 +1,20 @@
+CodeRed CMS 0.13.3 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Fix error when sending confirmation email with reply-to address set.
+
+
+Maintenance
+-----------
+
+* Minor code linting and cleanup.
+
+
+Upgrade considerations
+----------------------
+
+None

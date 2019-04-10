@@ -34,10 +34,7 @@
       <ul class="navbar-nav {% if navbar.custom_css_class %}{{navbar.custom_css_class}}{% endif %}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
         {% for item in navbar.menu_items %}
-          {% if item.value.page.live %}
-            {% is_menu_item_dropdown item.value as has_dropdown %}
-            <li class="nav-item {% if has_dropdown %}dropdown{% endif %}">{% include_block item with aclass="nav-link" ga_event_category="Navbar" %}</li>
-          {% endif %}
+            {% include_block item with ga_event_category="Navbar" %}
         {% endfor %}
       </ul>
       {% endfor %}

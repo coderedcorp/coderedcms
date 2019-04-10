@@ -65,9 +65,12 @@ def is_menu_item_dropdown(value):
 
 @register.simple_tag
 def is_active_page(curr_page, other_page, request):
-    curr_url = curr_page.get_url(request)
-    other_url = other_page.get_url(request)
-    return curr_url == other_url
+    try:
+        curr_url = curr_page.get_url(request)
+        other_url = other_page.get_url(request)
+        return curr_url == other_url
+    except:
+        return False
 
 @register.simple_tag
 def get_pictures(collection_id):

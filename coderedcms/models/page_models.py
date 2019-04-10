@@ -10,7 +10,7 @@ import geocoder
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.core.files.storage import FileSystemStorage
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -503,7 +503,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         current_content_walls = []
         if check_child_setting:
             for wall in self.content_walls:
-                content_wall = wall.value
                 if wall.value['show_content_wall_on_children']:
                     current_content_walls.append(wall.value)
         else:
@@ -863,12 +862,12 @@ class DefaultCalendarViewChoices():
     LIST_MONTH = 'listMonth'
 
     CHOICES = (
-            ('', _('No calendar')),
-            (MONTH, _('Monthly Calendar')),
-            (AGENDA_WEEK, _('Weekly Calendar')),
-            (AGENDA_DAY, _('Daily Calendar')),
-            (LIST_MONTH, _('Calendar List View')),
-        )
+        ('', _('No calendar')),
+        (MONTH, _('Monthly Calendar')),
+        (AGENDA_WEEK, _('Weekly Calendar')),
+        (AGENDA_DAY, _('Daily Calendar')),
+        (LIST_MONTH, _('Calendar List View')),
+    )
 
 class CoderedEventIndexPage(CoderedWebPage):
     """
@@ -884,9 +883,8 @@ class CoderedEventIndexPage(CoderedWebPage):
 
     index_order_by_default = 'next_occurrence'
     index_order_by_choices = (
-            ('next_occurrence', 'Display next occurrence, soonest first'),
-        ) + \
-        CoderedWebPage.index_order_by_choices
+        ('next_occurrence', 'Display next occurrence, soonest first'),
+    ) + CoderedWebPage.index_order_by_choices
 
     default_calendar_view = models.CharField(
         blank=True,
@@ -1207,7 +1205,7 @@ class CoderedFormPage(CoderedWebPage):
                         message_args['from_email'] = genemail
                 # Reply-to
                 if email.reply_address:
-                    template_reply_to = Template(reply_address)
+                    template_reply_to = Template(email.reply_address)
                     message_args['reply_to'] = template_reply_to.render(context).split(',')
                 # CC
                 if email.cc_address:
@@ -1273,7 +1271,7 @@ class CoderedFormPage(CoderedWebPage):
             # Render reply-to field using form submission as context.
             context = Context(self.data_to_dict(processed_data))
             template_reply_to = Template(self.reply_address)
-            message_args['reply_to'] = reply_to=template_reply_to.render(context).split(',')
+            message_args['reply_to'] = template_reply_to.render(context).split(',')
 
         # Send email
         message = EmailMessage(**message_args)
@@ -1481,7 +1479,7 @@ class CoderedLocationPage(CoderedWebPage):
                 self.latitude = g.latlng[0]
                 self.longitude = g.latlng[1]
             except TypeError:
-                """Raised if google denied the request"""
+                # Raised if google denied the request
                 pass
 
         return super(CoderedLocationPage, self).save(*args, **kwargs)

@@ -25,7 +25,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.tags import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
@@ -60,6 +60,7 @@ from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.settings import cr_settings
+from coderedcms.widgets import ClassifierSelectWidget
 
 CODERED_PAGE_MODELS = []
 
@@ -157,18 +158,12 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         max_length=255,
         choices=index_order_by_choices,
         default=index_order_by_default,
-        verbose_name=_('Order child pages by'),
         blank=True,
+        verbose_name=_('Order child pages by'),
     )
     index_num_per_page = models.PositiveIntegerField(
         default=10,
         verbose_name=_('Number per page'),
-    )
-    tags = ClusterTaggableManager(
-        through=CoderedTag,
-        verbose_name='Tags',
-        blank=True,
-        help_text=_('Used to categorize your pages.')
     )
 
 
@@ -302,6 +297,24 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
 
 
     ###############
+    # Classify
+    ###############
+
+    classifier_terms = ParentalManyToManyField(
+        'coderedcms.ClassifierTerm',
+        blank=True,
+        verbose_name=_('Classifiers'),
+        help_text=_('Categorize and group pages together with classifiers. Used to organize and filter pages across the site.'),
+    )
+    tags = ClusterTaggableManager(
+        through=CoderedTag,
+        blank=True,
+        verbose_name=_('Tags'),
+        help_text=_('Used to organize pages across the site.'),
+    )
+
+
+    ###############
     # Settings
     ###############
 
@@ -312,6 +325,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_('Content Walls')
     )
+
 
     ###############
     # Search
@@ -337,6 +351,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         index.FilterField('custom_template'),
     ]
 
+
     ###############
     # Panels
     ###############
@@ -347,7 +362,10 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
 
     body_content_panels = []
 
-    bottom_content_panels = [
+    bottom_content_panels = []
+
+    classify_panels = [
+        FieldPanel('classifier_terms', widget=ClassifierSelectWidget()),
         FieldPanel('tags'),
     ]
 
@@ -439,10 +457,11 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         Override to "lazy load" the panels overriden by subclasses.
         """
         panels = [
-            ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading='Content'),
-            ObjectList(cls.layout_panels, heading='Layout'),
-            ObjectList(cls.promote_panels, heading='SEO', classname="seo"),
-            ObjectList(cls.settings_panels, heading='Settings', classname="settings"),
+            ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading=_('Content')),
+            ObjectList(cls.classify_panels, heading=_('Classify')),
+            ObjectList(cls.layout_panels, heading=_('Layout')),
+            ObjectList(cls.promote_panels, heading=_('SEO'), classname="seo"),
+            ObjectList(cls.settings_panels, heading=_('Settings'), classname="settings"),
         ]
 
         if cls.integration_panels:

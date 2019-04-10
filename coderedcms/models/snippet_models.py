@@ -122,8 +122,50 @@ class CarouselSlide(Orderable, models.Model):
         ]
     )
 
+
+@register_snippet
+class Classifier(ClusterableModel):
+    """
+    Simple and generic model to organize/categorize/group pages.
+    """
+    class Meta:
+        verbose_name = _('Classifier')
+        verbose_name_plural = _('Classifiers')
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
+    panels = [
+        FieldPanel('name'),
+        InlinePanel('classifier_terms', label=_('Classifier Terms'))
+    ]
+
     def __str__(self):
         return self.name
+
+
+class ClassifierTerm(Orderable, models.Model):
+    """
+    Term used to categorize a page.
+    """
+    class Meta:
+        verbose_name = _('Classifier Term')
+        verbose_name_plural = _('Classifier Terms')
+
+    classifier = ParentalKey(
+        Classifier,
+        related_name='classifier_terms',
+        verbose_name=_('Classifier'),
+    )
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
+    def __str__(self):
+        return "{0} - {1}".format(self.classifier.name, self.name)
 
 
 @register_snippet

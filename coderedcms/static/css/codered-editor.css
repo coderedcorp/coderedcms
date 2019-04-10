@@ -216,3 +216,16 @@ li.sequence-member li > .field .Draftail-Editor {
 .codered-collapsible fieldset {
     padding: 10px 0 0;
 }
+
+.codered-checkbox-group {
+    margin-bottom: 1em;
+}
+.codered-checkbox-group ul {
+    margin-top: 0.5em;
+}
+.codered-checkbox-group label {
+    padding-bottom: 0.25em;
+}
+.codered-checkbox-group label input {
+    margin-right: 0.25em;
+}

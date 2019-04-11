@@ -63,14 +63,13 @@ def is_menu_item_dropdown(value):
             len(value.get('page', []).get_children().live()) > 0
         )
 
-@register.simple_tag
-def is_active_page(curr_page, other_page, request):
-    try:
-        curr_url = curr_page.get_url(request)
-        other_url = other_page.get_url(request)
+@register.simple_tag(takes_context=True)
+def is_active_page(context, curr_page, other_page):
+    if hasattr(curr_page, 'get_url') and hasattr(other_page, 'get_url'):
+        curr_url = curr_page.get_url(context['request'])
+        other_url = other_page.get_url(context['request'])
         return curr_url == other_url
-    except:
-        return False
+    return False
 
 @register.simple_tag
 def get_pictures(collection_id):

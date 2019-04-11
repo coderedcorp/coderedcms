@@ -64,6 +64,15 @@ def is_menu_item_dropdown(value):
         )
 
 @register.simple_tag
+def is_active_page(curr_page, other_page, request):
+    try:
+        curr_url = curr_page.get_url(request)
+        other_url = other_page.get_url(request)
+        return curr_url == other_url
+    except:
+        return False
+
+@register.simple_tag
 def get_pictures(collection_id):
     collection = Collection.objects.get(id=collection_id)
     return Image.objects.filter(collection=collection)
@@ -134,6 +143,6 @@ def richtext_amp(value):
         value = richtext(value.source)
     else:
         value = richtext(value)
-    
+
     value = utils.convert_to_amp(value)
     return mark_safe(value)

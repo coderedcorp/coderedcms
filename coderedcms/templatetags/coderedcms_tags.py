@@ -91,6 +91,10 @@ def get_searchform(request=None):
     return SearchForm()
 
 @register.simple_tag
+def get_pageform(page, request):
+    return page.get_form(page=page, user=request.user)
+
+@register.simple_tag
 def process_form_cell(request, cell):
     if isinstance(cell, str) and cell.startswith(cr_settings['PROTECTED_MEDIA_URL']):
         return utils.get_protected_media_link(request, cell, render_link=True)

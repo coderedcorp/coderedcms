@@ -26,13 +26,14 @@ HTML_STREAMBLOCKS = [
     ('quote', QuoteBlock()),
     ('table', TableBlock()),
     ('google_map', EmbedGoogleMapBlock()),
+    ('page_list', PageListBlock()),
+    ('page_preview', PagePreviewBlock()),
 ]
 
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ('card', CardBlock()),
     ('carousel', CarouselBlock()),
     ('image_gallery', ImageGalleryBlock()),
-    ('page_list', PageListBlock()),
     ('modal', ModalBlock(HTML_STREAMBLOCKS)),
     ('pricelist', PriceListBlock()),
     ('reusable_content', ReusableContentBlock()),

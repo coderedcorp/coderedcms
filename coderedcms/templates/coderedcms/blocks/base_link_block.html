@@ -4,7 +4,7 @@
     {% if value.page.live or value.link or value.document %}
     {% is_menu_item_dropdown value as has_dropdown %}
     <li class="{{liclass}} {% if has_dropdown %}dropdown{% endif %}">
-        {% is_active_page page value.page request as is_active_url %}
+        {% is_active_page page value.page as is_active_url %}
         <a href="{% block url %}#{% endblock %}"
         {% if value.settings.custom_id %}id="{{value.settings.custom_id}}"{% endif %}
         class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %} {% if is_active_url %}active{% endif %} {% if value.settings.custom_css_class %}{{value.settings.custom_css_class}}{% endif %}"
@@ -40,7 +40,7 @@
             {% endfor %}
             {% if value.show_child_links %}
                 {% for child in value.page.specific.get_index_children %}
-                    {% is_active_page page child request as is_active_child %}
+                    {% is_active_page page child as is_active_child %}
                     <li><a class="dropdown-item {% if is_active_child %}active{% endif %}" href="{% pageurl child %}">{{child.title}}</a></li>
                 {% endfor %}
             {% endif %}

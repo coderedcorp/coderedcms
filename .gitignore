@@ -12,5 +12,5 @@ __pycache__
 codered_cms.egg-info/
 coderedcms.egg-info/
 .vscode/
-testapp/
-testproject/
+testapp*/
+testproject*/

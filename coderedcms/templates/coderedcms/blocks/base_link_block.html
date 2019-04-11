@@ -3,11 +3,11 @@
 {% block menu_item %}
     {% if value.page.live or value.link or value.document %}
     {% is_menu_item_dropdown value as has_dropdown %}
-    <li class="nav-item {% if has_dropdown %}dropdown{% endif %}">
+    <li class="{{liclass}} {% if has_dropdown %}dropdown{% endif %}">
         {% is_active_page page value.page request as is_active_url %}
         <a href="{% block url %}#{% endblock %}"
         {% if value.settings.custom_id %}id="{{value.settings.custom_id}}"{% endif %}
-        class="nav-link {% if has_dropdown %}dropdown-toggle{% endif %} {% if is_active_url %}active{% endif %} {% if value.settings.custom_css_class %}{{value.settings.custom_css_class}}{% endif %}"
+        class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %} {% if is_active_url %}active{% endif %} {% if value.settings.custom_css_class %}{{value.settings.custom_css_class}}{% endif %}"
         {% if has_dropdown %}data-toggle="dropdown"
         role="button"
         aria-haspopup="true"
@@ -36,14 +36,7 @@
         {% if has_dropdown %}
         <ul class="dropdown-menu">
             {% for sub_link in value.sub_links %}
-                {% is_active_page page sub_link.page request as is_active_sub %}
-                <li>
-                    {% if is_active_sub %}
-                        {% include_block sub_link with aclass="dropdown-item active" %}
-                    {% else %}
-                        {% include_block sub_link with aclass="dropdown-item" %}
-                    {% endif %}
-                </li>
+                {% include_block sub_link with liclass="" aclass="dropdown-item" %}
             {% endfor %}
             {% if value.show_child_links %}
                 {% for child in value.page.specific.get_index_children %}

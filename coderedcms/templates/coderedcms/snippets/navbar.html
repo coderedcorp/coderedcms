@@ -34,7 +34,7 @@
       <ul class="navbar-nav {% if navbar.custom_css_class %}{{navbar.custom_css_class}}{% endif %}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
         {% for item in navbar.menu_items %}
-            {% include_block item with ga_event_category="Navbar" %}
+            {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
         {% endfor %}
       </ul>
       {% endfor %}

@@ -22,7 +22,7 @@ class ClassifierSelectWidget(forms.CheckboxSelectMultiple):
             choices = []
 
             for term in classifier.terms.all():
-                choices.append((term.id, term.name))
+                choices.append((term.pk, term.name))
 
             groups.append((group_name, subgroup, index))
 

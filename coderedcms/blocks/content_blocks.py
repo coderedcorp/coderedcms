@@ -2,7 +2,6 @@
 Content blocks are for building complex, nested HTML structures that usually
 contain sub-blocks, and may require javascript to function properly.
 """
-import logging
 from django.utils.translation import ugettext_lazy as _
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -11,9 +10,6 @@ from wagtail.snippets.blocks import SnippetChooserBlock
 
 from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChooserBlock
 from .html_blocks import ButtonBlock
-
-
-logger = logging.getLogger('coderedcms')
 
 
 class CardBlock(BaseBlock):
@@ -70,6 +66,7 @@ class ImageGalleryBlock(BaseBlock):
     full size images in a modal.
     """
     collection = CollectionChooserBlock(
+        required=True,
         label=_('Image Collection'),
     )
 

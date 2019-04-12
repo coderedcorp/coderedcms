@@ -6,11 +6,10 @@ HTML blocks should NOT contain more sub-blocks or sub-streamfields.
 They must be safe to nest within more robust "content blocks" without
 creating recursion.
 """
-
+import logging
 from django.utils.translation import ugettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.core import blocks
-from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -23,6 +22,9 @@ from .base_blocks import (
     CoderedAdvTrackingSettings,
     LinkStructValue,
 )
+
+
+logger = logging.getLogger('coderedcms')
 
 
 class ButtonBlock(ButtonMixin, BaseLinkBlock):
@@ -233,7 +235,7 @@ class PageListBlock(BaseBlock):
                     pages = pages.filter(classifier_terms=value['classified_by'])
                 except:
                     # `pages` is not a queryset, or is not a queryset of CoderedPage.
-                    logger.warn("Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models." % (indexer._meta.app_label, indexer.__class__.__name__, indexer.title))
+                    logger.warning("Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models.", indexer._meta.app_label, indexer.__class__.__name__, indexer.title)
         else:
             pages = indexer.get_children().live()
 

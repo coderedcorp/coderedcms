@@ -575,7 +575,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                             for term in selected_terms:
                                 all_children = all_children.filter(classifier_terms=term)
                         except:
-                            logger.warn("Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models." % (self._meta.app_label, self.__class__.__name__, self.title))
+                            logger.warning("Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models.", self._meta.app_label, self.__class__.__name__, self.title)
             paginator = Paginator(all_children, self.index_num_per_page)
             pagenum = request.GET.get('p', 1)
             try:

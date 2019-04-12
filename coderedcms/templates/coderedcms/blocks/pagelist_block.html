@@ -6,7 +6,7 @@
 <ul>
     {% for page in pages %}
     {% with page=page.specific %}
-    <li><a href="{% pageurl page.url %}">
+    <li><a href="{% pageurl page %}">
         {{page.title}} {% if self.show_preview %}<small class="text-muted">– {{page.body_preview}}</small>{% endif %}
     </a></li>
     {% endwith %}

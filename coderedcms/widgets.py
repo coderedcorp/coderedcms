@@ -10,7 +10,7 @@ class ClassifierSelectWidget(forms.CheckboxSelectMultiple):
 
     def optgroups(self, name, value, attrs=None):
         from coderedcms.models.snippet_models import Classifier
-        classifiers = Classifier.objects.all().order_by('name').select_related()
+        classifiers = Classifier.objects.all().select_related()
 
         groups = []
         has_selected = False
@@ -21,7 +21,7 @@ class ClassifierSelectWidget(forms.CheckboxSelectMultiple):
             subindex = 0
             choices = []
 
-            for term in classifier.classifier_terms.all():
+            for term in classifier.terms.all():
                 choices.append((term.id, term.name))
 
             groups.append((group_name, subgroup, index))

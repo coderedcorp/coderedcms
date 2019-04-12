@@ -3,10 +3,10 @@ Base and abstract pages used in CodeRed CMS.
 """
 
 import json
+import logging
 import os
-
 import geocoder
-
+from django import forms
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.core.files.storage import FileSystemStorage
@@ -58,15 +58,20 @@ from coderedcms.blocks import (
     StructuredDataActionBlock)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
+from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
-CODERED_PAGE_MODELS = []
 
+logger = logging.getLogger('coderedcms')
+
+
+CODERED_PAGE_MODELS = []
 
 def get_page_models():
     return CODERED_PAGE_MODELS
+
 
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
@@ -136,7 +141,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
 
     # Subclasses can override this to query on a specific
     # page model, rather than the default wagtail Page.
-    index_query_pagemodel = 'wagtailcore.Page'
+    index_query_pagemodel = 'coderedcms.CoderedPage'
 
     # Subclasses can override these fields to enable custom
     # ordering based on specific subpage fields.
@@ -164,6 +169,12 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     index_num_per_page = models.PositiveIntegerField(
         default=10,
         verbose_name=_('Number per page'),
+    )
+    index_classifiers = ParentalManyToManyField(
+        'coderedcms.Classifier',
+        blank=True,
+        verbose_name=_('Filter child pages by'),
+        help_text=_('Enable filtering child pages by these classifiers.'),
     )
 
 
@@ -349,6 +360,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         index.FilterField('index_show_subpages'),
         index.FilterField('index_order_by'),
         index.FilterField('custom_template'),
+        index.FilterField('classifier_terms'),
     ]
 
 
@@ -381,6 +393,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                 FieldPanel('index_show_subpages'),
                 FieldPanel('index_num_per_page'),
                 FieldPanel('index_order_by'),
+                FieldPanel('index_classifiers', widget=forms.CheckboxSelectMultiple()),
             ],
             heading=_('Show Child Pages')
         )
@@ -507,13 +520,13 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
 
     def get_index_children(self):
         """
-        Override to return query of subpages as defined by `index_` variables.
+        Returns query of subpages as defined by `index_` variables.
         """
         if self.index_query_pagemodel:
             querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
             query = querymodel.objects.child_of(self).live()
         else:
-            query = super().get_children().live()
+            query = self.get_children().live()
         if self.index_order_by:
             return query.order_by(self.index_order_by)
         return query
@@ -539,11 +552,34 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         context = super().get_context(request)
 
         if self.index_show_subpages:
+            # Get child pages
             all_children = self.get_index_children()
+            # Filter by classifier terms if applicable
+            if len(request.GET) > 0 and self.index_classifiers.exists():
+                # Look up comma separated ClassifierTerm slugs i.e. `/?c=term1-slug,term2-slug`
+                terms = []
+                get_c = request.GET.get('c', None)
+                if get_c:
+                    terms = get_c.split(',')
+                # Else look up individual querystrings i.e. `/?classifier-slug=term1-slug`
+                else:
+                    for classifier in self.index_classifiers.all().only('slug'):
+                        get_term = request.GET.get(classifier.slug, None)
+                        if get_term:
+                            terms.append(get_term)
+                if len(terms) > 0:
+                    selected_terms = ClassifierTerm.objects.filter(slug__in=terms)
+                    context['selected_terms'] = selected_terms
+                    if len(selected_terms) > 0:
+                        try:
+                            for term in selected_terms:
+                                all_children = all_children.filter(classifier_terms=term)
+                        except:
+                            logger.warn("Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models." % (self._meta.app_label, self.__class__.__name__, self.title))
             paginator = Paginator(all_children, self.index_num_per_page)
-            page = request.GET.get('p', 1)
+            pagenum = request.GET.get('p', 1)
             try:
-                paged_children = paginator.page(page)
+                paged_children = paginator.page(pagenum)
             except:
                 paged_children = paginator.page(1)
 

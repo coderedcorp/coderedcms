@@ -15,7 +15,14 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from .base_blocks import BaseBlock, BaseLinkBlock, ButtonMixin, CoderedAdvTrackingSettings, LinkStructValue
+from .base_blocks import (
+    BaseBlock,
+    BaseLinkBlock,
+    ButtonMixin,
+    ClassifierTermChooserBlock,
+    CoderedAdvTrackingSettings,
+    LinkStructValue,
+)
 
 
 class ButtonBlock(ButtonMixin, BaseLinkBlock):
@@ -187,6 +194,16 @@ class PageListBlock(BaseBlock):
     """
     Renders a preview of selected pages.
     """
+    indexed_by = blocks.PageChooserBlock(
+        required=True,
+        label=_('Parent page'),
+        help_text=_('Show a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab.'),
+    )
+    classified_by = ClassifierTermChooserBlock(
+        required=False,
+        label=_('Classified as'),
+        help_text=_('Only show pages that are classified with this term.')
+    )
     show_preview = blocks.BooleanBlock(
         required=False,
         default=False,
@@ -195,11 +212,6 @@ class PageListBlock(BaseBlock):
     num_posts = blocks.IntegerBlock(
         default=3,
         label=_('Number of pages to show'),
-    )
-    indexed_by = blocks.PageChooserBlock(
-        required=False,
-        label=_('Limit to'),
-        help_text=_('Only show pages that are children of the selected page. Uses the subpage sorting as specified in the page’s LAYOUT tab.'),
     )
 
     class Meta:
@@ -211,16 +223,19 @@ class PageListBlock(BaseBlock):
 
         context = super().get_context(value, parent_context=parent_context)
 
-        if value['indexed_by']:
-            indexer = value['indexed_by'].specific
-            # try to use the CoderedPage `get_index_children()`,
-            # but fall back to get_children if this is a non-CoderedPage
-            try:
-                pages = indexer.get_index_children()
-            except AttributeError:
-                pages = indexer.get_children().live()
+        indexer = value['indexed_by'].specific
+        # try to use the CoderedPage `get_index_children()`,
+        # but fall back to get_children if this is a non-CoderedPage
+        if hasattr(indexer, 'get_index_children'):
+            pages = indexer.get_index_children()
+            if value['classified_by']:
+                try:
+                    pages = pages.filter(classifier_terms=value['classified_by'])
+                except:
+                    # `pages` is not a queryset, or is not a queryset of CoderedPage.
+                    logger.warn("Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models." % (indexer._meta.app_label, indexer.__class__.__name__, indexer.title))
         else:
-            pages = Page.objects.live().order_by('-first_published_at')
+            pages = indexer.get_children().live()
 
         context['pages'] = pages[:value['num_posts']]
         return context

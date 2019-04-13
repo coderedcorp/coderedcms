@@ -9,8 +9,8 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChooserBlock
-from .html_blocks import ButtonBlock
+from .base_blocks import BaseBlock
+from .html_blocks import ButtonBlock, RichTextBlock
 
 
 class CardBlock(BaseBlock):
@@ -32,7 +32,7 @@ class CardBlock(BaseBlock):
         max_length=255,
         label=_('Subtitle'),
     )
-    description = blocks.RichTextBlock(
+    description = RichTextBlock(
         features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
         label=_('Body'),
     )

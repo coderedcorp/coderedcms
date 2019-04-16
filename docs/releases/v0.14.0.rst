@@ -1,0 +1,30 @@
+CodeRed CMS 0.14.0 release notes
+================================
+
+
+New features
+------------
+
+* NEW page preview block enables selecting a single page anywhere in the streamfield
+  and rendering a preview of that page using various templates including a Bootstrap
+  card and an HTML form for FormPage types.
+* NEW classifiers enable custom category/group functionality for pages. Create custom
+  classifiers and orderable terms within each classifier. Then assign classifier terms
+  to pages to enable filtering by specific classifier terms.
+* The current page in a navbar or dropdown is highlighted using the ``active`` CSS class.
+* The default streamfield on pages, resusable content snippets, footers, carousels, and modals
+  now includes more blocks including the "Latest pages" and "Page preview" blocks.
+
+
+Maintenance
+-----------
+
+* New projects created with ``coderedcms start`` include a ``.gitignore`` file that ignores
+  editor files (VS Code, emacs, vim, sublime, pycharm, etc.) files by default.
+
+
+Upgrade considerations
+----------------------
+
+* You will need to run ``python manage.py makemigrations website`` and ``python manage.py migrate`` after upgrading.
+* Some blocks within coderedcms/blocks/content_blocks.py have been moved to coderedcms/blocks/html_blocks.py.

@@ -3,6 +3,7 @@ Snippets are for content that is re-usable in nature.
 """
 
 from django.db import models
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -122,8 +123,93 @@ class CarouselSlide(Orderable, models.Model):
         ]
     )
 
+
+@register_snippet
+class Classifier(ClusterableModel):
+    """
+    Simple and generic model to organize/categorize/group pages.
+    """
+    class Meta:
+        verbose_name = _('Classifier')
+        verbose_name_plural = _('Classifiers')
+        ordering = ['name']
+
+    slug = models.SlugField(
+        allow_unicode=True,
+        unique=True,
+        verbose_name=_('Slug'),
+    )
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
+    panels = [
+        FieldPanel('name'),
+        InlinePanel('terms', label=_('Classifier Terms'))
+    ]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # Make a slug and suffix a number if it already exists to ensure uniqueness
+            newslug = slugify(self.name, allow_unicode=True)
+            tmpslug = newslug
+            suffix = 1
+            while True:
+                if not Classifier.objects.filter(slug=tmpslug).exists():
+                    self.slug = tmpslug
+                    break
+                tmpslug = newslug + "-" + str(suffix)
+                suffix += 1
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
+
+
+class ClassifierTerm(Orderable, models.Model):
+    """
+    Term used to categorize a page.
+    """
+    class Meta:
+        verbose_name = _('Classifier Term')
+        verbose_name_plural = _('Classifier Terms')
+
+    classifier = ParentalKey(
+        Classifier,
+        related_name='terms',
+        verbose_name=_('Classifier'),
+    )
+    slug = models.SlugField(
+        allow_unicode=True,
+        unique=True,
+        verbose_name=_('Slug'),
+    )
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
+    panels = [
+        FieldPanel('name'),
+    ]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # Make a slug and suffix a number if it already exists to ensure uniqueness
+            newslug = slugify(self.name, allow_unicode=True)
+            tmpslug = newslug
+            suffix = 1
+            while True:
+                if not ClassifierTerm.objects.filter(slug=tmpslug).exists():
+                    self.slug = tmpslug
+                    break
+                tmpslug = newslug + "-" + str(suffix)
+                suffix += 1
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "{0} > {1}".format(self.classifier.name, self.name)
 
 
 @register_snippet

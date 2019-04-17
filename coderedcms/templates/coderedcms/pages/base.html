@@ -1,4 +1,4 @@
-{% load static wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags %}
+{% load static coderedcms_tags i18n wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
 {% get_settings %}
 
 <!doctype html>
@@ -124,17 +124,23 @@
 
                 {% block content_post_body %}{% endblock %}
 
-            {% endblock %}
+                {% block index_filters %}
+                {% if page.index_show_subpages and page.index_classifiers.exists %}
+                    {% include "coderedcms/includes/classifier_dropdowns.html" with formclass="form-inline" %}
+                {% endif %}
+                {% endblock %}
 
-            {% block index_content %}
-            {% if page.index_show_subpages %}
-                <ul>
-                {% for child in index_paginated %}
-                    <li><a href="{{child.url}}">{{child.title}}</a></li>
-                {% endfor %}
-                </ul>
-                {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
-            {% endif %}
+                {% block index_content %}
+                {% if page.index_show_subpages %}
+                    <ul>
+                    {% for child in index_paginated %}
+                        <li><a href="{% pageurl child %}">{{child.title}}</a></li>
+                    {% endfor %}
+                    </ul>
+                    {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
+                {% endif %}
+                {% endblock %}
+
             {% endblock %}
         </div>
 

@@ -1,0 +1,29 @@
+CodeRed CMS 0.15.0 release notes
+================================
+
+
+New features
+------------
+
+None
+
+
+Bug Fixes
+---------
+
+None
+
+
+Maintenance
+-----------
+
+* Upgraded Wagtail to version 2.5. Now supports Django versions 2.0, 2.1, and 2.2.
+  Supports Python versions 3.4, 3.5, 3.6, and 3.7.
+* Upgraded jQuery to version 3.4.
+* Upgraded pickadate.js (fallback to native HTML5 date/time inputs) to version 3.6.
+
+
+Upgrade considerations
+----------------------
+
+None

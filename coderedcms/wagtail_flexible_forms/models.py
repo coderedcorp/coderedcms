@@ -222,7 +222,7 @@ class Steps(list):
             initial=self.current.get_existing_data())
 
     def get_storage(self):
-        return self.page.get_storage()
+        return self.page.specific.get_storage()
 
     def save_files(self, form):
         submission = self.get_submission()

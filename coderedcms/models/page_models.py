@@ -27,6 +27,7 @@ from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.tags import ClusterTaggableManager
+from pathlib import Path
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     HelpPanel,
@@ -60,8 +61,8 @@ from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
-from coderedcms.noripyt.wagtail_flexible_forms.blocks import FormStepBlock
-from coderedcms.noripyt.wagtail_flexible_forms.models import StreamFormMixin, StreamFormJSONEncoder, SessionFormSubmission
+from coderedcms.wagtail_flexible_forms.blocks import FormStepBlock
+from coderedcms.wagtail_flexible_forms.models import StreamFormMixin, StreamFormJSONEncoder, SessionFormSubmission
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
@@ -1138,15 +1139,28 @@ class CoderedFormMixin(models.Model):
     def get_landing_page_template(self, request, *args, **kwargs):
         return self.landing_page_template
 
-    def process_data(self, form):
+    def process_data(self, form, request):
         processed_data = {}
         # Handle file uploads
         for key, val in form.cleaned_data.items():
             if type(val) == InMemoryUploadedFile or type(val) == TemporaryUploadedFile:
                 # Save the file and get its URL
+
+                directory = request.session.session_key
                 storage = self.get_storage()
-                filename = storage.save(storage.get_valid_name(val.name), val)
-                processed_data[key] = storage.url(filename)
+                Path(storage.path(directory)).mkdir(parents=True,
+                                                    exist_ok=True)
+                path = storage.get_available_name(
+                    str(Path(directory) / val.name))
+                with storage.open(path, 'wb+') as destination:
+                    for chunk in val.chunks():
+                        destination.write(chunk)
+
+
+                # storage = self.get_storage()
+                # filename = storage.save(storage.get_valid_name(val.name), val)
+                # processed_data[key] = storage.url(filename)
+                processed_data[key] = "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], path)
             else:
                 processed_data[key] = val
         return processed_data
@@ -1406,7 +1420,7 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
             form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
 
             if form.is_valid():
-                processed_data = self.process_data(form)
+                processed_data = self.process_data(form, request)
                 form_submission = self.get_submission_class()(
                     form_data=json.dumps(processed_data, cls=self.encoder),
                     page=self,
@@ -1435,7 +1449,6 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
 
     def get_flattened_data(self):
         flattened_data = {}
-        print(self.get_data())
         for step in self.get_data():
             for k, v in step.items():
                 flattened_data[k.replace('-', '_')] = v
@@ -1480,6 +1493,11 @@ class CoderedAdvancedFormPage(StreamFormMixin, CoderedFormMixin, CoderedWebPage)
     def get_submission_class(cls):
         return CoderedSessionFormSubmission
 
+    def get_storage(self):
+        return FileSystemStorage(
+                location=cr_settings['PROTECTED_MEDIA_ROOT'],
+                base_url=cr_settings['PROTECTED_MEDIA_URL']
+            )
 
 class CoderedLocationPage(CoderedWebPage):
     """

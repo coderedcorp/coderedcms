@@ -1156,10 +1156,6 @@ class CoderedFormMixin(models.Model):
                     for chunk in val.chunks():
                         destination.write(chunk)
 
-
-                # storage = self.get_storage()
-                # filename = storage.save(storage.get_valid_name(val.name), val)
-                # processed_data[key] = storage.url(filename)
                 processed_data[key] = "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], path)
             else:
                 processed_data[key] = val

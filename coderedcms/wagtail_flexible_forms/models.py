@@ -835,9 +835,3 @@ class AbstractStreamForm(StreamFormMixin, AbstractForm):
 class AbstractEmailStreamForm(StreamFormMixin, AbstractEmailForm):
     class Meta:
         abstract = True
-
-
-from django.contrib import admin
-@admin.register(SessionFormSubmission)
-class SubAdmin(admin.ModelAdmin):
-    pass

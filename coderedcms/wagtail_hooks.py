@@ -3,15 +3,18 @@ import mimetypes
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http.response import HttpResponse
-from django.utils.html import format_html
+from django.urls import reverse
+from django.utils.html import format_html, mark_safe
+from django.utils.translation import ugettext_lazy as _
 from wagtail.contrib.forms.models import AbstractForm
+from wagtail.contrib.modeladmin.options import modeladmin_register
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
 from coderedcms import utils
 from coderedcms.models import CoderedFormPage, CoderedAdvancedFormPage, CoderedFormMixin
-
+from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
@@ -67,12 +70,6 @@ def serve_document_directly(document, request):
     response['Content-Encoding'] = content_encoding
     return response
 
-
-from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
-from django.urls import reverse
-from django.utils.html import mark_safe
-from django.utils.translation import ugettext_lazy as _
-
 class CoderedFormAdmin(FormAdmin):
     list_display = ('title', 'action_links')
 
@@ -96,7 +93,6 @@ class CoderedFormAdmin(FormAdmin):
 class CoderedSubmissionAdmin(SubmissionAdmin):
     pass
 
-from wagtail.contrib.modeladmin.options import modeladmin_register
 
 modeladmin_register(CoderedFormAdmin)
 modeladmin_register(CoderedSubmissionAdmin)

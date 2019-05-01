@@ -10,7 +10,7 @@ from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
 from coderedcms import utils
-from coderedcms.models import CoderedFormPage
+from coderedcms.models import CoderedFormPage, CoderedAdvancedFormPage, CoderedFormMixin
 
 
 @hooks.register('insert_global_admin_css')
@@ -44,7 +44,8 @@ def codered_forms(user, editable_forms):
     """
     form_models = [
         model for model in get_page_models()
-        if issubclass(model, (AbstractForm, CoderedFormPage))
+        if issubclass(model, CoderedFormMixin)
+        #if issubclass(model, (AbstractForm, CoderedFormPage))
     ]
     form_types = list(
         ContentType.objects.get_for_models(*form_models).values()
@@ -65,3 +66,37 @@ def serve_document_directly(document, request):
     response['Content-Disposition'] = 'inline;filename="{0}"'.format(document.filename)
     response['Content-Encoding'] = content_encoding
     return response
+
+
+from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
+from django.urls import reverse
+from django.utils.html import mark_safe
+from django.utils.translation import ugettext_lazy as _
+
+class CoderedFormAdmin(FormAdmin):
+    list_display = ('title', 'action_links')
+
+    def action_links(self, obj):
+        actions = []
+        if issubclass(type(obj.specific), CoderedFormPage):
+            actions.append(
+                '<a href="{0}">{1}</a>'.format(reverse('wagtailforms:list_submissions', args=(obj.pk,)), _('See all Submissions'))
+            )
+            actions.append(
+                '<a href="{0}">{1}</a>'.format(reverse('wagtailadmin_pages:edit', args=(obj.pk,)), _('Edit this form page'))
+            )
+        elif issubclass(type(obj.specific), CoderedAdvancedFormPage):
+            actions.append(self.unprocessed_submissions_link(obj))
+            actions.append(self.all_submissions_link(obj))
+            actions.append(self.edit_link(obj))
+
+        return mark_safe("<br />".join(actions))
+
+
+class CoderedSubmissionAdmin(SubmissionAdmin):
+    pass
+
+from wagtail.contrib.modeladmin.options import modeladmin_register
+
+modeladmin_register(CoderedFormAdmin)
+modeladmin_register(CoderedSubmissionAdmin)

@@ -1,5 +1,8 @@
 import string
 import random
+from html import unescape
+
+
 from datetime import datetime
 from django import template
 from django.conf import settings
@@ -100,7 +103,15 @@ def process_form_cell(request, cell):
         return utils.get_protected_media_link(request, cell, render_link=True)
     if utils.uri_validator(str(cell)):
         return mark_safe("<a href='{0}'>{1}</a>".format(cell, cell))
-    return localize(cell)
+
+    # This is a last resort rendering for links, used primarily for links stored in StreamForms.
+    # TODO, find a better way to handle this.
+
+    try:
+        unescaped_cell = unescape(cell)
+        return localize(mark_safe(unescaped_cell))
+    except:
+        return cell
 
 @register.filter
 def codered_settings(value):

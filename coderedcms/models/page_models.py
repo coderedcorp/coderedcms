@@ -1242,18 +1242,9 @@ class CoderedFormMixin(models.Model):
                 value = ', '.join(value)
             content.append('{0}: {1}'.format(
                 key.replace('-', ' ').replace('_', ' ').title(),
-                value
+                utils.attempt_protected_media_value_conversion(request, value)
             ))
 
-        # for field in fields:
-        #     value = processed_data[field.name]
-        #     # Convert lists into human readable comma separated strings.
-        #     if isinstance(value, list):
-        #         value = ', '.join(value)
-        #     content.append('{0}: {1}'.format(
-        #         field.label,
-        #         utils.attempt_protected_media_value_conversion(request, value)
-        #     ))
         content = '\n'.join(content)
 
         # Build email message parameters

@@ -56,8 +56,7 @@ class FormURLHelper(PageAdminURLHelper):
 
 class FormAdmin(ModelAdmin):
     model = Page
-    menu_label = _('Advanced Forms')
-    #menu_label = _('Forms')
+    menu_label = _('Forms')
     menu_icon = 'form'
     list_display = ('title', 'unprocessed_submissions_link',
                     'all_submissions_link', 'edit_link')
@@ -310,12 +309,12 @@ class SubmissionAdmin(ModelAdmin):
         return urls
 
 
-# @hooks.register('construct_main_menu')
-# def hide_old_forms_module(request, menu_items):
-#     from wagtail.contrib.forms.wagtail_hooks import FormsMenuItem
-#     for menu_item in menu_items:
-#         if isinstance(menu_item, FormsMenuItem):
-#             menu_items.remove(menu_item)
+@hooks.register('construct_main_menu')
+def hide_old_forms_module(request, menu_items):
+    from wagtail.contrib.forms.wagtail_hooks import FormsMenuItem
+    for menu_item in menu_items:
+        if isinstance(menu_item, FormsMenuItem):
+            menu_items.remove(menu_item)
 
-modeladmin_register(FormAdmin)
-modeladmin_register(SubmissionAdmin)
+# modeladmin_register(FormAdmin)
+# modeladmin_register(SubmissionAdmin)

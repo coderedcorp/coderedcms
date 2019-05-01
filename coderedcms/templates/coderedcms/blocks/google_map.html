@@ -3,6 +3,6 @@
 	{% if self.place_id %}
 		<iframe class="embed-responsive-item" width="100%" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:{{ self.place_id }}&zoom={{ self.map_zoom_level }}&key={{ settings.GoogleApiSettings.google_maps_api_key}}" allowfullscreen></iframe>
 	{% else %}
-		<iframe class="embed-responsive-item" width="100%" style="border:0" src="https://maps.google.com/maps?q={{ self.search}}&output=embed" allowfullscreen></iframe>
+		<iframe class="embed-responsive-item" width="100%" style="border:0" src="https://maps.google.com/maps?q={{ self.search|urlencode }}&output=embed" allowfullscreen></iframe>
 	{% endif %}
 </div>

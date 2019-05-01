@@ -34,7 +34,6 @@ from wagtail.contrib.forms.models import (
 
 from .blocks import FormStepBlock, FormFieldBlock
 
-
 class Step:
     def __init__(self, steps, index, struct_child):
         self.steps = steps
@@ -66,6 +65,7 @@ class Step:
                 struct_value = struct_child.value
                 field_name = block.get_slug(struct_value)
                 form_fields[field_name] = block.get_field(struct_value)
+
         return form_fields
 
     def get_form_class(self):

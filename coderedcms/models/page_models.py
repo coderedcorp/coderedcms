@@ -56,7 +56,8 @@ from coderedcms.blocks import (
     LAYOUT_STREAMBLOCKS,
     ContentWallBlock,
     OpenHoursBlock,
-    StructuredDataActionBlock)
+    StructuredDataActionBlock,
+    CoderedAdvancedFormStepBlock)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
@@ -1449,7 +1450,7 @@ class CoderedAdvancedFormPage(StreamFormMixin, CoderedFormMixin, CoderedWebPage)
     template = 'coderedcms/pages/advanced_form_page.html'
     landing_page_template = 'coderedcms/pages/form_page_landing.html'
 
-    form_fields = StreamField([('step', FormStepBlock()),])
+    form_fields = StreamField([('step', CoderedAdvancedFormStepBlock()),])
     encoder = StreamFormJSONEncoder
 
     body_content_panels = [

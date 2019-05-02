@@ -16,7 +16,6 @@ class Migration(migrations.Migration):
             fields=[
             ],
             options={
-                'constraints': [],
                 'proxy': True,
                 'indexes': [],
             },

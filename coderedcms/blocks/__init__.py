@@ -72,7 +72,7 @@ LAYOUT_STREAMBLOCKS = [
 
 ADVANCEDFORM_FORMBLOCKS = [
     ('single_line', CoderedAdvancedFormCharFieldBlock(group=_('Fields'))),
-    ('text', CoderedAdvancedFormTextFieldBlock(group=_('Fields'))),
+    ('multi_line', CoderedAdvancedFormTextFieldBlock(group=_('Fields'))),
     ('number', CoderedAdvancedFormNumberFieldBlock(group=_('Fields'))),
     ('checkbox', CoderedAdvancedFormCheckboxFieldBlock(group=_('Fields'))),
     ('radios', CoderedAdvancedFormRadioButtonsFieldBlock(group=_('Fields'))),

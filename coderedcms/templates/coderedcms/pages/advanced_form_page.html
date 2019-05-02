@@ -35,7 +35,7 @@
             <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
             <div class="{{'horizontal_field_class'|bootstrap_settings}}">
                 {% if step != steps|first %}
-                <a href='{{page.url}}?step={{step.index|add:"-1"}}' class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+                <a href='{{page.url}}?step={{step.index}}' class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
                     Previous
                 </a>
                 {% endif %}

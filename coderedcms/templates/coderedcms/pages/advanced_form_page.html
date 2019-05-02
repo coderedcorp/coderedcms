@@ -8,7 +8,16 @@
 
 {% if page.form_live %}
 
+
 <div class="container">
+    <div class="progress">
+        {% with last_step=steps|last %}
+
+        {% widthratio step.index last_step.index|add:"1" 100 as width %}
+        <div class="progress-bar" role="progressbar" style="width: {{ width }}%;" aria-valuenow="{{ width }}" aria-valuemin="{{ width }}" aria-valuemax="100">Step {{step.index|add:"1"}} / {{last_step.index|add:"1"}}   ({{ width }}%)</div>
+        {% endwith %}
+    </div>
+    <br />
     <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
@@ -25,8 +34,13 @@
         <div class="form-group mt-5 row">
             <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
             <div class="{{'horizontal_field_class'|bootstrap_settings}}">
+                {% if step != steps|first %}
+                <a href='{{page.url}}?step={{step.index|add:"-1"}}' class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+                    Previous
+                </a>
+                {% endif %}
                 <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
-                    {{ page.button_text }}
+                    {% if steps|last == step %}{{ page.button_text }}{% else %}Next{% endif %}
                 </button>
             </div>
         </div>

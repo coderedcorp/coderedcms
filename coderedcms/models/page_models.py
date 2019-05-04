@@ -1461,6 +1461,18 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
                 flattened_data[k.replace('-', '_')] = v
         return flattened_data
 
+    def render_email(self, value):
+        return mark_safe(super().render_email(value))
+
+    def render_link(self, value):
+        return mark_safe(super().render_link(value))
+
+    def render_image(self, value):
+        return mark_safe(super().render_image(value))
+
+    def render_file(self, value):
+        return mark_safe(super().render_file(value))
+
 
 @receiver(post_save)
 def create_submission_changed_revision(sender, **kwargs):
@@ -1480,6 +1492,7 @@ def create_submission_deleted_revision(sender, **kwargs):
     submission = kwargs['instance']
     CoderedSubmissionRevision.create_from_submission(submission,
                                               SubmissionRevision.DELETED)
+
 
 class CoderedStep(Step):
     pass

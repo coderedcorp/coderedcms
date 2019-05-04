@@ -1291,7 +1291,7 @@ class CoderedFormPage(CoderedWebPage):
         for fn in hooks.get_hooks('form_page_submit'):
             fn(instance=self, form_submission=form_submission)
 
-        return processed_data
+        return form_submission
 
     def send_summary_mail(self, request, form, processed_data):
         """
@@ -1346,7 +1346,7 @@ class CoderedFormPage(CoderedWebPage):
 
         return dictionary
 
-    def render_landing_page(self, request, *args, form_submission=None, **kwargs):
+    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
         """
         Renders the landing page.
 

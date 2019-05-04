@@ -15,6 +15,8 @@ from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models.signals import post_delete, post_save
+from django.dispatch import receiver
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import Context, Template
@@ -46,7 +48,7 @@ from wagtail.core.utils import resolve_model_string
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.models import AbstractFormSubmission, FormSubmission
 from wagtail.search import index
 from wagtailcache.cache import WagtailCacheMixin
 
@@ -54,16 +56,17 @@ from coderedcms import schema, utils
 from coderedcms.blocks import (
     CONTENT_STREAMBLOCKS,
     LAYOUT_STREAMBLOCKS,
+    STREAMFORM_BLOCKS,
     ContentWallBlock,
     OpenHoursBlock,
     StructuredDataActionBlock,
-    CoderedAdvancedFormStepBlock)
+    CoderedStreamFormStepBlock)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.wagtail_flexible_forms.blocks import FormStepBlock
-from coderedcms.wagtail_flexible_forms.models import StreamFormMixin, StreamFormJSONEncoder, SessionFormSubmission
+from coderedcms.wagtail_flexible_forms.models import Step, Steps, StreamFormMixin, StreamFormJSONEncoder, SessionFormSubmission, SubmissionRevision
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
@@ -1431,9 +1434,25 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
         )
         return response
 
+class CoderedSubmissionRevision(SubmissionRevision, models.Model):
+    pass
+
+
 class CoderedSessionFormSubmission(SessionFormSubmission):
-    class Meta:
-        proxy=True
+
+    INCOMPLETE = 'incomplete'
+    COMPLETE = 'complete'
+    REVIEWED = 'reviewed'
+    APPROVED = 'approved'
+    REJECTED = 'rejected'
+    STATUSES = (
+        (INCOMPLETE, _('Not submitted')),
+        (COMPLETE, _('Complete')),
+        (REVIEWED, _('Under consideration')),
+        (APPROVED, _('Approved')),
+        (REJECTED, _('Rejected')),
+    )
+    status = models.CharField(max_length=10, choices=STATUSES, default=INCOMPLETE)
 
     def get_flattened_data(self):
         flattened_data = {}
@@ -1442,15 +1461,73 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
                 flattened_data[k.replace('-', '_')] = v
         return flattened_data
 
-class CoderedAdvancedFormPage(StreamFormMixin, CoderedFormMixin, CoderedWebPage):
+
+@receiver(post_save)
+def create_submission_changed_revision(sender, **kwargs):
+    if not issubclass(sender, SessionFormSubmission):
+        return
+    submission = kwargs['instance']
+    created = kwargs['created']
+    CoderedSubmissionRevision.create_from_submission(
+        submission, (CoderedSubmissionRevision.CREATED if created
+                     else CoderedSubmissionRevision.CHANGED))
+
+
+@receiver(post_delete)
+def create_submission_deleted_revision(sender, **kwargs):
+    if not issubclass(sender, CoderedSessionFormSubmission):
+        return
+    submission = kwargs['instance']
+    CoderedSubmissionRevision.create_from_submission(submission,
+                                              SubmissionRevision.DELETED)
+
+class CoderedStep(Step):
+    pass
+
+
+class CoderedSteps(Steps):
+
+    def __init__(self, page, request=None):
+        self.page = page
+        # TODO: Make it possible to change the `form_fields` attribute.
+        self.form_fields = page.form_fields
+        self.request = request
+        has_steps = any(isinstance(struct_child.block, FormStepBlock)
+                        for struct_child in self.form_fields)
+        if has_steps:
+            steps = [CoderedStep(self, i, form_field)
+                     for i, form_field in enumerate(self.form_fields)]
+        else:
+            steps = [CoderedStep(self, 0, self.form_fields)]
+        super(Steps, self).__init__(steps)
+
+
+class CoderedStreamFormMixin(StreamFormMixin):
+    class Meta:
+        abstract=True
+
+    def get_steps(self, request=None):
+        if not hasattr(self, 'steps'):
+            steps = CoderedSteps(self, request=request)
+            if request is None:
+                return steps
+            self.steps = steps
+        return self.steps
+
+    @staticmethod
+    def get_submission_class():
+        return CoderedSessionFormSubmission
+
+
+class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWebPage):
     class Meta:
         verbose_name = _('CodeRed Advanced Form Page')
         abstract = True
 
-    template = 'coderedcms/pages/advanced_form_page.html'
+    template = 'coderedcms/pages/stream_form_page.html'
     landing_page_template = 'coderedcms/pages/form_page_landing.html'
 
-    form_fields = StreamField([('step', CoderedAdvancedFormStepBlock()),])
+    form_fields = StreamField(STREAMFORM_BLOCKS)
     encoder = StreamFormJSONEncoder
 
     body_content_panels = [

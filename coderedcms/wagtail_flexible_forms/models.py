@@ -34,6 +34,7 @@ from wagtail.contrib.forms.models import (
 
 from .blocks import FormStepBlock, FormFieldBlock
 
+
 class Step:
     def __init__(self, steps, index, struct_child):
         self.steps = steps
@@ -65,7 +66,6 @@ class Step:
                 struct_value = struct_child.value
                 field_name = block.get_slug(struct_value)
                 form_fields[field_name] = block.get_field(struct_value)
-
         return form_fields
 
     def get_form_class(self):
@@ -222,7 +222,7 @@ class Steps(list):
             initial=self.current.get_existing_data())
 
     def get_storage(self):
-        return self.page.specific.get_storage()
+        return self.page.get_storage()
 
     def save_files(self, form):
         submission = self.get_submission()
@@ -271,6 +271,7 @@ class Steps(list):
 
 
 class SessionFormSubmission(AbstractFormSubmission):
+
     session_key = CharField(max_length=40, null=True, default=None)
     user = ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True,
                       related_name='+', on_delete=PROTECT)
@@ -283,7 +284,7 @@ class SessionFormSubmission(AbstractFormSubmission):
     REJECTED = 'rejected'
     STATUSES = (
         (INCOMPLETE, _('Not submitted')),
-        (COMPLETE, _('Complete')),
+        (COMPLETE, _('In progress')),
         (REVIEWED, _('Under consideration')),
         (APPROVED, _('Approved')),
         (REJECTED, _('Rejected')),
@@ -295,6 +296,7 @@ class SessionFormSubmission(AbstractFormSubmission):
         verbose_name_plural = _('form submissions')
         unique_together = (('page', 'session_key'),
                            ('page', 'user'))
+        abstract=True
 
     @property
     def is_complete(self):
@@ -534,6 +536,7 @@ class SubmissionRevision(Model):
 
     class Meta:
         ordering = ('-created_at',)
+        abstract=True
 
     @staticmethod
     def get_filters_for(submission):
@@ -605,25 +608,27 @@ class SubmissionRevision(Model):
     def get_data(self):
         return json.loads(self.data)
 
+# ORIGINAL NORIPYT CODE.
+# We don't want these receivers triggering.
 
-@receiver(post_save)
-def create_submission_changed_revision(sender, **kwargs):
-    if not issubclass(sender, SessionFormSubmission):
-        return
-    submission = kwargs['instance']
-    created = kwargs['created']
-    SubmissionRevision.create_from_submission(
-        submission, (SubmissionRevision.CREATED if created
-                     else SubmissionRevision.CHANGED))
+# @receiver(post_save)
+# def create_submission_changed_revision(sender, **kwargs):
+#     if not issubclass(sender, SessionFormSubmission):
+#         return
+#     submission = kwargs['instance']
+#     created = kwargs['created']
+#     SubmissionRevision.create_from_submission(
+#         submission, (SubmissionRevision.CREATED if created
+#                      else SubmissionRevision.CHANGED))
 
 
-@receiver(post_delete)
-def create_submission_deleted_revision(sender, **kwargs):
-    if not issubclass(sender, SessionFormSubmission):
-        return
-    submission = kwargs['instance']
-    SubmissionRevision.create_from_submission(submission,
-                                              SubmissionRevision.DELETED)
+# @receiver(post_delete)
+# def create_submission_deleted_revision(sender, **kwargs):
+#     if not issubclass(sender, SessionFormSubmission):
+#         return
+#     submission = kwargs['instance']
+#     SubmissionRevision.create_from_submission(submission,
+#                                               SubmissionRevision.DELETED)
 
 
 class StreamFormMixin:

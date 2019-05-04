@@ -10,6 +10,8 @@
 
 
 <div class="container">
+    {% block progress_bar %}
+    {% if steps|length > 1 %}
     <div class="progress">
         {% with last_step=steps|last %}
 
@@ -18,6 +20,8 @@
         {% endwith %}
     </div>
     <br />
+    {% endif %}
+    {% endblock %}
     <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 

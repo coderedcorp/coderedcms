@@ -29,7 +29,6 @@ INSTALLED_APPS = [
 
     # CodeRed CMS
     'coderedcms',
-    'coderedcms.wagtail_flexible_forms',
     'bootstrap4',
     'modelcluster',
     'taggit',

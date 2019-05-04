@@ -9,7 +9,7 @@ from wagtail.core.blocks import CharBlock, StreamBlock, StructBlock
 
 from coderedcms.wagtail_flexible_forms.blocks import FormStepBlock, FormStepsBlock
 
-from .advanced_form_blocks import * #noqa
+from .stream_form_blocks import * #noqa
 from .base_blocks import * #noqa
 from .html_blocks import * #noqa
 from .metadata_blocks import * #noqa
@@ -21,38 +21,38 @@ from .layout_blocks import * #noqa
 # Collections of blocks commonly used together.
 
 HTML_STREAMBLOCKS = [
-    ('text', RichTextBlock(icon='fa-file-text-o', group=_('HTML'))),
-    ('button', ButtonBlock(group=_('HTML'))),
-    ('image', ImageBlock(group=_('HTML'))),
-    ('image_link', ImageLinkBlock(group=_('HTML'))),
-    ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'), group=_('HTML'))),
-    ('download', DownloadBlock(group=_('HTML'))),
-    ('embed_video', EmbedVideoBlock(group=_('HTML'))),
-    ('quote', QuoteBlock(group=_('HTML'))),
-    ('table', TableBlock(group=_('HTML'))),
-    ('google_map', EmbedGoogleMapBlock(group=_('HTML'))),
-    ('page_list', PageListBlock(group=_('HTML'))),
-    ('page_preview', PagePreviewBlock(group=_('HTML'))),
+    ('text', RichTextBlock(icon='fa-file-text-o')),
+    ('button', ButtonBlock()),
+    ('image', ImageBlock()),
+    ('image_link', ImageLinkBlock()),
+    ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'), )),
+    ('download', DownloadBlock()),
+    ('embed_video', EmbedVideoBlock()),
+    ('quote', QuoteBlock()),
+    ('table', TableBlock()),
+    ('google_map', EmbedGoogleMapBlock()),
+    ('page_list', PageListBlock()),
+    ('page_preview', PagePreviewBlock()),
 ]
 
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
-    ('card', CardBlock(group=_('Content'))),
-    ('carousel', CarouselBlock(group=_('Content'))),
-    ('image_gallery', ImageGalleryBlock(group=_('Content'))),
-    ('modal', ModalBlock(HTML_STREAMBLOCKS, group=_('Content'))),
-    ('pricelist', PriceListBlock(group=_('Content'))),
-    ('reusable_content', ReusableContentBlock(group=_('Content'))),
+    ('card', CardBlock()),
+    ('carousel', CarouselBlock()),
+    ('image_gallery', ImageGalleryBlock()),
+    ('modal', ModalBlock(HTML_STREAMBLOCKS)),
+    ('pricelist', PriceListBlock()),
+    ('reusable_content', ReusableContentBlock()),
 ]
 
 NAVIGATION_STREAMBLOCKS = [
-    ('page_link', NavPageLinkWithSubLinkBlock(group=_('Navigation'))),
-    ('external_link', NavExternalLinkWithSubLinkBlock(group=_('Navigation'))),
-    ('document_link', NavDocumentLinkWithSubLinkBlock(group=_('Navigation'))),
+    ('page_link', NavPageLinkWithSubLinkBlock()),
+    ('external_link', NavExternalLinkWithSubLinkBlock()),
+    ('document_link', NavDocumentLinkWithSubLinkBlock()),
 ]
 
 BASIC_LAYOUT_STREAMBLOCKS = [
-    ('row', GridBlock(HTML_STREAMBLOCKS, group=('Layout'))),
-    ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'), group=('Layout'))),
+    ('row', GridBlock(HTML_STREAMBLOCKS)),
+    ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
 ]
 
 LAYOUT_STREAMBLOCKS = [
@@ -70,27 +70,21 @@ LAYOUT_STREAMBLOCKS = [
     ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
 ]
 
-ADVANCEDFORM_FORMBLOCKS = [
-    ('single_line', CoderedAdvancedFormCharFieldBlock(group=_('Fields'))),
-    ('multi_line', CoderedAdvancedFormTextFieldBlock(group=_('Fields'))),
-    ('number', CoderedAdvancedFormNumberFieldBlock(group=_('Fields'))),
-    ('checkbox', CoderedAdvancedFormCheckboxFieldBlock(group=_('Fields'))),
-    ('radios', CoderedAdvancedFormRadioButtonsFieldBlock(group=_('Fields'))),
-    ('dropdown', CoderedAdvancedFormDropdownFieldBlock(group=_('Fields'))),
-    ('checkboxes', CoderedAdvancedFormCheckboxesFieldBlock(group=_('Fields'))),
-    ('date', CoderedAdvancedFormDateFieldBlock(group=_('Fields'))),
-    ('time', CoderedAdvancedFormTimeFieldBlock(group=_('Fields'))),
-    ('datetime', CoderedAdvancedFormDateTimeFieldBlock(group=_('Fields'))),
-    ('image', CoderedAdvancedFormImageFieldBlock(group=_('Fields'))),
-    ('file', CoderedAdvancedFormFileFieldBlock(group=_('Fields'))),
+STREAMFORM_FIELDBLOCKS = [
+    ('single_line', CoderedStreamFormCharFieldBlock(group=_('Fields'))),
+    ('multi_line', CoderedStreamFormTextFieldBlock(group=_('Fields'))),
+    ('number', CoderedStreamFormNumberFieldBlock(group=_('Fields'))),
+    ('checkbox', CoderedStreamFormCheckboxFieldBlock(group=_('Fields'))),
+    ('radios', CoderedStreamFormRadioButtonsFieldBlock(group=_('Fields'))),
+    ('dropdown', CoderedStreamFormDropdownFieldBlock(group=_('Fields'))),
+    ('checkboxes', CoderedStreamFormCheckboxesFieldBlock(group=_('Fields'))),
+    ('date', CoderedStreamFormDateFieldBlock(group=_('Fields'))),
+    ('time', CoderedStreamFormTimeFieldBlock(group=_('Fields'))),
+    ('datetime', CoderedStreamFormDateTimeFieldBlock(group=_('Fields'))),
+    ('image', CoderedStreamFormImageFieldBlock(group=_('Fields'))),
+    ('file', CoderedStreamFormFileFieldBlock(group=_('Fields'))),
 ]
 
-
-ADVANCEDFORM_STREAMBLOCKS = ADVANCEDFORM_FORMBLOCKS + CONTENT_STREAMBLOCKS
-
-class CoderedAdvancedFormStepBlock(FormStepBlock):
-    form_fields = StreamBlock(ADVANCEDFORM_STREAMBLOCKS)
-
-
-class CoderedAdvancedFormStepsBlock(FormStepsBlock):
-    step = CoderedAdvancedFormStepBlock()
+STREAMFORM_BLOCKS = [
+    ('step', CoderedStreamFormStepBlock(STREAMFORM_FIELDBLOCKS + HTML_STREAMBLOCKS)),
+]

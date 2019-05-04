@@ -1,0 +1,10 @@
+CodeRed CMS 0.14.1 release notes
+================================
+
+
+Bug Fixes
+---------
+
+* Prevent Google map block breakage by URL encoding search query.
+* Remove redundant div from rich text block.
+* Return correct FormSubmission object when processing and submitting a form.

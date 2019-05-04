@@ -65,7 +65,7 @@ from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
-from coderedcms.wagtail_flexible_forms.blocks import FormStepBlock
+from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
 from coderedcms.wagtail_flexible_forms.models import Step, Steps, StreamFormMixin, StreamFormJSONEncoder, SessionFormSubmission, SubmissionRevision
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
@@ -1495,7 +1495,16 @@ def create_submission_deleted_revision(sender, **kwargs):
 
 
 class CoderedStep(Step):
-    pass
+
+    def get_markups_and_bound_fields(self, form):
+        for struct_child in self.form_fields:
+            block = struct_child.block
+            if isinstance(block, FormFieldBlock):
+                struct_value = struct_child.value
+                field_name = block.get_slug(struct_value)
+                yield form[field_name], 'field', struct_child
+            else:
+                yield mark_safe(struct_child), 'markup'
 
 
 class CoderedSteps(Steps):

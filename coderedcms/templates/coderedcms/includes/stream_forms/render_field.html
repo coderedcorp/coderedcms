@@ -1,0 +1,10 @@
+{% load bootstrap4 %}
+<div
+{% if block.value.settings.conditional_name %}data-conditional-name="{{ block.value.settings.conditional_name }}"{% endif %}
+{% if block.value.settings.conditional_target_name %}data-conditional-target-name="{{ block.value.settings.conditional_target_name }}"{% endif %}
+{% if block.value.settings.conditional_target_value %}data-conditional-target-value="{{ block.value.settings.conditional_target_value }}"{% endif %}
+{% if block.value.settings.custom_css_class %}class="{{block.value.settings.custom_css_class}}"{% endif %}
+{% if block.value.settings.custom_id %}id="{{block.value.settings.custom_id}}"{% endif %}
+>
+{% bootstrap_field field layout='horizontal' %}
+</div>

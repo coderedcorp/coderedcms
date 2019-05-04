@@ -35,7 +35,6 @@ class FormBlockMixin(BaseBlock):
 
     advsettings_class = CoderedFormAdvSettings
 
-
 class CoderedStreamFormFieldBlock(form_blocks.OptionalFormFieldBlock, FormBlockMixin):
     pass
 

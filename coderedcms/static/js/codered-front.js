@@ -39,6 +39,10 @@ libs = {
     coderedmaps: {
         url: "/static/js/codered-maps.js",
         integrity: "",
+    },
+    coderedstreamforms: {
+        url: "/static/js/codered-streamforms.js",
+        integrity: "",
     }
 }
 
@@ -192,6 +196,12 @@ $(document).ready(function()
                     'libraries': $("#cr-map").data( "libraries" ),
                 }
             });
+        });
+    }
+
+    if ($('.stream-form-input').length > 0){
+        load_script(libs.coderedstreamforms, function(){
+            initStreamform();
         });
     }
 

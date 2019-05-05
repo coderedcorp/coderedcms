@@ -16,23 +16,30 @@
         {% with last_step=steps|last %}
 
         {% widthratio step.index last_step.index|add:"1" 100 as width %}
-        <div class="progress-bar" role="progressbar" style="width: {{ width }}%;" aria-valuenow="{{ width }}" aria-valuemin="{{ width }}" aria-valuemax="100">&nbsp;Step {{step.index|add:"1"}} / {{last_step.index|add:"1"}}   ({{ width }}%)</div>
+        <div class="progress-bar" role="progressbar" style="width: {{ width }}%;" aria-valuenow="{{ width }}" aria-valuemin="{{ width }}" aria-valuemax="100"><span {% if step.index == 0 %}class="text-dark"{% endif %}>&nbsp;Step {{step.index|add:"1"}} / {{last_step.index|add:"1"}}   ({{ width }}%)</span></div>
         {% endwith %}
     </div>
     <br />
     {% endif %}
     {% endblock %}
+
+    {% block stream_form %}
     <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
-        {% for item in markups_and_bound_fields %}
-            {% if item.1 == 'markup' %}
-                {% include_block item.0 %}
-            {% else %}
-                {% include 'coderedcms/includes/stream_forms/render_field.html' with block=item.2 field=item.0 %}
-            {% endif %}
-        {% endfor %}
+        {% block stream_form_fields %}
 
+            {% for item in markups_and_bound_fields %}
+                {% if item.1 == 'markup' %}
+                    {% include_block item.0 %}
+                {% else %}
+                    {% include 'coderedcms/includes/stream_forms/render_field.html' with block=item.2 field=item.0 %}
+                {% endif %}
+            {% endfor %}
+
+        {% endblock %}
+
+        {% block stream_form_actions %}
         <div class="form-group mt-5 row">
             <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
             <div class="{{'horizontal_field_class'|bootstrap_settings}}">
@@ -46,7 +53,9 @@
                 </button>
             </div>
         </div>
+        {% endblock %}
     </form>
+    {% endblock %}
 </div>
 {% endif %}
 

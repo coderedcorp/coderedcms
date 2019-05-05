@@ -1269,7 +1269,23 @@ class CoderedFormMixin(models.Model):
         message = EmailMessage(**message_args)
         message.send()
 
-    def render_landing_page(self, request, *args, form_submission=None, **kwargs):
+
+    def data_to_dict(self, processed_data):
+        """
+        Converts processed form data into a dictionary suitable
+        for rendering in a context.
+        """
+        dictionary = {}
+
+        for key, value in processed_data.items():
+            dictionary[key.replace('-', '_')] = value
+            if isinstance(value, list):
+                dictionary[key] = ', '.join(value)
+
+        return dictionary
+
+    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+
         """
         Renders the landing page.
 

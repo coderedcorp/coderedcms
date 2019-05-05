@@ -1237,15 +1237,15 @@ class CoderedFormMixin(models.Model):
         addresses = [x.strip() for x in self.to_address.split(',')]
         content = []
 
-        for key, value in processed_data.items():
+        for key, value in self.data_to_dict(processed_data).items():
             if isinstance(value, list):
                 value = ', '.join(value)
             content.append('{0}: {1}'.format(
-                key.replace('-', ' ').replace('_', ' ').title(),
+                key.replace('_', ' ').title(),
                 utils.attempt_protected_media_value_conversion(request, value)
             ))
 
-        content = '\n'.join(content)
+        content = '\n\n'.join(content)
 
         # Build email message parameters
         message_args = {

@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'wagtailfontawesome',
+    'wagtailcache',
+    'wagtailimportexport',
 
     # Wagtail
     'wagtail.contrib.forms',
@@ -61,6 +63,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Save pages to cache. Must be FIRST.
+    'wagtailcache.cache.UpdateCacheMiddleware',
+
     # Common functionality
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -72,12 +77,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    # Error reporting
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # Error reporting. Uncomment this to recieve emails when a 404 is triggered.
+    #'django.middleware.common.BrokenLinkEmailsMiddleware',
 
     # CMS functionality
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+    # Fetch from cache. Must be LAST.
+    'wagtailcache.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = '{{ project_name }}.urls'
@@ -171,13 +179,13 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "{{ project_name }}"
+WAGTAIL_SITE_NAME = "{{ sitename }}"
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'http://{{ domain }}'
 
 
 # Bootstrap
@@ -189,3 +197,8 @@ BOOTSTRAP4 = {
     # remove green highlight on inputs
     'success_css_class': ''
 }
+
+
+# Tags
+
+TAGGIT_CASE_INSENSITIVE = True

@@ -3,17 +3,18 @@ Enhancements to wagtail.contrib.forms.
 """
 import csv
 import os
+import re
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render
 from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmissionsListView
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
 
 from coderedcms.settings import cr_settings
-
+from coderedcms.utils import attempt_protected_media_value_conversion
 
 FORM_FIELD_CHOICES = (
     (_('Text'), (
@@ -44,13 +45,14 @@ FORM_FIELD_CHOICES = (
 )
 
 
-### Files
+# Files
 
 class SecureFileField(forms.FileField):
     custom_error_messages = {
         'blacklist_file': _('Submitted file is not allowed.'),
         'whitelist_file': _('Submitted file is not allowed.')
     }
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.error_messages.update(self.custom_error_messages)
@@ -72,7 +74,7 @@ class SecureFileField(forms.FileField):
                 raise ValidationError(self.error_messages['blacklist_file'])
 
 
-### Date
+# Date
 
 class CoderedDateInput(forms.DateInput):
     template_name = 'coderedcms/formfields/date.html'
@@ -81,7 +83,7 @@ class CoderedDateField(forms.DateField):
     widget = CoderedDateInput()
 
 
-### Datetime
+# Datetime
 
 class CoderedDateTimeInput(forms.DateTimeInput):
     template_name = 'coderedcms/formfields/datetime.html'
@@ -91,7 +93,7 @@ class CoderedDateTimeField(forms.DateTimeField):
     input_formats = ['%Y-%m-%dT%H:%M', '%m/%d/%Y %I:%M %p', '%m/%d/%Y %I:%M%p', '%m/%d/%Y %H:%M']
 
 
-### Time
+# Time
 
 class CoderedTimeInput(forms.TimeInput):
     template_name = 'coderedcms/formfields/time.html'
@@ -130,7 +132,7 @@ class CoderedSubmissionsListView(WagtailSubmissionsListView):
         for data_row in context['data_rows']:
             modified_data_row = []
             for cell in data_row:
-                modified_cell = utils.attempt_protected_media_value_conversion(self.request, cell)
+                modified_cell = attempt_protected_media_value_conversion(self.request, cell)
                 modified_data_row.append(modified_cell)
 
             writer.writerow(modified_data_row)
@@ -155,4 +157,13 @@ class SearchForm(forms.Form):
         max_length=255,
         required=False,
         label=_('Page type'),
+    )
+
+def get_page_model_choices():
+    """
+    Returns a list of tuples of all creatable Codered pages in the format of ("Custom Codered Page", "CustomCoderedPage")
+    """
+    from coderedcms.models import get_page_models
+    return (
+        (page.__name__, re.sub(r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))', r' \1', page.__name__)) for page in get_page_models() if page.is_creatable
     )

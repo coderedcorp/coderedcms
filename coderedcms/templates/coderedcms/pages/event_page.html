@@ -1,0 +1,65 @@
+{% extends "coderedcms/pages/web_page.html" %}
+{% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% if settings.coderedcms.SeoSettings.twitter_meta %}
+    {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
+{% endif %}
+
+{% block content_pre_body %}
+    {{ block.super }}
+    {% with self.most_recent_occurrence as nextup %}
+    <div class="container my-5">
+        <p class="d-md-inline-block mr-4"><b>When:</b> {{nextup.0}}</p>
+        {% if self.address %}
+        <p class="d-md-inline-block mr-4"><b>Where:</b> {{self.address}}</p>
+        {% endif %}
+        <div class="float-lg-right">{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=nextup.0 end=nextup.1 %}</div>
+        <hr>
+    </div>
+    {% endwith %}
+{% endblock %}
+
+{% block content_post_body %}
+
+    {% block map %}
+        <div class="container">
+            {% include 'coderedcms/includes/iframe_gmap.html' with address=page.address %}
+        </div>
+    {% endblock %}
+
+    {% block upcoming_dates %}
+        {% if self.upcoming_occurrences|length > 1 %}
+            <div class="container">
+                <h2>Upcoming Dates</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for date in self.upcoming_occurrences %}
+                        <tr>
+                            <td>{{date.0}}</td>
+                            <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
+                            <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=date.0 end=date.1 %}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% block ical %}
+                    {% include "coderedcms/includes/ical/recurring_ical_button.html" with event=self %}
+                {% endblock %}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+{% endblock %}
+
+{% if settings.coderedcms.SeoSettings.struct_meta %}
+    {% block struct_seo_extra %}
+    <script type="application/ld+json">
+        {% include "coderedcms/includes/struct_data_event.json" with page=self %}
+    </script>
+    {% endblock %}
+{% endif %}

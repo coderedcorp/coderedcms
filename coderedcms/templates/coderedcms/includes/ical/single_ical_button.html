@@ -1,0 +1,7 @@
+<form data-attribute="single-ical-form-{{event.pk}}-{{datetime_start}}" class="single-ical-form d-inline" action="{% url 'event_generate_single_ical' %}" method="POST">
+    {% csrf_token %}
+    <input name="event_pk" type="number" hidden value="{{event.pk}}" />
+    <input name="datetime_start" type="text" hidden value="{{start|date:"c"}}" />
+    <input name="datetime_end" type="text" hidden value="{{end|date:"c"}}" />
+    <button class="btn btn-primary btn-sm" title="Download event in .ical format" type="submit">{% block button_text %}Add to Calendar{% endblock %}</button>
+</form>

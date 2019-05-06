@@ -1,0 +1,16 @@
+CodeRed CMS 0.13.1 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Google Analytics now properly tracks event category and labels for
+  Button, ImageLink, and Download blocks.
+* Google Analytics now properly tracks clicks within hero units.
+
+
+Upgrade considerations
+----------------------
+
+None

@@ -16,7 +16,7 @@ from .layout_blocks import * #noqa
 # Collections of blocks commonly used together.
 
 HTML_STREAMBLOCKS = [
-    ('text', blocks.RichTextBlock(icon='fa-file-text-o')),
+    ('text', RichTextBlock(icon='fa-file-text-o')),
     ('button', ButtonBlock()),
     ('image', ImageBlock()),
     ('image_link', ImageLinkBlock()),
@@ -26,14 +26,14 @@ HTML_STREAMBLOCKS = [
     ('quote', QuoteBlock()),
     ('table', TableBlock()),
     ('google_map', EmbedGoogleMapBlock()),
-    ('code', CodeBlock()),
+    ('page_list', PageListBlock()),
+    ('page_preview', PagePreviewBlock()),
 ]
 
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ('card', CardBlock()),
     ('carousel', CarouselBlock()),
     ('image_gallery', ImageGalleryBlock()),
-    ('page_list', PageListBlock()),
     ('modal', ModalBlock(HTML_STREAMBLOCKS)),
     ('pricelist', PriceListBlock()),
     ('reusable_content', ReusableContentBlock()),
@@ -51,13 +51,16 @@ BASIC_LAYOUT_STREAMBLOCKS = [
 ]
 
 LAYOUT_STREAMBLOCKS = [
+    ('hero', HeroBlock([
+        ('row', GridBlock(CONTENT_STREAMBLOCKS)),
+        ('cardgrid', CardGridBlock([
+            ('card', CardBlock()),])
+        ),
+        ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),])
+    ),
     ('row', GridBlock(CONTENT_STREAMBLOCKS)),
     ('cardgrid', CardGridBlock([
         ('card', CardBlock()),])
-    ),
-    ('hero', HeroBlock([
-        ('row', GridBlock(CONTENT_STREAMBLOCKS)),
-        ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),])
     ),
     ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
 ]

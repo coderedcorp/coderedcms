@@ -1,0 +1,44 @@
+{% extends "coderedcms/pages/web_page.html" %}
+
+{% load wagtailcore_tags static %}
+
+{% block content_body %}
+{% include_block page.body with settings=settings %}
+<div class="container">
+  <div class="row">
+      {% block map %}
+          <div class="col-md-8 col-xs-12 order-md-12 mb-5">
+          <input id="pac-input" class="controls" type="text" placeholder="Enter your location">
+            <div class="map-container"
+            id="cr-map"
+            data-zoom="{{ page.zoom }}"
+            data-latitude="{{ page.center_latitude }}"
+            data-longitude="{{ page.center_longitude }}"
+            data-geojson-url="{{ request.path }}?data-format=geojson"
+            data-key="{{ google_api_key }}"
+            data-callback="initMap"
+            data-libraries="places"
+            data-show-list="True"
+            data-show-search="True"
+            data-map-type-control=false>
+            </div>
+          </div>
+      {% endblock %}
+      {% block map_list %}
+        <div class="col-md-4 col-xs-12 order-md-1 mb-5">
+          <div id="LocationList" class="list-group">
+              {% for item in geojson_data.features %}
+                {{ item.render_list_description }}
+              {% endfor %}
+          </div>
+          <div id="LocationListEmpty" style="display:none;">
+              {% block no_results %}
+              <p>There are no locations in this area. Try zooming out or moving the map to find a location.</p>
+              {% endblock %}
+          </div>
+        </div>
+      {% endblock %}
+  </div>
+</div>
+{% endblock %}
+

@@ -1,20 +1,30 @@
 """
 HTML blocks are simple blocks used to represent common HTML elements,
 with additional styling and attributes.
-"""
 
-from django.utils.html import format_html
-from django.utils.safestring import mark_safe
+HTML blocks should NOT contain more sub-blocks or sub-streamfields.
+They must be safe to nest within more robust "content blocks" without
+creating recursion.
+"""
+import logging
 from django.utils.translation import ugettext_lazy as _
-from pygments import highlight
-from pygments.lexers import get_all_lexers, get_lexer_by_name
-from pygments.formatters import HtmlFormatter
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from .base_blocks import BaseBlock, BaseLinkBlock, ButtonMixin, CoderedAdvTrackingSettings, LinkStructValue
+from .base_blocks import (
+    BaseBlock,
+    BaseLinkBlock,
+    ButtonMixin,
+    ClassifierTermChooserBlock,
+    CoderedAdvTrackingSettings,
+    LinkStructValue,
+)
+
+
+logger = logging.getLogger('coderedcms')
 
 
 class ButtonBlock(ButtonMixin, BaseLinkBlock):
@@ -26,54 +36,6 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
         icon = 'fa-hand-pointer-o'
         label = _('Button Link')
         value_class = LinkStructValue
-
-
-class CodeBlock(BaseBlock):
-    """
-    Source code with syntax highlighting in a <pre> tag.
-    """
-    LANGUAGE_CHOICES = []
-
-    for lex in get_all_lexers():
-        LANGUAGE_CHOICES.append((lex[1][0], lex[0]))
-
-    language = blocks.ChoiceBlock(
-        required=False,
-        choices=LANGUAGE_CHOICES,
-        label=_('Syntax highlighting'),
-    )
-    title = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        label=_('Title'),
-    )
-    code = blocks.TextBlock(
-        classname='monospace',
-        rows=8,
-        label=('Code'),
-        help_text=_('Code is rendered in a <pre> tag.'),
-    )
-
-    def get_context(self, value, parent_context=None):
-        ctx = super(CodeBlock, self).get_context(value, parent_context)
-
-        if value['language']:
-            src = value['code'].strip('\n')
-            lexer = get_lexer_by_name(value['language'])
-            code_html = mark_safe(highlight(src, lexer, HtmlFormatter()))
-        else:
-            code_html = format_html('<pre>{}</pre>', value['code'])
-
-        ctx.update({
-            'code_html': code_html,
-        })
-
-        return ctx
-
-    class Meta:
-        template = 'coderedcms/blocks/code_block.html'
-        icon = 'fa-file-code-o'
-        label = _('Formatted Code')
 
 
 class DownloadBlock(ButtonMixin, BaseBlock):
@@ -107,12 +69,6 @@ class EmbedGoogleMapBlock(BaseBlock):
         label=_('Search query'),
         help_text=_('Address or search term used to find your location on the map.'),
     )
-    api_key = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        label=_('API key'),
-        help_text=_('Optional. Only required to use place ID and zoom features.')
-    )
     place_id = blocks.CharBlock(
         required=False,
         max_length=255,
@@ -134,18 +90,18 @@ class EmbedGoogleMapBlock(BaseBlock):
 
 class EmbedVideoBlock(BaseBlock):
     """
-    An embedded video on the page in an <iframe>. Currently supports youtube and vimeo.
+    Emedded media using stock wagtail functionality.
     """
-    url = blocks.URLBlock(
+    url = EmbedBlock(
         required=True,
         label=_('URL'),
-        help_text=_('Link to a YouTube or Vimeo video.'),
+        help_text=_('Link to a YouTube/Vimeo video, tweet, facebook post, etc.')
     )
 
     class Meta:
         template = 'coderedcms/blocks/embed_video_block.html'
         icon = 'media'
-        label = _('Embed Video')
+        label = _('Embed Media')
 
 
 class H1Block(BaseBlock):
@@ -236,6 +192,73 @@ class ImageLinkBlock(BaseLinkBlock):
         value_class = LinkStructValue
 
 
+class PageListBlock(BaseBlock):
+    """
+    Renders a preview of selected pages.
+    """
+    indexed_by = blocks.PageChooserBlock(
+        required=True,
+        label=_('Parent page'),
+        help_text=_('Show a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab.'),
+    )
+    classified_by = ClassifierTermChooserBlock(
+        required=False,
+        label=_('Classified as'),
+        help_text=_('Only show pages that are classified with this term.')
+    )
+    show_preview = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        label=_('Show body preview'),
+    )
+    num_posts = blocks.IntegerBlock(
+        default=3,
+        label=_('Number of pages to show'),
+    )
+
+    class Meta:
+        template = 'coderedcms/blocks/pagelist_block.html'
+        icon = 'list-ul'
+        label = _('Latest Pages')
+
+    def get_context(self, value, parent_context=None):
+
+        context = super().get_context(value, parent_context=parent_context)
+
+        indexer = value['indexed_by'].specific
+        # try to use the CoderedPage `get_index_children()`,
+        # but fall back to get_children if this is a non-CoderedPage
+        if hasattr(indexer, 'get_index_children'):
+            pages = indexer.get_index_children()
+            if value['classified_by']:
+                try:
+                    pages = pages.filter(classifier_terms=value['classified_by'])
+                except:
+                    # `pages` is not a queryset, or is not a queryset of CoderedPage.
+                    logger.warning("Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models.", indexer._meta.app_label, indexer.__class__.__name__, indexer.title)
+        else:
+            pages = indexer.get_children().live()
+
+        context['pages'] = pages[:value['num_posts']]
+        return context
+
+
+class PagePreviewBlock(BaseBlock):
+    """
+    Renders a preview of a specific page.
+    """
+    page = blocks.PageChooserBlock(
+        required=True,
+        label=_('Page to preview'),
+        help_text=_('Show a mini preview of the selected page.'),
+    )
+
+    class Meta:
+        template = 'coderedcms/blocks/pagepreview_block.html'
+        icon = 'doc-empty-inverse'
+        label = _('Page Preview')
+
+
 class QuoteBlock(BaseBlock):
     """
     A <blockquote>.
@@ -255,3 +278,8 @@ class QuoteBlock(BaseBlock):
         template = 'coderedcms/blocks/quote_block.html'
         icon = 'openquote'
         label = _('Quote')
+
+
+class RichTextBlock(blocks.RichTextBlock):
+    class Meta:
+        template = 'coderedcms/blocks/rich_text_block.html'

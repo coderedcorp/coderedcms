@@ -1,9 +1,7 @@
 """
 Createable pages used in CodeRed CMS.
 """
-
 from modelcluster.fields import ParentalKey
-
 from coderedcms.forms import CoderedFormField
 from coderedcms.models import (
     CoderedArticlePage,
@@ -20,6 +18,7 @@ class ArticlePage(CoderedArticlePage):
     """
     class Meta:
         verbose_name = 'Article'
+        ordering = ['-first_published_at',]
 
     # Only allow this page to be created beneath an ArticleIndexPage.
     parent_page_types = ['website.ArticleIndexPage']
@@ -38,9 +37,6 @@ class ArticleIndexPage(CoderedArticleIndexPage):
 
     # Override to specify custom index ordering choice/default.
     index_query_pagemodel = 'website.ArticlePage'
-    index_order_by_default = '-date_display'
-    index_order_by_choices = (('-date_display', 'Display publish date, newest first'),) + \
-        CoderedArticleIndexPage.index_order_by_choices
 
     # Only allow ArticlePages beneath this page.
     subpage_types = ['website.ArticlePage']
@@ -62,6 +58,9 @@ class FormPageField(CoderedFormField):
     """
     A field that links to a FormPage.
     """
+    class Meta:
+        ordering = ['sort_order']
+
     page = ParentalKey('FormPage', related_name='form_fields')
 
 class FormConfirmEmail(CoderedEmail):

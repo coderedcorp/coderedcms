@@ -1,0 +1,43 @@
+CodeRed CMS 0.11.0 release notes
+================================
+
+
+New features
+------------
+
+* NEW Mailchimp integration with form pages. See :doc:`/features/mailchimp`.
+* Updated to Wagtail 2.4, which now includes Python 3.7 support.
+* Apple-touch-icon favicons are now included for better experience with iOS devices.
+* The "password required" page has been Bootstrap-ified and matches the website style.
+* ``coderedcms start`` command has new ``--sitename`` and ``--domain`` options to help pre-populate
+  settings. The command also has more helpful output for beginners.
+
+
+Bug fixes
+---------
+
+* Can now create Card Grids inside of a Hero Unit.
+* Fixed invalid HTML syntax in "Latest Pages" block.
+* Fix appearance of search page when no query is specified.
+* Layout fixes and CSS cleanup for admin dashboard.
+* Allow reordering form fields in generated website app.
+* Fixed bug in ``prod.py`` settings in generated website app.
+* Added ``__init__.py`` and ``apps.py`` to generated website app for better compatibility with uWSGI.
+
+
+Maintenance
+-----------
+
+* Standardized edit handler definitions in ``coderedcms/models/page_models.py``.
+* Removed unused CSS from deprecated "Formatted Code Block".
+* Updated wagtail-cache to 0.3, which includes Redis support.
+* Squashed all migrations in generated website app into 2 migrations.
+  There will always just be 2 initial migrations in this app going forward.
+
+
+Upgrade considerations
+----------------------
+
+* Django 1.11 support has been removed by Wagtail 2.4.
+* You will need to run ``python manage.py makemigrations website`` and
+  ``python manage.py migrate`` after upgrading.

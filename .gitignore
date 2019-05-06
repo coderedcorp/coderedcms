@@ -6,10 +6,11 @@
 *.tgz
 media/
 build/
+_build/
 dist/
 __pycache__
 codered_cms.egg-info/
 coderedcms.egg-info/
 .vscode/
-testapp/
-testproject/
+testapp*/
+testproject*/

@@ -7,11 +7,8 @@ PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.p
 BASE_DIR = settings.BASE_DIR if getattr(settings, 'BASE_DIR') else os.path.dirname(PROJECT_DIR)
 
 DEFAULTS = {
-    'CACHE_PAGES': True,
-    'CACHE_BACKEND': 'default',
-
-    'PROTECTED_MEDIA_URL' : '/protected/',
-    'PROTECTED_MEDIA_ROOT' :  os.path.join(BASE_DIR, 'protected'),
+    'PROTECTED_MEDIA_URL': '/protected/',
+    'PROTECTED_MEDIA_ROOT': os.path.join(BASE_DIR, 'protected'),
     'PROTECTED_MEDIA_UPLOAD_WHITELIST': [],
     'PROTECTED_MEDIA_UPLOAD_BLACKLIST': ['.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'],
 
@@ -53,16 +50,16 @@ DEFAULTS = {
     'FRONTEND_COL_SIZE_CHOICES': (
         ('', 'Automatically size'),
         ('12', 'Full row'),
-        ('6',  'Half - 1/2 column'),
-        ('4',  'Thirds - 1/3 column'),
-        ('8',  'Thirds - 2/3 column'),
-        ('3',  'Quarters - 1/4 column'),
-        ('9',  'Quarters - 3/4 column'),
-        ('2',  'Sixths - 1/6 column'),
+        ('6', 'Half - 1/2 column'),
+        ('4', 'Thirds - 1/3 column'),
+        ('8', 'Thirds - 2/3 column'),
+        ('3', 'Quarters - 1/4 column'),
+        ('9', 'Quarters - 3/4 column'),
+        ('2', 'Sixths - 1/6 column'),
         ('10', 'Sixths - 5/6 column'),
-        ('1',  'Twelfths - 1/12 column'),
-        ('5',  'Twelfths - 5/12 column'),
-        ('7',  'Twelfths - 7/12 column'),
+        ('1', 'Twelfths - 1/12 column'),
+        ('5', 'Twelfths - 5/12 column'),
+        ('7', 'Twelfths - 7/12 column'),
         ('11', 'Twelfths - 11/12 column'),
     ),
 
@@ -147,6 +144,10 @@ DEFAULTS = {
             ('coderedcms/blocks/pagelist_article_card_deck.html', 'Article, card deck - separate cards of equal size'),
             ('coderedcms/blocks/pagelist_article_card_columns.html', 'Article, card masonry - fluid brick pattern'),
         ),
+        'pagepreviewblock': (
+            ('coderedcms/blocks/pagepreview_card.html', 'Card'),
+            ('coderedcms/blocks/pagepreview_form.html', 'Form inputs'),
+        ),
         # templates that are available for all block types
         '*': (
             ('', 'Default'),
@@ -159,11 +160,13 @@ DEFAULTS = {
             ('', 'Default'),
             ('coderedcms/pages/web_page.html', 'Web page showing title and cover image'),
             ('coderedcms/pages/web_page_notitle.html', 'Web page without title and cover image'),
+            ('coderedcms/pages/home_page.html', 'Home page without title and cover image'),
             ('coderedcms/pages/base.html', 'Blank page - no navbar or footer'),
         ),
 
     },
 }
+
 
 @lru_cache()
 def get_config():
@@ -174,11 +177,12 @@ def get_config():
             config[var] = getattr(settings, cr_var)
     return config
 
+
 cr_settings = get_config()
 
 try:
     import bootstrap4.bootstrap as bootstrap
-except:
+except ImportError:
     import bootstrap3.bootstrap as bootstrap
 
 get_bootstrap_setting = bootstrap.get_bootstrap_setting

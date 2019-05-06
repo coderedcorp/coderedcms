@@ -1,0 +1,36 @@
+CodeRed CMS 0.12.0 release notes
+================================
+
+
+New features
+------------
+
+* New block ``{% block no_results %}`` in ``location_index_page.html`` template for adding custom HTML
+  when there are no search results in the Store Finder.
+* New default home page template at ``coderedcms/pages/home_page.html`` for developer convenience.
+  This template provides a "blank slate" to be extended and customized as needed.
+
+
+Bug fixes
+---------
+
+* Fix caching issues with form pages and password-protected pages.
+* Allow default ordering of child pages in **Layout > Order child pages by** setting. This new setting
+  respects Wagtail's manual child page ordering feature.
+* Only show live pages in navbar
+* Respect ordering of **Layout > Order child pages by** setting for navbar links.
+* Form page template now shows title by default.
+
+
+Maintenance
+-----------
+
+* Documentation improvements for store locator and importer.
+
+
+Upgrade considerations
+----------------------
+
+* ``location_index_page.html`` has changed. If you are extending it, please update your local file as appropriate.
+* You should clear the cache in **Settings > Cache** after upgrading to 0.12.
+* You will need to run ``python manage.py migrate`` after upgrading to 0.12.

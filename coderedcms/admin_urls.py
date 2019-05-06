@@ -1,10 +1,11 @@
-from django.conf.urls import include, url
+from django.urls import include, path, re_path
+from wagtailimportexport import urls as wagtailimportexport_urls
 from wagtail.admin import urls as wagtailadmin_urls
-from coderedcms.views import clear_cache
-from coderedcms.settings import cr_settings
+from coderedcms.views import import_pages_from_csv_file
 
 
 urlpatterns = [
-    url(r'^codered/clearcache$', clear_cache, name="clear_cache"),
-    url(r'', include(wagtailadmin_urls)),
+    path('codered/import-export/import_from_csv/', import_pages_from_csv_file, name="import_from_csv"),
+    re_path(r'', include(wagtailadmin_urls)),
+    re_path(r'', include(wagtailimportexport_urls)),
 ]

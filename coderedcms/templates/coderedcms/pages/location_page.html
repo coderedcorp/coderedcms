@@ -1,0 +1,36 @@
+{% extends "coderedcms/pages/web_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block content_body %}
+<div class="container">
+    <div class="row">
+        {% if page.address or page.phone_number or page.website %}
+        <div class="card address-card text-center">
+          <div class="card-body">
+            {% if page.address %}
+            <p>
+            {{ page.address|linebreaks }}
+            </p>
+            {% endif %}
+            {% if page.phone_number %}
+            <p>
+            {{ page.phone_number }}
+            </p>
+            {% endif %}
+            {% if page.website %}
+            <p>
+                <a href="{{ page.website }}">Website</a>
+            </p>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row mb-5">
+        {% include_block page.body with settings=settings %}
+    </div>
+    {% block map %}
+        {% include 'coderedcms/includes/iframe_gmap.html' with address=page.address %}
+    {% endblock %}
+</div>
+{% endblock %}

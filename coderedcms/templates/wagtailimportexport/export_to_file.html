@@ -1,0 +1,11 @@
+{% extends "wagtailimportexport/export_to_file.html" %}
+
+{% block css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    {{ form.media.js }}
+{% endblock %}

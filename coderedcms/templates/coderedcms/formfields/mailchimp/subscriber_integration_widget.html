@@ -1,0 +1,20 @@
+
+<input type="hidden" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+<select name="list-selection-{{ widget.name }}">
+    {% for list_id, list_name in widget.selectable_mailchimp_lists %}
+        <option value="{{ list_id }}" {% if list_id == widget.stored_mailchimp_list %}selected{% endif %}>{{ list_name }}</option>
+    {% endfor %}
+</select>
+<div name="email-field-{{ widget.name }}">
+    <br />
+    <label style="float:left;">Email Address</label>
+    <div class="input">
+        <input type="text" name="email-{{ widget.name }}" value="" />
+    </div>
+</div>
+<div name="merge-fields-{{ widget.name }}"></div>
+<div name="interest-categories-{{widget.name}}"></div>
+
+
+
+{{ widget.extra_js|safe }}

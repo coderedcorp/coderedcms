@@ -267,32 +267,17 @@ class GeneralSettings(BaseSetting):
     Various site-wide settings. A good place to put
     one-off settings that don't belong anywhere else.
     """
-    default_robot = """User-agent: *
-Disallow: /admin/
 
-User-agent: *
-Disallow: /django-admin/
+    from_email_address = models.CharField(
 
-User-agent: *
-Allow: /
-
-Sitemap: /sitemap.xml"""
-
-    from_email_address = models.EmailField(
         blank=True,
         max_length=255,
         verbose_name=_('From email address'),
-        help_text=_('The default email address this site uses to send emails.'),
+        help_text=_('The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)'),
     )
     search_num_results = models.PositiveIntegerField(
         default=10,
         verbose_name=_('Number of results per page'),
-    )
-    robots = models.TextField(
-        blank=True,
-        default=default_robot,
-        verbose_name=_('robots.txt'),
-        help_text=_('Enter the contents of a robots.txt file.'),
     )
 
     panels = [
@@ -308,18 +293,6 @@ Sitemap: /sitemap.xml"""
             ],
             _('Search Settings')
         ),
-        MultiFieldPanel(
-            [
-                FieldPanel('robots'),
-            ],
-            _('Robots.txt')
-        ),
-        MultiFieldPanel(
-            [
-                HelpPanel(template='coderedcms/includes/wagtailadmin_cache.html',),
-            ],
-            _('Performance')
-        )
     ]
 
     class Meta:
@@ -368,3 +341,35 @@ class SeoSettings(BaseSetting):
             heading=_('Search Engine Optimization')
         )
     ]
+
+
+@register_setting(icon='fa-puzzle-piece')
+class GoogleApiSettings(BaseSetting):
+    """
+    Settings for Google API services.
+    """
+    class Meta:
+        verbose_name = _('Google API')
+
+    google_maps_api_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Google Maps API Key'),
+        help_text=_('The API Key used for Google Maps.')
+    )
+
+
+@register_setting(icon='fa-puzzle-piece')
+class MailchimpApiSettings(BaseSetting):
+    """
+    Settings for Mailchimp API services.
+    """
+    class Meta:
+        verbose_name = _('Mailchimp API')
+
+    mailchimp_api_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Mailchimp API Key'),
+        help_text=_('The API Key used for Mailchimp.')
+    )

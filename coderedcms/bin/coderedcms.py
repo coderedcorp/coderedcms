@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 import os
 import sys
-from argparse import ArgumentParser
 
 from django.core.management import ManagementUtility
+from django.core.management.templates import TemplateCommand
+from django.core.management.utils import get_random_secret_key
 
 
 CURRENT_PYTHON = sys.version_info[:2]
@@ -14,44 +15,23 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.exit(1)
 
 
-class Command:
-    description = None
-
-    def create_parser(self, command_name=None):
-        if command_name is None:
-            prog = None
-        else:
-            # hack the prog name as reported to ArgumentParser to include the command
-            prog = "%s %s" % (prog_name(), command_name)
-
-        parser = ArgumentParser(
-            description=getattr(self, 'description', None), add_help=False, prog=prog
-        )
-        self.add_arguments(parser)
-        return parser
+class CreateProject(TemplateCommand):
+    """
+    Based on django.core.management.startproject
+    """
+    help = "Creates the directory structure for a new CodeRed CMS project."
+    missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
-        pass
+        parser.add_argument('--sitename', help='Human readable name of your website or brand, e.g. "Mega Corp Inc."')
+        parser.add_argument('--domain', help='Domain that will be used for your website in production, e.g. "www.example.com"')
+        super().add_arguments(parser)
 
-    def print_help(self, command_name):
-        parser = self.create_parser(command_name=command_name)
-        parser.print_help()
+    def handle(self, **options):
+        # pop standard args
+        project_name = options.pop('name')
+        target = options.pop('directory')
 
-    def execute(self, argv):
-        parser = self.create_parser()
-        options = parser.parse_args(sys.argv[2:])
-        options_dict = vars(options)
-        self.run(**options_dict)
-
-
-class CreateProject(Command):
-    description = "Creates the directory structure for a new CodeRed CMS project."
-
-    def add_arguments(self, parser):
-        parser.add_argument('project_name', help="Name for your CodeRed CMS project")
-        parser.add_argument('dest_dir', nargs='?', help="Destination directory inside which to create the project")
-
-    def run(self, project_name=None, dest_dir=None):
         # Make sure given name is not already in use by another python package/module.
         try:
             __import__(project_name)
@@ -62,32 +42,60 @@ class CreateProject(Command):
                      "Python module and cannot be used as a project "
                      "name. Please try another name." % project_name)
 
-        print("Creating a CodeRed CMS project called %(project_name)s" % {'project_name': project_name})  # noqa
+        # Create a random SECRET_KEY to put it in the main settings.
+        options['secret_key'] = get_random_secret_key()
 
-        # Create the project from the Wagtail template using startapp
-
-        # First find the path to Wagtail
+        # Add custom args
         import coderedcms
         codered_path = os.path.dirname(coderedcms.__file__)
         template_path = os.path.join(codered_path, 'project_template')
+        options['template'] = template_path
+        options['extensions'] = ['py', 'html', 'rst', 'md']
+        options['files'] = ['Dockerfile']
 
-        # Call django-admin startproject
-        utility_args = ['django-admin.py',
-                        'startproject',
-                        '--template=' + template_path,
-                        '--ext=html,rst',
-                        '--name=Dockerfile',
-                        project_name]
+        # Set options
+        message = "Creating a CodeRed CMS project called %(project_name)s"
 
-        if dest_dir:
-            utility_args.append(dest_dir)
+        if options.get('sitename'):
+            message += " for %(sitename)s"
+        else:
+            options['sitename'] = project_name
 
-        utility = ManagementUtility(utility_args)
-        utility.execute()
+        if options.get('domain'):
+            message += " (%(domain)s)"
+            # Stip protocol out of domain if it is present.
+            options['domain'] = options['domain'].split('://')[-1]
+            # Figure out www logic.
+            if options['domain'].startswith('www.'):
+                options['domain_nowww'] = options['domain'].split('www.')[-1]
+            else:
+                options['domain_nowww'] = options['domain']
+        else:
+            options['domain'] = 'localhost'
+            options['domain_nowww'] = options['domain']
 
-        print("Success! %(project_name)s has been created" % {'project_name': project_name})  # noqa
+        # Print a friendly message
+        print(message % {
+            'project_name': project_name,
+            'sitename': options.get('sitename'),
+            'domain': options.get('domain'),
+        })
 
+        # Run command
+        super().handle('project', project_name, target, **options)
 
+        # Be a friend once again.
+        print("Success! %(project_name)s has been created" % {'project_name': project_name})
+
+        nextsteps = """
+Next steps:
+    1. cd %(directory)s/
+    2. python manage.py migrate
+    3. python manage.py createsuperuser
+    4. python manage.py runserver
+    5. Go to http://localhost:8000/admin/ and start editing!
+"""
+        print(nextsteps % {'directory': target if target else project_name})
 
 
 COMMANDS = {
@@ -103,7 +111,7 @@ def help_index():
     print("Type '%s help <subcommand>' for help on a specific subcommand.\n" % prog_name())  # NOQA
     print("Available subcommands:\n")  # NOQA
     for name, cmd in sorted(COMMANDS.items()):
-        print("    %s%s" % (name.ljust(20), cmd.description))  # NOQA
+        print("    %s%s" % (name.ljust(20), cmd.help))  # NOQA
 
 
 def unknown_command(command):
@@ -132,7 +140,7 @@ def main():
             unknown_command(help_command_name)
             return
 
-        command.print_help(help_command_name)
+        command.print_help(prog_name(), help_command_name)
         return
 
     try:
@@ -141,7 +149,7 @@ def main():
         unknown_command(command_name)
         return
 
-    command.execute(sys.argv)
+    command.run_from_argv(sys.argv)
 
 
 if __name__ == "__main__":

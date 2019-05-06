@@ -5,10 +5,12 @@ Bases, mixins, and utilites for blocks.
 from django import forms
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from wagtail.core import blocks
 from wagtail.core.models import Collection
+from wagtail.core.utils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
 
 from coderedcms.settings import cr_settings
@@ -32,14 +34,85 @@ class MultiSelectBlock(blocks.FieldBlock):
         return [force_text(value)]
 
 
-class CollectionChooserBlock(blocks.ChooserBlock):
+class ClassifierTermChooserBlock(blocks.FieldBlock):
+    """
+    Enables choosing a ClassifierTerm in the streamfield.
+    Lazy loads the target_model from the string to avoid recursive imports.
+    """
+    widget = forms.Select
+
+    def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
+        self._required=required
+        self._help_text=help_text
+        self._label=label
+        super().__init__(*args, **kwargs)
+
+    @cached_property
+    def target_model(self):
+        return resolve_model_string('coderedcms.ClassifierTerm')
+
+    @cached_property
+    def field(self):
+        return forms.ModelChoiceField(
+            queryset=self.target_model.objects.all().order_by('classifier__name', 'name'),
+            widget=self.widget,
+            required=self._required,
+            label=self._label,
+            help_text=self._help_text,
+        )
+
+    def to_python(self, value):
+        """
+        Convert the serialized value back into a python object.
+        """
+        if isinstance(value, int):
+            return self.target_model.objects.get(pk=value)
+        return value
+
+    def get_prep_value(self, value):
+        """
+        Serialize the model in a form suitable for wagtail's JSON-ish streamfield
+        """
+        if isinstance(value, self.target_model):
+            return value.pk
+        return value
+
+
+class CollectionChooserBlock(blocks.FieldBlock):
     """
     Enables choosing a wagtail Collection in the streamfield.
     """
     target_model = Collection
     widget = forms.Select
 
-    def value_for_form(self, value):
+    def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
+        self._required=required
+        self._help_text=help_text
+        self._label=label
+        super().__init__(*args, **kwargs)
+
+    @cached_property
+    def field(self):
+        return forms.ModelChoiceField(
+            queryset=self.target_model.objects.all().order_by('name'),
+            widget=self.widget,
+            required=self._required,
+            label=self._label,
+            help_text=self._help_text,
+        )
+
+    def to_python(self, value):
+        """
+        Convert the serialized value back into a python object.
+        """
+        if isinstance(value, int):
+            return self.target_model.objects.get(pk=value)
+        return value
+
+    def get_prep_value(self, value):
+        """
+        Serialize the model in a form suitable for wagtail's JSON-ish streamfield
+        """
         if isinstance(value, self.target_model):
             return value.pk
         return value

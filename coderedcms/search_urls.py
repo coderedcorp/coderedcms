@@ -1,8 +1,8 @@
-from django.conf.urls import url
+from django.urls import re_path
+from wagtailcache.cache import cache_page
 
 from coderedcms.views import search
-from coderedcms.utils import cache_page
 
 urlpatterns = [
-    url(r'', cache_page(search), name='codered_search'),
+    re_path(r'', cache_page(search), name='codered_search'),
 ]

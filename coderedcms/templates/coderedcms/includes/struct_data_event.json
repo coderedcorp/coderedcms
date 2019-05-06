@@ -1,0 +1,58 @@
+{% load wagtailimages_tags coderedcms_tags %}
+
+{
+  "@context": "http://schema.org",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{page.get_full_url}}"
+  },
+
+  {% if page.search_description %}
+  "description": "{{page.search_description}}",
+  {% endif %}
+
+  {# Get different aspect ratios. Use huge numbers because wagtail will not upscale, #}
+  {# but will max out at the image's original resultion using the specified aspect ratio. #}
+  {# Google wants them high resolution. #}
+  {% if page.og_image %}
+    {% image page.struct_org_image fill-10000x10000 as img_11 %}
+    {% image page.struct_org_image fill-40000x30000 as img_21 %}
+    {% image page.struct_org_image fill-16000x9000 as img_169 %}
+    "image": [
+        "{{self.get_site.root_url}}{{img_11.url}}",
+        "{{self.get_site.root_url}}{{img_21.url}}",
+        "{{self.get_site.root_url}}{{img_169.url}}"
+    ],
+  {% elif page.cover_image %}
+    {% image page.cover_image fill-10000x10000 as img_11 %}
+    {% image page.cover_image fill-40000x30000 as img_21 %}
+    {% image page.cover_image fill-16000x9000 as img_169 %}
+    "image": [
+        "{{self.get_site.root_url}}{{img_11.url}}",
+        "{{self.get_site.root_url}}{{img_21.url}}",
+        "{{self.get_site.root_url}}{{img_169.url}}"
+    ],
+  {% endif %}
+
+  {% if self.address %}
+  "location":{
+    "@type": "Place",
+    "name": "{{self.title}}",
+    "address":{
+      "@type": "PostalAddress",
+      "streetAddress": "{{self.address}}"
+    }
+  },
+  {% endif %}
+
+  "name": "{{self.title}}",
+
+  {% with self.most_recent_occurrence as nextup %}
+  "startDate": "{{nextup.0|structured_data_datetime}}",
+  {% if nextup.1 %}
+  "endDate": "{{nextup.1|structured_data_datetime}}",
+  {% endif %}
+  {% endwith %}
+
+  "@type": "Event"
+}

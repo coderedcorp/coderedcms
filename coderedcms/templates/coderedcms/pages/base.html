@@ -1,9 +1,24 @@
-{% load static wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags %}
+{% load static coderedcms_tags i18n wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
 {% get_settings %}
 
 <!doctype html>
 <html prefix="og: http://ogp.me/ns#">
   <head>
+        {% block tracking %}
+        {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}"></script>
+            <script>
+              cr_track_clicks = {{settings.coderedcms.AnalyticsSettings.ga_track_button_clicks|yesno:"true,false"}};
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
+            </script>
+        {% endif %}
+        {% endblock %}
+
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,6 +43,9 @@
                 {% if self.og_image %}
                     {% image self.og_image original as og_logo %}
                     {{og_logo.url}}
+                {% elif self.cover_image %}
+                    {% image self.cover_image original as og_logo %}
+                    {{og_logo.url}}
                 {% elif settings.coderedcms.LayoutSettings.logo %}
                     {% image settings.coderedcms.LayoutSettings.logo original as og_logo %}
                     {{og_logo.url}}
@@ -50,9 +68,9 @@
 
         {% block frontend_assets %}
             {% if settings.coderedcms.LayoutSettings.frontend_theme %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
             {% else %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha256-Md8eaeo67OiouuXAi8t/Xpd8t2+IaJezATVTWbZqSOw=" crossorigin="anonymous" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
             {% endif %}
         {% endblock %}
 
@@ -66,8 +84,17 @@
 
         {% block favicon %}
             {% if settings.coderedcms.LayoutSettings.favicon %}
-                {% image settings.coderedcms.LayoutSettings.favicon fill-128x128 format-png as favicon %}
-                <link rel="icon" type="image/png" href="{{favicon.url}}" />
+                {# See https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/ #}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-120x120 format-png as favicon_iphone %}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-180x180 format-png as favicon_iphone_plus %}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-152x152 format-png as favicon_ipad %}
+                {% image settings.coderedcms.LayoutSettings.favicon fill-167x167 format-png as favicon_ipad_pro %}
+                <link rel="icon" type="image/png" href="{{ favicon_iphone_plus.url }}" />
+                <link rel="apple-touch-icon" href="{{ favicon_iphone_plus.url }}">
+                <link rel="apple-touch-icon" sizes="120x120" href="{{ favicon_iphone.url }}">
+                <link rel="apple-touch-icon" sizes="180x180" href="{{ favicon_iphone_plus.url }}">
+                <link rel="apple-touch-icon" sizes="152x152" href="{{ favicon_ipad.url }}">
+                <link rel="apple-touch-icon" sizes="167x167" href="{{ favicon_ipad_pro.url }}">
             {% endif %}
         {% endblock %}
 
@@ -86,20 +113,34 @@
 
         {% block navbar %}{% endblock %}
 
-        <div id="content" {% if page.page_content_width %}class="col-md-{{page.page_content_width}}"{% endif %}>
+        <div id="content">
             {% block content %}
-                {% include_block page.body with settings=settings %}
-            {% endblock %}
 
-            {% block index_content %}
-            {% if page.index_show_subpages %}
-                <ul>
-                {% for child in index_paginated %}
-                    <li><a href="{{child.url}}">{{child.title}}</a></li>
-                {% endfor %}
-                </ul>
-                {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
-            {% endif %}
+                {% block content_pre_body %}{% endblock %}
+
+                {% block content_body %}
+                {% include_block page.body with settings=settings %}
+                {% endblock %}
+
+                {% block content_post_body %}{% endblock %}
+
+                {% block index_filters %}
+                {% if page.index_show_subpages and page.index_classifiers.exists %}
+                    {% include "coderedcms/includes/classifier_dropdowns.html" with formclass="form-inline" %}
+                {% endif %}
+                {% endblock %}
+
+                {% block index_content %}
+                {% if page.index_show_subpages %}
+                    <ul>
+                    {% for child in index_paginated %}
+                        <li><a href="{% pageurl child %}">{{child.title}}</a></li>
+                    {% endfor %}
+                    </ul>
+                    {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
+                {% endif %}
+                {% endblock %}
+
             {% endblock %}
         </div>
 
@@ -114,11 +155,11 @@
         {% block footer %}{% endblock %}
 
         {% block required_scripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
         {% endblock %}
 
         {% block frontend_scripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha256-xaF9RpdtRxzwYMWg4ldJoyPWqyDPCRD0Cv7YEEe6Ie8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
         {% endblock %}
 
         {% block coderedcms_scripts %}
@@ -127,22 +168,6 @@
 
         {% block custom_scripts %}
         <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
-        {% endblock %}
-
-
-        {% block tracking %}
-        {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id != '' %}
-            <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}', 'auto');
-            ga('send', 'pageview');
-
-            </script>
-        {% endif %}
         {% endblock %}
 
         {# Structured data JSON-LD #}

@@ -2,7 +2,7 @@
 
 <div class="card mb-3">
     {% if article.cover_image %}
-        {% image article.cover_image fill-600x300 as cover_image %}
+        {% image article.cover_image fill-900x600 as cover_image %}
         <a href="{{article.url}}" title="{{article.title}}"><img class="card-img-top" src="{{cover_image.url}}" alt="{{cover_image.title}}"></a>
     {% endif %}
     <div class="card-body">

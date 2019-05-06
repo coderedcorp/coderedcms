@@ -1,0 +1,9 @@
+CodeRed CMS 0.12.1 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Search results when using the database search backend without specifying specific search models
+  (default behavior) are now returned based on date last published, newest to oldest.

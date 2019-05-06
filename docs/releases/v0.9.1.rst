@@ -1,0 +1,7 @@
+CodeRed CMS 0.9.1 release notes
+===============================
+
+Bug Fixes
+---------
+
+* Moved Google Tag Manager tracking code to <head> per Google documentation.

@@ -8,7 +8,7 @@ a ``StreamFormPage``.  This page allows you to construct step-based advanced for
 The stream form functionality is built-in to CodeRed CMS but is not enabled by default. To implement, add
 the following to your ``website/models.py``::
 
-    from coderedcms.models import CoderedStreamFormPage
+    from coderedcms.models import CoderedEmail, CoderedStreamFormPage
 
     class StreamFormPage(CoderedStreamFormPage):
         class Meta:

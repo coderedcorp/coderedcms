@@ -7,12 +7,14 @@ from coderedcms.models.page_models import (
     CoderedWebPage,
     get_page_models
 )
-from website.models import (
+from coderedcms.tests.testapp.models import (
     ArticlePage,
     ArticleIndexPage,
     FormPage,
     WebPage
 )
+
+
 
 class NotCreatablePageTestCase():
 

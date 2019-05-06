@@ -1,47 +1,12 @@
 {% extends "wagtailadmin/base.forked.html" %}
-{% load wagtailimages_tags wagtailsettings_tags wagtailadmin_tags wagtailcore_tags static i18n %}
+{% load wagtailimages_tags wagtailsettings_tags %}
 
-{% block furniture %}
-    <div class="nav-wrapper">
-        <div class="inner">
-            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Admin Dashboard">
-                {% block branding_logo %}
-                    {% if settings.coderedcms.LayoutSettings.logo %}
-                        {% image settings.coderedcms.LayoutSettings.logo max-150x100 as logo_image %}
-                        <img src="{{ logo_image.url }}" alt="Admin Dashboard"/>
-                    {% else %}
-                        {{block.super}}
-                    {% endif %}
-                {% endblock %}
-                <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
-            </a>
 
-            {% menu_search %}
-            {% main_nav %}
-
-        </div>
-        <div class="explorer__wrapper" data-explorer-menu></div>
-    </div>
-
-    {% include "coderedcms/includes/codered_banner.html" %}
-
-    <div class="content-wrapper">
-        <div class="content">
-            {# Always show messages div so it can be appended to by JS #}
-            <div class="messages">
-                {% if messages %}
-                    <ul>
-                        {% for message in messages %}
-                            <li class="{% message_tags message %}">{{ message|safe }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-
-            <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
-
-            {% block content %}{% endblock %}
-        </div>
-    </div>
+{% block branding_logo %}
+    {% if settings.coderedcms.LayoutSettings.logo %}
+        {% image settings.coderedcms.LayoutSettings.logo max-150x100 as logo_image %}
+        <img src="{{ logo_image.url }}" alt="Admin Dashboard"/>
+    {% else %}
+        {{block.super}}
+    {% endif %}
 {% endblock %}
-

@@ -1,8 +1,5 @@
-from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.urls import reverse
-from django.http import HttpRequest
 from wagtail.core.models import Site
 
 from coderedcms.models.page_models import (
@@ -42,7 +39,7 @@ class CreatablePageTestCase():
         self.homepage = WebPage.objects.get(url_path='/home/')
         self.homepage.add_child(instance=self.basic_page)
 
-    def test_request(self):
+    def test_serve(self):
         request = self.request_factory.post(self.basic_page.url)
         response = self.basic_page.serve(request)
         self.assertEqual(response.status_code, 200)

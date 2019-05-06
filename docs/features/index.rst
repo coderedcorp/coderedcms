@@ -9,3 +9,4 @@ Features
     import_export
     mailchimp
     store_locator
+    stream_forms

@@ -165,6 +165,10 @@ DEFAULTS = {
         ),
 
     },
+
+    'BANNER': None,
+    'BANNER_BACKGROUND': '#f00',
+    'BANNER_TEXT_COLOR': '#fff',
 }
 
 

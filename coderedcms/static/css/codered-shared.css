@@ -1,0 +1,12 @@
+.codered-banner {
+    font-size: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.codered-banner a:link,
+.codered-banner a:visited,
+.codered-banner a:hover,
+.codered-banner a:active {
+    color: inherit;
+}

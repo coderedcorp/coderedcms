@@ -1245,7 +1245,7 @@ class CoderedFormMixin(models.Model):
                 utils.attempt_protected_media_value_conversion(request, value)
             ))
 
-        content = '\n\n'.join(content)
+        content = '\n-------------------- \n'.join(content)
 
         # Build email message parameters
         message_args = {
@@ -1431,8 +1431,8 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
                     page=self,
                 )
                 self.process_form_submission(
-                    request=request, 
-                    form=form, 
+                    request=request,
+                    form=form,
                     form_submission=form_submission,
                     processed_data=processed_data)
                 return self.render_landing_page(request, form_submission, *args, **kwargs)

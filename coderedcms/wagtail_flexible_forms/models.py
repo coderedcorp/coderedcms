@@ -406,7 +406,7 @@ class SessionFormSubmission(AbstractFormSubmission):
 
     def format_value(self, field, value):
         if value is None or value == '':
-            return ''
+            return '-'
         new_value = self.form_page.format_value(field, value)
         if new_value != value:
             return new_value

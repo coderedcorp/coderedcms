@@ -30,7 +30,7 @@ def attempt_protected_media_value_conversion(request, value):
 
     try:
         if value.startswith("<a href="):
-            soup = BeautifulSoup(value)
+            soup = BeautifulSoup(value, 'html5lib')
             return soup.findAll('a')[0]['href']
     except:
         pass

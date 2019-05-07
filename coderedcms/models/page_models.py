@@ -1472,7 +1472,7 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
         submission_data = self.get_data()
         if 'user' in submission_data:
             submission_data['user'] = str(submission_data['user'])
-        FormSubmission.objects.create(
+        submission = FormSubmission.objects.create(
                 form_data=json.dumps(submission_data, cls=StreamFormJSONEncoder),
                 page=self.page
             )
@@ -1480,6 +1480,8 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
         if delete_self:
             CoderedSubmissionRevision.objects.filter(submission_id=self.id).delete()
             self.delete()
+
+        return submission
 
 
 
@@ -1607,7 +1609,8 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
                     form_submission=submission,
                     processed_data=submission.get_data()
                 )
-                submission.create_normal_submission()
+                normal_submission = submission.create_normal_submission()
+                return self.render_landing_page(request, normal_submission, *args, **kwargs)
                 return self.serve_success(request, *args, **kwargs)
             return HttpResponseRedirect(self.url)
         return CoderedWebPage.serve(self, request, *args, **kwargs)

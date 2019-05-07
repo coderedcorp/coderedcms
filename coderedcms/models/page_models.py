@@ -1147,6 +1147,7 @@ class CoderedFormMixin(models.Model):
         processed_data = {}
         # Handle file uploads
         for key, val in form.cleaned_data.items():
+
             if type(val) == InMemoryUploadedFile or type(val) == TemporaryUploadedFile:
                 # Save the file and get its URL
 
@@ -1163,6 +1164,7 @@ class CoderedFormMixin(models.Model):
                 processed_data[key] = "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], path)
             else:
                 processed_data[key] = val
+
         return processed_data
 
     def get_storage(self):

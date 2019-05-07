@@ -252,7 +252,6 @@ class Steps(list):
         form = self.get_current_form()
         if form.is_valid():
             form_data = self.get_existing_data()
-
             self.save_files(form)
             form_data[self.current_index] = form.cleaned_data
             form_data = json.dumps(form_data, cls=StreamFormJSONEncoder)
@@ -407,7 +406,7 @@ class SessionFormSubmission(AbstractFormSubmission):
 
     def format_value(self, field, value):
         if value is None or value == '':
-            return '–'
+            return ''
         new_value = self.form_page.format_value(field, value)
         if new_value != value:
             return new_value

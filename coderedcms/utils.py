@@ -19,7 +19,6 @@ def uri_validator(possible_uri):
         return False
 
 def attempt_protected_media_value_conversion(request, value):
-    value
     try:
         if value.startswith(cr_settings['PROTECTED_MEDIA_URL']):
             new_value = get_protected_media_link(request, value)

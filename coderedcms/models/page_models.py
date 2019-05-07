@@ -1556,6 +1556,27 @@ class CoderedStreamFormMixin(StreamFormMixin):
     def get_submission_class():
         return CoderedSessionFormSubmission
 
+    def get_submission(self, request):
+        Submission = self.get_submission_class()
+        if request.user.is_authenticated:
+            user_submission = Submission.objects.filter(
+                user=request.user, page=self).order_by('-pk').first()
+            if user_submission is None:
+                return Submission(user=request.user, page=self, form_data='[]')
+            return user_submission
+
+        # Custom code to ensure that anonymous users get a session key.
+        if not request.session.session_key:
+            request.session.create()
+
+        user_submission = Submission.objects.filter(
+            session_key=request.session.session_key, page=self
+        ).order_by('-pk').first()
+        if user_submission is None:
+            return Submission(session_key=request.session.session_key,
+                              page=self, form_data='[]')
+        return user_submission
+
 
 class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWebPage):
     class Meta:

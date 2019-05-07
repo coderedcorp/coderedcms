@@ -79,7 +79,6 @@ class CoderedStreamFormDateFieldBlock(form_blocks.DateFieldBlock, FormBlockMixin
         label = _("Date")
         icon = "fa-calendar"
 
-
 class CoderedStreamFormTimeFieldBlock(form_blocks.TimeFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Time")

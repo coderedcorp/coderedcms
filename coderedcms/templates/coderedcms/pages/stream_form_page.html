@@ -15,8 +15,8 @@
     <div class="progress" style="height: 40px;">
         {% with last_step=steps|last %}
 
-        {% widthratio step.index last_step.index|add:"1" 100 as width %}
-        <div class="progress-bar" role="progressbar" style="width: {{ width }}%;" aria-valuenow="{{ width }}" aria-valuemin="{{ width }}" aria-valuemax="100"><span {% if step.index == 0 %}class="text-dark"{% endif %}>&nbsp;Step {{step.index|add:"1"}} / {{last_step.index|add:"1"}}   ({{ width }}%)</span></div>
+        {% widthratio step.index|add:"1" last_step.index|add:"1" 100 as width %}
+        <div class="progress-bar" role="progressbar" style="width: {{ width }}%;" aria-valuenow="{{ width }}" aria-valuemin="{{ width }}" aria-valuemax="100"><span>&nbsp;Step {{step.index|add:"1"}} / {{last_step.index|add:"1"}}   ({{ width }}%)</span></div>
         {% endwith %}
     </div>
     <br />

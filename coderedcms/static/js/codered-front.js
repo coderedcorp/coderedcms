@@ -200,9 +200,7 @@ $(document).ready(function()
     }
 
     if ($('.stream-form-input').length > 0){
-        load_script(libs.coderedstreamforms, function(){
-            initStreamform();
-        });
+        load_script(libs.coderedstreamforms);
     }
 
     /*** Lightbox ***/

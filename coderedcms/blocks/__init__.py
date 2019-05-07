@@ -71,18 +71,18 @@ LAYOUT_STREAMBLOCKS = [
 ]
 
 STREAMFORM_FIELDBLOCKS = [
-    ('single_line', CoderedStreamFormCharFieldBlock(group=_('Fields'))),
-    ('multi_line', CoderedStreamFormTextFieldBlock(group=_('Fields'))),
-    ('number', CoderedStreamFormNumberFieldBlock(group=_('Fields'))),
-    ('checkbox', CoderedStreamFormCheckboxFieldBlock(group=_('Fields'))),
-    ('radios', CoderedStreamFormRadioButtonsFieldBlock(group=_('Fields'))),
-    ('dropdown', CoderedStreamFormDropdownFieldBlock(group=_('Fields'))),
-    ('checkboxes', CoderedStreamFormCheckboxesFieldBlock(group=_('Fields'))),
-    ('date', CoderedStreamFormDateFieldBlock(group=_('Fields'))),
-    ('time', CoderedStreamFormTimeFieldBlock(group=_('Fields'))),
-    ('datetime', CoderedStreamFormDateTimeFieldBlock(group=_('Fields'))),
-    ('image', CoderedStreamFormImageFieldBlock(group=_('Fields'))),
-    ('file', CoderedStreamFormFileFieldBlock(group=_('Fields'))),
+    ('sf_singleline', CoderedStreamFormCharFieldBlock(group=_('Fields'))),
+    ('sf_multiline', CoderedStreamFormTextFieldBlock(group=_('Fields'))),
+    ('sf_number', CoderedStreamFormNumberFieldBlock(group=_('Fields'))),
+    ('sf_checkboxes', CoderedStreamFormCheckboxesFieldBlock(group=_('Fields'))),
+    ('sf_radios', CoderedStreamFormRadioButtonsFieldBlock(group=_('Fields'))),
+    ('sf_dropdown', CoderedStreamFormDropdownFieldBlock(group=_('Fields'))),
+    ('sf_checkbox', CoderedStreamFormCheckboxFieldBlock(group=_('Fields'))),
+    ('sf_date', CoderedStreamFormDateFieldBlock(group=_('Fields'))),
+    ('sf_time', CoderedStreamFormTimeFieldBlock(group=_('Fields'))),
+    ('sf_datetime', CoderedStreamFormDateTimeFieldBlock(group=_('Fields'))),
+    ('sf_image', CoderedStreamFormImageFieldBlock(group=_('Fields'))),
+    ('sf_file', CoderedStreamFormFileFieldBlock(group=_('Fields'))),
 ]
 
 STREAMFORM_BLOCKS = [

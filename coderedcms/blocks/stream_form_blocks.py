@@ -1,7 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from wagtail.core import blocks
 
-
 from coderedcms.wagtail_flexible_forms import blocks as form_blocks
 from coderedcms.blocks.base_blocks import BaseBlock, CoderedAdvSettings
 from coderedcms.forms import SecureFileField
@@ -9,23 +8,17 @@ from coderedcms.forms import SecureFileField
 
 class CoderedFormAdvSettings(CoderedAdvSettings):
 
-    conditional_name = blocks.CharBlock(
+    condition_trigger_id = blocks.CharBlock(
         required=False,
         max_length=255,
-        label=_('Conditional Name'),
-        help_text=_('The name used to identify this block for other blocks to target as a condition.')
+        label=_('Condition Trigger ID'),
+        help_text=_('The "Custom ID" of another field that that will trigger this field to be shown/hidden.')
     )
-    conditional_target_name = blocks.CharBlock(
+    condition_trigger_value = blocks.CharBlock(
         required=False,
         max_length=255,
-        label=_('Conditional Target Name'),
-        help_text=_('The name of the block that will be this block\'s condition.')
-    )
-    conditional_target_value = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        label=_('Conditional Target Value'),
-        help_text=_('The value of this block\'s condition that is required to show this block on the form.')
+        label=_('Condition Trigger Value'),
+        help_text=_('The value of the field in "Condition Trigger ID" that will trigger this field to be shown.')
     )
 
 
@@ -40,51 +33,78 @@ class CoderedStreamFormFieldBlock(form_blocks.OptionalFormFieldBlock, FormBlockM
 
 
 class CoderedStreamFormCharFieldBlock(form_blocks.CharFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Text or Email input")
+        icon = "fa-window-minimize"
 
 
 class CoderedStreamFormTextFieldBlock(form_blocks.TextFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Multi-line text")
+        icon = "fa-align-left"
 
 
 class CoderedStreamFormNumberFieldBlock(form_blocks.NumberFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Numbers only")
+        icon = "fa-hashtag"
 
 
 class CoderedStreamFormCheckboxFieldBlock(form_blocks.CheckboxFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Single Checkbox")
+        icon = "fa-check-square-o"
 
 
 class CoderedStreamFormRadioButtonsFieldBlock(form_blocks.RadioButtonsFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Radios")
+        icon = "fa-list-ul"
 
 
 class CoderedStreamFormDropdownFieldBlock(form_blocks.DropdownFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Dropdown")
+        icon = "fa-list-alt"
 
 
 class CoderedStreamFormCheckboxesFieldBlock(form_blocks.CheckboxesFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Checkboxes")
+        icon = "fa-list-ul"
 
 
 class CoderedStreamFormDateFieldBlock(form_blocks.DateFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Date")
+        icon = "fa-calendar"
 
 
 class CoderedStreamFormTimeFieldBlock(form_blocks.TimeFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Time")
+        icon = "fa-clock-o"
 
 
 class CoderedStreamFormDateTimeFieldBlock(form_blocks.DateTimeFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Date and Time")
+        icon = "fa-calendar"
 
 
 class CoderedStreamFormImageFieldBlock(form_blocks.ImageFieldBlock, FormBlockMixin):
-    pass
+    class Meta:
+        label = _("Image Upload")
+        icon = "fa-picture-o"
 
 
 class CoderedStreamFormFileFieldBlock(form_blocks.FileFieldBlock, FormBlockMixin):
+    class Meta:
+        label = _("Secure File Upload")
+        icon = "fa-upload"
+
     field_class = SecureFileField
+
 
 class CoderedStreamFormStepBlock(form_blocks.FormStepBlock):
     form_fields = blocks.StreamBlock()

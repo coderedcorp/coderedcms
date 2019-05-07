@@ -419,7 +419,7 @@ class SessionFormSubmission(AbstractFormSubmission):
             return ', '.join([self.format_value(field, item)
                               for item in value])
         if isinstance(value, datetime.date):
-            return naturaltime(value)
+            return value
         if isinstance(field, EmailField):
             return self.render_email(value)
         if isinstance(field, URLField):

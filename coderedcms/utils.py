@@ -19,16 +19,23 @@ def uri_validator(possible_uri):
         return False
 
 def attempt_protected_media_value_conversion(request, value):
-    new_value = value
+    print("CONVERTING {0}".format(value))
+    value
     try:
         if value.startswith(cr_settings['PROTECTED_MEDIA_URL']):
             new_value = get_protected_media_link(request, value)
+            return new_value
     except AttributeError:
         pass
 
-    if uri_validator(value):
-        return mark_safe(value)
-    return new_value
+    try:
+        if value.startswith("<a href="):
+            soup = BeautifulSoup(value)
+            return soup.findAll('a')[0]['href']
+    except:
+        pass
+
+    return value
 
 def fix_ical_datetime_format(dt_str):
     """

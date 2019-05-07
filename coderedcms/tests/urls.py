@@ -1,32 +1,28 @@
+from django.conf import settings
 from django.urls import include, path, re_path
-from wagtail.contrib.sitemaps.views import sitemap
-from wagtail.core import urls as wagtailcore_urls
-from wagtailcache.cache import cache_page
-
-from coderedcms.settings import cr_settings
-from coderedcms.views import (
-    event_generate_ical_for_calendar,
-    event_generate_recurring_ical_for_event,
-    event_generate_single_ical_for_event,
-    event_get_calendar_events,
-    robots,
-    serve_protected_file
-)
-
+from django.contrib import admin
+from wagtail.documents import urls as wagtaildocs_urls
+from coderedcms import admin_urls as coderedadmin_urls
+from coderedcms import search_urls as coderedsearch_urls
+from coderedcms import urls as codered_urls
 
 urlpatterns = [
-    # CodeRed custom URLs
-    re_path(r'^sitemap\.xml$', cache_page(sitemap), name='codered_sitemap'),
-    re_path(r'^robots\.txt$', cache_page(robots), name='codered_robots'),
-    re_path(r'^{0}(?P<path>.*)$'.format(cr_settings['PROTECTED_MEDIA_URL'].lstrip('/')), serve_protected_file, name="serve_protected_file"),
+    # Admin
+    path('django-admin/', admin.site.urls),
+    path('admin/', include(coderedadmin_urls)),
 
-    # Event/Calendar URLs
-    path('ical/generate/single/', event_generate_single_ical_for_event, name='event_generate_single_ical'),
-    path('ical/generate/recurring/', event_generate_recurring_ical_for_event, name='event_generate_recurring_ical'),
-    path('ical/generate/calendar/', event_generate_ical_for_calendar, name='event_generate_ical_for_calendar'),
-    path('ajax/calendar/events/', event_get_calendar_events, name='event_get_calendar_events'),
+    # Documents
+    path('docs/', include(wagtaildocs_urls)),
 
-    # Wagtail
-    re_path(r'', include(wagtailcore_urls)),
+    # Search
+    path('search/', include(coderedsearch_urls)),
 
+    # For anything not caught by a more specific rule above, hand over to
+    # the page serving mechanism. This should be the last pattern in
+    # the list:
+    re_path(r'', include(codered_urls)),
+
+    # Alternatively, if you want CMS pages to be served from a subpath
+    # of your site, rather than the site root:
+    #    re_path(r'^pages/', include(codered_urls)),
 ]

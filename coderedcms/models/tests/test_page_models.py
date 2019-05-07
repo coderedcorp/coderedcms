@@ -7,16 +7,24 @@ from unittest import skip
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,
     CoderedArticlePage,
+    CoderedEventIndexPage,
+    CoderedEventPage,
     CoderedFormPage,
     CoderedPage,
     CoderedWebPage,
+    CoderedLocationIndexPage,
+    CoderedLocationPage,
     get_page_models
 )
 from coderedcms.tests.testapp.models import (
     ArticlePage,
     ArticleIndexPage,
     FormPage,
-    WebPage
+    WebPage,
+    EventPage,
+    EventIndexPage,
+    LocationPage,
+    LocationIndexPage
 )
 
 
@@ -85,6 +93,22 @@ class CoderedWebPageTestCase(AbstractPageTestCase, TestCase):
     model = CoderedWebPage
 
 
+class CoderedLocationIndexPageTestCase(AbstractPageTestCase, TestCase):
+    model = CoderedLocationIndexPage
+
+
+class CoderedLocationPageTestCase(AbstractPageTestCase, TestCase):
+    model = CoderedLocationPage
+
+
+class CoderedEventIndexPageTestCase(AbstractPageTestCase, TestCase):
+    model = CoderedEventIndexPage
+
+
+class CoderedEventPageTestCase(AbstractPageTestCase, TestCase):
+    model = CoderedEventPage
+
+
 class ArticlePageTestCase(ConcreteBasicPageTestCase, TestCase):
     model = ArticlePage
 
@@ -99,3 +123,19 @@ class FormPageTestCase(ConcreteBasicPageTestCase, TestCase):
 
 class WebPageTestCase(ConcreteBasicPageTestCase, TestCase):
     model = WebPage
+
+
+class EventIndexPageTestCase(ConcreteBasicPageTestCase, TestCase):
+    model = EventIndexPage
+
+
+class EventPageTestCase(ConcreteBasicPageTestCase, TestCase):
+    model = EventPage
+
+
+class LocationIndexPageTestCase(ConcreteBasicPageTestCase, TestCase):
+    model = LocationIndexPage
+
+
+class LocationPageTestCase(ConcreteBasicPageTestCase, TestCase):
+    model = LocationPage

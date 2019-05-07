@@ -16,3 +16,4 @@ class TestMultiSelectBlock(WagtailTestUtils, SimpleTestCase):
         self.assertInHTML('<option value="tea" selected>Tea</option>', html)
         self.assertInHTML('<option value="coffee" selected>Coffee</option>', html)
         self.assertTrue(html.count('selected'), 2)
+

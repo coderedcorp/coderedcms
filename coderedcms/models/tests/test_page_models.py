@@ -1,5 +1,5 @@
 from django.contrib.auth.models import AnonymousUser
-from django.test import TestCase
+from wagtail.tests.utils import WagtailPageTests
 from django.test.client import RequestFactory
 from wagtail.core.models import Site
 from unittest import skip
@@ -26,7 +26,6 @@ from coderedcms.tests.testapp.models import (
     LocationPage,
     LocationIndexPage
 )
-
 
 class BasicPageTestCase():
     class Meta:
@@ -69,19 +68,19 @@ class ConcreteBasicPageTestCase(ConcretePageTestCase, BasicPageTestCase):
     class Meta:
         abstract=True
 
-class CoderedArticleIndexPageTestCase(AbstractPageTestCase, TestCase):
+class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedArticleIndexPage
 
 
-class CoderedArticlePageTestCase(AbstractPageTestCase, TestCase):
+class CoderedArticlePageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedArticlePage
 
 
-class CoderedFormPageTestCase(AbstractPageTestCase, TestCase):
+class CoderedFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedFormPage
 
 
-class CoderedPageTestCase(TestCase):
+class CoderedPageTestCase(WagtailPageTests):
     model = CoderedPage
 
     def test_not_available(self):
@@ -89,53 +88,60 @@ class CoderedPageTestCase(TestCase):
         self.assertTrue(self.model in get_page_models())
 
 
-class CoderedWebPageTestCase(AbstractPageTestCase, TestCase):
+class CoderedWebPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedWebPage
 
 
-class CoderedLocationIndexPageTestCase(AbstractPageTestCase, TestCase):
+class CoderedLocationIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedLocationIndexPage
 
 
-class CoderedLocationPageTestCase(AbstractPageTestCase, TestCase):
+class CoderedLocationPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedLocationPage
 
 
-class CoderedEventIndexPageTestCase(AbstractPageTestCase, TestCase):
+class CoderedEventIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedEventIndexPage
 
 
-class CoderedEventPageTestCase(AbstractPageTestCase, TestCase):
+class CoderedEventPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedEventPage
 
 
-class ArticlePageTestCase(ConcreteBasicPageTestCase, TestCase):
+class ArticlePageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = ArticlePage
 
 
-class ArticleIndexPageTestCase(ConcreteBasicPageTestCase, TestCase):
+class ArticleIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = ArticleIndexPage
 
 
-class FormPageTestCase(ConcreteBasicPageTestCase, TestCase):
+class FormPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = FormPage
 
+    def test_post(self):
+        request = self.request_factory.post(self.basic_page.url)
+        request.user = AnonymousUser()
+        request.site = Site.objects.all()[0]
+        response = self.basic_page.serve(request)
+        self.assertEqual(response.status_code, 200)
 
-class WebPageTestCase(ConcreteBasicPageTestCase, TestCase):
+
+class WebPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = WebPage
 
 
-class EventIndexPageTestCase(ConcreteBasicPageTestCase, TestCase):
+class EventIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = EventIndexPage
 
 
-class EventPageTestCase(ConcreteBasicPageTestCase, TestCase):
+class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = EventPage
 
 
-class LocationIndexPageTestCase(ConcreteBasicPageTestCase, TestCase):
+class LocationIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = LocationIndexPage
 
 
-class LocationPageTestCase(ConcreteBasicPageTestCase, TestCase):
+class LocationPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = LocationPage

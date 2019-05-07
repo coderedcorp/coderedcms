@@ -25,6 +25,9 @@ def attempt_protected_media_value_conversion(request, value):
             new_value = get_protected_media_link(request, value)
     except AttributeError:
         pass
+
+    if uri_validator(value):
+        return mark_safe(value)
     return new_value
 
 def fix_ical_datetime_format(dt_str):

@@ -1006,7 +1006,7 @@ class CoderedFormMixin(models.Model):
     class Meta:
         abstract=True
 
-
+    submissions_list_view_class = CoderedSubmissionsListView
     encoder = DjangoJSONEncoder
 
     ### Custom codered fields
@@ -1330,6 +1330,16 @@ class CoderedFormMixin(models.Model):
 
         return super().serve_preview(request, mode)
 
+    def serve_submissions_list_view(self, request, *args, **kwargs):
+        """
+        Returns list submissions view for admin.
+
+        `list_submissions_view_class` can be set to provide custom view class.
+        Your class must be inherited from SubmissionsListView.
+        """
+        view = self.submissions_list_view_class.as_view()
+        return view(request, form_page=self, *args, **kwargs)
+
 class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     """
     This is basically a clone of wagtail.contrib.forms.models.AbstractForm
@@ -1345,8 +1355,6 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     base_form_class = WagtailAdminFormPageForm
 
     form_builder = CoderedFormBuilder
-
-    submissions_list_view_class = CoderedSubmissionsListView
 
     body_content_panels = [
             InlinePanel('form_fields', label="Form fields"),
@@ -1412,16 +1420,6 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
 
         return FormSubmission
 
-    def serve_submissions_list_view(self, request, *args, **kwargs):
-        """
-        Returns list submissions view for admin.
-
-        `list_submissions_view_class` can be set to provide custom view class.
-        Your class must be inherited from SubmissionsListView.
-        """
-        view = self.submissions_list_view_class.as_view()
-        return view(request, form_page=self, *args, **kwargs)
-
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
             form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
@@ -1470,24 +1468,20 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
     )
     status = models.CharField(max_length=10, choices=STATUSES, default=INCOMPLETE)
 
-    def get_flattened_data(self):
-        flattened_data = {}
-        for step in self.get_data():
-            for k, v in step.items():
-                flattened_data[k.replace('-', '_')] = v
-        return flattened_data
+    def create_normal_submission(self, delete_self=True):
+        submission_data = self.get_data()
+        if 'user' in submission_data:
+            submission_data['user'] = str(submission_data['user'])
+        FormSubmission.objects.create(
+                form_data=json.dumps(submission_data, cls=StreamFormJSONEncoder),
+                page=self.page
+            )
 
-    def render_email(self, value):
-        return mark_safe(super().render_email(value))
+        if delete_self:
+            CoderedSubmissionRevision.objects.filter(submission_id=self.id).delete()
+            self.delete()
 
-    def render_link(self, value):
-        return mark_safe(super().render_link(value))
 
-    def render_image(self, value):
-        return mark_safe(super().render_image(value))
-
-    def render_file(self, value):
-        return mark_safe(super().render_file(value))
 
 
 @receiver(post_save)
@@ -1554,10 +1548,14 @@ class CoderedStreamFormMixin(StreamFormMixin):
 
     @staticmethod
     def get_submission_class():
+        return FormSubmission
+
+    @staticmethod
+    def get_session_submission_class():
         return CoderedSessionFormSubmission
 
     def get_submission(self, request):
-        Submission = self.get_submission_class()
+        Submission = self.get_session_submission_class()
         if request.user.is_authenticated:
             user_submission = Submission.objects.filter(
                 user=request.user, page=self).order_by('-pk').first()
@@ -1609,13 +1607,10 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
                     form_submission=submission,
                     processed_data=submission.get_data()
                 )
+                submission.create_normal_submission()
                 return self.serve_success(request, *args, **kwargs)
             return HttpResponseRedirect(self.url)
         return CoderedWebPage.serve(self, request, *args, **kwargs)
-
-    @classmethod
-    def get_submission_class(cls):
-        return CoderedSessionFormSubmission
 
     def get_storage(self):
         return FileSystemStorage(

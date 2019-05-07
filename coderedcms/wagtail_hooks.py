@@ -106,5 +106,5 @@ class CoderedFormAdmin(FormAdmin):
 
         return mark_safe("<br />".join(actions))
 
-modeladmin_register(CoderedFormAdmin)
-modeladmin_register(CoderedSubmissionAdmin)
+# modeladmin_register(CoderedFormAdmin)
+# modeladmin_register(CoderedSubmissionAdmin)

@@ -1,83 +1,59 @@
 Web Pages
 ===================
 
-The standard page for your website.  All sorts of content can exist on this page and most, if not all, pages on the site will have similar functionality to these types of pages.
-
+The standard page for your website.  All other page types on the site will share the functionality of this page type.
 
 Usage
 -----
 
-First start by creating a "Location Landing Page" (may be named differently on your specific website). Add content to this page as you would for a normal Web Page. 
-
-Under the **Layout** tab, you have the following new options:
-
-* Center Latitude: The latitude you want the google map to center on.
-* Center Longitude: The longitude you want the google map to center on.
-* Zoom: The zoom level you want hte google map to default to.  This requires an API key to use zoom. The zoom values can be between 1-20.  1: World, 5: Landmass continent, 10: City, 15: Streets, 20: Buildings
-
-Next, save the Location Landing Page. Now create a child "Location Page" under your new "Location Landing Page". Each child page here represents a location that will have it's own page and show up in it's parent google map.  Add content to this page as you would for a normal Web Page.
-
-Under the **Content** tab, you have the following new options:
-
-* Address: The address of the location.
-* Website: The website for the location, if applicable.
-* Phone Number: The phone number of the location, if applicable.
-
-Under the **Layout** tab, you have the following new options:
-
-* Map Title: A custom title that will be used for this location's google map pin.  It will default to the page's normal title if not provided.
-* Map Description: A custom description that will be used for this location's google map pin.
-
-Under the **Settings** tab, you have the following new options:
-
-* Auto Update Latitude and Longitude: If checked, the latitude and longitude will be calculated whenever the page is saved based off of the provided address.
-* Latitude: The latitude that you want this location's google map pin to be set as.
-* Longitude: The longitude that you want this location's google map pin to be set as.
+First start by creating a "Web Page".  Each page on your site will have an assortment of tabs that house different types of data/content for that page.
 
 
-Implementation
---------------
+Content Tab
+~~~~~~~~~~~
 
-The store locator is built-in to CodeRed CMS but is not enabled by default. To implement, add
-the following to your ``website/models.py``::
+The **Content** tab is meant to house all data fields related to the page's content.  You have the following options:
 
-    from coderedcms.models import CoderedLocationIndexPage, CoderedLocationPage
+* **Title**: The name of the page.
+* **Cover Image**: The big hero image you want for the page.
+* **Body**: The field your content will live.  This uses a StreamField to allow you to dynamically create a page layout and content.
 
+Classify Tab
+~~~~~~~~~~~~
 
-    class LocationPage(CoderedLocationPage):
-        """
-        A page that holds a location.  This could be a store, a restaurant, etc.
-        """
-        class Meta:
-            verbose_name = 'Location Page'
+The **Classify** tab is meant to house all data fields related to the page's classification.  You have the following options:
 
-        template = 'coderedcms/pages/location_page.html'
+* **Classifier Terms**: The taxonomies you want assigned to this page.  These taxonomies can be used for certain blocks to control what pages are related to a certain block.  These taxonomies are defined in the Snippets section of the admin.
+* **Tags**: An optional tagging mechanism that can be used by a developer for any reason.
 
-        # Only allow LocationIndexPages above this page.
-        parent_page_types = ['website.LocationIndexPage']
+Layout Tab
+~~~~~~~~~~
 
+The **Layout** tab is meant to house all data fields related to the page's layout.  You have the following options:
 
-    class LocationIndexPage(CoderedLocationIndexPage):
-        """
-        A page that holds a list of locations and displays them with a Google Map.
-        This does require a Google Maps API Key that can be defined in Settings > Google API Settings
-        """
-        class Meta:
-            verbose_name = 'Location Landing Page'
+* **Template**:  The template you want the page to use to render.
+* **Show List of Child Pages**: Toggles whether this parent page should show a list of it's children pages.
+* **Number Per Page**: Controls how many children pages you want to show at once.
+* **Order Children Pages by**: Controls how the children pages are sorted on this parent page.
+* **Filter Child Pages by**: Using Classifier terms, control which children pages are shown on the parent page.
 
-        # Override to specify custom index ordering choice/default.
-        index_query_pagemodel = 'website.LocationPage'
+SEO Tab
+~~~~~~~
 
-        # Only allow LocationPages beneath this page.
-        subpage_types = ['website.LocationPage']
+The **SEO** tab is meant to house all data fields related to the page's SEO  settings, like Open Graph tags and Google's structured data.  You have the following options:
 
-        template = 'coderedcms/pages/location_index_page.html'
+* **Slug**: The url path you want the page to exist on.  If not set, it will be automatically generated from this page's title.
+* **Page Title**: The title you want to be shown at the top of your web browser
+* **Search Description**: The description you want to be placed in your site's meta tags.
+* **Open Graph preview image**:  The image you want your site to show when someone shares this page on social media.
 
-Next run ``python manage.py makemigrations website`` and ``python manage.py migrate`` to create
-the new pages in your project.
+* **Structured Data** - Organization: These are numerous fields to construct structured data that Google uses.  Fill this out on your home page and it will apply to all pages on your site.
 
-Now when going to the wagtail admin, you can create a Location Index Page, and child Location Pages.
-Also be sure to add a Google Maps API key under Settings > Google API Settings.
+Settings Tab
+~~~~~~~~~~~~
 
-.. note::
-    Before creating or importing location pages, add your Google API key for automatic geolocation.
+The **Settings** tab is meant to house different controls for the page rendering.  You have the following options:
+
+* **Go live date/time**: The date/time you want this page to be visible to visitors.
+* **Expiry date/time**: The date/time you want this page to become invisible to visitors.
+* **Content Walls**: This StreamField allows you to select Content Wall snippets that will be displayed to your users before they can access the page.  A common use case is a pop up showing them a limited offer.

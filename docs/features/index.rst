@@ -5,8 +5,7 @@ Features
     :maxdepth: 1
 
     classifiers
-    events
     import_export
     mailchimp
-    store_locator
     page_types/index
+    snippets/index

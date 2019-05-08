@@ -1,12 +1,8 @@
 Web Pages
 ===================
 
-The standard page for your website.  All sorts of content can exist on this page and most, if not all, other pages on the site will have similar functionality to these types of pages.
+The standard page for your website.  All sorts of content can exist on this page and most, if not all, pages on the site will have similar functionality to these types of pages.
 
-Philosophy
-----------
-
-Pages for your Codered CMS site follows the concept of "Parent-Child" relationships.  Pages that are acting as parents will typically have controls for previewing their children pages
 
 Usage
 -----

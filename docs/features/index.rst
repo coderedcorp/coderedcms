@@ -9,3 +9,4 @@ Features
     import_export
     mailchimp
     store_locator
+    page_types/index

@@ -1,5 +1,5 @@
-Events
-=============
+Event Pages
+===========
 
 Create a calendar or list of events. Visitors can download ical invitations to their own calendars
 for each event, recurring events, or all events.
@@ -8,29 +8,30 @@ for each event, recurring events, or all events.
 Usage
 -----
 
-If events are implemented on your site (see instructions below), first start by creating an
-"Event Landing Page" (may be named differently on your specific website). Add content to this
-page as usual. Under the **Layout** tab, you can choose a few options:
+First start by creating an "Event Landing Page" (may be named differently on your specific website). Add content to this page as you would for a normal Web Page. 
+
+Under the **Layout** tab, you have the following new options:
 
 * Show list of child pages: Check this box to show a list of all events.
 * Calendar style: There are several options here. Choose one that fits your needs.
 
-Next, save the Event Landing Page. Now create a child page. Each child page here represents
-an individual event. Events can be one time, or recurring, similar to Outlook or other
-calendar software.
+Next, save the Event Landing Page. Now create a child "Event Page" under yoru new "Event Landing Page". Each child page here represents an individual event. Events can be one time, or recurring, similar to Outlook or other calendar software. Add content to this page as you would for a normal "Web Page".
 
-When creating an event page, fill out the relevant information, and click the **+** icon next
-to "Dates and times" to add an event occurrence. You can create multiple occurrences, or set
-an occurrence to repeat.
+Next, save the Location Landing Page. Now create a child "Location Page" under your new "Location Landing Page". Each child page here represents a location that will have it's own page and show up in it's parent google map.  Add content to this page as you would for a normal "Web Page".
 
+Under the **Content** tab you have the following new options:
+
+* Calendar Color: The color that the event will have on the calendar.
+* Address: The address for the event, if applicable.
+* Occurrences: This lets you add the date and time information for your event.  Click the **+** icon to add a new date and time rule.
 
 Implementation
 --------------
 
 The event functionality is built-in to CodeRed CMS but it is not enabled by default.
 
-There are two abstract pages when dealing with events.  The first ``CoderedEventPage`` holds
-the information regarding the event.  Dates, location, etc. all will fall under this page.  The
+There are two abstract pages available when dealing with events.  The first ``CoderedEventPage`` holds
+the information regarding an event.  Dates, location, etc. all will fall under this page.  The
 ``CoderedEventIndexPage`` will aggregate its children ``CoderedEventPage`` and display them in a
 calendar or list.
 

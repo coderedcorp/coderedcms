@@ -2,7 +2,7 @@ Contributing
 ============
 
 
-Developing and testing coderedcms
+Developing Codered CMS
 ---------------------------------
 
 To create a test project locally:
@@ -35,6 +35,18 @@ coderedcms should specify the appropriate version in its requirements.txt to pre
     When testing existing projects with coderedcms installed from the master or development branches,
     be sure to use a disposable database, as it is likely that the migrations in master will
     not be the same migrations that get released.
+
+Testing Codered CMS
+-------------------
+
+To run the built in tests that Codered CMS has, run the following in your test project's directory:
+
+``python manage.py test coderedcms --settings=coderedcms.tests.settings``
+
+Test coverage at the moment is fairly minimal and it is highly recommended that new features include proper unit tests.
+Any testing infrastructure (ie implementations of abstract models and migrations) needed should be added to the ``tests`` app in your
+local copy of Codered CMS.  The tests themselves should be in their relevant section in Codered CMS (ie tests for 
+models in ``coderedcms.models.page_models`` should be located in ``coderedcms.models.tests.test_page_models``).
 
 
 Contributor guidelines

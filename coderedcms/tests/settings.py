@@ -24,8 +24,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
-    # This project
-    'website',
+    # Test
+    'coderedcms.tests.testapp',
 
     # CodeRed CMS
     'coderedcms',
@@ -88,7 +88,7 @@ MIDDLEWARE = [
     'wagtailcache.cache.FetchFromCacheMiddleware',
 ]
 
-ROOT_URLCONF = '{{ project_name }}.urls'
+ROOT_URLCONF = 'coderedcms.tests.urls'
 
 TEMPLATES = [
     {
@@ -106,8 +106,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
@@ -116,6 +114,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'TEST': {
+            'NAME': os.path.join(BASE_DIR, 'test_db.sqlite3'),
+        }
     }
 }
 
@@ -176,13 +177,13 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "{{ sitename }}"
+WAGTAIL_SITE_NAME = ""
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://{{ domain }}'
+BASE_URL = ''
 
 
 # Bootstrap
@@ -199,3 +200,9 @@ BOOTSTRAP4 = {
 # Tags
 
 TAGGIT_CASE_INSENSITIVE = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+WAGTAIL_CACHE = False
+
+SECRET_KEY = 'not needed'

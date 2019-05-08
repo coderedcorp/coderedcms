@@ -2,7 +2,6 @@ from django.contrib.auth.models import AnonymousUser
 from wagtail.tests.utils import WagtailPageTests
 from django.test.client import RequestFactory
 from wagtail.core.models import Site
-from unittest import skip
 
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,
@@ -28,6 +27,9 @@ from coderedcms.tests.testapp.models import (
 )
 
 class BasicPageTestCase():
+    """
+    This is a testing mixin used to run common tests for basic versions of page types.
+    """
     class Meta:
         abstract=True
 
@@ -40,6 +42,9 @@ class BasicPageTestCase():
         self.homepage.add_child(instance=self.basic_page)
 
     def test_get(self):
+        """
+        Tests to make sure a basic version of the page serves a 200 from a GET request.
+        """
         request = self.request_factory.get(self.basic_page.url)
         request.user = AnonymousUser()
         request.site = Site.objects.all()[0]
@@ -47,19 +52,31 @@ class BasicPageTestCase():
         self.assertEqual(response.status_code, 200)
 
 class AbstractPageTestCase():
+    """
+    This is a testing mixin used to run common tests for abstract page types.
+    """
     class Meta:
         abstract=True
 
     def test_not_available(self):
+        """
+        Tests to make sure the page is not creatable and not in CodeRed CMS's global list of page models.
+        """
         self.assertFalse(self.model.is_creatable)
         self.assertFalse(self.model in get_page_models())
 
 
 class ConcretePageTestCase():
+    """
+    This is a testing mixin used to run common tests for concrete page types.
+    """
     class Meta:
         abstract=True
 
     def test_is_available(self):
+        """
+        Tests to make sure the page is creatable and in CodeRed CMS's global list of page models.
+        """
         self.assertTrue(self.model.is_creatable)
         self.assertTrue(self.model in get_page_models())
 
@@ -120,6 +137,9 @@ class FormPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = FormPage
 
     def test_post(self):
+        """
+        Tests to make sure a basic version of the page serves a 200 from a POST request.
+        """
         request = self.request_factory.post(self.basic_page.url)
         request.user = AnonymousUser()
         request.site = Site.objects.all()[0]

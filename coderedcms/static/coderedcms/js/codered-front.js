@@ -37,7 +37,7 @@ libs = {
               '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.min.css" media="print" integrity="sha256-JYJWCNB1pXBwUngem7hITwB6SdmCGkhewhKS8NL1A8A=" crossorigin="anonymous" />'
     },
     coderedmaps: {
-        url: "/static/js/codered-maps.js",
+        url: "/static/coderedcms/js/codered-maps.js",
         integrity: "",
     }
 }

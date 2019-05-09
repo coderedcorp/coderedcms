@@ -21,9 +21,15 @@ Maintenance
   Supports Python versions 3.4, 3.5, 3.6, and 3.7.
 * Upgraded jQuery to version 3.4.
 * Upgraded pickadate.js (fallback to native HTML5 date/time inputs) to version 3.6.
+* Internally switched to Sass for more modular development and debugging.
+* Now provides minified version of ``codered-front.css`` (``codered-front.min.css``).
 
 
 Upgrade considerations
 ----------------------
 
-None
+Static css/js files have been moved. If you are referencing them manually in your
+templates, please update accordingly:
+
+* ``css/codered-front.css`` -> ``coderedcms/css/codered-front[.min].css``
+* ``js/codered-front.js`` -> ``coderedcms/js/codered-front.js``

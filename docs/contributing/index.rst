@@ -51,7 +51,7 @@ from the command prompt as so:
     $ cd coderedcms/static/coderedcms/
 
     // Build human readable CSS, and srcmap for nicer debugging.
-    $ pysassc -g -t nested scss/codered-front.scss css/codered-front.css
+    $ pysassc -g -t expanded scss/codered-front.scss css/codered-front.css
 
     // Build minified CSS.
     $ pysassc -t compressed scss/codered-front.scss css/codered-front.min.css

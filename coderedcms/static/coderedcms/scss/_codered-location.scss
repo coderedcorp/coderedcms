@@ -3,7 +3,7 @@
 /// TODO: rename/cleanup css class names.
 /// TODO: prefix our styles with 'codered-' to reduce potential collisions.
 
-.map-container{
+.map-container {
     min-height: 600px;
     width: 100%;
 }
@@ -82,27 +82,27 @@
 
 .address-card {
     margin: 0 auto;
-    font-size:1.4em;
+    font-size: 1.4em;
 
     .card-body p {
         margin-bottom: 0;
     }
 }
 
-.map-button{
-    background-color:white;
+.map-button {
+    background-color: white;
     color: black;
     border-radius: 1px;
-    z-index:999;
+    z-index: 999;
 
-    @media(min-width: 768px){
+    @media (min-width: 768px) {
         position: absolute;
         top: 13px;
         left: 430px;
     }
 }
 
-#LocationList{
+#LocationList {
     max-height: 600px;
     overflow-y: scroll;
 }

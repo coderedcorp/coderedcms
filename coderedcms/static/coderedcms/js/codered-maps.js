@@ -1,5 +1,11 @@
-// Initialize the map on the gooogle maps api js callback.
+/*
+CodeRed CMS (https://www.coderedcorp.com/cms/)
+Copyright 2018-2019 CodeRed LLC
+License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+@license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
+*/
 
+// Initialize the map on the gooogle maps api js callback.
 function initMap() {
     // Set defaults
     const map = new google.maps.Map(document.querySelector('#cr-map'), {
@@ -137,3 +143,5 @@ function CurrentLocationControl(controlDiv, map) {
         });
     });
 }
+
+/* @license-end */

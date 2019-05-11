@@ -6,18 +6,13 @@
     overflow-x: hidden;
 
     &:before {
-        float:left;
+        float: left;
         width: 0;
         white-space: nowrap;
-        content:
-            ". . . . . . . . . . . . . . . . . . . . "
-            ". . . . . . . . . . . . . . . . . . . . "
-            ". . . . . . . . . . . . . . . . . . . . "
-            ". . . . . . . . . . . . . . . . . . . . "
-            ". . . . . . . . . . . . . . . . . . . . "
-            ". . . . . . . . . . . . . . . . . . . . "
-            ". . . . . . . . . . . . . . . . . . . . "
-            ". . . . . . . . . . . . . . . . . . . . ";
+        content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
     }
 
     span:first-child {
@@ -26,11 +21,11 @@
     }
 
     span + span {
-        float:right;
+        float: right;
         padding-left: 0.33em;
         padding-right: 15px;
-        background:white;
-        position:relative;
+        background: white;
+        position: relative;
         z-index: 1;
         margin-right: -15px;
     }

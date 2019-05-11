@@ -37,8 +37,8 @@ coderedcms should specify the appropriate version in its requirements.txt to pre
     not be the same migrations that get released.
 
 
-CSS Styling
------------
+CSS Development
+---------------
 
 When CSS changes are needed for front-end code (not the wagtail admin), Sass should be used.
 Each block, page, snippet, or other component that requires styling should have a dedicated ``.scss``
@@ -50,14 +50,43 @@ from the command prompt as so:
 
     $ cd coderedcms/static/coderedcms/
 
-    // Build human readable CSS, and srcmap for nicer debugging.
+    // Build human readable CSS, and source map for nicer debugging.
     $ pysassc -g -t expanded scss/codered-front.scss css/codered-front.css
 
     // Build minified CSS.
     $ pysassc -t compressed scss/codered-front.scss css/codered-front.min.css
 
+Finally, copy the license header comment into codered-front.min.css (since ``pysassc`` does
+not have an argument to preserve comments while also using compressed output).
+
 The generated CSS files must also be committed to version control whenever a sass file is
 changed, as they are distributed as part of our package.
+
+
+JavaScript Development
+----------------------
+
+All JavaScript should use ``codered-front.js`` as an entry point, meaning feature
+detection should happen in ``codered-front.js`` and then only load secondary scripts and CSS
+as needed. This ensures only one single small JavaScript file is required on page load, which
+reduces render-blocking resources and page load time.
+
+All JavaScript files produced by CodeRed should contain a license header comment. This standard
+license header comment states copyright, ownership, license, and also provides compatibility for
+`LibreJS <https://www.gnu.org/software/librejs/free-your-javascript.html>`_.
+
+.. code-block:: text
+
+    /*
+    CodeRed CMS (https://www.coderedcorp.com/cms/)
+    Copyright 2018-2019 CodeRed LLC
+    License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+    @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
+    */
+
+    ... script code here ...
+
+    /* @license-end */
 
 
 Testing CodeRed CMS

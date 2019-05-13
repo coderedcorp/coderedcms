@@ -14,7 +14,7 @@ Page Types
 Design Philosophy
 -----------------
 
-Pages for your Codered CMS site use a "Parent-Child" relationship.  A parent page is any page that is an ancestor of other pages in the site's tree structure.  A child page is any page that is a descendant of another page in the site's tree structure.  A lot of specific site functionality is broken up into these "Parent-Child" relationships.  For example, if you want to add a blog to your site, you would add an "Article Landing Page", which would have your "Article Page"'s as descendants.  
+Pages for your Codered CMS site use a "Parent-Child" relationship.  A parent page is any page that is an ancestor of other pages in the site's tree structure.  A child page is any page that is a descendant of another page in the site's tree structure.  A lot of specific site functionality is broken up into these "Parent-Child" relationships.  For example, if you want to add a blog to your site, you would add an "Article Landing Page", which would have your "Article Page"s as descendants.  
 
 .. note::
     

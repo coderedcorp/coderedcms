@@ -6,7 +6,7 @@ Create location pages for individual locations. These could be stores, distribut
 Usage
 -----
 
-First start by creating a "Location Landing Page" and then add any number of "Location Page"'s as children of the "Location Landing Page". Each child page here represents a location that will have it's own page and show up in it's parent google map.  Add content to this page as you would for a normal Web Page.
+First start by creating a "Location Landing Page" and then add any number of "Location Page"s as children of the "Location Landing Page". Each child page here represents a location that will have its own page and show up in its parent Google map.  Add content to this page as you would for a normal Web Page.
 
 Location Landing Page
 ---------------------
@@ -14,9 +14,9 @@ Location Landing Page
 Layout Tab
 ~~~~~~~~~~
 
-* **Center Latitude**: The latitude you want the google map to center on.
-* **Center Longitude**: The longitude you want the google map to center on.
-* **Zoom**: The zoom level you want hte google map to default to.  This requires an API key to use zoom. The zoom values can be between 1-20.  1: World, 5: Landmass continent, 10: City, 15: Streets, 20: Buildings
+* **Center Latitude**: The latitude you want the Google map to center on.
+* **Center Longitude**: The longitude you want the Google map to center on.
+* **Zoom**: The zoom level you want the Google map to default to.  This requires an API key to use zoom. The zoom values can be between 1-20.  1: World, 5: Landmass continent, 10: City, 15: Streets, 20: Buildings
 
 Next, save the Location Landing Page. Now create a child "Location Page" under your new "Location Landing Page". 
 
@@ -34,15 +34,15 @@ Content Tab
 Layout Tab
 ~~~~~~~~~~
 
-* **Map Title**: A custom title that will be used for this location's google map pin.  It will default to the page's normal title if not provided.
-* **Map Description**: A custom description that will be used for this location's google map pin.
+* **Map Title**: A custom title that will be used for this location's Google map pin.  It will default to the page's normal title if not provided.
+* **Map Description**: A custom description that will be used for this location's Google map pin.
 
 Settings Tab
 ~~~~~~~~~~~~
 
 * **Auto Update Latitude and Longitude**: If checked, the latitude and longitude will be calculated whenever the page is saved based off of the provided address.
-* **Latitude**: The latitude that you want this location's google map pin to be set as.
-* **Longitude**: The longitude that you want this location's google map pin to be set as.
+* **Latitude**: The latitude that you want this location's Google map pin to be set as.
+* **Longitude**: The longitude that you want this location's Google map pin to be set as.
 
 
 Implementation

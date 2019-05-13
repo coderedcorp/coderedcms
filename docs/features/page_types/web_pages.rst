@@ -8,6 +8,10 @@ Usage
 
 First start by creating a "Web Page".  Each page on your site will have an assortment of tabs that house different types of data/content for that page.
 
+Tabs
+----
+
+In the Wagtail admin, we break up all the fields on a page into seperate tabs to help with readability and to group similar functionality together.  Listed below are the available tabs, what they do, and what fields you can expect to be shown in them.
 
 Content Tab
 ~~~~~~~~~~~
@@ -32,7 +36,7 @@ Layout Tab
 The **Layout** tab is meant to house all data fields related to the page's layout.  You have the following options:
 
 * **Template**:  The template you want the page to use to render.
-* **Show List of Child Pages**: Toggles whether this parent page should show a list of it's children pages.
+* **Show List of Child Pages**: Toggles whether this parent page should show a list of its children pages.
 * **Number Per Page**: Controls how many children pages you want to show at once.
 * **Order Children Pages by**: Controls how the children pages are sorted on this parent page.
 * **Filter Child Pages by**: Using Classifier terms, control which children pages are shown on the parent page.

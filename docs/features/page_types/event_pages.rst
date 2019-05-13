@@ -7,7 +7,7 @@ for each event, recurring events, or all events.
 Usage
 -----
 
-First start by creating an "Event Landing Page" and then add any number of "Event Page"'s as children of the "Event Landing Page". Each child page here represents an individual event. Events can be one time, or recurring, similar to Outlook or other calendar software. Add content to these pages as you would for a normal "Web Page".
+First start by creating an "Event Landing Page" and then add any number of "Event Page"s as children of the "Event Landing Page". Each child page here represents an individual event. Events can be one time, or recurring, similar to Outlook or other calendar software. Add content to these pages as you would for a normal "Web Page".
 
 Event Landing Page
 ------------------

@@ -1,0 +1,36 @@
+/// Default article/blog styles
+
+#content,
+.codered-article,
+.codered-article .container {
+    background-color: inherit;
+}
+.codered-article {
+    .container {
+        margin-bottom: 50px;
+    }
+    .article-body {
+        margin-top: 3em;
+        padding-bottom: 1em;
+        @media (min-width: 768px) {
+            font-size: 1.2em;
+        }
+    }
+    .article-author-img {
+        max-height: 3em;
+    }
+    > img {
+        @media (min-width: 768px) {
+            margin-bottom: -15vw;
+        }
+    }
+    &.has-img {
+        .container {
+            @media (min-width: 768px) {
+                position: relative;
+                padding: 5vw;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            }
+        }
+    }
+}

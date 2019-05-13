@@ -17,17 +17,17 @@ from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, Submissio
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
-    return format_html('<link rel="stylesheet" type="text/css" href="{}">', static('css/codered-admin.css'))
+    return format_html('<link rel="stylesheet" type="text/css" href="{}">', static('coderedcms/css/codered-admin.css'))
 
 
 @hooks.register('insert_editor_css')
 def editor_css():
-    return format_html('<link rel="stylesheet" type="text/css" href="{}">', static('css/codered-editor.css'))
+    return format_html('<link rel="stylesheet" type="text/css" href="{}">', static('coderedcms/css/codered-editor.css'))
 
 
 @hooks.register('insert_editor_js')
 def collapsible_js():
-    return format_html('<script src="{}"></script>', static('js/codered-editor.js'))
+    return format_html('<script src="{}"></script>', static('coderedcms/js/codered-editor.js'))
 
 
 @hooks.register('after_create_page')

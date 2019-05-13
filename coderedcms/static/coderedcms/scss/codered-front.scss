@@ -1,0 +1,32 @@
+///
+/// CodeRed CMS custom styles
+///
+/*
+CodeRed CMS (https://www.coderedcorp.com/cms/)
+Copyright 2018-2019 CodeRed LLC
+License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+*/
+
+// Hero unit block
+@import "codered-hero";
+
+// Rich text block
+@import "codered-richtext";
+
+// Image gallery block
+@import "codered-gallery";
+
+// Pricelist block
+@import "codered-pricelist";
+
+// Article pages
+@import "codered-article";
+
+// Location pages / store locator map
+@import "codered-location";
+
+// Navbar
+@import "codered-navbar";
+
+// Bootstrap 4 overrides to work better with coderedcms markup
+@import "codered-bs-overrides";

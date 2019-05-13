@@ -1,5 +1,5 @@
 Snippets
-==========
+========
 
 .. toctree::
     :maxdepth: 1
@@ -10,3 +10,5 @@ Snippets
     footers
     navigation_bars
     reusable_content
+
+Codered CMS follows the Wagtail philosophy when it comes to snippets (viewable here<https://docs.wagtail.io/en/latest/topics/snippets.html>). 

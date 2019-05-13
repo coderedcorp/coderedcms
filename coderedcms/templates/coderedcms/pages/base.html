@@ -107,6 +107,8 @@
 
     <body class="coderedcms-{{page.content_type.model}} {% if page.get_parent %}parent-page-{{page.get_parent.id}}{% endif %} {% block body_class %}{% endblock %}" id="page-{{page.id}}">
 
+        {% include "coderedcms/includes/codered_banner.html" %}
+
         {% wagtailuserbar %}
 
         {% block ada_skip %}

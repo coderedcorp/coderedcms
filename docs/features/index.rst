@@ -2,10 +2,10 @@ Features
 ========
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
-    classifiers
     import_export
     mailchimp
     page_types/index
+    searching
     snippets/index

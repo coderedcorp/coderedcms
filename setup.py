@@ -54,6 +54,7 @@ setup(
     ],
     extras_require={
         'dev': [
+            'libsass',
             'pylint-django',
             'sphinx',
             'twine',

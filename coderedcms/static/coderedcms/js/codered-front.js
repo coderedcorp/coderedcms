@@ -1,3 +1,10 @@
+/*
+CodeRed CMS (https://www.coderedcorp.com/cms/)
+Copyright 2018-2019 CodeRed LLC
+License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+@license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
+*/
+
 libs = {
     modernizr: {
         url: "https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js",
@@ -37,7 +44,7 @@ libs = {
               '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.min.css" media="print" integrity="sha256-JYJWCNB1pXBwUngem7hITwB6SdmCGkhewhKS8NL1A8A=" crossorigin="anonymous" />'
     },
     coderedmaps: {
-        url: "/static/js/codered-maps.js",
+        url: "/static/coderedcms/js/codered-maps.js",
         integrity: "",
     }
 }
@@ -236,3 +243,5 @@ $(document).ready(function()
     }
 
 });
+
+/* @license-end */

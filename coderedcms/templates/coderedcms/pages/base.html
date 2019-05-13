@@ -75,7 +75,11 @@
         {% endblock %}
 
         {% block coderedcms_assets %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/codered-front.css' %}">
+        {% if "DEBUG"|django_settings %}
+        <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/codered-front.css' %}">
+        {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/codered-front.min.css' %}">
+        {% endif %}
         {% endblock %}
 
         {% block custom_assets %}

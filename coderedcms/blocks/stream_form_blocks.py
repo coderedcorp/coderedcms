@@ -28,6 +28,7 @@ class FormBlockMixin(BaseBlock):
 
     advsettings_class = CoderedFormAdvSettings
 
+
 class CoderedStreamFormFieldBlock(form_blocks.OptionalFormFieldBlock, FormBlockMixin):
     pass
 
@@ -74,10 +75,27 @@ class CoderedStreamFormCheckboxesFieldBlock(form_blocks.CheckboxesFieldBlock, Fo
         icon = "fa-list-ul"
 
 
+class CoderedDatePickerInput(form_blocks.DatePickerInput):
+    input_type = 'date'
+
+
+class CoderedDateTimePickerInput(form_blocks.DateTimePickerInput):
+    def __init__(self, attrs=None, date_format=None, time_format=None):
+        super().__init__(attrs=attrs,
+                         date_format=date_format, time_format=time_format)
+        self.widgets = (
+            CoderedDatePickerInput(attrs=attrs, format=date_format),
+            form_blocks.HTML5TimeInput(attrs=attrs, format=time_format),
+        )
+
+
 class CoderedStreamFormDateFieldBlock(form_blocks.DateFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Date")
         icon = "fa-calendar"
+    
+    widget = CoderedDatePickerInput
+
 
 class CoderedStreamFormTimeFieldBlock(form_blocks.TimeFieldBlock, FormBlockMixin):
     class Meta:
@@ -89,6 +107,8 @@ class CoderedStreamFormDateTimeFieldBlock(form_blocks.DateTimeFieldBlock, FormBl
     class Meta:
         label = _("Date and Time")
         icon = "fa-calendar"
+
+    widget = CoderedDateTimePickerInput
 
 
 class CoderedStreamFormImageFieldBlock(form_blocks.ImageFieldBlock, FormBlockMixin):

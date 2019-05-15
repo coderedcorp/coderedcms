@@ -1298,7 +1298,6 @@ class CoderedFormMixin(models.Model):
 
         for key, value in processed_data.items():
             new_key = key.replace('-', '_')
-            dictionary[new_key] = value
             if isinstance(value, list):
                 dictionary[new_key] = ', '.join(value)
             else:

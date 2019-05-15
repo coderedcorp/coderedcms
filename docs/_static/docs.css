@@ -263,6 +263,16 @@ div.admonition.warning code {
     background-color: #f5e5d5;
 }
 
+div.figure img {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin: 20px 0 0 0;
+}
+div.figure p.caption {
+    padding: 0 0 20px 0;
+    font-style: italic;
+    color: #666;
+}
+
 .mobile-header {
     display:none;
     background-color: #d33;

@@ -14,4 +14,6 @@ Installation
    http://localhost:8000 in your browser, or http://localhost:8000/admin/ to log in
    with your admin account.
 
-You now have CodeRed CMS up and running. Next, :doc:`customize_design`
+✨🎉 You now have CodeRed CMS up and running! 🎉✨
+
+Follow the tutorial to build :doc:`tutorial01`

@@ -16,13 +16,14 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import datetime
 from coderedcms import __shortversion__
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'CodeRed CMS'
-copyright = '2018, CodeRed LLC'
+copyright = str(datetime.datetime.now().year) + ', CodeRed LLC'
 author = 'CodeRed LLC'
 
 # The short X.Y version

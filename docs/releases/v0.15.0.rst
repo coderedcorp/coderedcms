@@ -5,7 +5,8 @@ CodeRed CMS 0.15.0 release notes
 New features
 ------------
 
-None
+* NEW documentation for built-in page types! See :doc:`/features/page_types/index`.
+* NEW tutorial! See :doc:`/getting_started/tutorial01`.
 
 
 Bug Fixes

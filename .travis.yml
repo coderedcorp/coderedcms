@@ -8,4 +8,4 @@ before_script:
   - coderedcms start testproject
 # command to run tests
 script:
-  - python manage.py test coderedcms --settings=coderedcms.tests.settings
+  - python testproject/manage.py test coderedcms --settings=coderedcms.tests.settings

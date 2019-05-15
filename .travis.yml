@@ -1,0 +1,11 @@
+dist: xenial   # required for Python >= 3.7
+language: python
+python:
+  - "3.7"
+install:
+  - pip install -e './[dev]'
+before_script:
+  - coderedcms start testproject
+# command to run tests
+script:
+  - python manage.py test coderedcms --settings=coderedcms.tests.settings

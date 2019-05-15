@@ -46,3 +46,25 @@ different CSS framework or theme variant.
 
     * DO NOT run ``makemigrations`` or ``makemigrations coderedcms``
     * ONLY run migrations for specific apps, i.e. ``makemigrations website``
+
+
+CODERED_BANNER
+--------------
+
+If you define a value for this ``CODERED_BANNER``, CodeRedCMS will show this text in a banner
+on both the front end and in the CMS of your site. This is useful for flagging non-production
+environments like staging. For example::
+
+    CODERED_BANNER = "Staging Environment. Production is over here: <a href='https://example.com'>Example link</a>."
+
+You can include basic HTML code, such as a link, in the banner.
+
+
+CODERED_BANNER_BACKGROUND, CODERED_BANNER_TEXT_COLOR
+----------------------------------------------------
+
+The banner defaults to a background color of red and a text color of white. If you want to
+customize this for a particular environment, you can; for example::
+
+    CODERED_BANNER_BACKGROUND = '#FFFFE0'	# light yellow background
+    CODERED_BANNER_TEXT_COLOR = '#000'		# black text color

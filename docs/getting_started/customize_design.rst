@@ -1,8 +1,7 @@
 Customize the design of your website
 ====================================
 
-After installation, you are greeted by a barebones website.
-There are a few settings you will want to change to add your own branding.
+Below are a few settings that can be used to change branding, design, and layout of your website.
 
 Site name
 ---------

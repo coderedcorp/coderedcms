@@ -1,7 +1,6 @@
 dist: xenial
 language: python
 python:
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
@@ -13,4 +12,4 @@ before_script:
 # command to run tests
 script:
   - python testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
-  - pylint --load-plugins pylint_django coderedcms
+  - flake8 coderedcms

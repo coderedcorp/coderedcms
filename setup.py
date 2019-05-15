@@ -55,7 +55,7 @@ setup(
     extras_require={
         'dev': [
             'libsass',
-            'pylint-django',
+            'flake8',
             'sphinx',
             'twine',
             'wheel'

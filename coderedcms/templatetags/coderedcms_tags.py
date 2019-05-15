@@ -102,8 +102,6 @@ def process_form_cell(request, cell):
         return utils.get_protected_media_link(request, cell, render_link=True)
     if utils.uri_validator(str(cell)):
         return mark_safe("<a href='{0}'>{1}</a>".format(cell, cell))
-    if str(cell).startswith("<a href="):
-        return mark_safe(str(cell))    
     return cell
 
 @register.filter

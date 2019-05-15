@@ -1185,7 +1185,7 @@ class CoderedFormMixin(models.Model):
 
         if self.confirmation_emails:
             # Convert form data into a context.
-            context = Context(self.data_to_dict(processed_data))
+            context = Context(self.data_to_dict(processed_data, request))
             # Render emails as if they are django templates.
             for email in self.confirmation_emails.all():
 
@@ -1239,12 +1239,10 @@ class CoderedFormMixin(models.Model):
         addresses = [x.strip() for x in self.to_address.split(',')]
         content = []
 
-        for key, value in self.data_to_dict(processed_data).items():
-            if isinstance(value, list):
-                value = ', '.join(value)
+        for key, value in self.data_to_dict(processed_data, request).items():
             content.append('{0}: {1}'.format(
                 key.replace('_', ' ').title(),
-                utils.attempt_protected_media_value_conversion(request, value)
+                value
             ))
 
         content = '\n-------------------- \n'.join(content)
@@ -1263,28 +1261,13 @@ class CoderedFormMixin(models.Model):
             message_args['from_email'] = genemail
         if self.reply_address:
             # Render reply-to field using form submission as context.
-            context = Context(self.data_to_dict(processed_data))
+            context = Context(self.data_to_dict(processed_data, request))
             template_reply_to = Template(self.reply_address)
             message_args['reply_to'] = template_reply_to.render(context).split(',')
 
         # Send email
         message = EmailMessage(**message_args)
         message.send()
-
-
-    def data_to_dict(self, processed_data):
-        """
-        Converts processed form data into a dictionary suitable
-        for rendering in a context.
-        """
-        dictionary = {}
-
-        for key, value in processed_data.items():
-            dictionary[key.replace('-', '_')] = value
-            if isinstance(value, list):
-                dictionary[key] = ', '.join(value)
-
-        return dictionary
 
     def render_landing_page(self, request, form_submission=None, *args, **kwargs):
 
@@ -1306,7 +1289,7 @@ class CoderedFormMixin(models.Model):
         )
         return response
 
-    def data_to_dict(self, processed_data):
+    def data_to_dict(self, processed_data, request):
         """
         Converts processed form data into a dictionary suitable
         for rendering in a context.
@@ -1317,7 +1300,9 @@ class CoderedFormMixin(models.Model):
             dictionary[key.replace('-', '_')] = value
             if isinstance(value, list):
                 dictionary[key] = ', '.join(value)
-
+            else:
+                dictionary[key] = utils.attempt_protected_media_value_conversion(request, value)
+            
         return dictionary
 
     preview_modes = [
@@ -1485,7 +1470,19 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
 
         return submission
 
+    def render_email(self, value):
+        return value
 
+    def render_link(self, value):
+        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+
+
+    def render_image(self, value):
+        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+
+
+    def render_file(self, value):
+        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
 
 
 @receiver(post_save)

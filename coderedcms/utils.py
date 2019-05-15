@@ -26,13 +26,6 @@ def attempt_protected_media_value_conversion(request, value):
     except AttributeError:
         pass
 
-    try:
-        if value.startswith("<a href="):
-            soup = BeautifulSoup(value, 'html5lib')
-            return soup.findAll('a')[0]['href']
-    except:
-        pass
-
     return value
 
 def fix_ical_datetime_format(dt_str):

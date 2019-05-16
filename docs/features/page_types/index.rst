@@ -8,6 +8,7 @@ Page Types
     event_pages
     form_pages
     location_pages
+    stream_forms
     web_pages
 
 

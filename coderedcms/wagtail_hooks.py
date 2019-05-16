@@ -3,15 +3,17 @@ import mimetypes
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http.response import HttpResponse
-from django.utils.html import format_html
+from django.urls import reverse
+from django.utils.html import format_html, mark_safe
+from django.utils.translation import ugettext_lazy as _
 from wagtail.contrib.forms.models import AbstractForm
+from wagtail.contrib.modeladmin.options import modeladmin_register
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
 from coderedcms import utils
-from coderedcms.models import CoderedFormPage
-
+from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
@@ -37,6 +39,7 @@ def clear_wagtailcache(request, page):
 
 @hooks.register('filter_form_submissions_for_user')
 def codered_forms(user, editable_forms):
+    from coderedcms.models import CoderedFormMixin
     """
     Add our own CoderedFormPage to editable_forms, since wagtail is unaware
     of its existance. Essentailly this is a fork of wagtail.contrib.forms.get_forms_for_user()
@@ -44,7 +47,7 @@ def codered_forms(user, editable_forms):
     """
     form_models = [
         model for model in get_page_models()
-        if issubclass(model, (AbstractForm, CoderedFormPage))
+        if issubclass(model, CoderedFormMixin)
     ]
     form_types = list(
         ContentType.objects.get_for_models(*form_models).values()
@@ -65,3 +68,43 @@ def serve_document_directly(document, request):
     response['Content-Disposition'] = 'inline;filename="{0}"'.format(document.filename)
     response['Content-Encoding'] = content_encoding
     return response
+
+
+class CoderedSubmissionAdmin(SubmissionAdmin):
+
+    def __init__(self, parent=None):
+        from coderedcms.models import CoderedSessionFormSubmission
+        self.model = CoderedSessionFormSubmission
+        super().__init__(parent=parent)
+
+
+class CoderedFormAdmin(FormAdmin):
+    list_display = ('title', 'action_links')
+
+    def all_submissions_link(self, obj, label=_('See all submissions'),
+                             url_suffix=''):
+        return '<a href="%s?page_id=%s%s">%s</a>' % (
+            reverse(CoderedSubmissionAdmin().url_helper.get_action_url_name('index')),
+            obj.pk, url_suffix, label)
+    all_submissions_link.short_description = ''
+    all_submissions_link.allow_tags = True
+
+    def action_links(self, obj):
+        from coderedcms.models import CoderedFormPage, CoderedStreamFormPage
+        actions = []
+        if issubclass(type(obj.specific), CoderedFormPage):
+            actions.append(
+                '<a href="{0}">{1}</a>'.format(reverse('wagtailforms:list_submissions', args=(obj.pk,)), _('See all Submissions'))
+            )
+            actions.append(
+                '<a href="{0}">{1}</a>'.format(reverse('wagtailadmin_pages:edit', args=(obj.pk,)), _('Edit this form page'))
+            )
+        elif issubclass(type(obj.specific), CoderedStreamFormPage):
+            actions.append(self.unprocessed_submissions_link(obj))
+            actions.append(self.all_submissions_link(obj))
+            actions.append(self.edit_link(obj))
+
+        return mark_safe("<br />".join(actions))
+
+# modeladmin_register(CoderedFormAdmin)
+# modeladmin_register(CoderedSubmissionAdmin)

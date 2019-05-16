@@ -122,6 +122,8 @@ class CoderedFormBuilder(FormBuilder):
 
 
 class CoderedSubmissionsListView(WagtailSubmissionsListView):
+
+    
     def get_csv_response(self, context):
         filename = self.get_csv_filename()
         response = HttpResponse(content_type='text/csv; charset=utf-8')

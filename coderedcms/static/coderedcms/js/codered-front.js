@@ -46,6 +46,10 @@ libs = {
     coderedmaps: {
         url: "/static/coderedcms/js/codered-maps.js",
         integrity: "",
+    },
+    coderedstreamforms: {
+        url: "/static/coderedcms/js/codered-streamforms.js",
+        integrity: "",
     }
 }
 
@@ -200,6 +204,10 @@ $(document).ready(function()
                 }
             });
         });
+    }
+
+    if ($('.stream-form-input').length > 0){
+        load_script(libs.coderedstreamforms);
     }
 
     /*** Lightbox ***/

@@ -11,4 +11,4 @@ Snippets
     navigation_bars
     reusable_content
 
-CodeRed CMS follows the Wagtail philosophy when it comes to snippets (viewable here<https://docs.wagtail.io/en/latest/topics/snippets.html>). 
+CodeRed CMS follows the Wagtail philosophy when it comes to snippets (viewable `here <https://docs.wagtail.io/en/latest/topics/snippets.html>`_). 

@@ -15,7 +15,9 @@ from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.http import JsonResponse
+from django.db.models.signals import post_delete, post_save
+from django.dispatch import receiver
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import Context, Template
 from django.template.loader import render_to_string
@@ -27,6 +29,7 @@ from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.tags import ClusterTaggableManager
+from pathlib import Path
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     HelpPanel,
@@ -45,7 +48,7 @@ from wagtail.core.utils import resolve_model_string
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.models import AbstractFormSubmission, FormSubmission
 from wagtail.search import index
 from wagtailcache.cache import WagtailCacheMixin
 
@@ -53,13 +56,17 @@ from coderedcms import schema, utils
 from coderedcms.blocks import (
     CONTENT_STREAMBLOCKS,
     LAYOUT_STREAMBLOCKS,
+    STREAMFORM_BLOCKS,
     ContentWallBlock,
     OpenHoursBlock,
-    StructuredDataActionBlock)
+    StructuredDataActionBlock,
+    CoderedStreamFormStepBlock)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
+from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
+from coderedcms.wagtail_flexible_forms.models import Step, Steps, StreamFormMixin, StreamFormJSONEncoder, SessionFormSubmission, SubmissionRevision
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
@@ -451,7 +458,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         to enable customization by subclasses.
         """
         super().__init__(*args, **kwargs)
-
         klassname = self.__class__.__name__.lower()
         template_choices = cr_settings['FRONTEND_TEMPLATES_PAGES'].get('*', ()) + \
                            cr_settings['FRONTEND_TEMPLATES_PAGES'].get(klassname, ())
@@ -995,26 +1001,15 @@ class CoderedEventOccurrence(Orderable, BaseOccurrence):
         abstract = True
 
 
-class CoderedFormPage(CoderedWebPage):
-    """
-    This is basically a clone of wagtail.contrib.forms.models.AbstractForm
-    with changes in functionality and extending CoderedWebPage vs wagtailcore.Page.
-    """
+class CoderedFormMixin(models.Model):
+
     class Meta:
-        verbose_name = _('CodeRed Form Page')
-        abstract = True
-
-    template = 'coderedcms/pages/form_page.html'
-    landing_page_template = 'coderedcms/pages/form_page_landing.html'
-
-    base_form_class = WagtailAdminFormPageForm
-
-    form_builder = CoderedFormBuilder
+        abstract=True
 
     submissions_list_view_class = CoderedSubmissionsListView
+    encoder = DjangoJSONEncoder
 
     ### Custom codered fields
-
     to_address = models.CharField(
         max_length=255,
         blank=True,
@@ -1096,9 +1091,8 @@ class CoderedFormPage(CoderedWebPage):
         help_text=_('Date and time when the FORM will no longer be available on the page.'),
     )
 
-    body_content_panels = CoderedWebPage.body_content_panels + [
-        FormSubmissionsPanel(),
-        InlinePanel('form_fields', label="Form fields"),
+
+    body_content_panels = [
         MultiFieldPanel(
             [
                 PageChooserPanel('thank_you_page'),
@@ -1120,10 +1114,9 @@ class CoderedFormPage(CoderedWebPage):
             ],
             _('Form Submissions')
         ),
-        InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
     ]
 
-    settings_panels = CoderedPage.settings_panels + [
+    settings_panels = [
         MultiFieldPanel(
             [
                 FieldRowPanel(
@@ -1147,92 +1140,40 @@ class CoderedFormPage(CoderedWebPage):
         return (self.form_golive_at is None or self.form_golive_at <= timezone.now()) and \
                (self.form_expire_at is None or self.form_expire_at >= timezone.now())
 
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not hasattr(self, 'landing_page_template'):
-            name, ext = os.path.splitext(self.template)
-            self.landing_page_template = name + '_landing' + ext
-
-    def get_form_fields(self):
-        """
-        Form page expects `form_fields` to be declared.
-        If you want to change backwards relation name,
-        you need to override this method.
-        """
-
-        return self.form_fields.all()
-
-    def get_data_fields(self):
-        """
-        Returns a list of tuples with (field_name, field_label).
-        """
-
-        data_fields = [
-            ('submit_time', _('Submission date')),
-        ]
-        data_fields += [
-            (field.clean_name, field.label)
-            for field in self.get_form_fields()
-        ]
-
-        return data_fields
-
-    def get_form_class(self):
-        fb = self.form_builder(self.get_form_fields())
-        return fb.get_form_class()
-
-    def get_form_parameters(self):
-        return {}
-
-    def get_form(self, *args, **kwargs):
-        form_class = self.get_form_class()
-        form_params = self.get_form_parameters()
-        form_params.update(kwargs)
-
-        return form_class(*args, **form_params)
-
     def get_landing_page_template(self, request, *args, **kwargs):
         return self.landing_page_template
 
-    def get_submission_class(self):
-        """
-        Returns submission class.
-
-        You can override this method to provide custom submission class.
-        Your class must be inherited from AbstractFormSubmission.
-        """
-
-        return FormSubmission
-
-    def process_form_submission(self, request, form):
-        """
-        Accepts form instance with submitted data, user and page.
-        Creates submission instance.
-
-        You can override this method if you want to have custom creation logic.
-        For example, if you want to save reference to a user.
-        """
+    def process_data(self, form, request):
         processed_data = {}
-
         # Handle file uploads
         for key, val in form.cleaned_data.items():
+
             if type(val) == InMemoryUploadedFile or type(val) == TemporaryUploadedFile:
                 # Save the file and get its URL
-                file_system = FileSystemStorage(
-                    location=cr_settings['PROTECTED_MEDIA_ROOT'],
-                    base_url=cr_settings['PROTECTED_MEDIA_URL']
-                )
-                filename = file_system.save(file_system.get_valid_name(val.name), val)
-                processed_data[key] = file_system.url(filename)
+
+                directory = request.session.session_key
+                storage = self.get_storage()
+                Path(storage.path(directory)).mkdir(parents=True,
+                                                    exist_ok=True)
+                path = storage.get_available_name(
+                    str(Path(directory) / val.name))
+                with storage.open(path, 'wb+') as destination:
+                    for chunk in val.chunks():
+                        destination.write(chunk)
+
+                processed_data[key] = "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], path)
             else:
                 processed_data[key] = val
 
-        # Get submission
-        form_submission = self.get_submission_class()(
-            form_data=json.dumps(processed_data, cls=DjangoJSONEncoder),
-            page=self,
-        )
+        return processed_data
+
+    def get_storage(self):
+        return FileSystemStorage(
+                location=cr_settings['PROTECTED_MEDIA_ROOT'],
+                base_url=cr_settings['PROTECTED_MEDIA_URL']
+            )
+
+    def process_form_submission(self, request, form, form_submission, processed_data):
 
         # Save to database
         if self.save_to_database:
@@ -1244,7 +1185,7 @@ class CoderedFormPage(CoderedWebPage):
 
         if self.confirmation_emails:
             # Convert form data into a context.
-            context = Context(self.data_to_dict(processed_data))
+            context = Context(self.data_to_dict(processed_data, request))
             # Render emails as if they are django templates.
             for email in self.confirmation_emails.all():
 
@@ -1291,24 +1232,20 @@ class CoderedFormPage(CoderedWebPage):
         for fn in hooks.get_hooks('form_page_submit'):
             fn(instance=self, form_submission=form_submission)
 
-        return form_submission
-
     def send_summary_mail(self, request, form, processed_data):
         """
         Sends a form submission summary email.
         """
         addresses = [x.strip() for x in self.to_address.split(',')]
         content = []
-        for field in form:
-            value = processed_data[field.name]
-            # Convert lists into human readable comma separated strings.
-            if isinstance(value, list):
-                value = ', '.join(value)
+
+        for key, value in self.data_to_dict(processed_data, request).items():
             content.append('{0}: {1}'.format(
-                field.label,
-                utils.attempt_protected_media_value_conversion(request, value)
+                key.replace('_', ' ').title(),
+                value
             ))
-        content = '\n\n'.join(content)
+
+        content = '\n-------------------- \n'.join(content)
 
         # Build email message parameters
         message_args = {
@@ -1324,7 +1261,7 @@ class CoderedFormPage(CoderedWebPage):
             message_args['from_email'] = genemail
         if self.reply_address:
             # Render reply-to field using form submission as context.
-            context = Context(self.data_to_dict(processed_data))
+            context = Context(self.data_to_dict(processed_data, request))
             template_reply_to = Template(self.reply_address)
             message_args['reply_to'] = template_reply_to.render(context).split(',')
 
@@ -1332,21 +1269,8 @@ class CoderedFormPage(CoderedWebPage):
         message = EmailMessage(**message_args)
         message.send()
 
-    def data_to_dict(self, processed_data):
-        """
-        Converts processed form data into a dictionary suitable
-        for rendering in a context.
-        """
-        dictionary = {}
-
-        for key, value in processed_data.items():
-            dictionary[key.replace('-', '_')] = value
-            if isinstance(value, list):
-                dictionary[key] = ', '.join(value)
-
-        return dictionary
-
     def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+
         """
         Renders the landing page.
 
@@ -1365,34 +1289,21 @@ class CoderedFormPage(CoderedWebPage):
         )
         return response
 
-    def serve_submissions_list_view(self, request, *args, **kwargs):
+    def data_to_dict(self, processed_data, request):
         """
-        Returns list submissions view for admin.
-
-        `list_submissions_view_class` can bse set to provide custom view class.
-        Your class must be inherited from SubmissionsListView.
+        Converts processed form data into a dictionary suitable
+        for rendering in a context.
         """
-        view = self.submissions_list_view_class.as_view()
-        return view(request, form_page=self, *args, **kwargs)
+        dictionary = {}
 
-    def serve(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
+        for key, value in processed_data.items():
+            new_key = key.replace('-', '_')
+            if isinstance(value, list):
+                dictionary[new_key] = ', '.join(value)
+            else:
+                dictionary[new_key] = utils.attempt_protected_media_value_conversion(request, value)
 
-            if form.is_valid():
-                form_submission = self.process_form_submission(request, form)
-                return self.render_landing_page(request, form_submission, *args, **kwargs)
-        else:
-            form = self.get_form(page=self, user=request.user)
-
-        context = self.get_context(request)
-        context['form'] = form
-        response = render(
-            request,
-            self.get_template(request),
-            context
-        )
-        return response
+        return dictionary
 
     preview_modes = [
         ('form', _('Form')),
@@ -1406,6 +1317,307 @@ class CoderedFormPage(CoderedWebPage):
 
         return super().serve_preview(request, mode)
 
+    def serve_submissions_list_view(self, request, *args, **kwargs):
+        """
+        Returns list submissions view for admin.
+
+        `list_submissions_view_class` can be set to provide custom view class.
+        Your class must be inherited from SubmissionsListView.
+        """
+        view = self.submissions_list_view_class.as_view()
+        return view(request, form_page=self, *args, **kwargs)
+
+class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
+    """
+    This is basically a clone of wagtail.contrib.forms.models.AbstractForm
+    with changes in functionality and extending CoderedWebPage vs wagtailcore.Page.
+    """
+    class Meta:
+        verbose_name = _('CodeRed Form Page')
+        abstract = True
+
+    template = 'coderedcms/pages/form_page.html'
+    landing_page_template = 'coderedcms/pages/form_page_landing.html'
+
+    base_form_class = WagtailAdminFormPageForm
+
+    form_builder = CoderedFormBuilder
+
+    body_content_panels = [
+            InlinePanel('form_fields', label="Form fields"),
+        ] + \
+        CoderedWebPage.body_content_panels + \
+        CoderedFormMixin.body_content_panels + [
+            FormSubmissionsPanel(),
+            InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
+        ]
+
+    settings_panels = CoderedPage.settings_panels + CoderedFormMixin.settings_panels
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not hasattr(self, 'landing_page_template'):
+            name, ext = os.path.splitext(self.template)
+            self.landing_page_template = name + '_landing' + ext
+
+    def get_form_fields(self):
+        """
+        Form page expects `form_fields` to be declared.
+        If you want to change backwards relation name,
+        you need to override this method.
+        """
+
+        return self.form_fields.all()
+
+    def get_data_fields(self):
+        """
+        Returns a list of tuples with (field_name, field_label).
+        """
+
+        data_fields = [
+            ('submit_time', _('Submission date')),
+        ]
+        data_fields += [
+            (field.clean_name, field.label)
+            for field in self.get_form_fields()
+        ]
+        return data_fields
+
+    def get_form_class(self):
+        fb = self.form_builder(self.get_form_fields())
+        return fb.get_form_class()
+
+    def get_form_parameters(self):
+        return {}
+
+    def get_form(self, *args, **kwargs):
+        form_class = self.get_form_class()
+        form_params = self.get_form_parameters()
+        form_params.update(kwargs)
+
+        return form_class(*args, **form_params)
+
+    def get_submission_class(self):
+        """
+        Returns submission class.
+
+        You can override this method to provide custom submission class.
+        Your class must be inherited from AbstractFormSubmission.
+        """
+
+        return FormSubmission
+
+    def serve(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
+
+            if form.is_valid():
+                processed_data = self.process_data(form, request)
+                form_submission = self.get_submission_class()(
+                    form_data=json.dumps(processed_data, cls=self.encoder),
+                    page=self,
+                )
+                self.process_form_submission(
+                    request=request,
+                    form=form,
+                    form_submission=form_submission,
+                    processed_data=processed_data)
+                return self.render_landing_page(request, form_submission, *args, **kwargs)
+        else:
+            form = self.get_form(page=self, user=request.user)
+
+        context = self.get_context(request)
+        context['form'] = form
+        response = render(
+            request,
+            self.get_template(request),
+            context
+        )
+        return response
+
+class CoderedSubmissionRevision(SubmissionRevision, models.Model):
+    pass
+
+
+class CoderedSessionFormSubmission(SessionFormSubmission):
+
+    INCOMPLETE = 'incomplete'
+    COMPLETE = 'complete'
+    REVIEWED = 'reviewed'
+    APPROVED = 'approved'
+    REJECTED = 'rejected'
+    STATUSES = (
+        (INCOMPLETE, _('Not submitted')),
+        (COMPLETE, _('Complete')),
+        (REVIEWED, _('Under consideration')),
+        (APPROVED, _('Approved')),
+        (REJECTED, _('Rejected')),
+    )
+    status = models.CharField(max_length=10, choices=STATUSES, default=INCOMPLETE)
+
+    def create_normal_submission(self, delete_self=True):
+        submission_data = self.get_data()
+        if 'user' in submission_data:
+            submission_data['user'] = str(submission_data['user'])
+        submission = FormSubmission.objects.create(
+                form_data=json.dumps(submission_data, cls=StreamFormJSONEncoder),
+                page=self.page
+            )
+
+        if delete_self:
+            CoderedSubmissionRevision.objects.filter(submission_id=self.id).delete()
+            self.delete()
+
+        return submission
+
+    def render_email(self, value):
+        return value
+
+    def render_link(self, value):
+        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+
+
+    def render_image(self, value):
+        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+
+
+    def render_file(self, value):
+        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+
+
+@receiver(post_save)
+def create_submission_changed_revision(sender, **kwargs):
+    if not issubclass(sender, SessionFormSubmission):
+        return
+    submission = kwargs['instance']
+    created = kwargs['created']
+    CoderedSubmissionRevision.create_from_submission(
+        submission, (CoderedSubmissionRevision.CREATED if created
+                     else CoderedSubmissionRevision.CHANGED))
+
+
+@receiver(post_delete)
+def create_submission_deleted_revision(sender, **kwargs):
+    if not issubclass(sender, CoderedSessionFormSubmission):
+        return
+    submission = kwargs['instance']
+    CoderedSubmissionRevision.create_from_submission(submission,
+                                              SubmissionRevision.DELETED)
+
+
+class CoderedStep(Step):
+
+    def get_markups_and_bound_fields(self, form):
+        for struct_child in self.form_fields:
+            block = struct_child.block
+            if isinstance(block, FormFieldBlock):
+                struct_value = struct_child.value
+                field_name = block.get_slug(struct_value)
+                yield form[field_name], 'field', struct_child
+            else:
+                yield mark_safe(struct_child), 'markup'
+
+
+class CoderedSteps(Steps):
+
+    def __init__(self, page, request=None):
+        self.page = page
+        # TODO: Make it possible to change the `form_fields` attribute.
+        self.form_fields = page.form_fields
+        self.request = request
+        has_steps = any(isinstance(struct_child.block, FormStepBlock)
+                        for struct_child in self.form_fields)
+        if has_steps:
+            steps = [CoderedStep(self, i, form_field)
+                     for i, form_field in enumerate(self.form_fields)]
+        else:
+            steps = [CoderedStep(self, 0, self.form_fields)]
+        super(Steps, self).__init__(steps)
+
+
+class CoderedStreamFormMixin(StreamFormMixin):
+    class Meta:
+        abstract=True
+
+    def get_steps(self, request=None):
+        if not hasattr(self, 'steps'):
+            steps = CoderedSteps(self, request=request)
+            if request is None:
+                return steps
+            self.steps = steps
+        return self.steps
+
+    @staticmethod
+    def get_submission_class():
+        return FormSubmission
+
+    @staticmethod
+    def get_session_submission_class():
+        return CoderedSessionFormSubmission
+
+    def get_submission(self, request):
+        Submission = self.get_session_submission_class()
+        if request.user.is_authenticated:
+            user_submission = Submission.objects.filter(
+                user=request.user, page=self).order_by('-pk').first()
+            if user_submission is None:
+                return Submission(user=request.user, page=self, form_data='[]')
+            return user_submission
+
+        # Custom code to ensure that anonymous users get a session key.
+        if not request.session.session_key:
+            request.session.create()
+
+        user_submission = Submission.objects.filter(
+            session_key=request.session.session_key, page=self
+        ).order_by('-pk').first()
+        if user_submission is None:
+            return Submission(session_key=request.session.session_key,
+                              page=self, form_data='[]')
+        return user_submission
+
+
+class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWebPage):
+    class Meta:
+        verbose_name = _('CodeRed Advanced Form Page')
+        abstract = True
+
+    template = 'coderedcms/pages/stream_form_page.html'
+    landing_page_template = 'coderedcms/pages/form_page_landing.html'
+
+    form_fields = StreamField(STREAMFORM_BLOCKS)
+    encoder = StreamFormJSONEncoder
+
+    body_content_panels = [
+        StreamFieldPanel('form_fields')
+    ] + \
+    CoderedFormMixin.body_content_panels + [
+        InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
+    ]
+
+    def serve(self, request, *args, **kwargs):
+        context = self.get_context(request)
+        form = context['form']
+        if request.method == 'POST' and form.is_valid():
+            is_complete = self.steps.update_data()
+            if is_complete:
+                submission = self.get_submission(request)
+                self.process_form_submission(
+                    request=request,
+                    form=form,
+                    form_submission=submission,
+                    processed_data=submission.get_data()
+                )
+                normal_submission = submission.create_normal_submission()
+                return self.render_landing_page(request, normal_submission, *args, **kwargs)
+            return HttpResponseRedirect(self.url)
+        return CoderedWebPage.serve(self, request, *args, **kwargs)
+
+    def get_storage(self):
+        return FileSystemStorage(
+                location=cr_settings['PROTECTED_MEDIA_ROOT'],
+                base_url=cr_settings['PROTECTED_MEDIA_URL']
+            )
 
 class CoderedLocationPage(CoderedWebPage):
     """

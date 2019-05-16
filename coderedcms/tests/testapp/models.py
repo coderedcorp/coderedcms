@@ -8,9 +8,10 @@ from coderedcms.models import (
     CoderedEventOccurrence,
     CoderedEmail,
     CoderedFormPage,
-    CoderedWebPage,
     CoderedLocationIndexPage,
-    CoderedLocationPage
+    CoderedLocationPage,
+    CoderedStreamFormPage,
+    CoderedWebPage
 )
 
 
@@ -139,3 +140,12 @@ class LocationIndexPage(CoderedLocationIndexPage):
     subpage_types = ['testapp.LocationPage']
 
     template = 'coderedcms/pages/location_index_page.html'
+
+class StreamFormPage(CoderedStreamFormPage):
+    class Meta:
+        verbose_name = 'Stream Form'
+
+    template = 'coderedcms/pages/stream_form_page.html'
+
+class StreamFormConfirmEmail(CoderedEmail):
+    page = ParentalKey('StreamFormPage', related_name='confirmation_emails')

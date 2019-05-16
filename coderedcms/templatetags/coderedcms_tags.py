@@ -1,12 +1,14 @@
 import string
 import random
+from html import unescape
+
+
 from datetime import datetime
 from django import template
 from django.conf import settings
 from django.forms import ClearableFileInput
 from django.utils import timezone
 from django.utils.html import mark_safe
-from django.utils.formats import localize
 from wagtail.core.models import Collection
 from wagtail.core.rich_text import RichText
 from wagtail.core.templatetags.wagtailcore_tags import richtext
@@ -100,7 +102,7 @@ def process_form_cell(request, cell):
         return utils.get_protected_media_link(request, cell, render_link=True)
     if utils.uri_validator(str(cell)):
         return mark_safe("<a href='{0}'>{1}</a>".format(cell, cell))
-    return localize(cell)
+    return cell
 
 @register.filter
 def codered_settings(value):

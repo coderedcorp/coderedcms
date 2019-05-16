@@ -19,13 +19,14 @@ def uri_validator(possible_uri):
         return False
 
 def attempt_protected_media_value_conversion(request, value):
-    new_value = value
     try:
         if value.startswith(cr_settings['PROTECTED_MEDIA_URL']):
             new_value = get_protected_media_link(request, value)
+            return new_value
     except AttributeError:
         pass
-    return new_value
+
+    return value
 
 def fix_ical_datetime_format(dt_str):
     """

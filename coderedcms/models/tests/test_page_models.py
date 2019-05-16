@@ -9,21 +9,23 @@ from coderedcms.models.page_models import (
     CoderedEventIndexPage,
     CoderedEventPage,
     CoderedFormPage,
-    CoderedPage,
-    CoderedWebPage,
     CoderedLocationIndexPage,
     CoderedLocationPage,
+    CoderedPage,
+    CoderedStreamFormPage,
+    CoderedWebPage,
     get_page_models
 )
 from coderedcms.tests.testapp.models import (
-    ArticlePage,
     ArticleIndexPage,
-    FormPage,
-    WebPage,
-    EventPage,
+    ArticlePage,
     EventIndexPage,
+    EventPage,
+    FormPage,
+    LocationIndexPage,
     LocationPage,
-    LocationIndexPage
+    StreamFormPage,
+    WebPage
 )
 
 class BasicPageTestCase():
@@ -46,6 +48,7 @@ class BasicPageTestCase():
         Tests to make sure a basic version of the page serves a 200 from a GET request.
         """
         request = self.request_factory.get(self.basic_page.url)
+        request.session = self.client.session
         request.user = AnonymousUser()
         request.site = Site.objects.all()[0]
         response = self.basic_page.serve(request)
@@ -84,6 +87,21 @@ class ConcretePageTestCase():
 class ConcreteBasicPageTestCase(ConcretePageTestCase, BasicPageTestCase):
     class Meta:
         abstract=True
+
+class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
+    class Meta:
+        abstract=True
+
+    def test_post(self):
+        """
+        Tests to make sure a basic version of the page serves a 200 from a POST request.
+        """
+        request = self.request_factory.post(self.basic_page.url)
+        request.session = self.client.session
+        request.user = AnonymousUser()
+        request.site = Site.objects.all()[0]
+        response = self.basic_page.serve(request)
+        self.assertEqual(response.status_code, 200)
 
 class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedArticleIndexPage
@@ -125,6 +143,10 @@ class CoderedEventPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedEventPage
 
 
+class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
+    model = CoderedStreamFormPage
+
+
 class ArticlePageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = ArticlePage
 
@@ -133,18 +155,8 @@ class ArticleIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = ArticleIndexPage
 
 
-class FormPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class FormPageTestCase(ConcreteFormPageTestCase, WagtailPageTests):
     model = FormPage
-
-    def test_post(self):
-        """
-        Tests to make sure a basic version of the page serves a 200 from a POST request.
-        """
-        request = self.request_factory.post(self.basic_page.url)
-        request.user = AnonymousUser()
-        request.site = Site.objects.all()[0]
-        response = self.basic_page.serve(request)
-        self.assertEqual(response.status_code, 200)
 
 
 class WebPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
@@ -165,3 +177,7 @@ class LocationIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
 
 class LocationPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = LocationPage
+
+
+class StreamFormPageTestCase(ConcreteFormPageTestCase, WagtailPageTests):
+    model = StreamFormPage

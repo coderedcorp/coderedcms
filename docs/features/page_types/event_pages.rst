@@ -28,8 +28,8 @@ Content Tab
 * **Address**: The address for the event, if applicable.
 * **Occurrences**: This lets you add the date and time information for your event.  Click the **+** icon to add a new date and time rule.
 
-Developer Implementation
-------------------------
+Implementation
+--------------
 
 The event functionality is built-in to CodeRed CMS but it is not enabled by default.
 

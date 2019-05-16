@@ -1,0 +1,9 @@
+{% load bootstrap4 %}
+<div
+{% if block.value.settings.condition_trigger_id %}data-condition-trigger-id="{{ block.value.settings.condition_trigger_id }}"{% endif %}
+{% if block.value.settings.condition_trigger_value %}data-condition-trigger-value="{{ block.value.settings.condition_trigger_value }}"{% endif %}
+{% if block.value.settings.custom_id %}id="{{block.value.settings.custom_id}}"{% endif %}
+class="stream-form-input{% if block.value.settings.custom_css_class %} {{ block.value.settings.custom_css_class }}{% endif %}"
+>
+{% bootstrap_field field layout='horizontal' %}
+</div>

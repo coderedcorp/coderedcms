@@ -8,8 +8,8 @@ Usage
 
 First start by creating a "Form" (may be named differently on your specific website). Add content to this page as you would for a normal Web Page. 
 
-Content Tab Options
-~~~~~~~~~~~~~~~~~~~
+Content Tab
+~~~~~~~~~~~
 
 * **Form Fields**: The data you want to collect on the form.  You can add as many fields as required ranging from all form input types like text, files, radio buttons, etc.
 
@@ -34,8 +34,8 @@ Content Tab Options
 
 Click the "Add Confirmation Emails" button to add additional emails you want to sent out when a form is submitted.
 
-Settings Tab Options
-~~~~~~~~~~~~~~~~~~~~
+Settings Tab
+~~~~~~~~~~~~
 
 * **Form go live date/time**: The optional date/time the form will start appearing on the page.
 * **Form expiry date/time**: The optional date/time the form will stop appearing on the page.

@@ -48,7 +48,7 @@ class CreateProject(TemplateCommand):
         # Add custom args
         import coderedcms
         codered_path = os.path.dirname(coderedcms.__file__)
-        template_path = os.path.join(codered_path, 'project_template')
+        template_path = os.path.join(os.path.join(codered_path, 'project_template'), 'basic')
         options['template'] = template_path
         options['extensions'] = ['py', 'html', 'rst', 'md']
         options['files'] = ['Dockerfile']

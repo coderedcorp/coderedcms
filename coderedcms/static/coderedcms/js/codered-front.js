@@ -48,7 +48,7 @@ libs = {
         integrity: "",
     },
     coderedstreamforms: {
-        url: "/static/js/codered-streamforms.js",
+        url: "/static/coderedcms/js/codered-streamforms.js",
         integrity: "",
     }
 }

@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block frontend_assets %}
-{# Leave this section blank since we are pulling in Bootstrap/theme assets through Sass #}
+{# Leave this section blank since we are pulling in Bootstrap/theme assets through Sass in custom.css #}
 {% endblock %}
 
 {% block coderedcms_assets %}
-{# Leave this section blank since we are pulling in coderedcms assets through Sass #}
+{# Leave this section blank since we are pulling in coderedcms assets through Sass in custom.css #}
 {% endblock %}
 
 {% block custom_assets %}
@@ -15,11 +15,11 @@
 {% endblock %}
 
 {% block frontend_scripts %}
-{# Load from our local copy of Bootstrap #}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
+{# Load Bootstrap scripts distributed by coderedcms #}
+<script src="{% static 'coderedcms/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 {% endblock %}
 
 {% block custom_scripts %}
-{# Add your custom JavaScript here #}
+{# Add your custom JavaScript here, or delete the line below if you don't need any #}
 <script type="text/javascript" src="{% static 'website/js/custom.js' %}"></script>
 {% endblock %}

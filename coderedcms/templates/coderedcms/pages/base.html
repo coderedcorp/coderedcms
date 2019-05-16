@@ -13,7 +13,6 @@
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-
               gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
             </script>
         {% endif %}
@@ -70,7 +69,7 @@
             {% if settings.coderedcms.LayoutSettings.frontend_theme %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
             {% else %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
+            <link rel="stylesheet" href="{% static 'coderedcms/vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
             {% endif %}
         {% endblock %}
 
@@ -153,7 +152,7 @@
         <div id="content-walls">
             {% block content_walls %}
                 {% for content_wall in content_walls %}
-                        {% include_block content_wall with settings=settings %}
+                    {% include_block content_wall with settings=settings %}
                 {% endfor %}
             {% endblock %}
         </div>
@@ -161,11 +160,11 @@
         {% block footer %}{% endblock %}
 
         {% block required_scripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+        <script src="{% static 'coderedcms/vendor/jquery/jquery-3.4.1.min.js' %}" ></script>
         {% endblock %}
 
         {% block frontend_scripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
+        <script src="{% static 'coderedcms/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
         {% endblock %}
 
         {% block coderedcms_scripts %}
@@ -173,6 +172,7 @@
         {% endblock %}
 
         {% block custom_scripts %}
+        {# Legacy behavior, remove this in the future and leave blank for client sites to implement. #}
         <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
         {% endblock %}
 

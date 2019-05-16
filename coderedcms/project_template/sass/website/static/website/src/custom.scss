@@ -1,0 +1,59 @@
+///
+/// CodeRed CMS Sass starter template
+///
+/// Import scss sources from the coderedcms pip package,
+/// or from your own local directory as needed.
+///
+
+// Import Bootstrap and use custom variables.
+@import "coderedcms/vendor/bootstrap/scss/functions";
+//@import "coderedcms/vendor/bootstrap/scss/variables";
+@import "variables";
+// Import the rest of Bootstrap, as needed.
+@import "coderedcms/vendor/bootstrap/scss/mixins";
+@import "coderedcms/vendor/bootstrap/scss/root";
+@import "coderedcms/vendor/bootstrap/scss/reboot";
+@import "coderedcms/vendor/bootstrap/scss/type";
+@import "coderedcms/vendor/bootstrap/scss/images";
+@import "coderedcms/vendor/bootstrap/scss/code";
+@import "coderedcms/vendor/bootstrap/scss/grid";
+@import "coderedcms/vendor/bootstrap/scss/tables";
+@import "coderedcms/vendor/bootstrap/scss/forms";
+@import "coderedcms/vendor/bootstrap/scss/buttons";
+@import "coderedcms/vendor/bootstrap/scss/transitions";
+@import "coderedcms/vendor/bootstrap/scss/dropdown";
+@import "coderedcms/vendor/bootstrap/scss/button-group";
+@import "coderedcms/vendor/bootstrap/scss/input-group";
+@import "coderedcms/vendor/bootstrap/scss/custom-forms";
+@import "coderedcms/vendor/bootstrap/scss/nav";
+@import "coderedcms/vendor/bootstrap/scss/navbar";
+@import "coderedcms/vendor/bootstrap/scss/card";
+@import "coderedcms/vendor/bootstrap/scss/breadcrumb";
+@import "coderedcms/vendor/bootstrap/scss/pagination";
+@import "coderedcms/vendor/bootstrap/scss/badge";
+@import "coderedcms/vendor/bootstrap/scss/jumbotron";
+@import "coderedcms/vendor/bootstrap/scss/alert";
+@import "coderedcms/vendor/bootstrap/scss/progress";
+@import "coderedcms/vendor/bootstrap/scss/media";
+@import "coderedcms/vendor/bootstrap/scss/list-group";
+@import "coderedcms/vendor/bootstrap/scss/close";
+@import "coderedcms/vendor/bootstrap/scss/toasts";
+@import "coderedcms/vendor/bootstrap/scss/modal";
+@import "coderedcms/vendor/bootstrap/scss/tooltip";
+@import "coderedcms/vendor/bootstrap/scss/popover";
+@import "coderedcms/vendor/bootstrap/scss/carousel";
+@import "coderedcms/vendor/bootstrap/scss/spinners";
+@import "coderedcms/vendor/bootstrap/scss/utilities";
+@import "coderedcms/vendor/bootstrap/scss/print";
+
+// CodeRed CMS styles.
+@import "coderedcms/scss/codered-hero";
+@import "coderedcms/scss/codered-richtext";
+@import "coderedcms/scss/codered-gallery";
+@import "coderedcms/scss/codered-pricelist";
+@import "coderedcms/scss/codered-article";
+@import "coderedcms/scss/codered-location";
+@import "coderedcms/scss/codered-navbar";
+@import "coderedcms/scss/codered-bs-overrides";
+
+// Your custom styles here.

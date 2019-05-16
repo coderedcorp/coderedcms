@@ -24,19 +24,17 @@ div.body h5,
 div.body h6 {
     border: none;
     font-weight: 600;
-    margin: unset;
+    margin: 1.5em 0 0 0;
     padding: 0;
 }
 div.body h1 {
     font-weight: 300;
     font-size: 2.5em;
-    padding-top: 1em;
     margin-bottom: 1em;
     line-height: 1;
 }
 div.body h2 {
     font-size: 1.5em;
-    margin-top: 1.5em;
 }
 div.body h3 {
     font-size: 1.2em;

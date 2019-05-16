@@ -23,7 +23,7 @@ from coderedcms import __shortversion__
 # -- Project information -----------------------------------------------------
 
 project = 'CodeRed CMS'
-copyright = str(datetime.datetime.now().year) + ', CodeRed LLC'
+copyright = '2018-' + str(datetime.datetime.now().year) + ', CodeRed LLC'
 author = 'CodeRed LLC'
 
 # The short X.Y version

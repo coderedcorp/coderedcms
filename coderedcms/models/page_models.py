@@ -1302,7 +1302,7 @@ class CoderedFormMixin(models.Model):
                 dictionary[new_key] = ', '.join(value)
             else:
                 dictionary[new_key] = utils.attempt_protected_media_value_conversion(request, value)
-            
+
         return dictionary
 
     preview_modes = [
@@ -1610,7 +1610,6 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
                 )
                 normal_submission = submission.create_normal_submission()
                 return self.render_landing_page(request, normal_submission, *args, **kwargs)
-                return self.serve_success(request, *args, **kwargs)
             return HttpResponseRedirect(self.url)
         return CoderedWebPage.serve(self, request, *args, **kwargs)
 

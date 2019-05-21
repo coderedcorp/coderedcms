@@ -54,12 +54,15 @@ setup(
     ],
     extras_require={
         'dev': [
-            'coverage',
             'libsass',
             'flake8',
             'sphinx',
             'twine',
             'wheel'
+        ],
+        'ci' : [
+            'coverage',
+            'flake8'
         ]
     },
     entry_points="""

@@ -59,6 +59,10 @@ setup(
             'sphinx',
             'twine',
             'wheel'
+        ],
+        'ci' : [
+            'coverage',
+            'flake8'
         ]
     },
     entry_points="""

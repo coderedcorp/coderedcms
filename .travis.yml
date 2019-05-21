@@ -7,9 +7,12 @@ python:
   - "3.7"
 install:
   - pip install -e './[dev]'
+  - pip install codecov
 before_script:
   - coderedcms start testproject
 # command to run tests
 script:
-  - python testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
-  - flake8 coderedcms testproject
+  - coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
+  - flake8 coderedcms testproject --exit-zero
+after_success:
+  - codecov

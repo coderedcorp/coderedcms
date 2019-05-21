@@ -54,6 +54,7 @@ setup(
     ],
     extras_require={
         'dev': [
+            'coverage',
             'libsass',
             'flake8',
             'sphinx',

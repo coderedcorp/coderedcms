@@ -31,12 +31,16 @@ steps:
 - script: |
     coderedcms start testproject --name="Test Project" --domain="localhost"
     coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
+    coverage xml -o $(System.DefaultWorkingDirectory)/coverage.xml
+    coverage html -d $(System.DefaultWorkingDirectory)/coverage_html
   displayName: 'Run tests'
 
 - script: |
     flake8 coderedcms testproject --exit-zero
   displayName: 'Static analysis'
 
-- script: |
-    codecov
-  displayName: 'Report code coverage'
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage_html'

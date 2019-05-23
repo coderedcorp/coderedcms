@@ -1,8 +1,11 @@
 {% load static coderedcms_tags i18n wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
 {% get_settings %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 
 <!doctype html>
-<html prefix="og: http://ogp.me/ns#">
+<html prefix="og: http://ogp.me/ns#" lang="{{ LANGUAGE_CODE }}">
   <head>
         {% block tracking %}
         {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}

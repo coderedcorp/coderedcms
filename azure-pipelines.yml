@@ -32,7 +32,6 @@ steps:
     coderedcms start testproject --name="Test Project" --domain="localhost"
     coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
     coverage xml -o $(System.DefaultWorkingDirectory)/coverage.xml
-    coverage html -d $(System.DefaultWorkingDirectory)/coverage_html
   displayName: 'Run tests'
 
 - script: |
@@ -40,7 +39,7 @@ steps:
   displayName: 'Static analysis'
 
 - task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage results'
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage_html'

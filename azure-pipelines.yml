@@ -3,6 +3,12 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
+# Display Name of each step should be prefixed with one of the following:
+#   CR-QC: for quality control measures.
+#   CR-BUILD: for build-related tasks.
+#   CR-DEPLOY: for publication or deployment.
+#   [no prefix]: for unrelated CI setup/tooling.
+
 trigger:
 - master
 
@@ -20,26 +26,33 @@ strategy:
 
 steps:
 - task: UsePythonVersion@0
+  displayName: 'Use Python version'
   inputs:
     versionSpec: '$(PYTHON_VERSION)'
     architecture: 'x64'
 
 - script: |
     python -m pip install -e ./[ci]
-  displayName: 'Install requirements'
+  displayName: 'CR-QC: Install coderedcms from local repo'
 
 - script: |
-    coderedcms start testproject --name="Test Project" --domain="localhost"
+    coderedcms start testproject --name="Test Project" --domain="www.example.com"
+  displayName: 'CR-QC: Create starter project from template'
+
+- script: |
     coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
-    coverage xml -o $(System.DefaultWorkingDirectory)/coverage.xml
-  displayName: 'Run tests'
+  displayName: 'CR-QC: Run unit tests'
 
 - script: |
     flake8 coderedcms testproject --exit-zero
-  displayName: 'Static analysis'
+  displayName: 'CR-QC: Static analysis'
+
+- script: |
+    coverage xml -o $(System.DefaultWorkingDirectory)/coverage.xml
+  displayName: 'Generate code coverage report'
 
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage results'
+  displayName: 'Publish code coverage report'
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'

@@ -56,13 +56,13 @@ setup(
         'dev': [
             'flake8',
             'libsass',
+            'pytest-cov',
             'pytest-django',
             'sphinx',
             'twine',
             'wheel'
         ],
         'ci' : [
-            'coverage',
             'flake8',
             'pytest-cov',
             'pytest-django',

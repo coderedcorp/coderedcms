@@ -3,7 +3,7 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
-# Display Name of each step should be prefixed with one of the following:
+# Display name of each step should be prefixed with one of the following:
 #   CR-QC: for quality control measures.
 #   CR-BUILD: for build-related tasks.
 #   CR-DEPLOY: for publication or deployment.
@@ -40,17 +40,12 @@ steps:
   displayName: 'CR-QC: Create starter project from template'
 
 - script: |
-    #coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
-    pytest --ds=coderedcms.tests.settings --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+    pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
   displayName: 'CR-QC: Run unit tests'
 
 - script: |
     flake8 coderedcms testproject --exit-zero
   displayName: 'CR-QC: Static analysis'
-
-#- script: |
-#    coverage xml -o $(System.DefaultWorkingDirectory)/coverage.xml
-#  displayName: 'Generate code coverage report'
 
 - task: PublishTestResults@2
   displayName: 'Publish unit test report'

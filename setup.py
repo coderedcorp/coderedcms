@@ -54,15 +54,18 @@ setup(
     ],
     extras_require={
         'dev': [
-            'libsass',
             'flake8',
+            'libsass',
+            'pytest-django',
             'sphinx',
             'twine',
             'wheel'
         ],
         'ci' : [
             'coverage',
-            'flake8'
+            'flake8',
+            'pytest-cov',
+            'pytest-django',
         ]
     },
     entry_points="""

@@ -40,16 +40,24 @@ steps:
   displayName: 'CR-QC: Create starter project from template'
 
 - script: |
-    coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
+    #coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
+    pytest --ds=coderedcms.tests.settings --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
   displayName: 'CR-QC: Run unit tests'
 
 - script: |
     flake8 coderedcms testproject --exit-zero
   displayName: 'CR-QC: Static analysis'
 
-- script: |
-    coverage xml -o $(System.DefaultWorkingDirectory)/coverage.xml
-  displayName: 'Generate code coverage report'
+#- script: |
+#    coverage xml -o $(System.DefaultWorkingDirectory)/coverage.xml
+#  displayName: 'Generate code coverage report'
+
+- task: PublishTestResults@2
+  displayName: 'Publish unit test report'
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/test-*.xml'
+    testRunTitle: 'Publish test results for Python $(python.version)'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage report'

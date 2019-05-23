@@ -25,17 +25,18 @@ steps:
     architecture: 'x64'
 
 - script: |
-    python -m pip install --upgrade pip setuptools wheel
-    pip install -e ./[ci]
-  displayName: 'Install prerequisites'
+    python -m pip install -e ./[ci]
+  displayName: 'Install requirements'
 
 - script: |
     coderedcms start testproject --name="Test Project" --domain="localhost"
-    python testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
+    coverage run testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
   displayName: 'Run tests'
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: "**/TEST-*.xml"
-    testRunTitle: 'Python $(PYTHON_VERSION)'
-  condition: succeededOrFailed()
+- script: |
+    flake8 coderedcms testproject --exit-zero
+  displayName: 'Static analysis'
+
+- script: |
+    codecov
+  displayName: 'Report code coverage'

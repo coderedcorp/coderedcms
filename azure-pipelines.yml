@@ -1,0 +1,41 @@
+# Python Django
+# Test a Django project on multiple versions of Python.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+strategy:
+  matrix:
+    Python35:
+      PYTHON_VERSION: '3.5'
+    Python36:
+      PYTHON_VERSION: '3.6'
+    Python37:
+      PYTHON_VERSION: '3.7'
+  maxParallel: 3
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(PYTHON_VERSION)'
+    architecture: 'x64'
+
+- script: |
+    python -m pip install --upgrade pip setuptools wheel
+    pip install -e ./[ci]
+  displayName: 'Install prerequisites'
+
+- script: |
+    coderedcms start testproject --name="Test Project" --domain="localhost"
+    python testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
+  displayName: 'Run tests'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: "**/TEST-*.xml"
+    testRunTitle: 'Python $(PYTHON_VERSION)'
+  condition: succeededOrFailed()

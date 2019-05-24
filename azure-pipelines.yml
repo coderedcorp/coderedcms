@@ -46,7 +46,7 @@ steps:
     if [ "$(git rev-parse --abbrev-ref HEAD)" == "master" ]; then
       flake8 coderedcms
     else
-      git diff master | flake8 --diff
+      git diff origin/master | flake8 --diff
     fi
     flake8 testproject
   displayName: 'CR-QC: Static analysis'

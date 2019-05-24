@@ -50,7 +50,7 @@ steps:
     else
       git diff origin/master | flake8 --diff
       # If the project_template changed, then flake8 the testproject too.
-      if [[ ! -z $(git diff origin/master | grep "project_template") ]]; then
+      if [[ ! -z $(git diff master | grep "^diff .*/project_template/.*") ]]; then
         flake8 testproject
       fi
     fi

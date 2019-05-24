@@ -10,86 +10,56 @@
 #   [no prefix]: for unrelated CI setup/tooling.
 
 trigger:
-- master
+  - master
 
-jobs:
-- job: 'UnitTests'
-  displayName: 'Unit Tests'
-  continueOnError: 'true'
-  pool:
-    vmImage: 'ubuntu-latest'
-  strategy:
-    matrix:
-      Python35:
-        PYTHON_VERSION: '3.5'
-      Python36:
-        PYTHON_VERSION: '3.6'
-      Python37:
-        PYTHON_VERSION: '3.7'
-    maxParallel: 3
+pool:
+  vmImage: 'ubuntu-latest'
+strategy:
+  matrix:
+    py3.5:
+      PYTHON_VERSION: '3.5'
+    py3.6:
+      PYTHON_VERSION: '3.6'
+    py3.7:
+      PYTHON_VERSION: '3.7'
 
-  steps:
-  - task: UsePythonVersion@0
-    displayName: 'Use Python version'
-    inputs:
-      versionSpec: '$(PYTHON_VERSION)'
-      architecture: 'x64'
+steps:
+- task: UsePythonVersion@0
+  displayName: 'Use Python version'
+  inputs:
+    versionSpec: '$(PYTHON_VERSION)'
+    architecture: 'x64'
 
-  - script: |
-      python -m pip install -e ./[ci]
-    displayName: 'CR-QC: Install coderedcms from local repo'
+- script: |
+    python -m pip install -e ./[ci]
+  displayName: 'CR-QC: Install coderedcms from local repo'
 
-  - script: |
-      coderedcms start testproject --name="Test Project" --domain="www.example.com"
-    displayName: 'CR-QC: Create starter project from template'
+- script: |
+    coderedcms start testproject --name="Test Project" --domain="www.example.com"
+  displayName: 'CR-QC: Create starter project from template'
 
-  - script: |
-      pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
-    displayName: 'CR-QC: Run unit tests'
+- script: |
+    pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
+  displayName: 'CR-QC: Run unit tests'
 
-  - task: PublishTestResults@2
-    displayName: 'Publish unit test report'
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFiles: '**/test-*.xml'
-      testRunTitle: 'Publish test results for Python $(python.version)'
+- bash: |
+    if [ "$(git rev-parse --abbrev-ref HEAD)" == "master" ]; then
+      flake8 coderedcms
+    else
+      git diff master | flake8 --diff
+    fi
+    flake8 testproject
+  displayName: 'CR-QC: Static analysis'
 
-  - task: PublishCodeCoverageResults@1
-    displayName: 'Publish code coverage report'
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+- task: PublishTestResults@2
+  displayName: 'Publish unit test report'
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/test-*.xml'
+    testRunTitle: 'Publish test results for Python $(python.version)'
 
-- job: 'StaticAnalysis'
-  displayName: 'Static Analysis'
-  continueOnError: 'true'
-  pool:
-    vmImage: 'ubuntu-latest'
-  strategy:
-    matrix:
-      Python35:
-        PYTHON_VERSION: '3.5'
-      Python36:
-        PYTHON_VERSION: '3.6'
-      Python37:
-        PYTHON_VERSION: '3.7'
-    maxParallel: 3
-
-  steps:
-  - task: UsePythonVersion@0
-    displayName: 'Use Python version'
-    inputs:
-      versionSpec: '$(PYTHON_VERSION)'
-      architecture: 'x64'
-
-  - script: |
-      python -m pip install -e ./[ci]
-    displayName: 'CR-QC: Install coderedcms from local repo'
-
-  - script: |
-      coderedcms start testproject --name="Test Project" --domain="www.example.com"
-    displayName: 'CR-QC: Create starter project from template'
-
-  - script: |
-      flake8 coderedcms testproject
-    displayName: 'CR-QC: Static analysis'
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage report'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'

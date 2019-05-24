@@ -43,6 +43,8 @@ steps:
   displayName: 'CR-QC: Run unit tests'
 
 - bash: |
+    # Exit with errors if any of the commands throw an error
+    set -e
     # If we're on master then flake8 everything.
     if [[ "$(git rev-parse --abbrev-ref HEAD)" == "master" ]]; then
       flake8 coderedcms testproject
@@ -50,7 +52,7 @@ steps:
     else
       git diff origin/master | flake8 --diff
       # If the project_template changed, then flake8 the testproject too.
-      if [[ ! -z $(git diff master | grep "^diff .*/project_template/.*") ]]; then
+      if [[ ! -z $(git diff origin/master | grep "^diff .*/project_template/.*") ]]; then
         flake8 testproject
       fi
     fi

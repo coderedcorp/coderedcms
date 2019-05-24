@@ -13,8 +13,9 @@ trigger:
 - master
 
 jobs:
-- job: 'BuildAndTest'
-  displayName: 'Build and Unit Tests'
+- job: 'UnitTests'
+  displayName: 'Unit Tests'
+  continueOnError: 'true'
   pool:
     vmImage: 'ubuntu-latest'
   strategy:
@@ -61,6 +62,7 @@ jobs:
 
 - job: 'StaticAnalysis'
   displayName: 'Static Analysis'
+  continueOnError: 'true'
   pool:
     vmImage: 'ubuntu-latest'
   strategy:
@@ -89,5 +91,5 @@ jobs:
     displayName: 'CR-QC: Create starter project from template'
 
   - script: |
-      flake8 coderedcms testproject --exit-zero
+      flake8 coderedcms testproject
     displayName: 'CR-QC: Static analysis'

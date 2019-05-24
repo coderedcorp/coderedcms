@@ -62,7 +62,7 @@ setup(
             'twine',
             'wheel'
         ],
-        'ci' : [
+        'ci': [
             'flake8',
             'pytest-cov',
             'pytest-django',

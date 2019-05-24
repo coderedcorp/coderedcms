@@ -3,11 +3,16 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
+# NTOES:
+#
 # Display name of each step should be prefixed with one of the following:
 #   CR-QC: for quality control measures.
 #   CR-BUILD: for build-related tasks.
 #   CR-DEPLOY: for publication or deployment.
 #   [no prefix]: for unrelated CI setup/tooling.
+#
+# Use PowerShell Core for any scripts so they are re-usable across windows/mac/linux.
+#
 
 trigger:
   - master
@@ -42,20 +47,24 @@ steps:
     pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
   displayName: 'CR-QC: Run unit tests'
 
-- bash: |
-    # Exit with errors if any of the commands throw an error
-    set -e
+- pwsh: |
     # If we're on master then flake8 everything.
-    if [[ "$(git rev-parse --abbrev-ref HEAD)" == "master" ]]; then
+    $GitBranch = git rev-parse --abbrev-ref HEAD
+    if ( $GitBranch -eq "master") {
       flake8 coderedcms testproject
+      if ($LastExitCode -ne 0) { Write-Error "Static analysis errors" }
+    }
     # Else flake8 just the diff.
-    else
+    else {
       git diff origin/master | flake8 --diff
+      if ($LastExitCode -ne 0) { Write-Error "Static analysis errors" }
       # If the project_template changed, then flake8 the testproject too.
-      if [[ ! -z $(git diff origin/master | grep "^diff .*/project_template/.*") ]]; then
-        flake8 testproject
-      fi
-    fi
+      $GitDiffTempl = git diff origin/master | Select-String -Pattern "^diff .*/project_template/.*"
+      if ( $GitDiffTempl -ne $null ) {
+          flake8 testproject
+          if ($LastExitCode -ne 0) { Write-Error "Static analysis errors" }
+      }
+    }
   displayName: 'CR-QC: Static analysis'
 
 - task: PublishTestResults@2

@@ -60,6 +60,7 @@ steps:
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage report'
+  condition: succeededOrFailed()
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'

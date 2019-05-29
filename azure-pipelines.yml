@@ -40,6 +40,10 @@ steps:
   displayName: 'CR-QC: Install coderedcms from local repo'
 
 - script: |
+    python -m pip freeze
+  displayName: 'CR-QC: Show installed pip packages'
+
+- script: |
     coderedcms start testproject --name="Test Project" --domain="www.example.com"
   displayName: 'CR-QC: Create starter project from template'
 

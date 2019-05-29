@@ -36,9 +36,10 @@ from .html_blocks import (
     RichTextBlock,
     TableBlock
 )
-from .content_blocks import (
+from .content_blocks import (  # noqa
     CardBlock,
     CarouselBlock,
+    ContentWallBlock,
     ImageGalleryBlock,
     ModalBlock,
     NavDocumentLinkWithSubLinkBlock,
@@ -51,6 +52,10 @@ from .layout_blocks import (
     CardGridBlock,
     GridBlock,
     HeroBlock
+)
+from .metadata_blocks import (  # noqa
+    OpenHoursBlock,
+    StructuredDataActionBlock
 )
 
 # Collections of blocks commonly used together.

@@ -223,7 +223,12 @@ class AnalyticsSettings(BaseSetting):
     ga_track_button_clicks = models.BooleanField(
         default=False,
         verbose_name=_('Track button clicks'),
-        help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),
+        help_text=_(
+            '''
+            Track all button clicks using Google Analytics event tracking.
+            Event tracking details can be specified in each button’s advanced settings options.
+            '''
+        ),
     )
 
     panels = [
@@ -248,7 +253,11 @@ class ADASettings(BaseSetting):
     skip_navigation = models.BooleanField(
         default=False,
         verbose_name=_('Show skip navigation link'),
-        help_text=_('Shows a "Skip Navigation" link above the navbar that takes you directly to the main content.'),
+        help_text=_(
+            '''
+            Shows a "Skip Navigation" link above the navbar that takes you directly to the main content.
+            '''
+        ),
     )
 
     panels = [
@@ -273,7 +282,12 @@ class GeneralSettings(BaseSetting):
         blank=True,
         max_length=255,
         verbose_name=_('From email address'),
-        help_text=_('The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)'),
+        help_text=_(
+            '''
+            The default email address this site appears to send from.
+            For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)
+            '''
+        ),
     )
     search_num_results = models.PositiveIntegerField(
         default=10,
@@ -311,22 +325,41 @@ class SeoSettings(BaseSetting):
     og_meta = models.BooleanField(
         default=True,
         verbose_name=_('Use OpenGraph Markup'),
-        help_text=_('Show an optimized preview when linking to this site on Facebook, Linkedin, Twitter, and others. See http://ogp.me/.'),
+        help_text=_(
+            '''
+            Show an optimized preview when linking to this site on
+            Facebook, Linkedin, Twitter, and others. See http://ogp.me/.
+            '''
+        ),
     )
     twitter_meta = models.BooleanField(
         default=True,
         verbose_name=_('Use Twitter Markup'),
-        help_text=_('Shows content as a "card" when linking to this site on Twitter. See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.'),
+        help_text=_(
+            '''
+            Shows content as a "card" when linking to this site on Twitter.
+            See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.
+            '''
+        ),
     )
     struct_meta = models.BooleanField(
         default=True,
         verbose_name=_('Use Structured Data'),
-        help_text=_('Optimizes information about your organization for search engines. See https://schema.org/.'),
+        help_text=_(
+            '''
+            Optimizes information about your organization for search engines. See https://schema.org/.
+            '''
+        ),
     )
     amp_pages = models.BooleanField(
         default=True,
         verbose_name=_('Use AMP Pages'),
-        help_text=_('Generates an alternate AMP version of Article pages that are preferred by search engines. See https://www.ampproject.org/'),
+        help_text=_(
+            '''
+            Generates an alternate AMP version of Article pages that are preferred by search engines.
+            See https://www.ampproject.org/
+            '''
+        ),
     )
 
     panels = [
@@ -336,7 +369,11 @@ class SeoSettings(BaseSetting):
                 FieldPanel('twitter_meta'),
                 FieldPanel('struct_meta'),
                 FieldPanel('amp_pages'),
-                HelpPanel(content=_('If these settings are enabled, the corresponding values in each page’s SEO tab are used.')),
+                HelpPanel(content=_(
+                    '''
+                    If these settings are enabled, the corresponding values in each page’s SEO tab are used.
+                    '''
+                )),
             ],
             heading=_('Search Engine Optimization')
         )

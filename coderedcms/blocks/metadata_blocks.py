@@ -23,6 +23,7 @@ class OpenHoursValue(blocks.StructValue):
         """
         return json.dumps(self['days'])
 
+
 class OpenHoursBlock(blocks.StructBlock):
     """
     Holds day and time combination for business open hours.
@@ -80,7 +81,12 @@ class StructuredDataActionBlock(blocks.StructBlock):
         required=False,
         verbose_name=_('Additional action markup'),
         classname='monospace',
-        help_text=_('Additional JSON-LD inserted into the Action dictionary. Must be properties of https://schema.org/Action.')
+        help_text=_(
+            '''
+            Additional JSON-LD inserted into the Action dictionary.
+            Must be properties of https://schema.org/Action.
+            '''
+        )
     )
 
     class Meta:

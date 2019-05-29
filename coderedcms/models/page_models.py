@@ -48,7 +48,7 @@ from wagtail.core.utils import resolve_model_string
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.contrib.forms.models import AbstractFormSubmission, FormSubmission
+from wagtail.contrib.forms.models import FormSubmission
 from wagtail.search import index
 from wagtailcache.cache import WagtailCacheMixin
 
@@ -59,14 +59,20 @@ from coderedcms.blocks import (
     STREAMFORM_BLOCKS,
     ContentWallBlock,
     OpenHoursBlock,
-    StructuredDataActionBlock,
-    CoderedStreamFormStepBlock)
+    StructuredDataActionBlock)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
 from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
-from coderedcms.wagtail_flexible_forms.models import Step, Steps, StreamFormMixin, StreamFormJSONEncoder, SessionFormSubmission, SubmissionRevision
+from coderedcms.wagtail_flexible_forms.models import (
+    Step,
+    Steps,
+    StreamFormMixin,
+    StreamFormJSONEncoder,
+    SessionFormSubmission,
+    SubmissionRevision
+)
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
@@ -75,6 +81,7 @@ logger = logging.getLogger('coderedcms')
 
 
 CODERED_PAGE_MODELS = []
+
 
 def get_page_models():
     return CODERED_PAGE_MODELS
@@ -100,10 +107,12 @@ class CoderedPageMeta(PageBase):
         if not cls._meta.abstract:
             CODERED_PAGE_MODELS.append(cls)
 
+
 class CoderedTag(TaggedItemBase):
     class Meta:
         verbose_name = _('CodeRed Tag')
     content_object = ParentalKey('coderedcms.CoderedPage', related_name='tagged_items')
+
 
 class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     """
@@ -124,7 +133,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     # ajax_template = ''
     # search_template = ''
 
-
     ###############
     # Content fields
     ###############
@@ -137,7 +145,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         related_name='+',
         verbose_name=_('Cover image'),
     )
-
 
     ###############
     # Index fields
@@ -184,7 +191,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         help_text=_('Enable filtering child pages by these classifiers.'),
     )
 
-
     ###############
     # Layout fields
     ###############
@@ -195,7 +201,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         choices=None,
         verbose_name=_('Template')
     )
-
 
     ###############
     # SEO fields
@@ -208,7 +213,12 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         on_delete=models.SET_NULL,
         related_name='+',
         verbose_name=_('Open Graph preview image'),
-        help_text=_('The image shown when linking to this page on social media. If blank, defaults to article cover image, or logo in Settings > Layout > Logo')
+        help_text=_(
+            '''
+            The image shown when linking to this page on social media.
+            If blank, defaults to article cover image, or logo in Settings > Layout > Logo
+            '''
+        )
     )
     struct_org_type = models.CharField(
         default='',
@@ -241,7 +251,12 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         on_delete=models.SET_NULL,
         related_name='+',
         verbose_name=_('Photo of Organization'),
-        help_text=_('A photo of the facility. This photo will be cropped to 1:1, 4:3, and 16:9 aspect ratios automatically.')
+        help_text=_(
+            '''
+            A photo of the facility. This photo will be cropped to 1:1,
+            4:3, and 16:9 aspect ratios automatically.
+            '''
+        )
     )
     struct_org_phone = models.CharField(
         blank=True,
@@ -277,7 +292,12 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         max_length=255,
         verbose_name=_('Country'),
-        help_text=_('For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1')
+        help_text=_(
+            '''
+            For example, USA. Two-letter ISO 3166-1 alpha-2 country
+            code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1
+            '''
+        )
     )
     struct_org_geo_lat = models.DecimalField(
         blank=True,
@@ -310,9 +330,13 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     struct_org_extra_json = models.TextField(
         blank=True,
         verbose_name=_('Additional Organization markup'),
-        help_text=_('Additional JSON-LD inserted into the Organization dictionary. Must be properties of https://schema.org/Organization or the selected organization type.')
+        help_text=_(
+            '''
+            Additional JSON-LD inserted into the Organization dictionary.
+            Must be properties of https://schema.org/Organization or the selected organization type.
+            '''
+        )
     )
-
 
     ###############
     # Classify
@@ -322,7 +346,12 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         'coderedcms.ClassifierTerm',
         blank=True,
         verbose_name=_('Classifiers'),
-        help_text=_('Categorize and group pages together with classifiers. Used to organize and filter pages across the site.'),
+        help_text=_(
+            '''
+            Categorize and group pages together with classifiers.
+            Used to organize and filter pages across the site.
+            '''
+        ),
     )
     tags = ClusterTaggableManager(
         through=CoderedTag,
@@ -330,7 +359,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         verbose_name=_('Tags'),
         help_text=_('Used to organize pages across the site.'),
     )
-
 
     ###############
     # Settings
@@ -343,7 +371,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_('Content Walls')
     )
-
 
     ###############
     # Search
@@ -369,7 +396,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         index.FilterField('custom_template'),
         index.FilterField('classifier_terms'),
     ]
-
 
     ###############
     # Panels
@@ -460,8 +486,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         super().__init__(*args, **kwargs)
         klassname = self.__class__.__name__.lower()
         template_choices = cr_settings['FRONTEND_TEMPLATES_PAGES'].get('*', ()) + \
-                           cr_settings['FRONTEND_TEMPLATES_PAGES'].get(klassname, ())
-
+            cr_settings['FRONTEND_TEMPLATES_PAGES'].get(klassname, ())
 
         self._meta.get_field('index_order_by').choices = self.index_order_by_choices
         self._meta.get_field('custom_template').choices = template_choices
@@ -469,14 +494,16 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
 
-
     @classmethod
     def get_edit_handler(cls):
         """
         Override to "lazy load" the panels overriden by subclasses.
         """
         panels = [
-            ObjectList(cls.content_panels + cls.body_content_panels + cls.bottom_content_panels, heading=_('Content')),
+            ObjectList(
+                cls.content_panels + cls.body_content_panels + cls.bottom_content_panels,
+                heading=_('Content')
+            ),
             ObjectList(cls.classify_panels, heading=_('Classify')),
             ObjectList(cls.layout_panels, heading=_('Layout')),
             ObjectList(cls.promote_panels, heading=_('SEO'), classname="seo"),
@@ -484,7 +511,11 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         ]
 
         if cls.integration_panels:
-            panels.append(ObjectList(cls.integration_panels, heading='Integrations', classname='integrations'))
+            panels.append(ObjectList(
+                cls.integration_panels,
+                heading='Integrations',
+                classname='integrations'
+            ))
 
         return TabbedInterface(panels).bind_to_model(cls)
 
@@ -581,7 +612,15 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                             for term in selected_terms:
                                 all_children = all_children.filter(classifier_terms=term)
                         except:
-                            logger.warning("Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models.", self._meta.app_label, self.__class__.__name__, self.title)
+                            logger.warning(
+                                '''
+                                Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did
+                                not return a queryset or is not a queryset of CoderedPage models.
+                                ''',
+                                self._meta.app_label,
+                                self.__class__.__name__,
+                                self.title
+                            )
             paginator = Paginator(all_children, self.index_num_per_page)
             pagenum = request.GET.get('p', 1)
             try:
@@ -593,9 +632,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
             context['index_children'] = all_children
         context['content_walls'] = self.get_content_walls(check_child_setting=False)
         return context
-
-
-
 
 ###############################################################################
 # Abstract pages providing pre-built common website functionality, suitable for subclassing.
@@ -841,7 +877,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             for occurrence in self.occurrences.all():
                 aoc += [instance for instance in occurrence.all_occurrences()]
             if len(aoc) > 0:
-                return aoc[-1] # last one in the list
+                return aoc[-1]  # last one in the list
 
         except AttributeError:
             # Triggers when a preview is initiated on an EventPage because it uses a FakeQuerySet object.
@@ -862,8 +898,11 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         }
 
         if 'limit' in kwargs:
-            if kwargs['limit'] != None:
-                # Limit the number of event instances that will be generated per occurrence rule to 10, if not otherwise specified.
+            if kwargs['limit'] is not None:
+                '''
+                Limit the number of event instances that will be
+                generated per occurrence rule to 10, if not otherwise specified.
+                '''
                 occurrence_kwargs['limit'] = kwargs.get('limit', 10)
 
         # For each occurrence rule in all of the occurrence rules for this event.
@@ -916,6 +955,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             events.append(self.convert_to_ical_format(occurrence=occurrence))
         return events
 
+
 class DefaultCalendarViewChoices():
     MONTH = 'month'
     AGENDA_WEEK = 'agendaWeek'
@@ -929,6 +969,7 @@ class DefaultCalendarViewChoices():
         (AGENDA_DAY, _('Daily Calendar')),
         (LIST_MONTH, _('Calendar List View')),
     )
+
 
 class CoderedEventIndexPage(CoderedWebPage):
     """
@@ -984,7 +1025,7 @@ class CoderedEventIndexPage(CoderedWebPage):
                 event_data = {
                     'title': event.title,
                     'start': occurrence[0].strftime('%Y-%m-%dT%H:%M:%S'),
-                    'end' : occurrence[1].strftime('%Y-%m-%dT%H:%M:%S') if occurrence[1] else "",
+                    'end': occurrence[1].strftime('%Y-%m-%dT%H:%M:%S') if occurrence[1] else "",
                     'description': "",
                 }
                 if event.url:
@@ -1002,25 +1043,33 @@ class CoderedEventOccurrence(Orderable, BaseOccurrence):
 
 
 class CoderedFormMixin(models.Model):
-
     class Meta:
-        abstract=True
+        abstract = True
 
     submissions_list_view_class = CoderedSubmissionsListView
     encoder = DjangoJSONEncoder
 
-    ### Custom codered fields
+    # Custom codered fields
     to_address = models.CharField(
         max_length=255,
         blank=True,
         verbose_name=_('Email form submissions to'),
-        help_text=_('Optional - email form submissions to this address. Separate multiple addresses by comma.')
+        help_text=_(
+            '''
+            Optional - email form submissions to this address. Separate multiple addresses by comma.
+            '''
+        )
     )
     reply_address = models.CharField(
         max_length=255,
         blank=True,
         verbose_name=_('Reply-to address'),
-        help_text=_('Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}')
+        help_text=_(
+            '''
+            Optional - to reply to the submitter, specify the email field here.
+            For example, if a form field above is labeled "Your Email", enter: {{ your_email }}'
+            '''
+        )
     )
     subject = models.CharField(
         max_length=255,
@@ -1091,7 +1140,6 @@ class CoderedFormMixin(models.Model):
         help_text=_('Date and time when the FORM will no longer be available on the page.'),
     )
 
-
     body_content_panels = [
         MultiFieldPanel(
             [
@@ -1130,7 +1178,6 @@ class CoderedFormMixin(models.Model):
             _('Form Scheduled Publishing'),
         )
     ]
-
 
     @property
     def form_live(self):
@@ -1327,6 +1374,7 @@ class CoderedFormMixin(models.Model):
         view = self.submissions_list_view_class.as_view()
         return view(request, form_page=self, *args, **kwargs)
 
+
 class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     """
     This is basically a clone of wagtail.contrib.forms.models.AbstractForm
@@ -1435,6 +1483,7 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
         )
         return response
 
+
 class CoderedSubmissionRevision(SubmissionRevision, models.Model):
     pass
 
@@ -1476,10 +1525,8 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
     def render_link(self, value):
         return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
 
-
     def render_image(self, value):
         return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
-
 
     def render_file(self, value):
         return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
@@ -1492,8 +1539,7 @@ def create_submission_changed_revision(sender, **kwargs):
     submission = kwargs['instance']
     created = kwargs['created']
     CoderedSubmissionRevision.create_from_submission(
-        submission, (CoderedSubmissionRevision.CREATED if created
-                     else CoderedSubmissionRevision.CHANGED))
+        submission, (CoderedSubmissionRevision.CREATED if created else CoderedSubmissionRevision.CHANGED))
 
 
 @receiver(post_delete)
@@ -1502,7 +1548,7 @@ def create_submission_deleted_revision(sender, **kwargs):
         return
     submission = kwargs['instance']
     CoderedSubmissionRevision.create_from_submission(submission,
-                                              SubmissionRevision.DELETED)
+                                                     SubmissionRevision.DELETED)
 
 
 class CoderedStep(Step):
@@ -1537,7 +1583,7 @@ class CoderedSteps(Steps):
 
 class CoderedStreamFormMixin(StreamFormMixin):
     class Meta:
-        abstract=True
+        abstract = True
 
     def get_steps(self, request=None):
         if not hasattr(self, 'steps'):
@@ -1591,9 +1637,9 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
     body_content_panels = [
         StreamFieldPanel('form_fields')
     ] + \
-    CoderedFormMixin.body_content_panels + [
-        InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
-    ]
+        CoderedFormMixin.body_content_panels + [
+            InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
+        ]
 
     def serve(self, request, *args, **kwargs):
         context = self.get_context(request)
@@ -1618,6 +1664,7 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
                 location=cr_settings['PROTECTED_MEDIA_ROOT'],
                 base_url=cr_settings['PROTECTED_MEDIA_URL']
             )
+
 
 class CoderedLocationPage(CoderedWebPage):
     """
@@ -1729,20 +1776,24 @@ class CoderedLocationPage(CoderedWebPage):
     def to_geojson(self):
         return {
             "type": "Feature",
-            "geometry":{
+            "geometry": {
                 "type": "Point",
                 "coordinates": [self.longitude, self.latitude]
             },
-            "properties":{
+            "properties": {
                 "list_description": self.render_list_description,
                 "pin_description": self.render_pin_description
             }
         }
 
     def save(self, *args, **kwargs):
-        if self.auto_update_latlng and GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key:
+        if self.auto_update_latlng and GoogleApiSettings.for_site(
+            Site.objects.get(is_default_site=True)
+        ).google_maps_api_key:
             try:
-                g = geocoder.google(self.address, key=GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key)
+                g = geocoder.google(self.address, key=GoogleApiSettings.for_site(
+                    Site.objects.get(is_default_site=True)
+                ).google_maps_api_key)
                 self.latitude = g.latlng[0]
                 self.longitude = g.latlng[1]
             except TypeError:
@@ -1751,10 +1802,11 @@ class CoderedLocationPage(CoderedWebPage):
 
         return super(CoderedLocationPage, self).save(*args, **kwargs)
 
-
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
+        context['google_api_key'] = GoogleApiSettings.for_site(
+            Site.objects.get(is_default_site=True)
+        ).google_maps_api_key
         return context
 
 
@@ -1788,7 +1840,12 @@ class CoderedLocationIndexPage(CoderedWebPage):
             MaxValueValidator(20),
             MinValueValidator(1),
         ],
-        help_text=_('Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings')
+        help_text=_(
+            '''
+            Requires API key to use zoom. 1: World, 5: Landmass/continent,
+            10: City, 15: Streets, 20: Buildings
+            '''
+        )
     )
 
     layout_panels = CoderedWebPage.layout_panels + [
@@ -1820,7 +1877,12 @@ class CoderedLocationIndexPage(CoderedWebPage):
             southwest = [float(x) for x in southwest.split(',')]
             northeast = [float(x) for x in northeast.split(',')]
 
-            qs = qs.filter(latitude__gte=southwest[0], latitude__lte=northeast[0], longitude__gte=southwest[1], longitude__lte=northeast[1])
+            qs = qs.filter(
+                latitude__gte=southwest[0],
+                latitude__lte=northeast[0],
+                longitude__gte=southwest[1],
+                longitude__lte=northeast[1]
+            )
 
         return {
             "type": "FeatureCollection",
@@ -1841,5 +1903,7 @@ class CoderedLocationIndexPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = GoogleApiSettings.for_site(Site.objects.get(is_default_site=True)).google_maps_api_key
+        context['google_api_key'] = GoogleApiSettings.for_site(
+            Site.objects.get(is_default_site=True)
+        ).google_maps_api_key
         return context

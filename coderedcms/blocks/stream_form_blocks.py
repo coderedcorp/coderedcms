@@ -4,9 +4,9 @@ from wagtail.core import blocks
 from coderedcms.wagtail_flexible_forms import blocks as form_blocks
 from coderedcms.blocks.base_blocks import BaseBlock, CoderedAdvSettings
 from coderedcms.forms import (
-    CoderedDateField, CoderedDateInput, 
-    CoderedDateTimeField, CoderedDateTimeInput, 
-    CoderedTimeField, CoderedTimeInput, 
+    CoderedDateField, CoderedDateInput,
+    CoderedDateTimeField, CoderedDateTimeInput,
+    CoderedTimeField, CoderedTimeInput,
     SecureFileField
 )
 
@@ -29,7 +29,7 @@ class CoderedFormAdvSettings(CoderedAdvSettings):
 
 class FormBlockMixin(BaseBlock):
     class Meta:
-        abstract=True
+        abstract = True
 
     advsettings_class = CoderedFormAdvSettings
 
@@ -84,7 +84,7 @@ class CoderedStreamFormDateFieldBlock(form_blocks.DateFieldBlock, FormBlockMixin
     class Meta:
         label = _("Date")
         icon = "fa-calendar"
-    
+
     field_class = CoderedDateField
     widget = CoderedDateInput
 
@@ -126,7 +126,7 @@ class CoderedStreamFormStepBlock(form_blocks.FormStepBlock):
 
     def __init__(self, local_blocks=None, **kwargs):
         super().__init__(
-            local_blocks = [
+            local_blocks=[
                 ('form_fields', blocks.StreamBlock(local_blocks))
             ]
         )

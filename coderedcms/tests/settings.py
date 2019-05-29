@@ -78,7 +78,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     # Error reporting. Uncomment this to recieve emails when a 404 is triggered.
-    #'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
 
     # CMS functionality
     'wagtail.core.middleware.SiteMiddleware',

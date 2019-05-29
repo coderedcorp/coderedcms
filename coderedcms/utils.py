@@ -5,10 +5,12 @@ from django.utils.html import mark_safe
 
 from coderedcms.settings import cr_settings
 
+
 def get_protected_media_link(request, path, render_link=False):
     if render_link:
         return mark_safe("<a href='{0}{1}'>{0}{1}</a>".format(request.build_absolute_uri('/')[:-1], path))
     return "{0}{1}".format(request.build_absolute_uri('/')[:-1], path)
+
 
 def uri_validator(possible_uri):
     validate = URLValidator()
@@ -17,6 +19,7 @@ def uri_validator(possible_uri):
         return True
     except ValidationError:
         return False
+
 
 def attempt_protected_media_value_conversion(request, value):
     try:
@@ -27,6 +30,7 @@ def attempt_protected_media_value_conversion(request, value):
         pass
 
     return value
+
 
 def fix_ical_datetime_format(dt_str):
     """
@@ -39,6 +43,7 @@ def fix_ical_datetime_format(dt_str):
         return dt_str
     return dt_str
 
+
 def convert_to_amp(value):
     """
     Function that converts non-amp compliant html to valid amp html.
@@ -46,7 +51,7 @@ def convert_to_amp(value):
     """
     soup = BeautifulSoup(value)
 
-    #Replace img tags with amp-img
+    # Replace img tags with amp-img
     try:
         img_tags = soup.find('img')
         img_tags.name = 'amp-img'

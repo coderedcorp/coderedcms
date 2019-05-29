@@ -79,6 +79,7 @@ class SecureFileField(forms.FileField):
 class CoderedDateInput(forms.DateInput):
     template_name = 'coderedcms/formfields/date.html'
 
+
 class CoderedDateField(forms.DateField):
     widget = CoderedDateInput()
 
@@ -87,6 +88,7 @@ class CoderedDateField(forms.DateField):
 
 class CoderedDateTimeInput(forms.DateTimeInput):
     template_name = 'coderedcms/formfields/datetime.html'
+
 
 class CoderedDateTimeField(forms.DateTimeField):
     widget = CoderedDateTimeInput()
@@ -97,6 +99,7 @@ class CoderedDateTimeField(forms.DateTimeField):
 
 class CoderedTimeInput(forms.TimeInput):
     template_name = 'coderedcms/formfields/time.html'
+
 
 class CoderedTimeField(forms.TimeField):
     widget = CoderedTimeInput()
@@ -122,8 +125,6 @@ class CoderedFormBuilder(FormBuilder):
 
 
 class CoderedSubmissionsListView(WagtailSubmissionsListView):
-
-    
     def get_csv_response(self, context):
         filename = self.get_csv_filename()
         response = HttpResponse(content_type='text/csv; charset=utf-8')
@@ -161,11 +162,20 @@ class SearchForm(forms.Form):
         label=_('Page type'),
     )
 
+
 def get_page_model_choices():
     """
-    Returns a list of tuples of all creatable Codered pages in the format of ("Custom Codered Page", "CustomCoderedPage")
+    Returns a list of tuples of all creatable Codered pages
+    in the format of ("Custom Codered Page", "CustomCoderedPage")
     """
     from coderedcms.models import get_page_models
     return (
-        (page.__name__, re.sub(r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))', r' \1', page.__name__)) for page in get_page_models() if page.is_creatable
+        (
+            page.__name__,
+            re.sub(
+                r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))',
+                r' \1',
+                page.__name__
+            )
+        ) for page in get_page_models() if page.is_creatable
     )

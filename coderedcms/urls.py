@@ -18,7 +18,11 @@ urlpatterns = [
     # CodeRed custom URLs
     re_path(r'^sitemap\.xml$', cache_page(sitemap), name='codered_sitemap'),
     re_path(r'^robots\.txt$', cache_page(robots), name='codered_robots'),
-    re_path(r'^{0}(?P<path>.*)$'.format(cr_settings['PROTECTED_MEDIA_URL'].lstrip('/')), serve_protected_file, name="serve_protected_file"),
+    re_path(r'^{0}(?P<path>.*)$'.format(
+        cr_settings['PROTECTED_MEDIA_URL'].lstrip('/')),
+        serve_protected_file,
+        name="serve_protected_file"
+    ),
 
     # Event/Calendar URLs
     path('ical/generate/single/', event_generate_single_ical_for_event, name='event_generate_single_ical'),
@@ -28,5 +32,4 @@ urlpatterns = [
 
     # Wagtail
     re_path(r'', include(wagtailcore_urls)),
-
 ]

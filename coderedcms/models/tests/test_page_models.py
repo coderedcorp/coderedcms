@@ -28,12 +28,13 @@ from coderedcms.tests.testapp.models import (
     WebPage
 )
 
+
 class BasicPageTestCase():
     """
     This is a testing mixin used to run common tests for basic versions of page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def setUp(self):
         self.request_factory = RequestFactory()
@@ -54,12 +55,13 @@ class BasicPageTestCase():
         response = self.basic_page.serve(request)
         self.assertEqual(response.status_code, 200)
 
+
 class AbstractPageTestCase():
     """
     This is a testing mixin used to run common tests for abstract page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_not_available(self):
         """
@@ -74,7 +76,7 @@ class ConcretePageTestCase():
     This is a testing mixin used to run common tests for concrete page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_is_available(self):
         """
@@ -86,11 +88,12 @@ class ConcretePageTestCase():
 
 class ConcreteBasicPageTestCase(ConcretePageTestCase, BasicPageTestCase):
     class Meta:
-        abstract=True
+        abstract = True
+
 
 class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_post(self):
         """
@@ -102,6 +105,7 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         request.site = Site.objects.all()[0]
         response = self.basic_page.serve(request)
         self.assertEqual(response.status_code, 200)
+
 
 class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedArticleIndexPage

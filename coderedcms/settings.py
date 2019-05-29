@@ -3,7 +3,9 @@ from django.conf import settings
 from django.utils.lru_cache import lru_cache
 
 
-PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))
+)
 BASE_DIR = settings.BASE_DIR if getattr(settings, 'BASE_DIR') else os.path.dirname(PROJECT_DIR)
 
 DEFAULTS = {
@@ -95,7 +97,8 @@ DEFAULTS = {
         ('navbar-expand-xl', 'xl - Show on extra large screens (desktop, wide monitor)'),
     ),
 
-    'FRONTEND_THEME_HELP': 'Change the color palette of your site with a Bootstrap theme. Powered by Bootswatch https://bootswatch.com/.',
+    'FRONTEND_THEME_HELP': '''Change the color palette of your site with a Bootstrap theme.
+                              Powered by Bootswatch https://bootswatch.com/.''',
     'FRONTEND_THEME_DEFAULT': '',
     'FRONTEND_THEME_CHOICES': (
         ('', 'Default - Classic Bootstrap'),
@@ -140,7 +143,8 @@ DEFAULTS = {
             ('coderedcms/blocks/pagelist_block.html', 'General, simple list'),
             ('coderedcms/blocks/pagelist_list_group.html', 'General, list group navigation panel'),
             ('coderedcms/blocks/pagelist_article_media.html', 'Article, media format'),
-            ('coderedcms/blocks/pagelist_article_card_group.html', 'Article, card group - attached cards of equal size'),
+            ('coderedcms/blocks/pagelist_article_card_group.html',
+                'Article, card group - attached cards of equal size'),
             ('coderedcms/blocks/pagelist_article_card_deck.html', 'Article, card deck - separate cards of equal size'),
             ('coderedcms/blocks/pagelist_article_card_columns.html', 'Article, card masonry - fluid brick pattern'),
         ),

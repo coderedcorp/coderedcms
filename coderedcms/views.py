@@ -13,7 +13,6 @@ from django.utils.translation import ungettext, ugettext_lazy as _
 from icalendar import Calendar
 
 from wagtail.admin import messages
-from wagtail.core.models import Page
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
 
@@ -22,8 +21,6 @@ from coderedcms.forms import SearchForm
 from coderedcms.models import CoderedPage, CoderedEventPage, get_page_models, GeneralSettings
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from coderedcms.settings import cr_settings
-
-
 
 
 def search(request):
@@ -159,7 +156,7 @@ def event_generate_recurring_ical_for_event(request):
             try:
                 event = event_page_model.objects.get(pk=event_pk)
                 break
-            except event_page_modal.DoesNotExist:
+            except event_page_model.DoesNotExist:
                 pass
         ical = Calendar()
         for e in event.create_recurring_ical():
@@ -215,7 +212,10 @@ def import_pages_from_csv_file(request):
     if request.method == 'POST':
         form = ImportPagesFromCSVFileForm(request.POST, request.FILES)
         if form.is_valid():
-            import_data = convert_csv_to_json(form.cleaned_data['file'].read().decode('utf-8').splitlines(), form.cleaned_data['page_type'])
+            import_data = convert_csv_to_json(
+                form.cleaned_data['file'].read().decode('utf-8').splitlines(),
+                form.cleaned_data['page_type']
+            )
             parent_page = form.cleaned_data['parent_page']
             try:
                 page_count = import_pages(import_data, parent_page)

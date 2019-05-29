@@ -42,9 +42,9 @@ class ClassifierTermChooserBlock(blocks.FieldBlock):
     widget = forms.Select
 
     def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
-        self._required=required
-        self._help_text=help_text
-        self._label=label
+        self._required = required
+        self._help_text = help_text
+        self._label = label
         super().__init__(*args, **kwargs)
 
     @cached_property
@@ -86,9 +86,9 @@ class CollectionChooserBlock(blocks.FieldBlock):
     widget = forms.Select
 
     def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
-        self._required=required
-        self._help_text=help_text
-        self._label=label
+        self._required = required
+        self._help_text = help_text
+        self._label = label
         super().__init__(*args, **kwargs)
 
     @cached_property
@@ -227,7 +227,7 @@ class BaseBlock(blocks.StructBlock):
         """
         klassname = self.__class__.__name__.lower()
         choices = cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get('*', ()) + \
-                  cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get(klassname, ())
+            cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get(klassname, ())
 
         if not local_blocks:
             local_blocks = ()
@@ -285,6 +285,7 @@ class LinkStructValue(blocks.StructValue):
         else:
             return ext
 
+
 class BaseLinkBlock(BaseBlock):
     """
     Common attributes for creating a link within the CMS.
@@ -307,4 +308,3 @@ class BaseLinkBlock(BaseBlock):
 
     class Meta:
         value_class = LinkStructValue
-

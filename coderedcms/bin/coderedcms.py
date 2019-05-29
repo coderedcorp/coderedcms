@@ -2,7 +2,6 @@
 import os
 import sys
 
-from django.core.management import ManagementUtility
 from django.core.management.templates import TemplateCommand
 from django.core.management.utils import get_random_secret_key
 
@@ -11,7 +10,11 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 4)
 
 if CURRENT_PYTHON < REQUIRED_PYTHON:
-    sys.stderr.write("This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(*(REQUIRED_PYTHON + CURRENT_PYTHON)))
+    sys.stderr.write(
+        '''
+        This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n
+        '''.format(*(REQUIRED_PYTHON + CURRENT_PYTHON))
+    )
     sys.exit(1)
 
 
@@ -23,8 +26,14 @@ class CreateProject(TemplateCommand):
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
-        parser.add_argument('--sitename', help='Human readable name of your website or brand, e.g. "Mega Corp Inc."')
-        parser.add_argument('--domain', help='Domain that will be used for your website in production, e.g. "www.example.com"')
+        parser.add_argument(
+            '--sitename',
+            help='Human readable name of your website or brand, e.g. "Mega Corp Inc."'
+        )
+        parser.add_argument(
+            '--domain',
+            help='Domain that will be used for your website in production, e.g. "www.example.com"'
+        )
         super().add_arguments(parser)
 
     def handle(self, **options):

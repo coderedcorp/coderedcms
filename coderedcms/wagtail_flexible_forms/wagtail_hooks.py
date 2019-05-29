@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.contrib.modeladmin.helpers import (
     PermissionHelper, PagePermissionHelper, PageAdminURLHelper, AdminURLHelper,
     ButtonHelper)
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from wagtail.contrib.modeladmin.options import ModelAdmin
 from wagtail.contrib.modeladmin.views import IndexView, InstanceSpecificView
 from wagtail.admin import messages
 from wagtail.core import hooks
@@ -168,7 +168,7 @@ class SubmissionButtonHelper(ButtonHelper):
                                       classnames_exclude=classnames_exclude)
 
     def approve_button(self, pk, classnames_add=None,
-                        classnames_exclude=None):
+                       classnames_exclude=None):
         if classnames_add is None:
             classnames_add = []
         if 'button-secondary' in classnames_add:
@@ -288,11 +288,11 @@ class SubmissionAdmin(ModelAdmin):
         form_page = self.get_form_page(request)
         if form_page is None:
             return self.list_display
-        l = []
+        fields = []
         for name, label in form_page.get_data_fields():
-            l.append(name)
+            fields.append(name)
             self.add_data_bridge(name, label)
-        return l
+        return fields
 
     def set_status_view(self, request, instance_pk):
         kwargs = {'model_admin': self, 'instance_pk': instance_pk}

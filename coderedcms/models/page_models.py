@@ -11,7 +11,7 @@ from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -40,7 +40,8 @@ from wagtail.admin.edit_handlers import (
     ObjectList,
     PageChooserPanel,
     StreamFieldPanel,
-    TabbedInterface)
+    TabbedInterface
+)
 from wagtail.core import hooks
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable, PageBase, Page, Site
@@ -59,7 +60,8 @@ from coderedcms.blocks import (
     STREAMFORM_BLOCKS,
     ContentWallBlock,
     OpenHoursBlock,
-    StructuredDataActionBlock)
+    StructuredDataActionBlock
+)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
@@ -611,7 +613,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                         try:
                             for term in selected_terms:
                                 all_children = all_children.filter(classifier_terms=term)
-                        except:
+                        except AttributeError:
                             logger.warning(
                                 '''
                                 Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did
@@ -625,7 +627,11 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
             pagenum = request.GET.get('p', 1)
             try:
                 paged_children = paginator.page(pagenum)
-            except:
+            except PageNotAnInteger:
+                paged_children = paginator.page(1)
+            except EmptyPage:
+                paged_children = paginator.page(1)
+            except InvalidPage:
                 paged_children = paginator.page(1)
 
             context['index_paginated'] = paged_children

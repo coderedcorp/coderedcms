@@ -243,7 +243,7 @@ class PageListBlock(BaseBlock):
             if value['classified_by']:
                 try:
                     pages = pages.filter(classifier_terms=value['classified_by'])
-                except:
+                except AttributeError:
                     # `pages` is not a queryset, or is not a queryset of CoderedPage.
                     logger.warning(
                         '''

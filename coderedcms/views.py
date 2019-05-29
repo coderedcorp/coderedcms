@@ -7,7 +7,7 @@ from datetime import datetime
 from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render
 from django.utils.translation import ungettext, ugettext_lazy as _
 from icalendar import Calendar
@@ -72,7 +72,7 @@ def search(request):
                 try:
                     model = ContentType.objects.get(model=search_model).model_class()
                     results = model.objects.live().search(search_query)
-                except:
+                except search_model.DoesNotExist:  # Possible search also causes an exception, nothing found online
                     results = None
             else:
                 results = CoderedPage.objects.live().order_by('-last_published_at').search(search_query)
@@ -83,7 +83,11 @@ def search(request):
             page = request.GET.get('p', 1)
             try:
                 results_paginated = paginator.page(page)
-            except:
+            except PageNotAnInteger:
+                results_paginated = paginator.page(1)
+            except EmptyPage:
+                results_paginated = paginator.page(1)
+            except InvalidPage:
                 results_paginated = paginator.page(1)
 
         # Log the query so Wagtail can suggest promoted results

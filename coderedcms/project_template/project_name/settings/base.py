@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "django.contrib.sitemaps",
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -176,7 +176,7 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "{{ sitename }}"
+WAGTAIL_SITE_NAME = '{{ sitename }}'
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 

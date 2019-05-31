@@ -5,13 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('coderedcms', '0009_auto_20190201_1546'),
-    ]
+    dependencies = [("coderedcms", "0009_auto_20190201_1546")]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='generalsettings',
-            name='robots',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name="generalsettings", name="robots")]

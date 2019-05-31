@@ -8,8 +8,12 @@ from coderedcms.settings import cr_settings
 
 def get_protected_media_link(request, path, render_link=False):
     if render_link:
-        return mark_safe("<a href='{0}{1}'>{0}{1}</a>".format(request.build_absolute_uri('/')[:-1], path))
-    return "{0}{1}".format(request.build_absolute_uri('/')[:-1], path)
+        return mark_safe(
+            "<a href='{0}{1}'>{0}{1}</a>".format(
+                request.build_absolute_uri("/")[:-1], path
+            )
+        )
+    return "{0}{1}".format(request.build_absolute_uri("/")[:-1], path)
 
 
 def uri_validator(possible_uri):
@@ -23,7 +27,7 @@ def uri_validator(possible_uri):
 
 def attempt_protected_media_value_conversion(request, value):
     try:
-        if value.startswith(cr_settings['PROTECTED_MEDIA_URL']):
+        if value.startswith(cr_settings["PROTECTED_MEDIA_URL"]):
             new_value = get_protected_media_link(request, value)
             return new_value
     except AttributeError:
@@ -53,8 +57,8 @@ def convert_to_amp(value):
 
     # Replace img tags with amp-img
     try:
-        img_tags = soup.find('img')
-        img_tags.name = 'amp-img'
+        img_tags = soup.find("img")
+        img_tags.name = "amp-img"
     except AttributeError:
         pass
 

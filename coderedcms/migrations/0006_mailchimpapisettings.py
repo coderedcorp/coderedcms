@@ -7,20 +7,41 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0040_page_draft_title'),
-        ('coderedcms', '0005_auto_20181214_2214'),
+        ("wagtailcore", "0040_page_draft_title"),
+        ("coderedcms", "0005_auto_20181214_2214"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MailchimpApiSettings',
+            name="MailchimpApiSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mailchimp_api_key', models.CharField(blank=True, help_text='The API Key used for Mailchimp.', max_length=255, verbose_name='Mailchimp API Key')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "mailchimp_api_key",
+                    models.CharField(
+                        blank=True,
+                        help_text="The API Key used for Mailchimp.",
+                        max_length=255,
+                        verbose_name="Mailchimp API Key",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.Site",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name': 'Mailchimp API Settings',
-            },
-        ),
+            options={"verbose_name": "Mailchimp API Settings"},
+        )
     ]

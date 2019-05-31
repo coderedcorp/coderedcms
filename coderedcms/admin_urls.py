@@ -5,7 +5,11 @@ from coderedcms.views import import_pages_from_csv_file
 
 
 urlpatterns = [
-    path('codered/import-export/import_from_csv/', import_pages_from_csv_file, name="import_from_csv"),
-    re_path(r'', include(wagtailadmin_urls)),
-    re_path(r'', include(wagtailimportexport_urls)),
+    path(
+        "codered/import-export/import_from_csv/",
+        import_pages_from_csv_file,
+        name="import_from_csv",
+    ),
+    re_path(r"", include(wagtailadmin_urls)),
+    re_path(r"", include(wagtailimportexport_urls)),
 ]

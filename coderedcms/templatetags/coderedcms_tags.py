@@ -23,22 +23,22 @@ register = template.Library()
 
 @register.filter
 def get_embed_video_provider(url):
-    if 'youtu.be' in url or 'youtube.com' in url:
-        return 'youtube'
-    if 'vimeo.com' in url:
-        return 'vimeo'
-    return ''
+    if "youtu.be" in url or "youtube.com" in url:
+        return "youtube"
+    if "vimeo.com" in url:
+        return "vimeo"
+    return ""
 
 
 @register.filter
 def get_embed_video_code(url):
-    if get_embed_video_provider(url) == 'youtube':
-        v = url.split('v=', 1)[1]
-        return v.split('&', 1)[0]
-    if get_embed_video_provider(url) == 'vimeo':
-        v = url.split('.com/', 1)[1]
-        return v.split('?', 1)[0]
-    return ''
+    if get_embed_video_provider(url) == "youtube":
+        v = url.split("v=", 1)[1]
+        return v.split("&", 1)[0]
+    if get_embed_video_provider(url) == "vimeo":
+        v = url.split(".com/", 1)[1]
+        return v.split("?", 1)[0]
+    return ""
 
 
 @register.filter
@@ -58,24 +58,24 @@ def coderedcms_version():
 
 @register.simple_tag
 def generate_random_id():
-    return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
+    return "".join(
+        random.choice(string.ascii_letters + string.digits) for n in range(20)
+    )
 
 
 @register.simple_tag
 def is_menu_item_dropdown(value):
-    return \
-        len(value.get('sub_links', [])) > 0 or \
-        (
-            value.get('show_child_links', False) and
-            len(value.get('page', []).get_children().live()) > 0
-        )
+    return len(value.get("sub_links", [])) > 0 or (
+        value.get("show_child_links", False)
+        and len(value.get("page", []).get_children().live()) > 0
+    )
 
 
 @register.simple_tag(takes_context=True)
 def is_active_page(context, curr_page, other_page):
-    if hasattr(curr_page, 'get_url') and hasattr(other_page, 'get_url'):
-        curr_url = curr_page.get_url(context['request'])
-        other_url = other_page.get_url(context['request'])
+    if hasattr(curr_page, "get_url") and hasattr(other_page, "get_url"):
+        curr_url = curr_page.get_url(context["request"])
+        other_url = other_page.get_url(context["request"])
         return curr_url == other_url
     return False
 
@@ -110,7 +110,7 @@ def get_pageform(page, request):
 
 @register.simple_tag
 def process_form_cell(request, cell):
-    if isinstance(cell, str) and cell.startswith(cr_settings['PROTECTED_MEDIA_URL']):
+    if isinstance(cell, str) and cell.startswith(cr_settings["PROTECTED_MEDIA_URL"]):
         return utils.get_protected_media_link(request, cell, render_link=True)
     if utils.uri_validator(str(cell)):
         return mark_safe("<a href='{0}'>{1}</a>".format(cell, cell))
@@ -143,7 +143,7 @@ def query_update(querydict, key=None, value=None):
             get[key] = value
         else:
             try:
-                del(get[key])
+                del get[key]
             except KeyError:
                 pass
     return get

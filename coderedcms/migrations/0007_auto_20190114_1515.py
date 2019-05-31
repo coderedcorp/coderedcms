@@ -5,17 +5,13 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('coderedcms', '0006_mailchimpapisettings'),
-    ]
+    dependencies = [("coderedcms", "0006_mailchimpapisettings")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='googleapisettings',
-            options={'verbose_name': 'Google API'},
+            name="googleapisettings", options={"verbose_name": "Google API"}
         ),
         migrations.AlterModelOptions(
-            name='mailchimpapisettings',
-            options={'verbose_name': 'Mailchimp API'},
+            name="mailchimpapisettings", options={"verbose_name": "Mailchimp API"}
         ),
     ]

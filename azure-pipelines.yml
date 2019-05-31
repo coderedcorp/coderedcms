@@ -29,6 +29,12 @@ strategy:
       PYTHON_VERSION: '3.7'
 
 steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: $ (PYTHON_VERSION)
+      addToPath: true
+
+steps:
 - task: UsePythonVersion@0
   displayName: 'Use Python version'
   inputs:

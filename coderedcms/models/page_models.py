@@ -625,6 +625,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                             )
             paginator = Paginator(all_children, self.index_num_per_page)
             pagenum = request.GET.get('p', 1)
+
             try:
                 paged_children = paginator.page(pagenum)
             except PageNotAnInteger:

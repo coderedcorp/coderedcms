@@ -3,6 +3,8 @@ from wagtail.tests.utils import WagtailPageTests
 from django.test.client import RequestFactory
 from wagtail.core.models import Site
 
+from django.core.paginator import InvalidPage, EmptyPage, PageNotAnInteger
+
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,
     CoderedArticlePage,
@@ -54,6 +56,25 @@ class BasicPageTestCase():
         request.site = Site.objects.all()[0]
         response = self.basic_page.serve(request)
         self.assertEqual(response.status_code, 200)
+
+    def test_amp(self):
+        request = self.request_factory.get(self.basic_page.url)
+        self.assertTrue(hasattr(self.model, "amp_template"))
+
+    def test_preview(self):
+        self.assertTrue(self.model.body_preview is not None)
+
+    def test_paginator_not_an_integer(self):
+        request = self.request_factory.get(self.basic_page.url, {"p": "A"})
+        self.assertTrue(isinstance(self.basic_page.get_context(request), dict))
+
+    def test_paginator_empty_page(self):
+        request = self.request_factory.get(self.basic_page.url, {"p": ""})
+        self.assertTrue(isinstance(self.basic_page.get_context(request), dict))
+
+    def test_paginator_invalid_page(self):
+        request = self.request_factory.get(self.basic_page.url, {"p": range(0, 5)})
+        self.assertTrue(isinstance(self.basic_page.get_context(request), dict))
 
 
 class AbstractPageTestCase():
@@ -183,5 +204,6 @@ class LocationPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = LocationPage
 
 
+# Does this page cause an error, or is it a test problem?
 class StreamFormPageTestCase(ConcreteFormPageTestCase, WagtailPageTests):
-    model = StreamFormPage
+   model = StreamFormPage

@@ -20,7 +20,7 @@ jobs:
       versionSpec: '$(PYTHON_VERSION)'
       architecture: 'x64'
   - script: |
-      python -m pip install -e ./[ci]
+      python -m pip install -e ./[ci_tests]
     displayName: 'CR-QC: Install coderedcms from local repo'
   - script: |
       coderedcms start testproject --name="Test Project" --domain="www.example.com"
@@ -54,6 +54,9 @@ jobs:
     inputs:
       versionSpec: '$(PYTHON_VERSION)'
       architecture: 'x64'
+  - script: |
+      python -m pip install -e ./[ci_style]
+    displayName: 'CR-QC: Install coderedcms from local repo'
   - pwsh: |
       & ci/run_flake8.ps1
     displayName: 'CR-QC: Static analysis (flake8)'

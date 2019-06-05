@@ -33,13 +33,7 @@ steps:
     inputs:
       versionSpec: $ (PYTHON_VERSION)
       addToPath: true
-
-steps:
-- task: UsePythonVersion@0
-  displayName: 'Use Python version'
-  inputs:
-    versionSpec: '$(PYTHON_VERSION)'
-    architecture: 'x64'
+      architecture: 'x64'
 
 - script: |
     python -m pip install -e ./[ci]

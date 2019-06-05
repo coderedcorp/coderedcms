@@ -2,7 +2,7 @@ import string
 import random
 from html import unescape
 
-
+from bs4 import BeautifulSoup
 from datetime import datetime
 from django import template
 from django.conf import settings
@@ -21,24 +21,6 @@ from coderedcms.models import Footer, Navbar
 from coderedcms.settings import cr_settings, get_bootstrap_setting
 
 register = template.Library()
-
-@register.filter
-def get_embed_video_provider(url):
-    if 'youtu.be' in url or 'youtube.com' in url:
-        return 'youtube'
-    if 'vimeo.com' in url:
-        return 'vimeo'
-    return ''
-
-@register.filter
-def get_embed_video_code(url):
-    if get_embed_video_provider(url) == 'youtube':
-        v = url.split('v=', 1)[1]
-        return v.split('&', 1)[0]
-    if get_embed_video_provider(url) == 'vimeo':
-        v = url.split('.com/', 1)[1]
-        return v.split('?', 1)[0]
-    return ''
 
 @register.filter
 def is_advanced_setting(obj):
@@ -142,7 +124,7 @@ def structured_data_datetime(dt):
     return datetime.strftime(dt, "%Y-%m-%d")
 
 @register.filter
-def richtext_amp(value):
+def richtext_amp_formatting(value):
 
     if isinstance(value, RichText):
         value = richtext(value.source)
@@ -151,3 +133,19 @@ def richtext_amp(value):
 
     value = utils.convert_to_amp(value)
     return mark_safe(value)
+
+@register.filter
+def amp_formatting(value):
+    return mark_safe(utils.convert_to_amp(value))
+
+@register.simple_tag
+def render_iframe_from_embed(embed):
+    soup = BeautifulSoup(embed.html, "html5lib")
+    try:
+        iframe_tags = soup.find('iframe')
+        iframe_tags['title'] = embed.title
+        return mark_safe(str(soup.body.iframe))
+    except AttributeError:
+        pass
+
+    return embed.html

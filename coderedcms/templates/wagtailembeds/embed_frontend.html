@@ -1,4 +1,4 @@
-{% load wagtailembeds_tags %}
+{% load wagtailembeds_tags coderedcms_tags %}
 
 {% if embed.ratio %}
     {# If an aspect ratio is included, use the appropriate Bootstrap 4 class #}
@@ -16,6 +16,5 @@
     <div class="row justify-content-center">
 {% endif %}
 
-{# Embed the video with an absurdly high max width. #}
-{% embed embed.url max_width=3840 %}
+{% render_iframe_from_embed embed %}
 </div>

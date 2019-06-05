@@ -29,12 +29,11 @@ strategy:
       PYTHON_VERSION: '3.7'
 
 steps:
-  - task: UsePythonVersion@0
-    displayName: 'Use Python version'
-    inputs:
-      versionSpec: $ (PYTHON_VERSION)
-      architecture: 'x64'
-      addToPath: true
+- task: UsePythonVersion@0
+  displayName: 'Use Python version'
+  inputs:
+    versionSpec: '$(PYTHON_VERSION)'
+    architecture: 'x64'
 
 - script: |
     python -m pip install -e ./[ci]

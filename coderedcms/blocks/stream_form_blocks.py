@@ -4,10 +4,13 @@ from wagtail.core import blocks
 from coderedcms.wagtail_flexible_forms import blocks as form_blocks
 from coderedcms.blocks.base_blocks import BaseBlock, CoderedAdvSettings
 from coderedcms.forms import (
-    CoderedDateField, CoderedDateInput,
-    CoderedDateTimeField, CoderedDateTimeInput,
-    CoderedTimeField, CoderedTimeInput,
-    SecureFileField
+    CoderedDateField,
+    CoderedDateInput,
+    CoderedDateTimeField,
+    CoderedDateTimeInput,
+    CoderedTimeField,
+    CoderedTimeInput,
+    SecureFileField,
 )
 
 
@@ -16,14 +19,18 @@ class CoderedFormAdvSettings(CoderedAdvSettings):
     condition_trigger_id = blocks.CharBlock(
         required=False,
         max_length=255,
-        label=_('Condition Trigger ID'),
-        help_text=_('The "Custom ID" of another field that that will trigger this field to be shown/hidden.')
+        label=_("Condition Trigger ID"),
+        help_text=_(
+            'The "Custom ID" of another field that that will trigger this field to be shown/hidden.'
+        ),
     )
     condition_trigger_value = blocks.CharBlock(
         required=False,
         max_length=255,
-        label=_('Condition Trigger Value'),
-        help_text=_('The value of the field in "Condition Trigger ID" that will trigger this field to be shown.')
+        label=_("Condition Trigger Value"),
+        help_text=_(
+            'The value of the field in "Condition Trigger ID" that will trigger this field to be shown.'  # noqa
+        ),
     )
 
 
@@ -125,8 +132,4 @@ class CoderedStreamFormStepBlock(form_blocks.FormStepBlock):
     form_fields = blocks.StreamBlock()
 
     def __init__(self, local_blocks=None, **kwargs):
-        super().__init__(
-            local_blocks=[
-                ('form_fields', blocks.StreamBlock(local_blocks))
-            ]
-        )
+        super().__init__(local_blocks=[("form_fields", blocks.StreamBlock(local_blocks))])

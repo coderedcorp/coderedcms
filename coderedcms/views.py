@@ -18,17 +18,8 @@ from wagtail.search.models import Query
 
 from coderedcms import utils
 from coderedcms.forms import SearchForm
-from coderedcms.models import (
-    CoderedPage,
-    CoderedEventPage,
-    get_page_models,
-    GeneralSettings,
-)
-from coderedcms.importexport import (
-    convert_csv_to_json,
-    import_pages,
-    ImportPagesFromCSVFileForm,
-)
+from coderedcms.models import CoderedPage, CoderedEventPage, get_page_models, GeneralSettings
+from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from coderedcms.settings import cr_settings
 
 
@@ -42,8 +33,8 @@ def search(request):
     results_paginated = None
 
     if search_form.is_valid():
-        search_query = search_form.cleaned_data["s"]
-        search_model = search_form.cleaned_data["t"]
+        search_query = search_form.cleaned_data['s']
+        search_model = search_form.cleaned_data['t']
 
         # get all codered models
         pagemodels = sorted(get_page_models(), key=lambda k: k.search_name)
@@ -68,10 +59,7 @@ def search(request):
         if backend.__class__ == db.SearchBackend and db_models:
             for model in db_models:
                 # if search_model is provided, only search on that model
-                if (
-                    not search_model
-                    or search_model == ContentType.objects.get_for_model(model).model
-                ):
+                if not search_model or search_model == ContentType.objects.get_for_model(model).model:
                     curr_results = model.objects.live().search(search_query)
                     if results:
                         results = list(chain(results, curr_results))
@@ -87,18 +75,12 @@ def search(request):
                 except search_model.DoesNotExist:  # Possible search also causes an exception, nothing found online
                     results = None
             else:
-                results = (
-                    CoderedPage.objects.live()
-                    .order_by("-last_published_at")
-                    .search(search_query)
-                )
+                results = CoderedPage.objects.live().order_by('-last_published_at').search(search_query)
 
         # paginate results
         if results:
-            paginator = Paginator(
-                results, GeneralSettings.for_site(request.site).search_num_results
-            )
-            page = request.GET.get("p", 1)
+            paginator = Paginator(results, GeneralSettings.for_site(request.site).search_num_results)
+            page = request.GET.get('p', 1)
             try:
                 results_paginated = paginator.page(page)
             except PageNotAnInteger:
@@ -112,17 +94,13 @@ def search(request):
         Query.get(search_query).add_hit()
 
     # Render template
-    return render(
-        request,
-        "coderedcms/pages/search.html",
-        {
-            "request": request,
-            "pagetypes": pagetypes,
-            "form": search_form,
-            "results": results,
-            "results_paginated": results_paginated,
-        },
-    )
+    return render(request, 'coderedcms/pages/search.html', {
+        'request': request,
+        'pagetypes': pagetypes,
+        'form': search_form,
+        'results': results,
+        'results_paginated': results_paginated
+    })
 
 
 @login_required
@@ -130,10 +108,10 @@ def serve_protected_file(request, path):
     """
     Function that serves protected files uploaded from forms.
     """
-    fullpath = os.path.join(cr_settings["PROTECTED_MEDIA_ROOT"], path)
+    fullpath = os.path.join(cr_settings['PROTECTED_MEDIA_ROOT'], path)
     if os.path.isfile(fullpath):
         mimetype, encoding = mimetypes.guess_type(fullpath)
-        with open(fullpath, "rb") as f:
+        with open(fullpath, 'rb') as f:
             response = HttpResponse(f.read(), content_type=mimetype)
         if encoding:
             response["Content-Encoding"] = encoding
@@ -143,24 +121,22 @@ def serve_protected_file(request, path):
 
 
 def robots(request):
-    return render(request, "robots.txt", content_type="text/plain")
+    return render(
+        request,
+        'robots.txt',
+        content_type='text/plain'
+    )
 
 
 def event_generate_single_ical_for_event(request):
     if request.method == "POST":
-        event_pk = request.POST["event_pk"]
+        event_pk = request.POST['event_pk']
         event_page_models = CoderedEventPage.__subclasses__()
-        dt_start_str = utils.fix_ical_datetime_format(request.POST["datetime_start"])
-        dt_end_str = utils.fix_ical_datetime_format(request.POST["datetime_end"])
+        dt_start_str = utils.fix_ical_datetime_format(request.POST['datetime_start'])
+        dt_end_str = utils.fix_ical_datetime_format(request.POST['datetime_end'])
 
-        dt_start = (
-            datetime.strptime(dt_start_str, "%Y-%m-%dT%H:%M:%S%z")
-            if dt_start_str
-            else None
-        )
-        dt_end = (
-            datetime.strptime(dt_end_str, "%Y-%m-%dT%H:%M:%S%z") if dt_end_str else None
-        )
+        dt_start = datetime.strptime(dt_start_str, "%Y-%m-%dT%H:%M:%S%z") if dt_start_str else None
+        dt_end = datetime.strptime(dt_end_str, "%Y-%m-%dT%H:%M:%S%z") if dt_end_str else None
         for event_page_model in event_page_models:
             try:
                 event = event_page_model.objects.get(pk=event_pk)
@@ -170,17 +146,15 @@ def event_generate_single_ical_for_event(request):
         ical = Calendar()
         ical.add_component(event.create_single_ical(dt_start=dt_start, dt_end=dt_end))
         response = HttpResponse(ical.to_ical(), content_type="text/calendar")
-        response["Filename"] = "{0}.ics".format(event.slug)
-        response["Content-Disposition"] = "attachment; filename={0}.ics".format(
-            event.slug
-        )
+        response['Filename'] = "{0}.ics".format(event.slug)
+        response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
         return response
     raise Http404()
 
 
 def event_generate_recurring_ical_for_event(request):
     if request.method == "POST":
-        event_pk = request.POST["event_pk"]
+        event_pk = request.POST['event_pk']
         event_page_models = CoderedEventPage.__subclasses__()
         for event_page_model in event_page_models:
             try:
@@ -192,10 +166,8 @@ def event_generate_recurring_ical_for_event(request):
         for e in event.create_recurring_ical():
             ical.add_component(e)
         response = HttpResponse(ical.to_ical(), content_type="text/calendar")
-        response["Filename"] = "{0}.ics".format(event.slug)
-        response["Content-Disposition"] = "attachment; filename={0}.ics".format(
-            event.slug
-        )
+        response['Filename'] = "{0}.ics".format(event.slug)
+        response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
         return response
     raise Http404()
 
@@ -203,7 +175,7 @@ def event_generate_recurring_ical_for_event(request):
 def event_generate_ical_for_calendar(request):
     if request.method == "POST":
         try:
-            page = CoderedPage.objects.get(id=request.POST.get("page_id")).specific
+            page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific
             print(page)
         except ValueError:
             raise Http404
@@ -213,8 +185,8 @@ def event_generate_ical_for_calendar(request):
             for e in event_page.specific.create_recurring_ical():
                 ical.add_component(e)
         response = HttpResponse(ical.to_ical(), content_type="text/calendar")
-        response["Filename"] = "calendar.ics"
-        response["Content-Disposition"] = "attachment; filename=calendar.ics"
+        response['Filename'] = "calendar.ics"
+        response['Content-Disposition'] = 'attachment; filename=calendar.ics'
         return response
     raise Http404()
 
@@ -222,12 +194,12 @@ def event_generate_ical_for_calendar(request):
 def event_get_calendar_events(request):
     if request.is_ajax():
         try:
-            page = CoderedPage.objects.get(id=request.GET.get("pid")).specific
+            page = CoderedPage.objects.get(id=request.GET.get('pid')).specific
         except ValueError:
             raise Http404
-        start_str = request.GET.get("start")
+        start_str = request.GET.get('start')
         start = datetime.strptime(start_str[:10], "%Y-%m-%d") if start_str else None
-        end_str = request.GET.get("end")
+        end_str = request.GET.get('end')
         end = datetime.strptime(end_str[:10], "%Y-%m-%d") if end_str else None
         return JsonResponse(page.get_calendar_events(start=start, end=end), safe=False)
     raise Http404()
@@ -241,30 +213,30 @@ def import_pages_from_csv_file(request):
     the importer expects.
     """
 
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ImportPagesFromCSVFileForm(request.POST, request.FILES)
         if form.is_valid():
             import_data = convert_csv_to_json(
-                form.cleaned_data["file"].read().decode("utf-8").splitlines(),
-                form.cleaned_data["page_type"],
+                form.cleaned_data['file'].read().decode('utf-8').splitlines(),
+                form.cleaned_data['page_type']
             )
-            parent_page = form.cleaned_data["parent_page"]
+            parent_page = form.cleaned_data['parent_page']
             try:
                 page_count = import_pages(import_data, parent_page)
             except LookupError as e:
-                messages.error(request, _("Import failed: %(reason)s") % {"reason": e})
-            else:
-                messages.success(
-                    request,
-                    ungettext(
-                        "%(count)s page imported.",
-                        "%(count)s pages imported.",
-                        page_count,
-                    )
-                    % {"count": page_count},
+                messages.error(request, _(
+                    "Import failed: %(reason)s") % {'reason': e}
                 )
-            return redirect("wagtailadmin_explore", parent_page.pk)
+            else:
+                messages.success(request, ungettext(
+                    "%(count)s page imported.",
+                    "%(count)s pages imported.",
+                    page_count) % {'count': page_count}
+                )
+            return redirect('wagtailadmin_explore', parent_page.pk)
     else:
         form = ImportPagesFromCSVFileForm()
 
-    return render(request, "wagtailimportexport/import_from_csv.html", {"form": form})
+    return render(request, 'wagtailimportexport/import_from_csv.html', {
+        'form': form,
+    })

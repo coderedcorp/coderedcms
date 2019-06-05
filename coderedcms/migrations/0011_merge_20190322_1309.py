@@ -6,8 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("coderedcms", "0010_remove_generalsettings_robots"),
-        ("coderedcms", "0010_generalsettings_email"),
+        ('coderedcms', '0010_remove_generalsettings_robots'),
+        ('coderedcms', '0010_generalsettings_email'),
     ]
 
-    operations = []
+    operations = [
+    ]

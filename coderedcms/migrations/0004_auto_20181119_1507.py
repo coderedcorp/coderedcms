@@ -14,41 +14,20 @@ import wagtail.snippets.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailcore", "0040_page_draft_title"),
-        ("coderedcms", "0003_auto_20180912_1632"),
+        ('wagtailcore', '0040_page_draft_title'),
+        ('coderedcms', '0003_auto_20180912_1632'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="GoogleApiSettings",
+            name='GoogleApiSettings',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "google_maps_api_key",
-                    models.CharField(
-                        blank=True,
-                        help_text="The API Key used for Google Maps.",
-                        max_length=255,
-                        verbose_name="Google Maps API Key",
-                    ),
-                ),
-                (
-                    "site",
-                    models.OneToOneField(
-                        editable=False,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="wagtailcore.Site",
-                    ),
-                ),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('google_maps_api_key', models.CharField(blank=True, help_text='The API Key used for Google Maps.', max_length=255, verbose_name='Google Maps API Key')),
+                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
             ],
-            options={"verbose_name": "Google API Settings"},
-        )
+            options={
+                'verbose_name': 'Google API Settings',
+            },
+        ),
     ]

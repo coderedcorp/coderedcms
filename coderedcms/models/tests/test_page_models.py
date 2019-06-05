@@ -14,7 +14,7 @@ from coderedcms.models.page_models import (
     CoderedPage,
     CoderedStreamFormPage,
     CoderedWebPage,
-    get_page_models,
+    get_page_models
 )
 from coderedcms.tests.testapp.models import (
     ArticleIndexPage,
@@ -25,22 +25,23 @@ from coderedcms.tests.testapp.models import (
     LocationIndexPage,
     LocationPage,
     StreamFormPage,
-    WebPage,
+    WebPage
 )
 
 
-class BasicPageTestCase:
+class BasicPageTestCase():
     """
     This is a testing mixin used to run common tests for basic versions of page types.
     """
-
     class Meta:
         abstract = True
 
     def setUp(self):
         self.request_factory = RequestFactory()
-        self.basic_page = self.model(title=str(self.model._meta.verbose_name))
-        self.homepage = WebPage.objects.get(url_path="/home/")
+        self.basic_page = self.model(
+            title=str(self.model._meta.verbose_name)
+        )
+        self.homepage = WebPage.objects.get(url_path='/home/')
         self.homepage.add_child(instance=self.basic_page)
 
     def test_get(self):
@@ -54,12 +55,10 @@ class BasicPageTestCase:
         response = self.basic_page.serve(request)
         self.assertEqual(response.status_code, 200)
 
-
-class AbstractPageTestCase:
+class AbstractPageTestCase():
     """
     This is a testing mixin used to run common tests for abstract page types.
     """
-
     class Meta:
         abstract = True
 
@@ -71,11 +70,10 @@ class AbstractPageTestCase:
         self.assertFalse(self.model in get_page_models())
 
 
-class ConcretePageTestCase:
+class ConcretePageTestCase():
     """
     This is a testing mixin used to run common tests for concrete page types.
     """
-
     class Meta:
         abstract = True
 

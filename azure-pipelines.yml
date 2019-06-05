@@ -55,7 +55,11 @@ steps:
 
 - pwsh: |
     & ci/run_flake8.ps1
-  displayName: 'CR-QC: Static analysis'
+  displayName: 'CR-QC: Static analysis (flake8)'
+
+- pwsh: |
+    & ci/run_black.ps1
+  displayName: 'CR-QC: Static analysis (black)'
 
 - task: PublishTestResults@2
   displayName: 'Publish unit test report'

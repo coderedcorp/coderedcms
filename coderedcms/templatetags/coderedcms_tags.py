@@ -147,5 +147,7 @@ def render_iframe_from_embed(embed):
         return mark_safe(str(soup.body.iframe))
     except AttributeError:
         pass
+    except TypeError:
+        pass
 
-    return embed.html
+    return mark_safe(embed.html)

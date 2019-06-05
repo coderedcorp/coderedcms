@@ -54,7 +54,8 @@ setup(
     ],
     extras_require={
         "dev": ["black", "flake8", "libsass", "pytest-cov", "pytest-django", "sphinx", "twine", "wheel"],  # noqa
-        "ci": ["black", "flake8", "pytest-cov", "pytest-django"],
+        "ci_tests": ["pytest-cov", "pytest-django"],
+        "ci_style": ["black", "flake8"],
     },
     entry_points="""
             [console_scripts]

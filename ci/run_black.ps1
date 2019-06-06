@@ -12,7 +12,7 @@ else {
     # If the project_template changed, then black the testproject too.
     $GitDiffTempl = Write-Output $GitDiff | Select-String -Pattern "^diff .*/project_template/.*"
     if ( $GitDiffTempl -ne $null ) {
-        black /coderedcms/
+        black .
         if ($LastExitCode -ne 0) { $ExitCode = $LastExitCode }
     }
 }

@@ -3,6 +3,7 @@ trigger:
 
 jobs:
 - job: tests
+  displayName: Unit Tests
   pool:
     vmImage: 'ubuntu-latest'
   strategy:
@@ -42,6 +43,7 @@ jobs:
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
 
 - job: style
+  displayName: Style Checking
   pool:
     vmImage: 'ubuntu-latest'
   strategy:

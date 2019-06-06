@@ -43,18 +43,14 @@ jobs:
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
 
 - job: style
-  displayName: Style Checking
+  displayName: Static Analysis
   pool:
     vmImage: 'ubuntu-latest'
-  strategy:
-    matrix:
-      py3.7:
-        PYTHON_VERSION: '3.7'
   steps:
   - task: UsePythonVersion@0
     displayName: 'Use Python version'
     inputs:
-      versionSpec: '$(PYTHON_VERSION)'
+      versionSpec: '3.7'
       architecture: 'x64'
   - script: |
       python -m pip install -e ./[ci_style]

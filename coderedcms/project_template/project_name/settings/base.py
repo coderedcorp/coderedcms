@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.utils.translation import gettext_lazy as _
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -138,15 +139,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
 
+# To add or change language of the project, modify the list below.
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = [
+    ('en-us', _('English'))
+]
 
 TIME_ZONE = 'America/New_York'
 
-USE_I18N = False
+USE_I18N = True
 
 USE_L10N = True
 

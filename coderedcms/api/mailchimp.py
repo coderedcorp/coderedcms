@@ -5,8 +5,8 @@ import requests
 
 
 class MailchimpApi:
-    user_string = 'Website'
-    proto_base_url = 'https://{0}.api.mailchimp.com/3.0/'
+    user_string = "Website"
+    proto_base_url = "https://{0}.api.mailchimp.com/3.0/"
 
     def __init__(self, site=None):
         self.set_access_token(site=None)

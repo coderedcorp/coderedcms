@@ -129,11 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-LANGUAGES = [
-    ('en-us', _('English')),
-]
+LANGUAGES = [("en-us", _("English"))]
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 

@@ -69,6 +69,12 @@ class EmbedGoogleMapBlock(BaseBlock):
         label=_('Search query'),
         help_text=_('Address or search term used to find your location on the map.'),
     )
+    map_title = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_('Map title'),
+        help_text=_('Map title for screen readers, ex: "Map to Goodale Park"')
+    )
     place_id = blocks.CharBlock(
         required=False,
         max_length=255,
@@ -81,13 +87,7 @@ class EmbedGoogleMapBlock(BaseBlock):
         label=_('Map zoom level'),
         help_text=_('Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings')
     )
-    place_name = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        label=_('Location name'),
-        help_text=_("Name of map location for html title attribute of map")
 
-    )
 
     class Meta:
         template = 'coderedcms/blocks/google_map.html'

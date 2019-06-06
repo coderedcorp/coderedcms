@@ -14,7 +14,7 @@ import json
 
 
 class MailchimpSubscriberIntegrationWidget(Input):
-    template_name = coderedcms/formfields/mailchimp/subscriber_integration_widget.html"
+    template_name = "coderedcms/formfields/mailchimp/subscriber_integration_widget.html"
     js_template_name = "coderedcms/formfields/mailchimp/subscriber_integration_js.html"
 
     def get_context(self, name, value, attrs):

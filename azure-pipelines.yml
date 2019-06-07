@@ -1,3 +1,20 @@
+# Python Django
+# Test a Django project on multiple versions of Python.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+# NOTES:
+#
+# Display name of each step should be prefixed with one of the following:
+#   CR-QC: for quality control measures.
+#   CR-BUILD: for build-related tasks.
+#   CR-DEPLOY: for publication or deployment.
+#   [no prefix]: for unrelated CI setup/tooling.
+#
+# Use PowerShell Core for any scripts so they are re-usable across windows/mac/linux.
+#
+
+
 trigger:
   - master
 
@@ -55,6 +72,9 @@ jobs:
   - script: |
       python -m pip install -e ./[ci_style]
     displayName: 'CR-QC: Install coderedcms from local repo'
+  - script: |
+      coderedcms start testproject
+    displayName: 'CR-QC: Generate a test project'
   - pwsh: |
       & ci/run_flake8.ps1
     displayName: 'CR-QC: Static analysis (flake8)'

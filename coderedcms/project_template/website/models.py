@@ -41,7 +41,7 @@ class ArticleIndexPage(CoderedArticleIndexPage):
     # Only allow ArticlePages beneath this page.
     subpage_types = ['website.ArticlePage']
 
-    template = 'coderedcms/pages/article_index_page.html'
+    template = 'coderedcms/pages/article_index_page.html----------------------------------------------------------------------'
 
 
 class FormPage(CoderedFormPage):

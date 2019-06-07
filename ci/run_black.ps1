@@ -1,7 +1,3 @@
-#
-# Use PowerShell Core for any scripts so they are re-usable across windows/mac/linux.
-#
-
 $ExitCode = 0
 $GitDiff = git diff --name-only origin/master | Select-String -Pattern ".*\.py" | Select-String -NotMatch ".*/project_template/.*"
 # If there is no diff between master, then black everything.

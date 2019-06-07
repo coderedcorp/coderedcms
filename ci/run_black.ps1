@@ -10,7 +10,7 @@ else {
     black --check $GitDiff
     if ($LastExitCode -ne 0) { $ExitCode = $LastExitCode }
     # If the project_template changed, then black the testproject too.
-    $GitDiffTempl = Write-Output $GitDiff | Select-String -Pattern "^diff .*/project_template/.*"
+    $GitDiffTempl = Write-Output $GitDiff | Select-String -NotMatch ".*/project_template/.*"
     if ( $GitDiffTempl -ne $null ) {
         black --check testproject/
         if ($LastExitCode -ne 0) { $ExitCode = $LastExitCode }

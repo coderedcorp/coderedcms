@@ -1,8 +1,8 @@
 $ExitCode = 0
 $GitDiff = git diff --name-only origin/master
-$GitDiffBlack = git diff --name-only origin/master | Select-String -Pattern ".*\.py" | Select-String -NotMatch ".*/project_template/.*"
+$GitDiffBlack = Write-Output $GitDiff | Select-String -Pattern ".*\.py" | Select-String -NotMatch ".*/project_template/.*"
 # If there is no diff between master, then black everything.
-if ( $GitDiff -eq $null ) {
+if ( $GitDiffBlack -eq $null ) {
     black --check .
     if ($LastExitCode -ne 0) { $ExitCode = $LastExitCode }
 }

@@ -1,12 +1,12 @@
 from .base import *  # noqa
 
-# SECURITY WARNING: don"t run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "{{ secret_key }}"
 
-# Add your site"s domain name(s) here.
+# Add your site's domain name(s) here.
 ALLOWED_HOSTS = ["{{ domain }}"]
 
 # To send email from the server, we recommend django_sendmail_backend

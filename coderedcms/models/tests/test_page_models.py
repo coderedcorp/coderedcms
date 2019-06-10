@@ -135,6 +135,9 @@ class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
 class CoderedArticlePageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedArticlePage
 
+    def test_get_author_name(self):
+        pass
+
 
 class CoderedFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedFormPage
@@ -167,6 +170,9 @@ class CoderedEventIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
 class CoderedEventPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedEventPage
 
+    def test_most_recent_occurence(self):
+        pass
+
 
 class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedStreamFormPage
@@ -190,6 +196,9 @@ class WebPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
 
 class EventIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = EventIndexPage
+
+    def test_get_index_children(self):
+        pass
 
 
 class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):

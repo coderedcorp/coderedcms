@@ -124,6 +124,10 @@ def structured_data_datetime(dt):
     return datetime.strftime(dt, "%Y-%m-%d")
 
 @register.filter
+def amp_formatting(value):
+    return mark_safe(utils.convert_to_amp(value))
+
+@register.filter
 def richtext_amp_formatting(value):
 
     if isinstance(value, RichText):
@@ -131,20 +135,15 @@ def richtext_amp_formatting(value):
     else:
         value = richtext(value)
 
-    value = utils.convert_to_amp(value)
-    return mark_safe(value)
-
-@register.filter
-def amp_formatting(value):
-    return mark_safe(utils.convert_to_amp(value))
+    return amp_formatting(value)
 
 @register.simple_tag
 def render_iframe_from_embed(embed):
-    soup = BeautifulSoup(embed.html, "html5lib")
+    soup = BeautifulSoup(embed.html, "html.parser")
     try:
         iframe_tags = soup.find('iframe')
         iframe_tags['title'] = embed.title
-        return mark_safe(str(soup.body.iframe))
+        return mark_safe(soup.prettify())
     except AttributeError:
         pass
     except TypeError:

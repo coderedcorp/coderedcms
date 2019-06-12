@@ -44,7 +44,7 @@ def convert_to_amp(value):
     Function that converts non-amp compliant html to valid amp html.
     value must be a string
     """
-    soup = BeautifulSoup(value, "html5lib")
+    soup = BeautifulSoup(value, "html.parser")
 
     #Replace img tags with amp-img
     try:

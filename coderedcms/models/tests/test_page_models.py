@@ -96,7 +96,6 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         response = self.client.post(self.basic_page.url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-
     def test_spam(self):
         """
         Test to check if the default spam catching works.

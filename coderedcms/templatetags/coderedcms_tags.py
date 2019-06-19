@@ -134,9 +134,12 @@ def structured_data_datetime(dt):
     """
     Formats datetime object to structured data compatible datetime string.
     """
-    if dt.time():
-        return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
-    return datetime.strftime(dt, "%Y-%m-%d")
+    try:
+        if dt.time():
+            return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
+        return datetime.strftime(dt, "%Y-%m-%d")
+    except AttributeError:
+        return ""
 
 
 @register.filter

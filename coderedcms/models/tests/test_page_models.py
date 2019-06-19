@@ -1,6 +1,4 @@
-from django.contrib.auth.models import AnonymousUser
 from django.test import Client
-from wagtail.core.models import Site
 from wagtail.tests.utils import WagtailPageTests
 
 from coderedcms.models.page_models import (
@@ -33,7 +31,7 @@ class BasicPageTestCase():
     This is a testing mixin used to run common tests for basic versions of page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def setUp(self):
         self.client = Client()
@@ -51,12 +49,13 @@ class BasicPageTestCase():
         response = self.client.get(self.basic_page.url, follow=True)
         self.assertEqual(response.status_code, 200)
 
+
 class AbstractPageTestCase():
     """
     This is a testing mixin used to run common tests for abstract page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_not_available(self):
         """
@@ -71,7 +70,7 @@ class ConcretePageTestCase():
     This is a testing mixin used to run common tests for concrete page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_is_available(self):
         """
@@ -83,11 +82,12 @@ class ConcretePageTestCase():
 
 class ConcreteBasicPageTestCase(ConcretePageTestCase, BasicPageTestCase):
     class Meta:
-        abstract=True
+        abstract = True
+
 
 class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_post(self):
         """
@@ -101,7 +101,7 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         """
         Test to check if the default spam catching works.
         """
-        response = self.client.post(self.basic_page.url, {'cr-decoy-comments' : 'This is Spam'}, follow=True)
+        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), self.basic_page.get_spam_message())
@@ -112,6 +112,7 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         """
         response = self.client.post(self.basic_page.url)
         self.assertFalse(hasattr(response, 'is_spam'))
+
 
 class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedArticleIndexPage

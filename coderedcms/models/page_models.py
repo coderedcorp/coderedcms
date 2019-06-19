@@ -49,7 +49,7 @@ from wagtail.core.utils import resolve_model_string
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.contrib.forms.models import AbstractFormSubmission, FormSubmission
+from wagtail.contrib.forms.models import FormSubmission
 from wagtail.search import index
 from wagtailcache.cache import WagtailCacheMixin
 
@@ -60,8 +60,7 @@ from coderedcms.blocks import (
     STREAMFORM_BLOCKS,
     ContentWallBlock,
     OpenHoursBlock,
-    StructuredDataActionBlock,
-    CoderedStreamFormStepBlock)
+    StructuredDataActionBlock)
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
@@ -1005,7 +1004,7 @@ class CoderedEventOccurrence(Orderable, BaseOccurrence):
 class CoderedFormMixin(models.Model):
 
     class Meta:
-        abstract=True
+        abstract = True
 
     submissions_list_view_class = CoderedSubmissionsListView
     encoder = DjangoJSONEncoder
@@ -1096,7 +1095,6 @@ class CoderedFormMixin(models.Model):
         verbose_name=_('Spam Protection'),
         help_text=_('When enabled, the CMS will filter out spam form submissions for this page.')
     )
-
 
     body_content_panels = [
         MultiFieldPanel(
@@ -1393,6 +1391,7 @@ class CoderedFormMixin(models.Model):
                 return self.process_spam_request(form, request)
             return self.process_form_post(form, request)
         return self.process_form_get(form, request)
+
 
 class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     """

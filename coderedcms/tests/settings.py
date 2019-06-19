@@ -214,4 +214,4 @@ WAGTAIL_CACHE = False
 SECRET_KEY = 'not needed'
 
 NOSE_ARGS = ['--nocapture',
-             '--nologcapture',]
+             '--nologcapture', ]

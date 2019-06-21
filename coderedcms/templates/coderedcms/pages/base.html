@@ -124,7 +124,15 @@
 
         <div id="content">
             {% block content %}
-
+                {% block messages %}
+                    {% if messages %}
+                        <div class="container">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags|map_to_bootstrap_alert }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endblock %}
                 {% block content_pre_body %}{% endblock %}
 
                 {% block content_body %}

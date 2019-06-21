@@ -1339,7 +1339,7 @@ class CoderedFormMixin(models.Model):
 
         if request.method == 'POST':
             return form_class(request.POST, request.FILES, *args, **form_params)
-        return form_class()
+        return form_class(*args, **form_params)
 
     def contains_spam(self, request):
         """
@@ -1354,10 +1354,13 @@ class CoderedFormMixin(models.Model):
         Called when spam is found in the request.
         """
         messages.error(request, self.get_spam_message())
+        ip_address = utils.get_ip_from_request(request)
+        logger.info("{0} - Detected spam submission on page: {1}".format(ip_address, self.title))
+
         return self.process_form_get(form, request)
 
     def get_spam_message(self):
-        return "Spam detected, form was not submitted."
+        return _("There was an error while processing your submission.  Please try again.")
 
     def process_form_post(self, form, request):
         if form.is_valid():

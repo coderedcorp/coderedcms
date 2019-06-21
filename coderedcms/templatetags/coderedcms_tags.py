@@ -172,6 +172,7 @@ def render_iframe_from_embed(embed):
 
     return mark_safe(embed.html)
 
+
 @register.filter
 def map_to_bootstrap_alert(message_tag):
     """

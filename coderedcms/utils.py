@@ -64,8 +64,8 @@ def convert_to_amp(value):
 
     return soup.prettify()
 
-def get_ip_from_request(request):
 
+def get_ip_from_request(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', None)
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]

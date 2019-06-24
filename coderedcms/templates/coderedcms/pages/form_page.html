@@ -11,13 +11,14 @@
     <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
+        {% bootstrap_form form layout='horizontal' %}
+
         {% block captcha %}
             {% if page.spam_protection %}
                 {% include 'coderedcms/includes/form_honeypot.html' %}
             {% endif %}
         {% endblock %}
 
-        {% bootstrap_form form layout='horizontal' %}
         <div class="form-group mt-5 row">
             <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
             <div class="{{'horizontal_field_class'|bootstrap_settings}}">

@@ -27,12 +27,6 @@
     <form class='stream-form {{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
-        {% block captcha %}
-            {% if page.spam_protection %}
-                {% include 'coderedcms/includes/form_honeypot.html' %}
-            {% endif %}
-        {% endblock %}
-
         {% block stream_form_fields %}
 
             {% for item in markups_and_bound_fields %}
@@ -43,6 +37,12 @@
                 {% endif %}
             {% endfor %}
 
+        {% endblock %}
+
+        {% block captcha %}
+            {% if page.spam_protection %}
+                {% include 'coderedcms/includes/form_honeypot.html' %}
+            {% endif %}
         {% endblock %}
 
         {% block stream_form_actions %}

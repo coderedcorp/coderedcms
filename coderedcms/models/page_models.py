@@ -1354,8 +1354,7 @@ class CoderedFormMixin(models.Model):
         Called when spam is found in the request.
         """
         messages.error(request, self.get_spam_message())
-        ip_address = utils.get_ip_from_request(request)
-        logger.info("{0} - Detected spam submission on page: {1}".format(ip_address, self.title))
+        logger.info("Detected spam submission on page: {0}\n{1}".format(self.title, vars(request)))
 
         return self.process_form_get(form, request)
 

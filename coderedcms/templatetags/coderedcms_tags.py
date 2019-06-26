@@ -134,9 +134,12 @@ def structured_data_datetime(dt):
     """
     Formats datetime object to structured data compatible datetime string.
     """
-    if dt.time():
-        return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
-    return datetime.strftime(dt, "%Y-%m-%d")
+    try:
+        if dt.time():
+            return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
+        return datetime.strftime(dt, "%Y-%m-%d")
+    except AttributeError:
+        return ""
 
 
 @register.filter
@@ -168,3 +171,22 @@ def render_iframe_from_embed(embed):
         pass
 
     return mark_safe(embed.html)
+
+
+@register.filter
+def map_to_bootstrap_alert(message_tag):
+    """
+    Converts a message level to a bootstrap 4 alert class
+    """
+    message_to_alert_dict = {
+        'debug': 'primary',
+        'info': 'info',
+        'success': 'success',
+        'warning': 'warning',
+        'error': 'danger'
+    }
+
+    try:
+        return message_to_alert_dict[message_tag]
+    except KeyError:
+        return ''

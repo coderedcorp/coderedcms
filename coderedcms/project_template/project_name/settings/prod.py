@@ -29,17 +29,17 @@ MANAGERS = ADMINS
 # Email address used to send error messages to ADMINS.
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'HOST': 'localhost',
-#        'NAME': '{{ project_name }}',
-#        'USER': '{{ project_name }}',
-#        'PASSWORD': '',
-#        # If using SSL to connect to a cloud mysql database, spedify the CA as so.
-#        'OPTIONS': { 'ssl': { 'ca': '/path/to/certificate-authority.pem' } },
-#    }
-#}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': 'localhost',
+#         'NAME': '{{ project_name }}',
+#         'USER': '{{ project_name }}',
+#         'PASSWORD': '',
+#         # If using SSL to connect to a cloud mysql database, spedify the CA as so.
+#         'OPTIONS': { 'ssl': { 'ca': '/path/to/certificate-authority.pem' } },
+#     }
+# }
 
 # Use template caching to speed up wagtail admin and front-end.
 # Requires reloading web server to pick up template changes.
@@ -69,7 +69,7 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(BASE_DIR, 'cache'),
         'KEY_PREFIX': 'coderedcms',
-        'TIMEOUT': 14400, # in seconds
+        'TIMEOUT': 14400,  # in seconds
     }
 }
 

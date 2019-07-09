@@ -62,6 +62,7 @@
         {% if settings.coderedcms.SeoSettings.twitter_meta %}
             {% block twitter_seo_base %}
             <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}" />
+            <meta name="twitter:image" content="{% twitter_card_image self %}">
             {% if settings.coderedcms.SocialMediaSettings.twitter %}
             <meta name="twitter:site" content="{% block twitter_site %}@{{settings.coderedcms.SocialMediaSettings.twitter_handle}}{% endblock %}" />
             {% endif %}

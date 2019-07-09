@@ -40,6 +40,12 @@ def coderedcms_version():
 def generate_random_id():
     return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
 
+@register.simple_tag
+def twitter_card_image(self):
+    if self.cover_image:
+        return self.cover_image
+    elif settings.coderedcms.LayoutSettings.logo:
+        return settings.coderedcms.LayoutSettings.logo
 
 @register.simple_tag
 def is_menu_item_dropdown(value):

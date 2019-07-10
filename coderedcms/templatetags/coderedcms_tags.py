@@ -10,13 +10,14 @@ from django.utils.html import mark_safe
 from wagtail.core.models import Collection
 from wagtail.core.rich_text import RichText
 from wagtail.core.templatetags.wagtailcore_tags import richtext
-from wagtail.images.models import Image
+from wagtail.images.models import Image, Rendition
 
 from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
 from coderedcms.models import Footer, Navbar
 from coderedcms.settings import cr_settings, get_bootstrap_setting
+from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 register = template.Library()
 
@@ -40,12 +41,26 @@ def coderedcms_version():
 def generate_random_id():
     return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
 
-@register.simple_tag
-def twitter_card_image(self):
-    if self.cover_image:
-        return self.cover_image
-    elif settings.coderedcms.LayoutSettings.logo:
-        return settings.coderedcms.LayoutSettings.logo
+@register.simple_tag(takes_context=True)
+def twitter_card_image(context, page):
+    if page.cover_image:
+        print("cover image")
+        return page.cover_image.get_rendition('original').url
+    elif LayoutSettings.for_site(context['request'].site).logo:
+        layout_settings = LayoutSettings.for_site(context['request'].site)
+        print("layout settings logo")
+        return layout_settings.logo.get_rendition('original').url
+
+@register.simple_tag(takes_context=True)
+def og_image(context, page):
+    if page.og_image:
+        return page.og_image.get_rendition('original').url
+    elif page.cover_image:
+        return page.cover_image.get_rendition('original').url
+    elif LayoutSettings.for_site(context['request'].site).logo:
+        layout_settings = LayoutSettings.for_site(context['request'].site)
+        return layout_settings.logo.get_rendition('original').url
+
 
 @register.simple_tag
 def is_menu_item_dropdown(value):

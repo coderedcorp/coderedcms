@@ -30,7 +30,6 @@
 {% if settings.coderedcms.SeoSettings.twitter_meta %}
     {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
     {% block twitter_seo_extra %}
-    {% image self.cover_image fill-2000x1000 as cover_image %}
         <meta name="twitter:title" content="{{ self.title }}">
         {% if self.caption %}
         <meta name="twitter:description" content="{{ self.caption }}">

@@ -10,7 +10,7 @@ from django.utils.html import mark_safe
 from wagtail.core.models import Collection
 from wagtail.core.rich_text import RichText
 from wagtail.core.templatetags.wagtailcore_tags import richtext
-from wagtail.images.models import Image, Rendition
+from wagtail.images.models import Image
 
 from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings

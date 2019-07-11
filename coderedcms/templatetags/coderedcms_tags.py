@@ -7,7 +7,7 @@ from django import template
 from django.conf import settings
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
-from wagtail.core.models import Collection, Page
+from wagtail.core.models import Collection
 from wagtail.core.rich_text import RichText
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.images.models import Image

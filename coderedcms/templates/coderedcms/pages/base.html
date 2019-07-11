@@ -39,18 +39,7 @@
             <meta property="og:site_name" content="{% block og_site_name %}{{self.get_site.site_name}}{% endblock %}" />
             <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
             <meta property="og:url" content="{% block og_url %}{{self.get_full_url}}{% endblock %}" />
-            <meta property="og:image" content="{% block og_image %}
-                {% if self.og_image %}
-                    {% image self.og_image original as og_logo %}
-                    {{og_logo.url}}
-                {% elif self.cover_image %}
-                    {% image self.cover_image original as og_logo %}
-                    {{og_logo.url}}
-                {% elif settings.coderedcms.LayoutSettings.logo %}
-                    {% image settings.coderedcms.LayoutSettings.logo original as og_logo %}
-                    {{og_logo.url}}
-                {% endif %}
-                {% endblock %}" />
+            <meta property="og:image" content="{% block og_image %}{% og_image self %}{% endblock %}" />
             {% endblock %}
             {% block og_seo_extra %}{% endblock %}
         {% endif %}
@@ -59,6 +48,8 @@
         {% if settings.coderedcms.SeoSettings.twitter_meta %}
             {% block twitter_seo_base %}
             <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}" />
+            <meta name="twitter:title" content="{{self.title}}">
+            <meta name="twitter:image" content="{% og_image self %}">
             {% if settings.coderedcms.SocialMediaSettings.twitter %}
             <meta name="twitter:site" content="{% block twitter_site %}@{{settings.coderedcms.SocialMediaSettings.twitter_handle}}{% endblock %}" />
             {% endif %}

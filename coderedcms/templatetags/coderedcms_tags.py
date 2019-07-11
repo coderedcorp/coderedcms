@@ -41,6 +41,7 @@ def coderedcms_version():
 def generate_random_id():
     return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
 
+
 @register.simple_tag(takes_context=True)
 def og_image(context, page):
     site_url = context['request'].site.root_url

@@ -30,11 +30,9 @@
 {% if settings.coderedcms.SeoSettings.twitter_meta %}
     {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
     {% block twitter_seo_extra %}
-        <meta name="twitter:title" content="{{ self.title }}">
         {% if self.caption %}
         <meta name="twitter:description" content="{{ self.caption }}">
         {% endif %}
-        <meta name="twitter:image" content="{{self.get_site.root_url}}{{ twitter_card_image self }}">
         {% if self.author.twitter %}
             <meta name="twitter:creator" content="{{self.author.twitter}}" />
         {% endif %}

@@ -52,7 +52,7 @@
             {% block twitter_seo_base %}
             <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}" />
             <meta name="twitter:title" content="{{self.title}}">
-            <meta name="twitter:image" content="{{self.get_site.root_url}}{% twitter_card_image self %}">
+            <meta name="twitter:image" content="{% og_image self %}">
             {% if settings.coderedcms.SocialMediaSettings.twitter %}
             <meta name="twitter:site" content="{% block twitter_site %}@{{settings.coderedcms.SocialMediaSettings.twitter_handle}}{% endblock %}" />
             {% endif %}

@@ -7,7 +7,7 @@ from django import template
 from django.conf import settings
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
-from wagtail.core.models import Collection
+from wagtail.core.models import Collection, Page
 from wagtail.core.rich_text import RichText
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.images.models import Image
@@ -42,24 +42,16 @@ def generate_random_id():
     return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
 
 @register.simple_tag(takes_context=True)
-def twitter_card_image(context, page):
-    if page.cover_image:
-        print("cover image")
-        return page.cover_image.get_rendition('original').url
-    elif LayoutSettings.for_site(context['request'].site).logo:
-        layout_settings = LayoutSettings.for_site(context['request'].site)
-        print("layout settings logo")
-        return layout_settings.logo.get_rendition('original').url
-
-@register.simple_tag(takes_context=True)
 def og_image(context, page):
+    site_url = context['request'].site.root_url
     if page.og_image:
-        return page.og_image.get_rendition('original').url
+        relative_path = page.og_image.get_rendition('original').url
     elif page.cover_image:
-        return page.cover_image.get_rendition('original').url
+        relative_path = page.cover_image.get_rendition('original').url
     elif LayoutSettings.for_site(context['request'].site).logo:
         layout_settings = LayoutSettings.for_site(context['request'].site)
-        return layout_settings.logo.get_rendition('original').url
+        relative_path = layout_settings.logo.get_rendition('original').url
+    return site_url + relative_path
 
 
 @register.simple_tag

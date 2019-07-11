@@ -51,6 +51,8 @@ def og_image(context, page):
     elif LayoutSettings.for_site(context['request'].site).logo:
         layout_settings = LayoutSettings.for_site(context['request'].site)
         relative_path = layout_settings.logo.get_rendition('original').url
+    else:
+        return None
     return site_url + relative_path
 
 

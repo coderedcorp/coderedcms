@@ -7,7 +7,7 @@ from django import template
 from django.conf import settings
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
-from wagtail.core.models import Collection
+from wagtail.core.models import Collection, Site
 from wagtail.core.rich_text import RichText
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.images.models import Image
@@ -15,7 +15,7 @@ from wagtail.images.models import Image
 from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
-from coderedcms.models import Footer, Navbar
+from coderedcms.models import Footer, Navbar, LayoutSettings
 from coderedcms.settings import cr_settings, get_bootstrap_setting
 
 register = template.Library()
@@ -67,8 +67,11 @@ def get_pictures(collection_id):
 
 
 @register.simple_tag
-def get_navbars():
-    return Navbar.objects.all()
+def get_navbars(request):
+    curr_url = request.site.hostname
+    site = Site.objects.get(hostname=curr_url)
+    layout = LayoutSettings.objects.get(site_id=site)
+    return Navbar.objects.filter(layoutsetting_id=layout.id)
 
 
 @register.simple_tag

@@ -24,7 +24,8 @@ class MailchimpSubscriberIntegrationWidget(Input):
         list_library = self.build_list_library()
         ctx['widget']['value'] = json.dumps(json_value)
         ctx['widget']['extra_js'] = self.render_js(name, list_library, json_value)
-        ctx['widget']['selectable_mailchimp_lists'] = self.get_selectable_mailchimp_lists(list_library)
+        ctx['widget']['selectable_mailchimp_lists'] = self.get_selectable_mailchimp_lists(
+            list_library)
         ctx['widget']['stored_mailchimp_list'] = self.get_stored_mailchimp_list(json_value)
 
         return ctx
@@ -83,8 +84,9 @@ class MailchimpSubscriberIntegrationWidget(Input):
                     'interest_categories': {}
                 }
 
-                list_library[l['id']]['merge_fields'] = mailchimp.get_merge_fields_for_list(l['id'])['merge_fields']
-                list_library[l['id']]['interest_categories'] = mailchimp.get_interest_categories_for_list(
+                list_library[l['id']]['merge_fields'] = mailchimp.get_merge_fields_for_list(l['id'])[  # noqa
+                    'merge_fields']
+                list_library[l['id']]['interest_categories'] = mailchimp.get_interest_categories_for_list(  # noqa
                     l['id']
                 )['categories']
 
@@ -109,7 +111,8 @@ class MailchimpSubscriberIntegration(models.Model):
     def integration_operation(self, instance, **kwargs):
         mailchimp = MailchimpApi()
         if mailchimp.is_active:
-            rendered_dictionary = self.render_dictionary(self.format_form_submission(kwargs['form_submission']))
+            rendered_dictionary = self.render_dictionary(
+                self.format_form_submission(kwargs['form_submission']))
             mailchimp.add_user_to_list(list_id=self.get_list_id(), data=rendered_dictionary)
 
     def format_form_submission(self, form_submission):
@@ -149,7 +152,8 @@ class MailchimpSubscriberIntegration(models.Model):
             ]
         })
 
-        rendered_dictionary = Template(rendered_dictionary_template).render(Context(form_submission))
+        rendered_dictionary = Template(
+            rendered_dictionary_template).render(Context(form_submission))
         return rendered_dictionary
 
     panels = [

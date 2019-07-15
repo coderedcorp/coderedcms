@@ -65,7 +65,7 @@ from coderedcms.blocks import (
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
-from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings
+from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings  # noqa
 from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
 from coderedcms.wagtail_flexible_forms.models import (
     Step,
@@ -616,7 +616,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                         except AttributeError:
                             logger.warning(
                                 '''
-                                Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did
+                                Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did  # noqa
                                 not return a queryset or is not a queryset of CoderedPage models.
                                 ''',
                                 self._meta.app_label,
@@ -915,13 +915,14 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         for occurrence in self.occurrences.all():
 
             # Add the qualifying generated event instances to the list.
-            event_instances += [instance for instance in occurrence.all_occurrences(**occurrence_kwargs)]
+            event_instances += [
+                instance for instance in occurrence.all_occurrences(**occurrence_kwargs)]
 
         # Sort all the events by the date that they start
         event_instances.sort(key=lambda d: d[0])
 
         # Return the event instances, possibly spliced if num_instances_to_return is set.
-        return event_instances[:num_of_instances_to_return] if num_of_instances_to_return else event_instances
+        return event_instances[:num_of_instances_to_return] if num_of_instances_to_return else event_instances  # noqa
 
     def convert_to_ical_format(self, dt_start=None, dt_end=None, occurrence=None):
         ical_event = ICalEvent()
@@ -937,7 +938,8 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
         if occurrence:
             freq = occurrence.repeat.split(":")[1] if occurrence.repeat else None
-            repeat_until = occurrence.repeat_until.strftime("%Y%m%dT000000Z") if occurrence.repeat_until else None
+            repeat_until = occurrence.repeat_until.strftime(
+                "%Y%m%dT000000Z") if occurrence.repeat_until else None
 
             ical_event.add('dtstart', occurrence.start)
 
@@ -1222,9 +1224,9 @@ class CoderedFormMixin(models.Model):
 
     def get_storage(self):
         return FileSystemStorage(
-                location=cr_settings['PROTECTED_MEDIA_ROOT'],
-                base_url=cr_settings['PROTECTED_MEDIA_URL']
-            )
+            location=cr_settings['PROTECTED_MEDIA_ROOT'],
+            base_url=cr_settings['PROTECTED_MEDIA_URL']
+        )
 
     def process_form_submission(self, request, form, form_submission, processed_data):
 
@@ -1323,7 +1325,6 @@ class CoderedFormMixin(models.Model):
         message.send()
 
     def render_landing_page(self, request, form_submission=None, *args, **kwargs):
-
         """
         Renders the landing page.
 
@@ -1398,13 +1399,13 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     form_builder = CoderedFormBuilder
 
     body_content_panels = [
-            InlinePanel('form_fields', label="Form fields"),
-        ] + \
+        InlinePanel('form_fields', label="Form fields"),
+    ] + \
         CoderedWebPage.body_content_panels + \
         CoderedFormMixin.body_content_panels + [
             FormSubmissionsPanel(),
             InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
-        ]
+    ]
 
     settings_panels = CoderedPage.settings_panels + CoderedFormMixin.settings_panels
 
@@ -1515,9 +1516,9 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
         if 'user' in submission_data:
             submission_data['user'] = str(submission_data['user'])
         submission = FormSubmission.objects.create(
-                form_data=json.dumps(submission_data, cls=StreamFormJSONEncoder),
-                page=self.page
-            )
+            form_data=json.dumps(submission_data, cls=StreamFormJSONEncoder),
+            page=self.page
+        )
 
         if delete_self:
             CoderedSubmissionRevision.objects.filter(submission_id=self.id).delete()
@@ -1545,7 +1546,7 @@ def create_submission_changed_revision(sender, **kwargs):
     submission = kwargs['instance']
     created = kwargs['created']
     CoderedSubmissionRevision.create_from_submission(
-        submission, (CoderedSubmissionRevision.CREATED if created else CoderedSubmissionRevision.CHANGED))
+        submission, (CoderedSubmissionRevision.CREATED if created else CoderedSubmissionRevision.CHANGED))  # noqa
 
 
 @receiver(post_delete)
@@ -1645,7 +1646,7 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
     ] + \
         CoderedFormMixin.body_content_panels + [
             InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
-        ]
+    ]
 
     def serve(self, request, *args, **kwargs):
         context = self.get_context(request)
@@ -1667,9 +1668,9 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
 
     def get_storage(self):
         return FileSystemStorage(
-                location=cr_settings['PROTECTED_MEDIA_ROOT'],
-                base_url=cr_settings['PROTECTED_MEDIA_URL']
-            )
+            location=cr_settings['PROTECTED_MEDIA_ROOT'],
+            base_url=cr_settings['PROTECTED_MEDIA_URL']
+        )
 
 
 class CoderedLocationPage(CoderedWebPage):
@@ -1702,7 +1703,8 @@ class CoderedLocationPage(CoderedWebPage):
     auto_update_latlng = models.BooleanField(
         default=True,
         verbose_name=_("Auto Update Latitude and Longitude"),
-        help_text=_("If checked, automatically update the latitude and longitude when the address is updated.")
+        help_text=_(
+            "If checked, automatically update the latitude and longitude when the address is updated.")  # noqa
     )
     map_title = models.CharField(
         blank=True,

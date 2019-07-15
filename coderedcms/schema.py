@@ -31,7 +31,7 @@ SCHEMA_ORG_CHOICES = (
     ('PoliceStation', 'Organization > LocalBusiness > EmergencyService > PoliceStation'),
     ('EmploymentAgency', 'Organization > LocalBusiness > EmploymentAgency'),
     ('EntertainmentBusiness', 'Organization > LocalBusiness > EntertainmentBusiness'),
-    ('AdultEntertainment', 'Organization > LocalBusiness > EntertainmentBusiness > AdultEntertainment'),
+    ('AdultEntertainment', 'Organization > LocalBusiness > EntertainmentBusiness > AdultEntertainment'),  # noqa
     ('AmusementPark', 'Organization > LocalBusiness > EntertainmentBusiness > AmusementPark'),
     ('ArtGallery', 'Organization > LocalBusiness > EntertainmentBusiness > ArtGallery'),
     ('Casino', 'Organization > LocalBusiness > EntertainmentBusiness > Casino'),
@@ -63,13 +63,13 @@ SCHEMA_ORG_CHOICES = (
     ('TattooParlor', 'Organization > LocalBusiness > HealthAndBeautyBusiness > TattooParlor'),
     ('HomeAndConstructionBusiness', 'Organization > LocalBusiness > HomeAndConstructionBusiness'),
     ('Electrician', 'Organization > LocalBusiness > HomeAndConstructionBusiness > Electrician'),
-    ('GeneralContractor', 'Organization > LocalBusiness > HomeAndConstructionBusiness > GeneralContractor'),
+    ('GeneralContractor', 'Organization > LocalBusiness > HomeAndConstructionBusiness > GeneralContractor'),  # noqa
     ('HVACBusiness', 'Organization > LocalBusiness > HomeAndConstructionBusiness > HVACBusiness'),
     ('HousePainter', 'Organization > LocalBusiness > HomeAndConstructionBusiness > HousePainter'),
     ('Locksmith', 'Organization > LocalBusiness > HomeAndConstructionBusiness > Locksmith'),
     ('MovingCompany', 'Organization > LocalBusiness > HomeAndConstructionBusiness > MovingCompany'),
     ('Plumber', 'Organization > LocalBusiness > HomeAndConstructionBusiness > Plumber'),
-    ('RoofingContractor', 'Organization > LocalBusiness > HomeAndConstructionBusiness > RoofingContractor'),
+    ('RoofingContractor', 'Organization > LocalBusiness > HomeAndConstructionBusiness > RoofingContractor'),  # noqa
     ('InternetCafe', 'Organization > LocalBusiness > InternetCafe'),
     ('LegalService', 'Organization > LocalBusiness > LegalService'),
     ('Attorney', 'Organization > LocalBusiness > LegalService > Attorney'),
@@ -93,7 +93,7 @@ SCHEMA_ORG_CHOICES = (
     ('ExerciseGym', 'Organization > LocalBusiness > SportsActivityLocation > ExerciseGym'),
     ('GolfCourse', 'Organization > LocalBusiness > SportsActivityLocation > GolfCourse'),
     ('HealthClub', 'Organization > LocalBusiness > SportsActivityLocation > HealthClub'),
-    ('PublicSwimmingPool', 'Organization > LocalBusiness > SportsActivityLocation > PublicSwimmingPool'),
+    ('PublicSwimmingPool', 'Organization > LocalBusiness > SportsActivityLocation > PublicSwimmingPool'),  # noqa
     ('SkiResort', 'Organization > LocalBusiness > SportsActivityLocation > SkiResort'),
     ('SportsClub', 'Organization > LocalBusiness > SportsActivityLocation > SportsClub'),
     ('StadiumOrArena', 'Organization > LocalBusiness > SportsActivityLocation > StadiumOrArena'),

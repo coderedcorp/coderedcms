@@ -65,12 +65,12 @@ class SecureFileField(forms.FileField):
 
     def _check_whitelist(self, value):
         if cr_settings['PROTECTED_MEDIA_UPLOAD_WHITELIST']:
-            if os.path.splitext(value.name)[1].lower() not in cr_settings['PROTECTED_MEDIA_UPLOAD_WHITELIST']:
+            if os.path.splitext(value.name)[1].lower() not in cr_settings['PROTECTED_MEDIA_UPLOAD_WHITELIST']:  # noqa
                 raise ValidationError(self.error_messages['whitelist_file'])
 
     def _check_blacklist(self, value):
         if cr_settings['PROTECTED_MEDIA_UPLOAD_BLACKLIST']:
-            if os.path.splitext(value.name)[1].lower() in cr_settings['PROTECTED_MEDIA_UPLOAD_BLACKLIST']:
+            if os.path.splitext(value.name)[1].lower() in cr_settings['PROTECTED_MEDIA_UPLOAD_BLACKLIST']:  # noqa
                 raise ValidationError(self.error_messages['blacklist_file'])
 
 
@@ -146,7 +146,8 @@ class CoderedFormField(AbstractFormField):
     class Meta:
         abstract = True
 
-    field_type = models.CharField(verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES, blank=True)
+    field_type = models.CharField(verbose_name=_('field type'),
+                                  max_length=16, choices=FORM_FIELD_CHOICES, blank=True)
 
 
 class SearchForm(forms.Form):

@@ -59,7 +59,7 @@ def search(request):
         if backend.__class__ == db.SearchBackend and db_models:
             for model in db_models:
                 # if search_model is provided, only search on that model
-                if not search_model or search_model == ContentType.objects.get_for_model(model).model:
+                if not search_model or search_model == ContentType.objects.get_for_model(model).model:  # noqa
                     curr_results = model.objects.live().search(search_query)
                     if results:
                         results = list(chain(results, curr_results))
@@ -75,11 +75,12 @@ def search(request):
                 except search_model.DoesNotExist:  # Possible search also causes an exception, nothing found online  # noqa
                     results = None
             else:
-                results = CoderedPage.objects.live().order_by('-last_published_at').search(search_query)
+                results = CoderedPage.objects.live().order_by('-last_published_at').search(search_query)  # noqa
 
         # paginate results
         if results:
-            paginator = Paginator(results, GeneralSettings.for_site(request.site).search_num_results)
+            paginator = Paginator(results, GeneralSettings.for_site(
+                request.site).search_num_results)
             page = request.GET.get('p', 1)
             try:
                 results_paginated = paginator.page(page)

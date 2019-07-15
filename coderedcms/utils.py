@@ -8,7 +8,7 @@ from coderedcms.settings import cr_settings
 
 def get_protected_media_link(request, path, render_link=False):
     if render_link:
-        return mark_safe("<a href='{0}{1}'>{0}{1}</a>".format(request.build_absolute_uri('/')[:-1], path))
+        return mark_safe("<a href='{0}{1}'>{0}{1}</a>".format(request.build_absolute_uri('/')[:-1], path))  # noqa
     return "{0}{1}".format(request.build_absolute_uri('/')[:-1], path)
 
 

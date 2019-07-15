@@ -21,6 +21,7 @@ class MultiSelectBlock(blocks.FieldBlock):
     Renders as MultipleChoiceField, used for adding checkboxes,
     radios, or multiselect inputs in the streamfield.
     """
+
     def __init__(self, required=True, help_text=None, choices=None, widget=None, **kwargs):
         self.field = forms.MultipleChoiceField(
             required=required,
@@ -207,7 +208,7 @@ class CoderedAdvColumnSettings(CoderedAdvSettings):
         default=cr_settings['FRONTEND_COL_BREAK_DEFAULT'],
         required=False,
         verbose_name=_('Column Breakpoint'),
-        help_text=_('Screen size at which the column will expand horizontally or stack vertically.'),
+        help_text=_('Screen size at which the column will expand horizontally or stack vertically.'),  # noqa
     )
 
 

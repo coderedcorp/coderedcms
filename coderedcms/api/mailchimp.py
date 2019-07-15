@@ -50,7 +50,8 @@ class MailchimpApi:
         return json_response
 
     def get_interest_categories_for_list(self, list_id):
-        endpoint = "lists/{0}/interest-categories?fields=categories.id,categories.title".format(list_id)
+        endpoint = "lists/{0}/interest-categories?fields=categories.id,categories.title".format(
+            list_id)
         json_response = self._get(endpoint)
         return json_response
 

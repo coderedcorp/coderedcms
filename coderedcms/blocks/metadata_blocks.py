@@ -63,7 +63,8 @@ class StructuredDataActionBlock(blocks.StructBlock):
     target = blocks.URLBlock(verbose_name=_('Target URL'))
     language = blocks.CharBlock(
         verbose_name=_('Language'),
-        help_text=_('If the action is offered in multiple languages, create separate actions for each language.'),
+        help_text=_(
+            'If the action is offered in multiple languages, create separate actions for each language.'),  # noqa
         default='en-US'
     )
     result_type = blocks.ChoiceBlock(

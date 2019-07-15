@@ -36,7 +36,7 @@ def import_pages(import_data, parent_page):
     page_content_type = ContentType.objects.get_for_model(Page)
 
     for page_record in import_data['pages']:
-        # build a base Page instance from the exported content (so that we pick up its title and other
+        # build a base Page instance from the exported content (so that we pick up its title and other  # noqa
         # core attributes)
         page = Page.from_serializable_data(page_record['content'])
 
@@ -62,7 +62,8 @@ def import_pages(import_data, parent_page):
         # Raises LookupError exception if there is no matching model
         model = apps.get_model(page_record['app_label'], page_record['model'])
 
-        specific_page = model.from_serializable_data(page_record['content'], check_fks=False, strict_fks=False)
+        specific_page = model.from_serializable_data(
+            page_record['content'], check_fks=False, strict_fks=False)
         base_page = pages_by_original_id[specific_page.id]
         specific_page.page_ptr = base_page
         specific_page.__dict__.update(base_page.__dict__)

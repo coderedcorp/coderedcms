@@ -247,7 +247,7 @@ class PageListBlock(BaseBlock):
                     # `pages` is not a queryset, or is not a queryset of CoderedPage.
                     logger.warning(
                         '''
-                        Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children()
+                        Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children()  # noqa
                         did not return a queryset or is not a queryset of CoderedPage models.
                         ''',
                         indexer._meta.app_label, indexer.__class__.__name__, indexer.title

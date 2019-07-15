@@ -47,7 +47,7 @@ class Carousel(ClusterableModel):
     show_indicators = models.BooleanField(
         default=True,
         verbose_name=_('Show indicators'),
-        help_text=_('Shows small indicators at the bottom of the carousel based on the number of slides.'),
+        help_text=_('Shows small indicators at the bottom of the carousel based on the number of slides.'),  # noqa
     )
     animation = models.CharField(
         blank=True,
@@ -390,7 +390,8 @@ class CoderedEmail(ClusterableModel):
         max_length=255,
         blank=True,
         verbose_name=_('From Address'),
-        help_text=_('For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes).')
+        help_text=_(
+            'For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes).')  # noqa
     )
     reply_address = models.CharField(
         max_length=255,

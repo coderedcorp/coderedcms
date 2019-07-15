@@ -55,6 +55,7 @@ class BasicPageTestCase():
         response = self.basic_page.serve(request)
         self.assertEqual(response.status_code, 200)
 
+
 class AbstractPageTestCase():
     """
     This is a testing mixin used to run common tests for abstract page types.

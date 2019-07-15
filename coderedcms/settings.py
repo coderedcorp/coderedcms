@@ -12,7 +12,7 @@ DEFAULTS = {
     'PROTECTED_MEDIA_URL': '/protected/',
     'PROTECTED_MEDIA_ROOT': os.path.join(BASE_DIR, 'protected'),
     'PROTECTED_MEDIA_UPLOAD_WHITELIST': [],
-    'PROTECTED_MEDIA_UPLOAD_BLACKLIST': ['.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'],
+    'PROTECTED_MEDIA_UPLOAD_BLACKLIST': ['.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'],  # noqa
 
     'FRONTEND_BTN_SIZE_DEFAULT': '',
     'FRONTEND_BTN_SIZE_CHOICES': (
@@ -145,8 +145,10 @@ DEFAULTS = {
             ('coderedcms/blocks/pagelist_article_media.html', 'Article, media format'),
             ('coderedcms/blocks/pagelist_article_card_group.html',
                 'Article, card group - attached cards of equal size'),
-            ('coderedcms/blocks/pagelist_article_card_deck.html', 'Article, card deck - separate cards of equal size'),
-            ('coderedcms/blocks/pagelist_article_card_columns.html', 'Article, card masonry - fluid brick pattern'),
+            ('coderedcms/blocks/pagelist_article_card_deck.html',
+             'Article, card deck - separate cards of equal size'),
+            ('coderedcms/blocks/pagelist_article_card_columns.html',
+             'Article, card masonry - fluid brick pattern'),
         ),
         'pagepreviewblock': (
             ('coderedcms/blocks/pagepreview_card.html', 'Card'),

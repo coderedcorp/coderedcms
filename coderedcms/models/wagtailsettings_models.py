@@ -123,7 +123,7 @@ class LayoutSettings(BaseSetting):
         choices=cr_settings['FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES'],
         default=cr_settings['FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT'],
         verbose_name=_('Navbar color scheme'),
-        help_text=_('Optimizes text and other navbar elements for use with light or dark backgrounds.'),
+        help_text=_('Optimizes text and other navbar elements for use with light or dark backgrounds.'),  # noqa
     )
     navbar_class = models.CharField(
         blank=True,
@@ -255,7 +255,7 @@ class ADASettings(BaseSetting):
         verbose_name=_('Show skip navigation link'),
         help_text=_(
             '''
-            Shows a "Skip Navigation" link above the navbar that takes you directly to the main content.
+            Shows a "Skip Navigation" link above the navbar that takes you directly to the main content.  # noqa
             '''
         ),
     )
@@ -338,7 +338,7 @@ class SeoSettings(BaseSetting):
         help_text=_(
             '''
             Shows content as a "card" when linking to this site on Twitter.
-            See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.
+            See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.  # noqa
             '''
         ),
     )
@@ -347,7 +347,7 @@ class SeoSettings(BaseSetting):
         verbose_name=_('Use Structured Data'),
         help_text=_(
             '''
-            Optimizes information about your organization for search engines. See https://schema.org/.
+            Optimizes information about your organization for search engines. See https://schema.org/.  # noqa
             '''
         ),
     )
@@ -356,7 +356,7 @@ class SeoSettings(BaseSetting):
         verbose_name=_('Use AMP Pages'),
         help_text=_(
             '''
-            Generates an alternate AMP version of Article pages that are preferred by search engines.
+            Generates an alternate AMP version of Article pages that are preferred by search engines.  # noqa
             See https://www.ampproject.org/
             '''
         ),
@@ -371,7 +371,7 @@ class SeoSettings(BaseSetting):
                 FieldPanel('amp_pages'),
                 HelpPanel(content=_(
                     '''
-                    If these settings are enabled, the corresponding values in each page’s SEO tab are used.
+                    If these settings are enabled, the corresponding values in each page’s SEO tab are used.  # noqa
                     '''
                 )),
             ],

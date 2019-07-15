@@ -60,16 +60,15 @@ def generate_random_id():
 @register.simple_tag(takes_context=True)
 def og_image(context, page):
     site_url = context['request'].site.root_url
-    if page.og_image:
-        relative_path = page.og_image.get_rendition('original').url
-    elif page.cover_image:
-        relative_path = page.cover_image.get_rendition('original').url
-    elif LayoutSettings.for_site(context['request'].site).logo:
+    if page:
+        if page.og_image:
+            return site_url + page.og_image.get_rendition('original').url
+        elif page.cover_image:
+            return site_url + page.cover_image.get_rendition('original').url
+    if LayoutSettings.for_site(context['request'].site).logo:
         layout_settings = LayoutSettings.for_site(context['request'].site)
-        relative_path = layout_settings.logo.get_rendition('original').url
-    else:
-        return None
-    return site_url + relative_path
+        return site_url + layout_settings.logo.get_rendition('original').url
+    return None
 
 @register.simple_tag
 def is_menu_item_dropdown(value):

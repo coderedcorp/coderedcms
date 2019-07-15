@@ -11,7 +11,7 @@ class FormSubmissionsPanel(EditHandler):
     def bind_to_model(self, model):
         new = super().bind_to_model(model)
         if self.heading is None:
-            new.heading = _("{} submissions").format(model.get_verbose_name())
+            new.heading = _('{} submissions').format(model.get_verbose_name())
         return new
 
     def render(self):
@@ -20,8 +20,9 @@ class FormSubmissionsPanel(EditHandler):
         submission_count = submissions.count()
 
         if not submission_count:
-            return ""
+            return ''
 
+<<<<<<< HEAD
         return mark_safe(
             render_to_string(
                 self.template,
@@ -32,3 +33,11 @@ class FormSubmissionsPanel(EditHandler):
                 },
             )
         )
+=======
+        return mark_safe(render_to_string(self.template, {
+            'self': self,
+            'submission_count': submission_count,
+            'last_submit_time': (submissions.order_by('submit_time')
+                                 .last().submit_time),
+        }))
+>>>>>>> parent of c406c01... Formatted by black

@@ -21,10 +21,12 @@ class MultiSelectBlock(blocks.FieldBlock):
     Renders as MultipleChoiceField, used for adding checkboxes,
     radios, or multiselect inputs in the streamfield.
     """
-
     def __init__(self, required=True, help_text=None, choices=None, widget=None, **kwargs):
         self.field = forms.MultipleChoiceField(
-            required=required, help_text=help_text, choices=choices, widget=widget
+            required=required,
+            help_text=help_text,
+            choices=choices,
+            widget=widget,
         )
         super().__init__(**kwargs)
 
@@ -37,7 +39,6 @@ class ClassifierTermChooserBlock(blocks.FieldBlock):
     Enables choosing a ClassifierTerm in the streamfield.
     Lazy loads the target_model from the string to avoid recursive imports.
     """
-
     widget = forms.Select
 
     def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
@@ -48,12 +49,12 @@ class ClassifierTermChooserBlock(blocks.FieldBlock):
 
     @cached_property
     def target_model(self):
-        return resolve_model_string("coderedcms.ClassifierTerm")
+        return resolve_model_string('coderedcms.ClassifierTerm')
 
     @cached_property
     def field(self):
         return forms.ModelChoiceField(
-            queryset=self.target_model.objects.all().order_by("classifier__name", "name"),
+            queryset=self.target_model.objects.all().order_by('classifier__name', 'name'),
             widget=self.widget,
             required=self._required,
             label=self._label,
@@ -81,7 +82,6 @@ class CollectionChooserBlock(blocks.FieldBlock):
     """
     Enables choosing a wagtail Collection in the streamfield.
     """
-
     target_model = Collection
     widget = forms.Select
 
@@ -94,7 +94,7 @@ class CollectionChooserBlock(blocks.FieldBlock):
     @cached_property
     def field(self):
         return forms.ModelChoiceField(
-            queryset=self.target_model.objects.all().order_by("name"),
+            queryset=self.target_model.objects.all().order_by('name'),
             widget=self.widget,
             required=self._required,
             label=self._label,
@@ -122,19 +122,22 @@ class ButtonMixin(blocks.StructBlock):
     """
     Standard style and size options for buttons.
     """
-
-    button_title = blocks.CharBlock(max_length=255, required=True, label=_("Button Title"))
+    button_title = blocks.CharBlock(
+        max_length=255,
+        required=True,
+        label=_('Button Title'),
+    )
     button_style = blocks.ChoiceBlock(
-        choices=cr_settings["FRONTEND_BTN_STYLE_CHOICES"],
-        default=cr_settings["FRONTEND_BTN_STYLE_DEFAULT"],
+        choices=cr_settings['FRONTEND_BTN_STYLE_CHOICES'],
+        default=cr_settings['FRONTEND_BTN_STYLE_DEFAULT'],
         required=False,
-        label=_("Button Style"),
+        label=_('Button Style'),
     )
     button_size = blocks.ChoiceBlock(
-        choices=cr_settings["FRONTEND_BTN_SIZE_CHOICES"],
-        default=cr_settings["FRONTEND_BTN_SIZE_DEFAULT"],
+        choices=cr_settings['FRONTEND_BTN_SIZE_CHOICES'],
+        default=cr_settings['FRONTEND_BTN_SIZE_DEFAULT'],
         required=False,
-        label=_("Button Size"),
+        label=_('Button Size'),
     )
 
 
@@ -143,16 +146,23 @@ class CoderedAdvSettings(blocks.StructBlock):
     Common fields each block should have,
     which are hidden under the block's "Advanced Settings" dropdown.
     """
-
     # placeholder, real value get set in __init__()
     custom_template = blocks.Block()
 
-    custom_css_class = blocks.CharBlock(required=False, max_length=255, label=_("Custom CSS Class"))
-    custom_id = blocks.CharBlock(required=False, max_length=255, label=_("Custom ID"))
+    custom_css_class = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_('Custom CSS Class'),
+    )
+    custom_id = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_('Custom ID'),
+    )
 
     class Meta:
-        form_template = "wagtailadmin/block_forms/base_block_settings_struct.html"
-        label = _("Advanced Settings")
+        form_template = 'wagtailadmin/block_forms/base_block_settings_struct.html'
+        label = _('Advanced Settings')
 
     def __init__(self, local_blocks=None, template_choices=None, **kwargs):
         if not local_blocks:
@@ -160,10 +170,12 @@ class CoderedAdvSettings(blocks.StructBlock):
 
         local_blocks += (
             (
-                "custom_template",
+                'custom_template',
                 blocks.ChoiceBlock(
-                    choices=template_choices, default=None, required=False, label=_("Template")
-                ),
+                    choices=template_choices,
+                    default=None,
+                    required=False,
+                    label=_('Template'))
             ),
         )
 
@@ -174,12 +186,15 @@ class CoderedAdvTrackingSettings(CoderedAdvSettings):
     """
     CoderedAdvSettings plus additional tracking fields.
     """
-
     ga_tracking_event_category = blocks.CharBlock(
-        required=False, max_length=255, label=_("Tracking Event Category")
+        required=False,
+        max_length=255,
+        label=_('Tracking Event Category'),
     )
     ga_tracking_event_label = blocks.CharBlock(
-        required=False, max_length=255, label=_("Tracking Event Label")
+        required=False,
+        max_length=255,
+        label=_('Tracking Event Label'),
     )
 
 
@@ -187,15 +202,12 @@ class CoderedAdvColumnSettings(CoderedAdvSettings):
     """
     BaseBlockSettings plus additional column fields.
     """
-
     column_breakpoint = blocks.ChoiceBlock(
-        choices=cr_settings["FRONTEND_COL_BREAK_CHOICES"],
-        default=cr_settings["FRONTEND_COL_BREAK_DEFAULT"],
+        choices=cr_settings['FRONTEND_COL_BREAK_CHOICES'],
+        default=cr_settings['FRONTEND_COL_BREAK_DEFAULT'],
         required=False,
-        verbose_name=_("Column Breakpoint"),
-        help_text=_(
-            "Screen size at which the column will expand horizontally or stack vertically."
-        ),
+        verbose_name=_('Column Breakpoint'),
+        help_text=_('Screen size at which the column will expand horizontally or stack vertically.'),
     )
 
 
@@ -203,7 +215,6 @@ class BaseBlock(blocks.StructBlock):
     """
     Common attributes for all blocks used in CodeRed CMS.
     """
-
     # subclasses can override this to determine the advanced settings class
     advsettings_class = CoderedAdvSettings
 
@@ -215,19 +226,18 @@ class BaseBlock(blocks.StructBlock):
         Construct and inject settings block, then initialize normally.
         """
         klassname = self.__class__.__name__.lower()
-        choices = cr_settings["FRONTEND_TEMPLATES_BLOCKS"].get("*", ()) + cr_settings[
-            "FRONTEND_TEMPLATES_BLOCKS"
-        ].get(klassname, ())
+        choices = cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get('*', ()) + \
+            cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get(klassname, ())
 
         if not local_blocks:
             local_blocks = ()
 
-        local_blocks += (("settings", self.advsettings_class(template_choices=choices)),)
+        local_blocks += (('settings', self.advsettings_class(template_choices=choices)),)
 
         super().__init__(local_blocks, **kwargs)
 
     def render(self, value, context=None):
-        template = value["settings"]["custom_template"]
+        template = value['settings']['custom_template']
 
         if not template:
             template = self.get_template(context=context)
@@ -246,7 +256,6 @@ class BaseLayoutBlock(BaseBlock):
     """
     Common attributes for all blocks used in CodeRed CMS.
     """
-
     # Subclasses can override this to provide a default list of blocks for the content.
     content_streamblocks = []
 
@@ -255,7 +264,7 @@ class BaseLayoutBlock(BaseBlock):
             local_blocks = self.content_streamblocks
 
         if local_blocks:
-            local_blocks = (("content", blocks.StreamBlock(local_blocks, label=_("Content"))),)
+            local_blocks = (('content', blocks.StreamBlock(local_blocks, label=_('Content'))),)
 
         super().__init__(local_blocks, **kwargs)
 
@@ -264,12 +273,11 @@ class LinkStructValue(blocks.StructValue):
     """
     Generates a URL for blocks with multiple link choices.
     """
-
     @property
     def url(self):
-        page = self.get("page_link")
-        doc = self.get("doc_link")
-        ext = self.get("other_link")
+        page = self.get('page_link')
+        doc = self.get('doc_link')
+        ext = self.get('other_link')
         if page:
             return page.url
         elif doc:
@@ -282,10 +290,19 @@ class BaseLinkBlock(BaseBlock):
     """
     Common attributes for creating a link within the CMS.
     """
-
-    page_link = blocks.PageChooserBlock(required=False, label=_("Page link"))
-    doc_link = DocumentChooserBlock(required=False, label=_("Document link"))
-    other_link = blocks.CharBlock(required=False, max_length=255, label=_("Other link"))
+    page_link = blocks.PageChooserBlock(
+        required=False,
+        label=_('Page link'),
+    )
+    doc_link = DocumentChooserBlock(
+        required=False,
+        label=_('Document link'),
+    )
+    other_link = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_('Other link'),
+    )
 
     advsettings_class = CoderedAdvTrackingSettings
 

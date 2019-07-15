@@ -39,9 +39,7 @@ class Carousel(ClusterableModel):
         default=True,
         verbose_name=_('Show controls'),
         help_text=_(
-            '''
-            Shows arrows on the left and right of the carousel to advance next or previous slides.
-            '''
+            "Shows arrows on the left and right of the carousel to advance next or previous slides."  # noqa
         ),
     )
     show_indicators = models.BooleanField(

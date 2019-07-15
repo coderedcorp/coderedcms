@@ -216,10 +216,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         related_name='+',
         verbose_name=_('Open Graph preview image'),
         help_text=_(
-            '''
-            The image shown when linking to this page on social media.
-            If blank, defaults to article cover image, or logo in Settings > Layout > Logo
-            '''
+            "The image shown when linking to this page on social media. If blank, defaults to article cover image, or logo in Settings > Layout > Logo"  # noqa
         )
     )
     struct_org_type = models.CharField(
@@ -254,10 +251,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         related_name='+',
         verbose_name=_('Photo of Organization'),
         help_text=_(
-            '''
-            A photo of the facility. This photo will be cropped to 1:1,
-            4:3, and 16:9 aspect ratios automatically.
-            '''
+            "A photo of the facility. This photo will be cropped to 1:1, 4:3, and 16:9 aspect ratios automatically."  # noqa
         )
     )
     struct_org_phone = models.CharField(
@@ -295,10 +289,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         max_length=255,
         verbose_name=_('Country'),
         help_text=_(
-            '''
-            For example, USA. Two-letter ISO 3166-1 alpha-2 country
-            code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1
-            '''
+            "For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1"  # noqa
         )
     )
     struct_org_geo_lat = models.DecimalField(
@@ -333,10 +324,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_('Additional Organization markup'),
         help_text=_(
-            '''
-            Additional JSON-LD inserted into the Organization dictionary.
-            Must be properties of https://schema.org/Organization or the selected organization type.
-            '''
+            "Additional JSON-LD inserted into the Organization dictionary. Must be properties of https://schema.org/Organization or the selected organization type."  # noqa
         )
     )
 
@@ -349,10 +337,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_('Classifiers'),
         help_text=_(
-            '''
-            Categorize and group pages together with classifiers.
-            Used to organize and filter pages across the site.
-            '''
+            "Categorize and group pages together with classifiers. Used to organize and filter pages across the site."  # noqa
         ),
     )
     tags = ClusterTaggableManager(
@@ -615,10 +600,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                                 all_children = all_children.filter(classifier_terms=term)
                         except AttributeError:
                             logger.warning(
-                                '''
-                                Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did  # noqa
-                                not return a queryset or is not a queryset of CoderedPage models.
-                                ''',
+                                "Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models.",  # noqa
                                 self._meta.app_label,
                                 self.__class__.__name__,
                                 self.title
@@ -886,7 +868,8 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
                 return aoc[-1]  # last one in the list
 
         except AttributeError:
-            # Triggers when a preview is initiated on an EventPage because it uses a FakeQuerySet object.  # noqa
+            # Triggers when a preview is initiated on an
+            # EventPage because it uses a FakeQuerySet object.
             # Here we manually compute the next_occurrence
             occurrences = [e.next_occurrence() for e in self.occurrences.all()]
             if occurrences:
@@ -905,10 +888,8 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
         if 'limit' in kwargs:
             if kwargs['limit'] is not None:
-                '''
-                Limit the number of event instances that will be
-                generated per occurrence rule to 10, if not otherwise specified.
-                '''
+                # Limit the number of event instances that will be
+                # generated per occurrence rule to 10, if not otherwise specified.
                 occurrence_kwargs['limit'] = kwargs.get('limit', 10)
 
         # For each occurrence rule in all of the occurrence rules for this event.
@@ -1063,9 +1044,7 @@ class CoderedFormMixin(models.Model):
         blank=True,
         verbose_name=_('Email form submissions to'),
         help_text=_(
-            '''
-            Optional - email form submissions to this address. Separate multiple addresses by comma.
-            '''
+            "Optional - email form submissions to this address. Separate multiple addresses by comma."  # noqa
         )
     )
     reply_address = models.CharField(
@@ -1073,10 +1052,7 @@ class CoderedFormMixin(models.Model):
         blank=True,
         verbose_name=_('Reply-to address'),
         help_text=_(
-            '''
-            Optional - to reply to the submitter, specify the email field here.
-            For example, if a form field above is labeled "Your Email", enter: {{ your_email }}'
-            '''
+            "Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}'"  # noqa
         )
     )
     subject = models.CharField(
@@ -1554,8 +1530,7 @@ def create_submission_deleted_revision(sender, **kwargs):
     if not issubclass(sender, CoderedSessionFormSubmission):
         return
     submission = kwargs['instance']
-    CoderedSubmissionRevision.create_from_submission(submission,
-                                                     SubmissionRevision.DELETED)
+    CoderedSubmissionRevision.create_from_submission(submission, SubmissionRevision.DELETED)  # noqa
 
 
 class CoderedStep(Step):
@@ -1849,10 +1824,7 @@ class CoderedLocationIndexPage(CoderedWebPage):
             MinValueValidator(1),
         ],
         help_text=_(
-            '''
-            Requires API key to use zoom. 1: World, 5: Landmass/continent,
-            10: City, 15: Streets, 20: Buildings
-            '''
+            "Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"  # noqa
         )
     )
 

@@ -93,7 +93,7 @@ SCHEMA_ORG_CHOICES = (
     ('ExerciseGym', 'Organization > LocalBusiness > SportsActivityLocation > ExerciseGym'),
     ('GolfCourse', 'Organization > LocalBusiness > SportsActivityLocation > GolfCourse'),
     ('HealthClub', 'Organization > LocalBusiness > SportsActivityLocation > HealthClub'),
-    ('PublicSwimmingPool', 'Organization > LocalBusiness > SportsActivityLocation > PublicSwimmingPool'),  # noqa
+    ('PublicSwimmingPool', 'Organization > LocalBusiness > SportsActivityLocation > PublicSwimmingPool'),
     ('SkiResort', 'Organization > LocalBusiness > SportsActivityLocation > SkiResort'),
     ('SportsClub', 'Organization > LocalBusiness > SportsActivityLocation > SportsClub'),
     ('StadiumOrArena', 'Organization > LocalBusiness > SportsActivityLocation > StadiumOrArena'),

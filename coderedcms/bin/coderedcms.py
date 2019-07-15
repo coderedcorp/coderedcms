@@ -11,9 +11,7 @@ REQUIRED_PYTHON = (3, 4)
 
 if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write(
-        '''
-        This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n
-        '''.format(*(REQUIRED_PYTHON + CURRENT_PYTHON))
+        "This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(*(REQUIRED_PYTHON + CURRENT_PYTHON))  # noqa
     )
     sys.exit(1)
 

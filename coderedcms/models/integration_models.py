@@ -84,11 +84,8 @@ class MailchimpSubscriberIntegrationWidget(Input):
                     'interest_categories': {}
                 }
 
-                list_library[l['id']]['merge_fields'] = mailchimp.get_merge_fields_for_list(l['id'])[  # noqa
-                    'merge_fields']
-                list_library[l['id']]['interest_categories'] = mailchimp.get_interest_categories_for_list(  # noqa
-                    l['id']
-                )['categories']
+                list_library[l['id']]['merge_fields'] = mailchimp.get_merge_fields_for_list(l['id'])['merge_fields']  # noqa
+                list_library[l['id']]['interest_categories'] = mailchimp.get_interest_categories_for_list(l['id'])['categories']  # noqa
 
                 for category in list_library[l['id']]['interest_categories']:
                     category['interests'] = mailchimp.get_interests_for_interest_category(

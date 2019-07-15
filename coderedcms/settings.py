@@ -97,8 +97,7 @@ DEFAULTS = {
         ('navbar-expand-xl', 'xl - Show on extra large screens (desktop, wide monitor)'),
     ),
 
-    'FRONTEND_THEME_HELP': '''Change the color palette of your site with a Bootstrap theme.
-                              Powered by Bootswatch https://bootswatch.com/.''',
+    'FRONTEND_THEME_HELP': "Change the color palette of your site with a Bootstrap theme. Powered by Bootswatch https://bootswatch.com/.",  # noqa
     'FRONTEND_THEME_DEFAULT': '',
     'FRONTEND_THEME_CHOICES': (
         ('', 'Default - Classic Bootstrap'),

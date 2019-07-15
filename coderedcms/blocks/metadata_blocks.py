@@ -83,10 +83,7 @@ class StructuredDataActionBlock(blocks.StructBlock):
         verbose_name=_('Additional action markup'),
         classname='monospace',
         help_text=_(
-            '''
-            Additional JSON-LD inserted into the Action dictionary.
-            Must be properties of https://schema.org/Action.
-            '''
+            "Additional JSON-LD inserted into the Action dictionary. Must be properties of https://schema.org/Action."  # noqa
         )
     )
 

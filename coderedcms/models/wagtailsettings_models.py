@@ -224,10 +224,7 @@ class AnalyticsSettings(BaseSetting):
         default=False,
         verbose_name=_('Track button clicks'),
         help_text=_(
-            '''
-            Track all button clicks using Google Analytics event tracking.
-            Event tracking details can be specified in each button’s advanced settings options.
-            '''
+            "Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options."  # noqa
         ),
     )
 

@@ -31,27 +31,33 @@ jobs:
         PYTHON_VERSION: '3.6'
       py3.7:
         PYTHON_VERSION: '3.7'
+  
   steps:
   - task: UsePythonVersion@0
     displayName: 'Use Python version'
     inputs:
       versionSpec: '$(PYTHON_VERSION)'
       architecture: 'x64'
+
   - script: |
       python -m pip install -e ./[ci_tests]
     displayName: 'CR-QC: Install coderedcms from local repo'
+
   - script: |
       coderedcms start testproject --name="Test Project" --domain="www.example.com"
     displayName: 'CR-QC: Create starter project from template'
+
   - script: |
       pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
     displayName: 'CR-QC: Run unit tests'
+
   - task: PublishTestResults@2
     displayName: 'Publish unit test report'
     condition: succeededOrFailed()
     inputs:
       testResultsFiles: '**/test-*.xml'
       testRunTitle: 'Publish test results for Python $(python.version)'
+
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage report'
     condition: succeededOrFailed()
@@ -63,21 +69,22 @@ jobs:
   displayName: Static Analysis
   pool:
     vmImage: 'ubuntu-latest'
+
   steps:
   - task: UsePythonVersion@0
     displayName: 'Use Python version'
     inputs:
       versionSpec: '3.7'
       architecture: 'x64'
+
   - script: |
       python -m pip install -e ./[ci_style]
     displayName: 'CR-QC: Install coderedcms from local repo'
+
   - script: |
       coderedcms start testproject
     displayName: 'CR-QC: Generate a test project'
+
   - pwsh: |
       & ci/run_flake8.ps1
     displayName: 'CR-QC: Static analysis (flake8)'
-  - pwsh: |
-      & ci/run_black.ps1
-    displayName: 'CR-QC: Static analysis (black)'

@@ -54,7 +54,8 @@ setup(
     ],
     extras_require={
         "dev": [
-            "black",
+            # "autopep8",
+            # "black",
             "flake8",
             "libsass",
             "pytest-cov",
@@ -64,7 +65,11 @@ setup(
             "wheel",
         ],  # noqa
         "ci_tests": ["pytest-cov", "pytest-django"],
-        "ci_style": ["black", "flake8"],
+        "ci_style": [
+            # "autopep8",
+            # "black",
+            "flake8"
+        ],
     },
     entry_points="""
             [console_scripts]

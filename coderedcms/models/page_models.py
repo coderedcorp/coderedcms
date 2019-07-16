@@ -610,7 +610,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
             pagenum = request.GET.get('p', 1)
             try:
                 paged_children = paginator.page(pagenum)
-            except (PageNotAnInteger, EmptyPage, InvalidPage) as e:
+            except (PageNotAnInteger, EmptyPage, InvalidPage) as e:  # noqa
                 paged_children = paginator.page(1)
 
             context['index_paginated'] = paged_children

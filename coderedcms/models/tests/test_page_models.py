@@ -101,7 +101,7 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         """
         Test to check if the default spam catching works.
         """
-        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)
+        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)  # noqa
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), self.basic_page.get_spam_message())

@@ -610,11 +610,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
             pagenum = request.GET.get('p', 1)
             try:
                 paged_children = paginator.page(pagenum)
-            except PageNotAnInteger:
-                paged_children = paginator.page(1)
-            except EmptyPage:
-                paged_children = paginator.page(1)
-            except InvalidPage:
+            except (PageNotAnInteger, EmptyPage, InvalidPage) as e:
                 paged_children = paginator.page(1)
 
             context['index_paginated'] = paged_children
@@ -1053,7 +1049,7 @@ class CoderedFormMixin(models.Model):
         blank=True,
         verbose_name=_('Reply-to address'),
         help_text=_(
-            "Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}'"  # noqa
+            "Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled 'Your Email', enter: {{ your_email }}"  # noqa
         )
     )
     subject = models.CharField(
@@ -1500,7 +1496,6 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
         """
 
         return FormSubmission
-
 
 
 class CoderedSubmissionRevision(SubmissionRevision, models.Model):

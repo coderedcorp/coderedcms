@@ -22,7 +22,6 @@ from coderedcms.models.wagtailsettings_models import LayoutSettings
 register = template.Library()
 
 
-
 @register.filter
 def is_advanced_setting(obj):
     return CoderedAdvSettings in (obj.__class__,) + obj.__class__.__bases__
@@ -162,7 +161,6 @@ def structured_data_datetime(dt):
 @register.filter
 def amp_formatting(value):
     return mark_safe(utils.convert_to_amp(value))
-
 
 
 @register.filter

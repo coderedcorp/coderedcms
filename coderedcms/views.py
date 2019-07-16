@@ -72,7 +72,7 @@ def search(request):
                 try:
                     model = ContentType.objects.get(model=search_model).model_class()
                     results = model.objects.live().search(search_query)
-                except search_model.DoesNotExist:  # Possible search also causes an exception, nothing found online  # noqa
+                except search_model.DoesNotExist:
                     results = None
             else:
                 results = CoderedPage.objects.live().order_by('-last_published_at').search(search_query)  # noqa

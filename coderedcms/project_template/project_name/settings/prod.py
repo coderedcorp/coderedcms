@@ -67,7 +67,7 @@ TEMPLATES = [
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'cache'),  # noqa
+        'LOCATION': os.path.join(BASE_DIR, 'cache'),
         'KEY_PREFIX': 'coderedcms',
         'TIMEOUT': 14400,  # in seconds
     }

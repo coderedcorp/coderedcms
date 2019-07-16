@@ -1,7 +1,5 @@
-from django.contrib.auth.models import AnonymousUser
+from django.test import Client
 from wagtail.tests.utils import WagtailPageTests
-from django.test.client import RequestFactory
-from wagtail.core.models import Site
 
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,
@@ -37,7 +35,7 @@ class BasicPageTestCase():
         abstract = True
 
     def setUp(self):
-        self.request_factory = RequestFactory()
+        self.client = Client()
         self.basic_page = self.model(
             title=str(self.model._meta.verbose_name)
         )
@@ -48,11 +46,8 @@ class BasicPageTestCase():
         """
         Tests to make sure a basic version of the page serves a 200 from a GET request.
         """
-        request = self.request_factory.get(self.basic_page.url)
-        request.session = self.client.session
-        request.user = AnonymousUser()
-        request.site = Site.objects.all()[0]
-        response = self.basic_page.serve(request)
+
+        response = self.client.get(self.basic_page.url, follow=True)
         self.assertEqual(response.status_code, 200)
 
 
@@ -99,12 +94,24 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         """
         Tests to make sure a basic version of the page serves a 200 from a POST request.
         """
-        request = self.request_factory.post(self.basic_page.url)
-        request.session = self.client.session
-        request.user = AnonymousUser()
-        request.site = Site.objects.all()[0]
-        response = self.basic_page.serve(request)
+        response = self.client.post(self.basic_page.url, follow=True)
         self.assertEqual(response.status_code, 200)
+
+    def test_spam(self):
+        """
+        Test to check if the default spam catching works.
+        """
+        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), self.basic_page.get_spam_message())
+
+    def test_not_spam(self):
+        """
+        Test to check if the default spam catching won't mark correct posts as spam.
+        """
+        response = self.client.post(self.basic_page.url)
+        self.assertFalse(hasattr(response, 'is_spam'))
 
 
 class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):

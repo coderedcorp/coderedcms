@@ -49,12 +49,21 @@ def convert_to_amp(value):
     Function that converts non-amp compliant html to valid amp html.
     value must be a string
     """
-    soup = BeautifulSoup(value)
+    soup = BeautifulSoup(value, "html.parser")
 
     # Replace img tags with amp-img
     try:
         img_tags = soup.find('img')
         img_tags.name = 'amp-img'
+    except AttributeError:
+        pass
+
+    # Replace iframe tags with amp-iframe
+    try:
+        iframe_tags = soup.find('iframe')
+        iframe_tags.name = 'amp-iframe'
+        iframe_tags['layout'] = 'responsive'
+
     except AttributeError:
         pass
 

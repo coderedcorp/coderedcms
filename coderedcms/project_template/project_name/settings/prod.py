@@ -30,15 +30,15 @@ MANAGERS = ADMINS
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.mysql",
-#        "HOST": "localhost",
-#        "NAME": "{{ project_name }}",
-#        "USER": "{{ project_name }}",
-#        "PASSWORD": "",
-#        # If using SSL to connect to a cloud mysql database, spedify the CA as so.
-#        "OPTIONS": { "ssl": { "ca": "/path/to/certificate-authority.pem" } },
-#    }
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': 'localhost',
+#         'NAME': '{{ project_name }}',
+#         'USER': '{{ project_name }}',
+#         'PASSWORD': '',
+#         # If using SSL to connect to a cloud mysql database, spedify the CA as so.
+#         'OPTIONS': { 'ssl': { 'ca': '/path/to/certificate-authority.pem' } },
+#     }
 # }
 
 # Use template caching to speed up wagtail admin and front-end.

@@ -8,6 +8,7 @@ import os
 import geocoder
 from django import forms
 from django.conf import settings
+from django.contrib import messages
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
@@ -1123,6 +1124,11 @@ class CoderedFormMixin(models.Model):
         verbose_name=_('Form expiry date/time'),
         help_text=_('Date and time when the FORM will no longer be available on the page.'),
     )
+    spam_protection = models.BooleanField(
+        default=True,
+        verbose_name=_('Spam Protection'),
+        help_text=_('When enabled, the CMS will filter out spam form submissions for this page.')
+    )
 
     body_content_panels = [
         MultiFieldPanel(
@@ -1160,7 +1166,8 @@ class CoderedFormMixin(models.Model):
                 ),
             ],
             _('Form Scheduled Publishing'),
-        )
+        ),
+        FieldPanel('spam_protection')
     ]
 
     @property
@@ -1300,7 +1307,8 @@ class CoderedFormMixin(models.Model):
         message = EmailMessage(**message_args)
         message.send()
 
-    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+    def render_landing_page(self, request, form_submission=None):
+
         """
         Renders the landing page.
 
@@ -1356,6 +1364,68 @@ class CoderedFormMixin(models.Model):
         """
         view = self.submissions_list_view_class.as_view()
         return view(request, form_page=self, *args, **kwargs)
+
+    def get_form(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form_params = self.get_form_parameters()
+        form_params.update(kwargs)
+
+        if request.method == 'POST':
+            return form_class(request.POST, request.FILES, *args, **form_params)
+        return form_class(*args, **form_params)
+
+    def contains_spam(self, request):
+        """
+        Checks to see if the spam honeypot was filled out.
+        """
+        if request.POST.get("cr-decoy-comments", None):
+            return True
+        return False
+
+    def process_spam_request(self, form, request):
+        """
+        Called when spam is found in the request.
+        """
+        messages.error(request, self.get_spam_message())
+        logger.info("Detected spam submission on page: {0}\n{1}".format(self.title, vars(request)))
+
+        return self.process_form_get(form, request)
+
+    def get_spam_message(self):
+        return _("There was an error while processing your submission.  Please try again.")
+
+    def process_form_post(self, form, request):
+        if form.is_valid():
+            processed_data = self.process_data(form, request)
+            form_submission = self.get_submission_class()(
+                form_data=json.dumps(processed_data, cls=self.encoder),
+                page=self,
+            )
+            self.process_form_submission(
+                request=request,
+                form=form,
+                form_submission=form_submission,
+                processed_data=processed_data)
+            return self.render_landing_page(request, form_submission)
+        return self.process_form_get(form, request)
+
+    def process_form_get(self, form, request):
+        context = self.get_context(request)
+        context['form'] = form
+        response = render(
+            request,
+            self.get_template(request),
+            context
+        )
+        return response
+
+    def serve(self, request, *args, **kwargs):
+        form = self.get_form(request, page=self, user=request.user)
+        if request.method == 'POST':
+            if self.spam_protection and self.contains_spam(request):
+                return self.process_spam_request(form, request)
+            return self.process_form_post(form, request)
+        return self.process_form_get(form, request)
 
 
 class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
@@ -1421,13 +1491,6 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     def get_form_parameters(self):
         return {}
 
-    def get_form(self, *args, **kwargs):
-        form_class = self.get_form_class()
-        form_params = self.get_form_parameters()
-        form_params.update(kwargs)
-
-        return form_class(*args, **form_params)
-
     def get_submission_class(self):
         """
         Returns submission class.
@@ -1438,33 +1501,6 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
 
         return FormSubmission
 
-    def serve(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
-
-            if form.is_valid():
-                processed_data = self.process_data(form, request)
-                form_submission = self.get_submission_class()(
-                    form_data=json.dumps(processed_data, cls=self.encoder),
-                    page=self,
-                )
-                self.process_form_submission(
-                    request=request,
-                    form=form,
-                    form_submission=form_submission,
-                    processed_data=processed_data)
-                return self.render_landing_page(request, form_submission, *args, **kwargs)
-        else:
-            form = self.get_form(page=self, user=request.user)
-
-        context = self.get_context(request)
-        context['form'] = form
-        response = render(
-            request,
-            self.get_template(request),
-            context
-        )
-        return response
 
 
 class CoderedSubmissionRevision(SubmissionRevision, models.Model):
@@ -1605,7 +1641,7 @@ class CoderedStreamFormMixin(StreamFormMixin):
         return user_submission
 
 
-class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWebPage):
+class CoderedStreamFormPage(CoderedFormMixin, CoderedStreamFormMixin, CoderedWebPage):
     class Meta:
         verbose_name = _('CodeRed Advanced Form Page')
         abstract = True
@@ -1623,10 +1659,8 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
             InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
     ]
 
-    def serve(self, request, *args, **kwargs):
-        context = self.get_context(request)
-        form = context['form']
-        if request.method == 'POST' and form.is_valid():
+    def process_form_post(self, form, request):
+        if form.is_valid():
             is_complete = self.steps.update_data()
             if is_complete:
                 submission = self.get_submission(request)
@@ -1637,9 +1671,15 @@ class CoderedStreamFormPage(CoderedStreamFormMixin, CoderedFormMixin, CoderedWeb
                     processed_data=submission.get_data()
                 )
                 normal_submission = submission.create_normal_submission()
-                return self.render_landing_page(request, normal_submission, *args, **kwargs)
+                return self.render_landing_page(request, normal_submission)
             return HttpResponseRedirect(self.url)
-        return CoderedWebPage.serve(self, request, *args, **kwargs)
+        return self.process_form_get(form, request)
+
+    def process_form_get(self, form, request):
+        return CoderedWebPage.serve(self, request)
+
+    def get_form(self, request, *args, **kwargs):
+        return self.get_context(request)['form']
 
     def get_storage(self):
         return FileSystemStorage(

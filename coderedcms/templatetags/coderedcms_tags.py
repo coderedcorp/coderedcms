@@ -1,7 +1,7 @@
 import string
 import random
 
-
+from bs4 import BeautifulSoup
 from datetime import datetime
 from django import template
 from django.conf import settings
@@ -17,28 +17,10 @@ from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
 from coderedcms.models import Footer, Navbar
 from coderedcms.settings import cr_settings, get_bootstrap_setting
+from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 register = template.Library()
 
-
-@register.filter
-def get_embed_video_provider(url):
-    if 'youtu.be' in url or 'youtube.com' in url:
-        return 'youtube'
-    if 'vimeo.com' in url:
-        return 'vimeo'
-    return ''
-
-
-@register.filter
-def get_embed_video_code(url):
-    if get_embed_video_provider(url) == 'youtube':
-        v = url.split('v=', 1)[1]
-        return v.split('&', 1)[0]
-    if get_embed_video_provider(url) == 'vimeo':
-        v = url.split('.com/', 1)[1]
-        return v.split('?', 1)[0]
-    return ''
 
 
 @register.filter
@@ -59,6 +41,21 @@ def coderedcms_version():
 @register.simple_tag
 def generate_random_id():
     return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
+
+
+@register.simple_tag(takes_context=True)
+def og_image(context, page):
+    site_url = context['request'].site.root_url
+    if page.og_image:
+        relative_path = page.og_image.get_rendition('original').url
+    elif page.cover_image:
+        relative_path = page.cover_image.get_rendition('original').url
+    elif LayoutSettings.for_site(context['request'].site).logo:
+        layout_settings = LayoutSettings.for_site(context['request'].site)
+        relative_path = layout_settings.logo.get_rendition('original').url
+    else:
+        return None
+    return site_url + relative_path
 
 
 @register.simple_tag
@@ -154,18 +151,60 @@ def structured_data_datetime(dt):
     """
     Formats datetime object to structured data compatible datetime string.
     """
-    if dt.time():
-        return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
-    return datetime.strftime(dt, "%Y-%m-%d")
+    try:
+        if dt.time():
+            return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
+        return datetime.strftime(dt, "%Y-%m-%d")
+    except AttributeError:
+        return ""
 
 
 @register.filter
-def richtext_amp(value):
+def amp_formatting(value):
+    return mark_safe(utils.convert_to_amp(value))
+
+
+
+@register.filter
+def richtext_amp_formatting(value):
 
     if isinstance(value, RichText):
         value = richtext(value.source)
     else:
         value = richtext(value)
 
-    value = utils.convert_to_amp(value)
-    return mark_safe(value)
+    return amp_formatting(value)
+
+
+@register.simple_tag
+def render_iframe_from_embed(embed):
+    soup = BeautifulSoup(embed.html, "html.parser")
+    try:
+        iframe_tags = soup.find('iframe')
+        iframe_tags['title'] = embed.title
+        return mark_safe(soup.prettify())
+    except AttributeError:
+        pass
+    except TypeError:
+        pass
+
+    return mark_safe(embed.html)
+
+
+@register.filter
+def map_to_bootstrap_alert(message_tag):
+    """
+    Converts a message level to a bootstrap 4 alert class
+    """
+    message_to_alert_dict = {
+        'debug': 'primary',
+        'info': 'info',
+        'success': 'success',
+        'warning': 'warning',
+        'error': 'danger'
+    }
+
+    try:
+        return message_to_alert_dict[message_tag]
+    except KeyError:
+        return ''

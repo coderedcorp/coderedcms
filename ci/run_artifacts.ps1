@@ -13,7 +13,7 @@ Write-Output $newoutput
 if ($newlinerate -gt $oldlinerate) {
     Write-Output "Code coverage has increased. Build passed."
     exit 0
-} else if ($newlinerate -eq $oldlinerate) {
+} elseif ($newlinerate -eq $oldlinerate) {
     Write-Output "Code coverage has not changed. Build passed."
     exit 0
 } else {

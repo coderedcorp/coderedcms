@@ -81,6 +81,19 @@ def get_pictures(collection_id):
     return Image.objects.filter(collection=collection)
 
 
+@register.simple_tag(takes_context=True)
+def get_navbar_css(context):
+    layout = LayoutSettings.for_site(context['request'].site)
+    fixed = "fixed-top" if layout.navbar_fixed else ""
+    return " ".join([
+        fixed,
+        layout.navbar_collapse_mode,
+        layout.navbar_color_scheme,
+        layout.navbar_format,
+        layout.navbar_class
+    ])
+
+
 @register.simple_tag
 def get_navbars():
     return Navbar.objects.all()

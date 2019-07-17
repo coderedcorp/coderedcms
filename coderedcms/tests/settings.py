@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _  # noqa
 
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -80,7 +80,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     # Error reporting. Uncomment this to recieve emails when a 404 is triggered.
-    #'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
 
     # CMS functionality
     'wagtail.core.middleware.SiteMiddleware',
@@ -146,10 +146,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-LANGUAGES = [
-    ('en-us', _('English')),
-]
 
 TIME_ZONE = 'America/New_York'
 

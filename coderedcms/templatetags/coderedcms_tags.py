@@ -152,7 +152,7 @@ def query_update(querydict, key=None, value=None):
         else:
             try:
                 del(get[key])
-            except:
+            except KeyError:
                 pass
     return get
 

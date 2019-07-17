@@ -6,23 +6,27 @@ from django.http.response import HttpResponse
 from django.urls import reverse
 from django.utils.html import format_html, mark_safe
 from django.utils.translation import ugettext_lazy as _
-from wagtail.contrib.forms.models import AbstractForm
-from wagtail.contrib.modeladmin.options import modeladmin_register
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
-from coderedcms import utils
 from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
+
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
-    return format_html('<link rel="stylesheet" type="text/css" href="{}">', static('coderedcms/css/codered-admin.css'))
+    return format_html(
+        '<link rel="stylesheet" type="text/css" href="{}">',
+        static('coderedcms/css/codered-admin.css')
+    )
 
 
 @hooks.register('insert_editor_css')
 def editor_css():
-    return format_html('<link rel="stylesheet" type="text/css" href="{}">', static('coderedcms/css/codered-editor.css'))
+    return format_html(
+        '<link rel="stylesheet" type="text/css" href="{}">',
+        static('coderedcms/css/codered-editor.css')
+    )
 
 
 @hooks.register('insert_editor_js')
@@ -58,10 +62,12 @@ def codered_forms(user, editable_forms):
 
     return editable_forms
 
+
 @hooks.register('before_serve_document')
 def serve_document_directly(document, request):
     """
-    This hook prevents documents from being downloaded unless specified by an <a> tag with the download attribute.
+    This hook prevents documents from being downloaded unless
+    specified by an <a> tag with the download attribute.
     """
     content_type, content_encoding = mimetypes.guess_type(document.filename)
     response = HttpResponse(document.file.read(), content_type=content_type)
@@ -94,10 +100,16 @@ class CoderedFormAdmin(FormAdmin):
         actions = []
         if issubclass(type(obj.specific), CoderedFormPage):
             actions.append(
-                '<a href="{0}">{1}</a>'.format(reverse('wagtailforms:list_submissions', args=(obj.pk,)), _('See all Submissions'))
+                '<a href="{0}">{1}</a>'.format(reverse(
+                    'wagtailforms:list_submissions',
+                    args=(obj.pk,)),
+                    _('See all Submissions')
+                )
             )
             actions.append(
-                '<a href="{0}">{1}</a>'.format(reverse('wagtailadmin_pages:edit', args=(obj.pk,)), _('Edit this form page'))
+                '<a href="{0}">{1}</a>'.format(
+                    reverse("wagtailadmin_pages:edit", args=(obj.pk,)), _("Edit this form page")
+                )
             )
         elif issubclass(type(obj.specific), CoderedStreamFormPage):
             actions.append(self.unprocessed_submissions_link(obj))

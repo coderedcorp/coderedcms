@@ -5,18 +5,69 @@ single `blocks` module.
 """
 
 from django.utils.translation import ugettext_lazy as _
-from wagtail.core.blocks import CharBlock, StreamBlock, StructBlock
 
-from coderedcms.wagtail_flexible_forms.blocks import FormStepBlock, FormStepsBlock
+from wagtail.core import blocks
 
-from .stream_form_blocks import * #noqa
-from .base_blocks import * #noqa
-from .html_blocks import * #noqa
-from .metadata_blocks import * #noqa
-from .content_blocks import * #noqa
-from .layout_blocks import * #noqa
-
-
+from .stream_form_blocks import (
+    CoderedStreamFormCharFieldBlock,
+    CoderedStreamFormCheckboxesFieldBlock,
+    CoderedStreamFormCheckboxFieldBlock,
+    CoderedStreamFormDateFieldBlock,
+    CoderedStreamFormDateTimeFieldBlock,
+    CoderedStreamFormDropdownFieldBlock,
+    CoderedStreamFormFileFieldBlock,
+    CoderedStreamFormImageFieldBlock,
+    CoderedStreamFormNumberFieldBlock,
+    CoderedStreamFormRadioButtonsFieldBlock,
+    CoderedStreamFormStepBlock,
+    CoderedStreamFormTextFieldBlock,
+    CoderedStreamFormTimeFieldBlock
+)
+from .html_blocks import (
+    ButtonBlock,
+    EmbedGoogleMapBlock,
+    ImageBlock,
+    ImageLinkBlock,
+    DownloadBlock,
+    EmbedVideoBlock,
+    PageListBlock,
+    PagePreviewBlock,
+    QuoteBlock,
+    RichTextBlock,
+    TableBlock
+)
+from .content_blocks import (  # noqa
+    CardBlock,
+    CarouselBlock,
+    ContentWallBlock,
+    ImageGalleryBlock,
+    ModalBlock,
+    NavDocumentLinkWithSubLinkBlock,
+    NavExternalLinkWithSubLinkBlock,
+    NavPageLinkWithSubLinkBlock,
+    PriceListBlock,
+    ReusableContentBlock
+)
+from .layout_blocks import (
+    CardGridBlock,
+    GridBlock,
+    HeroBlock
+)
+from .metadata_blocks import (  # noqa
+    OpenHoursBlock,
+    StructuredDataActionBlock
+)
+from .base_blocks import (  # noqa
+    BaseBlock,
+    BaseLayoutBlock,
+    BaseLinkBlock,
+    ClassifierTermChooserBlock,
+    CoderedAdvColumnSettings,
+    CoderedAdvSettings,
+    CoderedAdvTrackingSettings,
+    CollectionChooserBlock,
+    MultiSelectBlock
+)
 
 # Collections of blocks commonly used together.
 
@@ -59,14 +110,14 @@ LAYOUT_STREAMBLOCKS = [
     ('hero', HeroBlock([
         ('row', GridBlock(CONTENT_STREAMBLOCKS)),
         ('cardgrid', CardGridBlock([
-            ('card', CardBlock()),])
-        ),
-        ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),])
-    ),
+            ('card', CardBlock()),
+        ])),
+        ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
+    ])),
     ('row', GridBlock(CONTENT_STREAMBLOCKS)),
     ('cardgrid', CardGridBlock([
-        ('card', CardBlock()),])
-    ),
+        ('card', CardBlock()),
+    ])),
     ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
 ]
 

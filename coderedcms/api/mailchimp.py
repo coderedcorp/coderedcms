@@ -3,6 +3,7 @@ from coderedcms.models.wagtailsettings_models import MailchimpApiSettings
 
 import requests
 
+
 class MailchimpApi:
     user_string = "Website"
     proto_base_url = "https://{0}.api.mailchimp.com/3.0/"
@@ -40,17 +41,18 @@ class MailchimpApi:
         return json_response
 
     def get_merge_fields_for_list(self, list_id):
-        endpoint = "lists/{0}/merge-fields?fields=merge_fields.tag,merge_fields.merge_id,merge_fields.name".format(list_id)
+        endpoint = "lists/{0}/merge-fields?fields=merge_fields.tag,merge_fields.merge_id,merge_fields.name".format(list_id)  # noqa
         json_response = self._get(endpoint)
         return json_response
 
     def get_interest_categories_for_list(self, list_id):
-        endpoint = "lists/{0}/interest-categories?fields=categories.id,categories.title".format(list_id)
+        endpoint = "lists/{0}/interest-categories?fields=categories.id,categories.title".format(
+            list_id)
         json_response = self._get(endpoint)
         return json_response
 
     def get_interests_for_interest_category(self, list_id, interest_category_id):
-        endpoint = "lists/{0}/interest-categories/{1}/interests?fields=interests.id,interests.name".format(list_id, interest_category_id)
+        endpoint = "lists/{0}/interest-categories/{1}/interests?fields=interests.id,interests.name".format(list_id, interest_category_id)  # noqa
         json_response = self._get(endpoint)
         return json_response
 

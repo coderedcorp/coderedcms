@@ -26,6 +26,7 @@ from coderedcms.tests.testapp.models import (
     WebPage
 )
 
+
 class BasicPageTestCase():
     """
     This is a testing mixin used to run common tests for basic versions of page types.
@@ -59,7 +60,7 @@ class AbstractPageTestCase():
 
     def test_not_available(self):
         """
-        Tests to make sure the page is not creatable and not in CodeRed CMS's global list of page models.
+        Tests to make sure the page is not creatable and not in CodeRed CMS's global list of page models.  # noqa
         """
         self.assertFalse(self.model.is_creatable)
         self.assertFalse(self.model in get_page_models())
@@ -100,7 +101,7 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         """
         Test to check if the default spam catching works.
         """
-        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)
+        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)  # noqa
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), self.basic_page.get_spam_message())

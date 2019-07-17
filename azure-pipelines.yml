@@ -73,7 +73,7 @@ jobs:
       project: 'cc52b8d8-3ae5-466e-b771-56f3b4749f1f'
       pipeline: 1
       runVersion: 'latestFromBranch'
-      runBranch: 'refs/heads/staticanalysis'
+      runBranch: 'refs/heads/master'
 
   - pwsh: |
       & ci/run_artifacts.ps1

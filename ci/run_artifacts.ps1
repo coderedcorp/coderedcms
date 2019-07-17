@@ -1,22 +1,27 @@
-[xml]$OldXML = Get-Content "/home/vsts/work/artifacts/Code Coverage Report_*/summary*/coverage.xml"
-[xml]$NewXML = Get-Content .\coverage.xml
+if (Test-Path -Path "/home/vsts/work/artifacts/Code Coverage Report_*/summary*/coverage.xml") {
+    [xml]$MasterXML = Get-Content "/home/vsts/work/artifacts/Code Coverage Report_*/summary*/coverage.xml"
+} else {
+    Write-Host "No code coverage from previous build. Exiting pipeline." -ForegroundColor Red
+    exit 1
+}
 
-$oldlinerate = $OldXML.coverage.'line-rate'
-$newlinerate = $NewXML.coverage.'line-rate'
+[xml]$BranchXML = Get-Content .\coverage.xml
 
-$oldoutput = -join("Old line coverage rate: ", $oldlinerate)
-$newoutput = -join("New line coverage rate: ", $newlinerate)
+$masterlinerate = $MasterXML.coverage.'line-rate'
+$branchlinerate = $BranchXML.coverage.'line-rate'
 
-Write-Output $oldoutput
-Write-Output $newoutput
+Write-Output "Old line coverage rate: $masterlinerate"
+Write-Output "New line coverage rate: $branchlinerate"
 
-if ($newlinerate -gt $oldlinerate) {
-    Write-Output "Code coverage has increased. Build passed."
+$change = [math]::Abs([math]::Round((($branchlinerate - $masterlinerate) / $masterlinerate) * 100, 2))
+
+if ($branchlinerate -gt $masterlinerate) {
+    Write-Host "Code coverage has increased by $change%. Build passed." -ForegroundColor Green
     exit 0
-} elseif ($newlinerate -eq $oldlinerate) {
-    Write-Output "Code coverage has not changed. Build passed."
+} elseif ($branchlinerate -eq $masterlinerate) {
+    Write-Host "Code coverage has not changed. Build passed." -ForegroundColor Green
     exit 0
 } else {
-    Write-Error "Code coverage as decreased. Code coverage must be greater than or equal to the previous build to pass."
-    exit 1
+    Write-Host "Code coverage as decreased by $change%. Code coverage must be greater than or equal to the previous build to pass." -ForegroundColor Red
+    exit 2
 }

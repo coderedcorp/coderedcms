@@ -128,9 +128,4 @@ class Migration(migrations.Migration):
             },
             bases=('coderedcms.coderedpage',),
         ),
-        migrations.AddField(
-            model_name='formconfirmemail',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='confirmation_emails', to='website.FormPage'),
-        ),
     ]

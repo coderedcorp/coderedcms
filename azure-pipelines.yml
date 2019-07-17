@@ -65,6 +65,20 @@ jobs:
       codeCoverageTool: Cobertura
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
 
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download code coverage from latest build'
+    inputs:
+      source: 'specific'
+      path: '$(Agent.WorkFolder)/artifacts'
+      project: 'cc52b8d8-3ae5-466e-b771-56f3b4749f1f'
+      pipeline: 1
+      runVersion: 'latestFromBranch'
+      runBranch: 'refs/heads/codecoverage'
+
+  - pwsh: |
+      & ci/run_artifacts.ps1
+    displayName: 'Compare code coverage to master'
+
 - job: style
   displayName: Static Analysis
   pool:

@@ -10,15 +10,13 @@ if (Test-Path -Path "/home/vsts/work/artifacts/Code Coverage Report_*/summary*/c
 $masterlinerate = [math]::Abs([math]::Round([decimal]$MasterXML.coverage.'line-rate' * 100, 2))
 $branchlinerate = [math]::Abs([math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 2))
 
-$masterlinerate = 59.50
-
 Write-Output "Old line coverage rate: $masterlinerate%"
 Write-Output "New line coverage rate: $branchlinerate%"
 
-if ($masterlinerate -ne 0) {
-    $change = [math]::Abs([math]::Round((($branchlinerate - $masterlinerate) / $masterlinerate) * 100, 2))
-} else {
+if ($masterlinerate -eq 0) {
     $change = "Infinite"
+} else {
+    $change = [math]::Abs([math]::Round((($branchlinerate - $masterlinerate) / $masterlinerate) * 100, 2))
 }
 
 if ($branchlinerate -gt $masterlinerate) {

@@ -13,5 +13,6 @@ Write-Output $newoutput
 if ($newlinerate -ge $oldlinerate) {
     exit 0
 } else {
+    Write-Error "Code coverage as decreased. Build failed."
     exit 1
 }

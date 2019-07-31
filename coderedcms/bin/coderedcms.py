@@ -57,7 +57,10 @@ class CreateProject(TemplateCommand):
         codered_path = os.path.dirname(coderedcms.__file__)
         if not options['template']:
             options['template'] = 'basic'
-        template_path = os.path.join(os.path.join(codered_path, 'project_template'), options['template'])
+        template_path = os.path.join(
+            os.path.join(codered_path, 'project_template'),
+            options['template']
+        )
         # Check if provided template is built-in to coderedcms,
         # otherwise, do not change it.
         if os.path.isdir(template_path):

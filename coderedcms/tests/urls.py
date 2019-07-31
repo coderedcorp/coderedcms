@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.urls import include, path, re_path
 from django.contrib import admin
 from wagtail.documents import urls as wagtaildocs_urls

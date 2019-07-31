@@ -4,9 +4,9 @@ from wagtail.core import blocks
 from coderedcms.wagtail_flexible_forms import blocks as form_blocks
 from coderedcms.blocks.base_blocks import BaseBlock, CoderedAdvSettings
 from coderedcms.forms import (
-    CoderedDateField, CoderedDateInput, 
-    CoderedDateTimeField, CoderedDateTimeInput, 
-    CoderedTimeField, CoderedTimeInput, 
+    CoderedDateField, CoderedDateInput,
+    CoderedDateTimeField, CoderedDateTimeInput,
+    CoderedTimeField, CoderedTimeInput,
     SecureFileField
 )
 
@@ -17,19 +17,21 @@ class CoderedFormAdvSettings(CoderedAdvSettings):
         required=False,
         max_length=255,
         label=_('Condition Trigger ID'),
-        help_text=_('The "Custom ID" of another field that that will trigger this field to be shown/hidden.')
+        help_text=_(
+            'The "Custom ID" of another field that that will trigger this field to be shown/hidden.')  # noqa
     )
     condition_trigger_value = blocks.CharBlock(
         required=False,
         max_length=255,
         label=_('Condition Trigger Value'),
-        help_text=_('The value of the field in "Condition Trigger ID" that will trigger this field to be shown.')
+        help_text=_(
+            'The value of the field in "Condition Trigger ID" that will trigger this field to be shown.')  # noqa
     )
 
 
 class FormBlockMixin(BaseBlock):
     class Meta:
-        abstract=True
+        abstract = True
 
     advsettings_class = CoderedFormAdvSettings
 
@@ -84,7 +86,7 @@ class CoderedStreamFormDateFieldBlock(form_blocks.DateFieldBlock, FormBlockMixin
     class Meta:
         label = _("Date")
         icon = "fa-calendar"
-    
+
     field_class = CoderedDateField
     widget = CoderedDateInput
 
@@ -126,7 +128,7 @@ class CoderedStreamFormStepBlock(form_blocks.FormStepBlock):
 
     def __init__(self, local_blocks=None, **kwargs):
         super().__init__(
-            local_blocks = [
+            local_blocks=[
                 ('form_fields', blocks.StreamBlock(local_blocks))
             ]
         )

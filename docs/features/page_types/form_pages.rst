@@ -39,3 +39,4 @@ Settings Tab
 
 * **Form go live date/time**: The optional date/time the form will start appearing on the page.
 * **Form expiry date/time**: The optional date/time the form will stop appearing on the page.
+* **Spam Protection**: When toggled on, this will engage spam protection techniques to attempt to reduce spam form submissions.

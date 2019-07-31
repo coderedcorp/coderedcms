@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -29,17 +29,17 @@ MANAGERS = ADMINS
 # Email address used to send error messages to ADMINS.
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'HOST': 'localhost',
-#        'NAME': '{{ project_name }}',
-#        'USER': '{{ project_name }}',
-#        'PASSWORD': '',
-#        # If using SSL to connect to a cloud mysql database, spedify the CA as so.
-#        'OPTIONS': { 'ssl': { 'ca': '/path/to/certificate-authority.pem' } },
-#    }
-#}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': 'localhost',
+#         'NAME': '{{ project_name }}',
+#         'USER': '{{ project_name }}',
+#         'PASSWORD': '',
+#         # If using SSL to connect to a cloud mysql database, spedify the CA as so.
+#         'OPTIONS': { 'ssl': { 'ca': '/path/to/certificate-authority.pem' } },
+#     }
+# }
 
 # Use template caching to speed up wagtail admin and front-end.
 # Requires reloading web server to pick up template changes.
@@ -67,13 +67,13 @@ TEMPLATES = [
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'cache'),
+        'LOCATION': os.path.join(BASE_DIR, 'cache'),  # noqa
         'KEY_PREFIX': 'coderedcms',
-        'TIMEOUT': 14400, # in seconds
+        'TIMEOUT': 14400,  # in seconds
     }
 }
 
 try:
-    from .local_settings import *
+    from .local_settings import *  # noqa
 except ImportError:
     pass

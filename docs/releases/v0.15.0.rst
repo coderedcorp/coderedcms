@@ -5,11 +5,16 @@ CodeRed CMS 0.15.0 release notes
 New features
 ------------
 
+* NEW Stream Forms for doing advanced multi-step forms with conditional logic!
+  See :doc:`/features/page_types/stream_forms`.
+* NEW optional environment specifier banners! See CODERED_BANNER settings in
+  :doc:`/getting_started/django_settings`.
 * NEW documentation for built-in page types! See :doc:`/features/page_types/index`.
 * NEW tutorial! See :doc:`/getting_started/tutorial01`.
+* Upgraded Wagtail to version 2.5. Now supports Django versions 2.0, 2.1, and 2.2.
+  Supports Python versions 3.4, 3.5, 3.6, and 3.7.
 
-
-Bug Fixes
+Bug fixes
 ---------
 
 None
@@ -18,19 +23,30 @@ None
 Maintenance
 -----------
 
-* Upgraded Wagtail to version 2.5. Now supports Django versions 2.0, 2.1, and 2.2.
-  Supports Python versions 3.4, 3.5, 3.6, and 3.7.
 * Upgraded jQuery to version 3.4.
 * Upgraded pickadate.js (fallback to native HTML5 date/time inputs) to version 3.6.
 * Internally switched to Sass for more modular development and debugging.
 * Now provides minified version of ``codered-front.css`` (``codered-front.min.css``).
+* Added licensing information to JavaScript files, and now supports LibreJS.
+* Added unit tests for improved quality control. See :doc:`/contributing/index`.
+  See :doc:`/contributing/index`.
+* Added continuous integration pipelines for improved quality control.
+* Minor code cleanups.
 
 
 Upgrade considerations
 ----------------------
 
-Static css/js files have been moved. If you are referencing them manually in your
-templates, please update accordingly:
+* You will need to run ``python manage.py makemigrations website`` and ``python manage.py migrate`` after upgrading.
+* Static css/js files have been moved. If you are referencing them manually in your
+  templates, please update accordingly:
 
-* ``css/codered-front.css`` -> ``coderedcms/css/codered-front[.min].css``
-* ``js/codered-front.js`` -> ``coderedcms/js/codered-front.js``
+    * ``css/codered-front.css`` -> ``coderedcms/css/codered-front[.min].css``
+    * ``js/codered-front.js`` -> ``coderedcms/js/codered-front.js``
+
+
+Thank You
+---------
+
+Special thank you to our new `contributors <https://github.com/coderedcorp/coderedcms/graphs/contributors>`_
+and to everyone who joined us at PyCon US 2019 sprints.

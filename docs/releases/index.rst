@@ -17,7 +17,10 @@ CodeRed CMS follows the ``[major].[minor].[maintenance]`` versioning scheme.
 .. toctree::
     :maxdepth: 1
 
+    v0.15.2
+    v0.15.1
     v0.15.0
+    v0.14.1
     v0.14.0
     v0.13.3
     v0.13.2

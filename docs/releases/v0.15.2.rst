@@ -1,0 +1,8 @@
+CodeRed CMS 0.15.2 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Fix 500 error on 404 pages and search page introduced in 0.15.1

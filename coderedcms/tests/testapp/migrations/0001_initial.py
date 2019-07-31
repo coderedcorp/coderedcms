@@ -58,6 +58,7 @@ class Migration(migrations.Migration):
                 ('form_id', models.CharField(blank=True, help_text='Custom ID applied to <form> element.', max_length=255, verbose_name='Form ID')),
                 ('form_golive_at', models.DateTimeField(blank=True, help_text='Date and time when the FORM goes live on the page.', null=True, verbose_name='Form go live date/time')),
                 ('form_expire_at', models.DateTimeField(blank=True, help_text='Date and time when the FORM will no longer be available on the page.', null=True, verbose_name='Form expiry date/time')),
+                ('spam_protection', models.BooleanField(default=True, help_text='When enabled, the CMS will filter out spam form submissions for this page.', verbose_name='Spam Protection')),
                 ('thank_you_page', models.ForeignKey(blank=True, help_text='The page users are redirected to after submitting the form.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page', verbose_name='Thank you page')),
             ],
             options={

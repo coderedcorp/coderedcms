@@ -2,7 +2,6 @@
 import os
 import sys
 
-from django.core.management import ManagementUtility
 from django.core.management.templates import TemplateCommand
 from django.core.management.utils import get_random_secret_key
 
@@ -11,7 +10,9 @@ CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 4)
 
 if CURRENT_PYTHON < REQUIRED_PYTHON:
-    sys.stderr.write("This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(*(REQUIRED_PYTHON + CURRENT_PYTHON)))
+    sys.stderr.write(
+        "This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(*(REQUIRED_PYTHON + CURRENT_PYTHON))  # noqa
+    )
     sys.exit(1)
 
 
@@ -23,8 +24,14 @@ class CreateProject(TemplateCommand):
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
-        parser.add_argument('--sitename', help='Human readable name of your website or brand, e.g. "Mega Corp Inc."')
-        parser.add_argument('--domain', help='Domain that will be used for your website in production, e.g. "www.example.com"')
+        parser.add_argument(
+            '--sitename',
+            help='Human readable name of your website or brand, e.g. "Mega Corp Inc."'
+        )
+        parser.add_argument(
+            '--domain',
+            help='Domain that will be used for your website in production, e.g. "www.example.com"'
+        )
         super().add_arguments(parser)
 
     def handle(self, **options):
@@ -45,12 +52,20 @@ class CreateProject(TemplateCommand):
         # Create a random SECRET_KEY to put it in the main settings.
         options['secret_key'] = get_random_secret_key()
 
-        # Add custom args
+        # Handle custom template logic
         import coderedcms
         codered_path = os.path.dirname(coderedcms.__file__)
-        template_path = os.path.join(codered_path, 'project_template')
-        options['template'] = template_path
-        options['extensions'] = ['py', 'html', 'rst', 'md']
+        if not options['template']:
+            options['template'] = 'basic'
+        template_path = os.path.join(
+            os.path.join(codered_path, 'project_template'),
+            options['template']
+        )
+        # Check if provided template is built-in to coderedcms,
+        # otherwise, do not change it.
+        if os.path.isdir(template_path):
+            options['template'] = template_path
+        options['extensions'] = ['py', 'md']
         options['files'] = ['Dockerfile']
 
         # Set options

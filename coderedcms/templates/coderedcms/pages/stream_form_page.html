@@ -39,6 +39,12 @@
 
         {% endblock %}
 
+        {% block captcha %}
+            {% if page.spam_protection %}
+                {% include 'coderedcms/includes/form_honeypot.html' %}
+            {% endif %}
+        {% endblock %}
+
         {% block stream_form_actions %}
         <div class="form-group mt-5 row">
             <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>

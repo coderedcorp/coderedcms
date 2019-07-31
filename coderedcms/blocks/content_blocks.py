@@ -91,7 +91,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
     )
     footer = blocks.StreamBlock(
         [
-            ('text', blocks.CharBlock(icon='fa-file-text-o', max_length=255, label=_('Simple Text'))),
+            ('text', blocks.CharBlock(icon='fa-file-text-o', max_length=255, label=_('Simple Text'))),  # noqa
             ('button', ButtonBlock()),
         ],
         required=False,
@@ -263,8 +263,10 @@ class ContentWallBlock(BaseBlock):
         required=False,
         default=False,
         verbose_name=_('Show content walls on children pages?'),
-        help_text=_('If this is checked, the content walls will be displayed on all children pages of this page.')
+        help_text=_(
+            'If this is checked, the content walls will be displayed on all children pages of this page.')  # noqa
     )
+
     class Meta:
         icon = 'fa-stop'
         label = _('Content Wall')

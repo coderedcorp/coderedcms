@@ -1,7 +1,5 @@
-from django.contrib.auth.models import AnonymousUser
+from django.test import Client
 from wagtail.tests.utils import WagtailPageTests
-from django.test.client import RequestFactory
-from wagtail.core.models import Site
 
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,
@@ -28,15 +26,16 @@ from coderedcms.tests.testapp.models import (
     WebPage
 )
 
+
 class BasicPageTestCase():
     """
     This is a testing mixin used to run common tests for basic versions of page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def setUp(self):
-        self.request_factory = RequestFactory()
+        self.client = Client()
         self.basic_page = self.model(
             title=str(self.model._meta.verbose_name)
         )
@@ -47,23 +46,21 @@ class BasicPageTestCase():
         """
         Tests to make sure a basic version of the page serves a 200 from a GET request.
         """
-        request = self.request_factory.get(self.basic_page.url)
-        request.session = self.client.session
-        request.user = AnonymousUser()
-        request.site = Site.objects.all()[0]
-        response = self.basic_page.serve(request)
+
+        response = self.client.get(self.basic_page.url, follow=True)
         self.assertEqual(response.status_code, 200)
+
 
 class AbstractPageTestCase():
     """
     This is a testing mixin used to run common tests for abstract page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_not_available(self):
         """
-        Tests to make sure the page is not creatable and not in CodeRed CMS's global list of page models.
+        Tests to make sure the page is not creatable and not in CodeRed CMS's global list of page models.  # noqa
         """
         self.assertFalse(self.model.is_creatable)
         self.assertFalse(self.model in get_page_models())
@@ -74,7 +71,7 @@ class ConcretePageTestCase():
     This is a testing mixin used to run common tests for concrete page types.
     """
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_is_available(self):
         """
@@ -86,22 +83,36 @@ class ConcretePageTestCase():
 
 class ConcreteBasicPageTestCase(ConcretePageTestCase, BasicPageTestCase):
     class Meta:
-        abstract=True
+        abstract = True
+
 
 class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
     class Meta:
-        abstract=True
+        abstract = True
 
     def test_post(self):
         """
         Tests to make sure a basic version of the page serves a 200 from a POST request.
         """
-        request = self.request_factory.post(self.basic_page.url)
-        request.session = self.client.session
-        request.user = AnonymousUser()
-        request.site = Site.objects.all()[0]
-        response = self.basic_page.serve(request)
+        response = self.client.post(self.basic_page.url, follow=True)
         self.assertEqual(response.status_code, 200)
+
+    def test_spam(self):
+        """
+        Test to check if the default spam catching works.
+        """
+        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)  # noqa
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), self.basic_page.get_spam_message())
+
+    def test_not_spam(self):
+        """
+        Test to check if the default spam catching won't mark correct posts as spam.
+        """
+        response = self.client.post(self.basic_page.url)
+        self.assertFalse(hasattr(response, 'is_spam'))
+
 
 class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedArticleIndexPage

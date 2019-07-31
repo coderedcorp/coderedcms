@@ -21,6 +21,7 @@ class MultiSelectBlock(blocks.FieldBlock):
     Renders as MultipleChoiceField, used for adding checkboxes,
     radios, or multiselect inputs in the streamfield.
     """
+
     def __init__(self, required=True, help_text=None, choices=None, widget=None, **kwargs):
         self.field = forms.MultipleChoiceField(
             required=required,
@@ -42,9 +43,9 @@ class ClassifierTermChooserBlock(blocks.FieldBlock):
     widget = forms.Select
 
     def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
-        self._required=required
-        self._help_text=help_text
-        self._label=label
+        self._required = required
+        self._help_text = help_text
+        self._label = label
         super().__init__(*args, **kwargs)
 
     @cached_property
@@ -86,9 +87,9 @@ class CollectionChooserBlock(blocks.FieldBlock):
     widget = forms.Select
 
     def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
-        self._required=required
-        self._help_text=help_text
-        self._label=label
+        self._required = required
+        self._help_text = help_text
+        self._label = label
         super().__init__(*args, **kwargs)
 
     @cached_property
@@ -207,7 +208,7 @@ class CoderedAdvColumnSettings(CoderedAdvSettings):
         default=cr_settings['FRONTEND_COL_BREAK_DEFAULT'],
         required=False,
         verbose_name=_('Column Breakpoint'),
-        help_text=_('Screen size at which the column will expand horizontally or stack vertically.'),
+        help_text=_('Screen size at which the column will expand horizontally or stack vertically.'),  # noqa
     )
 
 
@@ -227,7 +228,7 @@ class BaseBlock(blocks.StructBlock):
         """
         klassname = self.__class__.__name__.lower()
         choices = cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get('*', ()) + \
-                  cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get(klassname, ())
+            cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get(klassname, ())
 
         if not local_blocks:
             local_blocks = ()
@@ -285,6 +286,7 @@ class LinkStructValue(blocks.StructValue):
         else:
             return ext
 
+
 class BaseLinkBlock(BaseBlock):
     """
     Common attributes for creating a link within the CMS.
@@ -307,4 +309,3 @@ class BaseLinkBlock(BaseBlock):
 
     class Meta:
         value_class = LinkStructValue
-

@@ -1,8 +1,11 @@
 {% load static coderedcms_tags i18n wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
 {% get_settings %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 
 <!doctype html>
-<html prefix="og: http://ogp.me/ns#">
+<html prefix="og: http://ogp.me/ns#" lang="{{ LANGUAGE_CODE }}">
   <head>
         {% block tracking %}
         {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
@@ -13,7 +16,6 @@
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-
               gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
             </script>
         {% endif %}
@@ -39,18 +41,7 @@
             <meta property="og:site_name" content="{% block og_site_name %}{{self.get_site.site_name}}{% endblock %}" />
             <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
             <meta property="og:url" content="{% block og_url %}{{self.get_full_url}}{% endblock %}" />
-            <meta property="og:image" content="{% block og_image %}
-                {% if self.og_image %}
-                    {% image self.og_image original as og_logo %}
-                    {{og_logo.url}}
-                {% elif self.cover_image %}
-                    {% image self.cover_image original as og_logo %}
-                    {{og_logo.url}}
-                {% elif settings.coderedcms.LayoutSettings.logo %}
-                    {% image settings.coderedcms.LayoutSettings.logo original as og_logo %}
-                    {{og_logo.url}}
-                {% endif %}
-                {% endblock %}" />
+            <meta property="og:image" content="{% block og_image %}{% og_image self %}{% endblock %}" />
             {% endblock %}
             {% block og_seo_extra %}{% endblock %}
         {% endif %}
@@ -59,6 +50,8 @@
         {% if settings.coderedcms.SeoSettings.twitter_meta %}
             {% block twitter_seo_base %}
             <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}" />
+            <meta name="twitter:title" content="{{self.title}}">
+            <meta name="twitter:image" content="{% og_image self %}">
             {% if settings.coderedcms.SocialMediaSettings.twitter %}
             <meta name="twitter:site" content="{% block twitter_site %}@{{settings.coderedcms.SocialMediaSettings.twitter_handle}}{% endblock %}" />
             {% endif %}
@@ -70,7 +63,7 @@
             {% if settings.coderedcms.LayoutSettings.frontend_theme %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
             {% else %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
+            <link rel="stylesheet" href="{% static 'coderedcms/vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
             {% endif %}
         {% endblock %}
 
@@ -121,7 +114,15 @@
 
         <div id="content">
             {% block content %}
-
+                {% block messages %}
+                    {% if messages %}
+                        <div class="container">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags|map_to_bootstrap_alert }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endblock %}
                 {% block content_pre_body %}{% endblock %}
 
                 {% block content_body %}
@@ -153,7 +154,7 @@
         <div id="content-walls">
             {% block content_walls %}
                 {% for content_wall in content_walls %}
-                        {% include_block content_wall with settings=settings %}
+                    {% include_block content_wall with settings=settings %}
                 {% endfor %}
             {% endblock %}
         </div>
@@ -161,11 +162,11 @@
         {% block footer %}{% endblock %}
 
         {% block required_scripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+        <script src="{% static 'coderedcms/vendor/jquery/jquery-3.4.1.min.js' %}" ></script>
         {% endblock %}
 
         {% block frontend_scripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
+        <script src="{% static 'coderedcms/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
         {% endblock %}
 
         {% block coderedcms_scripts %}
@@ -173,6 +174,7 @@
         {% endblock %}
 
         {% block custom_scripts %}
+        {# Legacy behavior, remove this in the future and leave blank for client sites to implement. #}
         <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
         {% endblock %}
 

@@ -35,3 +35,23 @@ affect the caching decision. For example::
         if 'nocache' in request.GET:
             return False
 
+
+Default Language
+----------------
+
+To adjust the default language of a project, navigate to Project_Name/Project_Name/settings/base.py. Change both the
+LANGUAGE_CODE setting and the LANGUAGES setting. For example::
+
+        LANGUAGE_CODE = 'es'
+
+        LANGUAGES = [
+            ('es', _('Spanish'))
+        ]
+
+Note that these settings are both in use to communicate to the users' browser about the default language of the project.
+This ensures that users requiring assistive technology have a smooth experience using the site. These settings do not,
+on their own, translate or enable multiple languages on the project.
+
+`For a full list of language codes, see this list from W3 Docs. <https://www.w3docs.com/learn-html/html-language-codes.html>`_
+
+

@@ -24,7 +24,6 @@ class CreateProject(TemplateCommand):
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
-        parser.add_argument('-t', default="basic", help='Specify a starter template. One of: "basic", "sass"')
         parser.add_argument(
             '--sitename',
             help='Human readable name of your website or brand, e.g. "Mega Corp Inc."'
@@ -53,11 +52,16 @@ class CreateProject(TemplateCommand):
         # Create a random SECRET_KEY to put it in the main settings.
         options['secret_key'] = get_random_secret_key()
 
-        # Add custom args
+        # Handle custom template logic
         import coderedcms
         codered_path = os.path.dirname(coderedcms.__file__)
-        template_path = os.path.join(os.path.join(codered_path, 'project_template'), options['t'])
-        options['template'] = template_path
+        if not options['template']:
+            options['template'] = 'basic'
+        template_path = os.path.join(os.path.join(codered_path, 'project_template'), options['template'])
+        # Check if provided template is built-in to coderedcms,
+        # otherwise, do not change it.
+        if os.path.isdir(template_path):
+            options['template'] = template_path
         options['extensions'] = ['py', 'md']
         options['files'] = ['Dockerfile']
 

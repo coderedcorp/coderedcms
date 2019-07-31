@@ -3,7 +3,7 @@ Contributing
 
 
 Developing CodeRed CMS
----------------------------------
+----------------------
 
 To create a test project locally:
 
@@ -18,7 +18,7 @@ To create a test project locally:
    4 and 5 in :doc:`/getting_started/install` with a fresh database before making migrations.
 #. When model or block changes affect the local test project (i.e. the "website" app), run
    ``makemigrations website`` in the test project to generate the relevant migration files locally.
-   Apply and test the migrations. When satisfied, re-generate the 0001_initial.py migration in
+   Apply and test the migrations. When satisfied, re-generate the ``0001_initial.py`` migration in
    ``project_template/website/migrations/`` as so:
 
        #. Create a new test project using ``coderedcms start testproject``.
@@ -31,7 +31,7 @@ When making changes that are potentially destructive or backwards incompatible, 
 version number until coderedcms reaches a stable 1.0 release. Each production project that uses
 coderedcms should specify the appropriate version in its requirements.txt to prevent breakage.
 
-.. note:
+.. note::
     When testing existing projects with coderedcms installed from the master or development branches,
     be sure to use a disposable database, as it is likely that the migrations in master will
     not be the same migrations that get released.
@@ -141,7 +141,39 @@ For example, here is how you would add tests for a new abstract page type, ``Cod
 10. Write any specific test cases that ``CoderedCustomPage`` and ``CustomPage`` may require.
 
 
-Contributor guidelines
+Static Analysis
+---------------
+
+Flake8 is used to check for syntax and style errors. To analyze the entire codebase, run:
+
+.. code-block:: console
+
+    $ flake8 .
+
+Alternatively, our continuous integration only analyzes the diff between your changes
+and master. To analyze just the diff of your current changes, run the
+`PowerShell Core <https://github.com/powershell/powershell>`_ script:
+
+.. code-block:: console
+
+    $ ./ci/run_flake8.ps1
+
+
+
+A Note on Cross-Platform Support
+--------------------------------
+
+CodeRed CMS works equally well on Windows, MacOS, and Linux. When adding new features
+or new dependencies, ensure that these utilize proper cross-platform utilities in Python.
+
+For shell or automation scripts, we default to
+`PowerShell Core <https://github.com/powershell/powershell>`_ because it provides high quality
+commercial support for Windows, MacOS, and Linux.
+
+Our goal is that users of any platform can develop or host a CodeRed CMS website easily.
+
+
+Contributor Guidelines
 ----------------------
 
 We are happy to accept pull requests from the community if it aligns with our vision for coderedcms.
@@ -155,8 +187,8 @@ Following submission of your pull request, a CodeRed member will review and test
 **All changes, even by CodeRed members, must go through a pull request process to ensure quality.**
 
 
-Building pip packages
----------------------
+Building Python Packages
+------------------------
 
 To build a publicly consumable pip package, run:
 
@@ -165,7 +197,7 @@ To build a publicly consumable pip package, run:
     $ python setup.py sdist bdist_wheel
 
 
-Building documentation
+Building Documentation
 ----------------------
 
 For every code or feature change, be sure to update the docs in the repository. To build and publish
@@ -177,10 +209,13 @@ the documentation run:
     $ make clean
     $ make html
 
+.. note::
+    Windows users should run ``make.bat`` instead of ``make`` above.
+
 Output will be in ``docs/_build/html/`` directory.
 
 
-Publishing a new release
+Publishing a New Release
 ------------------------
 
 First checkout the code/branch for release.
@@ -204,6 +239,9 @@ Finally build and update docs:
     $ cd docs/
     $ make clean
     $ make html
+
+.. note::
+    Windows users should run ``make.bat`` instead of ``make`` above.
 
 If updating docs for an existing minor version release:
 

@@ -52,12 +52,20 @@ class CreateProject(TemplateCommand):
         # Create a random SECRET_KEY to put it in the main settings.
         options['secret_key'] = get_random_secret_key()
 
-        # Add custom args
+        # Handle custom template logic
         import coderedcms
         codered_path = os.path.dirname(coderedcms.__file__)
-        template_path = os.path.join(codered_path, 'project_template')
-        options['template'] = template_path
-        options['extensions'] = ['py', 'html', 'rst', 'md']
+        if not options['template']:
+            options['template'] = 'basic'
+        template_path = os.path.join(
+            os.path.join(codered_path, 'project_template'),
+            options['template']
+        )
+        # Check if provided template is built-in to coderedcms,
+        # otherwise, do not change it.
+        if os.path.isdir(template_path):
+            options['template'] = template_path
+        options['extensions'] = ['py', 'md']
         options['files'] = ['Dockerfile']
 
         # Set options

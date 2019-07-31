@@ -271,6 +271,18 @@ div.figure p.caption {
     color: #666;
 }
 
+table.align-default {
+    width: 100%;
+}
+table.docutils th, table.docutils td {
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+table.docutils th {
+    background-color: unset;
+    border-bottom: 2px solid #ddd;
+}
+
 .mobile-header {
     display:none;
     background-color: #d33;

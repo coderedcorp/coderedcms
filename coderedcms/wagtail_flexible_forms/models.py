@@ -12,7 +12,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.core.files.storage import default_storage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import (
@@ -20,7 +19,7 @@ from django.db.models import (
     QuerySet,
 )
 from django.db.models.fields.files import FieldFile
-from django.db.models.signals import post_delete, post_save
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.forms import Form, ImageField, FileField, URLField, EmailField
 from django.http import HttpResponseRedirect
@@ -295,7 +294,7 @@ class SessionFormSubmission(AbstractFormSubmission):
         verbose_name_plural = _('form submissions')
         unique_together = (('page', 'session_key'),
                            ('page', 'user'))
-        abstract=True
+        abstract = True
 
     @property
     def is_complete(self):
@@ -535,7 +534,7 @@ class SubmissionRevision(Model):
 
     class Meta:
         ordering = ('-created_at',)
-        abstract=True
+        abstract = True
 
     @staticmethod
     def get_filters_for(submission):
@@ -598,9 +597,7 @@ class SubmissionRevision(Model):
         if not summary:  # Nothing changed.
             return
         filters.update(
-            type=revision_type,
-            data=json.dumps(data, cls=StreamFormJSONEncoder),
-            summary=summary,
+            type=revision_type, data=json.dumps(data, cls=StreamFormJSONEncoder), summary=summary
         )
         return cls.objects.create(**filters)
 

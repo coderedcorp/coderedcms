@@ -21,7 +21,7 @@ class ArticlePage(CoderedArticlePage):
     """
     class Meta:
         verbose_name = 'Article'
-        ordering = ['-first_published_at',]
+        ordering = ['-first_published_at', ]
 
     # Only allow this page to be created beneath an ArticleIndexPage.
     parent_page_types = ['testapp.ArticleIndexPage']
@@ -67,6 +67,7 @@ class FormPageField(CoderedFormField):
 
     page = ParentalKey('FormPage', related_name='form_fields')
 
+
 class FormConfirmEmail(CoderedEmail):
     """
     Sends a confirmation email after submitting a FormPage.
@@ -83,6 +84,7 @@ class WebPage(CoderedWebPage):
         verbose_name = 'Web Page'
 
     template = 'coderedcms/pages/web_page.html'
+
 
 class EventPage(CoderedEventPage):
     class Meta:
@@ -111,6 +113,7 @@ class EventIndexPage(CoderedEventIndexPage):
 
 class EventOccurrence(CoderedEventOccurrence):
     event = ParentalKey(EventPage, related_name='occurrences')
+
 
 class LocationPage(CoderedLocationPage):
     """
@@ -141,11 +144,13 @@ class LocationIndexPage(CoderedLocationIndexPage):
 
     template = 'coderedcms/pages/location_index_page.html'
 
+
 class StreamFormPage(CoderedStreamFormPage):
     class Meta:
         verbose_name = 'Stream Form'
 
     template = 'coderedcms/pages/stream_form_page.html'
+
 
 class StreamFormConfirmEmail(CoderedEmail):
     page = ParentalKey('StreamFormPage', related_name='confirmation_emails')

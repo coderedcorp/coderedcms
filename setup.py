@@ -2,7 +2,7 @@ import os
 from setuptools import find_packages, setup
 from coderedcms import __version__
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf8') as readme:
+with open(os.path.join(os.path.dirname(__file__), "README.md"), encoding="utf8") as readme:
     README = readme.read()
 
 # allow setup.py to be run from any path
@@ -53,13 +53,23 @@ setup(
         'wagtail-import-export>=0.1,<0.2'
     ],
     extras_require={
-        'dev': [
-            'libsass',
-            'flake8',
-            'sphinx',
-            'twine',
-            'wheel'
-        ]
+        "dev": [
+            # "autopep8",
+            # "black",
+            "flake8",
+            "libsass",
+            "pytest-cov",
+            "pytest-django",
+            "sphinx",
+            "twine",
+            "wheel",
+        ],  # noqa
+        "ci_tests": ["pytest-cov", "pytest-django"],
+        "ci_style": [
+            # "autopep8",
+            # "black",
+            "flake8"
+        ],
     },
     entry_points="""
             [console_scripts]

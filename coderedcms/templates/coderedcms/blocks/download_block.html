@@ -17,8 +17,8 @@
 
 {% if self.automatic_download and not format == 'amp' %}
 <script>
-	$(document).ready(function(){
-		window.open("{{self.downloadable_file.url}}", '_blank');
-	});
+    $(document).ready(function(){
+        window.open("{{self.downloadable_file.url}}", '_blank');
+    });
 </script>
 {% endif %}

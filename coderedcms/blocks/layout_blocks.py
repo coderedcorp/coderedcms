@@ -12,7 +12,7 @@ from coderedcms.settings import cr_settings
 from .base_blocks import BaseLayoutBlock, CoderedAdvColumnSettings
 
 
-### Level 1 layout blocks
+# Level 1 layout blocks
 
 
 class ColumnBlock(BaseLayoutBlock):
@@ -50,10 +50,11 @@ class GridBlock(BaseLayoutBlock):
 
     def __init__(self, local_blocks=None, **kwargs):
         super().__init__(
-            local_blocks = [
+            local_blocks=[
                 ('content', ColumnBlock(local_blocks))
             ]
         )
+
 
 class CardGridBlock(BaseLayoutBlock):
     """
@@ -83,7 +84,8 @@ class HeroBlock(BaseLayoutBlock):
     is_parallax = blocks.BooleanBlock(
         required=False,
         label=_('Parallax Effect'),
-        help_text=_('Background images scroll slower than foreground images, creating an illusion of depth.'),
+        help_text=_(
+            'Background images scroll slower than foreground images, creating an illusion of depth.'),  # noqa
     )
     background_image = ImageChooserBlock(required=False)
     tile_image = blocks.BooleanBlock(

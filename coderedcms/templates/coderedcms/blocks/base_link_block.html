@@ -7,7 +7,7 @@
         {% is_active_page page value.page as is_active_url %}
         <a href="{% block url %}#{% endblock %}"
         {% if value.settings.custom_id %}id="{{value.settings.custom_id}}"{% endif %}
-        class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %} {% if is_active_url %}active{% endif %} {% if value.settings.custom_css_class %}{{value.settings.custom_css_class}}{% endif %}"
+        class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %} {% if is_active_url %}active{% endif %} {{value.settings.custom_css_class}}"
         {% if has_dropdown %}data-toggle="dropdown"
         role="button"
         aria-haspopup="true"

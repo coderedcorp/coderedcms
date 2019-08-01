@@ -85,7 +85,9 @@ class EmbedGoogleMapBlock(BaseBlock):
         required=False,
         default=14,
         label=_('Map zoom level'),
-        help_text=_('Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings')
+        help_text=_(
+            "Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"  # noqa
+        )
     )
 
 
@@ -206,7 +208,9 @@ class PageListBlock(BaseBlock):
     indexed_by = blocks.PageChooserBlock(
         required=True,
         label=_('Parent page'),
-        help_text=_('Show a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab.'),
+        help_text=_(
+            "Show a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab."  # noqa
+        ),
     )
     classified_by = ClassifierTermChooserBlock(
         required=False,
@@ -240,9 +244,12 @@ class PageListBlock(BaseBlock):
             if value['classified_by']:
                 try:
                     pages = pages.filter(classifier_terms=value['classified_by'])
-                except:
+                except AttributeError:
                     # `pages` is not a queryset, or is not a queryset of CoderedPage.
-                    logger.warning("Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models.", indexer._meta.app_label, indexer.__class__.__name__, indexer.title)
+                    logger.warning(
+                        "Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children()  # noqadid not return a queryset or is not a queryset of CoderedPage models.",  # noqa
+                        indexer._meta.app_label, indexer.__class__.__name__, indexer.title
+                    )
         else:
             pages = indexer.get_children().live()
 

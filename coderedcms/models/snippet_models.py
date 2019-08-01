@@ -38,12 +38,14 @@ class Carousel(ClusterableModel):
     show_controls = models.BooleanField(
         default=True,
         verbose_name=_('Show controls'),
-        help_text=_('Shows arrows on the left and right of the carousel to advance next or previous slides.'),
+        help_text=_(
+            "Shows arrows on the left and right of the carousel to advance next or previous slides."  # noqa
+        ),
     )
     show_indicators = models.BooleanField(
         default=True,
         verbose_name=_('Show indicators'),
-        help_text=_('Shows small indicators at the bottom of the carousel based on the number of slides.'),
+        help_text=_('Shows small indicators at the bottom of the carousel based on the number of slides.'),  # noqa
     )
     animation = models.CharField(
         blank=True,
@@ -297,6 +299,7 @@ class Footer(models.Model):
     def __str__(self):
         return self.name
 
+
 @register_snippet
 class ReusableContent(models.Model):
     """
@@ -375,11 +378,37 @@ class CoderedEmail(ClusterableModel):
         abstract = True
         verbose_name = _('CodeRed Email')
 
-    to_address = models.CharField(max_length=255, blank=True, verbose_name=_('To Addresses'), help_text=_('Separate multiple email addresses with commas.'))
-    from_address = models.CharField(max_length=255, blank=True, verbose_name=_('From Address'), help_text=_('For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes).'))
-    reply_address = models.CharField(max_length=255, blank=True, verbose_name=_('Reply-To Address'), help_text=_('Separate multiple email addresses with commas.'))
-    cc_address = models.CharField(max_length=255, blank=True, verbose_name=_('CC'), help_text=_('Separate multiple email addresses with commas.'))
-    bcc_address = models.CharField(max_length=255, blank=True, verbose_name=_('BCC'), help_text=_('Separate multiple email addresses with commas.'))
+    to_address = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('To Addresses'),
+        help_text=_('Separate multiple email addresses with commas.')
+    )
+    from_address = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('From Address'),
+        help_text=_(
+            'For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes).')  # noqa
+    )
+    reply_address = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Reply-To Address'),
+        help_text=_('Separate multiple email addresses with commas.')
+    )
+    cc_address = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('CC'),
+        help_text=_('Separate multiple email addresses with commas.')
+    )
+    bcc_address = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('BCC'),
+        help_text=_('Separate multiple email addresses with commas.')
+    )
     subject = models.CharField(max_length=255, blank=True, verbose_name=_('Subject'))
     body = models.TextField(blank=True, verbose_name=_('Body'))
 

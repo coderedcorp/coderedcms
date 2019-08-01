@@ -4,12 +4,7 @@
 <div class="container">
 {% endif %}
 
-<nav class="navbar
-  {% if settings.coderedcms.LayoutSettings.navbar_fixed %}fixed-top{% endif %}
-  {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}
-  {{settings.coderedcms.LayoutSettings.navbar_color_scheme}}
-  {{settings.coderedcms.LayoutSettings.navbar_class}}
-  {{settings.coderedcms.LayoutSettings.navbar_format}}" >
+<nav class="navbar {% get_navbar_css %}">
 
   {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
   <div class="container">
@@ -31,7 +26,7 @@
     <div class="collapse navbar-collapse" id="navbar">
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
-      <ul class="navbar-nav {% if navbar.custom_css_class %}{{navbar.custom_css_class}}{% endif %}"
+      <ul class="navbar-nav {{navbar.custom_css_class}}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
         {% for item in navbar.menu_items %}
             {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}

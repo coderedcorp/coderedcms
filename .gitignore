@@ -1,15 +1,28 @@
-*.pyc
+# Randoms
 *Thumbs.db
-*~
-*.sqlite3
 *.txz
+*.tar.xz
 *.tgz
-media/
+*.tar.gz
+*.sqlite3
+*.sql
+
+# Python
+*.pyc
 build/
 _build/
 dist/
 __pycache__
 codered_cms.egg-info/
 coderedcms.egg-info/
+
+# Editors
 .vscode/
+*~
+
+# Development & testing
+.coverage
+htmlcov/
+junit/
+coverage.xml
 testproject*/

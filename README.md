@@ -15,7 +15,17 @@
 
 
 
+## Status
+
+|                        |                      |
+|------------------------|----------------------|
+| Python Package         |[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Django Version](https://img.shields.io/pypi/djversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Wheel](https://img.shields.io/pypi/wheel/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI](https://img.shields.io/pypi/v/coderedcms)](https://pypi.org/project/coderedcms/) |
+| Build                  | [![Build Status](https://dev.azure.com/coderedcorp/coderedcms/_apis/build/status/coderedcms?branchName=master)](https://dev.azure.com/coderedcorp/coderedcms/_build/latest?definitionId=1&branchName=master) [![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/coderedcorp/coderedcms/1/master)](https://dev.azure.com/coderedcorp/coderedcms/_build/latest?definitionId=1&branchName=master) [![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/coderedcorp/coderedcms/1/master)](https://dev.azure.com/coderedcorp/coderedcms/_build/latest?definitionId=1&branchName=master) |
+
+
+
 ## Note
+
 **This project is still early on in its development lifecycle.** It is possible for breaking changes to occur between versions until reaching a stable 1.0, however we will clearly note any breaking changes between releases if applicable. Feedback and pull requests are welcome.
 
 ## Quick start
@@ -38,11 +48,12 @@ See the [documentation](https://docs.coderedcorp.com/cms/) for next steps and cu
 
 
 ## Why use CodeRed CMS?
-In addition to the numerous benefits of [Wagtail](https://wagtail.io/features/), CodeRed has features that are *great* for marketing websites:
 
-* **The entire editing experience is tailored for marketing content.** Create flashy hero units, callouts, and forms using a beautiful editing interface. Full SEO attributes and detailed Google Analytics tracking is available out of the box. Editors and Designers can easily update content, designs, and layout without fear of breakage and without the need to consult developers. Developers can fully customize the site without relying on plugins or undocumented hacks.
+In addition to the numerous benefits of [Wagtail](https://wagtail.io/features/), CodeRed has features that are *specifically designed* for marketing websites:
 
-* **Built-in SEO** including Open Graph, structured data, and many other meta tags automatically applied. A sitemap and robots.txt are also present and automatically updated. Articles and blog posts support Google’s preferred AMP format.
+* **The editing experience is tailored for visual marketing content.** Create flashy hero units, callouts, and forms using a beautiful editing interface. Editors and Designers can easily update content, designs, and layout without fear of breakage and without the need to consult developers. Developers can fully customize the site using plain HTML/CSS/JavaScript without relying on plugins or undocumented hacks.
+
+* **Built-in SEO** Optimized metadata for Facebook, Twitter, LinkedIn, Google, Bing, and more are all included out of the box. A sitemap and robots.txt are also present and automatically updated. Articles, blog posts, and events support Google’s preferred AMP format to boost search ranking and support mobile devices.
 
 * **Responsive design** out of the box! Editors can build content using [Bootstrap 4](https://getbootstrap.com/) components including navbars, hero units, carousels, cards, modals, and the powerful grid system.
 
@@ -54,7 +65,14 @@ In addition to the numerous benefits of [Wagtail](https://wagtail.io/features/),
 
 
 
+## Quality Control
+
+In addition to manual testing by real humans between releases, we also employ many quality control tools to automatically catch some errors before they are introduced to the code. The CodeRed team has a strong focus on quality and security to ensure CodeRed CMS remains reliable for use in day-to-day business operations.
+
+
+
 ## Roadmap
+
 Officially, CodeRed CMS is in a beta stage. That being said, it is currently in use on production sites. However there are still many activities that are needed before hitting a 1.0 “stable” status.
 
 Work already in progress before 1.0 release:
@@ -84,6 +102,7 @@ Other future plans:
 ## Inspiration and Design Philosophy
 
 ### Inspiration from WordPress
+
 We the creators of CodeRed CMS deal with WordPress sites on a daily basis. While WordPress is fantastic for blogs and do-it-yourself websites, we feel it is very frustrating for use in a professional environment where the site needs to be actively enhanced, maintained, and secured on a daily basis. We designed CodeRed CMS as a marketing-focused WordPress replacement, *not* a WordPress clone. The intended audience is an agency, technology firm, business, or non-profit who has at least one full stack web developer managing the website.
 
 WordPress users will feel comfortable with CodeRed CMS, as many of the editing and design paradigms are similar such as:
@@ -105,6 +124,7 @@ PLUS many aspects are greatly enhanced:
 * The site can be professionally managed with better control over 3rd party plugins to prevent unplanned breakage (if you've ever managed a large WordPress site - you know exactly how painful this is).
 
 ### As an Extension of Wagtail
+
 CodeRed CMS is a pip package that essentially wraps Wagtail and provides marketing-specific features that are ready to be used out of the box. Everything that can be done with Wagtail can be done with CodeRed.
 
 One major point of difference between between CodeRed and stock Wagtail is the approach to design and content. Wagtail being more of a CMS framework, is focused on a clear separation between design (UX) and content. We agree with this approach for larger informational sites. But as is usually the case with marketing sites, design and information are more tightly coupled. Developers shouldn’t *need* to create a new page type or a new block just to handle a design deviation that is used in one place on the site. Designers and editors shouldn’t *need* to engage the developer for every minor design-related change such as changing a CSS class. For this reason, CodeRed blurs the lines of design and content by enabling editors to specify templates on a per-page and per-block basis, CSS classes per-block, and many other logo, layout, and branding settings. We realize this is not the right approach for every site - but we do believe it adds a lot of value for marketing sites.
@@ -112,4 +132,5 @@ One major point of difference between between CodeRed and stock Wagtail is the a
 
 
 ## Contact
-We would love to hear your questions, comments, and feedback. Contact us on GitHub or at info@coderedcorp.com.
+
+We would love to hear your questions, comments, and feedback. Open an issue on Github, message us on [#coderedcms in the Wagtail slack](https://wagtailcms.slack.com/messages/CEU45SBRR), or email us at info@coderedcorp.com.

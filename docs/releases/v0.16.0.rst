@@ -1,0 +1,34 @@
+CodeRed CMS 0.16.0 release notes
+================================
+
+
+New features
+------------
+
+* NEW spam protection on forms (ON by default). We have been piloting this out
+  for several months and have seen a 100% success rate so far. See :doc:`/features/page_types/form_pages`.
+* NEW support for Sass via a new starter template. See :doc:`/getting_started/install`.
+
+
+Bug fixes
+---------
+
+* Improved HTML5 validity by removing space within tags and ``href`` attributes.
+* Improved accessibility by adding title attribute to embedded iframes.
+
+
+Maintenance
+-----------
+
+* Major code cleanup to conform to Python best practices.
+* New continuous integration to enforce code quality standards outlined in :doc:`/contributing/index`.
+
+
+Upgrade considerations
+----------------------
+
+* You might need to run ``python manage.py makemigrations website`` and ``python manage.py migrate`` after upgrading.
+* Use of content delivery network for Bootstrap and jQuery has been replaced with local files.
+  This will improve local development and use behind firewalls/offline environments.
+  To continue using a CDN, override ``{% block frontend_assets %}`` , ``{% block required_scripts %}`` ,
+  and ``{% block frontend_scripts %}`` in your ``base.html`` file.

@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+
 $ExitCode = 0
 $GitDiff = git diff origin/master
 # If there is no diff between master, then flake8 everything.
@@ -16,4 +18,13 @@ else {
         if ($LastExitCode -ne 0) { $ExitCode = $LastExitCode }
     }
 }
+
+# Write friendly output
+if ($ExitCode -eq 0) {
+    Write-Host -ForegroundColor Green "[✔] Flake8 passed with no errors"
+}
+else {
+    Write-Host -ForegroundColor Red "[❌] Flake8 exited with errors. Please resolve issues above."
+}
+
 exit $ExitCode

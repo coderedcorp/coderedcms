@@ -505,7 +505,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                 classname='integrations'
             ))
 
-        return TabbedInterface(panels).bind_to_model(cls)
+        return TabbedInterface(panels).bind_to(model=cls)
 
     def get_struct_org_name(self):
         """

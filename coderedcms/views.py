@@ -1,24 +1,26 @@
 import mimetypes
 import os
-
 from itertools import chain
-
 from datetime import datetime
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponsePermanentRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render
 from django.utils.translation import ungettext, ugettext_lazy as _
 from icalendar import Calendar
-
 from wagtail.admin import messages
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
-
 from coderedcms import utils
 from coderedcms.forms import SearchForm
-from coderedcms.models import CoderedPage, CoderedEventPage, get_page_models, GeneralSettings
+from coderedcms.models import (
+    CoderedPage,
+    CoderedEventPage,
+    get_page_models,
+    GeneralSettings,
+    LayoutSettings
+)
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from coderedcms.settings import cr_settings
 
@@ -118,6 +120,13 @@ def serve_protected_file(request, path):
             response["Content-Encoding"] = encoding
 
         return response
+    raise Http404()
+
+
+def favicon(request):
+    icon = LayoutSettings.for_site(request.site).favicon
+    if icon:
+        return HttpResponsePermanentRedirect(icon.get_rendition('original').url)
     raise Http404()
 
 

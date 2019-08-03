@@ -60,7 +60,7 @@ setup(
             "pytest-cov",
             "pytest-django",
             "sphinx"
-        ]
+        ],
         "dev": [
             "flake8",
             "libsass",

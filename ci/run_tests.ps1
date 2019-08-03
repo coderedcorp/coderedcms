@@ -16,7 +16,8 @@ $ExitCode = $LastExitCode
 # Print code coverage if succeeded.
 if ($ExitCode -eq 0) {
     [xml]$BranchXML = Get-Content coverage.xml
-    $LineRate = [math]::Abs([math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 2))
+    $LineRate = [math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 2)
+    Write-Output "All unit tests passed! 🥳"
     Write-Output "Code coverage: $LineRate%"
 }
 

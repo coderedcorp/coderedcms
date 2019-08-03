@@ -1,3 +1,13 @@
+#!/usr/bin/env pwsh
+
+<#
+.SYNOPSIS
+Used by Azure Pipelines to compare code coverage reports between master and current branch.
+
+.PARAMETER wd
+The working directory in which to find downloaded artifacts.
+#>
+
 param([string]$wd)
 
 if (Test-Path -Path "$wd/current-artifacts/Code Coverage Report_*/summary*/coverage.xml") {

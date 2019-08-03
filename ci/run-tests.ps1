@@ -1,5 +1,10 @@
 #!/usr/bin/env pwsh
 
+<#
+.SYNOPSIS
+Runs unit tests. Outputs test results and code coverage report.
+#>
+
 # Get path.
 $scriptDir = Split-Path $PSCommandPath -Parent
 $projectDir = (Get-Item $scriptDir).Parent

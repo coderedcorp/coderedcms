@@ -1,5 +1,10 @@
 #!/usr/bin/env pwsh
 
+<#
+.SYNOPSIS
+Runs flake8 to analyze Python source code for errors and best practices.
+#>
+
 # Get path.
 $scriptDir = Split-Path $PSCommandPath -Parent
 $projectDir = (Get-Item $scriptDir).Parent
@@ -33,7 +38,7 @@ if ($ExitCode -eq 0) {
     Write-Host -ForegroundColor Green "[✔] Flake8 passed with no errors"
 }
 else {
-    Write-Host -ForegroundColor Red "[❌] Flake8 exited with errors. Please resolve issues above."
+    Write-Host -ForegroundColor Red "[X] Flake8 exited with errors. Please resolve issues above."
 }
 
 # Unset working directory and exit with flake8's exit code.

@@ -45,13 +45,13 @@ stages:
         versionSpec: '$(PYTHON_VERSION)'
         architecture: 'x64'
 
-    - script: python -m pip install -e ./[ci_tests]
+    - script: python -m pip install -e ./[ci]
       displayName: 'CR-QC: Install coderedcms from local repo'
 
-    - script: coderedcms start testproject --name="Test Project" --domain="www.example.com"
+    - script: coderedcms start testproject
       displayName: 'CR-QC: Create starter project from template'
 
-    - pwsh: ./ci/run_tests.ps1
+    - pwsh: ./ci/run-tests.ps1
       displayName: 'CR-QC: Run unit tests'
 
     - task: PublishTestResults@2
@@ -86,13 +86,13 @@ stages:
         versionSpec: '3.7'
         architecture: 'x64'
 
-    - script: python -m pip install -e ./[ci_style]
+    - script: python -m pip install -e ./[ci]
       displayName: 'CR-QC: Install coderedcms from local repo'
 
     - script: coderedcms start testproject
       displayName: 'CR-QC: Generate a test project'
 
-    - pwsh: ./ci/run_flake8.ps1
+    - pwsh: ./ci/run-flake8.ps1
       displayName: 'CR-QC: Static analysis (flake8)'
 
   - job: codecov
@@ -119,7 +119,25 @@ stages:
         runVersion: 'latestFromBranch'
         runBranch: 'refs/heads/master'
 
-    - pwsh: ./ci/run_artifacts.ps1 -wd $Env:WorkDir
+    - pwsh: ./ci/compare-artifacts.ps1 -wd $Env:WorkDir
       displayName: 'CR-QC: Compare code coverage'
       env:
         WorkDir: $(Agent.WorkFolder)
+
+  - job: docs
+    displayName: Documentation
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python version'
+      inputs:
+        versionSpec: '3.7'
+        architecture: 'x64'
+
+    - script: python -m pip install -e ./[ci]
+      displayName: 'CR-QC: Install coderedcms from local repo'
+
+    - pwsh: ./ci/make-docs.ps1
+      displayName: 'CR-QC: Build documentation'

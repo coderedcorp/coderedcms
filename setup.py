@@ -55,9 +55,13 @@ setup(
         'wagtail-import-export>=0.1,<0.2'
     ],
     extras_require={
+        "ci": [
+            "flake8",
+            "pytest-cov",
+            "pytest-django",
+            "sphinx"
+        ]
         "dev": [
-            # "autopep8",
-            # "black",
             "flake8",
             "libsass",
             "pytest-cov",
@@ -65,12 +69,6 @@ setup(
             "sphinx",
             "twine",
             "wheel",
-        ],  # noqa
-        "ci_tests": ["pytest-cov", "pytest-django"],
-        "ci_style": [
-            # "autopep8",
-            # "black",
-            "flake8"
         ],
     },
     entry_points="""

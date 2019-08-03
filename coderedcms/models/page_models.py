@@ -216,9 +216,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         on_delete=models.SET_NULL,
         related_name='+',
         verbose_name=_('Open Graph preview image'),
-        help_text=_(
-            "The image shown when linking to this page on social media. If blank, defaults to article cover image, or logo in Settings > Layout > Logo"  # noqa
-        )
+        help_text=_("The image shown when linking to this page on social media. If blank, defaults to article cover image, or logo in Settings > Layout > Logo"),  # noqa
     )
     struct_org_type = models.CharField(
         default='',
@@ -251,9 +249,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         on_delete=models.SET_NULL,
         related_name='+',
         verbose_name=_('Photo of Organization'),
-        help_text=_(
-            "A photo of the facility. This photo will be cropped to 1:1, 4:3, and 16:9 aspect ratios automatically."  # noqa
-        )
+        help_text=_('A photo of the facility. This photo will be cropped to 1:1, 4:3, and 16:9 aspect ratios automatically.'),  # noqa
     )
     struct_org_phone = models.CharField(
         blank=True,
@@ -289,9 +285,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         max_length=255,
         verbose_name=_('Country'),
-        help_text=_(
-            "For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1"  # noqa
-        )
+        help_text=_('For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1'),  # noqa
     )
     struct_org_geo_lat = models.DecimalField(
         blank=True,
@@ -324,9 +318,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     struct_org_extra_json = models.TextField(
         blank=True,
         verbose_name=_('Additional Organization markup'),
-        help_text=_(
-            "Additional JSON-LD inserted into the Organization dictionary. Must be properties of https://schema.org/Organization or the selected organization type."  # noqa
-        )
+        help_text=_('Additional JSON-LD inserted into the Organization dictionary. Must be properties of https://schema.org/Organization or the selected organization type.'),  # noqa
     )
 
     ###############
@@ -337,9 +329,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         'coderedcms.ClassifierTerm',
         blank=True,
         verbose_name=_('Classifiers'),
-        help_text=_(
-            "Categorize and group pages together with classifiers. Used to organize and filter pages across the site."  # noqa
-        ),
+        help_text=_('Categorize and group pages together with classifiers. Used to organize and filter pages across the site.'),  # noqa
     )
     tags = ClusterTaggableManager(
         through=CoderedTag,
@@ -1040,17 +1030,13 @@ class CoderedFormMixin(models.Model):
         max_length=255,
         blank=True,
         verbose_name=_('Email form submissions to'),
-        help_text=_(
-            "Optional - email form submissions to this address. Separate multiple addresses by comma."  # noqa
-        )
+        help_text=_('Optional - email form submissions to this address. Separate multiple addresses by comma.'),  # noqa
     )
     reply_address = models.CharField(
         max_length=255,
         blank=True,
         verbose_name=_('Reply-to address'),
-        help_text=_(
-            "Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled 'Your Email', enter: {{ your_email }}"  # noqa
-        )
+        help_text=_('Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}'),  # noqa
     )
     subject = models.CharField(
         max_length=255,
@@ -1713,8 +1699,7 @@ class CoderedLocationPage(CoderedWebPage):
     auto_update_latlng = models.BooleanField(
         default=True,
         verbose_name=_("Auto Update Latitude and Longitude"),
-        help_text=_(
-            "If checked, automatically update the latitude and longitude when the address is updated.")  # noqa
+        help_text=_("If checked, automatically update the latitude and longitude when the address is updated.")  # noqa
     )
     map_title = models.CharField(
         blank=True,
@@ -1858,9 +1843,7 @@ class CoderedLocationIndexPage(CoderedWebPage):
             MaxValueValidator(20),
             MinValueValidator(1),
         ],
-        help_text=_(
-            "Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"  # noqa
-        )
+        help_text=_("Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings")  # noqa
     )
 
     layout_panels = CoderedWebPage.layout_panels + [

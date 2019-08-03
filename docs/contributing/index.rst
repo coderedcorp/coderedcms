@@ -92,17 +92,19 @@ license header comment states copyright, ownership, license, and also provides c
 Testing CodeRed CMS
 -------------------
 
-To run the built in tests for CodeRed CMS using Django, run the following:
-
-.. code-block:: console
-
-    $ python testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
-
-Or, to use ``pytest`` and output a unit test report and code coverage report (this how CI runs the tests):
+To run the unit tests, run the following command. This will output a unit test
+report and code coverage report:
 
 .. code-block:: console
 
     $ pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
+
+Or more conveniently, run the PowerShell script, which will also print out the
+code coverage percentage in the console:
+
+.. code-block:: console
+
+    $ ./ci/run_tests.ps1
 
 Detailed test coverage reports are now available by opening ``htmlcov/index.html`` in your browser (which is ignored by version control)
 

@@ -1,4 +1,4 @@
-param([string]$wd="/home/vsts/work")
+param([string]$wd)
 
 if (Test-Path -Path "$wd/current-artifacts/Code Coverage Report_*/summary*/coverage.xml") {
     [xml]$BranchXML = Get-Content "$wd/current-artifacts/Code Coverage Report_*/summary*/coverage.xml"

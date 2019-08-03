@@ -101,10 +101,7 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - pwsh: ./ci/codecov.ps1
+    - pwsh: ./ci/codecov.ps1 -BuildId $BuildId
       displayName: 'Compare code coverage to master'
       env:
-        System_CollectionId: $(System.CollectionId)
-        System_TeamProjectId: $(System.TeamProjectId)
-        System_DefinitionId: $(System.DefinitionId)
-        Build_BuildId: $(Build.BuildId)
+        BuildId: $(Build.BuildId)

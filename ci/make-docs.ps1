@@ -14,10 +14,10 @@ $docsBuildDir = Join-Path -Path $docsDir -ChildPath "_build"
 $ExitCode = 0
 
 # Clean previously built docs.
-sphinx-build.exe -M clean $docsDir $docsBuildDir
+sphinx-build -M clean $docsDir $docsBuildDir
 
 # Make docs, treat warnigs as errors.
-sphinx-build.exe -M html $docsDir $docsBuildDir -W
+sphinx-build -M html $docsDir $docsBuildDir -W
 $ExitCode = $LastExitCode
 
 # Write output for humans.

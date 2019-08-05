@@ -131,6 +131,16 @@ One major point of difference between between CodeRed and stock Wagtail is the a
 
 
 
+## Contributors
+
+In addition to the CodeRed team, many thanks to the Wagtail community and our
+[independent contributors](https://github.com/coderedcorp/coderedcms/graphs/contributors).
+
+If you're interested in building, developing, or contributing to CodeRed CMS,
+check out the [Contributing Guide](https://docs.coderedcorp.com/cms/stable/contributing/index.html).
+
+
+
 ## Contact
 
 We would love to hear your questions, comments, and feedback. Open an issue on Github, message us on [#coderedcms in the Wagtail slack](https://wagtailcms.slack.com/messages/CEU45SBRR), or email us at info@coderedcorp.com.

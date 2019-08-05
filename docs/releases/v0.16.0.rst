@@ -15,6 +15,7 @@ Bug fixes
 
 * Improved HTML5 validity by removing space within tags and ``href`` attributes.
 * Improved accessibility by adding title attribute to embedded iframes.
+* Specify language in HTML tag. See :doc:`/getting_started/customize_develop`.
 
 
 Maintenance

@@ -8,33 +8,56 @@ Developing CodeRed CMS
 To create a test project locally:
 
 #. Clone the code from https://github.com/coderedcorp/coderedcms.
-#. Run ``pip install -e ./[dev]`` from the root coderedcms directory. The -e flag makes the install editable,
-   which is relevant when running ``makemigrations`` in test project to actually generate the migration
-   files in the coderedcms pip package. The ``[dev]`` installs extras such as sphinx for generating docs.
+#. Run ``pip install -e ./[dev]`` from the root coderedcms directory.
+   The -e flag makes the install editable, which is relevant when running
+   ``makemigrations`` in test project to actually generate the migration files
+   in the coderedcms pip package. The ``[dev]`` installs extras such as sphinx
+   for generating docs.
 #. Follow the steps in :doc:`/getting_started/install`. Use ``testproject`` for
    your project name to ensure it is ignored by git.
-#. When making model or block changes within coderedcms, run ``makemigrations coderedcms`` in the
-   test project to generate the relevant migration files for the pip package. ALWAYS follow steps
-   4 and 5 in :doc:`/getting_started/install` with a fresh database before making migrations.
-#. When model or block changes affect the local test project (i.e. the "website" app), run
-   ``makemigrations website`` in the test project to generate the relevant migration files locally.
-   Apply and test the migrations. When satisfied, re-generate the ``0001_initial.py`` migration in
+#. When making model or block changes within coderedcms, run
+   ``makemigrations coderedcms`` in the test project to generate the relevant
+   migration files for the pip package. ALWAYS follow steps 4 and 5 in
+   :doc:`/getting_started/install` with a fresh database before making migrations.
+#. When model or block changes affect the local test project (i.e. the "website"
+   app), run ``makemigrations website`` in the test project to generate the
+   relevant migration files locally. Apply and test the migrations. When
+   satisfied, re-generate the ``0001_initial.py`` migration in
    ``project_template/website/migrations/`` as so:
 
        #. Create a new test project using ``coderedcms start testproject``.
-       #. Before running migrations, DELETE all migrations in ``testproject/website/migrations/``.
-       #. Run ``python manage.py makemigrations website``. This should generate an ``0001_initial.py``
-          migration.
-       #. Replace ``project_template/website/migrations/0001_initial.py`` with your newly generated migration.
+       #. Before running migrations, DELETE all migrations in
+          ``testproject/website/migrations/``.
+       #. Run ``python manage.py makemigrations website``. This should generate
+          an ``0001_initial.py`` migration.
+       #. Replace ``project_template/website/migrations/0001_initial.py`` with
+          your newly generated migration.
 
-When making changes that are potentially destructive or backwards incompatible, increment the minor
-version number until coderedcms reaches a stable 1.0 release. Each production project that uses
-coderedcms should specify the appropriate version in its requirements.txt to prevent breakage.
+When making changes that are potentially destructive or backwards incompatible,
+increment the minor version number until coderedcms reaches a stable 1.0 release.
+Each production project that uses coderedcms should specify the appropriate
+version in its requirements.txt to prevent breakage.
 
 .. note::
-    When testing existing projects with coderedcms installed from the master or development branches,
-    be sure to use a disposable database, as it is likely that the migrations in master will
-    not be the same migrations that get released.
+    When testing existing projects with coderedcms installed from the master or
+    development branches, be sure to use a disposable database, as it is likely
+    that the migrations in master will not be the same migrations that get
+    released.
+
+
+A Note on Cross-Platform Support
+--------------------------------
+
+CodeRed CMS works equally well on Windows, macOS, and Linux. When adding new features
+or new dependencies, ensure that these utilize proper cross-platform utilities in Python.
+
+To ease local development of CodeRed CMS, we have many automation scripts using
+`PowerShell Core <https://github.com/powershell/powershell>`_ because it provides high quality
+commercial support for Windows, macOS, and Linux. Throughout this contributing guide,
+you will encounter various PowerShell scripts which always provide the easiest and most
+definitive way of working on CodeRed CMS.
+
+Our goal is that users of any platform can develop or host a CodeRed CMS website easily.
 
 
 CSS Development
@@ -92,99 +115,97 @@ license header comment states copyright, ownership, license, and also provides c
 Testing CodeRed CMS
 -------------------
 
-To run the built in tests for CodeRed CMS using Django, run the following:
-
-.. code-block:: console
-
-    $ python testproject/manage.py test coderedcms --settings=coderedcms.tests.settings
-
-Or, to use ``pytest`` and output a unit test report and code coverage report (this how CI runs the tests):
+To run the unit tests, run the following command. This will output a unit test
+report and code coverage report:
 
 .. code-block:: console
 
     $ pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
 
-Detailed test coverage reports are now available by opening ``htmlcov/index.html`` in your browser (which is ignored by version control)
+Or more conveniently, run the PowerShell script, which will also print out the
+code coverage percentage in the console:
+
+.. code-block:: console
+
+    $ ./ci/run-tests.ps1
+
+Detailed test coverage reports are now available by opening ``htmlcov/index.html``
+in your browser (which is ignored by version control)
 
 
 Adding New Tests
 ----------------
 
-Test coverage at the moment is fairly minimal and it is highly recommended that new features and models include proper unit tests.
-Any testing infrastructure (i.e. implementations of abstract models and migrations) needed should be added to the ``tests`` app in your
-local copy of CodeRed CMS.  The tests themselves should be in their relevant section in CodeRed CMS (i.e. tests for
-models in ``coderedcms.models.page_models`` should be located in ``coderedcms.models.tests.test_page_models``).
+Test coverage at the moment is fairly minimal and it is highly recommended that
+new features and models include proper unit tests. Any testing infrastructure
+(i.e. implementations of abstract models and migrations) needed should be added
+to the ``tests`` app in your local copy of CodeRed CMS. The tests themselves
+should be in their relevant section in CodeRed CMS (i.e. tests for models in
+``coderedcms.models.page_models`` should be located in
+``coderedcms.models.tests.test_page_models``).
 
-For example, here is how you would add tests for a new abstract page type, ``CoderedCustomPage`` that would live in ``coderedcms/models/page_models.py``:
+For example, here is how you would add tests for a new abstract page type,
+``CoderedCustomPage`` that would live in ``coderedcms/models/page_models.py``:
 
-1. Navigate to ``coderedcms/tests/testapp/models.py``
-2. Add the following import: ``from coderedcms.models.page_models import CoderedCustomPage``
-3. Implement a concrete version of ``CoderedCustomPage``, i.e. ``CustomPage(CoderedCustomPage)``.
-4. Run ``python manage.py makemigrations`` to make new testing migrations.
-5. Navigate to ``coderedcms/models/tests/test_page_models.py``
-6. Add the following import: ``from coderedcms.models import CoderedCustomPage``
-7. Add the following import: ``from coderedcms.tests.testapp.models import CustomPage``
-8. Add the following to the bottom of the file:
+#. Navigate to ``coderedcms/tests/testapp/models.py``
+#. Add the following import: ``from coderedcms.models.page_models import CoderedCustomPage``
+#. Implement a concrete version of ``CoderedCustomPage``, i.e. ``CustomPage(CoderedCustomPage)``.
+#. Run ``python manage.py makemigrations`` to make new testing migrations.
+#. Navigate to ``coderedcms/models/tests/test_page_models.py``
+#. Add the following import: ``from coderedcms.models import CoderedCustomPage``
+#. Add the following import: ``from coderedcms.tests.testapp.models import CustomPage``
+#. Add the following to the bottom of the file:
 
-.. code-block:: python
+   .. code-block:: python
 
-    class CoderedCustomPageTestCase(AbstractPageTestCase, WagtailPageTests):
-        model = CoderedCustomPage
+       class CoderedCustomPageTestCase(AbstractPageTestCase, WagtailPageTests):
+           model = CoderedCustomPage
 
-9. Add the following to the bottom of the file:
+#. Add the following to the bottom of the file:
 
-.. code-block:: python
+   .. code-block:: python
 
-    class CustomPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
-        model = CustomPage
+       class CustomPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+           model = CustomPage
 
-10. Write any specific test cases that ``CoderedCustomPage`` and ``CustomPage`` may require.
+#. Write any specific test cases that ``CoderedCustomPage`` and ``CustomPage``
+   may require.
 
 
 Static Analysis
 ---------------
 
-Flake8 is used to check for syntax and style errors. To analyze the entire codebase, run:
+Flake8 is used to check for syntax and style errors. To analyze the entire
+codebase, run:
 
 .. code-block:: console
 
     $ flake8 .
 
-Alternatively, our continuous integration only analyzes the diff between your changes
-and master. To analyze just the diff of your current changes, run the
+Alternatively, our continuous integration only analyzes the diff between your
+changes and master. To analyze just the diff of your current changes, run the
 `PowerShell Core <https://github.com/powershell/powershell>`_ script:
 
 .. code-block:: console
 
-    $ ./ci/run_flake8.ps1
-
-
-
-A Note on Cross-Platform Support
---------------------------------
-
-CodeRed CMS works equally well on Windows, MacOS, and Linux. When adding new features
-or new dependencies, ensure that these utilize proper cross-platform utilities in Python.
-
-For shell or automation scripts, we default to
-`PowerShell Core <https://github.com/powershell/powershell>`_ because it provides high quality
-commercial support for Windows, MacOS, and Linux.
-
-Our goal is that users of any platform can develop or host a CodeRed CMS website easily.
+    $ ./ci/run-flake8.ps1
 
 
 Contributor Guidelines
 ----------------------
 
-We are happy to accept pull requests from the community if it aligns with our vision for coderedcms.
-When creating a pull request, please make sure you include the following:
+We are happy to accept pull requests from the community if it aligns with our
+vision for coderedcms. When creating a pull request, please make sure you
+include the following:
 
 * A description in the pull request of what this change does and how it works.
-* Reference to an issue if the change is related to one of the issues on our GitHub page.
+* Reference to an issue if the change is related to one of the issues on our
+  GitHub page.
 * Documentation updates in the ``docs/`` directory describing your change.
 
-Following submission of your pull request, a CodeRed member will review and test your change.
-**All changes, even by CodeRed members, must go through a pull request process to ensure quality.**
+Following submission of your pull request, a CodeRed member will review and test
+your change. **All changes, even by CodeRed members, must go through a pull
+request process to ensure quality.**
 
 
 Building Python Packages
@@ -200,17 +221,19 @@ To build a publicly consumable pip package, run:
 Building Documentation
 ----------------------
 
-For every code or feature change, be sure to update the docs in the repository. To build and publish
-the documentation run:
+For every code or feature change, be sure to update the docs in the repository.
+To build the documentation run the PowerShell script, which will also check for
+errors in the documentation:
 
 .. code-block:: console
 
-    $ cd docs/
-    $ make clean
-    $ make html
+    $ ./ci/make-docs.ps1
 
-.. note::
-    Windows users should run ``make.bat`` instead of ``make`` above.
+Or manually using sphinx:
+
+.. code-block:: console
+
+    $ sphinx-build -M html docs/ docs/_build/ -W
 
 Output will be in ``docs/_build/html/`` directory.
 
@@ -236,23 +259,21 @@ Finally build and update docs:
 
 .. code-block:: console
 
-    $ cd docs/
-    $ make clean
-    $ make html
-
-.. note::
-    Windows users should run ``make.bat`` instead of ``make`` above.
+    $ ./ci/make-docs.ps1
 
 If updating docs for an existing minor version release:
 
-#. Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under the existing version directory.
+#. Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under
+   the existing version directory.
 
 If this is a new major or minor version release:
 
 #. Create a new ``major.minor`` directory on the CodeRed docs server.
 #. Update the ``stable`` symbolic link to point to the new version directory.
 #. Add the new version to the ``versions.txt`` file on the docs server.
-#. Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under the new version directory.
+#. Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under
+   the new version directory.
 
-Note that we do not release separate documentation versions for maintenance releases. Update the existing minor
-version docs with release notes and other changes.
+Note that we do not release separate documentation versions for maintenance
+releases. Update the existing minor version docs with release notes and other
+changes.

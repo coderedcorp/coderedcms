@@ -223,9 +223,7 @@ class AnalyticsSettings(BaseSetting):
     ga_track_button_clicks = models.BooleanField(
         default=False,
         verbose_name=_('Track button clicks'),
-        help_text=_(
-            "Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options."  # noqa
-        ),
+        help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),  # noqa
     )
 
     panels = [
@@ -250,9 +248,7 @@ class ADASettings(BaseSetting):
     skip_navigation = models.BooleanField(
         default=False,
         verbose_name=_('Show skip navigation link'),
-        help_text=_(
-            "Shows a 'Skip Navigation' link above the navbar that takes you directly to the main content."  # noqa
-        ),
+        help_text=_('Shows a "Skip Navigation" link above the navbar that takes you directly to the main content.'),  # noqa
     )
 
     panels = [
@@ -277,9 +273,7 @@ class GeneralSettings(BaseSetting):
         blank=True,
         max_length=255,
         verbose_name=_('From email address'),
-        help_text=_(
-            "The default email address this site appears to send from. For example: 'sender@example.com' or 'Sender Name <sender@example.com>' (without quotes)"  # noqa
-        ),
+        help_text=_('The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)'),  # noqa
     )
     search_num_results = models.PositiveIntegerField(
         default=10,
@@ -317,30 +311,22 @@ class SeoSettings(BaseSetting):
     og_meta = models.BooleanField(
         default=True,
         verbose_name=_('Use OpenGraph Markup'),
-        help_text=_(
-            "Show an optimized preview when linking to this site on Facebook, Linkedin, Twitter, and others. See http://ogp.me/."  # noqa
-        ),
+        help_text=_('Show an optimized preview when linking to this site on Facebook, Linkedin, Twitter, and others. See http://ogp.me/.'),  # noqa
     )
     twitter_meta = models.BooleanField(
         default=True,
         verbose_name=_('Use Twitter Markup'),
-        help_text=_(
-            "Shows content as a 'card' when linking to this site on Twitter. See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards."  # noqa
-        ),
+        help_text=_('Shows content as a "card" when linking to this site on Twitter. See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.'),  # noqa
     )
     struct_meta = models.BooleanField(
         default=True,
         verbose_name=_('Use Structured Data'),
-        help_text=_(
-            "Optimizes information about your organization for search engines. See https://schema.org/."  # noqa
-        ),
+        help_text=_('Optimizes information about your organization for search engines. See https://schema.org/.'),  # noqa
     )
     amp_pages = models.BooleanField(
         default=True,
         verbose_name=_('Use AMP Pages'),
-        help_text=_(
-            "Generates an alternate AMP version of Article pages that are preferred by search engines. See https://www.ampproject.org/"  # noqa
-        ),
+        help_text=_('Generates an alternate AMP version of Article pages that are preferred by search engines. See https://www.ampproject.org/'),  # noqa
     )
 
     panels = [
@@ -350,9 +336,7 @@ class SeoSettings(BaseSetting):
                 FieldPanel('twitter_meta'),
                 FieldPanel('struct_meta'),
                 FieldPanel('amp_pages'),
-                HelpPanel(content=_(
-                    "If these settings are enabled, the corresponding values in each page’s SEO tab are used."  # noqa
-                )),
+                HelpPanel(content=_('If these settings are enabled, the corresponding values in each page’s SEO tab are used.')),  # noqa
             ],
             heading=_('Search Engine Optimization')
         )

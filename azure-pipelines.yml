@@ -11,94 +11,133 @@
 #   CR-DEPLOY: for publication or deployment.
 #   [no prefix]: for unrelated CI setup/tooling.
 #
-# Use PowerShell Core for any scripts so they are re-usable across windows/mac/linux.
+# Use PowerShell Core for any utility scripts so they are re-usable across
+# Windows, macOS, and Linux.
 #
 
 
 trigger:
   - master
 
-jobs:
-- job: tests
+
+stages:
+- stage: Unit_Tests
   displayName: Unit Tests
-  pool:
-    vmImage: 'ubuntu-latest'
-  strategy:
-    matrix:
-      py3.5:
-        PYTHON_VERSION: '3.5'
-      py3.6:
-        PYTHON_VERSION: '3.6'
-      py3.7:
-        PYTHON_VERSION: '3.7'
-  
-  steps:
-  - task: UsePythonVersion@0
-    displayName: 'Use Python version'
-    inputs:
-      versionSpec: '$(PYTHON_VERSION)'
-      architecture: 'x64'
 
-  - script: |
-      python -m pip install -e ./[ci_tests]
-    displayName: 'CR-QC: Install coderedcms from local repo'
+  jobs:
+  - job: pytest
+    displayName: pytest
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      matrix:
+        py3.5:
+          PYTHON_VERSION: '3.5'
+        py3.6:
+          PYTHON_VERSION: '3.6'
+        py3.7:
+          PYTHON_VERSION: '3.7'
 
-  - script: |
-      coderedcms start testproject --name="Test Project" --domain="www.example.com"
-    displayName: 'CR-QC: Create starter project from template'
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python version'
+      inputs:
+        versionSpec: '$(PYTHON_VERSION)'
+        architecture: 'x64'
 
-  - script: |
-      pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
-    displayName: 'CR-QC: Run unit tests'
+    - script: python -m pip install -e ./[ci]
+      displayName: 'CR-QC: Install coderedcms from local repo'
 
-  - task: PublishTestResults@2
-    displayName: 'Publish unit test report'
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFiles: '**/test-*.xml'
-      testRunTitle: 'Publish test results for Python $(python.version)'
+    - script: coderedcms start testproject
+      displayName: 'CR-QC: Create starter project from template'
 
-  - task: PublishCodeCoverageResults@1
-    displayName: 'Publish code coverage report'
-    condition: succeededOrFailed()
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+    - pwsh: ./ci/run-tests.ps1
+      displayName: 'CR-QC: Run unit tests'
 
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download code coverage from latest build'
-    inputs:
-      source: 'specific'
-      path: '$(Agent.WorkFolder)/artifacts'
-      project: 'cc52b8d8-3ae5-466e-b771-56f3b4749f1f'
-      pipeline: 1
-      runVersion: 'latestFromBranch'
-      runBranch: 'refs/heads/master'
+    - task: PublishTestResults@2
+      displayName: 'Publish unit test report'
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '**/test-*.xml'
+        testRunTitle: 'Publish test results for Python $(python.version)'
 
-  - pwsh: |
-      & ci/run_artifacts.ps1
-    displayName: 'Compare code coverage to master'
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish code coverage report'
+      condition: succeededOrFailed()
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
 
-- job: style
+
+- stage: Static_Analysis
   displayName: Static Analysis
-  pool:
-    vmImage: 'ubuntu-latest'
+  dependsOn: Unit_Tests
+  condition: succeeded('Unit_Tests')
+  jobs:
+  - job: flake8
+    displayName: flake8
+    pool:
+      vmImage: 'ubuntu-latest'
 
-  steps:
-  - task: UsePythonVersion@0
-    displayName: 'Use Python version'
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python version'
+      inputs:
+        versionSpec: '3.7'
+        architecture: 'x64'
 
-  - script: |
-      python -m pip install -e ./[ci_style]
-    displayName: 'CR-QC: Install coderedcms from local repo'
+    - script: python -m pip install -e ./[ci]
+      displayName: 'CR-QC: Install coderedcms from local repo'
 
-  - script: |
-      coderedcms start testproject
-    displayName: 'CR-QC: Generate a test project'
+    - script: coderedcms start testproject
+      displayName: 'CR-QC: Generate a test project'
 
-  - pwsh: |
-      & ci/run_flake8.ps1
-    displayName: 'CR-QC: Static analysis (flake8)'
+    - pwsh: ./ci/run-flake8.ps1
+      displayName: 'CR-QC: Static analysis (flake8)'
+
+  - job: codecov
+    displayName: Code Coverage
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download code coverage from current build'
+      inputs:
+        source: 'current'
+        path: '$(Agent.WorkFolder)/current-artifacts'
+        project: '$(System.TeamProjectId)'
+        pipeline: '$(System.DefinitionId)'
+
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download code coverage from latest master build'
+      inputs:
+        source: 'specific'
+        path: '$(Agent.WorkFolder)/previous-artifacts'
+        project: '$(System.TeamProjectId)'
+        pipeline: '$(System.DefinitionId)'
+        runVersion: 'latestFromBranch'
+        runBranch: 'refs/heads/master'
+
+    - pwsh: ./ci/compare-artifacts.ps1 -wd $Env:WorkDir
+      displayName: 'CR-QC: Compare code coverage'
+      env:
+        WorkDir: $(Agent.WorkFolder)
+
+  - job: docs
+    displayName: Documentation
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python version'
+      inputs:
+        versionSpec: '3.7'
+        architecture: 'x64'
+
+    - script: python -m pip install -e ./[ci]
+      displayName: 'CR-QC: Install coderedcms from local repo'
+
+    - pwsh: ./ci/make-docs.ps1
+      displayName: 'CR-QC: Build documentation'

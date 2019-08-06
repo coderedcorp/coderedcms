@@ -8,8 +8,8 @@ from wagtail.admin.edit_handlers import EditHandler
 class FormSubmissionsPanel(EditHandler):
     template = "wagtailforms/edit_handlers/form_responses_panel.html"
 
-    def bind_to_model(self, model):
-        new = super().bind_to_model(model)
+    def bind_to(self, model=None, instance=None, request=None, form=None):
+        new = super().bind_to(model=model)
         if self.heading is None:
             new.heading = _('{} submissions').format(model.get_verbose_name())
         return new

@@ -121,7 +121,8 @@ li.sequence-member .struct-block .sequence-container .sequence-member-inner {
     box-sizing: border-box;
 }
 
-.object > h2 {
+.object > h2,
+.object > .title-wrapper label {
     font-weight: 600;
 }
 

@@ -8,6 +8,10 @@ New features
 * NEW spam protection on forms (ON by default). We have been piloting this out
   for several months and have seen a 100% success rate so far. See :doc:`/features/page_types/form_pages`.
 * NEW support for Sass via a new starter template. See :doc:`/getting_started/install`.
+* Upgraded Wagtail to version 2.6. Now supports Django versions 2.0, 2.1, and 2.2;
+  Python versions 3.5, 3.6, and 3.7.
+* Now supports page translation via `wagtail-modeltranslation <https://github.com/infoportugal/wagtail-modeltranslation>`_.
+  See new how-to guide: :doc:`/how_to/translation`.
 
 
 Bug fixes
@@ -33,3 +37,4 @@ Upgrade considerations
   This will improve local development and use behind firewalls/offline environments.
   To continue using a CDN, override ``{% block frontend_assets %}`` , ``{% block required_scripts %}`` ,
   and ``{% block frontend_scripts %}`` in your ``base.html`` file.
+* Python 3.4 support has been dropped by Wagtail.

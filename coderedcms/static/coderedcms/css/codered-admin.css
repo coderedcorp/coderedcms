@@ -245,6 +245,9 @@ input[type='checkbox']::before, input[type='radio']::before {
         margin-top:0.9em;
         font-size: 0.9em;
     }
+    .nav-main .footer-submenu {
+        overflow: hidden;
+    }
     .footer .avatar {
         width: 40px;
         height: 40px;

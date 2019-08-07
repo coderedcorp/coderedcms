@@ -27,5 +27,6 @@ Contents
 
    getting_started/index
    features/index
+   how-to/index
    contributing/index
    releases/index

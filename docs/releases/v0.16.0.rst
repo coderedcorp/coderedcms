@@ -10,6 +10,8 @@ New features
 * NEW support for Sass via a new starter template. See :doc:`/getting_started/install`.
 * Upgraded Wagtail to version 2.6. Now supports Django versions 2.0, 2.1, and 2.2;
   Python versions 3.5, 3.6, and 3.7.
+* Now supports page translation via `wagtail-modeltranslation <https://github.com/infoportugal/wagtail-modeltranslation>`_.
+  See new how-to guide: :doc:`/how_to/translation`.
 
 
 Bug fixes

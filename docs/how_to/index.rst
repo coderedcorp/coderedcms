@@ -1,4 +1,11 @@
-How-Tos
-=======
+How-To Guides
+=============
 
-Here you can find a collection of guides, some of which will let you achieve in CoderedCMS those customisations that users would expect to perform on Wagtail itself.
+Recipes and guides to solving common problems or features when creating a website
+with CodeRed CMS.
+
+
+.. toctree::
+    :maxdepth: 1
+
+    translation

@@ -1,28 +1,48 @@
-Translation
-===========
+Translation & Multi-Language Support
+====================================
 
-Static content
+
+Translate the UI
+----------------
+
+CodeRed CMS provides all text throughout the UI and templates as translatable
+strings using Django's internationalization system (often abbreviated "i18n").
+To learn more about how translation works, read Wagtail's official `documentation
+<http://docs.wagtail.io/en/latest/advanced_topics/i18n/>`_ on the topic.
+
+
+Translate Page Content
 ----------------------
 
-Due to CoderedCMS being heavily based on Wagtail, PO (Portable Objects) files translation follows Django's ``i18n`` pattern system. You are therefore encouraged to read Wagtail's official `documentation <http://docs.wagtail.io/en/latest/advanced_topics/i18n/>`_ on the topic.
+Translation of model fields can be most efficiently and safely achieved via the
+well-known `Wagtail Model Translation <https://github.com/infoportugal/wagtail-modeltranslation>`_
+package.
 
-Models
-------
+Please note that, due to CodeRed CMS architecture, some model fields are not exposed
+to the translation package by default, but you can expose these fields in your ``models.py``.
 
-Translation of model fields can be most efficiently and safely achieved via the well-known `Wagtail Model Translation <https://github.com/infoportugal/wagtail-modeltranslation>`_ package.
-
-Please note that, due to CoderedCMS' specific architecture, some fields are not exposed to the translation package by default, but it is required to do so inside ``models.py``.
-
-See below how that would be done for the ``body`` field for a specific ``MyPageModel``:
+See below how that would be done for the ``body`` field for a specific ``WebPage``
+model in ``website/models.py``:
 
 .. code-block:: python
 
-    class MyPageModel(ParentModel):
+    class WebPage(CoderedWebPage):
         body_content_panels = []
-        content_panels = ParentModel.content_panels + [
+        content_panels = CodredWebPage.content_panels + [
             StreamFieldPanel('body'),
         ]
 
-Admin panel
------------
-As explained in the Wagtail's official `documentation <http://docs.wagtail.io/en/latest/advanced_topics/i18n/>`_, you can easily enable a default language in the administration panel. You are encouraged to contribute to the project with translations.
+
+Changing Language of the Admin Dashboard
+----------------------------------------
+
+See Wagtail's `translation documentation <http://docs.wagtail.io/en/latest/advanced_topics/i18n/>`_,
+to enable a default language in the administration panel.
+
+
+Supported Languages
+-------------------
+
+CodeRed CMS is currently provided in English (US). However, it supports translation.
+If you use CodeRed CMS in a different language, please consider contributing
+your translations!

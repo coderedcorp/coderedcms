@@ -27,7 +27,6 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
@@ -46,13 +45,13 @@ setup(
         'beautifulsoup4>=4.5.1,<4.6.1',
         'django-eventtools==0.9.*',
         'django-bootstrap4',
-        'django>=2.0,<2.3',
+        'Django>=2.0,<2.3',
         'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
-        'wagtail==2.5.*',
+        'wagtail==2.6.*',
         'wagtailfontawesome>=1.1.4,<2.0',
         'wagtail-cache==0.5.*',
-        'wagtail-import-export>=0.1,<0.2'
+        'wagtail-import-export>=0.2,<0.3'
     ],
     extras_require={
         "ci": [

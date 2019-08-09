@@ -52,6 +52,7 @@ from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.search import index
+from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
 
 from coderedcms import schema, utils
@@ -472,7 +473,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
 
-    @classmethod
+    @cached_classmethod
     def get_edit_handler(cls):
         """
         Override to "lazy load" the panels overriden by subclasses.
@@ -495,7 +496,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
                 classname='integrations'
             ))
 
-        return TabbedInterface(panels).bind_to_model(cls)
+        return TabbedInterface(panels).bind_to(model=cls)
 
     def get_struct_org_name(self):
         """

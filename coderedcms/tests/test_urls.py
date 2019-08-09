@@ -1,11 +1,15 @@
-from django.test import Client, TestCase
-from django.urls import reverse
-import unittest
 import pytest
+import unittest
 
+from django.urls import reverse
+from django.test import Client
 from django.test.utils import override_settings
 from django.conf import settings
 
+from wagtail.core.models import Site
+from wagtail.images.tests.utils import Image, get_test_image_file
+
+from coderedcms.models import LayoutSettings
 from coderedcms.tests.testapp.models import EventPage, EventIndexPage, WebPage
 
 
@@ -14,7 +18,6 @@ class URLTestCase(unittest.TestCase):
     def setUp(self):
         self.client = Client()
 
-    # Switch DEBUG to false and then back?
     @override_settings(DEBUG=False)
     def test_404(self):
         response = self.client.get("/testing/404/page/", follow=True)
@@ -68,3 +71,34 @@ class URLTestCase(unittest.TestCase):
 
         response = self.client.post("/ajax/calendar/events/?pid=" + str(page.pk), follow=True, **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
         self.assertEqual(response.status_code, 200)
+
+
+@pytest.mark.django_db
+class TestFavicon(unittest.TestCase):
+    def test_404(self):
+        client = Client()
+        # Get the default site
+        site = Site.objects.filter(is_default_site=True)[0]
+        # Ensure the favicon is blank
+        layout = LayoutSettings.for_site(site)
+        layout.favicon = None
+        layout.save()
+        # Expect a 404
+        response = client.get("/favicon.ico")
+        self.assertEqual(response.status_code, 404)
+
+    def test_301(self):
+        client = Client()
+        # Get the default site
+        site = Site.objects.filter(is_default_site=True)[0]
+        # Set a dummy favicon
+        layout = LayoutSettings.for_site(site)
+        img = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        layout.favicon = img
+        layout.save()
+        # Expect a 301 redirect
+        response = client.get("/favicon.ico")
+        self.assertEqual(response.status_code, 301)

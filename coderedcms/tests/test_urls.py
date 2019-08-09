@@ -4,7 +4,6 @@ import unittest
 from django.urls import reverse
 from django.test import Client
 from django.test.utils import override_settings
-from django.conf import settings
 
 from wagtail.core.models import Site
 from wagtail.images.tests.utils import Image, get_test_image_file
@@ -37,7 +36,11 @@ class URLTestCase(unittest.TestCase):
         self.assertEqual(response['content-type'], 'text/plain')
 
     def test_search(self):
-        response = self.client.get(reverse('codered_search'), {'s': 'Test Search Query'}, follow=True)
+        response = self.client.get(reverse(
+            'codered_search'),
+            {'s': 'Test Search Query'},
+            follow=True
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(response.context['results'], None)
@@ -45,18 +48,36 @@ class URLTestCase(unittest.TestCase):
     def test_generate_single_event(self):
         event_page = EventPage.objects.create(path='/event/', depth=1, title='Event', slug='event')
 
-        response = self.client.post("/ical/generate/single/", {'event_pk': event_page.pk, 'datetime_start': '2019-01-01T9:00:00Z', 'datetime_end': '2019-01-01T10:30:00Z'}, follow=True)
+        response = self.client.post(
+            "/ical/generate/single/",
+            {
+                'event_pk': event_page.pk,
+                'datetime_start': '2019-01-01T9:00:00Z',
+                'datetime_end': '2019-01-01T10:30:00Z'
+            },
+            follow=True
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Filename'], "{0}.ics".format(event_page.slug))
-        self.assertEqual(response['Content-Disposition'], 'attachment; filename={0}.ics'.format(event_page.slug))
+        self.assertEqual(
+            response['Content-Disposition'],
+            'attachment; filename={0}.ics'.format(event_page.slug)
+        )
 
     def test_generate_recurring_event(self):
         event_page = EventPage.objects.create(path='/event/', depth=1, title='Event', slug='event')
 
-        response = self.client.post("/ical/generate/recurring/", {'event_pk': event_page.pk}, follow=True)
+        response = self.client.post(
+            "/ical/generate/recurring/",
+            {'event_pk': event_page.pk},
+            follow=True
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Filename'], "{0}.ics".format(event_page.slug))
-        self.assertEqual(response['Content-Disposition'], 'attachment; filename={0}.ics'.format(event_page.slug))
+        self.assertEqual(
+            response['Content-Disposition'],
+            'attachment; filename={0}.ics'.format(event_page.slug)
+        )
 
     def test_generate_calendar(self):
         page = WebPage.objects.create(path='/page/', depth=1, title='Page', slug='page')
@@ -69,7 +90,11 @@ class URLTestCase(unittest.TestCase):
     def test_ajax_calendar(self):
         page = EventIndexPage.objects.create(path='/page/', depth=1, title='Page', slug='page')
 
-        response = self.client.post("/ajax/calendar/events/?pid=" + str(page.pk), follow=True, **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'})
+        response = self.client.post(
+            "/ajax/calendar/events/?pid=" + str(page.pk),
+            follow=True,
+            **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
+        )
         self.assertEqual(response.status_code, 200)
 
 

@@ -146,7 +146,13 @@ class CoderedFormField(AbstractFormField):
     class Meta:
         abstract = True
 
-    field_type = models.CharField(verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES, blank=True)  # noqa
+    field_type = models.CharField(
+        verbose_name=_('field type'),
+        max_length=16,
+        choices=FORM_FIELD_CHOICES,
+        blank=False,
+        default='Single line text'
+    )
 
 
 class SearchForm(forms.Form):

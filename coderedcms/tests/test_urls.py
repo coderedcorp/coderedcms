@@ -1,5 +1,6 @@
 import pytest
 import unittest
+import datetime
 
 from django.urls import reverse
 from django.test import Client
@@ -52,8 +53,8 @@ class URLTestCase(unittest.TestCase):
             "/ical/generate/single/",
             {
                 'event_pk': event_page.pk,
-                'datetime_start': '2019-01-01T9:00:00Z',
-                'datetime_end': '2019-01-01T10:30:00Z'
+                'datetime_start': '2019-01-01T10:00:00+0000',
+                'datetime_end': '2019-01-01T10:00:00+0000',
             },
             follow=True
         )

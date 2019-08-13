@@ -40,3 +40,4 @@ Upgrade considerations
   To continue using a CDN, override ``{% block frontend_assets %}`` , ``{% block required_scripts %}`` ,
   and ``{% block frontend_scripts %}`` in your ``base.html`` file.
 * Python 3.4 support has been dropped by Wagtail.
+* ``CoderedFormPage.get_form()`` method signature has changed.

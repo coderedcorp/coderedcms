@@ -113,7 +113,7 @@ def get_searchform(request=None):
 
 @register.simple_tag
 def get_pageform(page, request):
-    return page.get_form(page=page, user=request.user)
+    return page.get_form(request)
 
 
 @register.simple_tag

@@ -1,0 +1,8 @@
+CodeRed CMS 0.16.2 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Fix bug where Page Preview Block with template "Form input" would cause a 500 error.

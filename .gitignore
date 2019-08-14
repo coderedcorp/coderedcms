@@ -30,3 +30,4 @@ testproject*/
 testmedia*/
 teststatic*/
 *.sqlite3
+media/

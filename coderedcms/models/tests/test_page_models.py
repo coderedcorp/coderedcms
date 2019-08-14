@@ -25,6 +25,9 @@ from coderedcms.tests.testapp.models import (
     StreamFormPage,
     WebPage
 )
+from coderedcms.models.wagtailsettings_models import (
+    SeoSettings
+)
 
 
 class BasicPageTestCase():
@@ -160,6 +163,12 @@ class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
 
 class ArticlePageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = ArticlePage
+
+    def test_amp(self):
+        SeoSettings.amp_pages = True
+
+        response = self.client.get(self.basic_page.url + '?amp')
+        self.assertEqual(response.status_code, 200)
 
 
 class ArticleIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):

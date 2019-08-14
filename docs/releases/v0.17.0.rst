@@ -1,0 +1,13 @@
+CodeRed CMS 0.17.0 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Fix bug where form field without a selected type would cause a 500 error.
+
+Upgrade considerations
+----------------------
+
+* You will need to run ``python manage.py makemigrations website`` and ``python manage.py migrate`` after upgrading.

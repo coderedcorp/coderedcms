@@ -5,15 +5,15 @@ from django.urls import reverse
 from django.test import Client
 from django.test.utils import override_settings
 
-from wagtail.core.models import Site
+from wagtail.core.models import Site, Page
 from wagtail.images.tests.utils import Image, get_test_image_file
 
 from coderedcms.models import LayoutSettings
-from coderedcms.tests.testapp.models import EventPage, EventIndexPage, WebPage
+from coderedcms.tests.testapp.models import EventPage, EventIndexPage
 
 
 @pytest.mark.django_db
-class URLTestCase(unittest.TestCase):
+class TestSiteURLs(unittest.TestCase):
     def setUp(self):
         self.client = Client()
 
@@ -45,8 +45,21 @@ class URLTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(response.context['results'], None)
 
+
+@pytest.mark.django_db
+class TestEventURLs(unittest.TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.root_page = Page.get_root_nodes()[0]
+
     def test_generate_single_event(self):
-        event_page = EventPage.objects.create(path='/event/', depth=1, title='Event', slug='event')
+        event_page = EventPage(
+            path='/single-event/',
+            depth=1,
+            title='Single Event',
+            slug='single-event'
+        )
+        self.root_page.add_child(instance=event_page)
 
         response = self.client.post(
             "/ical/generate/single/",
@@ -65,7 +78,13 @@ class URLTestCase(unittest.TestCase):
         )
 
     def test_generate_recurring_event(self):
-        event_page = EventPage.objects.create(path='/event/', depth=1, title='Event', slug='event')
+        event_page = EventPage(
+            path='/recurring-event/',
+            depth=1,
+            title='Recurring Event',
+            slug='recurring-event'
+        )
+        self.root_page.add_child(instance=event_page)
 
         response = self.client.post(
             "/ical/generate/recurring/",
@@ -80,22 +99,50 @@ class URLTestCase(unittest.TestCase):
         )
 
     def test_generate_calendar(self):
-        page = EventPage.objects.create(path='/page/', depth=1, title='Page', slug='page')
+        calendar_page = EventPage(
+            path='/calendar-page/',
+            depth=1,
+            title='Calendar Page',
+            slug='calendar-page'
+        )
+        self.root_page.add_child(instance=calendar_page)
 
-        response = self.client.post("/ical/generate/calendar/", {'page_id': page.pk}, follow=True)
+        response = self.client.post(
+            "/ical/generate/calendar/",
+            {'page_id': calendar_page.pk},
+            follow=True
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Filename'], 'calendar.ics')
         self.assertEqual(response['Content-Disposition'], 'attachment; filename=calendar.ics')
 
     def test_ajax_calendar(self):
-        page = EventIndexPage.objects.create(path='/page/', depth=1, title='Page', slug='page')
-        # sub_page_one = EventPage(path='/page/1', depth=2, title='Subpage 1', slug='page1')
-        # sub_page_two = EventPage.objects.create(path='/page/2', depth=2, title='Subpage 2', slug='page2')
-        # page.add_child(instance=sub_page_one)
-        # page.add_child(instance=sub_page_two)
+        calendar_page = EventIndexPage(
+            path='/event-index-page/',
+            depth=1,
+            title='Event Index Page',
+            slug='event-index-page'
+        )
+        self.root_page.add_child(instance=calendar_page)
+
+        sub_page_one = EventPage(
+            path='/eventpage/1/',
+            depth=2,
+            title='Event Page 1',
+            slug='eventpage1'
+        )
+        calendar_page.add_child(instance=sub_page_one)
+
+        sub_page_two = EventPage(
+            path='/eventpage/2',
+            depth=2,
+            title='Event Page 2',
+            slug='eventpage2'
+        )
+        calendar_page.add_child(instance=sub_page_two)
 
         response = self.client.post(
-            "/ajax/calendar/events/?pid=" + str(page.pk),
+            "/ajax/calendar/events/?pid=" + str(calendar_page.pk),
             follow=True,
             **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         )

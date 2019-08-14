@@ -80,7 +80,7 @@ class URLTestCase(unittest.TestCase):
         )
 
     def test_generate_calendar(self):
-        page = WebPage.objects.create(path='/page/', depth=1, title='Page', slug='page')
+        page = EventPage.objects.create(path='/page/', depth=1, title='Page', slug='page')
 
         response = self.client.post("/ical/generate/calendar/", {'page_id': page.pk}, follow=True)
         self.assertEqual(response.status_code, 200)
@@ -89,6 +89,10 @@ class URLTestCase(unittest.TestCase):
 
     def test_ajax_calendar(self):
         page = EventIndexPage.objects.create(path='/page/', depth=1, title='Page', slug='page')
+        # sub_page_one = EventPage(path='/page/1', depth=2, title='Subpage 1', slug='page1')
+        # sub_page_two = EventPage.objects.create(path='/page/2', depth=2, title='Subpage 2', slug='page2')
+        # page.add_child(instance=sub_page_one)
+        # page.add_child(instance=sub_page_two)
 
         response = self.client.post(
             "/ajax/calendar/events/?pid=" + str(page.pk),

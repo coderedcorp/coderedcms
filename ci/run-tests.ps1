@@ -15,7 +15,7 @@ Push-Location $projectDir
 $ExitCode = 0
 
 # Run unit tests.
-pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
+pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html -s
 $ExitCode = $LastExitCode
 
 # Print code coverage if succeeded.

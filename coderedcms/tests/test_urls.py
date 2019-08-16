@@ -62,15 +62,23 @@ class TestEventURLs(unittest.TestCase):
             slug='single-event'
         )
         self.root_page.add_child(instance=event_page)
-        occurrence = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence = EventOccurrence(
+            event=event_page,
+            start='2019-01-01T10:00:00+0000',
+            end='2019-01-01T11:00:00+0000'
+        )
         occurrence.save()
 
         response = self.client.post(
             "/ical/generate/single/",
             {
                 'event_pk': event_page.pk,
-                'datetime_start': EventOccurrence.objects.get(event=event_page).start.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
-                'datetime_end': EventOccurrence.objects.get(event=event_page).end.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
+                'datetime_start': EventOccurrence.objects.get(
+                    event=event_page
+                ).start.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
+                'datetime_end': EventOccurrence.objects.get(
+                    event=event_page
+                ).end.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
             },
             follow=True
         )
@@ -86,8 +94,12 @@ class TestEventURLs(unittest.TestCase):
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S") + 'Z')
-        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(start, EventOccurrence.objects.get(
+            event=event_page
+        ).start.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(end, EventOccurrence.objects.get(
+            event=event_page
+        ).end.strftime("%Y%m%dT%H%M%S") + 'Z')
 
     def test_generate_recurring_event(self):
         event_page = EventPage(
@@ -97,7 +109,11 @@ class TestEventURLs(unittest.TestCase):
             slug='recurring-event'
         )
         self.root_page.add_child(instance=event_page)
-        occurrence = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence = EventOccurrence(
+            event=event_page,
+            start='2019-01-01T10:00:00+0000',
+            end='2019-01-01T11:00:00+0000'
+        )
         occurrence.save()
 
         response = self.client.post(
@@ -117,8 +133,12 @@ class TestEventURLs(unittest.TestCase):
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S") + 'Z')
-        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(start, EventOccurrence.objects.get(
+            event=event_page
+        ).start.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(end, EventOccurrence.objects.get(
+            event=event_page
+        ).end.strftime("%Y%m%dT%H%M%S") + 'Z')
 
     def test_generate_calendar(self):
         calendar_page = EventIndexPage(
@@ -136,7 +156,11 @@ class TestEventURLs(unittest.TestCase):
             slug='eventpage1'
         )
         calendar_page.add_child(instance=event_page)
-        occurrence = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence = EventOccurrence(
+            event=event_page,
+            start='2019-01-01T10:00:00+0000',
+            end='2019-01-01T11:00:00+0000'
+        )
         occurrence.save()
 
         response = self.client.post(
@@ -153,8 +177,12 @@ class TestEventURLs(unittest.TestCase):
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S") + 'Z')
-        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(start, EventOccurrence.objects.get(
+            event=event_page
+        ).start.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(end, EventOccurrence.objects.get(
+            event=event_page
+        ).end.strftime("%Y%m%dT%H%M%S") + 'Z')
 
     def test_ajax_calendar(self):
         calendar_page = EventIndexPage(
@@ -172,7 +200,11 @@ class TestEventURLs(unittest.TestCase):
             slug='eventpage1'
         )
         calendar_page.add_child(instance=event_page)
-        occurrence_one = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence_one = EventOccurrence(
+            event=event_page,
+            start='2019-01-01T10:00:00+0000',
+            end='2019-01-01T11:00:00+0000'
+        )
         occurrence_one.save()
 
         response = self.client.post(
@@ -185,8 +217,12 @@ class TestEventURLs(unittest.TestCase):
         # Get datetimes from response and compare them to datetimes on page
         start = literal_eval(response._container[0].decode()[1:-1])['start']
         end = literal_eval(response._container[0].decode()[1:-1])['end']
-        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y-%m-%dT%H:%M:%S"))
-        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y-%m-%dT%H:%M:%S"))
+        self.assertEqual(start, EventOccurrence.objects.get(
+            event=event_page
+        ).start.strftime("%Y-%m-%dT%H:%M:%S"))
+        self.assertEqual(end, EventOccurrence.objects.get(
+            event=event_page
+        ).end.strftime("%Y-%m-%dT%H:%M:%S"))
 
 
 @pytest.mark.django_db

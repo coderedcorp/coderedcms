@@ -27,7 +27,7 @@ htmlcov/
 junit/
 coverage.xml
 testproject*/
+.cache
 testmedia*/
 teststatic*/
-*.sqlite3
 media/

@@ -9,9 +9,9 @@
 
 # Python
 *.pyc
-build/
-_build/
-dist/
+/build/
+/docs/_build/
+/dist/
 __pycache__
 codered_cms.egg-info/
 coderedcms.egg-info/

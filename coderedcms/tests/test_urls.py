@@ -94,12 +94,8 @@ class TestEventURLs(unittest.TestCase):
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertEqual(start, EventOccurrence.objects.get(
-            event=event_page
-        ).start.strftime("%Y%m%dT%H%M%S") + 'Z')
-        self.assertEqual(end, EventOccurrence.objects.get(
-            event=event_page
-        ).end.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertTrue(start.startswith(EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")))
+        self.assertTrue(end.startswith(EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")))
 
     def test_generate_recurring_event(self):
         event_page = EventPage(
@@ -133,12 +129,8 @@ class TestEventURLs(unittest.TestCase):
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertEqual(start, EventOccurrence.objects.get(
-            event=event_page
-        ).start.strftime("%Y%m%dT%H%M%S") + 'Z')
-        self.assertEqual(end, EventOccurrence.objects.get(
-            event=event_page
-        ).end.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertTrue(start.startswith(EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")))
+        self.assertTrue(end.startswith(EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")))
 
     def test_generate_calendar(self):
         calendar_page = EventIndexPage(
@@ -177,12 +169,8 @@ class TestEventURLs(unittest.TestCase):
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertEqual(start, EventOccurrence.objects.get(
-            event=event_page
-        ).start.strftime("%Y%m%dT%H%M%S") + 'Z')
-        self.assertEqual(end, EventOccurrence.objects.get(
-            event=event_page
-        ).end.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertTrue(start.startswith(EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")))
+        self.assertTrue(end.startswith(EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")))
 
     def test_ajax_calendar(self):
         calendar_page = EventIndexPage(
@@ -217,12 +205,14 @@ class TestEventURLs(unittest.TestCase):
         # Get datetimes from response and compare them to datetimes on page
         start = literal_eval(response._container[0].decode()[1:-1])['start']
         end = literal_eval(response._container[0].decode()[1:-1])['end']
-        self.assertEqual(start, EventOccurrence.objects.get(
-            event=event_page
-        ).start.strftime("%Y-%m-%dT%H:%M:%S"))
-        self.assertEqual(end, EventOccurrence.objects.get(
-            event=event_page
-        ).end.strftime("%Y-%m-%dT%H:%M:%S"))
+        self.assertEqual(
+            start,
+            EventOccurrence.objects.get(event=event_page).start.strftime("%Y-%m-%dT%H:%M:%S")
+        )
+        self.assertEqual(
+            end,
+            EventOccurrence.objects.get(event=event_page).end.strftime("%Y-%m-%dT%H:%M:%S")
+        )
 
 
 @pytest.mark.django_db

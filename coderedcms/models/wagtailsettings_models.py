@@ -117,6 +117,12 @@ class LayoutSettings(BaseSetting):
         related_name='favicon',
         verbose_name=_('Favicon'),
     )
+    navbar_name = models.CharField(
+        blank=True,
+        max_length=50,
+        verbose_name=_('Navbar name'),
+        help_text=_('It is necessary to associate when you create a Navigation Bar fragments.'),
+    )
     navbar_color_scheme = models.CharField(
         blank=True,
         max_length=50,
@@ -186,6 +192,7 @@ class LayoutSettings(BaseSetting):
         ),
         MultiFieldPanel(
             [
+                FieldPanel('navbar_name'),
                 FieldPanel('navbar_color_scheme'),
                 FieldPanel('navbar_class'),
                 FieldPanel('navbar_fixed'),
@@ -205,6 +212,8 @@ class LayoutSettings(BaseSetting):
         ),
     ]
 
+    def __str__(self):
+        return "%s - %s" % (self.navbar_name, self.site )
 
 @register_setting(icon='fa-google')
 class AnalyticsSettings(BaseSetting):

@@ -20,6 +20,8 @@ from wagtail.snippets.models import register_snippet
 from coderedcms.blocks import HTML_STREAMBLOCKS, LAYOUT_STREAMBLOCKS, NAVIGATION_STREAMBLOCKS
 from coderedcms.settings import cr_settings
 
+from coderedcms.models.wagtailsettings_models import LayoutSettings
+
 
 @register_snippet
 class Carousel(ClusterableModel):
@@ -224,6 +226,15 @@ class Navbar(models.Model):
         max_length=255,
         verbose_name=_('Name'),
     )
+    layoutsetting = models.ForeignKey(
+        LayoutSettings,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name=_('Layout Page'),
+        help_text=_('The Layout page users to determinate a site owner Navigation Bar Manu.'),
+    )
     custom_css_class = models.CharField(
         max_length=255,
         blank=True,
@@ -241,6 +252,7 @@ class Navbar(models.Model):
 
     panels = [
         FieldPanel('name'),
+        FieldPanel('layoutsetting'),
         MultiFieldPanel(
             [
                 FieldPanel('custom_css_class'),

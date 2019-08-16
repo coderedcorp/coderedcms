@@ -24,7 +24,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
-      {% get_navbars as navbars %}
+      {% get_navbars request as navbars %}
       {% for navbar in navbars %}
       <ul class="navbar-nav {{navbar.custom_css_class}}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >

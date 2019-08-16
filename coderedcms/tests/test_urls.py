@@ -91,11 +91,21 @@ class TestEventURLs(unittest.TestCase):
         self.assertEqual(response['content-type'], 'text/calendar')
 
         # Get datetimes from response and compare them to datetimes on page
+        # startswith() is used because older versions of Python
+        # use different datetime formatting, specifically for timezones
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertTrue(start.startswith(EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")))
-        self.assertTrue(end.startswith(EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")))
+        self.assertTrue(
+            start.startswith(
+                EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")
+            )
+        )
+        self.assertTrue(
+            end.startswith(
+                EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")
+            )
+        )
 
     def test_generate_recurring_event(self):
         event_page = EventPage(
@@ -126,11 +136,21 @@ class TestEventURLs(unittest.TestCase):
         self.assertEqual(response['content-type'], 'text/calendar')
 
         # Get datetimes from response and compare them to datetimes on page
+        # startswith() is used because older versions of Python
+        # use different datetime formatting, specifically for timezones
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertTrue(start.startswith(EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")))
-        self.assertTrue(end.startswith(EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")))
+        self.assertTrue(
+            start.startswith(
+                EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")
+            )
+        )
+        self.assertTrue(
+            end.startswith(
+                EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")
+            )
+        )
 
     def test_generate_calendar(self):
         calendar_page = EventIndexPage(
@@ -166,11 +186,21 @@ class TestEventURLs(unittest.TestCase):
         self.assertEqual(response['content-type'], 'text/calendar')
 
         # Get datetimes from response and compare them to datetimes on page
+        # startswith() is used because older versions of Python
+        # use different datetime formatting, specifically for timezones
         split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
         start = split_content[1].split('\\')[0]
         end = split_content[2].split('\\')[0]
-        self.assertTrue(start.startswith(EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")))
-        self.assertTrue(end.startswith(EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")))
+        self.assertTrue(
+            start.startswith(
+                EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S")
+            )
+        )
+        self.assertTrue(
+            end.startswith(
+                EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S")
+            )
+        )
 
     def test_ajax_calendar(self):
         calendar_page = EventIndexPage(

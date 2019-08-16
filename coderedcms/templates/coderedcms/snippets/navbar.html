@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags %}
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n %}
 
 {% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
 <div class="container">
@@ -39,7 +39,7 @@
           {% get_searchform request as form %}
           {% bootstrap_form form layout='inline' %}
           <div class="form-group">
-            <button class="btn btn-outline-primary ml-2" type="submit">Search</button>
+            <button class="btn btn-outline-primary ml-2" type="submit">{% trans 'Search' %}</button>
           </div>
       </form>
       {% endif %}

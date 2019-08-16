@@ -1,6 +1,8 @@
 import pytest
 import unittest
 
+from ast import literal_eval
+
 from django.urls import reverse
 from django.test import Client
 from django.test.utils import override_settings
@@ -9,7 +11,7 @@ from wagtail.core.models import Site, Page
 from wagtail.images.tests.utils import Image, get_test_image_file
 
 from coderedcms.models import LayoutSettings
-from coderedcms.tests.testapp.models import EventPage, EventIndexPage
+from coderedcms.tests.testapp.models import EventPage, EventIndexPage, EventOccurrence
 
 
 @pytest.mark.django_db
@@ -24,13 +26,13 @@ class TestSiteURLs(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_sitemap(self):
-        response = self.client.get("/sitemap.xml", follow=True)
+        response = self.client.get("/sitemap.xml")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['content-type'], 'application/xml')
 
     def test_robots(self):
-        response = self.client.get("/robots.txt", follow=True)
+        response = self.client.get("/robots.txt")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['content-type'], 'text/plain')
@@ -60,13 +62,15 @@ class TestEventURLs(unittest.TestCase):
             slug='single-event'
         )
         self.root_page.add_child(instance=event_page)
+        occurrence = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence.save()
 
         response = self.client.post(
             "/ical/generate/single/",
             {
                 'event_pk': event_page.pk,
-                'datetime_start': '2019-01-01T10:00:00+0000',
-                'datetime_end': '2019-01-01T10:00:00+0000',
+                'datetime_start': EventOccurrence.objects.get(event=event_page).start.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
+                'datetime_end': EventOccurrence.objects.get(event=event_page).end.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
             },
             follow=True
         )
@@ -76,6 +80,14 @@ class TestEventURLs(unittest.TestCase):
             response['Content-Disposition'],
             'attachment; filename={0}.ics'.format(event_page.slug)
         )
+        self.assertEqual(response['content-type'], 'text/calendar')
+
+        # Get datetimes from response and compare them to datetimes on page
+        split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
+        start = split_content[1].split('\\')[0]
+        end = split_content[2].split('\\')[0]
+        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S") + 'Z')
 
     def test_generate_recurring_event(self):
         event_page = EventPage(
@@ -85,6 +97,8 @@ class TestEventURLs(unittest.TestCase):
             slug='recurring-event'
         )
         self.root_page.add_child(instance=event_page)
+        occurrence = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence.save()
 
         response = self.client.post(
             "/ical/generate/recurring/",
@@ -97,15 +111,33 @@ class TestEventURLs(unittest.TestCase):
             response['Content-Disposition'],
             'attachment; filename={0}.ics'.format(event_page.slug)
         )
+        self.assertEqual(response['content-type'], 'text/calendar')
+
+        # Get datetimes from response and compare them to datetimes on page
+        split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
+        start = split_content[1].split('\\')[0]
+        end = split_content[2].split('\\')[0]
+        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S") + 'Z')
 
     def test_generate_calendar(self):
-        calendar_page = EventPage(
-            path='/calendar-page/',
+        calendar_page = EventIndexPage(
+            path='/event-index-page/',
             depth=1,
-            title='Calendar Page',
-            slug='calendar-page'
+            title='Event Index Page',
+            slug='event-index-page'
         )
         self.root_page.add_child(instance=calendar_page)
+
+        event_page = EventPage(
+            path='/eventpage/1/',
+            depth=2,
+            title='Event Page 1',
+            slug='eventpage1'
+        )
+        calendar_page.add_child(instance=event_page)
+        occurrence = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence.save()
 
         response = self.client.post(
             "/ical/generate/calendar/",
@@ -115,6 +147,14 @@ class TestEventURLs(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Filename'], 'calendar.ics')
         self.assertEqual(response['Content-Disposition'], 'attachment; filename=calendar.ics')
+        self.assertEqual(response['content-type'], 'text/calendar')
+
+        # Get datetimes from response and compare them to datetimes on page
+        split_content = str(response._container[0]).split('VALUE=DATE-TIME:')
+        start = split_content[1].split('\\')[0]
+        end = split_content[2].split('\\')[0]
+        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y%m%dT%H%M%S") + 'Z')
+        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y%m%dT%H%M%S") + 'Z')
 
     def test_ajax_calendar(self):
         calendar_page = EventIndexPage(
@@ -125,21 +165,15 @@ class TestEventURLs(unittest.TestCase):
         )
         self.root_page.add_child(instance=calendar_page)
 
-        sub_page_one = EventPage(
+        event_page = EventPage(
             path='/eventpage/1/',
             depth=2,
             title='Event Page 1',
             slug='eventpage1'
         )
-        calendar_page.add_child(instance=sub_page_one)
-
-        sub_page_two = EventPage(
-            path='/eventpage/2',
-            depth=2,
-            title='Event Page 2',
-            slug='eventpage2'
-        )
-        calendar_page.add_child(instance=sub_page_two)
+        calendar_page.add_child(instance=event_page)
+        occurrence_one = EventOccurrence(event=event_page, start='2019-01-01T10:00:00+0000', end='2019-01-01T11:00:00+0000')
+        occurrence_one.save()
 
         response = self.client.post(
             "/ajax/calendar/events/?pid=" + str(calendar_page.pk),
@@ -147,6 +181,12 @@ class TestEventURLs(unittest.TestCase):
             **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         )
         self.assertEqual(response.status_code, 200)
+
+        # Get datetimes from response and compare them to datetimes on page
+        start = literal_eval(response._container[0].decode()[1:-1])['start']
+        end = literal_eval(response._container[0].decode()[1:-1])['end']
+        self.assertEqual(start, EventOccurrence.objects.get(event=event_page).start.strftime("%Y-%m-%dT%H:%M:%S"))
+        self.assertEqual(end, EventOccurrence.objects.get(event=event_page).end.strftime("%Y-%m-%dT%H:%M:%S"))
 
 
 @pytest.mark.django_db

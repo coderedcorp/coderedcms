@@ -90,7 +90,6 @@ class EmbedGoogleMapBlock(BaseBlock):
         )
     )
 
-
     class Meta:
         template = 'coderedcms/blocks/google_map.html'
         icon = 'fa-map'

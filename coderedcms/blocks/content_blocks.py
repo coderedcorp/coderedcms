@@ -124,6 +124,10 @@ class NavExternalLinkBlock(NavBaseLinkBlock):
         required=False,
         label=_('URL'),
     )
+    new_tab = blocks.BooleanBlock(
+        required=False,
+        label=_('Open in new tab')
+    )
 
     class Meta:
         template = 'coderedcms/blocks/external_link_block.html'

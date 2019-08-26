@@ -1,3 +1,10 @@
 {% extends 'coderedcms/blocks/base_link_block.html' %}
 
 {% block url %}{{value.link}}{% endblock %}
+{% block target %}
+{% if self.new_tab %}
+    target="_blank"
+{% else %}
+    target="_self"
+{% endif %}
+{% endblock %}

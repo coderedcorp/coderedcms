@@ -304,6 +304,10 @@ class BaseLinkBlock(BaseBlock):
         max_length=255,
         label=_('Other link'),
     )
+    new_tab = blocks.BooleanBlock(
+        required=False,
+        label=_('Open in new tab')
+    )
 
     advsettings_class = CoderedAdvTrackingSettings
 

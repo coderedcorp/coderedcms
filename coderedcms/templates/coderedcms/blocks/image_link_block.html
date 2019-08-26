@@ -1,6 +1,11 @@
 {% load wagtailimages_tags %}
 
 <a href="{{self.url}}"
+    {% if self.new_tab %}
+        target="_blank"
+    {% else %}
+        target="_self"
+    {% endif %}
     {% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks and not format == 'amp' %}
         data-ga-event-category='{{self.settings.ga_tracking_event_category|default:"ImageLink"}}'
         data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.alt_text}}'

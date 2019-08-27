@@ -175,7 +175,10 @@ class LayoutSettings(BaseSetting):
         verbose_name=_('Theme variant'),
         help_text=cr_settings['FRONTEND_THEME_HELP'],
     )
-
+    new_tab = models.BooleanField(
+        default=False,
+        verbose_name=_('Open text links in new tab')
+    )
     panels = [
         MultiFieldPanel(
             [
@@ -202,6 +205,12 @@ class LayoutSettings(BaseSetting):
                 FieldPanel('frontend_theme'),
             ],
             heading=_('Theming')
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('new_tab'),
+            ],
+            heading=_('UX Preference')
         ),
     ]
 

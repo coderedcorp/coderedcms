@@ -12,7 +12,7 @@ from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
 from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
-from coderedcms.models.wagtailsettings_models import LayoutSettings
+
 
 class ExternalLinkHandler(LinkHandler):
     identifier = 'external'

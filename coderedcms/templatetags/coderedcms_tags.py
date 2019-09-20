@@ -1,5 +1,6 @@
 import string
 import random
+import re
 
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -48,7 +49,9 @@ def og_image(context, page):
     # Fixes #240 https://github.com/coderedcorp/coderedcms/issues/240
     # Prepend the site's root URL except for when MEDIA_URL already
     # looks like a full URL.
-    if settings.MEDIA_URL[0:4].lower() == 'http':
+    protocol = re.compile(r'^(\w[\w\.\-\+]*:)*//')
+
+    if protocol.match(settings.MEDIA_URL):
         base_url = ''
     else:
         base_url = context['request'].site.root_url

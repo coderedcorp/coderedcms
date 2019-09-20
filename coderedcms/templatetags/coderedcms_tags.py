@@ -1,5 +1,6 @@
 import string
 import random
+import re
 
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -44,15 +45,25 @@ def generate_random_id():
 
 @register.simple_tag(takes_context=True)
 def og_image(context, page):
-    site_url = context['request'].site.root_url
+
+    # Fixes #240 https://github.com/coderedcorp/coderedcms/issues/240
+    # Prepend the site's root URL except for when MEDIA_URL already
+    # looks like a full URL.
+    protocol = re.compile(r'^(\w[\w\.\-\+]*:)*//')
+
+    if protocol.match(settings.MEDIA_URL):
+        base_url = ''
+    else:
+        base_url = context['request'].site.root_url
+
     if page:
         if page.og_image:
-            return site_url + page.og_image.get_rendition('original').url
+            return base_url + page.og_image.get_rendition('original').url
         elif page.cover_image:
-            return site_url + page.cover_image.get_rendition('original').url
+            return base_url + page.cover_image.get_rendition('original').url
     if LayoutSettings.for_site(context['request'].site).logo:
         layout_settings = LayoutSettings.for_site(context['request'].site)
-        return site_url + layout_settings.logo.get_rendition('original').url
+        return base_url + layout_settings.logo.get_rendition('original').url
     return None
 
 

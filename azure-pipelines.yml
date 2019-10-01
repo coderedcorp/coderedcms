@@ -104,16 +104,16 @@ stages:
     - task: DownloadPipelineArtifact@2
       displayName: 'Download code coverage from current build'
       inputs:
-        source: 'current'
-        path: '$(Agent.WorkFolder)/current-artifacts'
+        buildType: 'current'
+        targetPath: '$(Agent.WorkFolder)/current-artifacts'
         project: '$(System.TeamProjectId)'
         pipeline: '$(System.DefinitionId)'
 
     - task: DownloadPipelineArtifact@2
       displayName: 'Download code coverage from latest master build'
       inputs:
-        source: 'specific'
-        path: '$(Agent.WorkFolder)/previous-artifacts'
+        buildType: 'specific'
+        targetPath: '$(Agent.WorkFolder)/previous-artifacts'
         project: '$(System.TeamProjectId)'
         pipeline: '$(System.DefinitionId)'
         runVersion: 'latestFromBranch'

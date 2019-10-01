@@ -101,7 +101,7 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - script: echo "project $project, pipeline $pipeline"
+    - pwsh: write-output "project $Env:project, pipeline $Env:pipeline"
       displayName: 'Helpppppp'
       env:
         project: $(System.TeamProjectId)

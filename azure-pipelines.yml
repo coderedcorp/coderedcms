@@ -116,8 +116,8 @@ stages:
         targetPath: '$(Agent.WorkFolder)/previous-artifacts'
         project: '$(System.TeamProjectId)'
         pipeline: '$(System.DefinitionId)'
-        runVersion: 'latestFromBranch'
-        runBranch: 'refs/heads/master'
+        buildVersionToDownload: 'latestFromBranch'
+        branchName: 'refs/heads/master'
 
     - pwsh: ./ci/compare-artifacts.ps1 -wd $Env:WorkDir
       displayName: 'CR-QC: Compare code coverage'

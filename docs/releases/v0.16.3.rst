@@ -1,0 +1,10 @@
+CodeRed CMS 0.16.3 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Generate correct full URL of OpenGraph tags when used with S3 or external object storage.
+* Fix search button in navbar to be translatable.
+* (Packaging only) add missing bootstrap files from gitignore.

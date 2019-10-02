@@ -109,17 +109,17 @@ stages:
         project: '$(System.TeamProjectId)'
         pipeline: '$(System.DefinitionId)'
 
-    - task: DownloadPipelineArtifact@2
-      displayName: 'Download code coverage from latest master build'
-      inputs:
-        source: 'specific'
-        path: '$(Agent.WorkFolder)/previous-artifacts'
-        project: '$(System.TeamProjectId)'
-        pipeline: '$(System.DefinitionId)'
-        runVersion: 'latestFromBranch'
-        runBranch: 'refs/heads/master'
+    # - task: DownloadPipelineArtifact@2
+    #   displayName: 'Download code coverage from latest master build'
+    #   inputs:
+    #     source: 'specific'
+    #     path: '$(Agent.WorkFolder)/previous-artifacts'
+    #     project: '$(System.TeamProjectId)'
+    #     pipeline: '$(System.DefinitionId)'
+    #     runVersion: 'latestFromBranch'
+    #     runBranch: 'refs/heads/master'
 
-    - pwsh: ./ci/compare-artifacts.ps1 -wd $Env:WorkDir
+    - pwsh: ./ci/compare-artifacts.ps1 -wd $Env:WorkDir -org coderedcorp -project coderedcms
       displayName: 'CR-QC: Compare code coverage'
       env:
         WorkDir: $(Agent.WorkFolder)

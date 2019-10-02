@@ -102,14 +102,9 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - pwsh: write-output "project $Env:project, pipeline $Env:pipeline"
-      displayName: 'Helpppppp'
-      env:
-        project: $(System.TeamProjectId)
-        pipeline: $(System.DefinitionId)
-
     - task: DownloadPipelineArtifact@2
       displayName: 'Download code coverage from current build'
+      continueOnError: true
       inputs:
         buildType: 'current'
         targetPath: '$(Agent.WorkFolder)/current-artifacts'
@@ -118,6 +113,7 @@ stages:
 
     - task: DownloadPipelineArtifact@2
       displayName: 'Download code coverage from latest master build'
+      continueOnError: true
       inputs:
         buildType: 'specific'
         targetPath: '$(Agent.WorkFolder)/previous-artifacts'
@@ -128,6 +124,7 @@ stages:
 
     - pwsh: ./ci/compare-artifacts.ps1 -wd $Env:WorkDir
       displayName: 'CR-QC: Compare code coverage'
+      continueOnError: true
       env:
         WorkDir: $(Agent.WorkFolder)
 

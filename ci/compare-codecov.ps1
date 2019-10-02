@@ -5,14 +5,17 @@
 Used by Azure Pipelines to compare code coverage reports between master and current branch.
 
 .PARAMETER wd
-The working directory in which to find downloaded artifacts.
+The working directory in which to search for current coverage.xml.
 #>
 
 param(
-    [string]$wd,
-    [Parameter(Mandatory = $true)] [string] $org,
-    [Parameter(Mandatory = $true)] [string] $project
+    [string] $wd,
+    [string] $org = "coderedcorp",
+    [string] $project = "coderedcms"
 )
+
+# Hide "UI" and progress bars.
+$ProgressPreference = "SilentlyContinue"
 
 # Get latest coverage from master.
 $ApiBase = "https://dev.azure.com/$org/$project"
@@ -25,24 +28,18 @@ foreach ($cov in $masterCoverageJson.coverageData.coverageStats) {
     }
 }
 
-if (Test-Path -Path "$wd/current-artifacts/Code Coverage Report_*/summary*/coverage.xml") {
-    [xml]$BranchXML = Get-Content "$wd/current-artifacts/Code Coverage Report_*/summary*/coverage.xml"
+# Get current code coverage from coverage.xml file.
+$coveragePath = Get-ChildItem -Recurse -Filter "coverage.xml" $wd
+if (Test-Path -Path $coveragePath) {
+    [xml]$BranchXML = Get-Content $coveragePath
 }
 else {
-    Write-Host "No code coverage from this build. Is pytest configured to output code coverage? Exiting pipeline." -ForegroundColor Red
+    Write-Host "No code coverage from this build. Is pytest configured to output code coverage? Exiting." -ForegroundColor Red
     exit 1
 }
-
-#if (Test-Path -Path "$wd/previous-artifacts/Code Coverage Report_*/summary*/coverage.xml") {
-#    [xml]$MasterXML = Get-Content "$wd/previous-artifacts/Code Coverage Report_*/summary*/coverage.xml"
-#} else {
-#    Write-Host "No code coverage from previous build. Exiting pipeline." -ForegroundColor Red
-#    exit 2
-#}
-
-#$masterlinerate = [math]::Round([decimal]$MasterXML.coverage.'line-rate' * 100, 2)
 $branchlinerate = [math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 2)
 
+Write-Output ""
 Write-Output "Master line coverage rate:  $masterlinerate%"
 Write-Output "Branch line coverage rate:  $branchlinerate%"
 

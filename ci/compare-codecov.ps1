@@ -2,14 +2,14 @@
 
 <#
 .SYNOPSIS
-Used by Azure Pipelines to compare code coverage reports between master and current branch.
+Compares code coverage percent of local coverage.xml file to master branch (Azure Pipeline API).
 
 .PARAMETER wd
 The working directory in which to search for current coverage.xml.
 #>
 
 param(
-    [string] $wd,
+    [string] $wd = (Get-Item (Split-Path $PSCommandPath -Parent)).Parent,
     [string] $org = "coderedcorp",
     [string] $project = "coderedcms"
 )

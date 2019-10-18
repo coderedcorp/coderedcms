@@ -130,7 +130,14 @@ code coverage percentage in the console:
     $ ./ci/run-tests.ps1
 
 Detailed test coverage reports are now available by opening ``htmlcov/index.html``
-in your browser (which is ignored by version control)
+in your browser (which is ignored by version control).
+
+To compare your current code coverage against the code coverage of the master
+branch (based on latest Azure Pipeline build from master) run:
+
+.. code-block:: console
+
+    $ ./ci/compare-codecov.ps1
 
 
 Adding New Tests

@@ -48,7 +48,7 @@ setup(
         'Django>=2.0,<2.3',
         'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
-        'wagtail==2.6.*',
+        'wagtail==2.7rc1',
         'wagtailfontawesome>=1.1.4,<2.0',
         'wagtail-cache==0.5.*',
         'wagtail-import-export>=0.2,<0.3'

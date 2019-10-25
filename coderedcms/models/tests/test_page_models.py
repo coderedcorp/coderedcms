@@ -1,5 +1,6 @@
 from django.test import Client
 from wagtail.tests.utils import WagtailPageTests
+from wagtail.core.models import Site
 
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,
@@ -24,6 +25,9 @@ from coderedcms.tests.testapp.models import (
     LocationPage,
     StreamFormPage,
     WebPage
+)
+from coderedcms.models.wagtailsettings_models import (
+    SeoSettings
 )
 
 
@@ -160,6 +164,15 @@ class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
 
 class ArticlePageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = ArticlePage
+
+    def test_amp(self):
+        site = Site.objects.filter(is_default_site=True)[0]
+        settings = SeoSettings.for_site(site)
+        settings.amp_pages = True
+        settings.save()
+
+        response = self.client.get(self.basic_page.url + '?amp')
+        self.assertEqual(response.status_code, 200)
 
 
 class ArticleIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):

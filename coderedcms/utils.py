@@ -73,3 +73,22 @@ def convert_to_amp(value):
         pass
 
     return soup.prettify()
+
+
+def process_richtext(value, request=None):
+    if not request:
+        return value
+
+    from coderedcms.models.wagtailsettings_models import LayoutSettings
+
+    soup = BeautifulSoup(value, "html.parser")
+    layout_settings = LayoutSettings.for_site(request.site)
+    if layout_settings.new_tab:
+
+        try:
+            a_tags = soup.find('a')
+            a_tags['target'] = '_blank'
+        except AttributeError:
+            pass
+
+    return soup.prettify()

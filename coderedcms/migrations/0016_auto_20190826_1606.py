@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='layoutsettings',
             name='new_tab',
-            field=models.CharField(blank=True, default=False, max_length=50, verbose_name='Open text links in new tab'),
+            field=models.BooleanField(default=False, verbose_name='Open text links in new tab'),
         ),
         migrations.AlterField(
             model_name='carouselslide',

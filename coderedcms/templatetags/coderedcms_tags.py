@@ -169,22 +169,30 @@ def structured_data_datetime(dt):
     except AttributeError:
         return ""
 
-
 @register.filter
-def amp_formatting(value):
+def convert_to_amp(value):
     return mark_safe(utils.convert_to_amp(value))
 
+def _process_richtext(value, request=None):
+    return mark_safe(utils.process_richtext(value, request))
 
-@register.filter
-def richtext_amp_formatting(value):
-
+@register.simple_tag
+def process_amp_richtext(value, request):
     if isinstance(value, RichText):
         value = richtext(value.source)
     else:
         value = richtext(value)
 
-    return amp_formatting(value)
+    return convert_to_amp(_process_richtext(value, request))
 
+@register.simple_tag
+def process_richtext(value, request):
+    if isinstance(value, RichText):
+        value = richtext(value.source)
+    else:
+        value = richtext(value)
+
+    return _process_richtext(value, request)    
 
 @register.simple_tag
 def render_iframe_from_embed(embed):

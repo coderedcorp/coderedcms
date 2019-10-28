@@ -14,20 +14,6 @@ from wagtailcache.cache import clear_cache
 from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
 
 
-class ExternalLinkHandler(LinkHandler):
-    identifier = 'external'
-
-    @classmethod
-    def expand_db_attributes(cls, attrs):
-        href = attrs['href']
-        return '<a href="%s" target="_blank">' % escape(href)
-
-
-@hooks.register('register_rich_text_features')
-def register_external_link(features, request):
-    features.register_link_type(ExternalLinkHandler)
-
-
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     return format_html(

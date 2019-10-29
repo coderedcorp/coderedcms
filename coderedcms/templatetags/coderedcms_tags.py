@@ -169,12 +169,15 @@ def structured_data_datetime(dt):
     except AttributeError:
         return ""
 
+
 @register.filter
 def convert_to_amp(value):
     return mark_safe(utils.convert_to_amp(value))
 
+
 def _process_richtext(value, request=None):
     return mark_safe(utils.process_richtext(value, request))
+
 
 @register.simple_tag
 def process_amp_richtext(value, request):
@@ -185,6 +188,7 @@ def process_amp_richtext(value, request):
 
     return convert_to_amp(_process_richtext(value, request))
 
+
 @register.simple_tag
 def process_richtext(value, request):
     if isinstance(value, RichText):
@@ -192,7 +196,8 @@ def process_richtext(value, request):
     else:
         value = richtext(value)
 
-    return _process_richtext(value, request)    
+    return _process_richtext(value, request)
+
 
 @register.simple_tag
 def render_iframe_from_embed(embed):

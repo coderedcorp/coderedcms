@@ -67,7 +67,7 @@ def convert_to_amp(value):
     # Replace iframe tags with amp-iframe
     try:
         iframe_tags = soup.find_all('iframe')
-        for iframe_tag in inframe_tags:
+        for iframe_tag in iframe_tags:
             iframe_tag.name = 'amp-iframe'
             iframe_tag['layout'] = 'responsive'
 

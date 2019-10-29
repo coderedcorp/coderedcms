@@ -4,10 +4,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http.response import HttpResponse
 from django.urls import reverse
-from django.utils.html import format_html, mark_safe, escape
+from django.utils.html import format_html, mark_safe
 from django.utils.translation import ugettext_lazy as _
 from wagtail.core import hooks
-from wagtail.core.rich_text import LinkHandler
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 

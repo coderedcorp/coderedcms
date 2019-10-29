@@ -58,16 +58,18 @@ def convert_to_amp(value):
 
     # Replace img tags with amp-img
     try:
-        img_tags = soup.find('img')
-        img_tags.name = 'amp-img'
+        img_tags = soup.find_all('img')
+        for img_tag in img_tags:
+            img_tag.name = 'amp-img'
     except AttributeError:
         pass
 
     # Replace iframe tags with amp-iframe
     try:
-        iframe_tags = soup.find('iframe')
-        iframe_tags.name = 'amp-iframe'
-        iframe_tags['layout'] = 'responsive'
+        iframe_tags = soup.find_all('iframe')
+        for iframe_tag in inframe_tags:
+            iframe_tag.name = 'amp-iframe'
+            iframe_tag['layout'] = 'responsive'
 
     except AttributeError:
         pass
@@ -86,8 +88,9 @@ def process_richtext(value, request=None):
     if layout_settings.new_tab:
 
         try:
-            a_tags = soup.find('a')
-            a_tags['target'] = '_blank'
+            a_tags = soup.find_all('a')
+            for a_tag in a_tags:
+                a_tag['target'] = '_blank'
         except AttributeError:
             pass
 

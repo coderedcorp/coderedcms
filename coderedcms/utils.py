@@ -49,7 +49,7 @@ def fix_ical_datetime_format(dt_str):
     return dt_str
 
 
-def convert_to_amp(value):
+def convert_to_amp(value, pretty=True):
     """
     Function that converts non-amp compliant html to valid amp html.
     value must be a string
@@ -74,10 +74,13 @@ def convert_to_amp(value):
     except AttributeError:
         pass
 
-    return soup.prettify()
+    if pretty:
+        return soup.prettify()
+
+    return str(soup)
 
 
-def process_richtext(value, request=None):
+def process_richtext(value, request=None, pretty=True):
     if not request:
         return value
 
@@ -94,4 +97,7 @@ def process_richtext(value, request=None):
         except AttributeError:
             pass
 
-    return soup.prettify()
+    if pretty:
+        return soup.prettify()
+
+    return str(soup)

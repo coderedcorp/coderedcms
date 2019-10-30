@@ -69,6 +69,12 @@ class EmbedGoogleMapBlock(BaseBlock):
         label=_('Search query'),
         help_text=_('Address or search term used to find your location on the map.'),
     )
+    map_title = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_('Map title'),
+        help_text=_('Map title for screen readers, ex: "Map to Goodale Park"')
+    )
     place_id = blocks.CharBlock(
         required=False,
         max_length=255,

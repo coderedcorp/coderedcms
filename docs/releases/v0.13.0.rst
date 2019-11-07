@@ -1,0 +1,42 @@
+CodeRed CMS 0.13.0 release notes
+================================
+
+
+New features
+------------
+
+* New CMS installations will now cache 301/302 redirects and 404 pages.
+  Existing CMS installations should switch to new wagtail-cache middleware to gain this behavior
+  (see upgrade considerations).
+* **Settings > General > From Email Address** now allows specifying sender name in
+  "Sender Name <sender@example.com>" format.
+* **Settings > Tracking > Track button clicks** now tracks ALL anchor clicks, not just Button Blocks.
+
+
+Bug fixes
+---------
+
+* Minor bug fixes to form page template.
+* Minor bug fixes to search page template.
+* Fixed bug that prevented previewing Event page types.
+* Fixed Structured Data error on Event page types.
+* Body previews now properly render HTML entities (apostrophes, non-breaking spaces, etc.).
+* Images in Rich Text Blocks are now properly positioned left/right/full-width on the front-end.
+* Fixed AMP rendering issues with images in Rich Text Blocks.
+
+
+Maintenance
+-----------
+
+* Updated Bootstrap to version 4.3.1, and other JavaScript library updates.
+
+
+Upgrade considerations
+----------------------
+
+* Robots.txt settings were REMOVED from **Settings > General**. If you had custom custom robots.txt specified here,
+  move your robots.txt content to ``website/templates/robots.txt`` file before upgrading.
+* Existing installations must add the new wagtail-cache middleware to ``MIDDLEWARE`` in the Django settings file as
+  described `in wagtail-cache documentation <https://docs.coderedcorp.com/wagtail-cache/stable/getting_started/install.html>`_
+  after upgrading.
+* You will need to run ``python manage.py makemigrations website`` and ``python manage.py migrate`` after upgrading.

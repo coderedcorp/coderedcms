@@ -4,7 +4,7 @@ CodeRed CMS 0.10.0 release notes
 New features
 ------------
 
-* NEW event & calendar pages! See :doc:`/features/events`.
+* NEW event & calendar pages! See :doc:`/features/page_types/event_pages`.
 * NEW "Embed Media" block replacing the "Embed Video" block. Embed Media supports YouTube,
   Vimeo, Tweets, Facebook posts, GitHub gists, Spotify, Etsy, Tumblr, and dozens of other sources.
 * NEW tags on all ``CoderedPage`` pages. Tags provide a global and flexible way of organizing

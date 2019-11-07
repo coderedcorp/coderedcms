@@ -2,8 +2,10 @@ Features
 ========
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
-    events
     import_export
-    store_locator
+    mailchimp
+    page_types/index
+    searching
+    snippets/index

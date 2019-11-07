@@ -16,13 +16,14 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import datetime
 from coderedcms import __shortversion__
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'CodeRed CMS'
-copyright = '2018, CodeRed LLC'
+copyright = '2018-' + str(datetime.datetime.now().year) + ', CodeRed LLC'
 author = 'CodeRed LLC'
 
 # The short X.Y version
@@ -117,7 +118,7 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-html_sidebars = { '**': ['searchbox.html', 'globaltoc.html', 'relations.html', 'versions.html'] }
+html_sidebars = {'**': ['searchbox.html', 'globaltoc.html', 'relations.html', 'versions.html']}
 
 html_context = {
     'css_files': ['_static/docs.css'],

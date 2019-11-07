@@ -1,0 +1,25 @@
+/// Hero units
+
+.hero-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: white;
+}
+.hero-bg {
+    .card {
+        // reset to bootstrap default. See bug https://github.com/twbs/bootstrap/issues/28102
+        color: #212529;
+    }
+    .parallax {
+        background-attachment: fixed;
+    }
+    .tile {
+        background-size: initial;
+        background-repeat: repeat;
+    }
+}
+
+.hero-fg {
+    padding: 80px 0;
+}

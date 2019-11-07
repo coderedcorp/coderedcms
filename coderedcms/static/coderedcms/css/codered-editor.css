@@ -1,0 +1,272 @@
+/*
+CodeRed CMS (https://www.coderedcorp.com/cms/)
+Copyright 2018-2019 CodeRed LLC
+License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+*/
+
+/* Reset fonts to system */
+.title .halloeditor, .title input, .title textarea,
+.Draftail-Editor .DraftEditor-root {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+}
+
+
+/* Inputs and form fields */
+.title .halloeditor, .title input, .title textarea {
+    font-size:2.5em;
+}
+.full .halloeditor, .full input, .full textarea {
+    padding-top:1em;
+    padding-bottom:1em;
+    background-color:transparent;
+}
+
+
+.sequence-member input[type='text'],
+.sequence-member input[type='email'],
+.sequence-member input[type='url'],
+.sequence-member input[type='number'],
+.sequence-member input[type='date'],
+.sequence-member input[type='time'],
+.sequence-member input[type='datetime'],
+.sequence-member input[type='datetime-local'],
+.sequence-member textarea,
+.sequence-member select,
+.sequence-member .richtext,
+.sequence-member .tagit {
+    background-color:white;
+    border:1.5px solid #ddd;
+}
+
+.sequence-member input:focus,
+.sequence-member textarea:focus,
+.sequence-member select:focus,
+.sequence-member .richtext:focus,
+.sequence-member .tagit:focus {
+    border-color:#00b0b1;
+    background-color:#f2fcfc;
+}
+
+.input input,
+.input select {
+    width: 300px;
+    max-width: 100%;
+}
+.input input[type='radio'],
+.input input[type='checkbox'] {
+    width: auto;
+}
+.input textarea,
+.full .input input {
+    width:100%;
+}
+.input input[type='color']{
+    height: 40px;
+    padding: 5px;
+}
+
+
+/* Override and enhance the streamfield editor to support our deeply nested streamfields. */
+
+.chooser .unchosen::before, .chooser .chosen::before {
+    color:rgba(0,0,0,0.2)
+}
+
+li.sequence-member {
+    border:none;
+}
+
+li.sequence-member li.sequence-member {
+    background-color:rgba(0,0,0,0.05);
+    border:none;
+    margin:0 0 20px 0;
+
+}
+li.sequence-member:hover {
+    background-color:rgba(0,0,0,0.05);
+    border:none;
+}
+
+li.sequence-member .sequence-member-inner,
+li.sequence-member .struct-block .sequence-container .sequence-member-inner {
+    padding:1em;
+}
+
+@media screen and (max-width:49.99em) {
+    li.sequence-member .struct-block .sequence-container {
+        width:100%;
+    }
+}
+
+.field.char_field.widget-draftail_rich_text_area .field-content,
+.field.char_field.widget-textarea .field-content {
+    width:100%;
+    max-width:100%;
+}
+
+.sequence-controls {
+    border: none;
+    background-color: transparent;
+    top: unset;
+}
+.sequence-controls h3 label {
+    font-weight: bold;
+}
+
+.tab-content {
+    width: 100%;
+}
+
+.objects * {
+    box-sizing: border-box;
+}
+
+.object > h2,
+.object > .title-wrapper label {
+    font-weight: 600;
+}
+
+.object .multiple {
+    width:100%;
+    max-width:100%;
+}
+
+.object fieldset {
+    width:100%;
+    max-width:100%;
+}
+.object > fieldset {
+    padding-top:6em;
+}
+.object > fieldset fieldset {
+    padding-top:0;
+}
+
+li.sequence-member .struct-block .fields {
+    width:100%;
+    max-width:100%;
+}
+
+.stream-menu.stream-menu-closed .toggle {
+    color:#888;
+}
+
+.fields > li, .field-col {
+    padding-bottom:0.5em;
+}
+
+.tagit, input, select, textarea {
+    color:#000;
+}
+.tagit, input, select, textarea {
+    font-weight:normal;
+}
+
+.stream-menu-inner h3 {
+    color: #ccc;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding: 0.5em;
+}
+
+
+/* Draftail */
+
+
+.Draftail-Toolbar {
+    background-color:transparent !important;
+    border-radius:0 !important;
+    color:rgba(0,0,0,0.2) !important;
+    padding: 0 !important;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar:hover {
+    color:rgba(0,0,0,0.7) !important;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar .Draftail-ToolbarButton--active {
+    background-color:rgba(0,0,0,0.05) !important;
+    border:none;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar:hover .Draftail-ToolbarButton--active {
+    background-color:rgba(0,0,0,0.2) !important;
+    transition: all ease .25s;
+}
+.Draftail-Toolbar .Draftail-ToolbarGroup + .Draftail-ToolbarGroup::before {
+    content: none;
+}
+.Draftail-Toolbar .Draftail-ToolbarGroup + .Draftail-ToolbarGroup {
+    margin-left: 1em;
+}
+li.sequence-member li > .field .Draftail-Editor,
+li.sequence-member li.sequence-member .Draftail-Editor {
+    background-color: #fff !important;
+    border-radius:5px;
+    border:1.5px solid #ddd !important;
+    padding: 0.5em 1em;
+}
+li.sequence-member li.sequence-member .Draftail-Editor {
+    margin:-1em;
+}
+li.sequence-member li > .field .Draftail-Editor {
+    margin: 0;
+}
+
+.Draftail-Editor .DraftEditor-root {
+    color:#000 !important;
+}
+.Draftail-DividerBlock {
+    background-color:#ccc !important;
+}
+
+
+/* custom */
+
+.codered-collapsible {
+    padding:0;
+}
+
+.codered-collapsible fieldset {
+    padding: 10px 0 0;
+}
+
+.codered-checkbox-group {
+    margin-bottom: 1em;
+}
+.codered-checkbox-group ul {
+    margin-top: 0.5em;
+}
+.codered-checkbox-group label {
+    padding-bottom: 0.25em;
+}
+.codered-checkbox-group label input {
+    margin-right: 0.25em;
+}
+
+.codered-callout {
+    background-color: #f0f1f2;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 2em 3em;
+    text-align: center;
+}
+.codered-callout .codered-big-icon {
+    font-size: 10rem;
+    color: rgba(0,0,0,0.1);
+}
+.codered-callout h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.codered-callout p {
+    font-size: 1rem;
+}
+.codered-callout .codered-new {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,0.1);
+    font-size: 0.6em;
+    padding: 0.3em 0.6em;
+    text-transform: uppercase;
+}

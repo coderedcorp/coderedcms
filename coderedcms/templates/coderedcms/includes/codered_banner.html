@@ -1,0 +1,6 @@
+{% load coderedcms_tags %}
+{% if "BANNER"|codered_settings %}
+<div class="codered-banner" style="background-color:{{ 'BANNER_BACKGROUND'|codered_settings }}; color:{{ 'BANNER_TEXT_COLOR'|codered_settings }}; width:100%; padding:4px;">
+    {{ "BANNER"|codered_settings|safe }}
+</div>
+{% endif %}

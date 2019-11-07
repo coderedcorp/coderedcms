@@ -1,0 +1,18 @@
+{% load i18n wagtailcore_tags %}
+
+{% for classifier in page.index_classifiers.all %}
+<h4>{{classifier.name}}</h4>
+<ul class="nav {{navclass}}">
+    <li class="nav-item">
+        <a class="nav-link {% if not selected_terms %}disabled{% endif %}"
+            href="{% pageurl page %}">{% trans "All" %}</a>
+    </li>
+    {% for term in classifier.terms.all %}
+    <li class="nav-item">
+        <a class="nav-link {% if term in selected_terms %}active{% endif %}"
+           href="{% pageurl page %}?c={{term.slug}}">{{term.name}}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endfor %}
+

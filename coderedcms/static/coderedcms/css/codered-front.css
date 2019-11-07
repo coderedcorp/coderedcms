@@ -1,0 +1,341 @@
+/*
+CodeRed CMS (https://www.coderedcorp.com/cms/)
+Copyright 2018-2019 CodeRed LLC
+License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+*/
+.hero-bg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+}
+
+.hero-bg .card {
+  color: #212529;
+}
+
+.hero-bg .parallax {
+  background-attachment: fixed;
+}
+
+.hero-bg .tile {
+  background-size: initial;
+  background-repeat: repeat;
+}
+
+.hero-fg {
+  padding: 80px 0;
+}
+
+.richtext-image.left {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.richtext-image.right {
+  float: right;
+  margin: 0 0 1em 1em;
+}
+
+.richtext-image.full-width {
+  width: 100%;
+  height: auto;
+}
+
+.modal-lightbox {
+  max-width: 100vw;
+  text-align: center;
+}
+
+.modal-lightbox img {
+  max-height: 90vh;
+  max-width: 90vw;
+}
+
+.leaders {
+  max-width: 40em;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.leaders:before {
+  float: left;
+  width: 0;
+  white-space: nowrap;
+  content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
+}
+
+.leaders span:first-child {
+  padding-right: 0.33em;
+  background: white;
+}
+
+.leaders span + span {
+  float: right;
+  padding-left: 0.33em;
+  padding-right: 15px;
+  background: white;
+  position: relative;
+  z-index: 1;
+  margin-right: -15px;
+}
+
+#content,
+.codered-article,
+.codered-article .container {
+  background-color: inherit;
+}
+
+.codered-article .container {
+  margin-bottom: 50px;
+}
+
+.codered-article .article-body {
+  margin-top: 3em;
+  padding-bottom: 1em;
+}
+
+@media (min-width: 768px) {
+  .codered-article .article-body {
+    font-size: 1.2em;
+  }
+}
+
+.codered-article .article-author-img {
+  max-height: 3em;
+}
+
+@media (min-width: 768px) {
+  .codered-article > img {
+    margin-bottom: -15vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .codered-article.has-img .container {
+    position: relative;
+    padding: 5vw;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.map-container {
+  min-height: 600px;
+  width: 100%;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 300;
+  margin-left: 12px;
+  line-height: 34px;
+  text-overflow: ellipsis;
+  width: 200px;
+  top: 10px !important;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#target {
+  width: 345px;
+}
+
+.address-card {
+  margin: 0 auto;
+  font-size: 1.4em;
+}
+
+.address-card .card-body p {
+  margin-bottom: 0;
+}
+
+.map-button {
+  background-color: white;
+  color: black;
+  border-radius: 1px;
+  z-index: 999;
+}
+
+@media (min-width: 768px) {
+  .map-button {
+    position: absolute;
+    top: 13px;
+    left: 430px;
+  }
+}
+
+#LocationList {
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+.navbar-brand img {
+  height: 50px;
+  width: auto;
+}
+
+.-fixed-img-offset {
+  margin-top: 76px;
+}
+
+.-fixed-offset {
+  margin-top: 56px;
+}
+
+.codered-navbar-center-fixed-img-offset {
+  margin-top: 175px;
+}
+
+.codered-navbar-center-fixed-offset {
+  margin-top: 56px;
+}
+
+.codered-navbar-center {
+  text-align: center;
+}
+
+.codered-navbar-center .navbar-collapse {
+  justify-content: center;
+}
+
+.codered-navbar-center .navbar-brand {
+  margin: 0;
+}
+
+.codered-navbar-center .navbar-brand img {
+  height: 150px;
+  width: auto;
+}
+
+/* sm */
+@media (min-width: 576px) {
+  .codered-navbar-center.navbar-expand-sm > .container,
+  .codered-navbar-center.navbar-expand-sm > .container-fluid {
+    display: block;
+  }
+  .codered-navbar-center-fixed-img-offset.navbar-expand-sm {
+    margin-top: 217px;
+  }
+  .codered-navbar-center-fixed-offset.navbar-expand-sm {
+    margin-top: 96px;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .codered-navbar-center.navbar-expand-md > .container,
+  .codered-navbar-center.navbar-expand-md > .container-fluid {
+    display: block;
+  }
+  .codered-navbar-center-fixed-img-offset.navbar-expand-md {
+    margin-top: 217px;
+  }
+  .codered-navbar-center-fixed-offset.navbar-expand-md {
+    margin-top: 96px;
+  }
+}
+
+/* lg */
+@media (min-width: 992px) {
+  .codered-navbar-center.navbar-expand-lg > .container,
+  .codered-navbar-center.navbar-expand-lg > .container-fluid {
+    display: block;
+  }
+  .codered-navbar-center-fixed-img-offset.navbar-expand-sm {
+    margin-top: 217px;
+  }
+  .codered-navbar-center-fixed-offset.navbar-expand-sm {
+    margin-top: 96px;
+  }
+}
+
+/* xl */
+@media (min-width: 1200px) {
+  .codered-navbar-center.navbar-expand-xl > .container,
+  .codered-navbar-center.navbar-expand-xl > .container-fluid {
+    display: block;
+  }
+  .codered-navbar-center-fixed-img-offset.navbar-expand-xl {
+    margin-top: 217px;
+  }
+  .codered-navbar-center-fixed-offset.navbar-expand-xl {
+    margin-top: 96px;
+  }
+}
+
+[class^="container"] [class^="container"] {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  background-size: cover;
+  background-position: center center;
+}
+
+.container-fluid .carousel {
+  margin: 0 -15px;
+}
+
+.carousel .no-image {
+  height: 500px;
+}
+
+/*# sourceMappingURL=codered-front.css.map */

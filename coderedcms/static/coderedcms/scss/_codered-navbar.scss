@@ -1,0 +1,88 @@
+/// Custom adjustments to bootstrap navbar to work better out of the box.
+/// TODO: sass-ify this, code below is copied from old codered-front.css
+
+.navbar-brand img {
+    height: 50px;
+    width: auto;
+}
+
+.-fixed-img-offset {
+    margin-top: 76px;
+}
+.-fixed-offset {
+    margin-top: 56px;
+}
+.codered-navbar-center-fixed-img-offset {
+    margin-top: 175px;
+}
+.codered-navbar-center-fixed-offset {
+    margin-top: 56px;
+}
+
+.codered-navbar-center {
+    text-align: center;
+}
+.codered-navbar-center .navbar-collapse {
+    justify-content: center;
+}
+.codered-navbar-center .navbar-brand {
+    margin: 0;
+}
+.codered-navbar-center .navbar-brand img {
+    height: 150px;
+    width: auto;
+}
+
+/* sm */
+@media (min-width: 576px) {
+    .codered-navbar-center.navbar-expand-sm > .container,
+    .codered-navbar-center.navbar-expand-sm > .container-fluid {
+        display: block;
+    }
+
+    .codered-navbar-center-fixed-img-offset.navbar-expand-sm {
+        margin-top: 217px;
+    }
+    .codered-navbar-center-fixed-offset.navbar-expand-sm {
+        margin-top: 96px;
+    }
+}
+/* md */
+@media (min-width: 768px) {
+    .codered-navbar-center.navbar-expand-md > .container,
+    .codered-navbar-center.navbar-expand-md > .container-fluid {
+        display: block;
+    }
+    .codered-navbar-center-fixed-img-offset.navbar-expand-md {
+        margin-top: 217px;
+    }
+    .codered-navbar-center-fixed-offset.navbar-expand-md {
+        margin-top: 96px;
+    }
+}
+/* lg */
+@media (min-width: 992px) {
+    .codered-navbar-center.navbar-expand-lg > .container,
+    .codered-navbar-center.navbar-expand-lg > .container-fluid {
+        display: block;
+    }
+    .codered-navbar-center-fixed-img-offset.navbar-expand-sm {
+        margin-top: 217px;
+    }
+    .codered-navbar-center-fixed-offset.navbar-expand-sm {
+        margin-top: 96px;
+    }
+}
+/* xl */
+@media (min-width: 1200px) {
+    .codered-navbar-center.navbar-expand-xl > .container,
+    .codered-navbar-center.navbar-expand-xl > .container-fluid {
+        display: block;
+    }
+    .codered-navbar-center-fixed-img-offset.navbar-expand-xl {
+        margin-top: 217px;
+    }
+    .codered-navbar-center-fixed-offset.navbar-expand-xl {
+        margin-top: 96px;
+    }
+}

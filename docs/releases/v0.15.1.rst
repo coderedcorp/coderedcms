@@ -1,0 +1,9 @@
+CodeRed CMS 0.15.1 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Fix OpenGraph and Twitter meta tags so that link previews will render properly
+  on Facebook/Twitter/LinkedIn and other social sites.

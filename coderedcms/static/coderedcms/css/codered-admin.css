@@ -1,0 +1,292 @@
+/*
+CodeRed CMS (https://www.coderedcorp.com/cms/)
+Copyright 2018-2019 CodeRed LLC
+License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+*/
+
+/* Font sizes and inputs */
+
+html, body {
+    color: #000;
+    background-color:#fff;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif !important;
+}
+code, pre,
+.monospace textarea {
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+
+.content-wrapper {
+    background-color:unset;
+    border:unset;
+}
+
+.summary ul.stats,
+.summary ul.stats span {
+    font-family:inherit !important;
+    font-weight:600 !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.button, .halloeditor, .tagit, input, select, textarea {
+    font-family:inherit;
+}
+
+body.ready input[type='checkbox'], body.ready input[type='radio'] {
+    background-color:unset;
+    border:none;
+}
+
+.halloeditor, .tagit, input, select, textarea {
+    border:1.5px solid #ddd;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    font-weight:normal;
+}
+
+.halloeditor:hover, .tagit:hover, input:hover, select:hover, textarea:hover {
+    border:1.5px solid #ddd;
+}
+.nav-search input:hover {
+    border-width: 1px;
+}
+
+input[type='checkbox'], input[type='radio'] {
+    height:unset;
+    margin-right: 0.5em;
+}
+input[type='checkbox']::before, input[type='radio']::before {
+    border:1.5px solid #ccc;
+    position: relative;
+    top:unset;
+}
+.date_field .input::after, .date_field .input::before, .date_time_field .input::after, .date_time_field .input::before, .iconfield .input::after, .iconfield .input::before, .time_field .input::after, .time_field .input::before, .url_field .input::after, .url_field .input::before {
+    font-size:1.7em;
+    top:0.35em;
+}
+.full input {
+    background-color:white;
+}
+.full input:focus, .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus,
+.tag_field.focused .tagit {
+    border-color:#00b0b1;
+    background-color:#f2fcfc;
+}
+.choice_field .input select,
+.model_choice_field .input select,
+.typed_choice_field .input select {
+    margin-right:-3em;
+    padding-right: 3em;
+}
+.choice_field .input select ~ span:after,
+.model_choice_field .input select ~ span:after,
+.typed_choice_field .input select ~ span:after {
+    font-size:2.2em !important;
+    right:unset;
+}
+
+.field-content {
+    width:100%;
+}
+
+.field-row {
+    margin-bottom: 0;
+}
+
+
+/* Display labels and fields horizontally, except .label-above */
+
+@media screen and (min-width:50em) {
+    body:not(.login) li.sequence-member .fields > li,
+    body:not(.login) ul.fields > li:not(.label-above) .field {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
+    body:not(.login) ul.fields > li:not(.label-above) .field > label,
+    body:not(.login) .field-content ul > li:not(.label-above) > label {
+        color:inherit;
+        font-weight:normal;
+        display:block;
+        float:none;
+        margin: 0;
+        width: auto;
+    }
+    body:not(.login) ul.fields > li:not(.label-above) .field > label {
+        width:100%;
+        max-width:15em;
+    }
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
+    body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > label,
+    body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > label {
+        width:20%;
+        max-width:10em;
+    }
+    .object.full .field-content {
+        flex-grow: 1;
+        margin: 0 auto;
+    }
+    li.sequence-member .struct-block .sequence-container {
+        display:block;
+        flex-grow: 1;
+        margin: 0 auto;
+    }
+    li.codered-collapsible label+.field,
+    body:not(.login) ul.fields > li:not(.label-above) > label+.field-content,
+    body:not(.login) ul.fields > li:not(.label-above) > label+.field {
+        display:block;
+        flex-grow: 1;
+        float:none;
+        margin: 0 auto;
+    }
+    .input {
+        width:100%;
+    }
+    label, .boolean_field, .widget-checkbox_input {
+        padding-top: 0.5em;
+    }
+}
+
+
+/* General layout */
+
+.content {
+    padding-bottom:100px;
+    background-color:unset;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tab-nav a {
+    font-size: 1em;
+}
+
+.tab-nav li.seo a::before,
+.tab-nav li.integrations a::before {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "FontAwesome";
+    vertical-align: middle;
+    text-transform: none;
+    content: "\f201";
+    margin-right: .5em;
+    font-weight: 400;
+}
+
+.tab-nav li.integrations a::before {
+    content: "\f12e";
+}
+
+.logo {
+    margin: 0 auto;
+    padding: 15px;
+}
+.logo img {
+    width:auto;
+    height:auto;
+    max-height:80px;
+    max-width:100%;
+}
+
+/* Fix side menu to be able to fit more links without breaking */
+.nav-main a {
+    padding: 0.6em 0.8em;
+    font-size: 1.1em;
+}
+.nav-submenu .menu-item a {
+    padding: 0.6em 0 0.6em 2em;
+}
+.nav-submenu .menu-item a::before {
+    margin-left:0;
+}
+
+.nav-main .account:hover, .nav-main .account:focus {
+  outline: none;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+
+.submenu-active * {
+    box-sizing: border-box;
+}
+.nav-submenu .footer {
+    color:#666;
+    position:relative;
+    width:100%;
+}
+
+@media screen and (min-width:50em) {
+    li.submenu-active .nav-submenu {
+        width: 220px;
+    }
+    li.submenu-active .nav-submenu a {
+        padding-left:1em;
+        width:100%;
+    }
+    .nav-submenu {
+        display:none;
+    }
+    .nav-submenu h2, .nav-submenu ul {
+        width:100%;
+    }
+    .nav-main {
+        margin-bottom: 70px;
+    }
+    .nav-main .account em {
+        margin-top:0.9em;
+        font-size: 0.9em;
+    }
+    .nav-main .footer-submenu {
+        overflow: hidden;
+    }
+    .footer .avatar {
+        width: 40px;
+        height: 40px;
+    }
+    .submenu-active .nav-submenu {
+        display:block;
+    }
+}
+
+
+/* Custom */
+
+.button-advanced-settings {
+    display:block;
+    background-color:#aaa;
+    font-size:0.8em;
+    font-weight:600;
+}
+.button-advanced-settings:hover {
+    background-color:#999;
+}
+
+.power-by {
+    background-color:#1a1a1a;
+    border-top:1px solid #333;
+    font-size:12px;
+    text-align: center;
+}
+
+.power-by a {
+    color:#fff;
+    padding: 5px;
+}
+.power-by a:hover {
+    background-color:#f00;
+}
+
+.power-by img {
+    width:85px;
+    height:auto;
+    padding-left:2px;
+}

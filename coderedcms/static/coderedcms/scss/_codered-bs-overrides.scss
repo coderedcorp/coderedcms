@@ -1,0 +1,22 @@
+/// Various Bootstrap4 overrides to improve layout with CodeRed CMS markup.
+
+// Containers
+[class^="container"] [class^="container"] {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+// Cards
+.card {
+    background-size: cover;
+    background-position: center center;
+}
+
+// Carousel
+.container-fluid .carousel {
+    margin: 0 -15px;
+}
+.carousel .no-image {
+    height: 500px;
+}

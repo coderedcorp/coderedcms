@@ -1,0 +1,68 @@
+{% extends "coderedcms/pages/web_page.html" %}
+
+{% load wagtailcore_tags coderedcms_tags %}
+
+{% block content_body %}
+
+{{ block.super }}
+
+{% if page.form_live %}
+
+
+<div class="container">
+    {% block progress_bar %}
+    {% if steps|length > 1 %}
+    <div class="progress" style="height: 40px;">
+        {% with last_step=steps|last %}
+
+        {% widthratio step.index|add:"1" last_step.index|add:"1" 100 as width %}
+        <div class="progress-bar" role="progressbar" style="width: {{ width }}%;" aria-valuenow="{{ width }}" aria-valuemin="{{ width }}" aria-valuemax="100"><span>&nbsp;Step {{step.index|add:"1"}} / {{last_step.index|add:"1"}}   ({{ width }}%)</span></div>
+        {% endwith %}
+    </div>
+    <br />
+    {% endif %}
+    {% endblock %}
+
+    {% block stream_form %}
+    <form class='stream-form {{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+
+        {% block stream_form_fields %}
+
+            {% for item in markups_and_bound_fields %}
+                {% if item.1 == 'markup' %}
+                    {% include_block item.0 %}
+                {% else %}
+                    {% include 'coderedcms/includes/stream_forms/render_field.html' with block=item.2 field=item.0 %}
+                {% endif %}
+            {% endfor %}
+
+        {% endblock %}
+
+        {% block captcha %}
+            {% if page.spam_protection %}
+                {% include 'coderedcms/includes/form_honeypot.html' %}
+            {% endif %}
+        {% endblock %}
+
+        {% block stream_form_actions %}
+        <div class="form-group mt-5 row">
+            <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
+            <div class="{{'horizontal_field_class'|bootstrap_settings}}">
+                {% if step != steps|first %}
+                <a href='{{page.url}}?step={{step.index}}' class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+                    Previous
+                </a>
+                {% endif %}
+                <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+                    {% if steps|last == step %}{{ page.button_text }}{% else %}Next{% endif %}
+                </button>
+            </div>
+        </div>
+        {% endblock %}
+    </form>
+    {% endblock %}
+</div>
+{% endif %}
+
+{% endblock %}

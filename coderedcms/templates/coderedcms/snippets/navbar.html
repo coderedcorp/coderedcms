@@ -1,15 +1,10 @@
-{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags %}
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n %}
 
 {% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
 <div class="container">
 {% endif %}
 
-<nav class="navbar
-  {% if settings.coderedcms.LayoutSettings.navbar_fixed %}fixed-top{% endif %}
-  {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}
-  {{settings.coderedcms.LayoutSettings.navbar_color_scheme}}
-  {{settings.coderedcms.LayoutSettings.navbar_class}}
-  {{settings.coderedcms.LayoutSettings.navbar_format}}" >
+<nav class="navbar {% get_navbar_css %}">
 
   {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
   <div class="container">
@@ -31,11 +26,10 @@
     <div class="collapse navbar-collapse" id="navbar">
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
-      <ul class="navbar-nav {% if navbar.custom_css_class %}{{navbar.custom_css_class}}{% endif %}"
+      <ul class="navbar-nav {{navbar.custom_css_class}}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
         {% for item in navbar.menu_items %}
-        {% is_menu_item_dropdown item.value as has_dropdown %}
-        <li class="nav-item {% if has_dropdown %}dropdown{% endif %}">{% include_block item with aclass="nav-link" %}</li>
+            {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
         {% endfor %}
       </ul>
       {% endfor %}
@@ -45,7 +39,7 @@
           {% get_searchform request as form %}
           {% bootstrap_form form layout='inline' %}
           <div class="form-group">
-            <button class="btn btn-outline-primary ml-2" type="submit">Search</button>
+            <button class="btn btn-outline-primary ml-2" type="submit">{% trans 'Search' %}</button>
           </div>
       </form>
       {% endif %}

@@ -20,3 +20,7 @@ generating software. Your CSV could look something like this::
 
 ``title``, ``address``, ``latitude``, ``longitude`` are all fields on your Page model that you will
 be importing as.
+
+.. note::
+    Your CSV file must be encoded as ASCII or UTF-8.
+    UTF-8-BOM will cause an error.

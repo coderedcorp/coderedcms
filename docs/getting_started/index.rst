@@ -5,7 +5,9 @@ Getting Started
     :maxdepth: 1
 
     install
+    tutorial01
+    tutorial02
+    tutorial03
     customize_design
     customize_develop
-    searching
     django_settings

@@ -1,0 +1,20 @@
+CodeRed CMS 0.13.2 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Google Analytics now properly tracks clicks in the navbar.
+
+
+Maintenance
+-----------
+
+* Removed old unused template code.
+
+
+Upgrade considerations
+----------------------
+
+None

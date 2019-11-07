@@ -1,0 +1,8 @@
+coderedcms
+
+# django_sendmail_backend enables sending email from your web host server.
+# Remove this if using a different email backend.
+django_sendmail_backend
+
+# To use with a MySQL database (offered by most web hosts), uncomment the following.
+#mysqlclient

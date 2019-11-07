@@ -1,0 +1,32 @@
+/// Default styles for pricelist and pricelist item blocks
+
+.leaders {
+    max-width: 40em;
+    padding: 0;
+    overflow-x: hidden;
+
+    &:before {
+        float: left;
+        width: 0;
+        white-space: nowrap;
+        content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
+    }
+
+    span:first-child {
+        padding-right: 0.33em;
+        background: white;
+    }
+
+    span + span {
+        float: right;
+        padding-left: 0.33em;
+        padding-right: 15px;
+        background: white;
+        position: relative;
+        z-index: 1;
+        margin-right: -15px;
+    }
+}

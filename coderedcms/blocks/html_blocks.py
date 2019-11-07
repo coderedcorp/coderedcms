@@ -1,8 +1,12 @@
 """
 HTML blocks are simple blocks used to represent common HTML elements,
 with additional styling and attributes.
-"""
 
+HTML blocks should NOT contain more sub-blocks or sub-streamfields.
+They must be safe to nest within more robust "content blocks" without
+creating recursion.
+"""
+import logging
 from django.utils.translation import ugettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.core import blocks
@@ -10,7 +14,17 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from .base_blocks import BaseBlock, BaseLinkBlock, ButtonMixin, CoderedAdvTrackingSettings, LinkStructValue
+from .base_blocks import (
+    BaseBlock,
+    BaseLinkBlock,
+    ButtonMixin,
+    ClassifierTermChooserBlock,
+    CoderedAdvTrackingSettings,
+    LinkStructValue,
+)
+
+
+logger = logging.getLogger('coderedcms')
 
 
 class ButtonBlock(ButtonMixin, BaseLinkBlock):
@@ -55,6 +69,12 @@ class EmbedGoogleMapBlock(BaseBlock):
         label=_('Search query'),
         help_text=_('Address or search term used to find your location on the map.'),
     )
+    map_title = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_('Map title'),
+        help_text=_('Map title for screen readers, ex: "Map to Goodale Park"')
+    )
     place_id = blocks.CharBlock(
         required=False,
         max_length=255,
@@ -65,7 +85,9 @@ class EmbedGoogleMapBlock(BaseBlock):
         required=False,
         default=14,
         label=_('Map zoom level'),
-        help_text=_('Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings')
+        help_text=_(
+            "Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"  # noqa
+        )
     )
 
     class Meta:
@@ -178,6 +200,78 @@ class ImageLinkBlock(BaseLinkBlock):
         value_class = LinkStructValue
 
 
+class PageListBlock(BaseBlock):
+    """
+    Renders a preview of selected pages.
+    """
+    indexed_by = blocks.PageChooserBlock(
+        required=True,
+        label=_('Parent page'),
+        help_text=_(
+            "Show a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab."  # noqa
+        ),
+    )
+    classified_by = ClassifierTermChooserBlock(
+        required=False,
+        label=_('Classified as'),
+        help_text=_('Only show pages that are classified with this term.')
+    )
+    show_preview = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        label=_('Show body preview'),
+    )
+    num_posts = blocks.IntegerBlock(
+        default=3,
+        label=_('Number of pages to show'),
+    )
+
+    class Meta:
+        template = 'coderedcms/blocks/pagelist_block.html'
+        icon = 'list-ul'
+        label = _('Latest Pages')
+
+    def get_context(self, value, parent_context=None):
+
+        context = super().get_context(value, parent_context=parent_context)
+
+        indexer = value['indexed_by'].specific
+        # try to use the CoderedPage `get_index_children()`,
+        # but fall back to get_children if this is a non-CoderedPage
+        if hasattr(indexer, 'get_index_children'):
+            pages = indexer.get_index_children()
+            if value['classified_by']:
+                try:
+                    pages = pages.filter(classifier_terms=value['classified_by'])
+                except AttributeError:
+                    # `pages` is not a queryset, or is not a queryset of CoderedPage.
+                    logger.warning(
+                        "Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children()  # noqadid not return a queryset or is not a queryset of CoderedPage models.",  # noqa
+                        indexer._meta.app_label, indexer.__class__.__name__, indexer.title
+                    )
+        else:
+            pages = indexer.get_children().live()
+
+        context['pages'] = pages[:value['num_posts']]
+        return context
+
+
+class PagePreviewBlock(BaseBlock):
+    """
+    Renders a preview of a specific page.
+    """
+    page = blocks.PageChooserBlock(
+        required=True,
+        label=_('Page to preview'),
+        help_text=_('Show a mini preview of the selected page.'),
+    )
+
+    class Meta:
+        template = 'coderedcms/blocks/pagepreview_block.html'
+        icon = 'doc-empty-inverse'
+        label = _('Page Preview')
+
+
 class QuoteBlock(BaseBlock):
     """
     A <blockquote>.
@@ -197,3 +291,8 @@ class QuoteBlock(BaseBlock):
         template = 'coderedcms/blocks/quote_block.html'
         icon = 'openquote'
         label = _('Quote')
+
+
+class RichTextBlock(blocks.RichTextBlock):
+    class Meta:
+        template = 'coderedcms/blocks/rich_text_block.html'

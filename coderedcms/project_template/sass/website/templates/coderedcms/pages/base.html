@@ -1,0 +1,25 @@
+{% extends "coderedcms/pages/base.html" %}
+{% load static %}
+
+{% block frontend_assets %}
+{# Leave this section blank since we are pulling in Bootstrap/theme assets through Sass in custom.css #}
+{% endblock %}
+
+{% block coderedcms_assets %}
+{# Leave this section blank since we are pulling in coderedcms assets through Sass in custom.css #}
+{% endblock %}
+
+{% block custom_assets %}
+{# Add your custom CSS here #}
+<link rel="stylesheet" type="text/css" href="{% static 'website/css/custom.css' %}">
+{% endblock %}
+
+{% block frontend_scripts %}
+{# Load Bootstrap scripts distributed by coderedcms #}
+<script src="{% static 'coderedcms/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+
+{% block custom_scripts %}
+{# Add your custom JavaScript here, or delete the line below if you don't need any #}
+<script type="text/javascript" src="{% static 'website/js/custom.js' %}"></script>
+{% endblock %}

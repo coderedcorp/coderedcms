@@ -6,7 +6,7 @@
         <li class="footer" id="footer">
             <div class="account" id="account-settings" title="{% trans 'Edit your account' %}">
                 <span class="avatar square avatar-on-dark">
-                    <img src="{% avatar_url request.user size=50 %}" />
+                    <img src="{% avatar_url request.user size=50 %}" alt="" />
                 </span>
                 <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
             </div>
@@ -18,9 +18,10 @@
 
             <div class="power-by">
               <a href="https://github.com/coderedcorp/coderedcms" target="_blank" title="CodeRed CMS v {% coderedcms_version %}">
-                powered by <img src="{% static 'img/codered.png' %}" alt="CodeRed" />
+                powered by <img src="{% static 'coderedcms/img/codered.png' %}" alt="CodeRed" />
               </a>
             </div>
+
         </li>
     </ul>
 </nav>

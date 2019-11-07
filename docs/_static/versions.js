@@ -13,14 +13,14 @@ function setversions(data) {
 }
 
 $(document).ready(function() {
-    if(sessionStorage.getItem(vfile)) {
-        setversions(sessionStorage.getItem(vfile));
+    if(sessionStorage.getItem(vroot+vfile)) {
+        setversions(sessionStorage.getItem(vroot+vfile));
     }
     else {
         $.ajax({
             url: vroot + vfile,
             success: function(data) {
-                sessionStorage.setItem(vfile, data);
+                sessionStorage.setItem(vroot+vfile, data);
                 setversions(data);
             }
         });

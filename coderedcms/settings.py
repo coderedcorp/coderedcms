@@ -3,14 +3,16 @@ from django.conf import settings
 from django.utils.lru_cache import lru_cache
 
 
-PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))
+)
 BASE_DIR = settings.BASE_DIR if getattr(settings, 'BASE_DIR') else os.path.dirname(PROJECT_DIR)
 
 DEFAULTS = {
     'PROTECTED_MEDIA_URL': '/protected/',
     'PROTECTED_MEDIA_ROOT': os.path.join(BASE_DIR, 'protected'),
     'PROTECTED_MEDIA_UPLOAD_WHITELIST': [],
-    'PROTECTED_MEDIA_UPLOAD_BLACKLIST': ['.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'],
+    'PROTECTED_MEDIA_UPLOAD_BLACKLIST': ['.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'],  # noqa
 
     'FRONTEND_BTN_SIZE_DEFAULT': '',
     'FRONTEND_BTN_SIZE_CHOICES': (
@@ -95,7 +97,7 @@ DEFAULTS = {
         ('navbar-expand-xl', 'xl - Show on extra large screens (desktop, wide monitor)'),
     ),
 
-    'FRONTEND_THEME_HELP': 'Change the color palette of your site with a Bootstrap theme. Powered by Bootswatch https://bootswatch.com/.',
+    'FRONTEND_THEME_HELP': "Change the color palette of your site with a Bootstrap theme. Powered by Bootswatch https://bootswatch.com/.",  # noqa
     'FRONTEND_THEME_DEFAULT': '',
     'FRONTEND_THEME_CHOICES': (
         ('', 'Default - Classic Bootstrap'),
@@ -140,9 +142,16 @@ DEFAULTS = {
             ('coderedcms/blocks/pagelist_block.html', 'General, simple list'),
             ('coderedcms/blocks/pagelist_list_group.html', 'General, list group navigation panel'),
             ('coderedcms/blocks/pagelist_article_media.html', 'Article, media format'),
-            ('coderedcms/blocks/pagelist_article_card_group.html', 'Article, card group - attached cards of equal size'),
-            ('coderedcms/blocks/pagelist_article_card_deck.html', 'Article, card deck - separate cards of equal size'),
-            ('coderedcms/blocks/pagelist_article_card_columns.html', 'Article, card masonry - fluid brick pattern'),
+            ('coderedcms/blocks/pagelist_article_card_group.html',
+                'Article, card group - attached cards of equal size'),
+            ('coderedcms/blocks/pagelist_article_card_deck.html',
+             'Article, card deck - separate cards of equal size'),
+            ('coderedcms/blocks/pagelist_article_card_columns.html',
+             'Article, card masonry - fluid brick pattern'),
+        ),
+        'pagepreviewblock': (
+            ('coderedcms/blocks/pagepreview_card.html', 'Card'),
+            ('coderedcms/blocks/pagepreview_form.html', 'Form inputs'),
         ),
         # templates that are available for all block types
         '*': (
@@ -156,10 +165,14 @@ DEFAULTS = {
             ('', 'Default'),
             ('coderedcms/pages/web_page.html', 'Web page showing title and cover image'),
             ('coderedcms/pages/web_page_notitle.html', 'Web page without title and cover image'),
+            ('coderedcms/pages/home_page.html', 'Home page without title and cover image'),
             ('coderedcms/pages/base.html', 'Blank page - no navbar or footer'),
         ),
-
     },
+
+    'BANNER': None,
+    'BANNER_BACKGROUND': '#f00',
+    'BANNER_TEXT_COLOR': '#fff',
 }
 
 

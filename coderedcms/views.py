@@ -1,29 +1,28 @@
 import mimetypes
 import os
-
 from itertools import chain
-
 from datetime import datetime
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponsePermanentRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render
 from django.utils.translation import ungettext, ugettext_lazy as _
 from icalendar import Calendar
-
 from wagtail.admin import messages
-from wagtail.core.models import Page
 from wagtail.search.backends import db, get_search_backend
 from wagtail.search.models import Query
-
 from coderedcms import utils
 from coderedcms.forms import SearchForm
-from coderedcms.models import CoderedPage, CoderedEventPage, get_page_models, GeneralSettings
+from coderedcms.models import (
+    CoderedPage,
+    CoderedEventPage,
+    get_page_models,
+    GeneralSettings,
+    LayoutSettings
+)
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from coderedcms.settings import cr_settings
-
-
 
 
 def search(request):
@@ -62,7 +61,7 @@ def search(request):
         if backend.__class__ == db.SearchBackend and db_models:
             for model in db_models:
                 # if search_model is provided, only search on that model
-                if not search_model or search_model == ContentType.objects.get_for_model(model).model:
+                if not search_model or search_model == ContentType.objects.get_for_model(model).model:  # noqa
                     curr_results = model.objects.live().search(search_query)
                     if results:
                         results = list(chain(results, curr_results))
@@ -75,18 +74,23 @@ def search(request):
                 try:
                     model = ContentType.objects.get(model=search_model).model_class()
                     results = model.objects.live().search(search_query)
-                except:
+                except search_model.DoesNotExist:
                     results = None
             else:
-                results = CoderedPage.objects.live().search(search_query)
+                results = CoderedPage.objects.live().order_by('-last_published_at').search(search_query)  # noqa
 
         # paginate results
         if results:
-            paginator = Paginator(results, GeneralSettings.for_site(request.site).search_num_results)
+            paginator = Paginator(results, GeneralSettings.for_site(
+                request.site).search_num_results)
             page = request.GET.get('p', 1)
             try:
                 results_paginated = paginator.page(page)
-            except:
+            except PageNotAnInteger:
+                results_paginated = paginator.page(1)
+            except EmptyPage:
+                results_paginated = paginator.page(1)
+            except InvalidPage:
                 results_paginated = paginator.page(1)
 
         # Log the query so Wagtail can suggest promoted results
@@ -119,12 +123,17 @@ def serve_protected_file(request, path):
     raise Http404()
 
 
+def favicon(request):
+    icon = LayoutSettings.for_site(request.site).favicon
+    if icon:
+        return HttpResponsePermanentRedirect(icon.get_rendition('original').url)
+    raise Http404()
+
+
 def robots(request):
-    robots = GeneralSettings.for_site(request.site).robots
     return render(
         request,
         'robots.txt',
-        {'robots': robots},
         content_type='text/plain'
     )
 
@@ -161,7 +170,7 @@ def event_generate_recurring_ical_for_event(request):
             try:
                 event = event_page_model.objects.get(pk=event_pk)
                 break
-            except event_page_modal.DoesNotExist:
+            except event_page_model.DoesNotExist:
                 pass
         ical = Calendar()
         for e in event.create_recurring_ical():
@@ -209,15 +218,18 @@ def event_get_calendar_events(request):
 @login_required
 def import_pages_from_csv_file(request):
     """
-    Overwrite of the `import_pages` view from wagtailimportexport.  By default, the `import_pages` view
-    expects a json file to be uploaded.  This view converts the uploaded csv into the json format that
-    the importer expects.
+    Overwrite of the `import_pages` view from wagtailimportexport.  By default, the `import_pages`
+    view expects a json file to be uploaded.  This view converts the uploaded csv into the json
+    format that the importer expects.
     """
 
     if request.method == 'POST':
         form = ImportPagesFromCSVFileForm(request.POST, request.FILES)
         if form.is_valid():
-            import_data = convert_csv_to_json(form.cleaned_data['file'].read().decode('utf-8').splitlines(), form.cleaned_data['page_type'])
+            import_data = convert_csv_to_json(
+                form.cleaned_data['file'].read().decode('utf-8').splitlines(),
+                form.cleaned_data['page_type']
+            )
             parent_page = form.cleaned_data['parent_page']
             try:
                 page_count = import_pages(import_data, parent_page)

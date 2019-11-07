@@ -1,0 +1,31 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+{% load bootstrap4 coderedcms_tags wagtailcore_tags %}
+
+{% block block_render %}
+
+    {% with page=self.page.specific %}
+    {% if page.form_live %}
+    {% get_pageform page request as form %}
+    <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl page %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        {% bootstrap_form form layout='horizontal' %}
+
+        {% block captcha %}
+            {% if page.spam_protection %}
+                {% include 'coderedcms/includes/form_honeypot.html' %}
+            {% endif %}
+        {% endblock %}
+
+        <div class="form-group mt-5 row">
+            <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
+            <div class="{{'horizontal_field_class'|bootstrap_settings}}">
+                <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+                    {{ page.button_text }}
+                </button>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+    {% endwith %}
+
+{% endblock %}

@@ -2,10 +2,8 @@
 Content blocks are for building complex, nested HTML structures that usually
 contain sub-blocks, and may require javascript to function properly.
 """
-
 from django.utils.translation import ugettext_lazy as _
 from wagtail.core import blocks
-from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -68,6 +66,7 @@ class ImageGalleryBlock(BaseBlock):
     full size images in a modal.
     """
     collection = CollectionChooserBlock(
+        required=True,
         label=_('Image Collection'),
     )
 
@@ -92,7 +91,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
     )
     footer = blocks.StreamBlock(
         [
-            ('text', blocks.CharBlock(icon='fa-file-text-o', max_length=255, label=_('Simple Text'))),
+            ('text', blocks.CharBlock(icon='fa-file-text-o', max_length=255, label=_('Simple Text'))),  # noqa
             ('button', ButtonBlock()),
         ],
         required=False,
@@ -203,49 +202,6 @@ class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
         label = _('Document link with sub-links')
 
 
-class PageListBlock(BaseBlock):
-    """
-    Renders a preview of selected pages.
-    """
-    show_preview = blocks.BooleanBlock(
-        required=False,
-        default=False,
-        label=_('Show body preview'),
-    )
-    num_posts = blocks.IntegerBlock(
-        default=3,
-        label=_('Number of pages to show'),
-    )
-    indexed_by = blocks.PageChooserBlock(
-        required=False,
-        label=_('Limit to'),
-        help_text=_('Only show pages that are children of the selected page. Uses the subpage sorting as specified in the page’s LAYOUT tab.'),
-    )
-
-    class Meta:
-        template = 'coderedcms/blocks/pagelist_block.html'
-        icon = 'list-ul'
-        label = _('Latest Pages')
-
-    def get_context(self, value, parent_context=None):
-
-        context = super().get_context(value, parent_context=parent_context)
-
-        if value['indexed_by']:
-            indexer = value['indexed_by'].specific
-            # try to use the CoderedPage `get_index_children()`,
-            # but fall back to get_children if this is a non-CoderedPage
-            try:
-                pages = indexer.get_index_children()
-            except AttributeError:
-                pages = indexer.get_children().live()
-        else:
-            pages = Page.objects.live().order_by('-first_published_at')
-
-        context['pages'] = pages[:value['num_posts']]
-        return context
-
-
 class PriceListItemBlock(BaseBlock):
     """
     Represents one item in a PriceListBlock, such as an entree in a restaurant menu.
@@ -307,8 +263,10 @@ class ContentWallBlock(BaseBlock):
         required=False,
         default=False,
         verbose_name=_('Show content walls on children pages?'),
-        help_text=_('If this is checked, the content walls will be displayed on all children pages of this page.')
+        help_text=_(
+            'If this is checked, the content walls will be displayed on all children pages of this page.')  # noqa
     )
+
     class Meta:
         icon = 'fa-stop'
         label = _('Content Wall')

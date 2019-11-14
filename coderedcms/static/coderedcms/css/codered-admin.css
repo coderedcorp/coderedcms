@@ -97,7 +97,7 @@ input[type='checkbox']::before, input[type='radio']::before {
 /* Display labels and fields horizontally, except .label-above */
 
 @media screen and (min-width:50em) {
-    body:not(.login) li.sequence-member .fields > li,
+    body:not(.login) .c-sf-block .fields > li,
     body:not(.login) ul.fields > li:not(.label-above) .field {
         display: flex;
         flex-direction: row;
@@ -130,7 +130,7 @@ input[type='checkbox']::before, input[type='radio']::before {
         flex-grow: 1;
         margin: 0 auto;
     }
-    li.sequence-member .struct-block .sequence-container {
+    .c-sf-block .c-sf-container__block-container {
         display:block;
         flex-grow: 1;
         margin: 0 auto;

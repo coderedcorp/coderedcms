@@ -22,27 +22,27 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 }
 
 
-.sequence-member input[type='text'],
-.sequence-member input[type='email'],
-.sequence-member input[type='url'],
-.sequence-member input[type='number'],
-.sequence-member input[type='date'],
-.sequence-member input[type='time'],
-.sequence-member input[type='datetime'],
-.sequence-member input[type='datetime-local'],
-.sequence-member textarea,
-.sequence-member select,
-.sequence-member .richtext,
-.sequence-member .tagit {
+.c-sf-block input[type='text'],
+.c-sf-block input[type='email'],
+.c-sf-block input[type='url'],
+.c-sf-block input[type='number'],
+.c-sf-block input[type='date'],
+.c-sf-block input[type='time'],
+.c-sf-block input[type='datetime'],
+.c-sf-block input[type='datetime-local'],
+.c-sf-block textarea,
+.c-sf-block select,
+.c-sf-block .richtext,
+.c-sf-block .tagit {
     background-color:white;
     border:1.5px solid #ddd;
 }
 
-.sequence-member input:focus,
-.sequence-member textarea:focus,
-.sequence-member select:focus,
-.sequence-member .richtext:focus,
-.sequence-member .tagit:focus {
+.c-sf-block input:focus,
+.c-sf-block textarea:focus,
+.c-sf-block select:focus,
+.c-sf-block .richtext:focus,
+.c-sf-block .tagit:focus {
     border-color:#00b0b1;
     background-color:#f2fcfc;
 }
@@ -72,30 +72,13 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
     color:rgba(0,0,0,0.2)
 }
 
-li.sequence-member {
+.c-sf-block {
     border:none;
 }
 
-li.sequence-member li.sequence-member {
-    background-color:rgba(0,0,0,0.05);
-    border:none;
-    margin:0 0 20px 0;
 
-}
-li.sequence-member:hover {
-    background-color:rgba(0,0,0,0.05);
-    border:none;
-}
-
-li.sequence-member .sequence-member-inner,
-li.sequence-member .struct-block .sequence-container .sequence-member-inner {
-    padding:1em;
-}
-
-@media screen and (max-width:49.99em) {
-    li.sequence-member .struct-block .sequence-container {
-        width:100%;
-    }
+.c-sf-container {
+    width:100%;
 }
 
 .field.char_field.widget-draftail_rich_text_area .field-content,
@@ -140,11 +123,6 @@ li.sequence-member .struct-block .sequence-container .sequence-member-inner {
 }
 .object > fieldset fieldset {
     padding-top:0;
-}
-
-li.sequence-member .struct-block .fields {
-    width:100%;
-    max-width:100%;
 }
 
 .stream-menu.stream-menu-closed .toggle {
@@ -199,19 +177,6 @@ li.sequence-member .struct-block .fields {
 }
 .Draftail-Toolbar .Draftail-ToolbarGroup + .Draftail-ToolbarGroup {
     margin-left: 1em;
-}
-li.sequence-member li > .field .Draftail-Editor,
-li.sequence-member li.sequence-member .Draftail-Editor {
-    background-color: #fff !important;
-    border-radius:5px;
-    border:1.5px solid #ddd !important;
-    padding: 0.5em 1em;
-}
-li.sequence-member li.sequence-member .Draftail-Editor {
-    margin:-1em;
-}
-li.sequence-member li > .field .Draftail-Editor {
-    margin: 0;
 }
 
 .Draftail-Editor .DraftEditor-root {

@@ -80,6 +80,7 @@ from coderedcms.wagtail_flexible_forms.models import (
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
+from bs4 import BeautifulSoup
 
 logger = logging.getLogger('coderedcms')
 
@@ -648,10 +649,10 @@ class CoderedWebPage(CoderedPage):
         """
         # add spaces between tags for legibility
         body = str(self.body).replace('>', '> ')
-        # strip tags
-        body = strip_tags(body)
-        # truncate and add ellipses
-        preview = body[:200] + "..." if len(body) > 200 else body
+        # define BeautifulSoup data, parameters
+        soup = BeautifulSoup(body, "html.parser")
+        # If a closing </p> exists in first 400 chars, use first <p> as preview, else use first 200 chars
+        preview = soup.find('p').getText() if '</p>' in body[:400] else strip_tags(body)[:200] + '...'
         return mark_safe(preview)
 
     @property

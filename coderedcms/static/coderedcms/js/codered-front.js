@@ -250,6 +250,21 @@ $(document).ready(function()
         });
     }
 
+    /*** Link handling ***/
+    if(typeof cr_external_new_tab !== 'undefined' && cr_external_new_tab) {
+        $('a').each(function() {
+            var href = $(this).prop('href').trim();
+            if(
+                !href.startsWith(cr_site_url) &&
+                !href.startsWith('/') &&
+                !href.startsWith('#') &&
+                !href.startsWith('?')
+            ) {
+                $(this).prop('target', '_blank');
+            }
+        });
+    }
+
 });
 
 /* @license-end */

@@ -279,6 +279,10 @@ class GeneralSettings(BaseSetting):
         default=10,
         verbose_name=_('Number of results per page'),
     )
+    external_new_tab = models.BooleanField(
+        default=False,
+        verbose_name=_('Open all external links in new tab')
+    )
 
     panels = [
         MultiFieldPanel(
@@ -292,6 +296,12 @@ class GeneralSettings(BaseSetting):
                 FieldPanel('search_num_results'),
             ],
             _('Search Settings')
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('external_new_tab'),
+            ],
+            _('Links')
         ),
     ]
 

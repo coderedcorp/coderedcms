@@ -5,6 +5,8 @@ CodeRed CMS 0.17.0 release notes
 New features
 ------------
 
+* NEW setting to globally force all external links to open in a new tab. See
+  :doc:`/how_to/link_targets`.
 * Upgraded Wagtail to version 2.7
 * New UI of streamfield, and other changes from
   `Wagtail 2.7 <https://docs.wagtail.io/en/stable/releases/2.7.html>`_.

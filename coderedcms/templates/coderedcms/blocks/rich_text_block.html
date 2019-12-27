@@ -3,7 +3,7 @@
 {% block block_render %}
 
 {% if format == 'amp' %}
-{{ self|richtext_amp_formatting }}
+{{ self|richtext|convert_to_amp }}
 {% else %}
 {{ self|richtext }}
 {% endif %}

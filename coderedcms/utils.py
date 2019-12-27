@@ -49,7 +49,7 @@ def fix_ical_datetime_format(dt_str):
     return dt_str
 
 
-def convert_to_amp(value):
+def convert_to_amp(value, pretty=True):
     """
     Function that converts non-amp compliant html to valid amp html.
     value must be a string
@@ -58,18 +58,26 @@ def convert_to_amp(value):
 
     # Replace img tags with amp-img
     try:
-        img_tags = soup.find('img')
-        img_tags.name = 'amp-img'
+        img_tags = soup.find_all('img')
+        for img_tag in img_tags:
+            # Force the tag to be non-self-closing i.e. <img.../> becomes <amp-img...></amp-img>
+            img_tag.can_be_empty_element = False
+            # Change tag name from 'img' to 'amp-img'
+            img_tag.name = 'amp-img'
     except AttributeError:
         pass
 
     # Replace iframe tags with amp-iframe
     try:
-        iframe_tags = soup.find('iframe')
-        iframe_tags.name = 'amp-iframe'
-        iframe_tags['layout'] = 'responsive'
+        iframe_tags = soup.find_all('iframe')
+        for iframe_tag in iframe_tags:
+            iframe_tag.name = 'amp-iframe'
+            iframe_tag['layout'] = 'responsive'
 
     except AttributeError:
         pass
 
-    return soup.prettify()
+    if pretty:
+        return soup.prettify()
+
+    return str(soup)

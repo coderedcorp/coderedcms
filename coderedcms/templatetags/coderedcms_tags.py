@@ -182,19 +182,13 @@ def structured_data_datetime(dt):
 
 
 @register.filter
-def amp_formatting(value):
-    return mark_safe(utils.convert_to_amp(value))
-
-
-@register.filter
-def richtext_amp_formatting(value):
-
+def convert_to_amp(value):
+    """
+    Converts HTML to AMP.
+    """
     if isinstance(value, RichText):
         value = richtext(value.source)
-    else:
-        value = richtext(value)
-
-    return amp_formatting(value)
+    return mark_safe(utils.convert_to_amp(value))
 
 
 @register.simple_tag

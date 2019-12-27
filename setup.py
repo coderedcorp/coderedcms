@@ -30,6 +30,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3 :: Only',
         'Framework :: Django',
         'Framework :: Django :: 2.0',
@@ -42,13 +43,13 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
-        'beautifulsoup4>=4.5.1,<4.6.1',
+        'beautifulsoup4>=4.5.1,<4.6.1',  # should be the same as wagtail
         'django-eventtools==0.9.*',
         'django-bootstrap4',
-        'Django>=2.0,<2.3',
+        'Django>=2.0,<2.3',              # should be the same as wagtail
         'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
-        'wagtail==2.6.*',
+        'wagtail==2.7.*',
         'wagtailfontawesome>=1.1.4,<2.0',
         'wagtail-cache==0.5.*',
         'wagtail-import-export>=0.2,<0.3'

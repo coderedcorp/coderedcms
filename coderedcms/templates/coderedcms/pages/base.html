@@ -21,6 +21,12 @@
         {% endif %}
         {% endblock %}
 
+        {# Pass in CMS variables to JavaScript #}
+        <script>
+            cr_site_url = "{{request.site.root_url}}";
+            cr_external_new_tab = {{settings.coderedcms.GeneralSettings.external_new_tab|yesno:"true,false"}};
+        </script>
+
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

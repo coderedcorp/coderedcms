@@ -8,4 +8,5 @@ with CodeRed CMS.
 .. toctree::
     :maxdepth: 1
 
+    link_targets
     translation

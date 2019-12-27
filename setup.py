@@ -43,10 +43,10 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
-        'beautifulsoup4>=4.5.1,<4.6.1',
+        'beautifulsoup4>=4.5.1,<4.6.1',  # should be the same as wagtail
         'django-eventtools==0.9.*',
         'django-bootstrap4',
-        'Django>=2.0,<2.3',
+        'Django>=2.0,<2.3',              # should be the same as wagtail
         'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
         'wagtail==2.7.*',

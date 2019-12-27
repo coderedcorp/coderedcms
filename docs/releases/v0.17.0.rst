@@ -2,12 +2,23 @@ CodeRed CMS 0.17.0 release notes
 ================================
 
 
+New features
+------------
+
+* Upgraded Wagtail to version 2.7
+* New UI of streamfield, and other changes from
+  `Wagtail 2.7 <https://docs.wagtail.io/en/stable/releases/2.7.html>`_.
+* Now supports Django 2.0, 2.1, 2.2 and Python 3.5, 3.6, 3.7, 3.8
+
+
 Bug fixes
 ---------
 
 * Fix bug where form field without a selected type would cause a 500 error.
 
+
 Upgrade considerations
 ----------------------
 
-* You will need to run ``python manage.py makemigrations website`` and ``python manage.py migrate`` after upgrading.
+* You will need to run ``python manage.py makemigrations website`` and
+  ``python manage.py migrate`` after upgrading.

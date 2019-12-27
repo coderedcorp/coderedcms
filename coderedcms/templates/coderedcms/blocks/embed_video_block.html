@@ -4,7 +4,7 @@
 {% block block_render %}
 
 {% if format == 'amp' %}
-    {{ self.url.html|amp_formatting }}
+    {{ self.url.html|convert_to_amp }}
 {% else %}
     {{ self.url }}
 {% endif %}

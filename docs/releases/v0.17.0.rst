@@ -15,6 +15,8 @@ Bug fixes
 ---------
 
 * Fix bug where form field without a selected type would cause a 500 error.
+* Render valid AMP images and iframes on ArticlePage and in RichText and Embed
+  blocks.
 
 
 Upgrade considerations
@@ -22,3 +24,6 @@ Upgrade considerations
 
 * You will need to run ``python manage.py makemigrations website`` and
   ``python manage.py migrate`` after upgrading.
+* Template tag ``richtext_amp_formatting`` has been removed and should be
+  replaced with ``richtext|convert_to_amp``.
+* Template tag ``amp_formatting`` has been replaced with ``convert_to_amp``.

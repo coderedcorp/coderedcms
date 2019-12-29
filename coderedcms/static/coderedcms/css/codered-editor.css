@@ -5,13 +5,15 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 */
 
 /* Reset fonts to system */
+
 .title .halloeditor, .title input, .title textarea,
 .Draftail-Editor .DraftEditor-root {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
 }
 
 
 /* Inputs and form fields */
+
 .title .halloeditor, .title input, .title textarea {
     font-size:2.5em;
 }
@@ -20,7 +22,6 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
     padding-bottom:1em;
     background-color:transparent;
 }
-
 
 .c-sf-block input[type='text'],
 .c-sf-block input[type='email'],
@@ -73,12 +74,19 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 }
 
 .c-sf-block {
-    border:none;
+    display: block;
 }
 
+.c-sf-block:hover,
+.c-sf-block:focus {
+    box-shadow: 0 0 20px rgba(0,0,0,0.2) !important;
+}
 
+.c-sf-add-panel,
 .c-sf-container {
+    padding: 0 !important;
     width:100%;
+    flex-basis: 100%;
 }
 
 .field.char_field.widget-draftail_rich_text_area .field-content,
@@ -102,6 +110,10 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 
 .objects * {
     box-sizing: border-box;
+}
+
+.object.stream-field {
+    background-color: inherit;;
 }
 
 .object > h2,
@@ -151,7 +163,6 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 
 /* Draftail */
 
-
 .Draftail-Toolbar {
     background-color:transparent !important;
     border-radius:0 !important;
@@ -187,7 +198,7 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 }
 
 
-/* custom */
+/* Custom */
 
 .codered-collapsible {
     padding:0;

@@ -9,11 +9,11 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 html, body {
     color: #000;
     background-color:#fff;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif !important;
 }
 code, pre,
 .monospace textarea {
-    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 }
 
 .content-wrapper {
@@ -60,7 +60,16 @@ input[type='checkbox']::before, input[type='radio']::before {
     position: relative;
     top:unset;
 }
-.date_field .input::after, .date_field .input::before, .date_time_field .input::after, .date_time_field .input::before, .iconfield .input::after, .iconfield .input::before, .time_field .input::after, .time_field .input::before, .url_field .input::after, .url_field .input::before {
+.date_field .input::after,
+.date_field .input::before,
+.date_time_field .input::after,
+.date_time_field .input::before,
+.iconfield .input::after,
+.iconfield .input::before,
+.time_field .input::after,
+.time_field .input::before,
+.url_field .input::after,
+.url_field .input::before {
     font-size:1.7em;
     top:0.35em;
 }
@@ -94,14 +103,14 @@ input[type='checkbox']::before, input[type='radio']::before {
 }
 
 
-/* Display labels and fields horizontally, except .label-above */
+/* Display labels and fields horizontally, except .label-above or nested .stream-field */
 
 @media screen and (min-width:50em) {
     body:not(.login) .c-sf-block .fields > li,
     body:not(.login) ul.fields > li:not(.label-above) .field {
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         align-items: flex-start;
         justify-content: flex-start;
     }
@@ -115,32 +124,38 @@ input[type='checkbox']::before, input[type='radio']::before {
         margin: 0;
         width: auto;
     }
-    body:not(.login) ul.fields > li:not(.label-above) .field > label {
-        width:100%;
+    /* Labels for page editor forms (except labels for nested streamfields) */
+    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) .field > label {
+        width:20%;
         max-width:15em;
     }
+    /* Fields for page editor forms (except nested streamfields) */
+    li.codered-collapsible label+.field,
+    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) label+.field-content,
+    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) label+.field {
+        display:block;
+        flex-grow: 1;
+        float:none;
+        margin: 0 auto;
+        width: 80%;
+    }
+    /* Labels for streamfield forms (except labels for nested streamfields) */
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
     body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > label,
     body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > label {
         width:20%;
-        max-width:10em;
+        max-width:15em;
+    }
+    /* Fields for streamfield forms (except nested streamfields) */
+    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) ul.fields > li > .field,
+    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) ul.fields > li > .field
+    body:not(.login) .struct-block ul.fields > li:not(.label-above):not(.stream-field) .field > .field,
+    body:not(.login) .multiple     ul.fields > li:not(.label-above):not(.stream-field) .field > .field {
+        width: 80%;
     }
     .object.full .field-content {
         flex-grow: 1;
-        margin: 0 auto;
-    }
-    .c-sf-block .c-sf-container__block-container {
-        display:block;
-        flex-grow: 1;
-        margin: 0 auto;
-    }
-    li.codered-collapsible label+.field,
-    body:not(.login) ul.fields > li:not(.label-above) > label+.field-content,
-    body:not(.login) ul.fields > li:not(.label-above) > label+.field {
-        display:block;
-        flex-grow: 1;
-        float:none;
         margin: 0 auto;
     }
     .input {
@@ -197,7 +212,9 @@ input[type='checkbox']::before, input[type='radio']::before {
     max-width:100%;
 }
 
+
 /* Fix side menu to be able to fit more links without breaking */
+
 .nav-main a {
     padding: 0.6em 0.8em;
     font-size: 1.1em;

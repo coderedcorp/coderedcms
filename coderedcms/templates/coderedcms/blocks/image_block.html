@@ -6,15 +6,15 @@
 
 <amp-img src="{{self_image.url}}"
 layout="responsive" width="{{self_image.width}}" height="{{self_image.height}}"
-class="{{self.custom_css_class}}"
-{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}
+class="{{self.settings.custom_css_class}}"
+{% if self.settings.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}
 alt="{{self_image.image.title}}"></amp-img>
 
 {% else %}
 
 <img src="{{self_image.url}}"
 class="w-100 {{self.settings.custom_css_class}}"
-{% if self.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}
+{% if self.settings.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}
 alt="{{self_image.image.title}}" />
 
 {% endif %}

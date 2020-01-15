@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="card mb-3 bg-dark text-white {{self.settings.custom_css_class}}"
-{% if self.settings.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}
+{% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}
 {% if self.image %}
 {% image self.image fill-1000x1000 as card_img %}
 style="background-image:url('{{card_img.url}}');"

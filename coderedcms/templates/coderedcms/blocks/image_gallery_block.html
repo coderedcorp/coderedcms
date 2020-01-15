@@ -4,7 +4,7 @@
 {% generate_random_id as modal_id %}
 
 <section class="{{self.settings.custom_css_class}}"
-    {% if self.settings.custom_css_id %}id="{{self.settings.custom_css_id}}"{% endif %}>
+    {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
 
 <div class="row">
 {% for picture in pictures %}

@@ -2,7 +2,7 @@
 Content blocks are for building complex, nested HTML structures that usually
 contain sub-blocks, and may require javascript to function properly.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock

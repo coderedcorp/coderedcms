@@ -3,7 +3,7 @@ from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.utils import quote
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.modeladmin.helpers import (
     PermissionHelper, PagePermissionHelper, PageAdminURLHelper, AdminURLHelper,
     ButtonHelper)

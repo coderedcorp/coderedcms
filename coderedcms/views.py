@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render
-from django.utils.translation import ungettext, ugettext_lazy as _
+from django.utils.translation import ungettext, gettext_lazy as _
 from icalendar import Calendar
 from wagtail.admin import messages
 from wagtail.search.backends import db, get_search_backend

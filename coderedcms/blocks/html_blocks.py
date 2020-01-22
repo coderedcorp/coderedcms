@@ -7,7 +7,7 @@ They must be safe to nest within more robust "content blocks" without
 creating recursion.
 """
 import logging
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock

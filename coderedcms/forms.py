@@ -8,7 +8,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpResponse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmissionsListView
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField

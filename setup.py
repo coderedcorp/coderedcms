@@ -46,10 +46,10 @@ setup(
         'beautifulsoup4>=4.5.1,<4.6.1',  # should be the same as wagtail
         'django-eventtools==0.9.*',
         'django-bootstrap4',
-        'Django>=2.0,<2.3',              # should be the same as wagtail
+        'Django>=2.0,<3.1',              # should be the same as wagtail
         'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
-        'wagtail==2.7.*',
+        'wagtail==2.8.*',
         'wagtailfontawesome>=1.1.4,<2.0',
         'wagtail-cache==0.5.*',
         'wagtail-import-export>=0.2,<0.3'

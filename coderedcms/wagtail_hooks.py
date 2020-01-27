@@ -1,7 +1,7 @@
 import mimetypes
 
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
 from django.http.response import HttpResponse
 from django.urls import reverse
 from django.utils.html import format_html, mark_safe

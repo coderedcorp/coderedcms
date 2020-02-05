@@ -34,6 +34,7 @@ class MultiSelectBlock(blocks.FieldBlock):
     def get_searchable_content(self, value):
         return [force_str(value)]
 
+
 class ClassifierTermChooserBlock(blocks.FieldBlock):
     """
     Enables choosing a ClassifierTerm in the streamfield.

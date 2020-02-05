@@ -1,6 +1,6 @@
 import os
 from django.conf import settings
-from django.utils.lru_cache import lru_cache
+from functools import lru_cache
 
 
 PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.path.dirname(

@@ -4,10 +4,10 @@ Bases, mixins, and utilites for blocks.
 
 from django import forms
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtail.core import blocks
 from wagtail.core.models import Collection
 from wagtail.core.utils import resolve_model_string
@@ -32,7 +32,7 @@ class MultiSelectBlock(blocks.FieldBlock):
         super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
-        return [force_text(value)]
+        return [force_str(value)]
 
 
 class ClassifierTermChooserBlock(blocks.FieldBlock):

@@ -26,7 +26,7 @@ from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.utils.safestring import SafeData, mark_safe
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtail.core.models import Page
 from wagtail.contrib.forms.models import (
     AbstractForm, AbstractEmailForm, AbstractFormSubmission)

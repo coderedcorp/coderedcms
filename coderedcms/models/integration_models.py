@@ -2,7 +2,7 @@ from django.db import models
 from django.forms.widgets import Input
 from django.template import Context, Template
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core import hooks

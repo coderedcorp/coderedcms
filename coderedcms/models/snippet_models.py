@@ -4,7 +4,7 @@ Snippets are for content that is re-usable in nature.
 
 from django.db import models
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import (

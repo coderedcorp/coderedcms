@@ -25,7 +25,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Event as ICalEvent
 from modelcluster.fields import ParentalKey, ParentalManyToManyField

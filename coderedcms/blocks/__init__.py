@@ -4,7 +4,7 @@ individual files based on purpose, but provide them all as a
 single `blocks` module.
 """
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.core import blocks
 

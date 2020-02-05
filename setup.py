@@ -51,7 +51,7 @@ setup(
         'icalendar==4.0.*',
         'wagtail==2.8.*',
         'wagtailfontawesome>=1.1.4,<2.0',
-        'wagtail-cache==0.5.*',
+        'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3'
     ],
     extras_require={

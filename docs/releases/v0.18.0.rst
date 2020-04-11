@@ -1,0 +1,16 @@
+CodeRed CMS 0.18.0 release notes
+================================
+
+
+New features
+------------
+
+* Upgraded Wagtail to version 2.8
+* Now supports Django 2.1, 2.2, 3.0 and Python 3.5, 3.6, 3.7, 3.8
+
+
+Upgrade considerations
+----------------------
+
+* You may need to run ``python manage.py makemigrations website`` and
+  ``python manage.py migrate`` after upgrading.

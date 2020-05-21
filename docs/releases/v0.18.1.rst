@@ -1,0 +1,20 @@
+CodeRed CMS 0.18.1 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Custom CSS class and Custom ID set in StreamField blocks should now render
+  correctly in HTML.
+* Fix new flake8 code quality warning.
+
+
+Upgrade considerations
+----------------------
+
+Many built-in HTML templates have changed, in order to reference the correct
+block attribute (``self.settings.custom_id``) versus the incorrect
+(``self.settings.custom_css_id`` or variations of that). If you are overring or
+have copied any built-in HTML templates, please double check that you may need
+to manually fix this bug in some of your own templates as well.

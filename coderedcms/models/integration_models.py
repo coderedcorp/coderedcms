@@ -77,19 +77,21 @@ class MailchimpSubscriberIntegrationWidget(Input):
         list_library = {}
         if mailchimp.is_active:
             lists = mailchimp.get_lists()
-            for l in lists['lists']:
-                list_library[l['id']] = {
-                    'name': l['name'],
+            for mlist in lists['lists']:
+                list_library[mlist['id']] = {
+                    'name': mlist['name'],
                     'merge_fields': {},
                     'interest_categories': {}
                 }
 
-                list_library[l['id']]['merge_fields'] = mailchimp.get_merge_fields_for_list(l['id'])['merge_fields']  # noqa
-                list_library[l['id']]['interest_categories'] = mailchimp.get_interest_categories_for_list(l['id'])['categories']  # noqa
+                list_library[mlist['id']]['merge_fields'] = \
+                    mailchimp.get_merge_fields_for_list(mlist['id'])['merge_fields']
+                list_library[mlist['id']]['interest_categories'] = \
+                    mailchimp.get_interest_categories_for_list(mlist['id'])['categories']
 
-                for category in list_library[l['id']]['interest_categories']:
+                for category in list_library[mlist['id']]['interest_categories']:
                     category['interests'] = mailchimp.get_interests_for_interest_category(
-                        l['id'],
+                        mlist['id'],
                         category['id']
                     )['interests']
 

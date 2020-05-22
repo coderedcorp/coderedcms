@@ -47,6 +47,7 @@ setup(
         'django-eventtools==1.0.*',
         'django-bootstrap4',
         'Django>2.1,<3.1',              # should be the same as wagtail
+        'django-taggit<1.3',
         'geocoder>=1.38.1,<2.0',
         'icalendar==4.0.*',
         'wagtail==2.8.*',

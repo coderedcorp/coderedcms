@@ -1,0 +1,17 @@
+CodeRed CMS 0.19.0 release notes
+================================
+
+
+Bug fixes
+---------
+
+
+New features
+------------
+
+
+Upgrade considerations
+----------------------
+
+* You may need to run ``python manage.py makemigrations website`` and
+  ``python manage.py migrate`` after upgrading.

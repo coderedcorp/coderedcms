@@ -203,9 +203,9 @@ input[type='checkbox']::before, input[type='radio']::before {
 
 .logo {
     margin: 0 auto;
-    padding: 15px;
+    padding: 1em;
 }
-.logo img {
+.logo img.logo-custom {
     width:auto;
     height:auto;
     max-height:80px;
@@ -235,11 +235,6 @@ input[type='checkbox']::before, input[type='radio']::before {
 .submenu-active * {
     box-sizing: border-box;
 }
-.nav-submenu .footer {
-    color:#666;
-    position:relative;
-    width:100%;
-}
 
 @media screen and (min-width:50em) {
     li.submenu-active .nav-submenu {
@@ -248,9 +243,6 @@ input[type='checkbox']::before, input[type='radio']::before {
     li.submenu-active .nav-submenu a {
         padding-left:1em;
         width:100%;
-    }
-    .nav-submenu {
-        display:none;
     }
     .nav-submenu h2, .nav-submenu ul {
         width:100%;
@@ -268,9 +260,6 @@ input[type='checkbox']::before, input[type='radio']::before {
     .footer .avatar {
         width: 40px;
         height: 40px;
-    }
-    .submenu-active .nav-submenu {
-        display:block;
     }
 }
 
@@ -290,20 +279,20 @@ input[type='checkbox']::before, input[type='radio']::before {
 .power-by {
     background-color:#1a1a1a;
     border-top:1px solid #333;
-    font-size:12px;
+    font-size:10px;
     text-align: center;
 }
 
 .power-by a {
     color:#fff;
-    padding: 5px;
+    padding: 2px;
 }
 .power-by a:hover {
     background-color:#f00;
 }
 
 .power-by img {
-    width:85px;
+    width:75px;
     height:auto;
     padding-left:2px;
 }

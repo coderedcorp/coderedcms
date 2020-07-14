@@ -1,4 +1,5 @@
 {% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n %}
+{% wagtail_site as site %}
 
 {% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
 <div class="container">
@@ -13,9 +14,9 @@
     <a class="navbar-brand" href="/">
       {% if settings.coderedcms.LayoutSettings.logo %}
         {% image settings.coderedcms.LayoutSettings.logo original as logo %}
-        <img src="{{logo.url}}" alt="{{request.site.site_name}}" />
+        <img src="{{logo.url}}" alt="{{site.site_name}}" />
       {% else %}
-        {{request.site.site_name}}
+        {{site.site_name}}
       {% endif %}
     </a>
 

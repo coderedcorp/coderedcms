@@ -8,7 +8,7 @@ from django import template
 from django.conf import settings
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
-from wagtail.core.models import Collection
+from wagtail.core.models import Collection, Site
 from wagtail.core.rich_text import RichText
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.images.models import Image
@@ -54,16 +54,18 @@ def og_image(context, page):
     if protocol.match(settings.MEDIA_URL):
         base_url = ''
     else:
-        base_url = context['request'].site.root_url
+        base_url = Site.find_for_request(context['request']).root_url
 
     if page:
         if page.og_image:
             return base_url + page.og_image.get_rendition('original').url
         elif page.cover_image:
             return base_url + page.cover_image.get_rendition('original').url
-    if LayoutSettings.for_site(context['request'].site).logo:
-        layout_settings = LayoutSettings.for_site(context['request'].site)
+
+    layout_settings = LayoutSettings.for_request(context['request'])
+    if layout_settings.logo:
         return base_url + layout_settings.logo.get_rendition('original').url
+
     return None
 
 
@@ -94,7 +96,7 @@ def get_pictures(collection_id):
 
 @register.simple_tag(takes_context=True)
 def get_navbar_css(context):
-    layout = LayoutSettings.for_site(context['request'].site)
+    layout = LayoutSettings.for_request(context['request'])
     fixed = "fixed-top" if layout.navbar_fixed else ""
     return " ".join([
         fixed,

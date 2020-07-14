@@ -8,11 +8,10 @@ Developing CodeRed CMS
 To create a test project locally:
 
 #. Clone the code from https://github.com/coderedcorp/coderedcms.
-#. Run ``pip install -e ./[dev]`` from the root coderedcms directory.
-   The -e flag makes the install editable, which is relevant when running
-   ``makemigrations`` in test project to actually generate the migration files
-   in the coderedcms pip package. The ``[dev]`` installs extras such as sphinx
-   for generating docs.
+#. Run ``pip install -r requirements-dev.txt`` from the root coderedcms
+   directory. This will install development tools, and also make the install
+   editable, which is relevant when running ``makemigrations`` in test project
+   to actually generate the migration files in the coderedcms pip package.
 #. Follow the steps in :doc:`/getting_started/install`. Use ``testproject`` for
    your project name to ensure it is ignored by git.
 #. When making model or block changes within coderedcms, run

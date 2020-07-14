@@ -18,9 +18,12 @@ Upgrade considerations
 
 * For Wagtail 2.9 ``SiteMiddleware`` and ``request.site`` are deprecated.
   Custom code in your project should be updated as so:
+
   * In python, replace ``request.site`` with ``Site.find_for_request(request)``.
+
   * In Python, to load a site setting, replace
     ``Setting.for_site(request.site)`` with ``Setting.for_request(request)``.
+
   * In HTML templates, replace ``request.site`` with:
 
     ..code-block: html

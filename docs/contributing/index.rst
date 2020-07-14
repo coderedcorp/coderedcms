@@ -112,6 +112,20 @@ license header comment states copyright, ownership, license, and also provides c
     /* @license-end */
 
 
+Upgrading 3rd-Party CSS/JavaScript Libraries
+--------------------------------------------
+
+External front-end libraries are included in two places:
+* Source or distributables are in ``coderedcms/static/coderedcms/vendor/``.
+* Referenced via a CDN in ``coderedcms/static/coderedcms/codered-front.js``.
+
+To upgrade, replace the relevant files or links in these two sources. Then be
+sure to change any URLs if applicable within the ``base.html`` template.
+
+If changing SASS sources, be sure to test ``.scss`` files in
+``coderedcms/project_template/sass/`` which may require changes.
+
+
 Testing CodeRed CMS
 -------------------
 

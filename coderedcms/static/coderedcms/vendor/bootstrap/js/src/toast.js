@@ -1,6 +1,6 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v4.3.1): toast.js
+ * Bootstrap (v4.5.0): toast.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
  */
@@ -15,25 +15,21 @@ import Util from './util'
  */
 
 const NAME               = 'toast'
-const VERSION            = '4.3.1'
+const VERSION            = '4.5.0'
 const DATA_KEY           = 'bs.toast'
 const EVENT_KEY          = `.${DATA_KEY}`
 const JQUERY_NO_CONFLICT = $.fn[NAME]
 
-const Event = {
-  CLICK_DISMISS : `click.dismiss${EVENT_KEY}`,
-  HIDE          : `hide${EVENT_KEY}`,
-  HIDDEN        : `hidden${EVENT_KEY}`,
-  SHOW          : `show${EVENT_KEY}`,
-  SHOWN         : `shown${EVENT_KEY}`
-}
+const EVENT_CLICK_DISMISS = `click.dismiss${EVENT_KEY}`
+const EVENT_HIDE          = `hide${EVENT_KEY}`
+const EVENT_HIDDEN        = `hidden${EVENT_KEY}`
+const EVENT_SHOW          = `show${EVENT_KEY}`
+const EVENT_SHOWN         = `shown${EVENT_KEY}`
 
-const ClassName = {
-  FADE    : 'fade',
-  HIDE    : 'hide',
-  SHOW    : 'show',
-  SHOWING : 'showing'
-}
+const CLASS_NAME_FADE    = 'fade'
+const CLASS_NAME_HIDE    = 'hide'
+const CLASS_NAME_SHOW    = 'show'
+const CLASS_NAME_SHOWING = 'showing'
 
 const DefaultType = {
   animation : 'boolean',
@@ -47,9 +43,7 @@ const Default = {
   delay     : 500
 }
 
-const Selector = {
-  DATA_DISMISS : '[data-dismiss="toast"]'
-}
+const SELECTOR_DATA_DISMISS = '[data-dismiss="toast"]'
 
 /**
  * ------------------------------------------------------------------------
@@ -82,25 +76,33 @@ class Toast {
   // Public
 
   show() {
-    $(this._element).trigger(Event.SHOW)
+    const showEvent = $.Event(EVENT_SHOW)
+
+    $(this._element).trigger(showEvent)
+    if (showEvent.isDefaultPrevented()) {
+      return
+    }
 
     if (this._config.animation) {
-      this._element.classList.add(ClassName.FADE)
+      this._element.classList.add(CLASS_NAME_FADE)
     }
 
     const complete = () => {
-      this._element.classList.remove(ClassName.SHOWING)
-      this._element.classList.add(ClassName.SHOW)
+      this._element.classList.remove(CLASS_NAME_SHOWING)
+      this._element.classList.add(CLASS_NAME_SHOW)
 
-      $(this._element).trigger(Event.SHOWN)
+      $(this._element).trigger(EVENT_SHOWN)
 
       if (this._config.autohide) {
-        this.hide()
+        this._timeout = setTimeout(() => {
+          this.hide()
+        }, this._config.delay)
       }
     }
 
-    this._element.classList.remove(ClassName.HIDE)
-    this._element.classList.add(ClassName.SHOWING)
+    this._element.classList.remove(CLASS_NAME_HIDE)
+    Util.reflow(this._element)
+    this._element.classList.add(CLASS_NAME_SHOWING)
     if (this._config.animation) {
       const transitionDuration = Util.getTransitionDurationFromElement(this._element)
 
@@ -112,31 +114,30 @@ class Toast {
     }
   }
 
-  hide(withoutTimeout) {
-    if (!this._element.classList.contains(ClassName.SHOW)) {
+  hide() {
+    if (!this._element.classList.contains(CLASS_NAME_SHOW)) {
       return
     }
 
-    $(this._element).trigger(Event.HIDE)
+    const hideEvent = $.Event(EVENT_HIDE)
 
-    if (withoutTimeout) {
-      this._close()
-    } else {
-      this._timeout = setTimeout(() => {
-        this._close()
-      }, this._config.delay)
+    $(this._element).trigger(hideEvent)
+    if (hideEvent.isDefaultPrevented()) {
+      return
     }
+
+    this._close()
   }
 
   dispose() {
     clearTimeout(this._timeout)
     this._timeout = null
 
-    if (this._element.classList.contains(ClassName.SHOW)) {
-      this._element.classList.remove(ClassName.SHOW)
+    if (this._element.classList.contains(CLASS_NAME_SHOW)) {
+      this._element.classList.remove(CLASS_NAME_SHOW)
     }
 
-    $(this._element).off(Event.CLICK_DISMISS)
+    $(this._element).off(EVENT_CLICK_DISMISS)
 
     $.removeData(this._element, DATA_KEY)
     this._element = null
@@ -162,20 +163,16 @@ class Toast {
   }
 
   _setListeners() {
-    $(this._element).on(
-      Event.CLICK_DISMISS,
-      Selector.DATA_DISMISS,
-      () => this.hide(true)
-    )
+    $(this._element).on(EVENT_CLICK_DISMISS, SELECTOR_DATA_DISMISS, () => this.hide())
   }
 
   _close() {
     const complete = () => {
-      this._element.classList.add(ClassName.HIDE)
-      $(this._element).trigger(Event.HIDDEN)
+      this._element.classList.add(CLASS_NAME_HIDE)
+      $(this._element).trigger(EVENT_HIDDEN)
     }
 
-    this._element.classList.remove(ClassName.SHOW)
+    this._element.classList.remove(CLASS_NAME_SHOW)
     if (this._config.animation) {
       const transitionDuration = Util.getTransitionDurationFromElement(this._element)
 

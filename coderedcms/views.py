@@ -81,8 +81,7 @@ def search(request):
 
         # paginate results
         if results:
-            paginator = Paginator(results, GeneralSettings.for_site(
-                request.site).search_num_results)
+            paginator = Paginator(results, GeneralSettings.for_request(request).search_num_results)
             page = request.GET.get('p', 1)
             try:
                 results_paginated = paginator.page(page)
@@ -124,7 +123,7 @@ def serve_protected_file(request, path):
 
 
 def favicon(request):
-    icon = LayoutSettings.for_site(request.site).favicon
+    icon = LayoutSettings.for_request(request).favicon
     if icon:
         return HttpResponsePermanentRedirect(icon.get_rendition('original').url)
     raise Http404()

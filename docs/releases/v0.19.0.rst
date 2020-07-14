@@ -9,18 +9,42 @@ Bug fixes
 New features
 ------------
 
+* Upgraded to Wagtail 2.9
 * Upgraded to Bootstrap 4.5 and jQuery 3.5.1
 
 
 Upgrade considerations
 ----------------------
 
+* For Wagtail 2.9 ``SiteMiddleware`` and ``request.site`` are deprecated.
+  Custom code in your project should be updated as so:
+
+  * In python, replace ``request.site`` with ``Site.find_for_request(request)``.
+
+  * In Python, to load a site setting, replace
+    ``Setting.for_site(request.site)`` with ``Setting.for_request(request)``.
+
+  * In HTML templates, replace ``request.site`` with:
+
+    ..code-block: html
+
+      {% load wagtailcore_tags %}
+      {% wagtail_site as site %}
+
+      <p>Your site name is: {{site.site_name}}</p>
+
+  * Following these changes, you should then remove
+    ``wagtail.core.middleware.SiteMiddleware`` from the Django ``MIDDLEWARE``
+    (in ``settings/base.py``)
+
 * If you have overridden ``coderedcms/pages/base.html``, you may need to update
   references to ``jquery-3.4.1`` to ``jquery-3.5.1``.
+
 * If using SASS, you may need to update your ``custom.scss`` or
   ``_variables.scss`` files accordingly to support Bootstrap 4.5. Or you may
   continue using Bootstrap 4.3 by `downloading a copy of the Bootstrap 4.3
   sources <https://getbootstrap.com/docs/4.3/getting-started/download/>`_
   and changing the references in your ``custom.scss`` to use these files.
+
 * You may need to run ``python manage.py makemigrations website`` and
   ``python manage.py migrate`` after upgrading.

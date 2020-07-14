@@ -1,0 +1,11 @@
+# Install coderedcms from local directory.
+-e .
+
+# Requirements, in addition to coderedcms, needed for development.
+flake8
+libsass
+pytest-cov
+pytest-django
+sphinx
+twine
+wheel

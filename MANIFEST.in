@@ -1,4 +1,4 @@
-include LICENSE *.md *.rst *.txt
+include LICENSE README.md
 graft coderedcms
 global-exclude __pycache__
 global-exclude *.py[co]

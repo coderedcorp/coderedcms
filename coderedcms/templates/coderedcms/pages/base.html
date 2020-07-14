@@ -2,6 +2,7 @@
 {% get_settings %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
+{% wagtail_site as site %}
 
 
 <!doctype html>
@@ -23,7 +24,7 @@
 
         {# Pass in CMS variables to JavaScript #}
         <script>
-            cr_site_url = "{{request.site.root_url}}";
+            cr_site_url = "{{site.root_url}}";
             cr_external_new_tab = {{settings.coderedcms.GeneralSettings.external_new_tab|yesno:"true,false"}};
         </script>
 
@@ -33,7 +34,7 @@
 
         {# HTML SEO #}
         {% block html_seo_base %}
-        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% if not self.seo_title %} - {{request.site.site_name}}{% endif %}{% endblock %}</title>
+        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% if not self.seo_title %} - {{site.site_name}}{% endif %}{% endblock %}</title>
         <meta name="description" content="{% block description %}{% if self.search_description %}{{ self.search_description }}{% endif %}{% endblock %}" />
         <link rel="canonical" href="{% block canonical %}{{self.get_full_url}}{% endblock %}">
         {% endblock %}

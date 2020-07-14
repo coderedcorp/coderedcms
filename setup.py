@@ -33,7 +33,6 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3 :: Only',
         'Framework :: Django',
-        'Framework :: Django :: 2.1',
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.0',
         'Framework :: Wagtail',
@@ -43,35 +42,17 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
-        'beautifulsoup4>=4.5.1,<4.6.1',  # should be the same as wagtail
+        'beautifulsoup4>=4.8,<4.9',     # should be the same as wagtail
         'django-eventtools==1.0.*',
-        'django-bootstrap4',
+        'django-bootstrap4>=1.0,<2.3',  # Version 2.0 only supports Python 3.6 and up.
         'Django>2.1,<3.1',              # should be the same as wagtail
-        'django-taggit<1.3',
-        'geocoder>=1.38.1,<2.0',
+        'geocoder==1.38.*',
         'icalendar==4.0.*',
-        'wagtail==2.8.*',
-        'wagtailfontawesome>=1.1.4,<2.0',
+        'wagtail==2.9.*',
+        'wagtailfontawesome>=1.2.*',
         'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3'
     ],
-    extras_require={
-        "ci": [
-            "flake8",
-            "pytest-cov",
-            "pytest-django",
-            "sphinx"
-        ],
-        "dev": [
-            "flake8",
-            "libsass",
-            "pytest-cov",
-            "pytest-django",
-            "sphinx",
-            "twine",
-            "wheel",
-        ],
-    },
     entry_points="""
             [console_scripts]
             coderedcms=coderedcms.bin.coderedcms:main

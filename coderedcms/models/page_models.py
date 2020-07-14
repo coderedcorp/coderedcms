@@ -523,7 +523,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         Override parent to serve different templates based on querystring.
         """
         if 'amp' in request.GET and hasattr(self, 'amp_template'):
-            seo_settings = SeoSettings.for_site(request.site)
+            seo_settings = SeoSettings.for_request(request)
             if seo_settings.amp_pages:
                 if request.is_ajax():
                     return self.ajax_template or self.amp_template
@@ -1217,7 +1217,7 @@ class CoderedFormMixin(models.Model):
                     template_from_email = Template(email.from_address)
                     message_args['from_email'] = template_from_email.render(context)
                 else:
-                    genemail = GeneralSettings.for_site(request.site).from_email_address
+                    genemail = GeneralSettings.for_request(request).from_email_address
                     if genemail:
                         message_args['from_email'] = genemail
                 # Reply-to
@@ -1277,7 +1277,7 @@ class CoderedFormMixin(models.Model):
             message_args['subject'] = self.subject
         else:
             message_args['subject'] = self.title
-        genemail = GeneralSettings.for_site(request.site).from_email_address
+        genemail = GeneralSettings.for_request(request).from_email_address
         if genemail:
             message_args['from_email'] = genemail
         if self.reply_address:

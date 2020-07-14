@@ -1,0 +1,8 @@
+# Install coderedcms from local directory.
+-e .
+
+# Requirements, in addition to coderedcms, needed for CI runner.
+flake8
+pytest-cov
+pytest-django
+sphinx

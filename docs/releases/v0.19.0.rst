@@ -9,9 +9,18 @@ Bug fixes
 New features
 ------------
 
+* Upgraded to Bootstrap 4.5 and jQuery 3.5.1
+
 
 Upgrade considerations
 ----------------------
 
+* If you have overridden ``coderedcms/pages/base.html``, you may need to update
+  references to ``jquery-3.4.1`` to ``jquery-3.5.1``.
+* If using SASS, you may need to update your ``custom.scss`` or
+  ``_variables.scss`` files accordingly to support Bootstrap 4.5. Or you may
+  continue using Bootstrap 4.3 by `downloading a copy of the Bootstrap 4.3
+  sources <https://getbootstrap.com/docs/4.3/getting-started/download/>`_
+  and changing the references in your ``custom.scss`` to use these files.
 * You may need to run ``python manage.py makemigrations website`` and
   ``python manage.py migrate`` after upgrading.

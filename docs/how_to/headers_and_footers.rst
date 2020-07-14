@@ -1,5 +1,5 @@
 Create header and footer overrides
-==============================
+==================================
 
 You are new to CodeRedCMS/Wagtail, but you want to get up and running quickly...
 

@@ -54,6 +54,7 @@ from wagtail.contrib.forms.models import FormSubmission
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
+from wagtail.images import get_image_model_string
 
 from coderedcms import schema, utils
 from coderedcms.blocks import (
@@ -142,7 +143,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     ###############
 
     cover_image = models.ForeignKey(
-        'wagtailimages.Image',
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -211,7 +212,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     ###############
 
     og_image = models.ForeignKey(
-        'wagtailimages.Image',
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -235,7 +236,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         help_text=_('Leave blank to use the site name in Settings > Sites')
     )
     struct_org_logo = models.ForeignKey(
-        'wagtailimages.Image',
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -244,7 +245,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         help_text=_('Leave blank to use the logo in Settings > Layout > Logo')
     )
     struct_org_image = models.ForeignKey(
-        'wagtailimages.Image',
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

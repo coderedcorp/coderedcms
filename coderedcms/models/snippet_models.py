@@ -16,6 +16,7 @@ from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.images import get_image_model_string
 
 from coderedcms.blocks import HTML_STREAMBLOCKS, LAYOUT_STREAMBLOCKS, NAVIGATION_STREAMBLOCKS
 from coderedcms.settings import cr_settings
@@ -87,7 +88,7 @@ class CarouselSlide(Orderable, models.Model):
         verbose_name=_('Carousel'),
     )
     image = models.ForeignKey(
-        'wagtailimages.Image',
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

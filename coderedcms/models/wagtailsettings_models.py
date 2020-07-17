@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.edit_handlers import HelpPanel, FieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.images import get_image_model_string
 
 from coderedcms.settings import cr_settings
 
@@ -101,7 +102,7 @@ class LayoutSettings(BaseSetting):
         verbose_name = _('Layout')
 
     logo = models.ForeignKey(
-        'wagtailimages.Image',
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -110,7 +111,7 @@ class LayoutSettings(BaseSetting):
         help_text=_('Brand logo used in the navbar and throughout the site')
     )
     favicon = models.ForeignKey(
-        'wagtailimages.Image',
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

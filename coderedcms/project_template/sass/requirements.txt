@@ -4,7 +4,7 @@ coderedcms=={{coderedcms_release.0}}.{{coderedcms_release.1}}.*
 # Remove this if using a different email backend.
 django_sendmail_backend
 
-# To use with MariaDB or MySQL, ucomment the line below:
+# To use with MariaDB or MySQL, uncomment the line below:
 #mysqlclient
 # To use with PostgreSQL, uncomment the line below:
 #psycopg2

@@ -5,11 +5,15 @@ CodeRed CMS 0.19.0 release notes
 Bug fixes
 ---------
 
+* Support custom image models by correctly using  ``WAGTAILIMAGES_IMAGE_MODEL``
+  versus hard-coding ``wagtailimages.Image``.
+
 
 New features
 ------------
 
 * Upgraded to Wagtail 2.9
+
 * Upgraded to Bootstrap 4.5 and jQuery 3.5.1
 
 
@@ -40,11 +44,22 @@ Upgrade considerations
 * If you have overridden ``coderedcms/pages/base.html``, you may need to update
   references to ``jquery-3.4.1`` to ``jquery-3.5.1``.
 
-* If using SASS, you may need to update your ``custom.scss`` or
-  ``_variables.scss`` files accordingly to support Bootstrap 4.5. Or you may
-  continue using Bootstrap 4.3 by `downloading a copy of the Bootstrap 4.3
-  sources <https://getbootstrap.com/docs/4.3/getting-started/download/>`_
-  and changing the references in your ``custom.scss`` to use these files.
+* If using SASS, you may need to update your ``custom.scss`` and/or
+  ``_variables.scss`` files accordingly to support Bootstrap 4.5. To see what
+  you might need to change in your ``_variables.scss``, see `the variables diff
+  of Bootstrap 4.3 to 4.5`_. Or to continue using Bootstrap 4.3, `download a
+  copy of the Bootstrap 4.3 sources`_ and change the references in your
+  ``custom.scss`` to use these files.
+
+* It is assumed that all CodeRed CMS sites prior to 0.19 are using the built-in
+  Wagtail Image model, as this was previously hard-coded in CodeRed CMS. If (and
+  only if) you plan to switch to a custom image model, a custom data migration
+  will be necessary. This migration would follow the same process as any other
+  Wagtail installation; there is nothing unique relating to CodeRed CMS.
 
 * You may need to run ``python manage.py makemigrations website`` and
   ``python manage.py migrate`` after upgrading.
+
+
+.. _the variables diff of Bootstrap 4.3 to 4.5: https://github.com/coderedcorp/coderedcms/commit/fa852ebc9d714d34b25c390321e5a6d563156097#diff-a68086c64c5d52852fda5605321c3eb9
+.. _download a copy of the Bootstrap 4.3 sources: https://getbootstrap.com/docs/4.3/getting-started/download/

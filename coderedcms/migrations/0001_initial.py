@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailimages', '0020_add-verbose-name'),
         ('wagtailcore', '0040_page_draft_title'),
+        migrations.swappable_dependency(get_image_model_string()),
     ]
 
     operations = [

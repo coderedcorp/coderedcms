@@ -49,12 +49,12 @@ from wagtail.core.models import Orderable, PageBase, Page, Site
 from wagtail.core.utils import resolve_model_string
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
+from wagtail.images import get_image_model_string
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
-from wagtail.images import get_image_model_string
 
 from coderedcms import schema, utils
 from coderedcms.blocks import (
@@ -63,12 +63,17 @@ from coderedcms.blocks import (
     STREAMFORM_BLOCKS,
     ContentWallBlock,
     OpenHoursBlock,
-    StructuredDataActionBlock
+    StructuredDataActionBlock,
 )
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
-from coderedcms.models.wagtailsettings_models import GeneralSettings, LayoutSettings, SeoSettings, GoogleApiSettings  # noqa
+from coderedcms.models.wagtailsettings_models import (
+    GeneralSettings,
+    GoogleApiSettings,
+    LayoutSettings,
+    SeoSettings,
+)
 from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
 from coderedcms.wagtail_flexible_forms.models import (
     Step,
@@ -76,7 +81,7 @@ from coderedcms.wagtail_flexible_forms.models import (
     StreamFormMixin,
     StreamFormJSONEncoder,
     SessionFormSubmission,
-    SubmissionRevision
+    SubmissionRevision,
 )
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget

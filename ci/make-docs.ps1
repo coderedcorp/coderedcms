@@ -25,7 +25,8 @@ if ($ExitCode -eq 0) {
     Write-Host "Docs have been built! 📜" -ForegroundColor Green
 }
 else {
-    Write-Host "There were warnings or errors building docs. 😭" -ForegroundColor Red
+    # Write the error in a way that shows up as the failure reason in Azure Pipelines.
+    Write-Host "##vso[task.LogIssue type=error;]There were warnings or errors building the docs."
 }
 
 # Exit with sphinx's code.

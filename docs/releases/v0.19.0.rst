@@ -21,6 +21,9 @@ New features
 
 * Upgraded to Bootstrap 4.5 and jQuery 3.5.1
 
+* Button and Link blocks can now link to fragments. See new :doc:`block
+  documentation </features/blocks/index>`.
+
 * ``coderedcms start`` no longer creates a boilerplate Dockerfile. This has
   been replaced with a more thorough guide: :doc:`/how_to/docker`.
 

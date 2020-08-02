@@ -38,7 +38,8 @@ if ($ExitCode -eq 0) {
     Write-Host -ForegroundColor Green "[✔] Flake8 passed with no errors"
 }
 else {
-    Write-Host -ForegroundColor Red "[X] Flake8 exited with errors. Please resolve issues above."
+    # Write the error in a way that shows up as the failure reason in Azure Pipelines.
+    Write-Host "##vso[task.LogIssue type=error;]Flake8 exited with errors. Please resolve issues above."
 }
 
 # Unset working directory and exit with flake8's exit code.

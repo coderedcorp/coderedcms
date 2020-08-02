@@ -279,7 +279,9 @@ class LinkStructValue(blocks.StructValue):
         page = self.get('page_link')
         doc = self.get('doc_link')
         ext = self.get('other_link')
-        if page:
+        if page and ext:
+            return "{0}{1}".format(page.url, ext)
+        elif page:
             return page.url
         elif doc:
             return doc.url

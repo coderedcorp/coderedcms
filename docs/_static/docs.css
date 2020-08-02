@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 body {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
-    line-height: 1.4em;
+    font-family: "Inter",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue","Arial Nova",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
+    font-weight: 400;
+    line-height: 1.5em;
 }
 
 code, pre {
-    background-color:#f0f0f3;
+    background-color:#f1f3fa;
     font-family: SFMono-Regular,Menlo,Monaco,Consolas,monospace;
     font-size: 0.85em;
     line-height: unset;
@@ -23,12 +26,11 @@ div.body h4,
 div.body h5,
 div.body h6 {
     border: none;
-    font-weight: 600;
+    font-weight: 700;
     margin: 1.5em 0 0 0;
     padding: 0;
 }
 div.body h1 {
-    font-weight: 300;
     font-size: 2.5em;
     margin-bottom: 1em;
     line-height: 1;
@@ -55,8 +57,13 @@ div.body li li {
 }
 
 div.bodywrapper {
-    background-color:#f0f0f3;
+    background-color:#f1f3fa;
     margin: 0 0 0 300px;
+}
+
+div.document {
+    background: linear-gradient(135deg, #200030 0vh, #102060 100vh);
+    background-attachment: fixed;
 }
 
 div.related {
@@ -94,7 +101,7 @@ div.prevnext a:hover {
 div.logowrapper {
     margin: -20px -20px 40px -20px;
     padding: 20px;
-    background-color: #d33;
+    background-color: #d00;
     text-align: center;
 }
 
@@ -140,11 +147,16 @@ div.sphinxsidebarwrapper {
 
 div.sphinxsidebar {
     padding: 20px;
+    font-size: 0.875em;
+}
+div.sphinxsidebar .sphinxsidebarwrapper > ul {
+    margin-top: 40px;
 }
 div.sphinxsidebar h3 {
-    margin-top: 40px;
-    font-size: 1.6em;
-    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 0.875em;
+    font-weight: 700;
+    color: #fff;
 }
 div.sphinxsidebar input {
     font-family: inherit;
@@ -172,7 +184,7 @@ div.sphinxsidebar #searchbox input[type='submit'] {
     background-color: rgba(255,255,255,0.3);
     color: #fff;
     padding: 0.5em 0.8em;
-    font-weight: 600;
+    font-weight: 700;
     transition: .2s ease all;
 }
 div.sphinxsidebar #searchbox input[type='submit']:hover,
@@ -199,20 +211,7 @@ div.sphinxsidebar p.topless {
 div.sphinxsidebar li.toctree-l1.current > a,
 div.sphinxsidebar a.current.reference {
     color: #fff;
-    font-weight: 600;
-}
-
-#other-versions a {
-    background-color: rgba(255,255,255,0.1);
-    border-radius: 4px;
-    font-weight: 600;
-    padding: 0.1em 0.5em;
-    margin: 0.25em;
-    transition: .2s ease all;
-}
-#other-versions a:hover {
-    background-color: rgba(255,255,255,0.2);
-    transition: .2s ease all;
+    font-weight: 700;
 }
 
 div.prevnext {
@@ -285,10 +284,10 @@ table.docutils th {
 
 .mobile-header {
     display:none;
-    background-color: #d33;
+    background-color: #d00;
     color: #fff;
     text-align: center;
-    font-weight: bold;
+    font-weight: 700;
     padding: 15px;
 }
 .mobile-header a {

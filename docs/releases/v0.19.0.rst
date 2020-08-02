@@ -27,6 +27,10 @@ New features
 * ``coderedcms start`` no longer creates a boilerplate Dockerfile. This has
   been replaced with a more thorough guide: :doc:`/how_to/docker`.
 
+* As of 0.19, we will no longer maintain separate versions of docs for each
+  release. The single stable docs will contain notes for each feature if that
+  feature is changed, added, or removed in a particular release.
+
 
 Upgrade considerations
 ----------------------

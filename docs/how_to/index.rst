@@ -10,3 +10,4 @@ with CodeRed CMS.
 
     link_targets
     translation
+    docker

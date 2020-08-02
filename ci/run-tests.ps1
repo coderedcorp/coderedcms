@@ -25,6 +25,10 @@ if ($ExitCode -eq 0) {
     Write-Output "All unit tests passed! 🎉"
     Write-Output "Code coverage: $LineRate%"
 }
+else {
+    # Write the error in a way that shows up as the failure reason in Azure Pipelines.
+    Write-Host "##vso[task.LogIssue type=error;]Unit tests failed."
+}
 
 # Unset working directory and exit with pytest's code.
 Pop-Location

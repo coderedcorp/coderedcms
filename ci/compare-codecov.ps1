@@ -103,6 +103,7 @@ elseif ($branchlinerate -eq $masterlinerate) {
     exit 0
 }
 else {
-    Write-Host "Coverage decreased by $change% 😭" -ForegroundColor Red
+    # Write the error in a way that shows up as the failure reason in Azure Pipelines.
+    Write-Host "##vso[task.LogIssue type=error;]Coverage decreased by $change% 😭"
     exit 4
 }

@@ -61,11 +61,14 @@ class CreateProject(TemplateCommand):
             os.path.join(codered_path, 'project_template'),
             options['template']
         )
+
         # Check if provided template is built-in to coderedcms,
         # otherwise, do not change it.
         if os.path.isdir(template_path):
             options['template'] = template_path
-        options['extensions'] = ['py', 'md']
+
+        # Treat these files as Django templates to render the boilerplate.
+        options['extensions'] = ['py', 'md', 'txt']
         options['files'] = ['Dockerfile']
 
         # Set options
@@ -88,6 +91,9 @@ class CreateProject(TemplateCommand):
         else:
             options['domain'] = 'localhost'
             options['domain_nowww'] = options['domain']
+
+        # Add additional custom options to the context.
+        options['coderedcms_release'] = coderedcms.release
 
         # Print a friendly message
         print(message % {

@@ -34,7 +34,7 @@ DEFAULTS = {
         ('btn-dark', 'Dark'),
         ('btn-outline-primary', 'Outline Primary'),
         ('btn-outline-secondary', 'Outline Secondary'),
-        ('btn-success', 'Outline Success'),
+        ('btn-outline-success', 'Outline Success'),
         ('btn-outline-danger', 'Outline Danger'),
         ('btn-outline-warning', 'Outline Warning'),
         ('btn-outline-info', 'Outline Info'),

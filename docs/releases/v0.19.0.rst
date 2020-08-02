@@ -19,6 +19,9 @@ New features
 
 * Upgraded to Bootstrap 4.5 and jQuery 3.5.1
 
+* ``coderedcms start`` no longer creates a boilerplate Dockerfile. This has
+  been replaced with a more thorough guide: :doc:`/how_to/docker`.
+
 
 Upgrade considerations
 ----------------------

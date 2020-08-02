@@ -8,6 +8,8 @@ Bug fixes
 * Support custom image models by correctly using  ``WAGTAILIMAGES_IMAGE_MODEL``
   versus hard-coding ``wagtailimages.Image``.
 
+* Fix custom CSS class and Google Maps API key in Google Map block.
+
 * ``coderedcms start`` now pins the version of CodeRed CMS in the generated
   ``requirements.txt`` file.
 

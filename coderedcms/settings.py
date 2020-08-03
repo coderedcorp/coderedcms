@@ -12,7 +12,18 @@ DEFAULTS = {
     'PROTECTED_MEDIA_URL': '/protected/',
     'PROTECTED_MEDIA_ROOT': os.path.join(BASE_DIR, 'protected'),
     'PROTECTED_MEDIA_UPLOAD_WHITELIST': [],
-    'PROTECTED_MEDIA_UPLOAD_BLACKLIST': ['.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'],  # noqa
+    'PROTECTED_MEDIA_UPLOAD_BLACKLIST': [
+        '.sh', '.exe', '.bat', '.ps1', '.app', '.jar', '.py', '.php', '.pl', '.rb'
+    ],
+
+    'FRONTEND_ALIGN_DEFAULT': '',
+    'FRONTEND_ALIGN_CHOICES': (
+        ('', 'Default'),
+        ('text-left', 'Left'),
+        ('text-center', 'Center'),
+        ('text-right', 'Right'),
+        ('text-justify', 'Right'),
+    ),
 
     'FRONTEND_BTN_SIZE_DEFAULT': '',
     'FRONTEND_BTN_SIZE_CHOICES': (
@@ -97,7 +108,19 @@ DEFAULTS = {
         ('navbar-expand-xl', 'xl - Show on extra large screens (desktop, wide monitor)'),
     ),
 
-    'FRONTEND_THEME_HELP': "Change the color palette of your site with a Bootstrap theme. Powered by Bootswatch https://bootswatch.com/.",  # noqa
+    'FRONTEND_PADDING_DEFAULT': '',
+    'FRONTEND_PADDING_CHOICES': (
+        ('', 'Default'),
+        ('cr-p-0', 'No padding'),
+        ('cr-p-1', 'Small padding'),
+        ('cr-p-2', 'Medium padding'),
+        ('cr-p-3', 'Large padding'),
+    ),
+
+    'FRONTEND_THEME_HELP': (
+        "Change the color palette of your site with a Bootstrap theme. "
+        "Powered by Bootswatch https://bootswatch.com/."
+    ),
     'FRONTEND_THEME_DEFAULT': '',
     'FRONTEND_THEME_CHOICES': (
         ('', 'Default - Classic Bootstrap'),

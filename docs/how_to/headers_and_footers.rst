@@ -1,19 +1,58 @@
-Create header and footer overrides
-==================================
+Customize Navbar and Footer
+===========================
 
-You are new to CodeRedCMS/Wagtail, but you want to get up and running quickly...
+Navbar
+------
 
-It isn't immediately obvious how to edit the header and a footer hasn't been created yet.
+The navbar (also known as Navigation Bar, Header, or Menu) is a shared piece
+navigation. CodeRed CMS shows an area for the navbar at the top of most pages on
+the site. The logo and style of the navbar can be customized under **Settings >
+Layout**. The links shown in the navbar can be customized by creating a "Navbar"
+snippet under **Snippets > Navbar**.
 
-A header snippet is created and inserted for you by CodeRedCMS automatically, which is a nice thing that a vanilla Wagtail installation does not have.
+.. note::
 
-Customizing the stock navbar can be accomplished by baked in conventional override.
+    Each Navbar snippet is rendered sequentially in the navbar area. This currently
+    does not support multi-site, i.e. all Navbar snippets are present on all sites.
 
-You will need to add a file into the **templates\coderedcms\snippets** directory. You will likely need to create the aforementioned snippets directory.
+Customizing the design of the stock navbar can be accomplished by baked in
+Django template overrides.
 
-Into that directory you will create a file called "navbar.html" . This file will be used instead of the navbar.html file of the CodeRedCMS pip package.
+Create a ``templates\coderedcms\snippets`` directory in your project,
+most likely in the ``website`` directory.
 
-It is advisable to initially use the contents of `CodeRedCMS - Master Branch - navbar.html <https://github.com/coderedcorp/coderedcms/blob/master/coderedcms/templates/coderedcms/snippets/navbar.html>`_ .
-...Advisable, but not necessary.
+In that directory create a file called ``navbar.html``. This file will then
+override the ``navbar.html`` file included with CodeRed CMS.
 
-For the footer, you can add a footer snippet via the built in GUI admin interface under **Snippets > Footer**
+It is advisable to initially copy the contents of `CodeRed CMS navbar.html`_, but
+not necessary.
+
+.. _CodeRed CMS navbar.html: https://github.com/coderedcorp/coderedcms/blob/master/coderedcms/templates/coderedcms/snippets/navbar.html
+
+
+Footer
+------
+
+The footer is a shared piece of content shown at the bottom of every page on the
+site. Content can be added to the footer by creating a "Footer" snippet under
+**Snippets > Footer**.
+
+.. note::
+
+    Each Footer snippet is rendered sequentially in the footer area. This
+    currently does not support multi-site, i.e. all Footer snippets are present
+    on all sites.
+
+Customizing the design of the sock footer can be accomplished similarly to the
+navbar, by overriding the Django template.
+
+Create a ``templates/coderedcms/snippets/`` directory in your project,
+most likely in the ``website`` directory.
+
+In that directory create a filed named ``footer.html``. This file will then
+override the ``footer.html`` file included with CodeRed CMS.
+
+Similarly, it is advisable to initially copy the contents of `CodeRed CMS
+footer.html`_, but not necessary.
+
+.. _CodeRed CMS footer.html: https://github.com/coderedcorp/coderedcms/blob/master/coderedcms/templates/coderedcms/snippets/footer.html

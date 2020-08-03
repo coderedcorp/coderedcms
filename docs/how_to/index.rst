@@ -8,6 +8,7 @@ with CodeRed CMS.
 .. toctree::
     :maxdepth: 1
 
+    headers_and_footers
     link_targets
     translation
     docker

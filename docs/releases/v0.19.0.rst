@@ -27,6 +27,8 @@ New features
 * ``coderedcms start`` no longer creates a boilerplate Dockerfile. This has
   been replaced with a more thorough guide: :doc:`/how_to/docker`.
 
+* New guide: :doc:`/how_to/headers_and_footers`
+
 * As of 0.19, we will no longer maintain separate versions of docs for each
   release. The single stable docs will contain notes for each feature if that
   feature is changed, added, or removed in a particular release.
@@ -45,7 +47,7 @@ Upgrade considerations
 
   * In HTML templates, replace ``request.site`` with:
 
-    ..code-block: html
+    .. code-block:: html
 
       {% load wagtailcore_tags %}
       {% wagtail_site as site %}
@@ -78,3 +80,9 @@ Upgrade considerations
 
 .. _the variables diff of Bootstrap 4.3 to 4.5: https://github.com/coderedcorp/coderedcms/commit/fa852ebc9d714d34b25c390321e5a6d563156097#diff-a68086c64c5d52852fda5605321c3eb9
 .. _download a copy of the Bootstrap 4.3 sources: https://getbootstrap.com/docs/4.3/getting-started/download/
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.19.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/26?closed=1>`_.

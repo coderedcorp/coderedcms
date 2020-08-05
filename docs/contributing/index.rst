@@ -295,6 +295,13 @@ Output will be in ``docs/_build/html/`` directory.
 Publishing a New Release
 ------------------------
 
+.. note::
+
+    For creating pre-releases, use the "rc" version specifier in
+    ``coderedcms/__init__.py``. When publishing a production release, leave this
+    blank. After a release is completed, increment the version and add the
+    "dev0" version specifier.
+
 First checkout the code/branch for release.
 
 Next build a pip package:
@@ -315,19 +322,11 @@ Finally build and update docs:
 
     $ ./ci/make-docs.ps1
 
-If updating docs for an existing minor version release:
+If updating docs for an existing major version release:
 
 #. Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under
    the existing version directory.
 
-If this is a new major or minor version release:
-
-#. Create a new ``major.minor`` directory on the CodeRed docs server.
-#. Update the ``stable`` symbolic link to point to the new version directory.
-#. Add the new version to the ``versions.txt`` file on the docs server.
-#. Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under
-   the new version directory.
-
-Note that we do not release separate documentation versions for maintenance
-releases. Update the existing minor version docs with release notes and other
-changes.
+Note that we do not release separate documentation versions for minor or
+maintenance releases. Update the existing major version docs with release notes
+and other changes.

@@ -68,7 +68,7 @@
 
         {% block frontend_assets %}
             {% if settings.coderedcms.LayoutSettings.frontend_theme %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.1/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
             {% else %}
             <link rel="stylesheet" href="{% static 'coderedcms/vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
             {% endif %}

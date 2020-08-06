@@ -5,10 +5,13 @@
 /// or from your own local directory as needed.
 ///
 
-// Import Bootstrap and use custom variables.
+// Import Bootstrap sass utility functions.
 @import "coderedcms/vendor/bootstrap/scss/functions";
-//@import "coderedcms/vendor/bootstrap/scss/variables";
+
+// Use custom variables, and fallback to Bootstrap default variables.
 @import "variables";
+@import "coderedcms/vendor/bootstrap/scss/variables";
+
 // Import the rest of Bootstrap, as needed.
 @import "coderedcms/vendor/bootstrap/scss/mixins";
 @import "coderedcms/vendor/bootstrap/scss/root";

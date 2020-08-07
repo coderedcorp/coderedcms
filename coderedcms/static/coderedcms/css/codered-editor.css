@@ -165,6 +165,7 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 
 .Draftail-Toolbar {
     background-color:transparent !important;
+    border: none !important;
     border-radius:0 !important;
     color:rgba(0,0,0,0.2) !important;
     padding: 0 !important;

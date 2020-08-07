@@ -27,6 +27,10 @@ New features
 * ``coderedcms start`` no longer creates a boilerplate Dockerfile. This has
   been replaced with a more thorough guide: :doc:`/how_to/docker`.
 
+* The boilerplate ``.scss`` files created when starting a new SASS project have
+  been simplified. See upgrade considerations below if you'd like to simplify
+  your ``.scss`` files created from an older version of CodeRed CMS.
+
 * New guide: :doc:`/how_to/headers_and_footers`
 
 * As of 0.19, we will no longer maintain separate versions of docs for each
@@ -63,10 +67,10 @@ Upgrade considerations
 
 * If using SASS, you may need to update your ``custom.scss`` and/or
   ``_variables.scss`` files accordingly to support Bootstrap 4.5. To see what
-  you might need to change in your ``_variables.scss``, see `the variables diff
-  of Bootstrap 4.3 to 4.5`_. Or to continue using Bootstrap 4.3, `download a
-  copy of the Bootstrap 4.3 sources`_ and change the references in your
-  ``custom.scss`` to use these files.
+  you might need to change, see `the files from our sass starter project`_. Or
+  to continue using Bootstrap 4.3, `download a copy of the Bootstrap 4.3
+  sources`_ and change the references in your ``custom.scss`` to use these
+  files.
 
 * It is assumed that all CodeRed CMS sites prior to 0.19 are using the built-in
   Wagtail Image model, as this was previously hard-coded in CodeRed CMS. If (and
@@ -78,7 +82,7 @@ Upgrade considerations
   ``python manage.py migrate`` after upgrading.
 
 
-.. _the variables diff of Bootstrap 4.3 to 4.5: https://github.com/coderedcorp/coderedcms/commit/fa852ebc9d714d34b25c390321e5a6d563156097#diff-a68086c64c5d52852fda5605321c3eb9
+.. _the files from our sass starter project: https://github.com/coderedcorp/coderedcms/tree/master/coderedcms/project_template/sass/website/static/website/src
 .. _download a copy of the Bootstrap 4.3 sources: https://getbootstrap.com/docs/4.3/getting-started/download/
 
 

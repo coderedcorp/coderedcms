@@ -31,11 +31,23 @@ New features
   been simplified. See upgrade considerations below if you'd like to simplify
   your ``.scss`` files created from an older version of CodeRed CMS.
 
-* New guide: :doc:`/how_to/headers_and_footers`
-
 * As of 0.19, we will no longer maintain separate versions of docs for each
   release. The single stable docs will contain notes for each feature if that
   feature is changed, added, or removed in a particular release.
+
+
+Documentation
+-------------
+
+See the following new guides!
+
+* :doc:`/how_to/headers_and_footers`
+
+* :doc:`/how_to/docker`
+
+* :doc:`/how_to/use_custom_image_model`
+
+* :doc:`/how_to/convert_image_model`
 
 
 Upgrade considerations

@@ -14,7 +14,6 @@ For the sake of this guide, we will assume your Django project is named
 .. _install Docker: https://docs.Docker.com/engine/install/
 
 
-
 Step 1: Choose How to Use Docker
 --------------------------------
 
@@ -25,7 +24,6 @@ The most common way of working with Docker is to create a static Docker image,
 containing all of your code, which is effectively versioned in tandem with your
 git repository. Each time you change your project code, you also create a new
 version of the image. Because this image is effectively static and mirrors
-
 version control, there is no way to store dynamic files such as a database or
 media files. In this setup, you would want to use 3rd party services such as AWS
 S3 for files, or AWS RDS for database. Nearly all cloud platforms provide
@@ -125,9 +123,8 @@ extension). Copy the contents below into the file:
     CMD exec waitress serve --listen "*:8000" "myproject.wsgi:application"
 
 
-Step 2: Build and Run Your Image
---------------------------------
-
+Step 2: Build Your Image
+------------------------
 
 Next, with Docker running on your machine, create an image by running the
 following from your command line, replacing ``/path/to/Dockerfile`` and
@@ -145,6 +142,10 @@ to change this tag every time you build the image. Docker image tags work
 essentially like version control, as such many people choose to use their
 current git commit ID as the tag. If you are using the "Image as Environment"
 approach, then this tag would likely be your Python version, e.g. ``py3.8.1``
+
+
+Step 3: Run a Container Using the Image
+---------------------------------------
 
 Now, create a container using the image. If using the "Versioned Image"
 approach:

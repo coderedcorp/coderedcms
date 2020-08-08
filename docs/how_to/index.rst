@@ -12,3 +12,5 @@ with CodeRed CMS.
     link_targets
     translation
     docker
+    use_custom_image_model
+    convert_image_model

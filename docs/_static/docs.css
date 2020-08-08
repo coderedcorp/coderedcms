@@ -240,24 +240,54 @@ div.footer {
     clear: both;
 }
 
-div.admonition {
+div.admonition,
+div.versionadded,
+div.versionchanged,
+div.deprecated {
     background-color: #fafcff;
-    border-color: #d0e0f0;
+    border: 1px solid #d0e0f0;
     border-radius: 4px;
     border-width: 1.5px;
     color: #248;
     padding: 1em;
+    margin: 1em 0;
 }
-div.admonition code {
+div.admonition code,
+div.versionadded code,
+div.versionchanged code,
+div.deprecated code {
     background-color: #edeff2;
 }
-div.admonition.warning {
+div.admonition.warning,
+div.versionchanged,
+div.deprecated {
     background-color:#fffcfa;
     border-color:#f0e0d0;
     color:#842;
 }
-div.admonition.warning code {
+div.admonition.warning code,
+div.versionchanged code,
+div.deprecated code {
     background-color: #f5e5d5;
+}
+div.admonition > :last-child,
+div.versionadded > :last-child,
+div.versionchanged > :last-child,
+div.deprecated > :last-child {
+    margin-bottom: 0;
+}
+div.admonition > :first-child,
+div.versionadded > :first-child,
+div.versionchanged > :first-child,
+div.deprecated > :first-child {
+    margin-top: 0;
+}
+p.admonition-title,
+span.versionmodified {
+    font-weight: 700;
+    font-style: normal;
+    margin: 0 0.5em 0 0;
+    display: inline;
 }
 
 div.figure img {

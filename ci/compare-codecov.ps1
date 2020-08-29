@@ -73,8 +73,8 @@ if (Test-Path -Path $coveragePath) {
     [xml]$BranchXML = Get-Content $coveragePath
 }
 else {
-    Write-Host  -ForegroundColor Red `
-        "No code coverage from this build. Is pytest configured to output code coverage? Exiting."
+    Write-Host `
+        "##vso[task.LogIssue type=warning;]No code coverage from this build. Is pytest configured to output code coverage?"
     exit 1
 }
 $branchlinerate = [math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 2)
@@ -103,7 +103,7 @@ elseif ($branchlinerate -eq $devlinerate) {
     exit 0
 }
 else {
-    # Write the error in a way that shows up as the failure reason in Azure Pipelines.
-    Write-Host "##vso[task.LogIssue type=error;]Coverage decreased by $change% 😭"
-    exit 4
+    # Write the error in a way that shows up as a warning in Azure Pipelines.
+    Write-Host "##vso[task.LogIssue type=warning;]Coverage decreased by $change% 😭"
+    exit 0
 }

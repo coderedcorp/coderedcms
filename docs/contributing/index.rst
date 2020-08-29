@@ -50,11 +50,10 @@ A Note on Cross-Platform Support
 CodeRed CMS works equally well on Windows, macOS, and Linux. When adding new features
 or new dependencies, ensure that these utilize proper cross-platform utilities in Python.
 
-To ease local development of CodeRed CMS, we have many automation scripts using
-`PowerShell Core <https://github.com/powershell/powershell>`_ because it provides high quality
-commercial support for Windows, macOS, and Linux. Throughout this contributing guide,
-you will encounter various PowerShell scripts which always provide the easiest and most
-definitive way of working on CodeRed CMS.
+To ease local development of CodeRed CMS, we have some automation scripts using
+cross-platform `PowerShell Core <https://github.com/powershell/powershell>`_.
+Throughout this contributing guide, you will encounter various PowerShell
+scripts which provide an easy way of running quality control measures.
 
 Our goal is that users of any platform can develop or host a CodeRed CMS website easily.
 
@@ -133,7 +132,7 @@ report and code coverage report:
 
 .. code-block:: console
 
-    $ pytest coderedcms/ --ds=coderedcms.tests.settings --junitxml=junit/test-results.xml --cov=coderedcms --cov-report=xml --cov-report=html
+    $ pytest coderedcms/
 
 Or more conveniently, run the PowerShell script, which will also print out the
 code coverage percentage in the console:
@@ -204,7 +203,7 @@ codebase, run:
 
 Alternatively, our continuous integration only analyzes the diff between your
 changes and master. To analyze just the diff of your current changes, run the
-`PowerShell Core <https://github.com/powershell/powershell>`_ script:
+PowerShell script:
 
 .. code-block:: console
 

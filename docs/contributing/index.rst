@@ -7,7 +7,7 @@ Developing CodeRed CMS
 
 To create a test project locally:
 
-#. Clone the code from https://github.com/coderedcorp/coderedcms.
+#. Clone the code from https://github.com/coderedcorp/coderedcms (dev branch).
 #. Run ``pip install -r requirements-dev.txt`` from the root coderedcms
    directory. This will install development tools, and also make the install
    editable, which is relevant when running ``makemigrations`` in test project
@@ -38,10 +38,24 @@ Each production project that uses coderedcms should specify the appropriate
 version in its requirements.txt to prevent breakage.
 
 .. note::
-    When testing existing projects with coderedcms installed from the master or
-    development branches, be sure to use a disposable database, as it is likely
-    that the migrations in master will not be the same migrations that get
-    released.
+    When testing existing projects with coderedcms installed from a development
+    branch, be sure to use a disposable database, as it is likely that the
+    migrations will not be the same migrations that get released.
+
+
+Branching Strategy
+------------------
+
+Primary development takes place in individual branches for each feature or bug.
+Changes are then made as a pull request against the ``dev`` branch.
+
+The ``dev`` branch is the primary working branch, representing the development
+version of coderedcms.
+
+Releases are maintained in ``release/X.Y`` branches, where X is the Major
+version and Y is the Minor version. Maintenance patches are applied in ``dev``
+(if applicable) and then merged or cherry-picked into the respective release
+branch.
 
 
 A Note on Cross-Platform Support
@@ -101,7 +115,7 @@ license header comment states copyright, ownership, license, and also provides c
     /*
     CodeRed CMS (https://www.coderedcorp.com/cms/)
     Copyright 2018-2019 CodeRed LLC
-    License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+    License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
     @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
     */
 
@@ -144,8 +158,8 @@ code coverage percentage in the console:
 Detailed test coverage reports are now available by opening ``htmlcov/index.html``
 in your browser (which is ignored by version control).
 
-To compare your current code coverage against the code coverage of the master
-branch (based on latest Azure Pipeline build from master) run:
+To compare your current code coverage against the code coverage of the dev
+branch (based on latest Azure Pipeline build from dev) run:
 
 .. code-block:: console
 
@@ -202,8 +216,8 @@ codebase, run:
     $ flake8 .
 
 Alternatively, our continuous integration only analyzes the diff between your
-changes and master. To analyze just the diff of your current changes, run the
-PowerShell script:
+changes and the dev branch. To analyze just the diff of your current changes,
+run the PowerShell script:
 
 .. code-block:: console
 
@@ -231,10 +245,10 @@ request process to ensure quality.**
 Merging Pull Requests
 ---------------------
 
-Follow these guidelines to merge a pull request into the master branch:
+Follow these guidelines to merge a pull request into the dev branch:
 
 * Unit tests pass.
-* Code coverage is not lower than master branch.
+* Code coverage is not lower than dev branch.
 * Documentation builds, and the PR provides documentation (release notes at a
   minimum).
 * If there is a related issue, the issue is referenced and/or closed (if
@@ -246,11 +260,11 @@ Follow these guidelines to merge a pull request into the master branch:
 In the event that the pull request needs more work that the author is unable to
 provide, the following process should be followed:
 
-* Create a new branch from master in the form of ``merge/pr-123`` where 123 is
+* Create a new branch from dev in the form of ``merge/pr-123`` where 123 is
   the original pull request number.
-* Edit the pull request to merge into the new branch instead of master.
+* Edit the pull request to merge into the new branch instead of dev.
 * Make the necessary changes and submit for review using the normal process.
-* When merging this branch into master, follow the same process above, but be
+* When merging this branch into dev, follow the same process above, but be
   sure to credit the original author(s) by adding their names to the bottom of
   the commit message as so (see
   `GitHub documentation <https://help.github.com/en/articles/creating-a-commit-with-multiple-authors>`_):

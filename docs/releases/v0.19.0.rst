@@ -94,7 +94,7 @@ Upgrade considerations
   ``python manage.py migrate`` after upgrading.
 
 
-.. _the files from our sass starter project: https://github.com/coderedcorp/coderedcms/tree/master/coderedcms/project_template/sass/website/static/website/src
+.. _the files from our sass starter project: https://github.com/coderedcorp/coderedcms/tree/dev/coderedcms/project_template/sass/website/static/website/src
 .. _download a copy of the Bootstrap 4.3 sources: https://getbootstrap.com/docs/4.3/getting-started/download/
 
 

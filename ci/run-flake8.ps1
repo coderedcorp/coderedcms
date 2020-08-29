@@ -14,9 +14,9 @@ Push-Location $projectDir
 
 # Get the diff for the current branch.
 $ExitCode = 0
-$GitDiff = git diff origin/master
+$GitDiff = git diff origin/dev
 
-# If there is no diff between master, then flake8 everything.
+# If there is no diff between dev, then flake8 everything.
 if ( $null -eq $GitDiff ) {
     flake8 .
     if ($LastExitCode -ne 0) { $ExitCode = $LastExitCode }

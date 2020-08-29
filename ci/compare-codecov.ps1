@@ -102,6 +102,13 @@ elseif ($branchlinerate -eq $devlinerate) {
     Write-Host "Coverage has not changed." -ForegroundColor Green
     exit 0
 }
+elseif ($change -gt 2) {
+    # Coverage measurements seem to be a bit flaky in azure pipelines and will
+    # report changes within a few fractions of a percent even when there are no
+    # changes. If coverage decreased by more than 2%, fail with error.
+    Write-Host "##vso[task.LogIssue type=error;]Coverage decreased by $change% 😭"
+    exit 1
+}
 else {
     # Write the error in a way that shows up as a warning in Azure Pipelines.
     Write-Host "##vso[task.LogIssue type=warning;]Coverage decreased by $change% 😭"

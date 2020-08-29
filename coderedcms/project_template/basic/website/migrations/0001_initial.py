@@ -1,7 +1,8 @@
 {% comment %}
  """
- IMPORTANT!!! This file must be wrapped in `verbatim` tags to avoid accidentally rendering
- any labels/help text that might be interpreted as a django template tag (i.e. {{ }} )
+ IMPORTANT!!! This file must be wrapped in `verbatim` tags to avoid accidentally
+ rendering any labels/help text that might be interpreted as a django template
+ tag (i.e. {{ }} )
  """
 {% endcomment %}
 {% verbatim %}

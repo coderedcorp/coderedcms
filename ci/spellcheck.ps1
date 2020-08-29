@@ -15,7 +15,8 @@ Push-Location $projectDir
 $ExitCode = 0
 
 # Run spell checker.
-codespell --skip="migrations,vendor,*.png,*.jpg,*.css.map,_build" coderedcms docs
+codespell --skip="migrations,vendor,_build,*.css.map,*.jpg,*.png,*.pyc" `
+    coderedcms docs
 $ExitCode = $LastExitCode
 
 # Print output.

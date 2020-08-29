@@ -1,5 +1,5 @@
 """
-Createable pages used in CodeRed CMS.
+Creatable pages used in CodeRed CMS.
 """
 from modelcluster.fields import ParentalKey
 from coderedcms.forms import CoderedFormField
@@ -74,7 +74,6 @@ class FormConfirmEmail(CoderedEmail):
 class WebPage(CoderedWebPage):
     """
     General use page with featureful streamfield and SEO attributes.
-    Template renders all Navbar and Footer snippets in existance.
     """
     class Meta:
         verbose_name = 'Web Page'

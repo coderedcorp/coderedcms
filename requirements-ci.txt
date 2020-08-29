@@ -2,6 +2,7 @@
 -e .
 
 # Requirements, in addition to coderedcms, needed for CI runner.
+codespell
 flake8
 pytest-cov
 pytest-django

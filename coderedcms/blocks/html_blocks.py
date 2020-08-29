@@ -98,7 +98,7 @@ class EmbedGoogleMapBlock(BaseBlock):
 
 class EmbedVideoBlock(BaseBlock):
     """
-    Emedded media using stock wagtail functionality.
+    Embedded media using stock wagtail functionality.
     """
     url = EmbedBlock(
         required=True,

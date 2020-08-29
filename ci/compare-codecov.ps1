@@ -26,7 +26,7 @@ with multiple pipelines.
 param(
     [string] $wd = (Get-Item (Split-Path $PSCommandPath -Parent)).Parent,
     [string] $org = "coderedcorp",
-    [string] $project = "coderedcms",
+    [string] $project = "cr-github",
     [string] $pipeline_name = "coderedcms"
 )
 

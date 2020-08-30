@@ -41,11 +41,11 @@
 
 {% block content %}
     <article class="codered-article {%if self.cover_image %}has-img{% endif %}">
+        <div class="container">
         {% if self.cover_image %}
         {% image self.cover_image fill-2000x1000 as cover_image %}
         <img src="{{cover_image.url}}" class="w-100" />
         {% endif %}
-        <div class="container">
             <div class="article-header">
                 <h1 {% if not self.cover_image %}class="mt-5"{% endif %}>{{ self.title }}</h1>
                 {% if self.caption %}

@@ -13,7 +13,7 @@ Logging in
 Navigate to http://localhost:8000/admin/ and log in with the username
 and password you created with the ``python manage.py createsuperuser`` command.
 
-After logging in, you will be taken to the admin dashboard, also known as the "Wagtail Admin".
+After logging in, you will be taken to the admin dashboard - also known as the "Wagtail Admin".
 
 .. figure:: img/tutorial_admin.png
     :alt: The admin dashboard.
@@ -34,7 +34,7 @@ To change the name, go to **Settings > Sites**, and click on the site that is th
     is for use with multi-sites. For example, if you have a parent company that operates many separate
     brand websites within one CMS, then ``WAGTAIL_SITE_NAME`` would be the name of the parent company.
 
-For my website, I'm going to change **Settings > Sites > Site name** to "Contoso Building Solutions".
+For my website, I'm going to change **Settings > Sites > Site name** to "Simple Sweet Desserts".
 
 .. figure:: img/tutorial_sitename.png
     :alt: Changing the site name.
@@ -43,10 +43,10 @@ For my website, I'm going to change **Settings > Sites > Site name** to "Contoso
 
 And edit ``mysite/settings/base.py`` by changing ``WAGTAIL_SITE_NAME`` as so::
 
-    WAGTAIL_SITE_NAME = 'Contoso Ltd.'
+    WAGTAIL_SITE_NAME = 'Simple Sweet Desserts Ltd.'
 
-Now the admin dashboard and login page show "Contoso Ltd.", and the Home page at http://localhost:8000/
-will show "Contoso Building Solutions".
+Now the admin dashboard and login page show "Simple Sweet Desserts Ltd.", and the Home page at http://localhost:8000/
+will show "Simple Sweet Desserts".
 
 
 Adding your logo

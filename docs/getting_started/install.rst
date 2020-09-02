@@ -5,6 +5,21 @@ Installation
 Basic Installation
 ------------------
 
+#. Make a directory (folder) for your project.
+#. Create a virtual environment. 
+    **Not sure how to create a virtual environment?**
+    Creating a virtual environment for your project only involves a few commands.
+    If you're on a Windows machine, you would run something like the following:
+
+    .. code-block:: console
+
+        $ python -m venv C:\Users\YourComputer\env\name_of_virtual_environment
+
+    You can name your virtual environment anything you like. It is just for your use
+    on your computer. 
+    Learn more about virtual environments by visting the `Python documentation on virtual
+    environments here <https://docs.python.org/3/tutorial/venv.html>`_.
+
 #. Run ``pip install coderedcms``
 #. Run ``coderedcms start mysite --sitename "My Company Inc." --domain www.example.com``
 

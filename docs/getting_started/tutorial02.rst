@@ -51,7 +51,7 @@ Great success!
 Adding cards to the home page
 -----------------------------
 
-Next, let's say my company offers three different services, and I'd like to add three
+Next, let's say my company offers three different baked goods, and I'd like to add three
 uniformly-sized cards on the home page representing that. Go back to the tab with the home page
 editor. All the way at the bottom of the page, click the "+" icon directly below the "Hero Unit" block.
 This will add a new block directly below the hero unit.

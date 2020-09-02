@@ -8,7 +8,7 @@ Adding a hero unit to the home page
 -----------------------------------
 
 In the admin dashboard, select **Pages >**. This will open a tree-style view of all the pages
-on our site. For now, the only page is Home Page. Click end pencil icon to edit the page, or click
+on our site. For now, the only page is Home Page. Click the pencil icon to edit the page, or click
 "Home Page" and then the "Edit" button.
 
 Here in the body section is where we can add our content. Each component in this section is called
@@ -20,7 +20,7 @@ First, let's make a big flashy hero unit. A hero unit in CodeRed CMS is a block 
 a full-width background image or background color, and has lots of padding by default.
 
 Select the **Hero Unit** block. Next set a background image or color - I'm going to download and use
-`this image <https://unsplash.com/photos/jwhqbR3clzQ>`_ from `Unsplash <https://unsplash.com>`_.
+`this image <https://pixabay.com/photos/cupcake-bakery-dessert-sweet-4457880/>`_ from `Pixabay <https://pixabay.com>`_.
 
 Now to add content to our hero unit, under the Content field select **Responsive Grid Row** and then
 a **Column**. Inside my column I'll add **Text** and format it.

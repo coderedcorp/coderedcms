@@ -12,6 +12,7 @@ Getting Started
     tutorial05
     tutorial06
     tutorial07
+    tutorial08
     customize_design
     customize_develop
     django_settings

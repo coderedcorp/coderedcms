@@ -76,8 +76,8 @@ stages:
   dependsOn: Unit_Tests
   condition: succeeded('Unit_Tests')
   jobs:
-  - job: flake8
-    displayName: flake8
+  - job: linters
+    displayName: Linters
     pool:
       vmImage: 'ubuntu-latest'
 
@@ -91,11 +91,14 @@ stages:
     - script: python -m pip install -r requirements-ci.txt
       displayName: 'CR-QC: Install coderedcms from local repo'
 
+    - pwsh: ./ci/spellcheck.ps1
+      displayName: 'CR-QC: Spelling'
+
     - script: coderedcms start testproject
       displayName: 'CR-QC: Generate a test project'
 
     - pwsh: ./ci/run-flake8.ps1
-      displayName: 'CR-QC: Static analysis (flake8)'
+      displayName: 'CR-QC: Flake8'
 
   - job: codecov
     displayName: Code Coverage

@@ -1,5 +1,5 @@
 """
-Bases, mixins, and utilites for blocks.
+Bases, mixins, and utilities for blocks.
 """
 
 from django import forms

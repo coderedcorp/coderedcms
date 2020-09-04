@@ -17,30 +17,30 @@ from coderedcms.settings import cr_settings
 from coderedcms.utils import attempt_protected_media_value_conversion
 
 FORM_FIELD_CHOICES = (
-    (_('Text'), (
-        ('singleline', _('Single line text')),
-        ('multiline', _('Multi-line text')),
-        ('email', _('Email')),
-        ('number', _('Number - only allows integers')),
-        ('url', _('URL')),
+    (_("Text"), (
+        ("singleline", _("Single line text")),
+        ("multiline", _("Multi-line text")),
+        ("email", _("Email")),
+        ("number", _("Number - only allows integers")),
+        ("url", _("URL")),
     ),),
-    (_('Choice'), (
-        ('checkboxes', _('Checkboxes')),
-        ('dropdown', _('Drop down')),
-        ('radio', _('Radio buttons')),
-        ('multiselect', _('Multiple select')),
-        ('checkbox', _('Single checkbox')),
+    (_("Choice"), (
+        ("checkboxes", _("Checkboxes")),
+        ("dropdown", _("Drop down")),
+        ("radio", _("Radio buttons")),
+        ("multiselect", _("Multiple select")),
+        ("checkbox", _("Single checkbox")),
     ),),
-    (_('Date & Time'), (
-        ('date', _('Date')),
-        ('time', _('Time')),
-        ('datetime', _('Date and time')),
+    (_("Date & Time"), (
+        ("date", _("Date")),
+        ("time", _("Time")),
+        ("datetime", _("Date and time")),
     ),),
-    (_('File Upload'), (
-        ('file', _('Secure File - login required to access uploaded files')),
+    (_("File Upload"), (
+        ("file", _("Secure File - login required to access uploaded files")),
     ),),
-    (_('Other'), (
-        ('hidden', _('Hidden field')),
+    (_("Other"), (
+        ("hidden", _("Hidden field")),
     ),),
 )
 

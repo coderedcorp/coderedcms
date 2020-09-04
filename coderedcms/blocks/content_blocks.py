@@ -211,7 +211,7 @@ class PriceListItemBlock(BaseBlock):
         label=_('Image'),
     )
     name = blocks.CharBlock(
-        requred=True,
+        required=True,
         max_length=255,
         label=_('Name'),
     )

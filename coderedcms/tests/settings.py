@@ -79,7 +79,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    # Error reporting. Uncomment this to recieve emails when a 404 is triggered.
+    # Error reporting. Uncomment this to receive emails when a 404 is triggered.
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
 
     # CMS functionality

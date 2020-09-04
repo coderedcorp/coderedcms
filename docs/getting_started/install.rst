@@ -20,6 +20,10 @@ Basic Installation
     Learn more about virtual environments by visting the `Python documentation on virtual
     environments here <https://docs.python.org/3/tutorial/venv.html>`_.
 
+    .. note::
+        You will need to be in the directory (folder) of your CodeRed CMS project and have your
+        virtual environment activated to install dependencies and run your site.
+
 #. Run ``pip install coderedcms``
 #. Run ``coderedcms start mysite --sitename "My Company Inc." --domain www.example.com``
 

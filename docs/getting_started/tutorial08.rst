@@ -19,7 +19,7 @@ Before you can begin working on the SEO for your site, you need to know what you
 from finding it. What kinds of questions would those potential customers or website visitors ask a search engine? Take the
 time to write down these questions. 
 
-Next, pinpoint the keywords that are in your search questions. For our Simple Sweets Desserts company, keywords might begin
+Next, pinpoint the keywords that are in your search questions. For our Simple Sweets Desserts company, keywords might be
 words like: cupcakes, cakes, bakery, cookies, desserts, sweet treats, etc. So these are the words that we are going to want 
 to put in our **metadata** and throughout our site, where appropriate. 
 
@@ -71,7 +71,7 @@ To save it, just **Publish** the page as normal.
 Utilizing SEO in your page content
 ----------------------------------
 
-Once you have your keywords ready and have set up your SEO page meta data, you can think about using SEO strategies
+Once you have your keywords ready and have set up your SEO page metadata, you can think about using SEO strategies
 on your page. You do not want to just throw around your keywords without purpose, however; search engines rank 
 by **quality of a web page** in addition to the keywords. These are just a few tips for making SEO work for your
 pages, but you should read more about SEO and SEO Best Practices in this `SEO Starter Guide from Google <https://support.google.com/webmasters/answer/7451184?hl=en>`_.

@@ -10,6 +10,8 @@ This is shown by default in the navbar, and also added to the title attribute of
 This can be changed in Settings > Sites > localhost. Hostname and port only need to be changed
 when running in  production.
 
+:ref:`site-name`
+
 Site settings
 -------------
 
@@ -23,17 +25,25 @@ Logo & icon
 The logo that appears in the navbar, the wagtail admin, and your favicon can be set in
 Settings > Layout. Here you can also change navbar settings (based on Bootstrap CSS framework).
 
+:ref:`logo`
+
 Menu / navigation bars
 ----------------------
 
 Navbars are top navigation elements that create a "main menu" experience. Navbars are managed
 as snippets. They render from top down based on the order they were created in.
 
+:ref:`navbar-global`
+
+:ref:`navbar-footer`
+
 Footers
 -------
 
 Similar to Navbars, footers are also managed as snippets and also render top down based on
 the order they were created in.
+
+:ref:`navbar-footer`
 
 Custom CSS
 ----------

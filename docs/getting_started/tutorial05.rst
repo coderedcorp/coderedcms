@@ -1,6 +1,9 @@
 Your First CodeRed Website: Part 5
 ==================================
 
+Tutorial: Web Page
+------------------
+
 Another page type that you will use to build your site in the CMS is the **Web Page**.
 Let's use a Web Page to make a page about our Mini Cupcakes.
 

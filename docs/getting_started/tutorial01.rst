@@ -20,6 +20,7 @@ After logging in, you will be taken to the admin dashboard - also known as the "
 
     The admin dashboard.
 
+.. _site-name:
 
 Changing your site name
 -----------------------
@@ -48,6 +49,7 @@ And edit ``mysite/settings/base.py`` by changing ``WAGTAIL_SITE_NAME`` as so::
 Now the admin dashboard and login page show "Simple Sweet Desserts Ltd.", and the Home page at http://localhost:8000/
 will show "Simple Sweet Desserts".
 
+.. _logo:
 
 Adding your logo
 ----------------
@@ -80,6 +82,7 @@ logo and favicon show up everywhere on your site.
 
     The logo on our website.
 
+.. _navbar-global:
 
 Changing navbar and global site colors
 --------------------------------------
@@ -107,5 +110,5 @@ setting, click "Save", and view your site. Pick one that looks best to you. If y
 doing a lot of heavy CSS customization, you might want to stick with the default to ensure
 compatibility with the Bootstrap documentation.
 
-For my website, I'm going to change the navbar color scheme back to "Light", CSS class to ``bg-light``,
+For our website, we are going to change the navbar color scheme back to "Light", CSS class to ``bg-light``,
 and leave the theme variant at the default.

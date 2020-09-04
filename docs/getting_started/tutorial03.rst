@@ -1,6 +1,8 @@
 Your First CodeRed Website: Part 3
 ==================================
 
+.. _navbar-footer:
+
 Tutorial: Navbar & Footer
 -------------------------
 
@@ -14,7 +16,7 @@ section of the Wagtail Admin. We previously discussed choosing a dark or
 light navbar and adding Bootstrap classes, but you can also add/remove the
 Search bar, set it to fixed (stays at the top even when you scroll) or full-width, 
 decide on which screen size it will collapse into a menu hamburger, and whether to
-center the logo at the top or keep it toward the left. 
+center the logo at the top or keep it toward the left-hand side. 
 
 .. note::
     In Layout, we added the Bootstrap background color class ``bg-warning`` but you can choose whatever 
@@ -26,9 +28,10 @@ Create your menus
 -----------------
 
 Your navbar will have links to your other pages or external content that you want
-to share. To build your menu, go to **Snippets > Navigation Bars**. In the top right-
-hand corner is a button that says **Add Navigation Bar**. Click on this button to start!
-(Alternatively, you can also click on the link that says "Why not add one?")
+to share. To build your menu, go to **Snippets > Navigation Bars**. 
+
+In the top right-hand corner is a button that says **Add Navigation Bar**. 
+Click on this button to start! (Alternatively, you can also click on the link that says "Why not add one?")
 
 .. figure:: img/tutorial_new_nav_edit1.png
     :alt: The edit screen for adding a navbar.
@@ -73,7 +76,7 @@ working on the footer. In the top right-hand corner is a button that says **Add 
 
 Give your footer a name. We choose Main Footer since this will be the main footer for our site.
 
-Let's get some practice with Responsive Grid Rows! We want to make a four column footer with our logo in the
+Let's get some practice with Responsive Grid Rows and Columns! We want to make a 4-column footer with our logo in the
 first column, our sub-page links in the second column, our main page links in the third column, and contact
 information in the fourth column. Don't worry - This is actually going to be easy!  
 
@@ -127,7 +130,7 @@ then choosing which page or external link you want. See our example below:
 
         The edit screen for our footer with our content added.
 
-3. Once you're happy with our Footer, hit **Save**. Let's see what it looks like!
+3. Once you're happy with your Footer, hit **Save**. Let's see what it looks like!
 
     .. figure:: img/tutorial_footer_previews.png
         :alt: What our footer looks like on the website.

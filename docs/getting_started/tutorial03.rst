@@ -1,6 +1,9 @@
 Your First CodeRed Website: Part 3
 ==================================
 
+Tutorial: Navbar & Footer
+-------------------------
+
 Let's begin to work on our navigation and footer setup.
 
 Customizing the navigation

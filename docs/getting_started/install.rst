@@ -17,7 +17,8 @@ Basic Installation
 
     You can name your virtual environment anything you like. It is just for your use
     on your computer. 
-    Learn more about virtual environments by visting the `Python documentation on virtual
+
+    Learn more about virtual environments by visiting the `Python documentation on virtual
     environments here <https://docs.python.org/3/tutorial/venv.html>`_.
 
     .. note::

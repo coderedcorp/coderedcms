@@ -1,8 +1,5 @@
-Your First CodeRed Website: Part 4
-==================================
-
-Tutorial: Article Landing & Article Pages
------------------------------------------
+Your First CodeRed Website: Part 4 -- Article Landing & Article Pages
+=====================================================================
 
 We want to add a blog to our site, so let's get some practice with Article Pages! 
 Then we will get some practice building a basic web page as well.

@@ -1,8 +1,5 @@
-Your First CodeRed Website: Part 6
-==================================
-
-Tutorial: Classifiers in CMS
-----------------------------
+Your First CodeRed Website: Part 6 -- Classifiers in CMS
+========================================================
 
 Now we actually want to go back to our blog posts and organize them. We can do 
 that by adding **Classifiers** to our pages so that we can access them via their

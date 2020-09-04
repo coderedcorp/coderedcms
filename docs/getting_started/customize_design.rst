@@ -35,7 +35,7 @@ as snippets. They render from top down based on the order they were created in.
 
 :ref:`navbar-global`
 
-:ref:`navbar-footer`
+:ref:`navbar`
 
 Footers
 -------
@@ -43,7 +43,7 @@ Footers
 Similar to Navbars, footers are also managed as snippets and also render top down based on
 the order they were created in.
 
-:ref:`navbar-footer`
+:ref:`footer`
 
 Custom CSS
 ----------

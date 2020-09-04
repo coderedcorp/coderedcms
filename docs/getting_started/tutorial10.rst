@@ -1,8 +1,5 @@
-Your First CodeRed Website: Part 10
-===================================
-
-Tutorial: Password-Protected Pages
-------------------------------------
+Your First CodeRed Website: Part 10 -- Password-Protected Pages
+===============================================================
 
 Finally, let's talk about how to **password-protect** pages that you only want those with proper 
 permissions to be able to access when they visit the website. You may want to hide a document page 

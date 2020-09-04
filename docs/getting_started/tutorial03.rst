@@ -1,12 +1,9 @@
-Your First CodeRed Website: Part 3
-==================================
-
-.. _navbar-footer:
-
-Tutorial: Navbar & Footer
--------------------------
+Your First CodeRed Website: Part 3 -- Navbar & Footer
+=====================================================
 
 Let's begin to work on our navigation and footer setup.
+
+.. _navbar:
 
 Customizing the navigation
 --------------------------
@@ -65,6 +62,8 @@ for our sweets shop!
     :alt: Our menu added to the navbar - front view.
 
     The website with our menu added. Also note that we are using some Bootstrap colors on the site.
+
+.. _footer:
 
 Customizing the Footer
 ----------------------

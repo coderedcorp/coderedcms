@@ -1,8 +1,5 @@
-Your First CodeRed Website: Part 7
-==================================
-
-Tutorial: Forms & Contact Pages
--------------------------------
+Your First CodeRed Website: Part 7 -- Forms & Contact Pages
+===========================================================
 
 Now we need a way for our customers to contact us. We could just make a simple
 web page with our address, phone number, and email, but we want to make some forms

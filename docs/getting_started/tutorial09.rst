@@ -1,8 +1,5 @@
-Your First CodeRed Website: Part 9
-==================================
-
-Tutorial: Images
-----------------
+Your First CodeRed Website: Part 9 -- Images
+============================================
 
 The Media you add to your site in the CMS is an important part of your page design. Images catch people's eyes,
 and good images make good impressions. Let's go over some ways that you can optimize your images for 

@@ -1,8 +1,5 @@
-Your First CodeRed Website: Part 8
-==================================
-
-Tutorial: SEO Best Practices
-----------------------------
+Your First CodeRed Website: Part 8 -- SEO Best Practices
+========================================================
 
 Let's do a brief lesson on SEO. This is important because it determines how search engines
 rank and index your site on the web. You should consider SEO when you make your website, so 

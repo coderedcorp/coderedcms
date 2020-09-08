@@ -26,6 +26,7 @@ Contents
    :titlesonly:
 
    getting_started/index
+   advanced/index
    features/index
    how_to/index
    contributing/index

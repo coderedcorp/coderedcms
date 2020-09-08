@@ -282,13 +282,16 @@ We add it to every Layout Block that needs it. In this case, we have three block
 What else could we do to make the footer look better? Take some time to play around with Bootstrap classes in the
 CMS or create some of your own classes to target elements in the footer.
 
-Making More Changes Sitewide
-----------------------------
+Making More Drastic CSS Changes Sitewide
+----------------------------------------
 
 **What we did:** So, we went back and changed some of our classes in the HTML template and in the CMS to reflect some
-new classes that we created, such as ``bg-lightyellow`` and ``bg-cherry``. We've also added some additional padding classes
-in places where we thought it would look good. Finally, we decided that our logo needed an update as well. So, we
-swapped our original logo for one that fit our new color scheme. 
+new classes that we created, such as ``bg-lightyellow`` and ``bg-cherry``. 
+
+We've also added some additional padding classes in places where we thought it would look good. 
+
+Finally, we decided that our logo needed an update as well. So, we swapped our original logo for one 
+that fit our new color scheme. 
 
 This is what our website looks like now with all of our customizations and updates:
 
@@ -319,3 +322,7 @@ And this is our CSS file at the moment:
     .bg-cherry {
         background-color: #f75990;
     }
+
+With the combination of using Bootstrap classes directly in the CMS and making our own classes, which we can use in the CMS
+and in custom templates, we can quickly update our site with our changes. There's more that we want to do, but now
+we have a good start on a beautiful, customized website!

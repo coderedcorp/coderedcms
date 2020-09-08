@@ -94,7 +94,7 @@ color or where you want the logo to be placed. Keep that in mind.
     {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
     <div class="container">
     {% endif %}
-        <div class="logo-banner">
+        <div>
         <a class="navbar-brand" href="/">
             {% if settings.coderedcms.LayoutSettings.logo %}
             {% image settings.coderedcms.LayoutSettings.logo original as logo %}
@@ -190,8 +190,132 @@ navbar from the CMS.
     the admin for a snippet or page, or in the **Advanced** section of a Layout Block. This is where you would put a class
     like ``bg-warning`` from Bootstrap or a class that you created yourself, like ``logo-banner``. 
 
-**Now for custom CSS**
+**Now for Custom CSS**
 
 If you noticed, we have a few custom classes that are not found in Bootstrap. To style our navbar with these classes,
 we need to include them in our CSS file and set the styles the way we want. Once you've done that and saved your work,
 your navbar is ready to show the world!
+
+CSS files will be found in **website > static > css** in your project folder. Unless you are using SASS, you
+will be editing the ``custom.css`` file. For those using SASS, you will want to create a ``navbar.scss`` file in your ``src``
+folder and add a link to it in your ``custom.scss`` file. 
+
+.. note::
+    If you want to learn how to use SASS, we really like this tutorial: 
+    `SASS Guide <https://sass-lang.com/guide>`_.
+
+This is the CSS that we used for our navbar:
+
+.. code-block:: CSS
+
+    .navbar .nav-link {
+        font-family: 16px;
+        text-transform: uppercase;
+    }
+    
+As you can see, you may not need to use a lot of custom CSS. Sometimes a Bootstrap class will work perfectly.
+Sometimes all you need to do is customize your template HTML and then add Bootstrap classes as needed. It all
+depends on your use case. 
+
+For our custom navbar, we needed to un-check the "fixed navbar" option in the CMS via **Settings > Layout** in
+order for it to work. Check out what our 2-tiered navbar looks like:
+
+.. figure:: img/advanced_two_tiered_navbar.png
+    :alt: Our 2-tiered navbar.
+
+    Our custom 2-tiered navbar on our website.
+
+
+Example 2: Footer Customization
+-------------------------------
+
+Our footer does not need a customized HTML template; however, we think it does need some custom CSS to make it
+look the way we want. Some of our CSS can easily be done in the CMS -- without even touching our CSS file! 
+
+First, go to the Footer Snippet in the **Snippets > Footers** admin in CMS. We had previously added a Bootstrap
+class of ``bg-warning`` to the Attributes section in the Main Footer, but now we want to add CSS classes to each 
+of the Layout Blocks for the footer as well.
+
+1. All of our footer menu items brush up against the top of the footer block. We can add some padding to 
+the footer using `Bootstrap spacing utilities <https://getbootstrap.com/docs/4.0/utilities/spacing/>`_. 
+
+2. Let's add the padding class ``pt-5`` (which means "padding-top spacer 5") in the Attributes section of 
+the Main Footer. Save and check it out. 
+
+.. figure:: img/advanced_footer_overall_padding.png
+    :alt: We added padding to the Attributes section of footer.
+
+    Our footer with pt-5 added as a class in Attributes section.
+
+3. We want to change the way that the links look, but it doesn't seem as if there is a Bootstrap class for that.
+That means that it's time to go into our CSS file.
+
+4. We want our links to be that cherry-red, so we will need to use custom CSS and include it in our CSS file.
+But we also don't want to make ALL of our links this color. That means we should create a class that can be used
+to specify the link. For example, we could add a class called ``cherry-links`` and target the ``a`` tag.
+
+.. code:: CSS
+
+    .cherry-links a {
+    color: #f75990;
+    }
+
+Then we place the ``cherry-links`` class in the **Advanced** section of the Layout Block that contains the text
+for the links, like this:
+
+.. figure:: img/advanced_customcss1.png
+    :alt: Adding a custom class to the Layout Block
+
+    Our custom class added to the Layout Block in CMS
+
+We add it to every Layout Block that needs it. In this case, we have three blocks with links.
+
+.. figure:: img/advanced_footer_front.png
+    :alt: Our footer right now
+
+    Our footer with the custom classes
+
+.. note::
+    We changed the ``pt-5`` class to ``py-5`` to add padding to the top and bottom. Sometimes you will need to try and
+    see which classes will give you the results that you want. 
+
+What else could we do to make the footer look better? Take some time to play around with Bootstrap classes in the
+CMS or create some of your own classes to target elements in the footer.
+
+Making More Changes Sitewide
+----------------------------
+
+**What we did:** So, we went back and changed some of our classes in the HTML template and in the CMS to reflect some
+new classes that we created, such as ``bg-lightyellow`` and ``bg-cherry``. We've also added some additional padding classes
+in places where we thought it would look good. Finally, we decided that our logo needed an update as well. So, we
+swapped our original logo for one that fit our new color scheme. 
+
+This is what our website looks like now with all of our customizations and updates:
+
+.. figure:: img/advanced_improved_website1.png
+    :alt: Our customized website so far
+
+    Our updated and customized website so far
+
+And this is our CSS file at the moment:
+
+.. code:: CSS
+
+    /*Navbar */
+    .navbar .nav-link {
+        font-family: 16px;
+        text-transform: uppercase;
+    }
+
+    /* Custom CSS classes */
+    .cherry-links a {
+        color: #f75990;
+    }
+
+    .bg-lightyellow {
+        background-color: #fff685;
+    }
+
+    .bg-cherry {
+        background-color: #f75990;
+    }

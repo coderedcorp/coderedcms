@@ -10,6 +10,11 @@ from coderedcms.models import (
     CoderedFormPage,
     CoderedWebPage
 )
+from django.db import models
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.fields import RichTextField
+from wagtail.images import get_image_model_string
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class ArticlePage(CoderedArticlePage):
@@ -80,3 +85,67 @@ class WebPage(CoderedWebPage):
         verbose_name = 'Web Page'
 
     template = 'coderedcms/pages/web_page.html'
+
+
+
+class CupcakesIndexPage(CoderedWebPage):
+    """
+    Landing page for Cupcakes
+    """
+    class Meta:
+        verbose_name = "Cupcakes Landing Page"
+
+     # Override to specify custom index ordering choice/default.
+    index_query_pagemodel = 'website.CupcakesPage'
+
+    # Only allow CupcakesPages beneath this page.
+    subpage_types = ['website.CupcakesPage']
+
+    template = 'website/pages/cupcakes_index_page.html'
+
+
+class CupcakesPage(CoderedWebPage):
+    """
+    Custom page for individual cupcakes
+    """
+
+    class Meta:
+        verbose_name = "Cupcakes Page"
+
+    # Only allow this page to be created beneath an CupcakesIndexPage.
+    parent_page_types = ['website.CupcakesIndexPage']
+
+    template = "website/pages/cupcakes_page.html"
+
+    # The name of the cucpake will be in the page title
+    description = RichTextField(
+    verbose_name="Cupcake Description",
+    null=True,
+    blank=True,
+    default=""
+    )
+    photo = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Cupcake Photo',
+    )
+    DAYS_CHOICES = (
+       (1, "Weekends Only"),
+       (2, "Monday-Friday"),
+       (3, "Tuesday/Thursday"),
+       (4, "Seasonal"),
+    )
+    days_available = models.IntegerField(
+        choices = DAYS_CHOICES,
+        default=""
+    )
+
+    # Add custom fields to the body
+    body_content_panels = CoderedWebPage.body_content_panels + [
+        FieldPanel("description"),
+        ImageChooserPanel("photo"),
+        FieldPanel("days_available"),
+    ]

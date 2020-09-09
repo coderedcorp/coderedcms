@@ -79,7 +79,7 @@ class FormConfirmEmail(CoderedEmail):
 class WebPage(CoderedWebPage):
     """
     General use page with featureful streamfield and SEO attributes.
-    Template renders all Navbar and Footer snippets in existance.
+    Template renders all Navbar and Footer snippets in existence.
     """
     class Meta:
         verbose_name = 'Web Page'

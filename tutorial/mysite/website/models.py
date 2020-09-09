@@ -1,5 +1,5 @@
 """
-Createable pages used in CodeRed CMS.
+Creatable pages used in CodeRed CMS.
 """
 from modelcluster.fields import ParentalKey
 from coderedcms.forms import CoderedFormField

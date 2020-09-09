@@ -133,13 +133,14 @@ class CupcakesPage(CoderedWebPage):
         verbose_name='Cupcake Photo',
     )
     DAYS_CHOICES = (
-       (1, "Weekends Only"),
-       (2, "Monday-Friday"),
-       (3, "Tuesday/Thursday"),
-       (4, "Seasonal"),
+       ("Weekends Only", "Weekends Only"),
+       ("Monday-Friday", "Monday-Friday"),
+       ("Tuesday/Thursday", "Tuesday/Thursday"),
+       ("Seasonal", "Seasonal"),
     )
-    days_available = models.IntegerField(
+    days_available = models.CharField(
         choices = DAYS_CHOICES,
+        max_length=20,
         default=""
     )
 

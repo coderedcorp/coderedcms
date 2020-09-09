@@ -101,3 +101,5 @@ Blogs would only list our child pages (blog posts) that have been marked as a Ba
     If you're coming from WordPress, you can think of Classifiers as equivalent to WordPress Categories 
     and Classifier Terms as equivalent to WordPress Taxonomies. 
 
+
+**Go to the `Advanced Tutorial on Classifiers <https://docs.coderedcorp.com/cms/stable/features/snippets/classifiers.html>`_.**

@@ -3,8 +3,8 @@ Your First CodeRed Website: Part 10 -- Password-Protected Pages
 
 Finally, let's talk about how to **password-protect** pages that you only want those with proper 
 permissions to be able to access when they visit the website. You may want to hide a document page 
-for tenants  or an information page for customers behind a password, and there is an easy way to 
-do this from within the CMS.
+for special bulk pricing on custom cupcake orders or an information page for customers behind a password, 
+and there is an easy way to do this from within the CMS.
 
 Navigate to the page that you want to add password-protection. You need to either save it as a draft or publish
 it before you can access the Password-Protect feature. 

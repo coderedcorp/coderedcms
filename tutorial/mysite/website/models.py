@@ -87,7 +87,6 @@ class WebPage(CoderedWebPage):
     template = 'coderedcms/pages/web_page.html'
 
 
-
 class CupcakesIndexPage(CoderedWebPage):
     """
     Landing page for Cupcakes
@@ -95,7 +94,7 @@ class CupcakesIndexPage(CoderedWebPage):
     class Meta:
         verbose_name = "Cupcakes Landing Page"
 
-     # Override to specify custom index ordering choice/default.
+    # Override to specify custom index ordering choice/default.
     index_query_pagemodel = 'website.CupcakesPage'
 
     # Only allow CupcakesPages beneath this page.
@@ -119,10 +118,10 @@ class CupcakesPage(CoderedWebPage):
 
     # The name of the cucpake will be in the page title
     description = RichTextField(
-    verbose_name="Cupcake Description",
-    null=True,
-    blank=True,
-    default=""
+        verbose_name="Cupcake Description",
+        null=True,
+        blank=True,
+        default=""
     )
     photo = models.ForeignKey(
         get_image_model_string(),
@@ -139,7 +138,7 @@ class CupcakesPage(CoderedWebPage):
        ("Seasonal", "Seasonal"),
     )
     days_available = models.CharField(
-        choices = DAYS_CHOICES,
+        choices=DAYS_CHOICES,
         max_length=20,
         default=""
     )

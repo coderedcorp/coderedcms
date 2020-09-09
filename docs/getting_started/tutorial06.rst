@@ -20,9 +20,11 @@ classifiers that we might use could be something like:
 Adding Classifiers in the CMS
 -----------------------------
 
-There are two ways to add Classifiers. The first way can be found by going to **Snippets > Classifiers**. 
-Select that you want to add a new Classifier, and you would do this for each Classifier that you want to add.
-For the purposes of this tutorial, we are going to add a Content Types classifier and a Baked Goods classifier. 
+You can start adding Classifiers by going to **Snippets > Classifiers**. Select that you want to add a new 
+Classifier, and you would do this for each Classifier that you want to add.
+
+For the purposes of this tutorial, we are going to add a Content Types classifier and a Baked Goods 
+classifier. 
 
 .. figure:: img/tutorial_new_classifier.png
     :alt: Screen for adding a new Classifier.
@@ -36,11 +38,7 @@ sub-categories below that main term.
 .. figure:: img/tutorial_edit_classifiers.png
     :alt: The Classifiers that we added.
 
-    The edit screen for the Classifiers that we added.
-
-.. note::
-    Once you've added Classifiers in Snippets, there's no need to add Classifiers the other way. In fact,
-    the option to add them the other way is no longer available. 
+    The edit screen for the Classifiers that we added. 
 
 However, we realize that you could decide that you want to add Classifiers in the middle of building your pages.
 If you have not already added Classifiers in Snippets, you can click the Classify tab in the page editor and
@@ -94,6 +92,12 @@ the Classifier filter that you used.
 
     The Latest Pages published on a web page
 
+You can also use Classifiers on an Article Landing Page. If we go to our Blog page and look at the Layout tab in
+editor mode, we can see our Classifiers in the **Show Child Pages** setting. If we only only wanted to show blog
+posts that were under the Baked Goods classifier, for example, we could select that and then the front page for
+Blogs would only list our child pages (blog posts) that have been marked as a Baked Goods category. 
 
-
+.. note::
+    If you're coming from WordPress, you can think of Classifiers as equivalent to WordPress Categories 
+    and Classifier Terms as equivalent to WordPress Taxonomies. 
 

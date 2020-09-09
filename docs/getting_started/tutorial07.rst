@@ -63,6 +63,20 @@ Then this is what the form looks like on the frontend:
 For practice, make a few more forms. We probably need some Forms for General Inquiries, 
 Career Interest, Special Event Requests, etc.
 
+Setting up Confirmation Emails
+------------------------------
+
+Confirmation emails would be a good way to provide great customer service. So, we have decided to also add a Confirmation
+email after someone fills out the Custom Cupcake Order form. Scroll down to the last field on the Form Page in editor
+mode for the **Confirmation Emails** section.
+
+Our From Address will be our email address that is designated for orders with a BCC to our bakery owner. We've added the 
+subject line "Order Received!" and a message that says "Thank you for your order! We have received it and will contact
+you within 24 hours for more details and to arrange payment!"
+
+.. note::
+    When you test it in your local virtual environment, the confirmation email will be sent to your command line.
+
 Creating our Contact Us page
 ----------------------------
 

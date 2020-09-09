@@ -21,10 +21,17 @@ The CMS will accept the following file types for images:
 If your image is not saved in any of these formats, you need to convert your image or save your image again
 in one of these formats. 
 
-The CMS also has a file size limitation. If your image file is exceeds **10.0 MB**, it will not be able to be uploaded.
+The CMS also has a file size limitation. If your image file exceeds **10.0 MB**, it will not be able to be uploaded.
 You will need to decrease the file size. It's easy to do this: Just open your image editing program, like Photoshop or GIMP,
 and change the size of the file. You can also use sites like `BeFunky <https://www.befunky.com/>`_ to re-size your images.
 Make them smaller by changing the dimensions of the image.
+
+.. note::
+    Photos should be no larger than 1MB -- and an ideal size is around 200 to 300KB. A file size that is too large
+    will slow down your site, and an extremely large file size/resolution (like 10,000px X 10,000px) would not fit on
+    any screen size. Ideally, your images should not be more than 2,000px for the width or the height. 
+    Check out this awesome tutorial on `Image Sizes from Shutterstock <https://www.shutterstock.com/blog/common-aspect-ratios-photo-image-sizes>`_
+    to learn more!
 
 In some cases, you may want to crop your image so that the part that you want to focus on is more in the frame. You will also
 be able to specify a focal point in the CMS Image Editor, but sometimes it alone is not enough to get the focus or angle that 

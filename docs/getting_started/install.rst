@@ -11,14 +11,6 @@ Basic Installation
     Creating a virtual environment for your project only involves a few commands.
     See below:
 
-    **Console**
-
-    .. code-block:: console
-
-        $ python -m venv C:\Users\YourComputer\env\name_of_virtual_environment
-        $ python C:\Users\YourComputer\env\name_of_virtual_environment\Scripts\activate.ps1
-
-
     **Windows (PowerShell):**
 
     .. code-block:: ps1con

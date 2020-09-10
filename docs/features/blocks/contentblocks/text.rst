@@ -19,4 +19,9 @@ in the format bar, such as:
 
 * embed, link, document, or image -- media content that can be embedded in the block
 
-* Undo and Redo -- helpful in case you make a mistake or change your mind while writing 
+* undo and redo -- helpful in case you make a mistake or change your mind while writing 
+
+.. figure:: img/textblock.png
+    :alt: A text block with some text.
+
+    A text block with some text.

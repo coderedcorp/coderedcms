@@ -26,5 +26,8 @@ Fields and purposes:
 
     A Google Map block with its Settings
 
+.. note::
+    Our cupcake shop does not exist so searching for it in Google Maps won't actually find it. This was just for
+    illustrative purposes. 
 
 

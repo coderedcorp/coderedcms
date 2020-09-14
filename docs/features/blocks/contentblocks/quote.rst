@@ -20,6 +20,6 @@ Fields and purposes:
     A quote block and its settings.
 
 .. figure:: img/quote_published.png
-    :alt: A center-aligned published quote.
+    :alt: A published quote.
 
-    A center-aligned published quote.
+    A published quote.

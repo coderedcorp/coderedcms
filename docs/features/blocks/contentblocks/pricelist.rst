@@ -1,7 +1,7 @@
 Price List Block
 ================
 
-Creates a price list with name of item and its price
+Creates a price list with the name of the items and their prices
 
 Field Reference
 ---------------

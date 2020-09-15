@@ -19,13 +19,13 @@ Fields and purposes:
 .. figure:: img/embedmedia1.png
     :alt: An embed media block with fields.
 
-    A embed media block with its fields.
+    An embed media block with its fields.
 
 
 .. figure:: img/embedmedia2.png
     :alt: How it displays on the page.
 
-    How the embedded media would display on the published page.
+    How the embedded media would display on the published page, with a content column next to it that we added.
 
 .. note::
     You can use Bootstrap utility classes like ``w-50`` on your embeds. The size of the video

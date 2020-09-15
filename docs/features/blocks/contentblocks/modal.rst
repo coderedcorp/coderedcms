@@ -19,7 +19,7 @@ Fields and purposes:
   ``CODERED_FRONTEND_BTN_SIZE_CHOICES`` Django setting and is inserted as a CSS
   class in the HTML.
 
-* **Modal Heading** -
+* **Modal Heading** - The heading, or title, that will display on the modal
 
 * **Content** - Choose from other content blocks for the body of the modal.
 

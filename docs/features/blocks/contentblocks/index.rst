@@ -1,3 +1,5 @@
+.. _content-blocks:
+
 Content Blocks
 ==============
 

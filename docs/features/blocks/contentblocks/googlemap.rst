@@ -10,7 +10,7 @@ Fields and purposes:
 
 * **Search Query** - Address or search term used to find your location on the map.
 
-* **Map Title** - Map title for screen readers, ex: "Map to Goodale Park"
+* **Map Title** - Map title for screen readers, ex: "Map to Simple Sweet Desserts"
 
 * **Google Place ID** - Place IDs uniquely identify a place in the Google Places database and on Google Maps
 

@@ -25,8 +25,7 @@ Fields and purposes:
 .. figure:: img/embedmedia2.png
     :alt: How it displays on the page.
 
-    How the embedded media would display on the published page, with a content column next to it that we added.
-
+    How the embedded media would display on the published page.
 .. note::
     You can use Bootstrap utility classes like ``w-50`` on your embeds. The size of the video
     also changes depending on whether it's in a full-width column or a half-column, etc. 

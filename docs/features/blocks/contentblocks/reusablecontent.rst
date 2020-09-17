@@ -15,7 +15,7 @@ Fields and purposes:
 
     The reusuable content block in page editor
 
-Reusable Content is created in **Snippets > Reusable Content**. Once you have created a block of reusable content,
+Reusable Content is created in **Snippets >** :ref:`reusable-content`. Once you have created a block of reusable content,
 you can choose it for any page on your site with the Reusable Content Block.
 
 Reusable content could be anything that you want to reuse across the site. It has layout blocks and content blocks,

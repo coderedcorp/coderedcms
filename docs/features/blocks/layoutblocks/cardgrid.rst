@@ -1,3 +1,5 @@
+.. _card-grid:
+
 Card Grid Block
 ===============
 

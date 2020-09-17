@@ -16,6 +16,9 @@ Fields and purposes:
 
 * **Number of Pages to Show** - Limits how many pages are displayed to the number that you selected
 
+.. note::
+    There are also a few built-in templates available for this block under the **Advanced Settings** section.
+
 The pages are displayed as links with a line or so of text if the preview option is selected.
 
 .. figure:: img/latestpages1.png

@@ -14,8 +14,12 @@ Fields and purposes:
 
 * **Content** - Options for the content blocks to display in the columns
 
+* **Advanced Settings** - Add custom CSS classes and IDs, select the breakpoint, and more
+
 Column Size can be set automatically by how many columns you have and the size of the content; however,
-you may want to choose which size to make your columns depending on your layout design. Learn more about 
-`Boostrap column sizing <https://getbootstrap.com/docs/4.0/layout/grid/>`_ .
+you may want to choose which size to make your columns depending on your layout design. 
+
+Learn more about `Boostrap column sizing <https://getbootstrap.com/docs/4.0/layout/grid/>`_ 
+and `Boostrap breakpoints <https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints>`_.
 
 SEE ALSO: :ref:`content-blocks`

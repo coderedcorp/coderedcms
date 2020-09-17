@@ -9,5 +9,4 @@ Layout blocks are the blocks for building your site in the CMS.
     cardgrid
     column
     hero
-    htmllayout
     responsivegridrow

@@ -14,20 +14,23 @@ Fields and purposes:
 
 * **Google Place ID** - Place IDs uniquely identify a place in the Google Places database and on Google Maps
 
-.. note::
-    Google Place IDs require a Google API Key. Read more about `Google Place IDs <https://developers.google.com/places/place-id>`_.
-
 * **Map Zoom Level** - Requires API key to use zoom. ex: 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings
 
 * **Advanced Settings** - Add custom CSS classes or a CSS ID to style the block with your custom CSS
 
-.. figure:: img/googlemap_settings.png
-    :alt: Google Map block with its Settings
-
-    A Google Map block with its Settings
-
 .. note::
-    Our cupcake shop does not exist so searching for it in Google Maps won't actually find it. This was just for
-    illustrative purposes. 
+    Google Place IDs and Zoom both require a Google API Key. 
+    Read more about `Google Maps API Keys <https://developers.google.com/maps/documentation/javascript/get-api-key>`_ .
+
+.. figure:: img/googlemap_settings.png
+    :alt: Our Google Map settings for Public Square, Cleveland, OH
+
+    Our Google Map settings for Public Square, Cleveland, OH
+
+.. figure:: img/googlemap_published.png
+    :alt: A published Google Map
+
+    A Google Map of the Public Square offices in Cleveland (where we're located!)
+
 
 

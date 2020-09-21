@@ -7,7 +7,7 @@ Blocks
     time before the project reaches an stable 1.0 release.
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
-    button
-    imagelink
+    contentblocks/index
+    layoutblocks/index

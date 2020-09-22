@@ -8,7 +8,7 @@ New features
 * NEW Stream Forms for doing advanced multi-step forms with conditional logic!
   See :doc:`/features/page_types/stream_forms`.
 * NEW optional environment specifier banners! See CODERED_BANNER settings in
-  :doc:`/getting_started/django_settings`.
+  :doc:`/reference/django_settings`.
 * NEW documentation for built-in page types! See :doc:`/features/page_types/index`.
 * NEW tutorial! See :doc:`/getting_started/tutorial01`.
 * Upgraded Wagtail to version 2.5. Now supports Django versions 2.0, 2.1, and 2.2.

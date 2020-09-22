@@ -1,7 +1,7 @@
-Your First CodeRed Website: Part 4 -- Article Landing & Article Pages
-=====================================================================
+Tutorial Part 4: Creating a Blog
+================================
 
-We want to add a blog to our site, so let's get some practice with Article Pages! 
+We want to add a blog to our site, so let's get some practice with Article Pages!
 Then we will get some practice building a basic web page as well.
 
 Adding articles to the site
@@ -9,7 +9,7 @@ Adding articles to the site
 
 Okay, Articles will be child pages (also known as sub-pages) for the **Article Landing Page**. This
 is important to remember because sub-pages can be accessed by the parent page (also known as the
-landing page). 
+landing page).
 
 .. note::
     Before we can add any Articles, we have to create the Article Landing Page.
@@ -67,10 +67,10 @@ case. We will want to fill in the following:
 * **Body** - Content for our article or blog
 
 Let's write a short blog about the story of our cupcakes. Once we fill in the information we want to add above, we
-can select what we want to add to the body of the blog post. We will choose a **Text** block. 
+can select what we want to add to the body of the blog post. We will choose a **Text** block.
 
-After we add our Content in the Text block, we can add other types of content if we like. How about a button? 
-Select the + sign under the Text block, then choose **Button Link**. Continue to add different content blocks 
+After we add our Content in the Text block, we can add other types of content if we like. How about a button?
+Select the + sign under the Text block, then choose **Button Link**. Continue to add different content blocks
 as you see fit for the blog post.
 
 .. figure:: img/tutorial_blog_post_edit.png
@@ -90,7 +90,7 @@ Add a few more blog posts to get some practice, then we will return to our Blog 
 Completing our Blog landing page
 --------------------------------
 
-On the admin page, we can select to edit the main Blog page. Click the **Edit** button that is under the 
+On the admin page, we can select to edit the main Blog page. Click the **Edit** button that is under the
 word **Blog**. Alternatively, you can find the Blog page in the Home page admin view or by clicking on Pages.
 
 .. figure:: img/tutorial_blog_admin_view.png
@@ -99,7 +99,7 @@ word **Blog**. Alternatively, you can find the Blog page in the Home page admin 
     The admin view to edit our blog posts and our Blog landing page.
 
 Just like on the other pages, we can add a cover image and build the layout. Let's do that! We will use
-Responsive Grid Row and just one full-width column for an introduction. Then we will show you the different 
+Responsive Grid Row and just one full-width column for an introduction. Then we will show you the different
 ways to display your sub-pages on the landing page.
 
 .. figure:: img/tutorial_blog_landing_edit1.png
@@ -141,9 +141,9 @@ We want the **Layout** tab. Click on that tab and you'll see something like this
     The Layout tab for the Blog landing page.
 
 We are using the default template, so skip over that for now. The sections titled
-**"Show Child Pages"** and **"Child Page Display"** contain the settings for whether or not 
+**"Show Child Pages"** and **"Child Page Display"** contain the settings for whether or not
 the sub-pages (blogs in this case) are automatically pulled onto the page, how many
-of them to show, and what fields or pieces of them to show as a preview. 
+of them to show, and what fields or pieces of them to show as a preview.
 
 .. note::
     The "Show Child Pages" setting in Layout is the simplest and easiest way to display
@@ -153,12 +153,10 @@ But we said that there are other ways to do this! Well, yes, there are. De-selec
 in Layout so that we can try the other way of displaying your sub-pages. Then go back to the Content area.
 
 You can add more content below the Text block with our introduction, or make a new column for content, or start
-a new Responsive Grid Row to add a column with content. 
+a new Responsive Grid Row to add a column with content.
 
-What we want to look at is the **Latest Pages** block. The Latest Pages block is extra powerful because you can access 
-the sub-pages of **any landing page on the site**! You can look at it for now, but we are going to just use the "Show Child Pages" 
+What we want to look at is the **Latest Pages** block. The Latest Pages block is extra powerful because you can access
+the sub-pages of **any landing page on the site**! You can look at it for now, but we are going to just use the "Show Child Pages"
 in Layout after all. We will go into more depth about this block and other content blocks in the future.
 
 Remember to re-select "Show Child Pages" in Layout before publishing it.
-
-

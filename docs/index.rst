@@ -29,5 +29,6 @@ Contents
    advanced/index
    features/index
    how_to/index
+   reference/index
    contributing/index
    releases/index

@@ -1,5 +1,5 @@
-Your First CodeRed Website: Part 2 -- Adding Content
-====================================================
+Tutorial Part 2: Adding Content
+===============================
 
 Now let's start adding some content to our site.
 

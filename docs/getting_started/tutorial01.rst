@@ -1,5 +1,5 @@
-Your First CodeRed Website: Part 1
-==================================
+Tutorial Part 1: Site Name, Logo, and Basics
+============================================
 
 After :doc:`install`, you are greeted with a bare-bones website.
 Let's start filling things out.

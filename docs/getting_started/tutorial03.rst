@@ -1,5 +1,5 @@
-Your First CodeRed Website: Part 3 -- Navbar & Footer
-=====================================================
+Tutorial Part 3: Navbar & Footer
+================================
 
 Let's begin to work on our navigation and footer setup.
 
@@ -8,26 +8,26 @@ Let's begin to work on our navigation and footer setup.
 Customizing the navigation
 --------------------------
 
-The general layout of your navbar can be found in the **Settings > Layout** 
-section of the Wagtail Admin. We previously discussed choosing a dark or 
+The general layout of your navbar can be found in the **Settings > Layout**
+section of the Wagtail Admin. We previously discussed choosing a dark or
 light navbar and adding Bootstrap classes, but you can also add/remove the
-Search bar, set it to fixed (stays at the top even when you scroll) or full-width, 
+Search bar, set it to fixed (stays at the top even when you scroll) or full-width,
 decide on which screen size it will collapse into a menu hamburger, and whether to
-center the logo at the top or keep it toward the left-hand side. 
+center the logo at the top or keep it toward the left-hand side.
 
 .. note::
-    In Layout, we added the Bootstrap background color class ``bg-warning`` but you can choose whatever 
+    In Layout, we added the Bootstrap background color class ``bg-warning`` but you can choose whatever
     you like for your site. We also decided to remove the Search Bar from the Navbar by de-selecting the
-    option to show the Search Bar. It's recommended to review all of the available settings, and go ahead 
+    option to show the Search Bar. It's recommended to review all of the available settings, and go ahead
     and play around with them!
 
 Create your menus
 -----------------
 
 Your navbar will have links to your other pages or external content that you want
-to share. To build your menu, go to **Snippets > Navigation Bars**. 
+to share. To build your menu, go to **Snippets > Navigation Bars**.
 
-In the top right-hand corner is a button that says **Add Navigation Bar**. 
+In the top right-hand corner is a button that says **Add Navigation Bar**.
 Click on this button to start! (Alternatively, you can also click on the link that says "Why not add one?")
 
 .. figure:: img/tutorial_new_nav_edit1.png
@@ -36,7 +36,7 @@ Click on this button to start! (Alternatively, you can also click on the link th
     The edit screen for adding a new navbar
 
 Name your navbar. In this case, this will be our main navigation bar so we have simply named it
-Main Nav. 
+Main Nav.
 
 There are three types of links that you can add to your navbar. Let's briefly describe each one:
 
@@ -44,10 +44,10 @@ There are three types of links that you can add to your navbar. Let's briefly de
 
 * **External link with sub-links** - Add external links from other websites to your site, as well as sub-links.
 
-* **Document link with sub-links** - Add document links with sub-links to your navbar. 
+* **Document link with sub-links** - Add document links with sub-links to your navbar.
 
 We don't have any other pages set up yet, but we can still create our menu. For now, we will just link to
-the Home page and update it once we have more pages. 
+the Home page and update it once we have more pages.
 
 .. figure:: img/tutorial_navbar_add_item1.png
     :alt: Adding a menu item with page link.
@@ -77,10 +77,10 @@ Give your footer a name. We choose Main Footer since this will be the main foote
 
 Let's get some practice with Responsive Grid Rows and Columns! We want to make a 4-column footer with our logo in the
 first column, our sub-page links in the second column, our main page links in the third column, and contact
-information in the fourth column. Don't worry - This is actually going to be easy!  
+information in the fourth column. Don't worry - This is actually going to be easy!
 
 .. note::
-    To keep up with our color scheme, we have also added a Bootstrap background color class to the 
+    To keep up with our color scheme, we have also added a Bootstrap background color class to the
     Attributes section. See `Bootstrap color utilities <https://getbootstrap.com/docs/4.3/utilities/colors/#background-color>`_.
 
 .. figure:: img/tutorial_footer_edit1.png
@@ -90,7 +90,7 @@ information in the fourth column. Don't worry - This is actually going to be eas
 
 To set up our 4-column footer, choose **Responsive Grid Row** from the layout choices at the bottom. Now click on
 **Add Column**. You can specify the column size in the dropdown that says **Column size**. Since we want to have
-four evenly sized columns, we are going to choose a 1/4 Column size. 
+four evenly sized columns, we are going to choose a 1/4 Column size.
 
 .. note::
     Bootstrap uses a 12-column grid, and our footer is going to span the entire 12 columns. To figure out
@@ -99,7 +99,7 @@ four evenly sized columns, we are going to choose a 1/4 Column size.
 
 From within the Responsive Grid Row block, keep selecting the + sign below your **Column** until you have all of
 the columns that you need. Then remember to make sure to choose the size of the column if you have a particular
-layout in mind. Otherwise, it will automatically size on its own. 
+layout in mind. Otherwise, it will automatically size on its own.
 
 .. figure:: img/tutorial_footer_edit2.png
     :alt: Our Responsive Grid Row and Columns set up.
@@ -110,10 +110,10 @@ Add Content to the Footer
 -------------------------
 
 Now that we have our layout, let's begin adding content! You see that there are several different choices for content
-available within the column block. 
+available within the column block.
 
-1. We're going to choose the **Image Link** block in the first column so that we can add 
-our logo and link to the Home page. 
+1. We're going to choose the **Image Link** block in the first column so that we can add
+our logo and link to the Home page.
 
     .. figure:: img/tutorial_imagelink_example.png
         :alt: Our logo added as an image, the Home page linked, and Alt Text added.
@@ -134,5 +134,5 @@ then choosing which page or external link you want. See our example below:
     .. figure:: img/tutorial_footer_previews.png
         :alt: What our footer looks like on the website.
 
-        What our footer looks like on the website. 
+        What our footer looks like on the website.
         Remember, we have done minimal styling on the site.

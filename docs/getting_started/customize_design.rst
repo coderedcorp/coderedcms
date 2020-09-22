@@ -54,15 +54,12 @@ anything to these files will automatically populate on the site and override any
 By default, Bootstrap 4 and jQuery are already included on the site.
 
 .. note::
-    You can also use Bootstrap color and utility classes in the **Custom CSS** fields on your pages in CMS. 
+    You can also use Bootstrap color and utility classes in the **Custom CSS** fields on your pages in CMS.
     Sometimes you may need more customization than Bootstrap classes can provide, in which case you can
     create your own custom classes in your CSS files and use them in your templates and in the CMS.
 
 Custom HTML templates
 ---------------------
 
-The templates directory inside the ``website`` app is empty by default. Any templates you put
-in here will override the default coderedcms templates if they follow the same name and directory
-structure. This uses the standard Django template rendering engine. For example, to change the
-formatting of the article page, copy ``coderedcms/templates/coderedcms/pages/article_page.html``
-to ``website/templates/coderedcms/pages/article_page.html`` and modify it.
+To learn how to create custom HTML templates, see the advanced tutorial:
+:doc:`/advanced/advanced01`.

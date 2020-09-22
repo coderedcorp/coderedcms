@@ -1,10 +1,10 @@
-Your First CodeRed Website: Part 7 -- Forms & Contact Pages
-===========================================================
+Tutorial Part 7: Forms & Contact Pages
+======================================
 
 Now we need a way for our customers to contact us. We could just make a simple
 web page with our address, phone number, and email, but we want to make some forms
 that specify what our customers are looking for. Good thing there is a special page type
-just for forms! 
+just for forms!
 
 Adding a Form page to your site
 -------------------------------
@@ -24,7 +24,7 @@ Creating the Form page
 
 2. Add a cover image if you want to include one.
 
-3. Begin adding your fields. Select the **Add Form Fields**. 
+3. Begin adding your fields. Select the **Add Form Fields**.
 
 4. **Label** and **Field Type** are required, while the others are optional.
 
@@ -36,7 +36,7 @@ Creating the Form page
 
 8. For fields like Message, you would choose **multi-line text.**
 
-9. Custom field types such as **Email** and **URL** are available. 
+9. Custom field types such as **Email** and **URL** are available.
 
 10. After you build the Form Fields, you can add more page content.
 
@@ -60,7 +60,7 @@ Then this is what the form looks like on the frontend:
 
     Our published form page.
 
-For practice, make a few more forms. We probably need some Forms for General Inquiries, 
+For practice, make a few more forms. We probably need some Forms for General Inquiries,
 Career Interest, Special Event Requests, etc.
 
 Setting up Confirmation Emails
@@ -70,21 +70,23 @@ Confirmation emails would be a good way to provide great customer service. So, w
 email after someone fills out the Custom Cupcake Order form. Scroll down to the last field on the Form Page in editor
 mode for the **Confirmation Emails** section.
 
-Our From Address will be our email address that is designated for orders with a BCC to our bakery owner. We've added the 
+Our From Address will be our email address that is designated for orders with a BCC to our bakery owner. We've added the
 subject line "Order Received!" and a message that says "Thank you for your order! We have received it and will contact
 you within 24 hours for more details and to arrange payment!"
 
 .. note::
-    When you test it in your local virtual environment, the confirmation email will be sent to your command line.
+
+    By default when running locally, confirmation emails are not sent, but are
+    instead printed to the command line.
 
 Creating our Contact Us page
 ----------------------------
 
 You could use a single form as your Contact Us page, but we want to show you that you can add several forms
-to your Contact Us page. We are going to add three forms to our contact page. 
+to your Contact Us page. We are going to add three forms to our contact page.
 
-First, make a Web Page under Home page that has the title of Contact Us. Add a title, cover image, and a Responsive 
-Grid Row. Once we get to the content blocks, select the Text block and add the titles of your web forms, then link to 
+First, make a Web Page under Home page that has the title of Contact Us. Add a title, cover image, and a Responsive
+Grid Row. Once we get to the content blocks, select the Text block and add the titles of your web forms, then link to
 their pages. You can continue to add content to this page as you'd like. This is what we did:
 
 .. figure:: img/tutorial_contact_us_edit.png
@@ -98,4 +100,3 @@ Publish the page and see the result. This is how our Contact Us page looks so fa
     :alt: The published Contact Us page.
 
     The published Contact Us page. We will customize the style later on.
-

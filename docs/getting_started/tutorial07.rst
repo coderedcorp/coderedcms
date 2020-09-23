@@ -74,6 +74,8 @@ Our From Address will be our email address that is designated for orders with a 
 subject line "Order Received!" and a message that says "Thank you for your order! We have received it and will contact
 you within 24 hours for more details and to arrange payment!"
 
+Confirmation Emails uses Django template language and HTML for best results. To learn more, read :ref:`confirmation-emails`.
+
 .. note::
 
     By default when running locally, confirmation emails are not sent, but are

@@ -30,9 +30,29 @@ Content Tab
 * **Reply-to Address**: The reply-to address you want the email to contain.
 * **Subject**: The subject you want the email to use.
 
-**Confirmation Emails**
+.. _confirmation-emails:
 
-Click the "Add Confirmation Emails" button to add additional emails you want to sent out when a form is submitted.
+Confirmation Emails
+-------------------
+
+Click the "Add Confirmation Emails" button to add additional emails you want to send out when a form is submitted.
+
+You can reference your form fields in the Confirmation Email's fields using Django bracket notation. For example, for the
+**To Addresses:** you could reference your form field Email by using ``{{email}}``. 
+
+The Django variable tags are generated automatically from the form fields that you create and are in lowercase letters, with any spaces indicated by an underscore.
+If you had a form field with the label "Number of Cupcakes," the Django tag would be ``number_of_cupcakes`` which you would place in
+curly brackets when referencing it in the Confirmation Email fields.
+
+In the **Body** of the email, you can use HTML to design it as you like. Reference the form fields with Django tags to personalize it. See an example below:
+
+.. figure:: img/confirmation_email.png
+    :alt: Our confirmation email setup
+
+    Our confirmation email is referencing the form fields that we created on a Custom Cupcake Order page. Review the full page
+    to identify the references.
+
+
 
 Settings Tab
 ~~~~~~~~~~~~

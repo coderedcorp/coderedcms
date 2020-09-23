@@ -17,7 +17,6 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 import datetime
-from coderedcms import __shortversion__
 
 
 # -- Project information -----------------------------------------------------
@@ -26,23 +25,13 @@ project = 'CodeRed CMS'
 copyright = '2018-' + str(datetime.datetime.now().year) + ', CodeRed LLC'
 author = 'CodeRed LLC'
 
-# The short X.Y version
-version = __shortversion__
-# The full version, including alpha/beta/rc tags
-release = __shortversion__
-
 
 # -- General configuration ---------------------------------------------------
-
-# If your documentation needs a minimal Sphinx version, state it here.
-#
-# needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-]
+extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -61,7 +50,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -76,13 +65,11 @@ pygments_style = 'default'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
 html_theme = 'classic'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#
 html_theme_options = {
     'sidebarwidth': '260px',
     'bodyfont': 'initial',
@@ -117,7 +104,6 @@ html_static_path = ['_static']
 # defined by theme itself.  Builtin themes are using these templates by
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
-#
 html_sidebars = {'**': ['searchbox.html', 'globaltoc.html']}
 
 html_context = {

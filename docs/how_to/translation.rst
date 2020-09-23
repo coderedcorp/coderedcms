@@ -2,6 +2,30 @@ Translation & Multi-Language Support
 ====================================
 
 
+Default Language
+----------------
+
+To adjust the default language of a project, navigate to
+``projectname/settings/base.py``. Change both the ``LANGUAGE_CODE`` setting and
+the ``LANGUAGES`` setting. For example:
+
+.. code-block:: python
+
+    LANGUAGE_CODE = 'es'
+
+    LANGUAGES = [
+        ('es', _('Spanish'))
+    ]
+
+Note that these settings are both in use to communicate to the users' browser
+about the default language of the project. This ensures that users requiring
+assistive technology have a smooth experience using the site. These settings do
+not, on their own, translate or enable multiple languages on the project.
+
+`See a full list of language codes from W3.
+<https://www.w3docs.com/learn-html/html-language-codes.html>`_
+
+
 Translate the UI
 ----------------
 

@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.core import blocks
 
+from coderedcms.settings import cr_settings
+
 from .stream_form_blocks import (
     CoderedStreamFormCharFieldBlock,
     CoderedStreamFormCheckboxesFieldBlock,
@@ -94,6 +96,13 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ('pricelist', PriceListBlock()),
     ('reusable_content', ReusableContentBlock()),
 ]
+
+if cr_settings['USE_WAGTAILSTREAMFORMS']:
+    from wagtailstreamforms.blocks import WagtailFormBlock
+
+    CONTENT_STREAMBLOCKS += [
+        ('form', WagtailFormBlock())
+    ]
 
 NAVIGATION_STREAMBLOCKS = [
     ('page_link', NavPageLinkWithSubLinkBlock()),

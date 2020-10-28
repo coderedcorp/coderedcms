@@ -51,7 +51,9 @@ setup(
         'wagtail==2.9.*',
         'wagtailfontawesome>=1.2.*',
         'wagtail-cache==1.*',
-        'wagtail-import-export>=0.2,<0.3'
+        'wagtail-import-export>=0.2,<0.3',
+        'wagtail-react-streamfield==1.3.6'
+
     ],
     entry_points="""
             [console_scripts]

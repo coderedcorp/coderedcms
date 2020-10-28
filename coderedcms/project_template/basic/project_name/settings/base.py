@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'wagtail.sites',
     'wagtail.users',
     'wagtail.snippets',
+    'wagtail_react_streamfield',
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',

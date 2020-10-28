@@ -88,6 +88,15 @@ HTML_STREAMBLOCKS = [
     ('page_preview', PagePreviewBlock()),
 ]
 
+
+if cr_settings['USE_WAGTAILSTREAMFORMS']:
+    from wagtailstreamforms.blocks import WagtailFormBlock
+
+    HTML_STREAMBLOCKS += [
+        ('form', WagtailFormBlock())
+    ]
+
+
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ('card', CardBlock()),
     ('carousel', CarouselBlock()),
@@ -97,12 +106,6 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ('reusable_content', ReusableContentBlock()),
 ]
 
-if cr_settings['USE_WAGTAILSTREAMFORMS']:
-    from wagtailstreamforms.blocks import WagtailFormBlock
-
-    HTML_STREAMBLOCKS += [
-        ('form', WagtailFormBlock())
-    ]
 
 NAVIGATION_STREAMBLOCKS = [
     ('page_link', NavPageLinkWithSubLinkBlock()),

@@ -100,7 +100,7 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
 if cr_settings['USE_WAGTAILSTREAMFORMS']:
     from wagtailstreamforms.blocks import WagtailFormBlock
 
-    CONTENT_STREAMBLOCKS += [
+    HTML_STREAMBLOCKS += [
         ('form', WagtailFormBlock())
     ]
 

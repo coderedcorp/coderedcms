@@ -165,6 +165,10 @@ class CoderedAdvSettings(blocks.StructBlock):
         form_template = 'wagtailadmin/block_forms/base_block_settings_struct.html'
         label = _('Advanced Settings')
 
+        # Specific react streamfield settings
+        icon = 'cog'
+        closed = True
+
     def __init__(self, local_blocks=None, template_choices=None, **kwargs):
         if not local_blocks:
             local_blocks = ()

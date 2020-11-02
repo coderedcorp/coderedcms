@@ -1277,7 +1277,7 @@ class CoderedFormMixin(models.Model):
                 message_args['to'] = template_to.render(context).split(',')
 
                 # Send email
-                self.__send_mail(request, message_args)
+                self.send_mail(request, message_args, 'html')
 
         for fn in hooks.get_hooks('form_page_submit'):
             fn(instance=self, form_submission=form_submission)
@@ -1316,11 +1316,11 @@ class CoderedFormMixin(models.Model):
             message_args['reply_to'] = template_reply_to.render(context).split(',')
 
         # Send email
-        self.__send_mail(request, message_args)
+        self.send_mail(request, message_args)
 
-    def __send_mail(self, resuest, message_args):
+    def send_mail(self, resuest, message_args, content_subtype='text'):
         message = EmailMessage(**message_args)
-        message.content_subtype = "html"
+        message.content_subtype = content_subtype
         message.send()
 
     def render_landing_page(self, request, form_submission=None):

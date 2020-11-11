@@ -24,7 +24,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbar">
+    <div class="{% block navbar_wrapper_classes %}collapse navbar-collapse{% endblock %}" id="navbar">
       {% block all_navbars %}
       {% get_navbars as navbars %}
       {% for navbar in navbars %}

@@ -28,12 +28,14 @@
       {% block navbars %}
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
+      {% block each_navbar %}
       <ul class="navbar-nav {{navbar.custom_css_class}}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
         {% for item in navbar.menu_items %}
             {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
         {% endfor %}
       </ul>
+      {% endblock %}
       {% endfor %}
       {% endblock %}
       {% block navbar_search %}

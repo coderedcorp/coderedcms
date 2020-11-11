@@ -36,6 +36,7 @@
       </ul>
       {% endfor %}
       {% endblock %}
+      {% block navbar_search %}
       {% if settings.coderedcms.LayoutSettings.navbar_search %}
       <form class="form-inline ml-auto" action="{% url 'codered_search' %}" method="GET">
           {% load bootstrap4 %}
@@ -46,6 +47,7 @@
           </div>
       </form>
       {% endif %}
+      {% endblock %}
     </div>
 
   {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}

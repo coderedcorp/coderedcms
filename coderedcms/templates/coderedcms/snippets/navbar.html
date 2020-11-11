@@ -25,6 +25,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
+      {% block navbars %}
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
       <ul class="navbar-nav {{navbar.custom_css_class}}"
@@ -34,6 +35,7 @@
         {% endfor %}
       </ul>
       {% endfor %}
+      {% endblock %}
       {% if settings.coderedcms.LayoutSettings.navbar_search %}
       <form class="form-inline ml-auto" action="{% url 'codered_search' %}" method="GET">
           {% load bootstrap4 %}

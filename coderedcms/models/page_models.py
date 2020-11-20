@@ -1178,6 +1178,10 @@ class CoderedFormMixin(models.Model):
             if type(val) == InMemoryUploadedFile or type(val) == TemporaryUploadedFile:
                 # Save the file and get its URL
 
+                # Custom code to ensure that anonymous users get a session key.
+                if not request.session.session_key:
+                    request.session.create()
+
                 directory = request.session.session_key
                 storage = self.get_storage()
                 Path(storage.path(directory)).mkdir(parents=True,

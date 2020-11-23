@@ -254,13 +254,6 @@ input[type='checkbox']::before, input[type='radio']::before {
         margin-top:0.9em;
         font-size: 0.9em;
     }
-    .nav-main .footer-submenu {
-        overflow: hidden;
-    }
-    .footer .avatar {
-        width: 40px;
-        height: 40px;
-    }
 }
 
 
@@ -274,25 +267,4 @@ input[type='checkbox']::before, input[type='radio']::before {
 }
 .button-advanced-settings:hover {
     background-color:#999;
-}
-
-.power-by {
-    background-color:#1a1a1a;
-    border-top:1px solid #333;
-    font-size:10px;
-    text-align: center;
-}
-
-.power-by a {
-    color:#fff;
-    padding: 2px;
-}
-.power-by a:hover {
-    background-color:#f00;
-}
-
-.power-by img {
-    width:75px;
-    height:auto;
-    padding-left:2px;
 }

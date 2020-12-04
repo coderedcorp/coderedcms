@@ -47,6 +47,10 @@ class TestSiteURLs(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(response.context['results'], None)
 
+        response = self.client.get("/search/?s=keyword&t=t")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['results'], None)
+
 
 @pytest.mark.django_db
 class TestEventURLs(unittest.TestCase):

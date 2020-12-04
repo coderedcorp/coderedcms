@@ -47,7 +47,14 @@ class TestSiteURLs(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(response.context['results'], None)
 
-        response = self.client.get("/search/?s=keyword&t=t")
+        response = self.client.get(reverse(
+            'codered_search'),
+            {
+                's': 'keyword',
+                't': 't',
+            },
+            follow=False
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['results'], None)
 

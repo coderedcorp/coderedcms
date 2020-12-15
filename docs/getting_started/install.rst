@@ -81,7 +81,7 @@ To create a project that is pre-configured to use Sass for CSS compilation:
 
    .. code-block:: console
 
-       $ python manage.py sass website/static/website/src/custom.scss website/static/website/css/
+       $ python manage.py sass website/static/website/src/custom.scss website/static/website/css/custom.css
 
    .. note::
        To build the Sass automatically whenever you change a file, add the

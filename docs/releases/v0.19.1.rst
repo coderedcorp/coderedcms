@@ -1,0 +1,19 @@
+CodeRed CMS 0.19.1 release notes
+================================
+
+
+Bug fixes
+---------
+
+* Search URL with invalid parameters would return 500 error. Now returns 200
+  with no search results instead.
+
+* Fix file upload fields in forms (pages based on ``CoderedFormMixin``).
+
+* Update sass file path in documentation.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.19.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/29?closed=1>`_.

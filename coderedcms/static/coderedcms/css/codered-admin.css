@@ -220,10 +220,7 @@ input[type='checkbox']::before, input[type='radio']::before {
     font-size: 1.1em;
 }
 .nav-submenu .menu-item a {
-    padding: 0.6em 0 0.6em 2em;
-}
-.nav-submenu .menu-item a::before {
-    margin-left:0;
+    padding: 0.6em 0 0.6em 3.5em;
 }
 
 .nav-main .account:hover, .nav-main .account:focus {
@@ -241,7 +238,6 @@ input[type='checkbox']::before, input[type='radio']::before {
         width: 220px;
     }
     li.submenu-active .nav-submenu a {
-        padding-left:1em;
         width:100%;
     }
     .nav-submenu h2, .nav-submenu ul {

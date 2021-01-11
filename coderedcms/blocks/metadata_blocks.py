@@ -81,7 +81,7 @@ class StructuredDataActionBlock(blocks.StructBlock):
     extra_json = blocks.RawHTMLBlock(
         required=False,
         verbose_name=_('Additional action markup'),
-        classname='monospace',
+        form_classname='monospace',
         help_text=_(
             "Additional JSON-LD inserted into the Action dictionary. Must be properties of https://schema.org/Action."  # noqa
         )

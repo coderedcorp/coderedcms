@@ -27,7 +27,6 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
@@ -35,6 +34,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
         'Framework :: Wagtail',
         'Framework :: Wagtail :: 2',
         'Topic :: Internet :: WWW/HTTP',
@@ -45,10 +45,10 @@ setup(
         'beautifulsoup4>=4.8,<4.9',     # should be the same as wagtail
         'django-eventtools==1.0.*',
         'django-bootstrap4>=1.0,<2.3',  # Version 2.0 only supports Python 3.6 and up.
-        'Django>2.1,<3.1',              # should be the same as wagtail
+        'Django>2.1,<3.2',              # should be the same as wagtail
         'geocoder==1.38.*',
         'icalendar==4.0.*',
-        'wagtail==2.9.*',
+        'wagtail==2.11.*',
         'wagtailfontawesome>=1.2.*',
         'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3'

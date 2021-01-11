@@ -48,6 +48,10 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
     background-color:#f2fcfc;
 }
 
+.c-sf-button {
+    max-width: 200px;
+}
+
 .input input,
 .input select {
     width: 300px;
@@ -106,10 +110,6 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 
 .tab-content {
     width: 100%;
-}
-
-.objects * {
-    box-sizing: border-box;
 }
 
 .object.stream-field {

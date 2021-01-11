@@ -37,7 +37,7 @@ body.ready input[type='checkbox'], body.ready input[type='radio'] {
     border:none;
 }
 
-.halloeditor, .tagit, input, select, textarea {
+.halloeditor, .tagit, input:not([type="submit"]), select, textarea {
     border:1.5px solid #ddd;
     padding-top:0.5em;
     padding-bottom:0.5em;
@@ -47,13 +47,15 @@ body.ready input[type='checkbox'], body.ready input[type='radio'] {
 .halloeditor:hover, .tagit:hover, input:hover, select:hover, textarea:hover {
     border:1.5px solid #ddd;
 }
-.nav-search input:hover {
-    border-width: 1px;
+
+.nav-search button::before {
+    line-height: 2.5em;
 }
 
 input[type='checkbox'], input[type='radio'] {
     height:unset;
     margin-right: 0.5em;
+    padding-top: 0;
 }
 input[type='checkbox']::before, input[type='radio']::before {
     border:1.5px solid #ccc;

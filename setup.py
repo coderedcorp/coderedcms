@@ -1,5 +1,5 @@
 import os
-from setuptools import find_packages, setup
+from setuptools import setup
 from coderedcms import __version__
 
 with open(os.path.join(os.path.dirname(__file__), "README.md"), encoding="utf8") as readme:
@@ -11,7 +11,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name='coderedcms',
     version=__version__,
-    packages=find_packages(),
+    packages=['coderedcms'],
     include_package_data=True,
     license='BSD License',
     description='Wagtail-based CMS by CodeRed for building marketing websites.',
@@ -41,11 +41,12 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
+    python_requires='>=3.6',
     install_requires=[
         'beautifulsoup4>=4.8,<4.9',     # should be the same as wagtail
         'django-eventtools==1.0.*',
-        'django-bootstrap4>=1.0,<2.3',  # Version 2.0 only supports Python 3.6 and up.
-        'Django>2.1,<3.2',              # should be the same as wagtail
+        'django-bootstrap4>=2.0,<2.4',
+        'Django>=2.2,<3.2',             # should be the same as wagtail
         'geocoder==1.38.*',
         'icalendar==4.0.*',
         'wagtail==2.11.*',
@@ -53,9 +54,10 @@ setup(
         'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3'
     ],
-    entry_points="""
-            [console_scripts]
-            coderedcms=coderedcms.bin.coderedcms:main
-    """,
+    entry_points={
+        "console_scripts": [
+            "coderedcms=coderedcms.bin.coderedcms:main"
+        ]
+    },
     zip_safe=False,
 )

@@ -1,6 +1,3 @@
-# Install coderedcms from local directory.
--e .
-
 # Everything from ci
 -r requirements-ci.txt
 

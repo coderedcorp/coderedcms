@@ -40,7 +40,8 @@ def coderedcms_version():
 
 @register.simple_tag
 def generate_random_id():
-    return "cr-{}".format(''.join(random.choice(string.ascii_letters + string.digits) for n in range(20)))
+    value = ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
+    return "cr-{}".format(value)
 
 
 @register.simple_tag(takes_context=True)

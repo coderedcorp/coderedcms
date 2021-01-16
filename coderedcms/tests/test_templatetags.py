@@ -5,7 +5,7 @@ from django.test import TestCase
 
 
 django_engine = engines['django']
-html_id_re = re.compile("^[A-Za-z][A-Za-z0-9_:\.-]*$")
+html_id_re = re.compile("^[A-Za-z][A-Za-z0-9_:\.-]*$")  # noqa: W605
 
 
 class TemplateTagTests(TestCase):
@@ -17,10 +17,13 @@ class TemplateTagTests(TestCase):
         ids = set([])
         for i in range(count):
             ids.add(t.render())
-        
+
         # ensure we are reasonably unique
         self.assertEqual(len(ids), count)
-        
+
         # ensure ids are valid
         for i, value in enumerate(ids, start=1):
-            self.assertTrue(html_id_re.match(value), 'ID #%s "%s" did not match regex %r' % (i, value, html_id_re))
+            self.assertTrue(
+                html_id_re.match(value),
+                'ID #%s "%s" did not match regex %r' % (i, value, html_id_re),
+            )

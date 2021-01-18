@@ -5,7 +5,7 @@ from django.test import TestCase
 
 
 django_engine = engines['django']
-html_id_re = re.compile("^[A-Za-z][A-Za-z0-9_:\.-]*$")  # noqa: W605
+html_id_re = re.compile(r"^[A-Za-z][A-Za-z0-9_:\.-]*$")
 
 
 class TemplateTagTests(TestCase):

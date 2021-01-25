@@ -1,0 +1,35 @@
+v0.20.0 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Fix rich text toolbar in Wagtail admin when scrolling long blocks of text.
+
+* Always create valid element IDs in templates when random generation is
+  required (i.e. modal blocks).
+
+* Fix rendering of modal button to be valid HTML.
+
+
+New features
+------------
+
+* Upgraded to Wagtail 2.11
+
+* Upgraded to Bootstrap 4.6.0
+
+
+Upgrade considerations
+----------------------
+
+* You may need to alter your initial ``website`` migration if you run into any
+  issues after updating. See `Wagtail 2.11 release notes
+  <https://docs.wagtail.io/en/stable/releases/2.11.html#run-before-declaration-needed-in-initial-homepage-migration>`_.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.20.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/27?closed=1>`_.

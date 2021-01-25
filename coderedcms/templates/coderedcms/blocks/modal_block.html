@@ -5,7 +5,7 @@
 {% block block_render %}
 
 {% generate_random_id as modal_id %}
-<a href="#" data-toggle="modal" data-target="#{{modal_id}}" type="button" class="btn {{self.button_size}} {{self.button_style}}">{{self.button_title}}</a>
+<a href="#" data-toggle="modal" data-target="#{{modal_id}}" role="button" class="btn {{self.button_size}} {{self.button_style}}">{{self.button_title}}</a>
 
 <div id="{{modal_id}}" class="modal fade" role="dialog">
   <div class="modal-dialog">

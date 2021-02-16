@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 from django import VERSION as DJANGO_VERSION
 from django.db import migrations
 
+from wagtail.core.models import Locale
+
 
 def initial_data(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
@@ -31,6 +33,7 @@ def initial_data(apps, schema_editor):
         depth=2,
         numchild=0,
         url_path='/home/',
+        locale_id=Locale.get_default().id,
     )
 
     # Create a new default site

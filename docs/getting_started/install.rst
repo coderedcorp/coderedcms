@@ -5,6 +5,36 @@ Installation
 Basic Installation
 ------------------
 
+#. Make a directory (folder) for your project.
+#. Create a virtual environment. 
+    **Not sure how to create a virtual environment?**
+    Creating a virtual environment for your project only involves a few commands.
+    See below:
+
+    **Windows (PowerShell):**
+
+    .. code-block:: ps1con
+
+        PS> python -m venv .\venv\
+        PS> .\venv\Scripts\Activate.ps1
+
+    **macOS, Linux:**
+
+    .. code-block:: console
+
+        $ python -m venv ./venv/
+        $ source ./venv/bin/activate
+
+    You can name your virtual environment anything you like. It is just for your use
+    on your computer. 
+
+    Learn more about virtual environments by visiting the `Python documentation on virtual
+    environments here <https://docs.python.org/3/tutorial/venv.html>`_.
+
+    .. note::
+        You will need to be in the directory (folder) of your CodeRed CMS project and have your
+        virtual environment activated to install dependencies and run your site.
+
 #. Run ``pip install coderedcms``
 #. Run ``coderedcms start mysite --sitename "My Company Inc." --domain www.example.com``
 
@@ -51,7 +81,7 @@ To create a project that is pre-configured to use Sass for CSS compilation:
 
    .. code-block:: console
 
-       $ python manage.py sass website/static/website/src/custom.scss website/static/website/css/
+       $ python manage.py sass website/static/website/src/custom.scss website/static/website/css/custom.css
 
    .. note::
        To build the Sass automatically whenever you change a file, add the

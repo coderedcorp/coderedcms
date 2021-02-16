@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 from django import VERSION as DJANGO_VERSION
 from django.db import migrations
 
+from wagtail.core.models import Locale
+
 
 def initial_data(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
@@ -31,6 +33,7 @@ def initial_data(apps, schema_editor):
         depth=2,
         numchild=0,
         url_path='/home/',
+        locale_id=Locale.get_default().id,
     )
 
     # Create a new default site
@@ -46,7 +49,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('coderedcms', '0001_initial'),
-        ('wagtailcore', '0002_initial_data'),
+        ('wagtailcore', '0057_page_locale_fields_notnull'),
         ('website', '0001_initial'),
     ]
 

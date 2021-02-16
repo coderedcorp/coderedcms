@@ -19,7 +19,7 @@ Bug fixes
 
 * Improved HTML5 validity by removing space within tags and ``href`` attributes.
 * Improved accessibility by adding title attribute to embedded iframes.
-* Specify language in HTML tag. See :doc:`/getting_started/customize_develop`.
+* Specify language in HTML tag. See :doc:`/how_to/translation`.
 * The commonly crawled URL ``/favicon.ico`` now issues a redirect to the Favicon
   set in Layout Settings.
 

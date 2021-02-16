@@ -1,7 +1,7 @@
 /*
 CodeRed CMS (https://www.coderedcorp.com/cms/)
 Copyright 2018-2019 CodeRed LLC
-License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
 
 /* Reset fonts to system */
@@ -46,6 +46,10 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 .c-sf-block .tagit:focus {
     border-color:#00b0b1;
     background-color:#f2fcfc;
+}
+
+.c-sf-button {
+    max-width: 200px;
 }
 
 .input input,
@@ -106,10 +110,6 @@ License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
 
 .tab-content {
     width: 100%;
-}
-
-.objects * {
-    box-sizing: border-box;
 }
 
 .object.stream-field {

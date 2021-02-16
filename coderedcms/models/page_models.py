@@ -292,7 +292,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         max_length=255,
         verbose_name=_('Country'),
-        help_text=_('For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptible https://en.wikipedia.org/wiki/ISO_3166-1'),  # noqa
+        help_text=_('For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptable https://en.wikipedia.org/wiki/ISO_3166-1'),  # noqa
     )
     struct_org_geo_lat = models.DecimalField(
         blank=True,
@@ -465,7 +465,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
 
     def __init__(self, *args, **kwargs):
         """
-        Inject custom choices and defalts into the form fields
+        Inject custom choices and defaults into the form fields
         to enable customization by subclasses.
         """
         super().__init__(*args, **kwargs)
@@ -482,7 +482,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     @cached_classmethod
     def get_edit_handler(cls):
         """
-        Override to "lazy load" the panels overriden by subclasses.
+        Override to "lazy load" the panels overridden by subclasses.
         """
         panels = [
             ObjectList(
@@ -1177,6 +1177,10 @@ class CoderedFormMixin(models.Model):
 
             if type(val) == InMemoryUploadedFile or type(val) == TemporaryUploadedFile:
                 # Save the file and get its URL
+
+                # Custom code to ensure that anonymous users get a session key.
+                if not request.session.session_key:
+                    request.session.create()
 
                 directory = request.session.session_key
                 storage = self.get_storage()

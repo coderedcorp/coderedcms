@@ -36,8 +36,6 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 #        'NAME': '{{ project_name }}',
 #        'USER': '{{ project_name }}',
 #        'PASSWORD': '',
-#        # If using SSL to connect to a cloud mysql database, spedify the CA as so.
-#        'OPTIONS': { 'ssl': { 'ca': '/path/to/certificate-authority.pem' } },
 #    }
 #}
 

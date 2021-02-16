@@ -27,7 +27,7 @@ override the ``navbar.html`` file included with CodeRed CMS.
 It is advisable to initially copy the contents of `CodeRed CMS navbar.html`_, but
 not necessary.
 
-.. _CodeRed CMS navbar.html: https://github.com/coderedcorp/coderedcms/blob/master/coderedcms/templates/coderedcms/snippets/navbar.html
+.. _CodeRed CMS navbar.html: https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/navbar.html
 
 
 Footer
@@ -55,4 +55,4 @@ override the ``footer.html`` file included with CodeRed CMS.
 Similarly, it is advisable to initially copy the contents of `CodeRed CMS
 footer.html`_, but not necessary.
 
-.. _CodeRed CMS footer.html: https://github.com/coderedcorp/coderedcms/blob/master/coderedcms/templates/coderedcms/snippets/footer.html
+.. _CodeRed CMS footer.html: https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/footer.html

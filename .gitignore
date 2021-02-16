@@ -13,9 +13,15 @@
 /docs/_build/
 /dist/
 __pycache__
-codered_cms.egg-info/
-coderedcms.egg-info/
+*.egg-info/
 pip-wheel-metadata/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
 
 # Editors
 .vscode/
@@ -28,6 +34,7 @@ junit/
 coverage.xml
 testproject*/
 .cache
+.pytest_cache
 testmedia*/
 teststatic*/
 media/

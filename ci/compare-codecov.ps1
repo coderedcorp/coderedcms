@@ -2,7 +2,7 @@
 
 <#
 .SYNOPSIS
-Compares code coverage percent of local coverage.xml file to master branch
+Compares code coverage percent of local coverage.xml file to dev branch
 (Azure Pipeline API).
 
 .PARAMETER wd
@@ -41,25 +41,25 @@ $ApiBase = "https://dev.azure.com/$org/$project"
 
 
 # Get list of all recent builds.
-$masterBuildJson = (
-    Invoke-WebRequest "$ApiBase/_apis/build/builds?branchName=refs/heads/master&api-version=5.1"
+$devBuildJson = (
+    Invoke-WebRequest "$ApiBase/_apis/build/builds?branchName=refs/heads/dev&api-version=5.1"
 ).Content | ConvertFrom-Json
 
 # Get the latest matching build ID from the list of builds.
-foreach ($build in $masterBuildJson.value) {
+foreach ($build in $devBuildJson.value) {
     if ($build.definition.name -eq $pipeline_name) {
-        $masterLatestId = $build.id
+        $devLatestId = $build.id
         break
     }
 }
 
 # Retrieve code coverage for this build ID.
-$masterCoverageJson = (
-    Invoke-WebRequest "$ApiBase/_apis/test/codecoverage?buildId=$masterLatestId&api-version=5.1-preview.1"
+$devCoverageJson = (
+    Invoke-WebRequest "$ApiBase/_apis/test/codecoverage?buildId=$devLatestId&api-version=5.1-preview.1"
 ).Content | ConvertFrom-Json
-foreach ($cov in $masterCoverageJson.coverageData.coverageStats) {
+foreach ($cov in $devCoverageJson.coverageData.coverageStats) {
     if ($cov.label -eq "Lines") {
-        $masterlinerate = [math]::Round(($cov.covered / $cov.total) * 100, 2)
+        $devlinerate = [math]::Round(($cov.covered / $cov.total) * 100, 2)
     }
 }
 
@@ -73,8 +73,8 @@ if (Test-Path -Path $coveragePath) {
     [xml]$BranchXML = Get-Content $coveragePath
 }
 else {
-    Write-Host  -ForegroundColor Red `
-        "No code coverage from this build. Is pytest configured to output code coverage? Exiting."
+    Write-Host `
+        "##vso[task.LogIssue type=warning;]No code coverage from this build. Is pytest configured to output code coverage?"
     exit 1
 }
 $branchlinerate = [math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 2)
@@ -84,26 +84,33 @@ $branchlinerate = [math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 
 
 
 Write-Output ""
-Write-Output "Master line coverage rate:  $masterlinerate%"
-Write-Output "Branch line coverage rate:  $branchlinerate%"
+Write-Output "Dev branch coverage rate:   $devlinerate%"
+Write-Output "This branch coverage rate:  $branchlinerate%"
 
-if ($masterlinerate -eq 0) {
+if ($devlinerate -eq 0) {
     $change = "Infinite"
 }
 else {
-    $change = [math]::Abs($branchlinerate - $masterlinerate)
+    $change = [math]::Abs($branchlinerate - $devlinerate)
 }
 
-if ($branchlinerate -gt $masterlinerate) {
+if ($branchlinerate -gt $devlinerate) {
     Write-Host "Coverage increased by $change% 😀" -ForegroundColor Green
     exit 0
 }
-elseif ($branchlinerate -eq $masterlinerate) {
+elseif ($branchlinerate -eq $devlinerate) {
     Write-Host "Coverage has not changed." -ForegroundColor Green
     exit 0
 }
-else {
-    # Write the error in a way that shows up as the failure reason in Azure Pipelines.
+elseif ($change -gt 2) {
+    # Coverage measurements seem to be a bit flaky in azure pipelines and will
+    # report changes within a few fractions of a percent even when there are no
+    # changes. If coverage decreased by more than 2%, fail with error.
     Write-Host "##vso[task.LogIssue type=error;]Coverage decreased by $change% 😭"
-    exit 4
+    exit 1
+}
+else {
+    # Write the error in a way that shows up as a warning in Azure Pipelines.
+    Write-Host "##vso[task.LogIssue type=warning;]Coverage decreased by $change% 😭"
+    exit 0
 }

@@ -1,7 +1,7 @@
 /*
 CodeRed CMS (https://www.coderedcorp.com/cms/)
 Copyright 2018-2019 CodeRed LLC
-License: https://github.com/coderedcorp/coderedcms/blob/master/LICENSE
+License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
 
 /* Font sizes and inputs */
@@ -37,7 +37,7 @@ body.ready input[type='checkbox'], body.ready input[type='radio'] {
     border:none;
 }
 
-.halloeditor, .tagit, input, select, textarea {
+.halloeditor, .tagit, input:not([type="submit"]), select, textarea {
     border:1.5px solid #ddd;
     padding-top:0.5em;
     padding-bottom:0.5em;
@@ -47,13 +47,15 @@ body.ready input[type='checkbox'], body.ready input[type='radio'] {
 .halloeditor:hover, .tagit:hover, input:hover, select:hover, textarea:hover {
     border:1.5px solid #ddd;
 }
-.nav-search input:hover {
-    border-width: 1px;
+
+.nav-search button::before {
+    line-height: 2.5em;
 }
 
 input[type='checkbox'], input[type='radio'] {
     height:unset;
     margin-right: 0.5em;
+    padding-top: 0;
 }
 input[type='checkbox']::before, input[type='radio']::before {
     border:1.5px solid #ccc;
@@ -220,10 +222,7 @@ input[type='checkbox']::before, input[type='radio']::before {
     font-size: 1.1em;
 }
 .nav-submenu .menu-item a {
-    padding: 0.6em 0 0.6em 2em;
-}
-.nav-submenu .menu-item a::before {
-    margin-left:0;
+    padding: 0.6em 0 0.6em 3.5em;
 }
 
 .nav-main .account:hover, .nav-main .account:focus {
@@ -241,7 +240,6 @@ input[type='checkbox']::before, input[type='radio']::before {
         width: 220px;
     }
     li.submenu-active .nav-submenu a {
-        padding-left:1em;
         width:100%;
     }
     .nav-submenu h2, .nav-submenu ul {

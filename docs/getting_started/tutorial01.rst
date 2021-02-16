@@ -1,5 +1,5 @@
-Your First CodeRed Website: Part 1
-==================================
+Tutorial Part 1: Site Name, Logo, and Basics
+============================================
 
 After :doc:`install`, you are greeted with a bare-bones website.
 Let's start filling things out.
@@ -13,13 +13,14 @@ Logging in
 Navigate to http://localhost:8000/admin/ and log in with the username
 and password you created with the ``python manage.py createsuperuser`` command.
 
-After logging in, you will be taken to the admin dashboard, also known as the "Wagtail Admin".
+After logging in, you will be taken to the admin dashboard - also known as the "Wagtail Admin".
 
 .. figure:: img/tutorial_admin.png
     :alt: The admin dashboard.
 
     The admin dashboard.
 
+.. _site-name:
 
 Changing your site name
 -----------------------
@@ -34,7 +35,7 @@ To change the name, go to **Settings > Sites**, and click on the site that is th
     is for use with multi-sites. For example, if you have a parent company that operates many separate
     brand websites within one CMS, then ``WAGTAIL_SITE_NAME`` would be the name of the parent company.
 
-For my website, I'm going to change **Settings > Sites > Site name** to "Contoso Building Solutions".
+For my website, I'm going to change **Settings > Sites > Site name** to "Simple Sweet Desserts".
 
 .. figure:: img/tutorial_sitename.png
     :alt: Changing the site name.
@@ -43,11 +44,12 @@ For my website, I'm going to change **Settings > Sites > Site name** to "Contoso
 
 And edit ``mysite/settings/base.py`` by changing ``WAGTAIL_SITE_NAME`` as so::
 
-    WAGTAIL_SITE_NAME = 'Contoso Ltd.'
+    WAGTAIL_SITE_NAME = 'Simple Sweet Desserts Ltd.'
 
-Now the admin dashboard and login page show "Contoso Ltd.", and the Home page at http://localhost:8000/
-will show "Contoso Building Solutions".
+Now the admin dashboard and login page show "Simple Sweet Desserts Ltd.", and the Home page at http://localhost:8000/
+will show "Simple Sweet Desserts".
 
+.. _logo:
 
 Adding your logo
 ----------------
@@ -80,6 +82,7 @@ logo and favicon show up everywhere on your site.
 
     The logo on our website.
 
+.. _navbar-global:
 
 Changing navbar and global site colors
 --------------------------------------
@@ -107,5 +110,5 @@ setting, click "Save", and view your site. Pick one that looks best to you. If y
 doing a lot of heavy CSS customization, you might want to stick with the default to ensure
 compatibility with the Bootstrap documentation.
 
-For my website, I'm going to change the navbar color scheme back to "Light", CSS class to ``bg-light``,
+For our website, we are going to change the navbar color scheme back to "Light", CSS class to ``bg-light``,
 and leave the theme variant at the default.

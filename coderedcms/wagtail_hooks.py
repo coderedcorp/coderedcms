@@ -46,7 +46,7 @@ def codered_forms(user, editable_forms):
     from coderedcms.models import CoderedFormMixin
     """
     Add our own CoderedFormPage to editable_forms, since wagtail is unaware
-    of its existance. Essentailly this is a fork of wagtail.contrib.forms.get_forms_for_user()
+    of its existence. Essentially this is a fork of wagtail.contrib.forms.get_forms_for_user()
     and wagtail.contrib.forms.get_form_types()
     """
     form_models = [

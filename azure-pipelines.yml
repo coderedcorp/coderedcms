@@ -17,7 +17,7 @@
 
 
 trigger:
-  - master
+  - dev
 
 
 stages:
@@ -31,14 +31,14 @@ stages:
       vmImage: 'ubuntu-latest'
     strategy:
       matrix:
-        py3.5:
-          PYTHON_VERSION: '3.5'
         py3.6:
           PYTHON_VERSION: '3.6'
         py3.7:
           PYTHON_VERSION: '3.7'
         py3.8:
           PYTHON_VERSION: '3.8'
+        py3.9:
+          PYTHON_VERSION: '3.9'
 
     steps:
     - task: UsePythonVersion@0
@@ -76,8 +76,8 @@ stages:
   dependsOn: Unit_Tests
   condition: succeeded('Unit_Tests')
   jobs:
-  - job: flake8
-    displayName: flake8
+  - job: linters
+    displayName: Linters
     pool:
       vmImage: 'ubuntu-latest'
 
@@ -91,11 +91,14 @@ stages:
     - script: python -m pip install -r requirements-ci.txt
       displayName: 'CR-QC: Install coderedcms from local repo'
 
+    - pwsh: ./ci/spellcheck.ps1
+      displayName: 'CR-QC: Spelling'
+
     - script: coderedcms start testproject
       displayName: 'CR-QC: Generate a test project'
 
     - pwsh: ./ci/run-flake8.ps1
-      displayName: 'CR-QC: Static analysis (flake8)'
+      displayName: 'CR-QC: Flake8'
 
   - job: codecov
     displayName: Code Coverage
@@ -103,16 +106,18 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - task: DownloadPipelineArtifact@2
+    - task: DownloadBuildArtifacts@0
       displayName: 'Download code coverage from current build'
       inputs:
-        source: 'current'
-        path: '$(Agent.WorkFolder)/current-artifacts'
+        buildType: 'current'
         project: '$(System.TeamProjectId)'
         pipeline: '$(System.DefinitionId)'
+        downloadType: 'specific'
+        downloadPath: '$(Agent.WorkFolder)/current-artifacts'
 
     - pwsh: ./ci/compare-codecov.ps1 -wd $Env:WorkDir
       displayName: 'CR-QC: Compare code coverage'
+      failOnStderr: false
       env:
         WorkDir: $(Agent.WorkFolder)
 

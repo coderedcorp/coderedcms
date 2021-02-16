@@ -1,3 +1,5 @@
+.. _reusable-content:
+
 Reusable Content
 ================
 

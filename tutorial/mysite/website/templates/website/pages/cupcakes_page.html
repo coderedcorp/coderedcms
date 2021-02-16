@@ -1,0 +1,37 @@
+{% extends "coderedcms/pages/web_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+{% block content_pre_body %}
+    {% if self.cover_image %}
+    {% image page.cover_image fill-2000x1000 as cover_image %}
+    <div class="jumbotron jumotron-fluid" style="height:400px;background-image:url({{cover_image.url}});background-repeat:no-repeat; background-size:cover; background-position:center center;">
+    </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block content_body %}
+<div class="block-row">
+    <div class="container-fluid">
+        <div class="row m-4">
+            <div class="col-lg-6">
+                {% if page.photo %}
+                {% image page.photo fill-300x300 as cupcake %}
+                <div class="text-center">
+                    <img class="border-cherry" src="{{cupcake.url}}" alt="photo of {{page.title}}">
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-6">
+                <div class="py-lg-5">
+                    <h2>{{page.title}}</h2>
+                    <lead class="text-cherry">{{page.days_available}}</lead>
+                    {% if page.description %}
+                    <p>{{page.description|richtext}}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

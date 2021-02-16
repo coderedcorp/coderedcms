@@ -76,7 +76,7 @@ HTML_STREAMBLOCKS = [
     ('button', ButtonBlock()),
     ('image', ImageBlock()),
     ('image_link', ImageLinkBlock()),
-    ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'), )),
+    ('html', blocks.RawHTMLBlock(icon='code', form_classname='monospace', label=_('HTML'), )),
     ('download', DownloadBlock()),
     ('embed_video', EmbedVideoBlock()),
     ('quote', QuoteBlock()),
@@ -103,7 +103,7 @@ NAVIGATION_STREAMBLOCKS = [
 
 BASIC_LAYOUT_STREAMBLOCKS = [
     ('row', GridBlock(HTML_STREAMBLOCKS)),
-    ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
+    ('html', blocks.RawHTMLBlock(icon='code', form_classname='monospace', label=_('HTML'))),
 ]
 
 LAYOUT_STREAMBLOCKS = [
@@ -112,13 +112,13 @@ LAYOUT_STREAMBLOCKS = [
         ('cardgrid', CardGridBlock([
             ('card', CardBlock()),
         ])),
-        ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
+        ('html', blocks.RawHTMLBlock(icon='code', form_classname='monospace', label=_('HTML'))),
     ])),
     ('row', GridBlock(CONTENT_STREAMBLOCKS)),
     ('cardgrid', CardGridBlock([
         ('card', CardBlock()),
     ])),
-    ('html', blocks.RawHTMLBlock(icon='code', classname='monospace', label=_('HTML'))),
+    ('html', blocks.RawHTMLBlock(icon='code', form_classname='monospace', label=_('HTML'))),
 ]
 
 STREAMFORM_FIELDBLOCKS = [

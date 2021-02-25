@@ -9,10 +9,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.edit_handlers import HelpPanel, FieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
 
 from coderedcms.settings import cr_settings
+from .snippet_models import Navbar
 
 
 @register_setting(icon='fa-facebook-official')
@@ -118,6 +120,15 @@ class LayoutSettings(BaseSetting):
         related_name='favicon',
         verbose_name=_('Favicon'),
     )
+    navbar_chooser = models.ForeignKey(
+        'Navbar',
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='nav',
+        verbose_name=_('Site Navbar'),
+        help_text=_('Choose the navbar snippet that you want to use for this site.'),
+    )
     navbar_color_scheme = models.CharField(
         blank=True,
         max_length=50,
@@ -187,6 +198,7 @@ class LayoutSettings(BaseSetting):
         ),
         MultiFieldPanel(
             [
+                SnippetChooserPanel('navbar_chooser'),
                 FieldPanel('navbar_color_scheme'),
                 FieldPanel('navbar_class'),
                 FieldPanel('navbar_fixed'),

@@ -110,7 +110,7 @@ def get_navbar_css(context):
 
 @register.simple_tag
 def get_navbars():
-    return Navbar.objects.all()
+    return Navbar.objects.get(id=custom_id)
 
 
 @register.simple_tag

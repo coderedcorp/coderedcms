@@ -15,7 +15,7 @@ from wagtail.images import get_image_model_string
 
 from coderedcms.fields import MonospaceField
 from coderedcms.settings import cr_settings
-from .snippet_models import Navbar, Footer
+from coderedcms.models.snippet_models import Navbar, Footer
 
 
 @register_setting(icon='fa-facebook-official')

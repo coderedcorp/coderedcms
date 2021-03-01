@@ -14,7 +14,7 @@ from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
 
 from coderedcms.settings import cr_settings
-from .snippet_models import Navbar
+from .snippet_models import Navbar, Footer
 
 
 @register_setting(icon='fa-facebook-official')
@@ -125,7 +125,7 @@ class LayoutSettings(BaseSetting):
         null=True,
         blank=True,
         on_delete=models.CASCADE,
-        related_name='nav',
+        related_name='site_nav',
         verbose_name=_('Site Navbar'),
         help_text=_('Choose the navbar snippet that you want to use for this site.'),
     )
@@ -187,6 +187,15 @@ class LayoutSettings(BaseSetting):
         verbose_name=_('Theme variant'),
         help_text=cr_settings['FRONTEND_THEME_HELP'],
     )
+    footer_chooser = models.ForeignKey(
+        'Footer',
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='site_footer',
+        verbose_name=_('Site Footer'),
+        help_text=_('Choose the footer snippet that you want to use for this site.'),
+    )
 
     panels = [
         MultiFieldPanel(
@@ -209,6 +218,12 @@ class LayoutSettings(BaseSetting):
                 FieldPanel('navbar_search'),
             ],
             heading=_('Site Navbar Layout')
+        ),
+        MultiFieldPanel(
+            [
+                SnippetChooserPanel('footer_chooser'),
+            ],
+            heading=_('Site Footer')
         ),
         MultiFieldPanel(
             [

@@ -108,14 +108,16 @@ def get_navbar_css(context):
     ])
 
 
-@register.simple_tag
-def get_navbars():
-    return Navbar.objects.get(id=custom_id)
+@register.simple_tag(takes_context=True)
+def get_navbar(context):
+    layout = LayoutSettings.for_request(context['request'])
+    return Navbar.objects.get(id=layout.navbar_chooser.id)
 
 
-@register.simple_tag
-def get_footers():
-    return Footer.objects.all()
+@register.simple_tag(takes_context=True)
+def get_footer(context):
+    layout = LayoutSettings.for_request(context['request'])
+    return Footer.objects.get(id=layout.footer_chooser.id)
 
 
 @register.simple_tag

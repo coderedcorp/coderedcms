@@ -121,7 +121,7 @@ class LayoutSettings(BaseSetting):
         verbose_name=_('Favicon'),
     )
     navbar_chooser = models.ForeignKey(
-        'Navbar',
+        Navbar,
         null=True,
         blank=True,
         on_delete=models.CASCADE,
@@ -188,7 +188,7 @@ class LayoutSettings(BaseSetting):
         help_text=cr_settings['FRONTEND_THEME_HELP'],
     )
     footer_chooser = models.ForeignKey(
-        'Footer',
+        Footer,
         null=True,
         blank=True,
         on_delete=models.CASCADE,

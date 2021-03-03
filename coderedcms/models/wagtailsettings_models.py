@@ -21,19 +21,6 @@ from coderedcms.settings import cr_settings
 from coderedcms.models.snippet_models import Navbar, Footer
 
 
-class NavbarCluster(ClusterableModel):
-    navbar_cluster = models.ForeignKey(
-        Navbar,
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
-    )
-
-    panels = [
-        SnippetChooserPanel("navbar_cluster")
-    ]
-
-
 @register_setting(icon='fa-facebook-official')
 class SocialMediaSettings(BaseSetting):
     """
@@ -113,7 +100,7 @@ class SocialMediaSettings(BaseSetting):
 
 
 @register_setting(icon='fa-desktop')
-class LayoutSettings(BaseSetting):
+class LayoutSettings(ClusterableModel, BaseSetting):
     """
     Branding, navbar, and theme settings.
     """
@@ -137,14 +124,6 @@ class LayoutSettings(BaseSetting):
         related_name='favicon',
         verbose_name=_('Favicon'),
     )
-    # navbar_chooser = ParentalKey(
-    #     'NavbarCluster',
-    #     blank=True,
-    #     null=True,
-    #     on_delete=models.CASCADE,
-    #     verbose_name=_('Site navbar chooser'),
-    #     help_text=_('Choose one or more navbars for this site.')
-    # )
     navbar_color_scheme = models.CharField(
         blank=True,
         max_length=50,
@@ -203,15 +182,6 @@ class LayoutSettings(BaseSetting):
         verbose_name=_('Theme variant'),
         help_text=cr_settings['FRONTEND_THEME_HELP'],
     )
-    # footer_chooser = models.ForeignKey(
-    #     Footer,
-    #     null=True,
-    #     blank=True,
-    #     on_delete=models.CASCADE,
-    #     related_name='site_footer',
-    #     verbose_name=_('Site Footer'),
-    #     help_text=_('Choose the footer snippet that you want to use for this site.'),
-    # )
 
     panels = [
         MultiFieldPanel(
@@ -221,9 +191,13 @@ class LayoutSettings(BaseSetting):
             ],
             heading=_('Branding')
         ),
+        InlinePanel(
+            'site_navbar',
+            help_text=_('Choose one or more navbars for your site.'),
+            heading=_('Site Navbars')
+        ),
         MultiFieldPanel(
             [
-                # InlinePanel('navbar_chooser', label="Site Navbars", min_num=1, max_num=4),
                 FieldPanel('navbar_color_scheme'),
                 FieldPanel('navbar_class'),
                 FieldPanel('navbar_fixed'),
@@ -235,18 +209,51 @@ class LayoutSettings(BaseSetting):
             ],
             heading=_('Site Navbar Layout')
         ),
-        # MultiFieldPanel(
-        #     [
-        #         SnippetChooserPanel('footer_chooser'),
-        #     ],
-        #     heading=_('Site Footer')
-        # ),
+        InlinePanel(
+            'site_footer',
+            help_text=_('Choose one or more footers for your site.'),
+            heading=_('Site Footers')
+        ),
         MultiFieldPanel(
             [
                 FieldPanel('frontend_theme'),
             ],
             heading=_('Theming')
         ),
+    ]
+
+class NavbarOrderable(Orderable, models.Model):
+    navbar_chooser = ParentalKey(
+        LayoutSettings,
+        related_name="site_navbar",
+        verbose_name=_('Site Navbars')
+    )
+    navbars = models.ForeignKey(
+        Navbar,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("navbars")
+    ]
+
+class FooterOrderable(Orderable, models.Model):
+    footer_chooser = ParentalKey(
+        LayoutSettings,
+        related_name="site_footer",
+        verbose_name=_('Site Footers')
+    )
+    footers = models.ForeignKey(
+        Footer,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("footers")
     ]
 
 

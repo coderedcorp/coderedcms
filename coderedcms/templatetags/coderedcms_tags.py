@@ -18,7 +18,7 @@ from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
 from coderedcms.models import Footer, Navbar
 from coderedcms.settings import cr_settings, get_bootstrap_setting
-from coderedcms.models.wagtailsettings_models import LayoutSettings
+from coderedcms.models.wagtailsettings_models import LayoutSettings, NavbarOrderable
 
 register = template.Library()
 
@@ -108,10 +108,11 @@ def get_navbar_css(context):
     ])
 
 
-@register.simple_tag(takes_context=True)
-def get_navbar(context):
-    layout = LayoutSettings.for_request(context['request'])
-    return Navbar.objects.get(id=layout.navbar_chooser.id)
+@register.simple_tag
+def get_navbars():
+    # layout = LayoutSettings.for_request(context['request'])
+    navs = NavbarOrderable.objects.all()
+    return navs   # this is wrong but doesn't break it
 
 
 @register.simple_tag(takes_context=True)

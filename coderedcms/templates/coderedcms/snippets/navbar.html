@@ -25,14 +25,16 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
-      {% if settings.coderedcms.LayoutSettings.navbar_chooser %}
-      {% get_navbar as navbar %}
+      {% if settings.coderedcms.LayoutSettings.site_navbar %}
+      {% get_navbars as navbars %}
+      {% for navbar in navbars %}
       <ul class="navbar-nav {{navbar.custom_css_class}}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
         {% for item in navbar.menu_items %}
             {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
         {% endfor %}
       </ul>
+      {% endfor %}
       {% endif %}
       {% if settings.coderedcms.LayoutSettings.navbar_search %}
       <form class="form-inline ml-auto" action="{% url 'codered_search' %}" method="GET">

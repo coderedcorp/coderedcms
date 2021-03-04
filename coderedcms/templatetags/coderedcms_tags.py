@@ -108,11 +108,12 @@ def get_navbar_css(context):
     ])
 
 
-@register.simple_tag
-def get_navbars():
-    # layout = LayoutSettings.for_request(context['request'])
-    navs = NavbarOrderable.objects.all()
-    return navs   # this is wrong but doesn't break it
+@register.simple_tag(takes_context=True)
+def get_navbars(context):
+    layout = LayoutSettings.for_request(context['request'])
+    # How do I get LayoutSettings to be self so that I can just do
+    # return self.site_navbar.all()
+    return layout.site_navbar.all()
 
 
 @register.simple_tag(takes_context=True)

@@ -111,8 +111,9 @@ def get_navbar_css(context):
 @register.simple_tag(takes_context=True)
 def get_navbars(context):
     layout = LayoutSettings.for_request(context['request'])
-    # How do I get LayoutSettings to be self so that I can just do
-    # return self.site_navbar.all()
+    # Need to get the navbars from layout then add them to NavbarOrderable as a set?
+    # https://docs.djangoproject.com/en/3.1/ref/models/relations/
+    # or access the deferred_fields somehow?
     return layout.site_navbar.all()
 
 

@@ -111,16 +111,13 @@ def get_navbar_css(context):
 @register.simple_tag(takes_context=True)
 def get_navbars(context):
     layout = LayoutSettings.for_request(context['request'])
-    # Need to get the navbars from layout then add them to NavbarOrderable as a set?
-    # https://docs.djangoproject.com/en/3.1/ref/models/relations/
-    # or access the deferred_fields somehow?
-    return layout.site_navbar.all()
+    return layout.site_navbar.all()   # returns None
 
 
 @register.simple_tag(takes_context=True)
 def get_footer(context):
     layout = LayoutSettings.for_request(context['request'])
-    return Footer.objects.get(id=layout.footer_chooser.id)
+    return layout.site_footer.all()
 
 
 @register.simple_tag

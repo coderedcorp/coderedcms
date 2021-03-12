@@ -16,9 +16,8 @@ from wagtail.images.models import Image
 from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
-from coderedcms.models import Footer, Navbar
 from coderedcms.settings import cr_settings, get_bootstrap_setting
-from coderedcms.models.wagtailsettings_models import LayoutSettings, NavbarOrderable
+from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 register = template.Library()
 

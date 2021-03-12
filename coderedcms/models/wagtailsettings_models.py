@@ -221,6 +221,7 @@ class LayoutSettings(ClusterableModel, BaseSetting):
         ),
     ]
 
+
 class NavbarOrderable(Orderable, models.Model):
     navbar_chooser = ParentalKey(
         LayoutSettings,
@@ -237,6 +238,7 @@ class NavbarOrderable(Orderable, models.Model):
     panels = [
         SnippetChooserPanel("navbar")
     ]
+
 
 class FooterOrderable(Orderable, models.Model):
     footer_chooser = ParentalKey(

@@ -49,7 +49,7 @@ setup(
         'Django>=2.2,<3.2',             # should be the same as wagtail
         'geocoder==1.38.*',
         'icalendar==4.0.*',
-        'wagtail==2.11.*',
+        'wagtail==2.12',
         'wagtailfontawesome>=1.2.*',
         'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3'

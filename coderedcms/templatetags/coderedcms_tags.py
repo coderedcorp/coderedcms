@@ -111,13 +111,21 @@ def get_navbar_css(context):
 @register.simple_tag(takes_context=True)
 def get_navbars(context):
     layout = LayoutSettings.for_request(context['request'])
-    return layout.site_navbar.all()   # returns None
+    navbarorderables = layout.site_navbar.all()
+    navbars = []
+    for orderable in navbarorderables:
+        navbars.append(orderable.navbar)
+    return navbars
 
 
 @register.simple_tag(takes_context=True)
-def get_footer(context):
+def get_footers(context):
     layout = LayoutSettings.for_request(context['request'])
-    return layout.site_footer.all()
+    footerorderables = layout.site_footer.all()
+    footers = []
+    for orderable in footerorderables:
+        footers.append(orderable.footer)
+    return footers
 
 
 @register.simple_tag

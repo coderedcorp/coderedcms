@@ -227,7 +227,7 @@ class NavbarOrderable(Orderable, models.Model):
         related_name="site_navbar",
         verbose_name=_('Site Navbars')
     )
-    navbars = models.ForeignKey(
+    navbar = models.ForeignKey(
         Navbar,
         blank=True,
         null=True,
@@ -235,7 +235,7 @@ class NavbarOrderable(Orderable, models.Model):
     )
 
     panels = [
-        SnippetChooserPanel("navbars")
+        SnippetChooserPanel("navbar")
     ]
 
 class FooterOrderable(Orderable, models.Model):
@@ -244,7 +244,7 @@ class FooterOrderable(Orderable, models.Model):
         related_name="site_footer",
         verbose_name=_('Site Footers')
     )
-    footers = models.ForeignKey(
+    footer = models.ForeignKey(
         Footer,
         blank=True,
         null=True,
@@ -252,7 +252,7 @@ class FooterOrderable(Orderable, models.Model):
     )
 
     panels = [
-        SnippetChooserPanel("footers")
+        SnippetChooserPanel("footer")
     ]
 
 

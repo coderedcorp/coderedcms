@@ -8,10 +8,6 @@ def add_navbar_orderables(apps, schema_editor):
     Navbar = apps.get_model('coderedcms', 'Navbar')
     NavbarOrderable = apps.get_model('coderedcms', 'NavbarOrderable')
     layout = LayoutSettings.objects.get(pk=1)
-    # pull in current navbar, not all navbars
-    # which would cause a problem if multiple
-    # navs for different sites but how to loop through
-    #  only navbars that previously existed, not future all navs?
     current_nav = Navbar.objects.get(pk=1)
     db_alias = schema_editor.connection.alias
     layout.site_navbar = []

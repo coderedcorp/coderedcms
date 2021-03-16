@@ -8,11 +8,12 @@ def add_navbar_orderables(apps, schema_editor):
     Navbar = apps.get_model('coderedcms', 'Navbar')
     NavbarOrderable = apps.get_model('coderedcms', 'NavbarOrderable')
     layout = LayoutSettings.objects.get(pk=1)
-    current_nav = Navbar.objects.get(pk=1)
+    current_navs = Navbar.objects.all()
     db_alias = schema_editor.connection.alias
     layout.site_navbar = []
     layout.save()
-    NavbarOrderable.objects.using(db_alias).create(navbar_chooser=layout, navbar=current_nav)
+    for nav in current_navs:
+        NavbarOrderable.objects.using(db_alias).create(navbar_chooser=layout, navbar=nav)
 
 
 def add_footer_orderables(apps, schema_editor):
@@ -20,11 +21,12 @@ def add_footer_orderables(apps, schema_editor):
     Footer = apps.get_model('coderedcms', 'Footer')
     FooterOrderable = apps.get_model('coderedcms', 'FooterOrderable')
     layout = LayoutSettings.objects.get(pk=1)
-    current_footer = Footer.objects.get(pk=1)
+    current_footers = Footer.objects.all()
     db_alias = schema_editor.connection.alias
     layout.site_footer = []
     layout.save()
-    FooterOrderable.objects.using(db_alias).create(footer_chooser=layout, footer=current_footer)
+    for footer in current_footers:
+        FooterOrderable.objects.using(db_alias).create(footer_chooser=layout, footer=footer)
 
 
 

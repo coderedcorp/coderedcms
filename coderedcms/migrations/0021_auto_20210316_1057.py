@@ -4,22 +4,37 @@ from django.db import migrations
 
 
 def add_navbar_orderables(apps, schema_editor):
+    LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
     Navbar = apps.get_model('coderedcms', 'Navbar')
     NavbarOrderable = apps.get_model('coderedcms', 'NavbarOrderable')
-    for navbar in Navbar.objects.all():
-        NavbarOrderable.create(navbar=navbar)
-        NavbarOrderable.save()
+    layout = LayoutSettings.objects.get(pk=1)
+    # pull in current navbar, not all navbars
+    # which would cause a problem if multiple
+    # navs for different sites but how to loop through
+    #  only navbars that previously existed, not future all navs?
+    current_nav = Navbar.objects.get(pk=1)
+    if current_nav.exists():
+        db_alias = schema_editor.connection.alias
+        layout.site_navbar = []
+        layout.save()
+        NavbarOrderable.objects.using(db_alias).create(navbar_chooser=layout, navbar=current_nav)
 
 
-def add_footer_orderables(apps, schema_editor):
-    Footer = apps.get_model('coderedcms', 'Footer')
-    FooterOrderable = apps.get_model('coderedcms', 'FooterOrderable')
-    for footer in FooterOrderable.objects.all():
-        FooterOrderable.create(footer=footer)
-        FooterOrderable.save()
+# def add_footer_orderables(apps, schema_editor):
+#     LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
+#     Footer = apps.get_model('coderedcms', 'Footer')
+#     FooterOrderable = apps.get_model('coderedcms', 'FooterOrderable')
+#     current_footer = Footer.objects.get(pk=1)
+#     db_alias = schema_editor.connection.alias
+#     layout.site_footer = []
+#     layout.save()
+#     NavbarOrderable.objects.using(db_alias).create(footer_chooser=layout, footer=current_footer)
+
 
 
 class Migration(migrations.Migration):
+
+    atomic = False
 
     dependencies = [
         ('coderedcms', '0020_footerorderable_navbarorderable'),
@@ -27,5 +42,5 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(add_navbar_orderables),
-        migrations.RunPython(add_footer_orderables)
+        # migrations.RunPython(add_footer_orderables)
     ]

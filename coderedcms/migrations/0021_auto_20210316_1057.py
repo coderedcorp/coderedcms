@@ -13,22 +13,22 @@ def add_navbar_orderables(apps, schema_editor):
     # navs for different sites but how to loop through
     #  only navbars that previously existed, not future all navs?
     current_nav = Navbar.objects.get(pk=1)
-    if current_nav.exists():
-        db_alias = schema_editor.connection.alias
-        layout.site_navbar = []
-        layout.save()
-        NavbarOrderable.objects.using(db_alias).create(navbar_chooser=layout, navbar=current_nav)
+    db_alias = schema_editor.connection.alias
+    layout.site_navbar = []
+    layout.save()
+    NavbarOrderable.objects.using(db_alias).create(navbar_chooser=layout, navbar=current_nav)
 
 
-# def add_footer_orderables(apps, schema_editor):
-#     LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
-#     Footer = apps.get_model('coderedcms', 'Footer')
-#     FooterOrderable = apps.get_model('coderedcms', 'FooterOrderable')
-#     current_footer = Footer.objects.get(pk=1)
-#     db_alias = schema_editor.connection.alias
-#     layout.site_footer = []
-#     layout.save()
-#     NavbarOrderable.objects.using(db_alias).create(footer_chooser=layout, footer=current_footer)
+def add_footer_orderables(apps, schema_editor):
+    LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
+    Footer = apps.get_model('coderedcms', 'Footer')
+    FooterOrderable = apps.get_model('coderedcms', 'FooterOrderable')
+    layout = LayoutSettings.objects.get(pk=1)
+    current_footer = Footer.objects.get(pk=1)
+    db_alias = schema_editor.connection.alias
+    layout.site_footer = []
+    layout.save()
+    FooterOrderable.objects.using(db_alias).create(footer_chooser=layout, footer=current_footer)
 
 
 
@@ -42,5 +42,5 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(add_navbar_orderables),
-        # migrations.RunPython(add_footer_orderables)
+        migrations.RunPython(add_footer_orderables)
     ]

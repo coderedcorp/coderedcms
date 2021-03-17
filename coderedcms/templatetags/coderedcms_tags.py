@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from django import template
 from django.conf import settings
+from django.db.models.query import QuerySet
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
 from wagtail.core.models import Collection, Site
@@ -17,6 +18,7 @@ from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
 from coderedcms.settings import cr_settings, get_bootstrap_setting
+from coderedcms.models.snippet_models import Navbar, Footer
 from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 register = template.Library()
@@ -108,22 +110,18 @@ def get_navbar_css(context):
 
 
 @register.simple_tag(takes_context=True)
-def get_navbars(context):
+def get_navbars(context) -> 'QuerySet[Navbar]' :
     layout = LayoutSettings.for_request(context['request'])
     navbarorderables = layout.site_navbar.all()
-    navbars = []
-    for orderable in navbarorderables:
-        navbars.append(orderable.navbar)
+    navbars = Navbar.objects.filter(navbarorderable__in=navbarorderables).order_by('navbarorderable__sort_order')
     return navbars
 
 
 @register.simple_tag(takes_context=True)
-def get_footers(context):
+def get_footers(context) -> 'QuerySet[Footer]':
     layout = LayoutSettings.for_request(context['request'])
     footerorderables = layout.site_footer.all()
-    footers = []
-    for orderable in footerorderables:
-        footers.append(orderable.footer)
+    footers = Footer.objects.filter(footerorderable__in=footerorderables).order_by('footerorderable__sort_order')
     return footers
 
 

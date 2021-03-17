@@ -4,10 +4,16 @@ from django.db import migrations
 
 
 def add_navbar_orderables(apps, schema_editor):
+    Site = apps.get_model('wagtailcore', 'Site')
     LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
     Navbar = apps.get_model('coderedcms', 'Navbar')
     NavbarOrderable = apps.get_model('coderedcms', 'NavbarOrderable')
-    layout = LayoutSettings.objects.get(pk=1)
+    # If it's a new site, this migration will not run.
+    try:
+        site = Site.objects.get(is_default_site=True)
+        layout = LayoutSettings.objects.get(site=site)
+    except (Site.DoesNotExist, LayoutSettings.DoesNotExist):
+        return
     current_navs = Navbar.objects.all()
     db_alias = schema_editor.connection.alias
     layout.site_navbar = []
@@ -17,10 +23,16 @@ def add_navbar_orderables(apps, schema_editor):
 
 
 def add_footer_orderables(apps, schema_editor):
+    Site = apps.get_model('wagtailcore', 'Site')
     LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
     Footer = apps.get_model('coderedcms', 'Footer')
     FooterOrderable = apps.get_model('coderedcms', 'FooterOrderable')
-    layout = LayoutSettings.objects.get(pk=1)
+    # If it's a new site, this migration will not run.
+    try:
+        site = Site.objects.get(is_default_site=True)
+        layout = LayoutSettings.objects.get(site=site)
+    except (Site.DoesNotExist, LayoutSettings.DoesNotExist):
+        return
     current_footers = Footer.objects.all()
     db_alias = schema_editor.connection.alias
     layout.site_footer = []

@@ -110,10 +110,14 @@ def get_navbar_css(context):
 
 
 @register.simple_tag(takes_context=True)
-def get_navbars(context) -> 'QuerySet[Navbar]' :
+def get_navbars(context) -> 'QuerySet[Navbar]':
     layout = LayoutSettings.for_request(context['request'])
     navbarorderables = layout.site_navbar.all()
-    navbars = Navbar.objects.filter(navbarorderable__in=navbarorderables).order_by('navbarorderable__sort_order')
+    navbars = Navbar.objects.filter(
+        navbarorderable__in=navbarorderables
+    ).order_by(
+        'navbarorderable__sort_order'
+    )
     return navbars
 
 
@@ -121,7 +125,11 @@ def get_navbars(context) -> 'QuerySet[Navbar]' :
 def get_footers(context) -> 'QuerySet[Footer]':
     layout = LayoutSettings.for_request(context['request'])
     footerorderables = layout.site_footer.all()
-    footers = Footer.objects.filter(footerorderable__in=footerorderables).order_by('footerorderable__sort_order')
+    footers = Footer.objects.filter(
+        footerorderable__in=footerorderables
+    ).order_by(
+        'orderable__sort_order'
+    )
     return footers
 
 

@@ -115,9 +115,7 @@ def get_navbars(context) -> 'QuerySet[Navbar]':
     navbarorderables = layout.site_navbar.all()
     navbars = Navbar.objects.filter(
         navbarorderable__in=navbarorderables
-    ).order_by(
-        'navbarorderable__sort_order'
-    )
+        ).order_by('navbarorderable__sort_order')
     return navbars
 
 
@@ -127,9 +125,7 @@ def get_footers(context) -> 'QuerySet[Footer]':
     footerorderables = layout.site_footer.all()
     footers = Footer.objects.filter(
         footerorderable__in=footerorderables
-    ).order_by(
-        'orderable__sort_order'
-    )
+        ).order_by('footerorderable__sort_order')
     return footers
 
 

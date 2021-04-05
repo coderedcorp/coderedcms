@@ -13,7 +13,6 @@
 #     FooterOrderable
 # )
 
-
 # Set up
 
 # class TestMigrations(TestCase):
@@ -24,8 +23,6 @@
 
 #     migrate_from = None
 #     migrate_to = None
-
-
 
 # Need to create Site that has navbar and footer the current way
 # Then run the migration and check if the navbar and footer was added to orderables

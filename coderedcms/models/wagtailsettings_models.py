@@ -226,15 +226,17 @@ class AnalyticsSettings(BaseSetting):
         verbose_name=_('Track button clicks'),
         help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),  # noqa
     )
-    below_head_scripts = models.TextField(
+    head_scripts = models.TextField(
         blank=True,
         null=True,
-        verbose_name=_('Add tracking scripts between the <head> tags.'),
+        verbose_name=_('<head> tracking scripts'),
+        help_text=_('Add tracking scripts between the <head> tags.'),
     )
-    below_body_scripts = models.TextField(
+    body_scripts = models.TextField(
         blank=True,
         null=True,
-        verbose_name=_('Add tracking scripts toward closing <body> tag.'),
+        verbose_name=_('<body> tracking scripts'),
+        help_text=_('Add tracking scripts toward closing <body> tag.'),
     )
 
     panels = [
@@ -247,8 +249,8 @@ class AnalyticsSettings(BaseSetting):
         ),
         MultiFieldPanel(
             [
-                FieldPanel('below_head_scripts'),
-                FieldPanel('below_body_scripts'),
+                FieldPanel('head_scripts'),
+                FieldPanel('body_scripts'),
             ],
             heading=_('Other Tracking Scripts')
         )

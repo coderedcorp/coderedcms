@@ -20,8 +20,8 @@
               gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
             </script>
         {% endif %}
-        {% if settings.coderedcms.AnalyticsSettings.below_head_scripts %}
-            {{settings.coderedcms.AnalyticsSettings.below_head_scripts|safe}}
+        {% if settings.coderedcms.AnalyticsSettings.head_scripts %}
+            {{settings.coderedcms.AnalyticsSettings.head_scripts|safe}}
         {% endif %}
         {% endblock %}
 
@@ -200,8 +200,10 @@
             {% block struct_seo_extra %}{% endblock %}
         {% endif %}
 
-        {% if settings.coderedcms.AnalyticsSettings.below_body_scripts %}
-            {{settings.coderedcms.AnalyticsSettings.below_body_scripts|safe}}
+        {% block body_tracking_scripts %}
+        {% if settings.coderedcms.AnalyticsSettings.body_scripts %}
+            {{settings.coderedcms.AnalyticsSettings.body_scripts|safe}}
         {% endif %}
+        {% endblock %}
     </body>
 </html>

@@ -13,6 +13,7 @@ class ColorField(models.CharField):
         kwargs['widget'] = ColorPickerWidget
         return super(ColorField, self).formfield(**kwargs)
 
+
 class ScriptField(models.TextField):
     def __init__(self, *args, **kwargs):
         super(ScriptField, self).__init__(*args, **kwargs)

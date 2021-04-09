@@ -1,6 +1,6 @@
 /*
 CodeRed CMS (https://www.coderedcorp.com/cms/)
-Copyright 2018-2019 CodeRed LLC
+Copyright 2018-2021 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
 
@@ -61,6 +61,11 @@ input[type='checkbox']::before, input[type='radio']::before {
     border:1.5px solid #ccc;
     position: relative;
     top:unset;
+}
+#id_head_scripts,
+#id_body_scripts {
+    height: 300px !important;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 }
 .date_field .input::after,
 .date_field .input::before,

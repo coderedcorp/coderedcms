@@ -62,11 +62,6 @@ input[type='checkbox']::before, input[type='radio']::before {
     position: relative;
     top:unset;
 }
-#id_head_scripts,
-#id_body_scripts {
-    height: 300px !important;
-    font-family: SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-}
 .date_field .input::after,
 .date_field .input::before,
 .date_time_field .input::after,

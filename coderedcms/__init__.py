@@ -14,7 +14,7 @@ Maintains version of coderedcms.
 
 See: https://www.python.org/dev/peps/pep-0440/
 """
-release = ["0", "20", "0", "dev2", ""]
+release = ["0", "20", "0", "dev3", ""]
 
 
 def _get_version() -> str:

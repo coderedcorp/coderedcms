@@ -255,6 +255,9 @@ input[type='checkbox']::before, input[type='radio']::before {
     .nav-main .footer-submenu {
         overflow: hidden;
     }
+    .footer .footer-submenu {
+        display: block;
+    }
     .footer .avatar {
         width: 40px;
         height: 40px;

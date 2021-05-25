@@ -246,7 +246,7 @@ input[type='checkbox']::before, input[type='radio']::before {
         width:100%;
     }
     .nav-main {
-        margin-bottom: 70px;
+        margin-bottom: 0px;
     }
     .nav-main .account em {
         margin-top:0.9em;
@@ -254,8 +254,6 @@ input[type='checkbox']::before, input[type='radio']::before {
     }
     .nav-main .footer-submenu {
         overflow: hidden;
-    }
-    .footer .footer-submenu {
         display: block;
     }
     .footer .avatar {

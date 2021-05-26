@@ -10,7 +10,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from wagtail.core import blocks
 from wagtail.core.models import Collection
+from wagtail.core.telepath import register
 from wagtail.core.utils import resolve_model_string
+from wagtail.core.widget_adapters import WidgetAdapter
 from wagtail.documents.blocks import DocumentChooserBlock
 
 from coderedcms.settings import cr_settings
@@ -27,12 +29,19 @@ class MultiSelectBlock(blocks.FieldBlock):
             required=required,
             help_text=help_text,
             choices=choices,
-            widget=widget,
+            widget=widget, # https://docs.djangoproject.com/en/3.2/ref/forms/widgets/#django.forms.CheckboxSelectMultiple
         )
         super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
         return [force_str(value)]
+
+# NOTES: https://github.com/wagtail/wagtail/blob/main/wagtail/core/widget_adapters.py
+# class MultiSelectBlockAdapater(WidgetAdapter):
+#    # js_constructor = ??
+
+
+# register(MultiSelectBlockWidgetAdapter(), MultiSelectBlock)
 
 
 class ClassifierTermChooserBlock(blocks.FieldBlock):

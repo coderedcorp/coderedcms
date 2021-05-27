@@ -9,8 +9,6 @@ from wagtail.core import blocks
 
 from coderedcms import schema
 
-from .base_blocks import MultiSelectBlock
-
 
 class OpenHoursValue(blocks.StructValue):
     """
@@ -28,7 +26,7 @@ class OpenHoursBlock(blocks.StructBlock):
     """
     Holds day and time combination for business open hours.
     """
-    days = MultiSelectBlock(
+    days = blocks.MultipleChoiceBlock(
         required=True,
         verbose_name=_('Days'),
         help_text=_('For late night hours past 23:59, define each day in a separate block.'),

@@ -18,7 +18,7 @@ Layout Tab
 * **Show Images**:  If toggled on, this landing page will show the cover images for its children articles.
 * **Show Captions**: If toggled on, this landing page will show the captions for its children articles.
 * **Show Author and Date Info**: If toggled on, this landing page will show the captions for its children articles.
-* **Show Preview Text**: If toggled on, this landing page will show a preview of its childrens content.
+* **Show Preview Text**: If toggled on, this landing page will show a preview of its children's content.
 
 
 Article Page

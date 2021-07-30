@@ -246,16 +246,17 @@ input[type='checkbox']::before, input[type='radio']::before {
         width:100%;
     }
     .nav-main {
-        margin-bottom: 70px;
+        margin-bottom: 0px;
     }
     .nav-main .account em {
         margin-top:0.9em;
         font-size: 0.9em;
     }
-    .nav-main .footer-submenu {
+    .nav-main .nav-footer-submenu {
         overflow: hidden;
+        display: block;
     }
-    .footer .avatar {
+    .nav-footer .avatar {
         width: 40px;
         height: 40px;
     }

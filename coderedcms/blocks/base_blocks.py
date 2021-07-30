@@ -16,25 +16,6 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from coderedcms.settings import cr_settings
 
 
-class MultiSelectBlock(blocks.FieldBlock):
-    """
-    Renders as MultipleChoiceField, used for adding checkboxes,
-    radios, or multiselect inputs in the streamfield.
-    """
-
-    def __init__(self, required=True, help_text=None, choices=None, widget=None, **kwargs):
-        self.field = forms.MultipleChoiceField(
-            required=required,
-            help_text=help_text,
-            choices=choices,
-            widget=widget,
-        )
-        super().__init__(**kwargs)
-
-    def get_searchable_content(self, value):
-        return [force_str(value)]
-
-
 class ClassifierTermChooserBlock(blocks.FieldBlock):
     """
     Enables choosing a ClassifierTerm in the streamfield.

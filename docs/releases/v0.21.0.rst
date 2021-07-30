@@ -1,0 +1,32 @@
+v0.21.0 release notes
+=====================
+
+
+New features
+------------
+
+* Upgraded to Wagtail 2.13
+
+
+Upgrade considerations
+----------------------
+
+* ``coderedcms.blocks.MultiSelectBlock`` has been removed and is now replaced
+  with ``wagtail.core.blocks.MultipleChoiceBlock``.
+
+* You may need to find/replace
+  ``coderedcms.blocks.base_blocks.MultiSelectBlock`` with
+  ``wagtail.core.blocks.MultipleChoiceBlock`` in any old migrations so that they
+  may continue working.
+
+* Follow `Wagtail 2.12 upgrade considerations <https://docs.wagtail.io/en/stable/releases/2.12.html#upgrade-considerations>`_
+  and `Wagtail 2.13 upgrade considerations <https://docs.wagtail.io/en/stable/releases/2.13.html#upgrade-considerations>`_.
+
+* You may need to run ``python manage.py makemigrations website`` and
+  ``python manage.py migrate`` after upgrading.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.21.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/31?closed=1>`_.

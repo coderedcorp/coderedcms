@@ -19,7 +19,7 @@ class AnalyticsSettingsTestCase(WagtailPageTests):
 
         # Use home page and default site.
         self.site = Site.objects.filter(is_default_site=True)[0]
-        self.homepage = WebPage.objects.get(url_path='/home/')
+        self.homepage = WebPage.objects.get(url_path="/home/")
 
         # Populate settings.
         self.settings = AnalyticsSettings.for_site(self.site)
@@ -49,7 +49,7 @@ class AnalyticsSettingsTestCase(WagtailPageTests):
         response = self.client.get(self.homepage.url, follow=True)
         self.assertInHTML(self.settings.head_scripts, str(response.content), 1)
 
-    def test_ga_tracking_id(self):
+    def test_body_scripts(self):
         """
         Make sure the body_scripts is present.
         """

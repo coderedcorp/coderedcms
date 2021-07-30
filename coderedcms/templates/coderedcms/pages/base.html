@@ -20,6 +20,9 @@
               gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
             </script>
         {% endif %}
+        {% if settings.coderedcms.AnalyticsSettings.head_scripts %}
+            {{settings.coderedcms.AnalyticsSettings.head_scripts|safe}}
+        {% endif %}
         {% endblock %}
 
         {# Pass in CMS variables to JavaScript #}
@@ -196,5 +199,11 @@
             {% endblock %}
             {% block struct_seo_extra %}{% endblock %}
         {% endif %}
+
+        {% block body_tracking_scripts %}
+        {% if settings.coderedcms.AnalyticsSettings.body_scripts %}
+            {{settings.coderedcms.AnalyticsSettings.body_scripts|safe}}
+        {% endif %}
+        {% endblock %}
     </body>
 </html>

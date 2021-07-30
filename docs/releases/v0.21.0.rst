@@ -7,6 +7,13 @@ New features
 
 * Upgraded to Wagtail 2.13
 
+* Added new ``<head>`` and ``<body>`` tracking script settings. See
+  :doc:`/how_to/add_tracking_scripts`.
+
+* Added new ``coderedcms.fields.MonospaceField`` for rendering text area fields
+  in the Wagtail admin with monospace input and spell-checking disabled. This is
+  used by the new tracking settings and is useful for implementing code-oriented
+  fields.
 
 Upgrade considerations
 ----------------------

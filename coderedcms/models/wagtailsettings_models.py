@@ -12,6 +12,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
 
+from coderedcms.fields import MonospaceField
 from coderedcms.settings import cr_settings
 
 
@@ -226,6 +227,18 @@ class AnalyticsSettings(BaseSetting):
         verbose_name=_('Track button clicks'),
         help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),  # noqa
     )
+    head_scripts = MonospaceField(
+        blank=True,
+        null=True,
+        verbose_name=_('<head> tracking scripts'),
+        help_text=_('Add tracking scripts between the <head> tags.'),
+    )
+    body_scripts = MonospaceField(
+        blank=True,
+        null=True,
+        verbose_name=_('<body> tracking scripts'),
+        help_text=_('Add tracking scripts toward closing <body> tag.'),
+    )
 
     panels = [
         MultiFieldPanel(
@@ -234,6 +247,13 @@ class AnalyticsSettings(BaseSetting):
                 FieldPanel('ga_track_button_clicks'),
             ],
             heading=_('Google Analytics')
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('head_scripts'),
+                FieldPanel('body_scripts'),
+            ],
+            heading=_('Other Tracking Scripts')
         )
     ]
 

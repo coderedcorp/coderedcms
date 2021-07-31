@@ -54,7 +54,8 @@ setup(
         'wagtail==2.13.*',
         'wagtailfontawesome>=1.2.*',
         'wagtail-cache==1.*',
-        'wagtail-import-export>=0.2,<0.3'
+        'wagtail-import-export>=0.2,<0.3',
+        'wagtail-seo',
     ],
     entry_points={
         "console_scripts": [

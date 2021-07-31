@@ -24,7 +24,6 @@ class ArticlePage(CoderedArticlePage):
     parent_page_types = ['website.ArticleIndexPage']
 
     template = 'coderedcms/pages/article_page.html'
-    amp_template = 'coderedcms/pages/article_page.amp.html'
     search_template = 'coderedcms/pages/article_page.search.html'
 
 

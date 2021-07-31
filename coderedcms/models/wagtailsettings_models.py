@@ -7,7 +7,7 @@ Global project or developer settings should be defined in coderedcms.settings.py
 import json
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import HelpPanel, FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
@@ -328,50 +328,6 @@ class GeneralSettings(BaseSetting):
 
     class Meta:
         verbose_name = _('General')
-
-
-@register_setting(icon='fa-line-chart')
-class SeoSettings(BaseSetting):
-    """
-    Additional search engine optimization and meta tags
-    that can be turned on or off.
-    """
-    class Meta:
-        verbose_name = _('SEO')
-
-    og_meta = models.BooleanField(
-        default=True,
-        verbose_name=_('Use OpenGraph Markup'),
-        help_text=_('Show an optimized preview when linking to this site on Facebook, Linkedin, Twitter, and others. See http://ogp.me/.'),  # noqa
-    )
-    twitter_meta = models.BooleanField(
-        default=True,
-        verbose_name=_('Use Twitter Markup'),
-        help_text=_('Shows content as a "card" when linking to this site on Twitter. See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.'),  # noqa
-    )
-    struct_meta = models.BooleanField(
-        default=True,
-        verbose_name=_('Use Structured Data'),
-        help_text=_('Optimizes information about your organization for search engines. See https://schema.org/.'),  # noqa
-    )
-    amp_pages = models.BooleanField(
-        default=True,
-        verbose_name=_('Use AMP Pages'),
-        help_text=_('Generates an alternate AMP version of Article pages that are preferred by search engines. See https://www.ampproject.org/'),  # noqa
-    )
-
-    panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('og_meta'),
-                FieldPanel('twitter_meta'),
-                FieldPanel('struct_meta'),
-                FieldPanel('amp_pages'),
-                HelpPanel(content=_('If these settings are enabled, the corresponding values in each page’s SEO tab are used.')),  # noqa
-            ],
-            heading=_('Search Engine Optimization')
-        )
-    ]
 
 
 @register_setting(icon='fa-puzzle-piece')

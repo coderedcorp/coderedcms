@@ -18,12 +18,64 @@ New features
 * Improve developer tooling in new CodeRed CMS sites by providing pre-configured
   ``.gitattribute`` and ``.editorconfig`` files.
 
+* SEO features have been refactored into separate package ``wagtail-seo``. There
+  should be no noticeable changes to your models, except for the addition of new
+  properties which can be easily overridden and customized. See
+  `wagtail-seo customization docs <https://docs.coderedcorp.com/wagtail-seo/customizing/index.html>`_.
+
 
 Upgrade considerations
 ----------------------
 
-* ``coderedcms.blocks.MultiSelectBlock`` has been removed and is now replaced
-  with ``wagtail.core.blocks.MultipleChoiceBlock``.
+* Existing projects will need to add ``wagtailseo,`` to ``INSTALLED_APPS``
+  (usually in ``settings/base.py``).
+
+* **AMP support has been removed**. This means that your site will no longer
+  serve automatically generated AMP pages after upgrading. If you had previously
+  implemented custom AMP templates, or rely heavily on AMP pages, you may need
+  to implement this functionality yourself. For any site what is not a large
+  news publisher, we recommend removing AMP from your site, as it is no longer
+  worth the maintenance burden. `See reasoning for this change
+  <https://github.com/coderedcorp/wagtail-seo/issues/21>`_.
+
+  * ``coderedcms_tags.convert_to_amp`` has been removed.
+
+  * ``coderedcms.utils.convert_to_amp()`` has been removed.
+
+  * You should remove any ``amp_template`` attributes from your models, as they
+    are no longer used.
+
+* ``coderedcms/pages/base.html`` template has been modified. If you implement or
+  extend your own ``base.html``, the following changes are notable:
+
+  * template blocks: ``html_seo_base``, ``html_seo_extra``, ``og_seo_base``,
+    ``og_seo_extra``, ``twitter_seo_base``, ``twitter_seo_extra`` have been
+    replaced with ``{% include "wagtailseo/meta.html" %}``
+
+  * template blocks: ``struct_seo_base``, ``struct_seo_extra`` have been
+    replaced with ``{% include "wagtailseo/struct_data.html" %}``
+
+* Properties and templates associated with SEO functionality have changed:
+
+  * ``CoderedArticlePage.get_author_name`` -> ``CoderedArticlePage.seo_author``
+
+  * ``CoderedArticlePage.get_pub_date`` -> ``CoderedArticlePage.seo_published_at``
+
+  * ``CoderedArticlePage.get_description`` -> ``CoderedArticlePage.seo_description``
+
+  * ``coderedcms_tags.og_image`` -> ``page.seo_image_url``
+
+  * ``coderedcms_tags.structured_data_datetime`` has been removed.
+
+* Some built-in blocks used in the Wagtail admin have been replaced:
+
+  * ``coderedcms.blocks.MultiSelectBlock`` -> ``wagtail.core.blocks.MultipleChoiceBlock``
+
+  * ``coderedcms.blocks.OpenHoursValue`` -> ``wagtailseo.blocks.OpenHoursValue``
+
+  * ``coderedcms.blocks.OpenHoursBlock`` -> ``wagtailseo.blocks.OpenHoursBlock``
+
+  * ``coderedcms.blocks.StructuredDataActionBlock`` -> ``wagtailseo.blocks.StructuredDataActionBlock``
 
 * You may need to find/replace
   ``coderedcms.blocks.base_blocks.MultiSelectBlock`` with

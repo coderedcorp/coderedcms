@@ -5,6 +5,10 @@ Base and abstract pages used in CodeRed CMS.
 import json
 import logging
 import os
+import warnings
+from datetime import datetime
+from typing import Optional, TYPE_CHECKING
+
 import geocoder
 from django import forms
 from django.conf import settings
@@ -33,7 +37,6 @@ from modelcluster.tags import ClusterTaggableManager
 from pathlib import Path
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
-    HelpPanel,
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
@@ -55,15 +58,15 @@ from wagtail.contrib.forms.models import FormSubmission
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
+from wagtailseo.models import SeoMixin, TwitterCard
+from wagtailseo.utils import get_struct_data_images, StructDataEncoder
 
-from coderedcms import schema, utils
+from coderedcms import utils
 from coderedcms.blocks import (
     CONTENT_STREAMBLOCKS,
     LAYOUT_STREAMBLOCKS,
     STREAMFORM_BLOCKS,
     ContentWallBlock,
-    OpenHoursBlock,
-    StructuredDataActionBlock,
 )
 from coderedcms.fields import ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
@@ -72,7 +75,6 @@ from coderedcms.models.wagtailsettings_models import (
     GeneralSettings,
     GoogleApiSettings,
     LayoutSettings,
-    SeoSettings,
 )
 from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
 from coderedcms.wagtail_flexible_forms.models import (
@@ -85,6 +87,10 @@ from coderedcms.wagtail_flexible_forms.models import (
 )
 from coderedcms.settings import cr_settings
 from coderedcms.widgets import ClassifierSelectWidget
+
+
+if TYPE_CHECKING:
+    from wagtail.images.models import AbstractImage
 
 
 logger = logging.getLogger('coderedcms')
@@ -100,8 +106,6 @@ def get_page_models():
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
-        if 'amp_template' not in dct:
-            cls.amp_template = None
         if 'search_db_include' not in dct:
             cls.search_db_include = False
         if 'search_db_boost' not in dct:
@@ -124,7 +128,7 @@ class CoderedTag(TaggedItemBase):
     content_object = ParentalKey('coderedcms.CoderedPage', related_name='tagged_items')
 
 
-class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
+class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     """
     General use page with caching, templating, and SEO functionality.
     All pages should inherit from this.
@@ -139,7 +143,6 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     # The page will render the following templates under certain conditions:
     #
     # template = ''
-    # amp_template = ''
     # ajax_template = ''
     # search_template = ''
 
@@ -213,120 +216,13 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
     )
 
     ###############
-    # SEO fields
+    # SEO overrides
     ###############
 
-    og_image = models.ForeignKey(
-        get_image_model_string(),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name=_('Open Graph preview image'),
-        help_text=_("The image shown when linking to this page on social media. If blank, defaults to article cover image, or logo in Settings > Layout > Logo"),  # noqa
-    )
-    struct_org_type = models.CharField(
-        default='',
-        blank=True,
-        max_length=255,
-        choices=schema.SCHEMA_ORG_CHOICES,
-        verbose_name=_('Organization type'),
-        help_text=_('If blank, no structured data will be used on this page.')
-    )
-    struct_org_name = models.CharField(
-        default='',
-        blank=True,
-        max_length=255,
-        verbose_name=_('Organization name'),
-        help_text=_('Leave blank to use the site name in Settings > Sites')
-    )
-    struct_org_logo = models.ForeignKey(
-        get_image_model_string(),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name=_('Organization logo'),
-        help_text=_('Leave blank to use the logo in Settings > Layout > Logo')
-    )
-    struct_org_image = models.ForeignKey(
-        get_image_model_string(),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name=_('Photo of Organization'),
-        help_text=_('A photo of the facility. This photo will be cropped to 1:1, 4:3, and 16:9 aspect ratios automatically.'),  # noqa
-    )
-    struct_org_phone = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Telephone number'),
-        help_text=_('Include country code for best results. For example: +1-216-555-8000')
-    )
-    struct_org_address_street = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Street address'),
-        help_text=_('House number and street. For example, 55 Public Square Suite 1710')
-    )
-    struct_org_address_locality = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('City'),
-        help_text=_('City or locality. For example, Cleveland')
-    )
-    struct_org_address_region = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('State'),
-        help_text=_('State, province, county, or region. For example, OH')
-    )
-    struct_org_address_postal = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Postal code'),
-        help_text=_('Zip or postal code. For example, 44113')
-    )
-    struct_org_address_country = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('Country'),
-        help_text=_('For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptable https://en.wikipedia.org/wiki/ISO_3166-1'),  # noqa
-    )
-    struct_org_geo_lat = models.DecimalField(
-        blank=True,
-        null=True,
-        max_digits=10,
-        decimal_places=8,
-        verbose_name=_('Geographic latitude')
-    )
-    struct_org_geo_lng = models.DecimalField(
-        blank=True,
-        null=True,
-        max_digits=10,
-        decimal_places=8,
-        verbose_name=_('Geographic longitude')
-    )
-    struct_org_hours = StreamField(
-        [
-            ('hours', OpenHoursBlock()),
-        ],
-        blank=True,
-        verbose_name=_('Hours of operation')
-    )
-    struct_org_actions = StreamField(
-        [
-            ('actions', StructuredDataActionBlock())
-        ],
-        blank=True,
-        verbose_name=_('Actions')
-    )
-    struct_org_extra_json = models.TextField(
-        blank=True,
-        verbose_name=_('Additional Organization markup'),
-        help_text=_('Additional JSON-LD inserted into the Organization dictionary. Must be properties of https://schema.org/Organization or the selected organization type.'),  # noqa
-    )
+    seo_image_sources = [
+        "og_image",
+        "cover_image",
+    ]
 
     ###############
     # Classify
@@ -417,45 +313,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         )
     ]
 
-    promote_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('slug'),
-                FieldPanel('seo_title'),
-                FieldPanel('search_description'),
-                ImageChooserPanel('og_image'),
-            ],
-            _('Page Meta Data')
-        ),
-        MultiFieldPanel(
-            [
-                HelpPanel(
-                    heading=_('About Organization Structured Data'),
-                    content=_("""The fields below help define brand, contact, and storefront
-                    information to search engines. This information should be filled out on
-                    the site’s root page (Home Page). If your organization has multiple locations,
-                    then also fill this info out on each location page using that particular
-                    location’s info."""),
-                ),
-                FieldPanel('struct_org_type'),
-                FieldPanel('struct_org_name'),
-                ImageChooserPanel('struct_org_logo'),
-                ImageChooserPanel('struct_org_image'),
-                FieldPanel('struct_org_phone'),
-                FieldPanel('struct_org_address_street'),
-                FieldPanel('struct_org_address_locality'),
-                FieldPanel('struct_org_address_region'),
-                FieldPanel('struct_org_address_postal'),
-                FieldPanel('struct_org_address_country'),
-                FieldPanel('struct_org_geo_lat'),
-                FieldPanel('struct_org_geo_lng'),
-                StreamFieldPanel('struct_org_hours'),
-                StreamFieldPanel('struct_org_actions'),
-                FieldPanel('struct_org_extra_json'),
-            ],
-            _('Structured Data - Organization')
-        ),
-    ]
+    promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
 
     settings_panels = Page.settings_panels + [
         StreamFieldPanel('content_walls'),
@@ -504,41 +362,50 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
 
         return TabbedInterface(panels).bind_to(model=cls)
 
-    def get_struct_org_name(self):
+    @property
+    def seo_logo(self) -> "Optional[AbstractImage]":
         """
-        Gets org name for sturctured data using a fallback.
+        Override method in SeoMixin.
+        Gets the primary logo of the organization.
         """
-        if self.struct_org_name:
-            return self.struct_org_name
-        return self.get_site().site_name
-
-    def get_struct_org_logo(self):
-        """
-        Gets logo for structured data using a fallback.
-        """
-        if self.struct_org_logo:
-            return self.struct_org_logo
+        logo = super().seo_logo
+        if logo:
+            return logo
         else:
             layout_settings = LayoutSettings.for_site(self.get_site())
             if layout_settings.logo:
                 return layout_settings.logo
         return None
 
+    @property
+    def seo_image(self) -> "Optional[AbstractImage]":
+        """
+        Override method in SeoMixin.
+        Fallback to logo if opengraph image is not specified.
+        """
+        img = super().seo_image
+        if img is None:
+            return self.seo_logo
+        return img
+
+    @property
+    def seo_twitter_card_content(self) -> str:
+        """
+        Override of method in SeoMixin.
+        Show a large twitter card if the page has an image set.
+        """
+        if self.seo_image:
+            return TwitterCard.LARGE.value
+        return self.seo_twitter_card.value
+
     def get_template(self, request, *args, **kwargs):
         """
         Override parent to serve different templates based on querystring.
         """
-        if 'amp' in request.GET and hasattr(self, 'amp_template'):
-            seo_settings = SeoSettings.for_request(request)
-            if seo_settings.amp_pages:
-                if request.is_ajax():
-                    return self.ajax_template or self.amp_template
-                return self.amp_template
-
         if self.custom_template:
             return self.custom_template
 
-        return super(CoderedPage, self).get_template(request, args, kwargs)
+        return super().get_template(request, args, kwargs)
 
     def get_index_children(self):
         """
@@ -615,6 +482,7 @@ class CoderedPage(WagtailCacheMixin, Page, metaclass=CoderedPageMeta):
         context['content_walls'] = self.get_content_walls(check_child_setting=False)
         return context
 
+
 ###############################################################################
 # Abstract pages providing pre-built common website functionality, suitable for subclassing.
 # These are abstract so subclasses can override fields if desired.
@@ -681,7 +549,6 @@ class CoderedArticlePage(CoderedWebPage):
         abstract = True
 
     template = 'coderedcms/pages/article_page.html'
-    amp_template = 'coderedcms/pages/article_page.amp.html'
 
     # Override body to provide simpler content
     body = StreamField(CONTENT_STREAMBLOCKS, null=True, blank=True)
@@ -712,25 +579,57 @@ class CoderedArticlePage(CoderedWebPage):
     )
 
     def get_author_name(self):
+        warnings.warn(
+            ("CoderedArticlePage.get_author_name has been replaced with "
+             "CoderedArticlePage.seo_author"),
+            DeprecationWarning,
+        )
+        return self.seo_author
+
+    @property
+    def seo_author(self) -> str:
         """
+        Override of method in SeoMixin.
         Gets author name using a fallback.
         """
         if self.author_display:
             return self.author_display
         if self.author:
             return self.author.get_full_name()
-        return ''
+        if self.owner:
+            return self.owner.get_full_name()
+        return ""
 
     def get_pub_date(self):
+        warnings.warn(
+            ("CoderedArticlePage.get_pub_date has been replaced with "
+             "CoderedArticlePage.seo_published_at"),
+            DeprecationWarning,
+        )
+        return self.seo_published_at
+
+    @property
+    def seo_published_at(self) -> datetime:
         """
+        Override of method in SeoMixin.
         Gets published date.
         """
         if self.date_display:
             return self.date_display
-        return ''
+        return self.first_published_at
 
     def get_description(self):
+        warnings.warn(
+            ("CoderedArticlePage.get_description has been replaced with "
+             "CoderedArticlePage.seo_description"),
+            DeprecationWarning,
+        )
+        return self.seo_description
+
+    @property
+    def seo_description(self) -> str:
         """
+        Override of method in SeoMixin.
         Gets the description using a fallback.
         """
         if self.search_description:
@@ -739,7 +638,7 @@ class CoderedArticlePage(CoderedWebPage):
             return self.caption
         if self.body_preview:
             return self.body_preview
-        return ''
+        return ""
 
     search_fields = (
         CoderedWebPage.search_fields +
@@ -868,6 +767,43 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             occurrences = [e.next_occurrence() for e in self.occurrences.all()]
             if occurrences:
                 return sorted(occurrences, key=lambda tup: tup[0])[0]
+
+    @property
+    def seo_struct_event_dict(self) -> dict:
+        next_occ = self.most_recent_occurrence
+        sd_dict = {
+            "@context": "https://schema.org/",
+            "@type": "Event",
+            "name": self.title,
+            "description": self.seo_description,
+            "startDate": next_occ.start,
+            "endDate": next_occ.end,
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": self.get_full_url,
+            },
+        }
+
+        if self.seo_image:
+            sd_dict.update({"image": get_struct_data_images(self.seo_image)})
+
+        if self.address:
+            sd_dict.update({
+                "location": {
+                    "@type": "Place",
+                    "name": self.title,
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": self.address,
+                    },
+                },
+            })
+
+        return sd_dict
+
+    @property
+    def seo_struct_event_json(self) -> str:
+        return json.dumps(self.seo_struct_event_dict, cls=StructDataEncoder)
 
     def query_occurrences(self, num_of_instances_to_return=None, **kwargs):
         """

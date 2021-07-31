@@ -2,43 +2,6 @@
 
 {% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags coderedcms_tags %}
 
-{% block description %}{{self.get_description}}{% endblock %}
-{% block html_seo_extra %}
-{% if self.get_author_name %}<meta name="author" content="{{self.get_author_name}}" />{% endif %}
-<meta name="created" content="{{self.get_pub_date|date:'c'}}" />
-<meta name="revised" content="{{self.last_published_at|date:'c'}}" />
-{% if settings.coderedcms.SeoSettings.amp_pages %}
-<link rel="amphtml" href="{{self.get_full_url}}?amp">
-{% endif %}
-{% endblock %}
-
-{% if settings.coderedcms.SeoSettings.og_meta %}
-    {% block og_description %}{{self.get_description}}{% endblock %}
-    {% block og_type %}article{% endblock %}
-    {% block og_seo_extra %}
-        <meta property="og:article:published_time" content="{{self.get_pub_date}}" />
-        <meta property="og:article:modified_time" content="{{self.last_published_at}}" />
-        {% if self.author_display %}
-        <meta property="og:article:author" content="{{self.author_display}}" />
-        {% elif self.author %}
-        <meta property="og:article:author:first_name" content="{{self.author.first_name}}" />
-        <meta property="og:article:author:last_name" content="{{self.author.last_name}}" />
-        {% endif %}
-    {% endblock %}
-{% endif %}
-
-{% if settings.coderedcms.SeoSettings.twitter_meta %}
-    {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
-    {% block twitter_seo_extra %}
-        {% if self.caption %}
-        <meta name="twitter:description" content="{{ self.caption }}">
-        {% endif %}
-        {% if self.author.twitter %}
-            <meta name="twitter:creator" content="{{self.author.twitter}}" />
-        {% endif %}
-    {% endblock %}
-{% endif %}
-
 {% block content %}
     <article class="codered-article {%if self.cover_image %}has-img{% endif %}">
         {% if self.cover_image %}
@@ -52,20 +15,16 @@
                 <p class="lead">{{self.caption}}</p>
                 {% endif %}
                 <p>
-                    {% if self.author_display %}
-                    <span class="article-author">{{self.get_author_name}}</span>
-                    {% elif self.author %}
+                    {% if self.author %}
                     <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
-                    <span class="article-author">{{self.get_author_name}}</span>
+                    {% elif self.owner %}
+                    <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
                     {% endif %}
+                    <span class="article-author">{{self.seo_author}}</span>
 
-                    {% if self.get_author_name and self.get_pub_date %}
                     <span class="mx-2">&bull;</span>
-                    {% endif %}
 
-                    {% if self.get_pub_date %}
-                    <span class="article-date">{{ self.get_pub_date }}</span>
-                    {% endif %}
+                    <span class="article-date">{{ self.seo_published_at }}</span>
                 </p>
                 <hr>
             </div>
@@ -75,11 +34,3 @@
         </div>
     </article>
 {% endblock %}
-
-{% if settings.coderedcms.SeoSettings.struct_meta %}
-    {% block struct_seo_extra %}
-    <script type="application/ld+json">
-        {% include "coderedcms/includes/struct_data_article.json" with page=self %}
-    </script>
-    {% endblock %}
-{% endif %}

@@ -29,7 +29,7 @@
             <div class="col-md">
                 <h3><a href="{% pageurl article %}">{{article.title}}</a></h3>
                 {% if self.show_captions and article.specific.caption %}<p class="lead">{{article.specific.caption}}</p>{% endif %}
-                {% if self.show_meta %}<p>{{article.specific.get_pub_date}}{% if article.specific.get_author_name %} &bull; {{article.specific.get_author_name}}{% endif %}</p>{% endif %}
+                {% if self.show_meta %}<p>{{article.specific.seo_published_at}} &bull; {{article.specific.seo_author}}</p>{% endif %}
                 {% if self.show_preview_text %}<p>{{article.specific.body_preview}}</p>{% endif %}
             </div>
         </div>

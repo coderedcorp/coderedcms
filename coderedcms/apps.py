@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
+
 class CoderedcmsConfig(AppConfig):
     name = 'coderedcms'
     verbose_name = 'CodeRed CMS'

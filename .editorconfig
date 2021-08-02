@@ -1,0 +1,26 @@
+# EditorConfig is awesome: https://EditorConfig.org
+#
+# EditorConfig helps keep your files clean and uniform by specifying tabs vs
+# spaces, file encodings, etc. Download a plugin for your editor:
+# https://editorconfig.org/#download
+
+# top-most EditorConfig file
+root = true
+
+# Save files in UTF-8, with Unix-style newlines, with a blank line at the end,
+# and trim any rogue whitespace (e.g. spaces, tabs at the end of lines.)
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Use 4 spaced for indentation.
+[*.{md,py,rst}]
+indent_style = space
+indent_size = 4
+
+# Use 2 spaces for indentation.
+[*.{css,sass,scss,html,js,json,ts,yml}]
+indent_style = space
+indent_size = 2

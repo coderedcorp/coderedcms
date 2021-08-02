@@ -15,6 +15,10 @@ New features
   used by the new tracking settings and is useful for implementing code-oriented
   fields.
 
+* Improve developer tooling in new CodeRed CMS sites by providing pre-configured
+  ``.gitattribute`` and ``.editorconfig`` files.
+
+
 Upgrade considerations
 ----------------------
 

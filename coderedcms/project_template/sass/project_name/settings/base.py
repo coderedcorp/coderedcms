@@ -199,6 +199,7 @@ BOOTSTRAP4 = {
 
 TAGGIT_CASE_INSENSITIVE = True
 
-# Sets default for primary key IDs - change to BigAutoField if you prefer a 64-bit integar instead
-# See https://docs.djangoproject.com/en/3.2/ref/models/fields/#autofield
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Sets default for primary key IDs
+# See https://docs.djangoproject.com/en/{{ docs_version }}/ref/models/fields/#bigautofield
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

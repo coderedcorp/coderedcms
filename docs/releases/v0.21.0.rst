@@ -30,6 +30,11 @@ Upgrade considerations
   ``wagtail.core.blocks.MultipleChoiceBlock`` in any old migrations so that they
   may continue working.
 
+* Django 3.2 uses ``BigAutoField`` to create the primary key IDs. You may need to add ``DEFAULT_AUTO_FIELD = django.db.models.AutoField``
+  to an existing project's settings to prevent any problems with this change.
+  See `Django 3.2 - Customizing type of auto-created primary keys <https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys>`_
+  for more information.
+
 * Follow `Wagtail 2.12 upgrade considerations <https://docs.wagtail.io/en/stable/releases/2.12.html#upgrade-considerations>`_
   and `Wagtail 2.13 upgrade considerations <https://docs.wagtail.io/en/stable/releases/2.13.html#upgrade-considerations>`_.
 

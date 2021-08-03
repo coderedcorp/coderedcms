@@ -203,3 +203,6 @@ BOOTSTRAP4 = {
 # Tags
 
 TAGGIT_CASE_INSENSITIVE = True
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

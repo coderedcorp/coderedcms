@@ -25,6 +25,10 @@ Upgrade considerations
 * ``coderedcms.blocks.MultiSelectBlock`` has been removed and is now replaced
   with ``wagtail.core.blocks.MultipleChoiceBlock``.
 
+* CodeRed CMS now sets ``default_auto_field = 'django.db.models.AutoField'`` for
+  its own concrete models. If you had previously manually specified a different
+  ``DEFAULT_AUTO_FIELD`` Django setting, you may need to create a migration.
+
 * You may need to find/replace
   ``coderedcms.blocks.base_blocks.MultiSelectBlock`` with
   ``wagtail.core.blocks.MultipleChoiceBlock`` in any old migrations so that they

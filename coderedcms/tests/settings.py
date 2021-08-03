@@ -208,5 +208,7 @@ WAGTAIL_CACHE = False
 
 SECRET_KEY = 'not needed'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 NOSE_ARGS = ['--nocapture',
              '--nologcapture', ]

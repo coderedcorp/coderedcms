@@ -1,16 +1,12 @@
 import string
 import random
-import re
 
 from bs4 import BeautifulSoup
-from datetime import datetime
 from django import template
 from django.conf import settings
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
-from wagtail.core.models import Collection, Site
-from wagtail.core.rich_text import RichText
-from wagtail.core.templatetags.wagtailcore_tags import richtext
+from wagtail.core.models import Collection
 from wagtail.images.models import Image
 
 from coderedcms import utils, __version__
@@ -42,32 +38,6 @@ def coderedcms_version():
 def generate_random_id():
     value = ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
     return "cr-{}".format(value)
-
-
-@register.simple_tag(takes_context=True)
-def og_image(context, page):
-
-    # Fixes #240 https://github.com/coderedcorp/coderedcms/issues/240
-    # Prepend the site's root URL except for when MEDIA_URL already
-    # looks like a full URL.
-    protocol = re.compile(r'^(\w[\w\.\-\+]*:)*//')
-
-    if protocol.match(settings.MEDIA_URL):
-        base_url = ''
-    else:
-        base_url = Site.find_for_request(context['request']).root_url
-
-    if page:
-        if page.og_image:
-            return base_url + page.og_image.get_rendition('original').url
-        elif page.cover_image:
-            return base_url + page.cover_image.get_rendition('original').url
-
-    layout_settings = LayoutSettings.for_request(context['request'])
-    if layout_settings.logo:
-        return base_url + layout_settings.logo.get_rendition('original').url
-
-    return None
 
 
 @register.simple_tag
@@ -169,29 +139,6 @@ def query_update(querydict, key=None, value=None):
             except KeyError:
                 pass
     return get
-
-
-@register.filter
-def structured_data_datetime(dt):
-    """
-    Formats datetime object to structured data compatible datetime string.
-    """
-    try:
-        if dt.time():
-            return datetime.strftime(dt, "%Y-%m-%dT%H:%M")
-        return datetime.strftime(dt, "%Y-%m-%d")
-    except AttributeError:
-        return ""
-
-
-@register.filter
-def convert_to_amp(value):
-    """
-    Converts HTML to AMP.
-    """
-    if isinstance(value, RichText):
-        value = richtext(value.source)
-    return mark_safe(utils.convert_to_amp(value))
 
 
 @register.simple_tag

@@ -19,17 +19,9 @@
         {% endif %}
 
         <p class="text-muted">
-            {% if page.get_author_name %}
-            <span class="article-author">{{page.get_author_name}}</span>
-            {% endif %}
-
-            {% if page.get_author_name and page.get_pub_date %}
+            <span class="article-author">{{page.seo_author}}</span>
             <span class="mx-2">&bull;</span>
-            {% endif %}
-
-            {% if page.get_pub_date %}
-            <span class="article-date">{{ page.get_pub_date }}</span>
-            {% endif %}
+            <span class="article-date">{{ page.seo_published_at }}</span>
         </p>
 
         <p>{{page.body_preview}}</p>

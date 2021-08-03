@@ -1,10 +1,6 @@
 {% extends "coderedcms/pages/web_page.html" %}
 {% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags coderedcms_tags %}
 
-{% if settings.coderedcms.SeoSettings.twitter_meta %}
-    {% block twitter_card %}{% if self.cover_image %}summary_large_image{% else %}{{block.super}}{% endif %}{% endblock %}
-{% endif %}
-
 {% block content_pre_body %}
     {{ block.super }}
     {% with self.most_recent_occurrence as nextup %}
@@ -56,10 +52,11 @@
 
 {% endblock %}
 
-{% if settings.coderedcms.SeoSettings.struct_meta %}
-    {% block struct_seo_extra %}
+{% block struct_seo_extra %}
+{{ block.super }}
+{% if settings.wagtailseo.SeoSettings.struct_meta %}
     <script type="application/ld+json">
-        {% include "coderedcms/includes/struct_data_event.json" with page=self %}
+        {{ self.seo_struct_event_json | safe }}
     </script>
-    {% endblock %}
 {% endif %}
+{% endblock %}

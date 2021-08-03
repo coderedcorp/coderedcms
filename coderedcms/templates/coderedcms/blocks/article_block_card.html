@@ -7,7 +7,7 @@
     {% endif %}
     <div class="card-body">
         <h5 class="card-title">{{article.title}}</h5>
-        <div class="card-subtitle mb-2 text-muted">{{article.get_pub_date}} {% if article.get_pub_date and article.get_author_name %} &bull; {% endif %} {{article.get_author_name}}</div>
+        <div class="card-subtitle mb-2 text-muted">{{article.seo_published_at}} &bull; {{article.seo_author}}</div>
         <div class="card-subtitle mb-2 text-muted">{{article.caption}}</div>
         {% if self.show_preview %}
         <p class="card-text">{{article.body_preview}}</p>

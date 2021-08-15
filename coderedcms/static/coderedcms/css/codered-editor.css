@@ -204,7 +204,7 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
     padding:0;
 }
 
-.codered-collapsible fieldset {
+.codered-collapsible .codered-collapsible-target {
     padding: 10px 0 0;
 }
 

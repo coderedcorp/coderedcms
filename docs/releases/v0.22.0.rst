@@ -5,9 +5,14 @@ v0.22.0 release notes
 New features
 ------------
 
+* Upgraded to Wagtail 2.14
+
 
 Upgrade considerations
 ----------------------
+
+* Wagtail 2.14 dropped Django 2.2 support. For most CodeRed CMS sites no changes
+  are required.
 
 
 Supported software
@@ -15,7 +20,7 @@ Supported software
 
 * Python 3.6, 3.7, 3.8, 3.9
 
-* Django 2.2, 3.0, 3.1, 3.2
+* Django 3.0, 3.1, 3.2
 
 
 Thank you!

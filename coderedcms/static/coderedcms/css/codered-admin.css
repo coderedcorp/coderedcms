@@ -267,12 +267,10 @@ input[type='checkbox']::before, input[type='radio']::before {
 
 .button-advanced-settings {
     display:block;
-    background-color:#aaa;
     font-size:0.8em;
     font-weight:600;
-}
-.button-advanced-settings:hover {
-    background-color:#999;
+    margin-top: -20px;
+    align-self: flex-start;
 }
 
 .power-by {

@@ -1,0 +1,9 @@
+v0.21.1 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Fix advanced settings button in StreamField for better compatibility with
+  Wagtail 2.13

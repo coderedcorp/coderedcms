@@ -1,0 +1,24 @@
+v0.22.0 release notes
+=====================
+
+
+New features
+------------
+
+
+Upgrade considerations
+----------------------
+
+
+Supported software
+------------------
+
+* Python 3.6, 3.7, 3.8, 3.9
+
+* Django 2.2, 3.0, 3.1, 3.2
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.22.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/32?closed=1>`_.

@@ -14,14 +14,14 @@ Maintains version of coderedcms.
 
 See: https://www.python.org/dev/peps/pep-0440/
 """
-release = ["0", "21", "0", "", ""]
+release = ["0", "22", "0", "", "dev0"]
 
 
 def _get_version() -> str:
     v = "{0}.{1}.{2}".format(release[0], release[1], release[2])
-    if len(release) >= 4 and release[3]:
+    if len(release) >= 4:
         v = "{0}{1}".format(v, release[3])
-    if len(release) >= 5 and release[4]:
+    if len(release) >= 5:
         v = "{0}.{1}".format(v, release[4])
     return v
 

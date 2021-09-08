@@ -25,6 +25,12 @@ Bug fixes
   edited, published, unpublished, or deleted.
 
 
+Bug Fixes
+---------
+
+* EventIndexPage now displays event times using the project ``TIME_ZONE`` settings
+
+
 Upgrade considerations
 ----------------------
 

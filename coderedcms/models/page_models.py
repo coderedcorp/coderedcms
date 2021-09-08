@@ -6,8 +6,8 @@ import json
 import logging
 import os
 import warnings
-from datetime import datetime
-from typing import Optional, TYPE_CHECKING
+from datetime import date, datetime
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 import geocoder
 from django import forms
@@ -970,7 +970,15 @@ class CoderedEventIndexPage(CoderedWebPage):
 
         return super().get_index_children()
 
-    def get_calendar_events(self, start, end):
+    def get_calendar_events(
+        self,
+        start: Union[datetime, date],
+        end: Union[datetime, date]
+    ) -> List[Dict[str, str]]:
+        """
+        Returns a list of event occurrences as dictionaries with times
+        converted to Django TIME_ZONE settings.
+        """
         # start with all child events, regardless of get_index_children rules.
         querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
         qs = querymodel.objects.child_of(self).live()
@@ -978,10 +986,12 @@ class CoderedEventIndexPage(CoderedWebPage):
         for event in qs:
             occurrences = event.query_occurrences(limit=None, from_date=start, to_date=end)
             for occurrence in occurrences:
+                local_start = timezone.localtime(value=occurrence[0])
+                local_end = timezone.localtime(value=occurrence[1])
                 event_data = {
                     'title': event.title,
-                    'start': occurrence[0].strftime('%Y-%m-%dT%H:%M:%S'),
-                    'end': occurrence[1].strftime('%Y-%m-%dT%H:%M:%S') if occurrence[1] else "",
+                    'start': local_start.strftime('%Y-%m-%dT%H:%M:%S%z'),
+                    'end': local_end.strftime('%Y-%m-%dT%H:%M:%S%z') if local_end else "",
                     'description': "",
                 }
                 if event.url:

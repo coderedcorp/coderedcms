@@ -7,6 +7,10 @@ New features
 
 * Upgraded to Wagtail 2.14
 
+* Can now order child pages by Classifiers, using the Classifier Term's
+  sort order, in addition to ordering by model attributes. Read details in
+  :doc:`/features/page_types/web_pages`.
+
 
 Upgrade considerations
 ----------------------

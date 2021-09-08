@@ -56,16 +56,27 @@ layout. You have the following options:
 
 * **Template**:  The template you want the page to use to render.
 
-* **Show List of Child Pages**: Toggles whether this parent page should show a
+* **Show list of child pages**: Toggles whether this parent page should show a
   list of its children pages.
 
-* **Number Per Page**: Controls how many children pages you want to show at
+* **Number per page**: Controls how many children pages you want to show at
   once.
 
-* **Order Children Pages by**: Controls how the children pages are sorted on
-  this parent page.
+* **Order child pages by classifier**: Child pages will first be sorted
+  following the order of this classifier's terms. For example, if this were set
+  to a classifier called "Status" (which contained terms "In Stock" and "Out of
+  Stock" in that respective order), then child pages that are "In Stock" would
+  be shown first before pages that are "Out of Stock".
 
-* **Filter Child Pages by**: Using Classifier terms, control which children
+* **Order child pages by**: Controls how the children pages are sorted on
+  this parent page. For example, if "Title, alphabetically" were selected here,
+  the pages would be listed A-Z. If **Order child pages by classifier** is set
+  (above) then this ordering will be applied after the classifier ordering.
+  Following the previous example, if "Status" classifier were set above, "In
+  Stock" items would be sorted A-Z, then "Out of Stock" items would be sorted
+  A-Z.
+
+* **Filter child pages by**: Using Classifier terms, control which children
   pages are shown on the parent page.
 
 SEO Tab

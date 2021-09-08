@@ -1,3 +1,4 @@
+from coderedcms.models.page_models import CoderedPage
 from modelcluster.fields import ParentalKey
 from coderedcms.forms import CoderedFormField
 from coderedcms.models import (
@@ -129,7 +130,8 @@ class LocationPage(CoderedLocationPage):
 class LocationIndexPage(CoderedLocationIndexPage):
     """
     A page that holds a list of locations and displays them with a Google Map.
-    This does require a Google Maps API Key that can be defined in Settings > Google API Settings
+    This does require a Google Maps API Key that can be defined in Settings >
+    Google API Settings
     """
     class Meta:
         verbose_name = 'Location Landing Page'
@@ -152,3 +154,24 @@ class StreamFormPage(CoderedStreamFormPage):
 
 class StreamFormConfirmEmail(CoderedEmail):
     page = ParentalKey('StreamFormPage', related_name='confirmation_emails')
+
+
+"""
+--------------------------------------------------------------------------------
+CUSTOM PAGE TYPES for testing specific features. These should be based on
+CoderedPage when testing CoderedPage-specific functionality (which is where most
+of our logic lives).
+--------------------------------------------------------------------------------
+"""
+
+
+class IndexTestPage(CoderedPage):
+    """
+    Tests indexing features (show/sort/filter child pages).
+    """
+    class Meta:
+        verbose_name = "Index Test Page"
+
+    index_query_pagemodel = "testapp.WebPage"
+
+    template = 'coderedcms/pages/base.html'

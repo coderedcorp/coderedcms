@@ -186,12 +186,25 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         default=index_show_subpages_default,
         verbose_name=_('Show list of child pages')
     )
+    index_order_by_classifier = models.ForeignKey(
+        'coderedcms.Classifier',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_('Order child pages by classifier'),
+        help_text=_(
+            'Child pages will first be sorted following the order of this '
+            'classifier’s terms (from Snippets > Classifiers).'
+        )
+    )
     index_order_by = models.CharField(
         max_length=255,
         choices=index_order_by_choices,
         default=index_order_by_default,
         blank=True,
         verbose_name=_('Order child pages by'),
+        help_text=_('Child pages will then be sorted by this attribute.')
     )
     index_num_per_page = models.PositiveIntegerField(
         default=10,
@@ -306,6 +319,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             [
                 FieldPanel('index_show_subpages'),
                 FieldPanel('index_num_per_page'),
+                FieldPanel('index_order_by_classifier'),
                 FieldPanel('index_order_by'),
                 FieldPanel('index_classifiers', widget=forms.CheckboxSelectMultiple()),
             ],
@@ -416,8 +430,31 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             query = querymodel.objects.child_of(self).live()
         else:
             query = self.get_children().live()
+
+        # Determine query sorting order.
+        order = []
+
+        # To sort by term order of a specific classifier, annotate the child
+        # pages with the `sort_order` of its ClassifierTerms.
+        if self.index_order_by_classifier:
+            terms = ClassifierTerm.objects.filter(
+                classifier=self.index_order_by_classifier,
+                # Reverse ManyToMany of `coderedpage.classifier_terms`.
+                coderedpage=models.OuterRef("pk"),
+            )
+            query = query.annotate(
+                term_sort_order=models.Subquery(terms.values("sort_order"))
+            )
+            order.append("term_sort_order")
+
+        # Second, order by the specified model attribute.
         if self.index_order_by:
-            return query.order_by(self.index_order_by)
+            order.append(self.index_order_by)
+
+        # Order the query.
+        if order:
+            query = query.order_by(*order)
+
         return query
 
     def get_content_walls(self, check_child_setting=True):

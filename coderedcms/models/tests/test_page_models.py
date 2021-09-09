@@ -14,12 +14,14 @@ from coderedcms.models.page_models import (
     CoderedWebPage,
     get_page_models
 )
+from coderedcms.models.snippet_models import Classifier, ClassifierTerm
 from coderedcms.tests.testapp.models import (
     ArticleIndexPage,
     ArticlePage,
     EventIndexPage,
     EventPage,
     FormPage,
+    IndexTestPage,
     LocationIndexPage,
     LocationPage,
     StreamFormPage,
@@ -42,11 +44,13 @@ class BasicPageTestCase():
         self.homepage = WebPage.objects.get(url_path='/home/')
         self.homepage.add_child(instance=self.basic_page)
 
+    def tearDown(self):
+        self.basic_page.delete()
+
     def test_get(self):
         """
         Tests to make sure a basic version of the page serves a 200 from a GET request.
         """
-
         response = self.client.get(self.basic_page.url, follow=True)
         self.assertEqual(response.status_code, 200)
 
@@ -158,6 +162,9 @@ class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedStreamFormPage
 
 
+# -- CONCRETE PAGES ------------------------------------------------------------
+
+
 class ArticlePageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = ArticlePage
 
@@ -192,3 +199,75 @@ class LocationPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
 
 class StreamFormPageTestCase(ConcreteFormPageTestCase, WagtailPageTests):
     model = StreamFormPage
+
+
+# -- PAGES FOR TESTING SPECIFIC FUNCTIONALITY ----------------------------------
+
+
+class IndexTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+    """
+    Tests indexing features (show/sort/filter child pages).
+    """
+    model = IndexTestPage
+
+    def setUp(self):
+        super().setUp()
+
+        # Create some child pages under this page.
+        self.child_1 = WebPage(title=f"{self.basic_page.title} - Child 1")
+        self.basic_page.add_child(instance=self.child_1)
+        self.child_2 = WebPage(title=f"{self.basic_page.title} - Child 2")
+        self.basic_page.add_child(instance=self.child_2)
+        self.child_3 = WebPage(title=f"{self.basic_page.title} - Child 3")
+        self.basic_page.add_child(instance=self.child_3)
+
+        # Create some classifier terms for general purpose use.
+        self.classifier = Classifier.objects.create(name="Classifier")
+        self.term_a = ClassifierTerm.objects.create(
+            classifier=self.classifier,
+            name="Term A",
+            sort_order=0,
+        )
+        self.term_b = ClassifierTerm.objects.create(
+            classifier=self.classifier,
+            name="Term B",
+            sort_order=1,
+        )
+
+    def tearDown(self):
+        super().tearDown()
+        self.classifier.delete()
+
+    def test_get_index_children(self):
+        """
+        Tests to make sure `get_index_children()` returns the correct queryset
+        based on selected page settings.
+        """
+        # Test it without setting any options, ensure it is not broken.
+        children = self.basic_page.get_index_children()
+        self.assertIn(self.child_1, children)
+        self.assertIn(self.child_2, children)
+        self.assertIn(self.child_3, children)
+
+        # Test index_order_by returns in the correct order.
+        self.basic_page.index_order_by = "title"
+        self.basic_page.save()
+        children = self.basic_page.get_index_children()
+        self.assertEqual(self.child_1, children[0])
+        self.assertEqual(self.child_2, children[1])
+        self.assertEqual(self.child_3, children[2])
+
+        # Test index_order_by classifier returns in the correct order.
+        self.basic_page.index_order_by_classifier = self.classifier
+        self.basic_page.index_order_by = "title"
+        self.basic_page.save()
+        self.child_3.classifier_terms.add(self.term_a)
+        self.child_3.save()
+        self.child_1.classifier_terms.add(self.term_b)
+        self.child_1.save()
+        self.child_2.classifier_terms.add(self.term_b)
+        self.child_2.save()
+        children = self.basic_page.get_index_children()
+        self.assertEqual(self.child_3, children[0])
+        self.assertEqual(self.child_1, children[1])
+        self.assertEqual(self.child_2, children[2])

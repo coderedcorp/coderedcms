@@ -14,6 +14,9 @@ New features
 * Background behind site's logo shown in the Wagtail Admin now follows "Navbar
   color scheme" setting to improve appearance of dark logos.
 
+* Updated support for Google ``UA-``, ``G-``, and ``GTM-`` tracking scripts.
+  See :doc:`/how_to/add_tracking_scripts`.
+
 
 Upgrade considerations
 ----------------------

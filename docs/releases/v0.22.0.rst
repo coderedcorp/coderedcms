@@ -18,6 +18,13 @@ New features
   See :doc:`/how_to/add_tracking_scripts`.
 
 
+Bug fixes
+---------
+
+* Cache is now cleared more reliably whenever pages or snippets are created,
+  edited, published, unpublished, or deleted.
+
+
 Upgrade considerations
 ----------------------
 

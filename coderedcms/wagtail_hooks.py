@@ -34,11 +34,20 @@ def collapsible_js():
     return format_html('<script src="{}"></script>', static('coderedcms/js/codered-editor.js'))
 
 
-@hooks.register('after_create_page')
-@hooks.register('after_edit_page')
-def clear_wagtailcache(request, page):
-    if page.live:
-        clear_cache()
+def clear_wagtailcache(*args, **kwargs):
+    clear_cache()
+
+
+# Clear cache whenever pages/snippets are changed. Err on the side of clearing
+# the cache vs not clearing the cache, as this usually leads to support requests
+# when staff members make edits but do not see the changes.
+hooks.register('after_delete_page', clear_wagtailcache)
+hooks.register('after_move_page', clear_wagtailcache)
+hooks.register('after_publish_page', clear_wagtailcache)
+hooks.register('after_unpublish_page', clear_wagtailcache)
+hooks.register('after_create_snippet', clear_wagtailcache)
+hooks.register('after_edit_snippet', clear_wagtailcache)
+hooks.register('after_delete_snippet', clear_wagtailcache)
 
 
 @hooks.register('filter_form_submissions_for_user')

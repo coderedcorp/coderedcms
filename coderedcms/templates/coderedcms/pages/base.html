@@ -9,16 +9,35 @@
 <html prefix="og: http://ogp.me/ns#" lang="{{ LANGUAGE_CODE }}">
   <head>
         {% block tracking %}
-        {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
+        {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id or settings.coderedcms.AnalyticsSettings.ga_g_tracking_id %}
             <!-- Global site tag (gtag.js) - Google Analytics -->
+            {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
             <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}"></script>
+            {% else %}
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_g_tracking_id}}"></script>
+            {% endif %}
             <script>
               cr_track_clicks = {{settings.coderedcms.AnalyticsSettings.ga_track_button_clicks|yesno:"true,false"}};
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
+              // {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
               gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
+              // {% endif %} {% if settings.coderedcms.AnalyticsSettings.ga_g_tracking_id %}
+              gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_g_tracking_id}}');
+              // {% endif %}
             </script>
+        {% endif %}
+        {% if settings.coderedcms.AnalyticsSettings.gtm_id %}
+            <!-- Google Tag Manager -->
+            <script>
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','{{settings.coderedcms.AnalyticsSettings.gtm_id}}');
+            </script>
+            <!-- End Google Tag Manager -->
         {% endif %}
         {% if settings.coderedcms.AnalyticsSettings.head_scripts %}
             {{settings.coderedcms.AnalyticsSettings.head_scripts|safe}}
@@ -160,6 +179,12 @@
         {% include "wagtailseo/struct_data.html" %}
 
         {% block body_tracking_scripts %}
+        {% if settings.coderedcms.AnalyticsSettings.gtm_id %}
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{settings.coderedcms.AnalyticsSettings.gtm_id}}"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        {% endif %}
         {% if settings.coderedcms.AnalyticsSettings.body_scripts %}
             {{settings.coderedcms.AnalyticsSettings.body_scripts|safe}}
         {% endif %}

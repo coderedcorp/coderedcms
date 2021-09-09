@@ -7,7 +7,7 @@ Global project or developer settings should be defined in coderedcms.settings.py
 import json
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
@@ -219,13 +219,25 @@ class AnalyticsSettings(BaseSetting):
     ga_tracking_id = models.CharField(
         blank=True,
         max_length=255,
-        verbose_name=_('GA Tracking ID'),
-        help_text=_('Your Google Analytics tracking ID (begins with "UA-")'),
+        verbose_name=_('UA Tracking ID'),
+        help_text=_('Your Google "Universal Analytics" tracking ID (begins with "UA-")'),
+    )
+    ga_g_tracking_id = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('G Tracking ID'),
+        help_text=_('Your Google Analytics 4 tracking ID (begins with "G-")'),
     )
     ga_track_button_clicks = models.BooleanField(
         default=False,
         verbose_name=_('Track button clicks'),
         help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),  # noqa
+    )
+    gtm_id = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Google Tag Manager ID'),
+        help_text=_('Begins with "GTM-"'),
     )
     head_scripts = MonospaceField(
         blank=True,
@@ -241,12 +253,29 @@ class AnalyticsSettings(BaseSetting):
     )
 
     panels = [
+        HelpPanel(
+            heading=_('Know your tracking'),
+            content=_(
+                '<h3><b>Which tracking IDs do I need?</b></h3>'
+                '<p>Before adding tracking to your site, '
+                '<a href="https://docs.coderedcorp.com/cms/how_to/add_tracking_scripts.html" '
+                'target="_blank">read about the difference between UA, G, GTM, '
+                'and other tracking IDs</a>.</p>'
+            ),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel('ga_tracking_id'),
+                FieldPanel('ga_g_tracking_id'),
                 FieldPanel('ga_track_button_clicks'),
             ],
-            heading=_('Google Analytics')
+            heading=_('Google Analytics'),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('gtm_id'),
+            ],
+            heading=_('Google Tag Manager'),
         ),
         MultiFieldPanel(
             [

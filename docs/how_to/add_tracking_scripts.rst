@@ -19,7 +19,7 @@ Google Analytics
 ----------------
 
 There are two types of Google Analytics accounts --- "Universal Analytics"
-(generally for accounts created before 2021) and "Google Analtyics 4":
+(generally for accounts created before 2021) and "Google Analytics 4":
 
 * **Universal Analytics** account IDs begin with **UA-**
 
@@ -78,10 +78,10 @@ If you have other tracking codes to add, follow these steps:
 
 .. note::
 
-    You can verify that the scripts on the web page by going to the site and inspecting the Source Code.
-    Then search for the ``<script>`` tags, either visually or by hitting ``CTRL + F`` on your keyboard
-    and searching for the code.
-    Here's how to get the Source Code if you are not sure:
+    You can verify that the scripts on the web page by going to the site and
+    inspecting the Source Code. Then search for the ``<script>`` tags, either
+    visually or by hitting ``CTRL + F`` on your keyboard and searching for the
+    code. Here's how to get the Source Code if you are not sure:
 
     * Firefox: https://developer.mozilla.org/en-US/docs/Tools/View_source
 

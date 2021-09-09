@@ -4,8 +4,10 @@
 
 {% block branding_logo %}
     {% if settings.coderedcms.LayoutSettings.logo %}
-        {% image settings.coderedcms.LayoutSettings.logo max-300x300 as logo_image %}
-        <img src="{{ logo_image.url }}" class="logo-custom" alt="Dashboard"/>
+        <div class="codered-logo-container {{settings.coderedcms.LayoutSettings.navbar_color_scheme}}">
+            {% image settings.coderedcms.LayoutSettings.logo max-300x300 as logo_image %}
+            <img src="{{ logo_image.url }}" class="codered-logo-custom" alt="Dashboard"/>
+        </div>
     {% else %}
         {{block.super}}
     {% endif %}

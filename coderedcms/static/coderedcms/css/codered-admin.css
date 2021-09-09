@@ -203,17 +203,33 @@ input[type='checkbox']::before, input[type='radio']::before {
     content: "\f12e";
 }
 
+/* Show the site's custom logo in the wagtail admin */
+
 .logo {
     margin: 0 auto;
     padding: 1em;
+    margin-bottom: 1em;
 }
-.logo img.logo-custom {
+.logo img.codered-logo-custom {
     width:auto;
     height:auto;
     max-height:80px;
     max-width:100%;
 }
-
+.codered-logo-container {
+    box-sizing: border-box;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.codered-logo-container.navbar-light {
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.codered-logo-container.navbar-dark {
+    background-color: transparent;
+}
 
 /* Fix side menu to be able to fit more links without breaking */
 

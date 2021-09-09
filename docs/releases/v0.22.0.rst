@@ -11,6 +11,9 @@ New features
   sort order, in addition to ordering by model attributes. Read details in
   :doc:`/features/page_types/web_pages`.
 
+* Background behind site's logo shown in the Wagtail Admin now follows "Navbar
+  color scheme" setting to improve appearance of dark logos.
+
 
 Upgrade considerations
 ----------------------

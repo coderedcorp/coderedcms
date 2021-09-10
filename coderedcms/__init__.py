@@ -19,9 +19,9 @@ release = ["0", "22", "0", "", "dev0"]
 
 def _get_version() -> str:
     v = "{0}.{1}.{2}".format(release[0], release[1], release[2])
-    if len(release) >= 4:
+    if release[3]:
         v = "{0}{1}".format(v, release[3])
-    if len(release) >= 5:
+    if release[4]:
         v = "{0}.{1}".format(v, release[4])
     return v
 

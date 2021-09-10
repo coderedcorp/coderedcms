@@ -24,11 +24,16 @@ Bug fixes
 * Cache is now cleared more reliably whenever pages or snippets are created,
   edited, published, unpublished, or deleted.
 
+* EventIndexPage now displays event times using the project ``TIME_ZONE``,
+  and other related improvements to event handling. See
+  :doc:`/features/paged_types/event_pages`.
 
-Bug Fixes
----------
 
-* EventIndexPage now displays event times using the project ``TIME_ZONE`` settings
+Maintenance
+-----------
+
+* Updated calendar to fullcalendar.js 5.9. This removes several JavaScript
+  dependencies and also works towards removal of jQuery.
 
 
 Upgrade considerations

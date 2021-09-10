@@ -947,6 +947,7 @@ class CoderedEventIndexPage(CoderedWebPage):
     default_calendar_view = models.CharField(
         blank=True,
         choices=DefaultCalendarViewChoices.CHOICES,
+        default=DefaultCalendarViewChoices.MONTH,
         max_length=255,
         verbose_name=_('Calendar Style'),
         help_text=_('The default look of the calendar on this page.')
@@ -955,6 +956,19 @@ class CoderedEventIndexPage(CoderedWebPage):
     layout_panels = CoderedWebPage.layout_panels + [
         FieldPanel('default_calendar_view'),
     ]
+
+    @property
+    def fullcalendar_view(self) -> str:
+        """
+        Default calendar view translated to the fullcalendar.js identifier
+        """
+        return {
+            '': '',
+            DefaultCalendarViewChoices.MONTH: 'dayGridMonth',
+            DefaultCalendarViewChoices.AGENDA_WEEK: 'timeGridWeek',
+            DefaultCalendarViewChoices.AGENDA_DAY: 'timeGridDay',
+            DefaultCalendarViewChoices.LIST_MONTH: 'listMonth',
+        }[self.default_calendar_view]
 
     def get_index_children(self):
         if self.index_query_pagemodel and self.index_order_by == 'next_occurrence':
@@ -965,8 +979,8 @@ class CoderedEventIndexPage(CoderedWebPage):
             for event in qs.all():
                 if event.next_occurrence():
                     upcoming.append(event)
-            # sort the events by next_occurrence
-            return sorted(upcoming, key=lambda e: e.next_occurrence())
+            # Sort the events by next_occurrence start date.
+            return sorted(upcoming, key=lambda e: e.next_occurrence()[0])
 
         return super().get_index_children()
 
@@ -987,7 +1001,9 @@ class CoderedEventIndexPage(CoderedWebPage):
             occurrences = event.query_occurrences(limit=None, from_date=start, to_date=end)
             for occurrence in occurrences:
                 local_start = timezone.localtime(value=occurrence[0])
-                local_end = timezone.localtime(value=occurrence[1])
+                local_end = None
+                if occurrence[1]:
+                    timezone.localtime(value=occurrence[1])
                 event_data = {
                     'title': event.title,
                     'start': local_start.strftime('%Y-%m-%dT%H:%M:%S%z'),
@@ -997,7 +1013,7 @@ class CoderedEventIndexPage(CoderedWebPage):
                 if event.url:
                     event_data['url'] = event.url
                 if event.calendar_color:
-                    event_data['backgroundColor'] = event.calendar_color
+                    event_data['color'] = event.calendar_color
                 event_instances.append(event_data)
         return event_instances
 

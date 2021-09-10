@@ -35,11 +35,11 @@ libs = {
         head: '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" integrity="sha256-FjyLCG3re1j4KofUTQQXmaWJw13Jdb7LQvXlkFxTDJI=" crossorigin="anonymous">'
     },
     coderedmaps: {
-        url: "/static/coderedcms/js/codered-maps.js",
+        url: "/static/coderedcms/js/codered-maps.js?v=" + cr_version,
         integrity: "",
     },
     coderedstreamforms: {
-        url: "/static/coderedcms/js/codered-streamforms.js",
+        url: "/static/coderedcms/js/codered-streamforms.js?v=" + cr_version,
         integrity: "",
     }
 }

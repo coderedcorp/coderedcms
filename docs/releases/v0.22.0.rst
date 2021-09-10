@@ -28,6 +28,9 @@ Bug fixes
   and other related improvements to event handling. See
   :doc:`/features/page_types/event_pages`.
 
+* CSS/JS files provided by CodeRed CMS are now cache-busted by version number.
+  This should help resolve minor inconsistencies that arise between upgrades.
+
 
 Maintenance
 -----------

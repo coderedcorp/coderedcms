@@ -48,6 +48,7 @@
         <script>
             cr_site_url = "{{site.root_url}}";
             cr_external_new_tab = {{settings.coderedcms.GeneralSettings.external_new_tab|yesno:"true,false"}};
+            cr_version = "{% coderedcms_version %}";
         </script>
 
         <meta charset="utf-8" />
@@ -67,9 +68,9 @@
 
         {% block coderedcms_assets %}
         {% if "DEBUG"|django_settings %}
-        <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/codered-front.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/codered-front.css' %}?v={% coderedcms_version %}">
         {% else %}
-        <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/codered-front.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/codered-front.min.css' %}?v={% coderedcms_version %}">
         {% endif %}
         {% endblock %}
 
@@ -160,15 +161,15 @@
         {% block footer %}{% endblock %}
 
         {% block required_scripts %}
-        <script src="{% static 'coderedcms/vendor/jquery/jquery-3.5.1.min.js' %}" ></script>
+        <script src="{% static 'coderedcms/vendor/jquery/jquery-3.5.1.min.js' %}?v={% coderedcms_version %}" ></script>
         {% endblock %}
 
         {% block frontend_scripts %}
-        <script src="{% static 'coderedcms/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'coderedcms/vendor/bootstrap/dist/js/bootstrap.min.js' %}?v={% coderedcms_version %}"></script>
         {% endblock %}
 
         {% block coderedcms_scripts %}
-        <script type="text/javascript" src="{% static 'coderedcms/js/codered-front.js' %}"></script>
+        <script type="text/javascript" src="{% static 'coderedcms/js/codered-front.js' %}?v={% coderedcms_version %}"></script>
         {% endblock %}
 
         {% block custom_scripts %}

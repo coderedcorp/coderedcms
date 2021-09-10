@@ -1,6 +1,6 @@
 /*
 CodeRed CMS (https://www.coderedcorp.com/cms/)
-Copyright 2018-2019 CodeRed LLC
+Copyright 2018-2021 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
 */
@@ -29,19 +29,10 @@ libs = {
         integrity: "sha256-mvFcf2wocDC8U1GJdTVSmMHBn/dBLNeJjYRvBhM6gc8=",
         head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.6.3/compressed/themes/default.time.css" integrity="sha256-dtpQarv++ugnrcY7o6Gr3m7fIJFJDSx8v76jjTqEeKE=" crossorigin="anonymous" />'
     },
-    jquery_ui: {
-        url: "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js",
-        integrity: "sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=",
-    },
-    jquery_qtip: {
-        url: "https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js",
-        integrity: "sha256-219NoyU6iEtgMGleoW1ttROUEs/sux5DplKJJQefDwE=",
-    },
     fullcalendar: {
-        url: "https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js",
-        integrity: "sha256-4+rW6N5lf9nslJC6ut/ob7fCY2Y+VZj2Pw/2KdmQjR0=",
-        head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" integrity="sha256-9VgA72/TnFndEp685+regIGSD6voLveO2iDuWhqTY3g=" crossorigin="anonymous" />' +
-              '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.min.css" media="print" integrity="sha256-JYJWCNB1pXBwUngem7hITwB6SdmCGkhewhKS8NL1A8A=" crossorigin="anonymous" />'
+        url: "https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js",
+        integrity: "sha256-8nl2O4lMNahIAmUnxZprMxJIBiPv+SzhMuYwEuinVM0=",
+        head: '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" integrity="sha256-FjyLCG3re1j4KofUTQQXmaWJw13Jdb7LQvXlkFxTDJI=" crossorigin="anonymous">'
     },
     coderedmaps: {
         url: "/static/coderedcms/js/codered-maps.js",
@@ -156,37 +147,40 @@ $(document).ready(function()
 
     /*** Calendar **/
     if ( $("[data-block='calendar']").length > 0){
-        load_script(libs.jquery_ui, function(){
-            load_script(libs.jquery_qtip, function(){
-                load_script(libs.moment, function(){
-                    load_script(libs.fullcalendar, function(){
-                        var pageId = "";
-                        var defaultDate = "";
-                        var defaultView = "";
-                        $('[data-block="calendar"]').each(function(index, obj){
-                            pageId = $(obj).data('page-id');
-                            defaultDate = $(obj).data('default-date');
-                            defaultView = $(obj).data('default-view');
-                            $(obj).fullCalendar({
-                                header: {
-                                    left: 'prev,next,today',
-                                    center: 'title',
-                                    right: 'month,agendaWeek,agendaDay,listMonth'
-                                },
-                                defaultDate: defaultDate,
-                                defaultView: defaultView,
-                                fixedWeekCount: false,
-                                events: {
-                                    url: '/ajax/calendar/events/',
-                                    type: 'GET',
-                                    data: {
-                                        'pid': pageId
-                                    }
-                                }
-                            });
-                        });
-                    });
+        load_script(libs.fullcalendar, function(){
+            var calendars = document.querySelectorAll("[data-block='calendar']");
+            calendars.forEach(function(el){
+                var pageId = el.dataset.pageId; // data-page-id
+                var defaultDate = el.dataset.defaultDate; // data-default-date
+                var defaultView = el.dataset.defaultView; // data-default-view
+                var eventDisplay = el.dataset.eventDisplay; // data-event-display
+                var timezone = el.dataset.timezone; // data-timezone
+                var calendar = new FullCalendar.Calendar(el, {
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                    },
+                    themeSystem: 'bootstrap',
+                    bootstrapFontAwesome: false,
+                    buttonText: {
+                        'prev': '< prev',
+                        'next': 'next >'
+                    },
+                    initialDate: defaultDate,
+                    initialView: defaultView,
+                    fixedWeekCount: false,
+                    timeZone: timezone,
+                    eventDisplay: eventDisplay,
+                    eventSources: {
+                        url: '/ajax/calendar/events/',
+                        method: 'GET',
+                        extraParams: {
+                            'pid': pageId
+                        }
+                    }
                 });
+                calendar.render();
             });
         });
     }

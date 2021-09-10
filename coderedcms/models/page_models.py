@@ -6,8 +6,8 @@ import json
 import logging
 import os
 import warnings
-from datetime import datetime
-from typing import Optional, TYPE_CHECKING
+from datetime import date, datetime
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 import geocoder
 from django import forms
@@ -912,21 +912,6 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         return events
 
 
-class DefaultCalendarViewChoices():
-    MONTH = 'month'
-    AGENDA_WEEK = 'agendaWeek'
-    AGENDA_DAY = 'agendaDay'
-    LIST_MONTH = 'listMonth'
-
-    CHOICES = (
-        ('', _('No calendar')),
-        (MONTH, _('Monthly Calendar')),
-        (AGENDA_WEEK, _('Weekly Calendar')),
-        (AGENDA_DAY, _('Daily Calendar')),
-        (LIST_MONTH, _('Calendar List View')),
-    )
-
-
 class CoderedEventIndexPage(CoderedWebPage):
     """
     Shows a list of event sub-pages.
@@ -934,6 +919,18 @@ class CoderedEventIndexPage(CoderedWebPage):
     class Meta:
         verbose_name = _('CodeRed Event Index Page')
         abstract = True
+
+    class CalendarViews(models.TextChoices):
+        NONE = '', _('No calendar')
+        MONTH = 'month', _('Month')
+        AGENDA_WEEK = 'agendaWeek', _('Week')
+        AGENDA_DAY = 'agendaDay', _('Day')
+        LIST_MONTH = 'listMonth', _('List of events')
+
+    class EventStyles(models.TextChoices):
+        DEFAULT = '', _('Default')
+        BLOCK = 'block', _('Solid rectangles')
+        DOT = 'list-item', _('Dots with labels')
 
     template = 'coderedcms/pages/event_index_page.html'
 
@@ -946,15 +943,54 @@ class CoderedEventIndexPage(CoderedWebPage):
 
     default_calendar_view = models.CharField(
         blank=True,
-        choices=DefaultCalendarViewChoices.CHOICES,
+        choices=CalendarViews.choices,
+        default=CalendarViews.MONTH,
         max_length=255,
         verbose_name=_('Calendar Style'),
         help_text=_('The default look of the calendar on this page.')
     )
+    event_style = models.CharField(
+        blank=True,
+        choices=EventStyles.choices,
+        default=EventStyles.DEFAULT,
+        max_length=255,
+        verbose_name=_('Event Style'),
+        help_text=_('How events look on the calendar.')
+    )
 
     layout_panels = CoderedWebPage.layout_panels + [
-        FieldPanel('default_calendar_view'),
+        MultiFieldPanel(
+            [
+                FieldPanel('default_calendar_view'),
+                FieldPanel('event_style'),
+            ],
+            heading=_('Calendar Style'),
+        )
     ]
+
+    @property
+    def fullcalendar_view(self) -> str:
+        """
+        Translate calendar views to fullcalendar.js identifiers.
+        """
+        return {
+            self.CalendarViews.NONE: '',
+            self.CalendarViews.MONTH: 'dayGridMonth',
+            self.CalendarViews.AGENDA_WEEK: 'timeGridWeek',
+            self.CalendarViews.AGENDA_DAY: 'timeGridDay',
+            self.CalendarViews.LIST_MONTH: 'listMonth',
+        }[self.default_calendar_view]
+
+    @property
+    def fullcalendar_event_display(self) -> str:
+        """
+        Translate event display styles to fullcalendar.js identifiers.
+        """
+        return {
+            self.EventStyles.DEFAULT: 'auto',
+            self.EventStyles.BLOCK: 'block',
+            self.EventStyles.DOT: 'list-item',
+        }[self.event_style]
 
     def get_index_children(self):
         if self.index_query_pagemodel and self.index_order_by == 'next_occurrence':
@@ -965,12 +1001,20 @@ class CoderedEventIndexPage(CoderedWebPage):
             for event in qs.all():
                 if event.next_occurrence():
                     upcoming.append(event)
-            # sort the events by next_occurrence
-            return sorted(upcoming, key=lambda e: e.next_occurrence())
+            # Sort the events by next_occurrence start date.
+            return sorted(upcoming, key=lambda e: e.next_occurrence()[0])
 
         return super().get_index_children()
 
-    def get_calendar_events(self, start, end):
+    def get_calendar_events(
+        self,
+        start: Union[datetime, date],
+        end: Union[datetime, date]
+    ) -> List[Dict[str, str]]:
+        """
+        Returns a list of event occurrences as dictionaries with times
+        converted to Django TIME_ZONE settings.
+        """
         # start with all child events, regardless of get_index_children rules.
         querymodel = resolve_model_string(self.index_query_pagemodel, self._meta.app_label)
         qs = querymodel.objects.child_of(self).live()
@@ -978,16 +1022,20 @@ class CoderedEventIndexPage(CoderedWebPage):
         for event in qs:
             occurrences = event.query_occurrences(limit=None, from_date=start, to_date=end)
             for occurrence in occurrences:
+                local_start = timezone.localtime(value=occurrence[0])
+                local_end = None
+                if occurrence[1]:
+                    local_end = timezone.localtime(value=occurrence[1])
                 event_data = {
                     'title': event.title,
-                    'start': occurrence[0].strftime('%Y-%m-%dT%H:%M:%S'),
-                    'end': occurrence[1].strftime('%Y-%m-%dT%H:%M:%S') if occurrence[1] else "",
+                    'start': local_start.strftime('%Y-%m-%dT%H:%M:%S%z'),
+                    'end': local_end.strftime('%Y-%m-%dT%H:%M:%S%z') if local_end else "",
                     'description': "",
                 }
                 if event.url:
                     event_data['url'] = event.url
                 if event.calendar_color:
-                    event_data['backgroundColor'] = event.calendar_color
+                    event_data['color'] = event.calendar_color
                 event_instances.append(event_data)
         return event_instances
 

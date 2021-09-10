@@ -6,6 +6,7 @@ from ast import literal_eval
 from django.urls import reverse
 from django.test import Client
 from django.test.utils import override_settings
+from django.utils import timezone
 
 from wagtail.core.models import Site, Page
 from wagtail.images.tests.utils import Image, get_test_image_file
@@ -246,13 +247,19 @@ class TestEventURLs(unittest.TestCase):
         # Get datetimes from response and compare them to datetimes on page
         start = literal_eval(response._container[0].decode()[1:-1])['start']
         end = literal_eval(response._container[0].decode()[1:-1])['end']
+        event_local_start = timezone.localtime(
+            EventOccurrence.objects.get(event=event_page).start
+        )
+        event_local_end = timezone.localtime(
+            EventOccurrence.objects.get(event=event_page).end
+        )
         self.assertEqual(
             start,
-            EventOccurrence.objects.get(event=event_page).start.strftime("%Y-%m-%dT%H:%M:%S")
+            event_local_start.strftime("%Y-%m-%dT%H:%M:%S%z")
         )
         self.assertEqual(
             end,
-            EventOccurrence.objects.get(event=event_page).end.strftime("%Y-%m-%dT%H:%M:%S")
+            event_local_end.strftime("%Y-%m-%dT%H:%M:%S%z")
         )
 
 

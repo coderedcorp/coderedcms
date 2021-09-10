@@ -7,9 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col pt-5 pb-5">
-                <div data-block="calendar" data-default-date='{% now "Y-m-d" %}' data-default-view='{{self.default_calendar_view}}' data-page-id="{{ page.id }}">
-                    <noscript>Javascript is required to view the Calendar.</noscript>
-                </div>
+                {% include 'coderedcms/includes/ical/calendar.html' %}
             </div>
         </div>
         <div class="row">

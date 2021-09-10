@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render
+from django.utils import timezone
 from django.utils.translation import ungettext, gettext_lazy as _
 from icalendar import Calendar
 from wagtail.admin import messages
@@ -185,7 +186,6 @@ def event_generate_ical_for_calendar(request):
     if request.method == "POST":
         try:
             page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific
-            print(page)
         except ValueError:
             raise Http404
 
@@ -201,17 +201,29 @@ def event_generate_ical_for_calendar(request):
 
 
 def event_get_calendar_events(request):
-    if request.is_ajax():
-        try:
-            page = CoderedPage.objects.get(id=request.GET.get('pid')).specific
-        except ValueError:
-            raise Http404
-        start_str = request.GET.get('start')
-        start = datetime.strptime(start_str[:10], "%Y-%m-%d") if start_str else None
-        end_str = request.GET.get('end')
-        end = datetime.strptime(end_str[:10], "%Y-%m-%d") if end_str else None
-        return JsonResponse(page.get_calendar_events(start=start, end=end), safe=False)
-    raise Http404()
+    """
+    JSON list of events compatible with fullcalendar.js
+    """
+    try:
+        page = CoderedPage.objects.get(id=request.GET.get('pid')).specific
+    except ValueError:
+        raise Http404
+    start = None
+    end = None
+    start_str = request.GET.get('start', None)
+    end_str = request.GET.get('end', None)
+    if start_str:
+        start = timezone.make_aware(
+            datetime.strptime(start_str[:10], "%Y-%m-%d"),
+        )
+    if end_str:
+        end = timezone.make_aware(
+            datetime.strptime(end_str[:10], "%Y-%m-%d"),
+        )
+    return JsonResponse(
+        page.get_calendar_events(start=start, end=end),
+        safe=False
+    )
 
 
 @login_required

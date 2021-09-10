@@ -17,6 +17,10 @@ New features
 * Updated support for Google ``UA-``, ``G-``, and ``GTM-`` tracking scripts.
   See :doc:`/how_to/add_tracking_scripts`.
 
+* ``CoderedFormMixin`` has a new method ``send_mail()`` which can be overridden
+  in your models to have the form send mail in a different way or using a
+  different backend as needed.
+
 
 Bug fixes
 ---------

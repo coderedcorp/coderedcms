@@ -1319,6 +1319,12 @@ class CoderedFormMixin(models.Model):
         self.send_mail(request, message_args)
 
     def send_mail(self, resuest, message_args, content_subtype='text'):
+        """
+        Utility to send email messages from form submissions.
+
+        You can override this method to have the form send mail in a different
+        way or using a different backend as needed.
+        """
         message = EmailMessage(**message_args)
         message.content_subtype = content_subtype
         message.send()

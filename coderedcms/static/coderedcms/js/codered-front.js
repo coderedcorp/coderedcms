@@ -153,6 +153,7 @@ $(document).ready(function()
                 var pageId = el.dataset.pageId; // data-page-id
                 var defaultDate = el.dataset.defaultDate; // data-default-date
                 var defaultView = el.dataset.defaultView; // data-default-view
+                var eventDisplay = el.dataset.eventDisplay; // data-event-display
                 var timezone = el.dataset.timezone; // data-timezone
                 var calendar = new FullCalendar.Calendar(el, {
                     headerToolbar: {
@@ -170,7 +171,7 @@ $(document).ready(function()
                     initialView: defaultView,
                     fixedWeekCount: false,
                     timeZone: timezone,
-                    eventDisplay: 'block',
+                    eventDisplay: eventDisplay,
                     eventSources: {
                         url: '/ajax/calendar/events/',
                         method: 'GET',

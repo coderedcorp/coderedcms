@@ -912,21 +912,6 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         return events
 
 
-class DefaultCalendarViewChoices():
-    MONTH = 'month'
-    AGENDA_WEEK = 'agendaWeek'
-    AGENDA_DAY = 'agendaDay'
-    LIST_MONTH = 'listMonth'
-
-    CHOICES = (
-        ('', _('No calendar')),
-        (MONTH, _('Monthly Calendar')),
-        (AGENDA_WEEK, _('Weekly Calendar')),
-        (AGENDA_DAY, _('Daily Calendar')),
-        (LIST_MONTH, _('Calendar List View')),
-    )
-
-
 class CoderedEventIndexPage(CoderedWebPage):
     """
     Shows a list of event sub-pages.
@@ -934,6 +919,18 @@ class CoderedEventIndexPage(CoderedWebPage):
     class Meta:
         verbose_name = _('CodeRed Event Index Page')
         abstract = True
+
+    class CalendarViews(models.TextChoices):
+        NONE = '', _('No calendar')
+        MONTH = 'month', _('Month')
+        AGENDA_WEEK = 'agendaWeek', _('Week')
+        AGENDA_DAY = 'agendaDay', _('Day')
+        LIST_MONTH = 'listMonth', _('List of events')
+
+    class EventStyles(models.TextChoices):
+        DEFAULT = '', _('Default')
+        BLOCK = 'block', _('Solid rectangles')
+        DOT = 'list-item', _('Dots with labels')
 
     template = 'coderedcms/pages/event_index_page.html'
 
@@ -946,29 +943,54 @@ class CoderedEventIndexPage(CoderedWebPage):
 
     default_calendar_view = models.CharField(
         blank=True,
-        choices=DefaultCalendarViewChoices.CHOICES,
-        default=DefaultCalendarViewChoices.MONTH,
+        choices=CalendarViews.choices,
+        default=CalendarViews.MONTH,
         max_length=255,
         verbose_name=_('Calendar Style'),
         help_text=_('The default look of the calendar on this page.')
     )
+    event_style = models.CharField(
+        blank=True,
+        choices=EventStyles.choices,
+        default=EventStyles.DEFAULT,
+        max_length=255,
+        verbose_name=_('Event Style'),
+        help_text=_('How events look on the calendar.')
+    )
 
     layout_panels = CoderedWebPage.layout_panels + [
-        FieldPanel('default_calendar_view'),
+        MultiFieldPanel(
+            [
+                FieldPanel('default_calendar_view'),
+                FieldPanel('event_style'),
+            ],
+            heading=_('Calendar Style'),
+        )
     ]
 
     @property
     def fullcalendar_view(self) -> str:
         """
-        Default calendar view translated to the fullcalendar.js identifier
+        Translate calendar views to fullcalendar.js identifiers.
         """
         return {
-            '': '',
-            DefaultCalendarViewChoices.MONTH: 'dayGridMonth',
-            DefaultCalendarViewChoices.AGENDA_WEEK: 'timeGridWeek',
-            DefaultCalendarViewChoices.AGENDA_DAY: 'timeGridDay',
-            DefaultCalendarViewChoices.LIST_MONTH: 'listMonth',
+            self.CalendarViews.NONE: '',
+            self.CalendarViews.MONTH: 'dayGridMonth',
+            self.CalendarViews.AGENDA_WEEK: 'timeGridWeek',
+            self.CalendarViews.AGENDA_DAY: 'timeGridDay',
+            self.CalendarViews.LIST_MONTH: 'listMonth',
         }[self.default_calendar_view]
+
+    @property
+    def fullcalendar_event_display(self) -> str:
+        """
+        Translate event display styles to fullcalendar.js identifiers.
+        """
+        return {
+            self.EventStyles.DEFAULT: 'auto',
+            self.EventStyles.BLOCK: 'block',
+            self.EventStyles.DOT: 'list-item',
+        }[self.event_style]
 
     def get_index_children(self):
         if self.index_query_pagemodel and self.index_order_by == 'next_occurrence':

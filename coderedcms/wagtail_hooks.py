@@ -10,28 +10,35 @@ from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
+from coderedcms import __version__
 from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
 
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     return format_html(
-        '<link rel="stylesheet" type="text/css" href="{}">',
-        static('coderedcms/css/codered-admin.css')
+        '<link rel="stylesheet" type="text/css" href="{}?v={}">',
+        static('coderedcms/css/codered-admin.css'),
+        __version__,
     )
 
 
 @hooks.register('insert_editor_css')
 def editor_css():
     return format_html(
-        '<link rel="stylesheet" type="text/css" href="{}">',
-        static('coderedcms/css/codered-editor.css')
+        '<link rel="stylesheet" type="text/css" href="{}?v={}">',
+        static('coderedcms/css/codered-editor.css'),
+        __version__,
     )
 
 
 @hooks.register('insert_editor_js')
 def collapsible_js():
-    return format_html('<script src="{}"></script>', static('coderedcms/js/codered-editor.js'))
+    return format_html(
+        '<script src="{}?v={}"></script>',
+        static('coderedcms/js/codered-editor.js'),
+        __version__,
+    )
 
 
 def clear_wagtailcache(*args, **kwargs):

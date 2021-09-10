@@ -1003,7 +1003,7 @@ class CoderedEventIndexPage(CoderedWebPage):
                 local_start = timezone.localtime(value=occurrence[0])
                 local_end = None
                 if occurrence[1]:
-                    timezone.localtime(value=occurrence[1])
+                    local_end = timezone.localtime(value=occurrence[1])
                 event_data = {
                     'title': event.title,
                     'start': local_start.strftime('%Y-%m-%dT%H:%M:%S%z'),

@@ -18,7 +18,7 @@
         if(list_id_as_str != ""){
 
             if(mailchimp_master_library[list_id_as_str]['merge_fields'].length > 0){
-                merge_field_html = '<br /><div><strong>MERGE FIELDS</h3></div>';
+                merge_field_html = '<br /><h3>MERGE FIELDS</h3>';
             }
 
             for(var i=0; i < mailchimp_master_library[list_id_as_str]['merge_fields'].length; i++){
@@ -27,7 +27,7 @@
                 if(subscriber_data['merge_fields'].hasOwnProperty(merge_field['tag'])){
                     merge_field_html += '<div class="input"><input type="text" name="' + merge_field['tag'] + '"" value="' + subscriber_data['merge_fields'][merge_field['tag']] + '"></div>';
                 } else {
-                    merge_field_html += '<div class="input"><input type="text" name="' + merge_field['tag'] + '"" value=""></div>';                
+                    merge_field_html += '<div class="input"><input type="text" name="' + merge_field['tag'] + '"" value=""></div>';
                 }
                 merge_field_html += "<br />";
             }
@@ -50,7 +50,7 @@
                     if(interest_category_library[interest_category_id]['interests'].hasOwnProperty(interest_id)){
                         return interest_category_library[interest_category_id]['interests'][interest_id]
                     }
-                } 
+                }
             }
             return false;
         }
@@ -59,7 +59,7 @@
 
         if(list_id_as_str != ""){
             if(mailchimp_master_library[list_id_as_str]['interest_categories'].length > 0){
-                interest_category_field_html += '<br /><div><strong>GROUPS</strong></div>';
+                interest_category_field_html += '<h3>GROUPS</h3><p>Add subscriber to these groups:</p>';
             }
 
             for(var i in mailchimp_master_library[list_id_as_str]['interest_categories']){
@@ -89,7 +89,11 @@
     }
 
     $("select[name='list-selection-{{ widget_name }}']").change(function(){
-        populate_fields_for_{{ widget_js_name }}($(this).val());
+        var list_id = $(this).val();
+        populate_fields_for_{{ widget_js_name }}(list_id);
+        var subscriber_data = get_subscriber_json_data_for_{{ widget_js_name }}();
+        subscriber_data['list_id'] = list_id
+        set_subscriber_json_data_for_{{ widget_js_name }}(subscriber_data);
     });
 
     $("div[name='merge-fields-{{ widget_name }}']").on('input', 'input', function(){

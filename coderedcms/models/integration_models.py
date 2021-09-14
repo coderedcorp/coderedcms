@@ -66,7 +66,7 @@ class MailchimpSubscriberIntegrationWidget(Input):
         return json.dumps({})
 
     def get_selectable_mailchimp_lists(self, library):
-        selectable_lists = [('', 'Please select one of your Mailchimp Lists.')]
+        selectable_lists = [('', '--- Select a Mailchimp List ---')]
         for k, v in library.items():
             selectable_lists.append((k, v['name']))
 
@@ -110,15 +110,9 @@ class MailchimpSubscriberIntegration(models.Model):
     def integration_operation(self, instance, **kwargs):
         mailchimp = MailchimpApi()
         if mailchimp.is_active:
-            rendered_dictionary = self.render_dictionary(
-                self.format_form_submission(kwargs['form_submission']))
+            submission_dict = kwargs['form_submission'].get_data()
+            rendered_dictionary = self.render_dictionary(submission_dict)
             mailchimp.add_user_to_list(list_id=self.get_list_id(), data=rendered_dictionary)
-
-    def format_form_submission(self, form_submission):
-        formatted_form_data = {}
-        for k, v in literal_eval(form_submission.form_data).items():
-            formatted_form_data[k.replace('-', '_')] = v
-        return formatted_form_data
 
     def get_data(self):
         return json.loads(self.subscriber_json_data)
@@ -148,7 +142,8 @@ class MailchimpSubscriberIntegration(models.Model):
                     'interests': self.combine_interest_categories(),
                     'status': 'subscribed',
                 }
-            ]
+            ],
+            'update_existing': True
         })
 
         rendered_dictionary = Template(

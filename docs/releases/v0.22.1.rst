@@ -1,0 +1,11 @@
+v0.22.1 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Fix issue saving Mailchimp integration settings in the Wagtail Admin.
+
+* Always update Mailchimp subscriber information when subscriber already exists
+  on list.

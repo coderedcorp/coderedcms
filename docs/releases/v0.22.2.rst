@@ -13,3 +13,6 @@ Bug fixes
 
 * Fix layout of fields in the Wagtail admin, which may appear centered instead
   of left-aligned under certain StreamField conditions.
+
+* Regenerate initial migration file in project template, so that new projects
+  are up to date with built-in models.

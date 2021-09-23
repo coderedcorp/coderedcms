@@ -1289,11 +1289,11 @@ class CoderedFormMixin(models.Model):
         addresses = [x.strip() for x in self.to_address.split(',')]
         content = []
 
-        for key, value in self.data_to_dict(processed_data, request).items():
-            content.append('{0}: {1}'.format(
-                key.replace('_', ' ').title(),
-                value
-            ))
+        for field in self.get_form_fields():
+            key = field.clean_name
+            label = field.label
+            value = processed_data.get(key)
+            content.append('{0}: {1}'.format(label, value))
 
         content = '\n-------------------- \n'.join(content)
 
@@ -1318,7 +1318,12 @@ class CoderedFormMixin(models.Model):
         # Send email
         self.send_mail(request, message_args)
 
-    def send_mail(self, resuest, message_args, content_subtype='text'):
+    def send_mail(
+        self,
+        resuest,
+        message_args: dict,
+        content_subtype: Optional[str] = None
+    ):
         """
         Utility to send email messages from form submissions.
 
@@ -1326,7 +1331,8 @@ class CoderedFormMixin(models.Model):
         way or using a different backend as needed.
         """
         message = EmailMessage(**message_args)
-        message.content_subtype = content_subtype
+        if content_subtype:
+            message.content_subtype = content_subtype
         message.send()
 
     def render_landing_page(self, request, form_submission=None):

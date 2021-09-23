@@ -10,3 +10,6 @@ Bug fixes
 
 * Field labels in form submission emails now show the exact label as entered
   on the Wagtail page, instead of a "humanized" version of the field ID.
+
+* Fix layout of fields in the Wagtail admin, which may appear centered instead
+  of left-aligned under certain StreamField conditions.

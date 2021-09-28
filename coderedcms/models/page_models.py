@@ -1489,6 +1489,14 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
             name, ext = os.path.splitext(self.template)
             self.landing_page_template = name + '_landing' + ext
 
+    def process_form_submission(self, request, form, form_submission, processed_data):
+        """
+        Change process_form_submission function such that
+        captcha is removed upon submission
+        """
+        CoderedFormBuilder.remove_captcha_field(form)
+        return super(CoderedFormPage, self).process_form_submission(request, form, form_submission, processed_data)
+
     def get_form_fields(self):
         """
         Form page expects `form_fields` to be declared.
@@ -1685,7 +1693,7 @@ class CoderedStreamFormPage(CoderedFormMixin, CoderedStreamFormMixin, CoderedWeb
         CoderedFormMixin.body_content_panels + [
             InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
     ]
-
+    
     def process_form_post(self, form, request):
         if form.is_valid():
             is_complete = self.steps.update_data()

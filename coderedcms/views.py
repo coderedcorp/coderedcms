@@ -111,8 +111,12 @@ def serve_protected_file(request, path):
     """
     Function that serves protected files uploaded from forms.
     """
-    fullpath = os.path.join(cr_settings['PROTECTED_MEDIA_ROOT'], path)
-    if os.path.isfile(fullpath):
+    # Fully resolve all provided paths.
+    mediapath = os.path.abspath(cr_settings['PROTECTED_MEDIA_ROOT'])
+    fullpath = os.path.abspath(os.path.join(mediapath, path))
+
+    # Path must be a sub-path of the PROTECTED_MEDIA_ROOT, and exist.
+    if fullpath.startswith(mediapath) and os.path.isfile(fullpath):
         mimetype, encoding = mimetypes.guess_type(fullpath)
         with open(fullpath, 'rb') as f:
             response = HttpResponse(f.read(), content_type=mimetype)

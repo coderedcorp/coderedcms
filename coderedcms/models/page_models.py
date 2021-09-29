@@ -1288,18 +1288,20 @@ class CoderedFormMixin(models.Model):
         """
         addresses = [x.strip() for x in self.to_address.split(',')]
         content = []
+        data = self.data_to_dict(processed_data, request)
 
-        for field in self.get_form_fields():
-            key = field.clean_name
+        for field in form:
+            # Get key from form, transform same as data_to_dict() does.
+            key = field.html_name.replace('-', '_')
             label = field.label
-            value = processed_data.get(key)
+            value = data.get(key)
             content.append('{0}: {1}'.format(label, value))
 
-        content = '\n-------------------- \n'.join(content)
+        content_str = '\n-------------------- \n'.join(content) + '\n'
 
         # Build email message parameters
         message_args = {
-            'body': content,
+            'body': content_str,
             'to': addresses,
         }
         if self.subject:
@@ -1311,7 +1313,7 @@ class CoderedFormMixin(models.Model):
             message_args['from_email'] = genemail
         if self.reply_address:
             # Render reply-to field using form submission as context.
-            context = Context(self.data_to_dict(processed_data, request))
+            context = Context(data)
             template_reply_to = Template(self.reply_address)
             message_args['reply_to'] = template_reply_to.render(context).split(',')
 

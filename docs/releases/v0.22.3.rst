@@ -1,0 +1,10 @@
+v0.22.3 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Form submission emails were broken on custom form pages which override
+  ``get_form_fields()`` and do not return fields as classes inheriting
+  ``AbstractFormField`` (Bug was introduced in 0.22.2).

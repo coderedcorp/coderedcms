@@ -18,6 +18,7 @@ CodeRed CMS follows the ``[major].[minor].[maintenance]`` versioning scheme.
     :maxdepth: 1
 
     v0.23.0
+    v0.22.3
     v0.22.2
     v0.22.1
     v0.22.0

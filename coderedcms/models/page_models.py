@@ -1489,6 +1489,8 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
             name, ext = os.path.splitext(self.template)
             self.landing_page_template = name + '_landing' + ext
 
+    # The following function is sourced from https://github.com/acarasimon96/wagtail-django-simple-captcha
+    # with small tweeks to integrate with the CodeRedCMS codebase (under the MIT License)
     def process_form_submission(self, request, form, form_submission, processed_data):
         """
         Change process_form_submission function such that

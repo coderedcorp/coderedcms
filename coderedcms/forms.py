@@ -113,6 +113,8 @@ class CoderedFormBuilder(FormBuilder):
     Enhance wagtail FormBuilder with additional custom fields.
     """
 
+    # The following function is sourced from https://github.com/acarasimon96/wagtail-django-simple-captcha
+    # with small tweeks to integrate with the CodeRedCMS codebase (under the MIT license)
     @property
     def formfields(self):
         # Add wagtailcaptcha to formfields property
@@ -133,6 +135,8 @@ class CoderedFormBuilder(FormBuilder):
     def create_time_field(self, field, options):
         return CoderedTimeField(**options)
 
+    # The following function is sourced from https://github.com/acarasimon96/wagtail-django-simple-captcha
+    # with small tweeks to integrate with the CodeRedCMS codebase (under the MIT license)
     @staticmethod
     def remove_captcha_field(form):
         form.fields.pop(CoderedFormBuilder.CAPTCHA_FIELD_NAME, None)

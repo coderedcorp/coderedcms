@@ -163,7 +163,7 @@ class TableBlock(BaseBlock):
     class Meta:
         template = 'coderedcms/blocks/table_block.html'
         icon = 'fa-table'
-        label = 'Table'
+        label = _('Table')
 
 
 class ImageBlock(BaseBlock):

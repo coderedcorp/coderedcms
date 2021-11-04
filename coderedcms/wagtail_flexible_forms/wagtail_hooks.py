@@ -226,7 +226,7 @@ class SetStatusView(InstanceSpecificView):
             self.instance.save()
             verbose_label = self.instance.get_status_display()
             if 'revert' in request.GET:
-                messages.success(request, 'Reverted to the “%s” status.'
+                messages.success(request, _('Reverted to the “%s” status.')
                                  % verbose_label)
             else:
                 revert_url = (self.url_helper.get_action_url('set_status',
@@ -234,7 +234,7 @@ class SetStatusView(InstanceSpecificView):
                               + '?revert&status=' + previous_status)
                 messages.success(
                     request,
-                    'Successfully changed the status to “%s”.' % verbose_label,
+                    _('Successfully changed the status to “%s”.') % verbose_label,
                     buttons=[messages.button(revert_url, _('Revert'))])
         url = request.META.get('HTTP_REFERER')
         if url is None:

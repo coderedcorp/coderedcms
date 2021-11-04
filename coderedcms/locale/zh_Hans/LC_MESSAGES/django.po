@@ -1,0 +1,2289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-04 17:19+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: blocks/__init__.py:74 blocks/__init__.py:101 blocks/__init__.py:110
+#: blocks/__init__.py:116
+msgid "HTML"
+msgstr "HTML"
+
+#: blocks/__init__.py:120 blocks/__init__.py:121 blocks/__init__.py:122
+#: blocks/__init__.py:123 blocks/__init__.py:124 blocks/__init__.py:125
+#: blocks/__init__.py:126 blocks/__init__.py:127 blocks/__init__.py:128
+#: blocks/__init__.py:129 blocks/__init__.py:130 blocks/__init__.py:131
+#: wagtail_flexible_forms/blocks.py:238 wagtail_flexible_forms/blocks.py:239
+#: wagtail_flexible_forms/blocks.py:240 wagtail_flexible_forms/blocks.py:241
+#: wagtail_flexible_forms/blocks.py:242 wagtail_flexible_forms/blocks.py:243
+#: wagtail_flexible_forms/blocks.py:244 wagtail_flexible_forms/blocks.py:245
+#: wagtail_flexible_forms/blocks.py:246 wagtail_flexible_forms/blocks.py:247
+#: wagtail_flexible_forms/blocks.py:248 wagtail_flexible_forms/blocks.py:249
+msgid "Fields"
+msgstr "字段"
+
+#: blocks/base_blocks.py:109
+msgid "Button Title"
+msgstr "按钮标题"
+
+#: blocks/base_blocks.py:115
+msgid "Button Style"
+msgstr "按钮样式"
+
+#: blocks/base_blocks.py:121 models/page_models.py:1105
+msgid "Button Size"
+msgstr "按钮尺寸"
+
+#: blocks/base_blocks.py:136 models/snippet_models.py:231
+#: models/snippet_models.py:274
+msgid "Custom CSS Class"
+msgstr "自定义 CSS 类"
+
+#: blocks/base_blocks.py:141 models/snippet_models.py:112
+#: models/snippet_models.py:236 models/snippet_models.py:279
+msgid "Custom ID"
+msgstr "自定义 ID"
+
+#: blocks/base_blocks.py:146
+msgid "Advanced Settings"
+msgstr "高级设置"
+
+#: blocks/base_blocks.py:159 models/page_models.py:228
+msgid "Template"
+msgstr "模板"
+
+#: blocks/base_blocks.py:173
+msgid "Tracking Event Category"
+msgstr "跟踪事件类别"
+
+#: blocks/base_blocks.py:178
+msgid "Tracking Event Label"
+msgstr "跟踪事件标签"
+
+#: blocks/base_blocks.py:190
+msgid "Column Breakpoint"
+msgstr "列断点"
+
+#: blocks/base_blocks.py:191
+msgid ""
+"Screen size at which the column will expand horizontally or stack vertically."
+msgstr "列将水平扩展或垂直堆叠的屏幕大小。"
+
+#: blocks/base_blocks.py:248 models/page_models.py:362
+#: models/snippet_models.py:283 models/snippet_models.py:343
+msgid "Content"
+msgstr "内容"
+
+#: blocks/base_blocks.py:278
+msgid "Page link"
+msgstr "页面链接"
+
+#: blocks/base_blocks.py:282 blocks/html_blocks.py:51
+msgid "Document link"
+msgstr "文档链接"
+
+#: blocks/base_blocks.py:287
+msgid "Other link"
+msgstr "其他链接"
+
+#: blocks/content_blocks.py:22 blocks/content_blocks.py:115
+#: blocks/content_blocks.py:211 blocks/html_blocks.py:174
+#: blocks/html_blocks.py:180 blocks/html_blocks.py:188
+#: models/snippet_models.py:96
+msgid "Image"
+msgstr "图片"
+
+#: blocks/content_blocks.py:27
+msgid "Title"
+msgstr "标题"
+
+#: blocks/content_blocks.py:32
+msgid "Subtitle"
+msgstr "副标题"
+
+#: blocks/content_blocks.py:36 models/snippet_models.py:411
+msgid "Body"
+msgstr "正文"
+
+#: blocks/content_blocks.py:42 models/wagtailsettings_models.py:354
+msgid "Links"
+msgstr "链接"
+
+#: blocks/content_blocks.py:48 settings.py:130 settings.py:154
+msgid "Card"
+msgstr "卡片"
+
+#: blocks/content_blocks.py:59 models/snippet_models.py:33
+#: models/snippet_models.py:88
+msgid "Carousel"
+msgstr "旋转木马"
+
+#: blocks/content_blocks.py:70
+msgid "Image Collection"
+msgstr "图片集合"
+
+#: blocks/content_blocks.py:76
+msgid "Image Gallery"
+msgstr "图片库"
+
+#: blocks/content_blocks.py:86
+msgid "Modal heading"
+msgstr "模态标题"
+
+#: blocks/content_blocks.py:90
+msgid "Modal content"
+msgstr "模态内容"
+
+#: blocks/content_blocks.py:94
+msgid "Simple Text"
+msgstr "简单文本"
+
+#: blocks/content_blocks.py:98
+msgid "Modal footer"
+msgstr "模态页脚"
+
+#: blocks/content_blocks.py:104
+msgid "Modal"
+msgstr "模态"
+
+#: blocks/content_blocks.py:111
+msgid "Display text"
+msgstr "显示文字"
+
+#: blocks/content_blocks.py:125 blocks/html_blocks.py:105 forms.py:25
+#: wagtail_flexible_forms/blocks.py:51
+msgid "URL"
+msgstr "URL"
+
+#: blocks/content_blocks.py:130
+msgid "External Link"
+msgstr "文本链接"
+
+#: blocks/content_blocks.py:138
+#: templates/coderedcms/includes/pagination.html:13
+msgid "Page"
+msgstr "页面"
+
+#: blocks/content_blocks.py:143
+msgid "Page Link"
+msgstr "页面链接"
+
+#: blocks/content_blocks.py:151
+msgid "Document"
+msgstr "文档"
+
+#: blocks/content_blocks.py:156
+msgid "Document Link"
+msgstr "文档链接"
+
+#: blocks/content_blocks.py:170
+msgid "Sub-links"
+msgstr "子链接"
+
+#: blocks/content_blocks.py:179
+msgid "External link with sub-links"
+msgstr "带子链接的外部链接"
+
+#: blocks/content_blocks.py:189
+msgid "Show child pages"
+msgstr "显示子页面"
+
+#: blocks/content_blocks.py:190
+msgid "Automatically show a link to the Page’s child pages as a dropdown menu."
+msgstr "自动将页面子页面的链接显示为下拉菜单。"
+
+#: blocks/content_blocks.py:194
+msgid "Page link with sub-links"
+msgstr "带子链接的页面链接"
+
+#: blocks/content_blocks.py:202
+msgid "Document link with sub-links"
+msgstr "带子链接的文档链接"
+
+#: blocks/content_blocks.py:216 models/snippet_models.py:37
+#: models/snippet_models.py:145 models/snippet_models.py:191
+#: models/snippet_models.py:226 models/snippet_models.py:269
+#: models/snippet_models.py:313 models/snippet_models.py:339
+#: wagtail_flexible_forms/blocks.py:257
+msgid "Name"
+msgstr "名称"
+
+#: blocks/content_blocks.py:221
+msgid "Description"
+msgstr "说明"
+
+#: blocks/content_blocks.py:225
+msgid "Price"
+msgstr "价格"
+
+#: blocks/content_blocks.py:226
+msgid "Any text here. Include currency sign if desired."
+msgstr "在这里输入任意文字。 如果需要，包括货币符号。"
+
+#: blocks/content_blocks.py:232
+msgid "Price List Item"
+msgstr "价格列表项"
+
+#: blocks/content_blocks.py:242
+msgid "Heading"
+msgstr "标题"
+
+#: blocks/content_blocks.py:248
+msgid "Items"
+msgstr "项"
+
+#: blocks/content_blocks.py:254
+msgid "Price List"
+msgstr "价格列表"
+
+#: blocks/content_blocks.py:265
+msgid "Show content walls on children pages?"
+msgstr "在子页面上显示内容墙？"
+
+#: blocks/content_blocks.py:267
+msgid ""
+"If this is checked, the content walls will be displayed on all children "
+"pages of this page."
+msgstr "如果选中此项，内容墙将显示在此页面的所有子页面上。"
+
+#: blocks/content_blocks.py:272 models/snippet_models.py:335
+#: models/snippet_models.py:362
+msgid "Content Wall"
+msgstr "内容墙"
+
+#: blocks/content_blocks.py:284 models/snippet_models.py:308
+#: models/snippet_models.py:309
+msgid "Reusable Content"
+msgstr "可重用内容"
+
+#: blocks/html_blocks.py:37
+msgid "Button Link"
+msgstr "按钮链接"
+
+#: blocks/html_blocks.py:47
+msgid "Auto download"
+msgstr "自动下载"
+
+#: blocks/html_blocks.py:59
+msgid "Download"
+msgstr "下载"
+
+#: blocks/html_blocks.py:69
+msgid "Search query"
+msgstr "搜索查询"
+
+#: blocks/html_blocks.py:70
+msgid "Address or search term used to find your location on the map."
+msgstr "用于在地图上查找您的位置的地址或搜索词。"
+
+#: blocks/html_blocks.py:75
+msgid "Map title"
+msgstr "地图标题"
+
+#: blocks/html_blocks.py:76
+msgid "Map title for screen readers, ex: \"Map to Goodale Park\""
+msgstr "屏幕阅读器的地图标题，例如：“Map to Goodale Park”"
+
+#: blocks/html_blocks.py:81
+msgid "Google place ID"
+msgstr "Google 地点 ID"
+
+#: blocks/html_blocks.py:82
+msgid "Requires API key to use place ID."
+msgstr "需要 API 密钥才能使用地点 ID。"
+
+#: blocks/html_blocks.py:87
+msgid "Map zoom level"
+msgstr "地图缩放级别"
+
+#: blocks/html_blocks.py:89 models/page_models.py:1894
+msgid ""
+"Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: "
+"Streets, 20: Buildings"
+msgstr ""
+"需要 API 密钥才能使用缩放。 1：世界，5：陆地/大陆，10：城市，15：街道，20：建"
+"筑物"
+
+#: blocks/html_blocks.py:96
+msgid "Google Map"
+msgstr "Google 地图"
+
+#: blocks/html_blocks.py:106
+msgid "Link to a YouTube/Vimeo video, tweet, facebook post, etc."
+msgstr "链接到 YouTube/Vimeo 视频、tweet、facebook 帖子等。"
+
+#: blocks/html_blocks.py:112
+msgid "Embed Media"
+msgstr "嵌入媒体"
+
+#: blocks/html_blocks.py:121 blocks/html_blocks.py:136
+#: blocks/html_blocks.py:151 forms.py:20
+msgid "Text"
+msgstr "文本"
+
+#: blocks/html_blocks.py:127
+msgid "Heading 1"
+msgstr "标题 1"
+
+#: blocks/html_blocks.py:142
+msgid "Heading 2"
+msgstr "标题 2"
+
+#: blocks/html_blocks.py:157
+msgid "Heading 3"
+msgstr "标题 3"
+
+#: blocks/html_blocks.py:166
+msgid "Table"
+msgstr "表格"
+
+#: blocks/html_blocks.py:193
+msgid "Alternate text to show if the image doesn’t load"
+msgstr "图像未加载时显示的替代文本"
+
+#: blocks/html_blocks.py:199
+msgid "Image Link"
+msgstr "图片链接"
+
+#: blocks/html_blocks.py:209
+msgid "Parent page"
+msgstr "父页面"
+
+#: blocks/html_blocks.py:211
+msgid ""
+"Show a preview of pages that are children of the selected page. Uses "
+"ordering specified in the page’s LAYOUT tab."
+msgstr ""
+"显示作为所选页面的子页面的页面的预览。 使用页面的 LAYOUT 选项卡中指定的顺序。"
+
+#: blocks/html_blocks.py:216
+msgid "Classified as"
+msgstr "分类为"
+
+#: blocks/html_blocks.py:217
+msgid "Only show pages that are classified with this term."
+msgstr "只显示用该词分类的页面。"
+
+#: blocks/html_blocks.py:222
+msgid "Show body preview"
+msgstr "显示正文预览"
+
+#: blocks/html_blocks.py:226
+msgid "Number of pages to show"
+msgstr "要显示的页数"
+
+#: blocks/html_blocks.py:232
+msgid "Latest Pages"
+msgstr "最新页面"
+
+#: blocks/html_blocks.py:265
+msgid "Page to preview"
+msgstr "要预览的页面"
+
+#: blocks/html_blocks.py:266
+msgid "Show a mini preview of the selected page."
+msgstr "显示所选页面的迷你预览。"
+
+#: blocks/html_blocks.py:272
+msgid "Page Preview"
+msgstr "页面预览"
+
+#: blocks/html_blocks.py:282
+msgid "Quote Text"
+msgstr "引用文本"
+
+#: blocks/html_blocks.py:287 models/page_models.py:604
+msgid "Author"
+msgstr "作者"
+
+#: blocks/html_blocks.py:293
+msgid "Quote"
+msgstr "引用"
+
+#: blocks/layout_blocks.py:26
+msgid "Column size"
+msgstr "列尺寸"
+
+#: blocks/layout_blocks.py:34
+msgid "Column"
+msgstr "列"
+
+#: blocks/layout_blocks.py:43 blocks/layout_blocks.py:65
+#: blocks/layout_blocks.py:82
+msgid "Full width"
+msgstr "全屏宽度"
+
+#: blocks/layout_blocks.py:49
+msgid "Responsive Grid Row"
+msgstr "响应式网格行"
+
+#: blocks/layout_blocks.py:71
+msgid "Card Grid"
+msgstr "卡片网格"
+
+#: blocks/layout_blocks.py:86
+msgid "Parallax Effect"
+msgstr "视差效果"
+
+#: blocks/layout_blocks.py:88
+msgid ""
+"Background images scroll slower than foreground images, creating an illusion "
+"of depth."
+msgstr "背景图像的滚动速度比前景图像慢，从而产生深度错觉。"
+
+#: blocks/layout_blocks.py:94
+msgid "Tile background image"
+msgstr "平铺背景图片"
+
+#: blocks/layout_blocks.py:99 models/snippet_models.py:101
+msgid "Background color"
+msgstr "背景颜色"
+
+#: blocks/layout_blocks.py:100 blocks/layout_blocks.py:106
+#: models/snippet_models.py:102
+msgid "Hexadecimal, rgba, or CSS color notation (e.g. #ff0011)"
+msgstr "十六进制、rgba 或 CSS 颜色表示法（例如#ff0011）"
+
+#: blocks/layout_blocks.py:105
+msgid "Text color"
+msgstr "文本颜色"
+
+#: blocks/layout_blocks.py:112
+msgid "Hero Unit"
+msgstr "英雄单元"
+
+#: blocks/stream_form_blocks.py:19
+msgid "Condition Trigger ID"
+msgstr "条件触发 ID"
+
+#: blocks/stream_form_blocks.py:21
+msgid ""
+"The \"Custom ID\" of another field that that will trigger this field to be "
+"shown/hidden."
+msgstr "将触发此字段显示/隐藏的另一个字段的“自定义 ID”。"
+
+#: blocks/stream_form_blocks.py:26
+msgid "Condition Trigger Value"
+msgstr "条件触发值"
+
+#: blocks/stream_form_blocks.py:28
+msgid ""
+"The value of the field in \"Condition Trigger ID\" that will trigger this "
+"field to be shown."
+msgstr "将触发该字段显示的“自定义 ID”字段的值。"
+
+#: blocks/stream_form_blocks.py:45
+msgid "Text or Email input"
+msgstr "文本或电子邮件输入"
+
+#: blocks/stream_form_blocks.py:51 forms.py:22
+msgid "Multi-line text"
+msgstr "多行文本"
+
+#: blocks/stream_form_blocks.py:57
+msgid "Numbers only"
+msgstr "仅数字"
+
+#: blocks/stream_form_blocks.py:63
+msgid "Single Checkbox"
+msgstr "单个复选框"
+
+#: blocks/stream_form_blocks.py:69
+msgid "Radios"
+msgstr "单选按钮"
+
+#: blocks/stream_form_blocks.py:75
+msgid "Dropdown"
+msgstr "下拉菜单"
+
+#: blocks/stream_form_blocks.py:81 forms.py:28
+msgid "Checkboxes"
+msgstr "复选框"
+
+#: blocks/stream_form_blocks.py:87 forms.py:35
+msgid "Date"
+msgstr "日期"
+
+#: blocks/stream_form_blocks.py:96 forms.py:36
+msgid "Time"
+msgstr "时间"
+
+#: blocks/stream_form_blocks.py:105
+msgid "Date and Time"
+msgstr "日期和时间"
+
+#: blocks/stream_form_blocks.py:114
+msgid "Image Upload"
+msgstr "图片上传"
+
+#: blocks/stream_form_blocks.py:120
+msgid "Secure File Upload"
+msgstr "安全文件上传"
+
+#: forms.py:21 forms.py:154
+msgid "Single line text"
+msgstr "单行文本"
+
+#: forms.py:23 models/wagtailsettings_models.py:342
+#: wagtail_flexible_forms/blocks.py:50
+msgid "Email"
+msgstr "电子邮件"
+
+#: forms.py:24
+msgid "Number - only allows integers"
+msgstr "数字 - 只允许整数"
+
+#: forms.py:27 wagtail_flexible_forms/blocks.py:108
+msgid "Choice"
+msgstr "选择"
+
+#: forms.py:29
+msgid "Drop down"
+msgstr "下拉"
+
+#: forms.py:30 wagtail_flexible_forms/blocks.py:114
+msgid "Radio buttons"
+msgstr "单选按钮"
+
+#: forms.py:31
+msgid "Multiple select"
+msgstr "多选"
+
+#: forms.py:32
+msgid "Single checkbox"
+msgstr "单个复选框"
+
+#: forms.py:34
+msgid "Date & Time"
+msgstr "日期 & 时间"
+
+#: forms.py:37
+msgid "Date and time"
+msgstr "日期和时间"
+
+#: forms.py:39
+msgid "File Upload"
+msgstr "文件上传"
+
+#: forms.py:40
+msgid "Secure File - login required to access uploaded files"
+msgstr "安全文件 - 需要登录才能访问上传的文件"
+
+#: forms.py:42 wagtail_flexible_forms/blocks.py:250
+msgid "Other"
+msgstr "其他"
+
+#: forms.py:43
+msgid "Hidden field"
+msgstr "隐藏字段"
+
+#: forms.py:52 forms.py:53
+msgid "Submitted file is not allowed."
+msgstr "提交的文件不被允许。"
+
+#: forms.py:150
+msgid "field type"
+msgstr "字段类型"
+
+#: forms.py:162 templates/coderedcms/pages/search.html:6
+#: templates/coderedcms/pages/search.html:17
+#: templates/coderedcms/pages/search.html:31
+#: templates/coderedcms/snippets/navbar.html:43
+msgid "Search"
+msgstr "搜索"
+
+#: forms.py:168
+msgid "Page type"
+msgstr "页面类型"
+
+#: models/integration_models.py:107
+msgid "List"
+msgstr "列表"
+
+#: models/page_models.py:127
+msgid "CodeRed Tag"
+msgstr "CodeRed 标签"
+
+#: models/page_models.py:137
+msgid "CodeRed Page"
+msgstr "CodeRed 页面"
+
+#: models/page_models.py:159
+msgid "Cover image"
+msgstr "封面图片"
+
+#: models/page_models.py:177
+msgid "Default Ordering"
+msgstr "默认排序"
+
+#: models/page_models.py:178
+msgid "Date first published, newest to oldest"
+msgstr "首次发布日期，从新到旧"
+
+#: models/page_models.py:179
+msgid "Date first published, oldest to newest"
+msgstr "首次发布日期，从旧到新"
+
+#: models/page_models.py:180
+msgid "Date updated, newest to oldest"
+msgstr "更新日期，从新到旧"
+
+#: models/page_models.py:181
+msgid "Date updated, oldest to newest"
+msgstr "更新日期，从旧到新"
+
+#: models/page_models.py:182
+msgid "Title, alphabetical"
+msgstr "标题，按字母顺序"
+
+#: models/page_models.py:183
+msgid "Title, reverse alphabetical"
+msgstr "标题，逆字母顺序"
+
+#: models/page_models.py:187
+msgid "Show list of child pages"
+msgstr "显示子页面列表"
+
+#: models/page_models.py:195
+msgid "Order child pages by classifier"
+msgstr "按分类器排序子页面"
+
+#: models/page_models.py:197
+msgid ""
+"Child pages will first be sorted following the order of this classifier’s "
+"terms (from Snippets > Classifiers)."
+msgstr "子页面将首先按照此分类器项的顺序进行排序（从片段 > 分类器）。"
+
+#: models/page_models.py:206
+msgid "Order child pages by"
+msgstr "按以下方式排序子页面"
+
+#: models/page_models.py:207
+msgid "Child pages will then be sorted by this attribute."
+msgstr "然后子页面将按此属性排序。"
+
+#: models/page_models.py:211
+msgid "Number per page"
+msgstr "每页的数目"
+
+#: models/page_models.py:216
+msgid "Filter child pages by"
+msgstr "按以下方式过滤子页面"
+
+#: models/page_models.py:217
+msgid "Enable filtering child pages by these classifiers."
+msgstr "通过这些分类器启用过滤子页面。"
+
+#: models/page_models.py:247 models/snippet_models.py:135
+msgid "Classifiers"
+msgstr "分类器"
+
+#: models/page_models.py:248
+msgid ""
+"Categorize and group pages together with classifiers. Used to organize and "
+"filter pages across the site."
+msgstr "使用分类器对页面进行分类和分组。用于组织和过滤整个站点的页面。"
+
+#: models/page_models.py:253
+msgid "Tags"
+msgstr "标签"
+
+#: models/page_models.py:254
+msgid "Used to organize pages across the site."
+msgstr "用于组织整个站点的页面。"
+
+#: models/page_models.py:266
+msgid "Content Walls"
+msgstr "内容墙"
+
+#: models/page_models.py:316
+msgid "Visual Design"
+msgstr "视觉设计"
+
+#: models/page_models.py:326
+msgid "Show Child Pages"
+msgstr "显示子页面"
+
+#: models/page_models.py:364
+msgid "Classify"
+msgstr "分类"
+
+#: models/page_models.py:365 models/wagtailsettings_models.py:103
+msgid "Layout"
+msgstr "布局"
+
+#: models/page_models.py:366
+msgid "SEO"
+msgstr "SEO"
+
+#: models/page_models.py:367
+msgid "Settings"
+msgstr "设置"
+
+#: models/page_models.py:373
+msgid "Integrations"
+msgstr "集成"
+
+#: models/page_models.py:535
+msgid "CodeRed Web Page"
+msgstr "CodeRed 网页"
+
+#: models/page_models.py:585
+msgid "CodeRed Article"
+msgstr "CodeRed 文章"
+
+#: models/page_models.py:596
+msgid "Caption"
+msgstr "副标题"
+
+#: models/page_models.py:609
+msgid "Display author as"
+msgstr "将作者显示为"
+
+#: models/page_models.py:610
+msgid "Override how the author’s name displays on this article."
+msgstr "覆盖作者姓名在本文中的显示方式。"
+
+#: models/page_models.py:615
+msgid "Display publish date"
+msgstr "显示发布日期"
+
+#: models/page_models.py:698
+msgid "Publication Info"
+msgstr "发表信息"
+
+#: models/page_models.py:708
+msgid "CodeRed Article Index Page"
+msgstr "CodeRed 文章列表页"
+
+#: models/page_models.py:716
+msgid "Display publish date, newest first"
+msgstr "显示发布日期，最新在先"
+
+#: models/page_models.py:721
+msgid "Show images"
+msgstr "显示图片"
+
+#: models/page_models.py:728
+msgid "Show author and date info"
+msgstr "显示作者和日期信息"
+
+#: models/page_models.py:732
+msgid "Show preview text"
+msgstr "显示预览文本"
+
+#: models/page_models.py:743
+msgid "Child page display"
+msgstr "子页面显示"
+
+#: models/page_models.py:750
+msgid "CodeRed Event"
+msgstr "CodeRed 事件"
+
+#: models/page_models.py:755
+msgid "The color that the event will use when displayed on a calendar."
+msgstr "事件在日历上显示时将使用的颜色。"
+
+#: models/page_models.py:759 models/page_models.py:1735
+msgid "Address"
+msgstr "地址"
+
+#: models/page_models.py:767
+msgid "Event information"
+msgstr "事件信息"
+
+#: models/page_models.py:772
+msgid "Dates and times"
+msgstr "日期和时间"
+
+#: models/page_models.py:920
+msgid "CodeRed Event Index Page"
+msgstr "CodeRed 事件列表页"
+
+#: models/page_models.py:924
+msgid "No calendar"
+msgstr "没有日历"
+
+#: models/page_models.py:925
+msgid "Month"
+msgstr "月"
+
+#: models/page_models.py:926
+msgid "Week"
+msgstr "星期"
+
+#: models/page_models.py:927
+msgid "Day"
+msgstr "日"
+
+#: models/page_models.py:928
+msgid "List of events"
+msgstr "事件列表"
+
+#: models/page_models.py:931 settings.py:21 settings.py:159 settings.py:166
+msgid "Default"
+msgstr "默认值"
+
+#: models/page_models.py:932
+msgid "Solid rectangles"
+msgstr "实心矩形"
+
+#: models/page_models.py:933
+msgid "Dots with labels"
+msgstr "带标签的点"
+
+#: models/page_models.py:941
+msgid "Display next occurrence, soonest first"
+msgstr "显示下一次出现，先显示最早的"
+
+#: models/page_models.py:949 models/page_models.py:967
+msgid "Calendar Style"
+msgstr "日历样式"
+
+#: models/page_models.py:950
+msgid "The default look of the calendar on this page."
+msgstr "此页面上日历的默认外观。"
+
+#: models/page_models.py:957
+msgid "Event Style"
+msgstr "事件样式"
+
+#: models/page_models.py:958
+msgid "How events look on the calendar."
+msgstr "事件在日历上的显示方式。"
+
+#: models/page_models.py:1045
+msgid "CodeRed Event Occurrence"
+msgstr "CodeRed 事件发生"
+
+#: models/page_models.py:1060
+msgid "Email form submissions to"
+msgstr "表单提交发送至的电子邮件"
+
+#: models/page_models.py:1061
+msgid ""
+"Optional - email form submissions to this address. Separate multiple "
+"addresses by comma."
+msgstr "可选 - 通过电子邮件将表单提交到此地址。 用逗号分隔多个地址。"
+
+#: models/page_models.py:1066
+msgid "Reply-to address"
+msgstr "回复地址"
+
+#: models/page_models.py:1067
+msgid ""
+"Optional - to reply to the submitter, specify the email field here. For "
+"example, if a form field above is labeled \"Your Email\", enter: "
+"{{ your_email }}"
+msgstr ""
+"可选 - 要回复提交者，请在此处指定电子邮件字段。 例如，如果上面的表单字段标记"
+"为“您的电子邮件”，请输入：{{ your_email }}"
+
+#: models/page_models.py:1072 models/snippet_models.py:410
+msgid "Subject"
+msgstr "主题"
+
+#: models/page_models.py:1076
+msgid "Save form submissions"
+msgstr "保存表单提交"
+
+#: models/page_models.py:1077
+msgid "Submissions are saved to database and can be exported at any time."
+msgstr "提交的内容保存到数据库中，可以随时导出。"
+
+#: models/page_models.py:1085 models/page_models.py:1378
+msgid "Thank you page"
+msgstr "感谢页"
+
+#: models/page_models.py:1086
+msgid "The page users are redirected to after submitting the form."
+msgstr "用户在提交表单后被重定向到页面。"
+
+#: models/page_models.py:1090
+msgid "Submit"
+msgstr "提交"
+
+#: models/page_models.py:1091
+msgid "Button text"
+msgstr "按钮文本"
+
+#: models/page_models.py:1098
+msgid "Button style"
+msgstr "按钮样式"
+
+#: models/page_models.py:1110
+msgid "Button CSS class"
+msgstr "按钮 CSS 类"
+
+#: models/page_models.py:1111
+msgid "Custom CSS class applied to the submit button."
+msgstr "应用于提交按钮的自定义 CSS 类。"
+
+#: models/page_models.py:1116
+msgid "Form CSS Class"
+msgstr "表单 CSS 类"
+
+#: models/page_models.py:1117
+msgid "Custom CSS class applied to <form> element."
+msgstr "应用于 <form> 元素的自定义 CSS 类。"
+
+#: models/page_models.py:1122
+msgid "Form ID"
+msgstr "表单 ID"
+
+#: models/page_models.py:1123
+msgid "Custom ID applied to <form> element."
+msgstr "应用于 <form> 元素的自定义 ID。"
+
+#: models/page_models.py:1128
+msgid "Form go live date/time"
+msgstr "表格上线日期/时间"
+
+#: models/page_models.py:1129
+msgid "Date and time when the FORM goes live on the page."
+msgstr "表单在页面上生效的日期和时间。"
+
+#: models/page_models.py:1134
+msgid "Form expiry date/time"
+msgstr "表单过期日期/时间"
+
+#: models/page_models.py:1135
+msgid "Date and time when the FORM will no longer be available on the page."
+msgstr "表单将不再出现在页面上的日期和时间。"
+
+#: models/page_models.py:1139
+msgid "Spam Protection"
+msgstr "垃圾邮件防护"
+
+#: models/page_models.py:1140
+msgid ""
+"When enabled, the CMS will filter out spam form submissions for this page."
+msgstr "启用后，CMS 将过滤掉此页面的垃圾邮件表单提交。"
+
+#: models/page_models.py:1154
+msgid "Form Settings"
+msgstr "表单设置"
+
+#: models/page_models.py:1163
+msgid "Form Submissions"
+msgstr "表单提交"
+
+#: models/page_models.py:1178
+msgid "Form Scheduled Publishing"
+msgstr "表单预定发布"
+
+#: models/page_models.py:1377
+msgid "Form"
+msgstr "表单"
+
+#: models/page_models.py:1425
+msgid "There was an error while processing your submission.  Please try again."
+msgstr "处理您的提交时出错。 请再试一次。"
+
+#: models/page_models.py:1467
+msgid "CodeRed Form Page"
+msgstr "CodeRed 表单页"
+
+#: models/page_models.py:1478 wagtail_flexible_forms/blocks.py:253
+msgid "Form fields"
+msgstr "表单字段"
+
+#: models/page_models.py:1483 models/page_models.py:1688
+msgid "Confirmation Emails"
+msgstr "确认电子邮件"
+
+#: models/page_models.py:1509
+msgid "Submission date"
+msgstr "提交日期"
+
+#: models/page_models.py:1547 wagtail_flexible_forms/models.py:284
+msgid "Not submitted"
+msgstr "未提交"
+
+#: models/page_models.py:1548
+msgid "Complete"
+msgstr "完成"
+
+#: models/page_models.py:1549 wagtail_flexible_forms/models.py:286
+msgid "Under consideration"
+msgstr "正在考虑中"
+
+#: models/page_models.py:1550 wagtail_flexible_forms/models.py:287
+msgid "Approved"
+msgstr "已批准的"
+
+#: models/page_models.py:1551 wagtail_flexible_forms/models.py:288
+msgid "Rejected"
+msgstr "已拒绝的"
+
+#: models/page_models.py:1675
+msgid "CodeRed Advanced Form Page"
+msgstr "CodeRed 高级表单页"
+
+#: models/page_models.py:1725
+msgid "CodeRed Location"
+msgstr "CodeRed 位置"
+
+#: models/page_models.py:1740
+msgid "Latitude"
+msgstr "纬度"
+
+#: models/page_models.py:1745
+msgid "Longitude"
+msgstr "经度"
+
+#: models/page_models.py:1749
+msgid "Auto Update Latitude and Longitude"
+msgstr "自动更新纬度和经度"
+
+#: models/page_models.py:1750
+msgid ""
+"If checked, automatically update the latitude and longitude when the address "
+"is updated."
+msgstr "如果选中，当地址更新时自动更新纬度和经度。"
+
+#: models/page_models.py:1755
+msgid "Map Title"
+msgstr "地图标题"
+
+#: models/page_models.py:1756
+msgid "If this is filled out, this is the title that will be used on the map."
+msgstr "如果填写此项，这就是将在地图上使用的标题。"
+
+#: models/page_models.py:1761
+msgid "Map Description"
+msgstr "地图说明"
+
+#: models/page_models.py:1762
+msgid ""
+"If this is filled out, this is the description that will be used on the map."
+msgstr "如果填写此项，这就是将在地图上使用的说明。"
+
+#: models/page_models.py:1766
+msgid "Website"
+msgstr "网站"
+
+#: models/page_models.py:1771
+msgid "Phone Number"
+msgstr "电话号码"
+
+#: models/page_models.py:1786
+msgid "Map Layout"
+msgstr "地图布局"
+
+#: models/page_models.py:1797
+msgid "Location Settings"
+msgstr "位置设置"
+
+#: models/page_models.py:1869
+msgid "CodeRed Location Index Page"
+msgstr "CodeRed 位置列表页"
+
+#: models/page_models.py:1879
+msgid "The default latitude you want the map set to."
+msgstr "您希望地图设置的默认纬度。"
+
+#: models/page_models.py:1885
+msgid "The default longitude you want the map set to."
+msgstr "您希望地图设置的默认经度。"
+
+#: models/page_models.py:1904
+msgid "Map Display"
+msgstr "地图显示"
+
+#: models/snippet_models.py:41
+msgid "Show controls"
+msgstr "显示控件"
+
+#: models/snippet_models.py:42
+msgid ""
+"Shows arrows on the left and right of the carousel to advance next or "
+"previous slides."
+msgstr "在轮播的左侧和右侧显示箭头以前进下一张或上一张幻灯片。"
+
+#: models/snippet_models.py:46
+msgid "Show indicators"
+msgstr "显示指示器"
+
+#: models/snippet_models.py:47
+msgid ""
+"Shows small indicators at the bottom of the carousel based on the number of "
+"slides."
+msgstr "根据幻灯片的数量在底部显示小指示器。"
+
+#: models/snippet_models.py:54
+msgid "Animation"
+msgstr "动画"
+
+#: models/snippet_models.py:55
+msgid "The animation when transitioning between slides."
+msgstr "在幻灯片之间转换时的动画。"
+
+#: models/snippet_models.py:61
+msgid "Slider"
+msgstr "滑块"
+
+#: models/snippet_models.py:69
+msgid "Slides"
+msgstr "幻灯片"
+
+#: models/snippet_models.py:83
+msgid "Carousel Slide"
+msgstr "旋转木马幻灯片"
+
+#: models/snippet_models.py:107
+msgid "Custom CSS class"
+msgstr "自定义 CSS 类"
+
+#: models/snippet_models.py:134 models/snippet_models.py:182
+msgid "Classifier"
+msgstr "分类器"
+
+#: models/snippet_models.py:141 models/snippet_models.py:187
+msgid "Slug"
+msgstr "Slug"
+
+#: models/snippet_models.py:150 models/snippet_models.py:177
+msgid "Classifier Terms"
+msgstr "分类器项"
+
+#: models/snippet_models.py:176
+msgid "Classifier Term"
+msgstr "分类器项"
+
+#: models/snippet_models.py:222
+msgid "Navigation Bar"
+msgstr "导航栏"
+
+#: models/snippet_models.py:240
+msgid "Navigation links"
+msgstr "导航链接"
+
+#: models/snippet_models.py:250 models/snippet_models.py:293
+msgid "Attributes"
+msgstr "属性"
+
+#: models/snippet_models.py:265
+msgid "Footer"
+msgstr "页脚"
+
+#: models/snippet_models.py:317
+msgid "content"
+msgstr "内容"
+
+#: models/snippet_models.py:347
+msgid "Dismissible"
+msgstr "可关闭"
+
+#: models/snippet_models.py:351
+msgid "Show once"
+msgstr "显示一次"
+
+#: models/snippet_models.py:352
+msgid ""
+"Do not show the content wall to the same user again after it has been closed."
+msgstr "内容墙关闭后，不要再次向同一用户显示内容墙。"
+
+#: models/snippet_models.py:378
+msgid "CodeRed Email"
+msgstr "CodeRed 电子邮件"
+
+#: models/snippet_models.py:383
+msgid "To Addresses"
+msgstr "收件人地址"
+
+#: models/snippet_models.py:384 models/snippet_models.py:396
+#: models/snippet_models.py:402 models/snippet_models.py:408
+msgid "Separate multiple email addresses with commas."
+msgstr "用逗号分隔多个电子邮件地址。"
+
+#: models/snippet_models.py:389
+msgid "From Address"
+msgstr "发件人地址"
+
+#: models/snippet_models.py:390
+msgid ""
+"For example: \"sender@example.com\" or \"Sender Name <sender@example.com>"
+"\" (without quotes)."
+msgstr ""
+"例如：\"sender@example.com\" 或 \"Sender Name <sender@example.com>\"（不带引"
+"用）。"
+
+#: models/snippet_models.py:395
+msgid "Reply-To Address"
+msgstr "回复地址"
+
+#: models/snippet_models.py:401
+msgid "CC"
+msgstr "抄送"
+
+#: models/snippet_models.py:407
+msgid "BCC"
+msgstr "密件抄送"
+
+#: models/snippet_models.py:424
+msgid "Email Message"
+msgstr "电子邮件消息"
+
+#: models/wagtailsettings_models.py:25
+msgid "Social Media"
+msgstr "社交媒体"
+
+#: models/wagtailsettings_models.py:29
+msgid "Facebook"
+msgstr "Facebook"
+
+#: models/wagtailsettings_models.py:30
+msgid "Your Facebook page URL"
+msgstr "您的 Facebook 页 URL"
+
+#: models/wagtailsettings_models.py:34
+msgid "Twitter"
+msgstr "Twitter"
+
+#: models/wagtailsettings_models.py:35
+msgid "Your Twitter page URL"
+msgstr "您的 Twitter 页 URL"
+
+#: models/wagtailsettings_models.py:40
+msgid "Instagram"
+msgstr "Instagram"
+
+#: models/wagtailsettings_models.py:41
+msgid "Your Instagram username, without the @"
+msgstr "您的 Instagram 用户名，不带 @"
+
+#: models/wagtailsettings_models.py:45
+msgid "YouTube"
+msgstr "YouTube"
+
+#: models/wagtailsettings_models.py:46
+msgid "Your YouTube channel or user account URL"
+msgstr "您的 YouTube 频道或者用户账户 URL"
+
+#: models/wagtailsettings_models.py:50
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: models/wagtailsettings_models.py:51
+msgid "Your LinkedIn page URL"
+msgstr "您的 LinkedIn 页 URL"
+
+#: models/wagtailsettings_models.py:55
+msgid "Google"
+msgstr "Google"
+
+#: models/wagtailsettings_models.py:56
+msgid "Your Google+ page or Google business listing URL"
+msgstr "您的 Google+ 页或 Google 商业列表 URL"
+
+#: models/wagtailsettings_models.py:92
+msgid "Social Media Accounts"
+msgstr "社交媒体账户"
+
+#: models/wagtailsettings_models.py:111
+msgid "Logo"
+msgstr "标识"
+
+#: models/wagtailsettings_models.py:112
+msgid "Brand logo used in the navbar and throughout the site"
+msgstr "导航栏和整个网站中使用的品牌标识"
+
+#: models/wagtailsettings_models.py:120
+msgid "Favicon"
+msgstr "图标"
+
+#: models/wagtailsettings_models.py:127
+msgid "Navbar color scheme"
+msgstr "导航栏配色方案"
+
+#: models/wagtailsettings_models.py:128
+msgid ""
+"Optimizes text and other navbar elements for use with light or dark "
+"backgrounds."
+msgstr "优化文本和其他导航栏元素以用于浅色或深色背景。"
+
+#: models/wagtailsettings_models.py:134
+msgid "Navbar CSS class"
+msgstr "导航栏 CSS 类"
+
+#: models/wagtailsettings_models.py:135
+msgid ""
+"Custom classes applied to navbar e.g. \"bg-light\", \"bg-dark\", \"bg-primary"
+"\"."
+msgstr ""
+"应用于导航栏的自定义类，例如 \"bg-light\"、\"bg-dark\"、\"bg-primary\"。"
+
+#: models/wagtailsettings_models.py:139
+msgid "Fixed navbar"
+msgstr "固定导航栏"
+
+#: models/wagtailsettings_models.py:140
+msgid "Fixed navbar will remain at the top of the page when scrolling."
+msgstr "固定导航栏在滚动时会保留在页面顶部。"
+
+#: models/wagtailsettings_models.py:144
+msgid "Full width navbar"
+msgstr "全宽导航栏"
+
+#: models/wagtailsettings_models.py:145
+msgid "The navbar will fill edge to edge."
+msgstr "导航栏将边到边填充。"
+
+#: models/wagtailsettings_models.py:149
+msgid "Full width navbar contents"
+msgstr "全宽导航栏内容"
+
+#: models/wagtailsettings_models.py:150
+msgid "Content within the navbar will fill edge to edge."
+msgstr "导航栏中的内容将边到边填充。"
+
+#: models/wagtailsettings_models.py:157
+msgid "Collapse navbar menu"
+msgstr "折叠导航栏菜单"
+
+#: models/wagtailsettings_models.py:158
+msgid ""
+"Control on what screen sizes to show and collapse the navbar menu links."
+msgstr "控制显示和折叠导航栏菜单链接的屏幕尺寸。"
+
+#: models/wagtailsettings_models.py:165
+msgid "Navbar format"
+msgstr "导航栏格式"
+
+#: models/wagtailsettings_models.py:169
+msgid "Search box"
+msgstr "搜索框"
+
+#: models/wagtailsettings_models.py:170
+msgid "Show search box in navbar"
+msgstr "在导航栏中显示搜索框"
+
+#: models/wagtailsettings_models.py:177
+msgid "Theme variant"
+msgstr "主题变体"
+
+#: models/wagtailsettings_models.py:187
+msgid "Branding"
+msgstr "品牌推广"
+
+#: models/wagtailsettings_models.py:200
+msgid "Site Navbar Layout"
+msgstr "网站导航栏布局"
+
+#: models/wagtailsettings_models.py:206
+msgid "Theming"
+msgstr "主题化"
+
+#: models/wagtailsettings_models.py:217
+msgid "Tracking"
+msgstr "跟踪"
+
+#: models/wagtailsettings_models.py:222
+msgid "UA Tracking ID"
+msgstr "UA 跟踪 ID"
+
+#: models/wagtailsettings_models.py:223
+msgid "Your Google \"Universal Analytics\" tracking ID (begins with \"UA-\")"
+msgstr "您的 Google \"Universal Analytics\" 跟踪 ID（以 \"UA-\" 开头）"
+
+#: models/wagtailsettings_models.py:228
+msgid "G Tracking ID"
+msgstr "G 跟踪 ID"
+
+#: models/wagtailsettings_models.py:229
+msgid "Your Google Analytics 4 tracking ID (begins with \"G-\")"
+msgstr "您的 Google Analytics 4 跟踪 ID（以 \"G-\" 开头）"
+
+#: models/wagtailsettings_models.py:233
+msgid "Track button clicks"
+msgstr "跟踪按钮点击"
+
+#: models/wagtailsettings_models.py:234
+msgid ""
+"Track all button clicks using Google Analytics event tracking. Event "
+"tracking details can be specified in each button’s advanced settings options."
+msgstr ""
+"使用 Google Analytics 事件跟踪来跟踪所有按钮点击。 可以在每个按钮的高级设置选"
+"项中指定事件跟踪详细信息。"
+
+#: models/wagtailsettings_models.py:239
+msgid "Google Tag Manager ID"
+msgstr "Google 标签管理器 ID"
+
+#: models/wagtailsettings_models.py:240
+msgid "Begins with \"GTM-\""
+msgstr "以 \"GTM-\" 开头"
+
+#: models/wagtailsettings_models.py:245
+msgid "<head> tracking scripts"
+msgstr "<head> 跟踪脚本"
+
+#: models/wagtailsettings_models.py:246
+msgid "Add tracking scripts between the <head> tags."
+msgstr "在 <head> 标签之间添加跟踪脚本。"
+
+#: models/wagtailsettings_models.py:251
+msgid "<body> tracking scripts"
+msgstr "<body> 跟踪脚本"
+
+#: models/wagtailsettings_models.py:252
+msgid "Add tracking scripts toward closing <body> tag."
+msgstr "添加直到结束 <body> 标签的跟踪脚本。"
+
+#: models/wagtailsettings_models.py:257
+msgid "Know your tracking"
+msgstr "了解您的跟踪"
+
+#: models/wagtailsettings_models.py:259
+msgid ""
+"<h3><b>Which tracking IDs do I need?</b></h3><p>Before adding tracking to "
+"your site, <a href=\"https://docs.coderedcorp.com/cms/how_to/"
+"add_tracking_scripts.html\" target=\"_blank\">read about the difference "
+"between UA, G, GTM, and other tracking IDs</a>.</p>"
+msgstr ""
+"<h3><b>我需要哪些跟踪 ID？</b></h3><p>在向您的网站添加跟踪之前，<a href="
+"\"https://docs.coderedcorp.com/cms/how_to / add_tracking_scripts.html\" "
+"target=\"_blank\">阅读 UA、G、GTM 和其他跟踪 ID 之间的区别</a>。</p>"
+
+#: models/wagtailsettings_models.py:272
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: models/wagtailsettings_models.py:278
+msgid "Google Tag Manager"
+msgstr "Google 标签管理器"
+
+#: models/wagtailsettings_models.py:285
+msgid "Other Tracking Scripts"
+msgstr "其他跟踪脚本"
+
+#: models/wagtailsettings_models.py:300
+msgid "Show skip navigation link"
+msgstr "显示跳过导航链接"
+
+#: models/wagtailsettings_models.py:301
+msgid ""
+"Shows a \"Skip Navigation\" link above the navbar that takes you directly to "
+"the main content."
+msgstr "在导航栏上方显示一个“跳过导航”链接，可将您直接带到主要内容。"
+
+#: models/wagtailsettings_models.py:309
+msgid "Accessibility"
+msgstr "可获取性"
+
+#: models/wagtailsettings_models.py:325
+msgid "From email address"
+msgstr "发送人电子邮件地址"
+
+#: models/wagtailsettings_models.py:326
+msgid ""
+"The default email address this site appears to send from. For example: "
+"\"sender@example.com\" or \"Sender Name <sender@example.com>\" (without "
+"quotes)"
+msgstr ""
+"此站点将从其发送的默认电子邮件地址。 例如：\"sender@example.com\" 或 "
+"\"Sender Name <sender@example.com>\"（不带引用）"
+
+#: models/wagtailsettings_models.py:330
+msgid "Number of results per page"
+msgstr "每页结果数"
+
+#: models/wagtailsettings_models.py:334
+msgid "Open all external links in new tab"
+msgstr "在新标签页中打开所有外部链接"
+
+#: models/wagtailsettings_models.py:348
+msgid "Search Settings"
+msgstr "搜索设置"
+
+#: models/wagtailsettings_models.py:359
+msgid "General"
+msgstr "一般的"
+
+#: models/wagtailsettings_models.py:368
+msgid "Google API"
+msgstr "Google API"
+
+#: models/wagtailsettings_models.py:373
+msgid "Google Maps API Key"
+msgstr "Google 地图 API 密钥"
+
+#: models/wagtailsettings_models.py:374
+msgid "The API Key used for Google Maps."
+msgstr "用于 Google 地图的 API 密钥。"
+
+#: models/wagtailsettings_models.py:384
+msgid "Mailchimp API"
+msgstr "Mailchimp API"
+
+#: models/wagtailsettings_models.py:389
+msgid "Mailchimp API Key"
+msgstr "Mailchimp API 密钥"
+
+#: models/wagtailsettings_models.py:390
+msgid "The API Key used for Mailchimp."
+msgstr "用于 Mailchimp 的 API 密钥。"
+
+#: project_template/basic/project_name/settings/base.py:149
+msgid "English"
+msgstr "英文"
+
+#: settings.py:20
+msgid "Small"
+msgstr "小"
+
+#: settings.py:22
+msgid "Large"
+msgstr "大"
+
+#: settings.py:27
+msgid "Primary"
+msgstr "基本的"
+
+#: settings.py:28
+msgid "Secondary"
+msgstr "次要的"
+
+#: settings.py:29
+msgid "Success"
+msgstr "成功"
+
+#: settings.py:30
+msgid "Danger"
+msgstr "危险"
+
+#: settings.py:31
+msgid "Warning"
+msgstr "警告"
+
+#: settings.py:32
+msgid "Info"
+msgstr "信息"
+
+#: settings.py:33
+msgid "Link"
+msgstr "链接"
+
+#: settings.py:34
+msgid "Light"
+msgstr "浅色"
+
+#: settings.py:35
+msgid "Dark"
+msgstr "深色"
+
+#: settings.py:36
+msgid "Outline Primary"
+msgstr "带轮廓基本的"
+
+#: settings.py:37
+msgid "Outline Secondary"
+msgstr "带轮廓次要的"
+
+#: settings.py:38
+msgid "Outline Success"
+msgstr "带轮廓成功"
+
+#: settings.py:39
+msgid "Outline Danger"
+msgstr "带轮廓危险"
+
+#: settings.py:40
+msgid "Outline Warning"
+msgstr "带轮廓警告"
+
+#: settings.py:41
+msgid "Outline Info"
+msgstr "带轮廓信息"
+
+#: settings.py:42
+msgid "Outline Light"
+msgstr "带轮廓浅色"
+
+#: settings.py:43
+msgid "Outline Dark"
+msgstr "带轮廓深色"
+
+#: settings.py:48
+msgid "Slide"
+msgstr "滑动"
+
+#: settings.py:49
+msgid "Fade"
+msgstr "淡出"
+
+#: settings.py:54
+msgid "Automatically size"
+msgstr "自动调整大小"
+
+#: settings.py:55
+msgid "Full row"
+msgstr "整行"
+
+#: settings.py:56
+msgid "Half - 1/2 column"
+msgstr "1/2 列"
+
+#: settings.py:57
+msgid "Thirds - 1/3 column"
+msgstr "1/3 列"
+
+#: settings.py:58
+msgid "Thirds - 2/3 column"
+msgstr "2/3 列"
+
+#: settings.py:59
+msgid "Quarters - 1/4 column"
+msgstr "1/4 列"
+
+#: settings.py:60
+msgid "Quarters - 3/4 column"
+msgstr "3/4 列"
+
+#: settings.py:61
+msgid "Sixths - 1/6 column"
+msgstr "1/6 列"
+
+#: settings.py:62
+msgid "Sixths - 5/6 column"
+msgstr "5/6 列"
+
+#: settings.py:63
+msgid "Twelfths - 1/12 column"
+msgstr "1/12 列"
+
+#: settings.py:64
+msgid "Twelfths - 5/12 column"
+msgstr "5/12 列"
+
+#: settings.py:65
+msgid "Twelfths - 7/12 column"
+msgstr "7/12 列"
+
+#: settings.py:66
+msgid "Twelfths - 11/12 column"
+msgstr "11/12 列"
+
+#: settings.py:71
+msgid "Always expanded"
+msgstr "始终展开"
+
+#: settings.py:72
+msgid "sm - Expand on small screens (phone, 576px) and larger"
+msgstr "sm - 在小屏幕（手机，576 像素）和更大屏幕上展开"
+
+#: settings.py:73
+msgid "md - Expand on medium screens (tablet, 768px) and larger"
+msgstr "md - 在中等屏幕（平板电脑，768 像素）及更大屏幕上展开"
+
+#: settings.py:74
+msgid "lg - Expand on large screens (laptop, 992px) and larger"
+msgstr "lg - Expand on large screens (laptop, 992px) and larger"
+
+#: settings.py:75
+msgid "xl - Expand on extra large screens (wide monitor, 1200px)"
+msgstr "xl - 在超大屏幕上展开（宽屏，1200 像素）"
+
+#: settings.py:80
+msgid "Default Bootstrap Navbar"
+msgstr "默认 Bootstrap 导航栏"
+
+#: settings.py:81
+msgid "Centered logo at top"
+msgstr "顶部居中徽标"
+
+#: settings.py:86
+msgid "Light - for use with a light-colored navbar"
+msgstr "浅色 - 用于浅色导航栏"
+
+#: settings.py:87
+msgid "Dark - for use with a dark-colored navbar"
+msgstr "深色 - 用于深色导航栏"
+
+#: settings.py:94
+msgid "Never show menu - Always collapse menu behind a button"
+msgstr "从不显示菜单 - 总是在按钮后面折叠菜单"
+
+#: settings.py:95
+msgid "sm - Show on small screens (phone size) and larger"
+msgstr "sm - 在小屏幕（手机尺寸）和更大屏幕上显示"
+
+#: settings.py:96
+msgid "md - Show on medium screens (tablet size) and larger"
+msgstr "md - 在中等屏幕（平板电脑大小）和更大屏幕上显示"
+
+#: settings.py:97
+msgid "lg - Show on large screens (laptop size) and larger"
+msgstr "lg - 在大屏幕（笔记本电脑大小）和更大的屏幕上显示"
+
+#: settings.py:98
+msgid "xl - Show on extra large screens (desktop, wide monitor)"
+msgstr "xl - 在超大屏幕（台式机、宽屏显示器）上显示"
+
+#: settings.py:101
+msgid ""
+"Change the color palette of your site with a Bootstrap theme. Powered by "
+"Bootswatch https://bootswatch.com/."
+msgstr ""
+"使用 Bootstrap 主题更改您网站的调色板。 由 Bootswatch 提供支持 https://"
+"bootswatch.com/。"
+
+#: settings.py:104
+msgid "Default - Classic Bootstrap"
+msgstr "默认 - 经典 Bootstrap"
+
+#: settings.py:105
+msgid "Cerulean - A calm blue sky"
+msgstr "Cerulean - 平静的蓝天"
+
+#: settings.py:106
+msgid "Cosmo - An ode to Metro"
+msgstr "Cosmo - 地铁的颂歌"
+
+#: settings.py:107
+msgid "Cyborg - Jet black and electric blue"
+msgstr "Cyborg - 黑色和电蓝色"
+
+#: settings.py:108
+msgid "Darkly - Flatly in night mode"
+msgstr "Darkly - 在夜间模式下平淡无奇"
+
+#: settings.py:109
+msgid "Flatly - Flat and modern"
+msgstr "Flatly - 扁平而现代"
+
+#: settings.py:110
+msgid "Journal - Crisp like a new sheet of paper"
+msgstr "Journal - 像一张新纸一样清脆"
+
+#: settings.py:111
+msgid "Litera - The medium is the message"
+msgstr "Litera - 媒介就是信息"
+
+#: settings.py:112
+msgid "Lumen - Light and shadow"
+msgstr "Lumen - 光与影"
+
+#: settings.py:113
+msgid "Lux - A touch of class"
+msgstr "Lux - 一抹优雅"
+
+#: settings.py:114
+msgid "Materia - Material is the metaphor"
+msgstr "Materia - 材料是隐喻"
+
+#: settings.py:115
+msgid "Minty - A fresh feel"
+msgstr "Minty - 清新的感觉"
+
+#: settings.py:116
+msgid "Pulse - A trace of purple"
+msgstr "Pulse - 一丝紫色"
+
+#: settings.py:117
+msgid "Sandstone - A touch of warmth"
+msgstr "Sandstone——一丝温暖"
+
+#: settings.py:118
+msgid "Simplex - Mini and minimalist"
+msgstr "Simplex - 迷你和极简主义"
+
+#: settings.py:119
+msgid "Sketchy - A hand-drawn look for mockups and mirth"
+msgstr "Sketchy - 手绘外观模型和欢乐"
+
+#: settings.py:120
+msgid "Slate - Shades of gunmetal gray"
+msgstr "Slate - 青铜灰色的阴影"
+
+#: settings.py:121
+msgid "Solar - A dark spin on Solarized"
+msgstr "Solar - Solarized 的黑暗旋转"
+
+#: settings.py:122
+msgid "Spacelab - Silvery and sleek"
+msgstr "Spacelab - 银色和时尚"
+
+#: settings.py:123
+msgid "Superhero - The brave and the blue"
+msgstr "Superhero - 勇敢和蓝色"
+
+#: settings.py:124
+msgid "United - Ubuntu orange and unique font"
+msgstr "United - Ubuntu 橙色和独特的字体"
+
+#: settings.py:125
+msgid "Yeti - A friendly foundation"
+msgstr "Yeti - 一个友好的基础"
+
+#: settings.py:131
+msgid "Card with header"
+msgstr "带标题的卡片"
+
+#: settings.py:132
+msgid "Card with footer"
+msgstr "带页脚的卡片"
+
+#: settings.py:133
+msgid "Card with header and footer"
+msgstr "带标题和页脚的卡片"
+
+#: settings.py:134
+msgid "Blurb - rounded image and no border"
+msgstr "模糊 - 圆形图片且无边框"
+
+#: settings.py:135
+msgid "Cover image - use image as background"
+msgstr "封面图片 - 使用图片作为背景"
+
+#: settings.py:138
+msgid "Card group - attached cards of equal size"
+msgstr "卡片组 - 附加大小相同的卡片"
+
+#: settings.py:139
+msgid "Card deck - separate cards of equal size"
+msgstr "卡片板 - 相同大小的独立卡片"
+
+#: settings.py:140
+msgid "Card masonry - fluid brick pattern"
+msgstr "卡片体 - 流体砖图案"
+
+#: settings.py:143
+msgid "General, simple list"
+msgstr "通用、简单的列表"
+
+#: settings.py:144
+msgid "General, list group navigation panel"
+msgstr "常规、列表组导航面板"
+
+#: settings.py:145
+msgid "Article, media format"
+msgstr "文章、媒体格式"
+
+#: settings.py:147
+msgid "Article, card group - attached cards of equal size"
+msgstr "文章、卡片组 - 附加相同大小的卡片"
+
+#: settings.py:149
+msgid "Article, card deck - separate cards of equal size"
+msgstr "文章、卡片板 - 相同大小的独立卡片"
+
+#: settings.py:151
+msgid "Article, card masonry - fluid brick pattern"
+msgstr "文章、卡片体 - 流体砖图案"
+
+#: settings.py:155
+msgid "Form inputs"
+msgstr "表单输入"
+
+#: settings.py:167
+msgid "Web page showing title and cover image"
+msgstr "显示标题和封面图片的网页"
+
+#: settings.py:168
+msgid "Web page without title and cover image"
+msgstr "没有标题和封面图片的网页"
+
+#: settings.py:169
+msgid "Home page without title and cover image"
+msgstr "没有标题和封面图片的主页"
+
+#: settings.py:170
+msgid "Blank page - no navbar or footer"
+msgstr "空白页 - 没有导航栏或页脚"
+
+#: templates/coderedcms/includes/classifier_dropdowns.html:6
+msgid "Filter by"
+msgstr "过滤"
+
+#: templates/coderedcms/includes/classifier_dropdowns.html:12
+msgid "Filter"
+msgstr "过滤器"
+
+#: templates/coderedcms/includes/classifier_dropdowns.html:13
+#: templates/coderedcms/includes/classifier_nav.html:8
+msgid "All"
+msgstr "所有"
+
+#: templates/coderedcms/includes/form_honeypot.html:3
+msgid "Leave this blank if you are a human"
+msgstr "如果您是人类，请留空"
+
+#: templates/coderedcms/includes/iframe_gmap.html:6
+msgid "Map of"
+msgstr "地图"
+
+#: templates/coderedcms/includes/pagination.html:9
+msgid "Previous"
+msgstr "上一页"
+
+#: templates/coderedcms/includes/pagination.html:13
+msgid "of"
+msgstr ""
+
+#: templates/coderedcms/includes/pagination.html:17
+msgid "Next"
+msgstr "下一页"
+
+#: templates/coderedcms/pages/form_page_landing.html:8
+msgid "Thank You"
+msgstr "感谢"
+
+#: templates/coderedcms/pages/form_page_landing.html:9
+msgid "We have successfully received your submission."
+msgstr "我们已成功收到您的提交。"
+
+#: templates/coderedcms/pages/search.html:8
+#: templates/coderedcms/pages/search.html:19
+msgid "Search for"
+msgstr "搜索"
+
+#: templates/coderedcms/pages/search.html:44
+msgid "All Results"
+msgstr "所有结果"
+
+#: templates/coderedcms/pages/search.html:70
+msgid "No results found."
+msgstr "未找到结果。"
+
+#: templates/coderedcms/widgets/checkbox_classifiers.html:29
+msgid "New!"
+msgstr "新！"
+
+#: templates/coderedcms/widgets/checkbox_classifiers.html:30
+msgid "Organize Pages with Classifiers"
+msgstr "使用分类器组织页面"
+
+#: templates/coderedcms/widgets/checkbox_classifiers.html:33
+msgid "Use Classifiers to create custom categories and filters."
+msgstr "使用分类器创建自定义类别和过滤器。"
+
+#: templates/coderedcms/widgets/checkbox_classifiers.html:36
+msgid "Add Classifier"
+msgstr "添加分类器"
+
+#: templates/wagtailadmin/login.html:4
+msgid "Sign in to"
+msgstr "登录到"
+
+#: templates/wagtailadmin/shared/main_nav.html:7
+msgid "Edit your account"
+msgstr "编辑您的帐户"
+
+#: templates/wagtailadmin/shared/main_nav.html:15
+msgid "Account settings"
+msgstr "帐户设置"
+
+#: templates/wagtailadmin/shared/main_nav.html:16
+msgid "Log out"
+msgstr "登出"
+
+#: templates/wagtailcore/password_required.html:10
+msgid "Password Required"
+msgstr "需要密码"
+
+#: templates/wagtailcore/password_required.html:12
+msgid "You need a password to access this page."
+msgstr "您需要密码才能访问此页面。"
+
+#: templates/wagtailcore/password_required.html:19
+msgid "Continue"
+msgstr "继续"
+
+#: templates/wagtailforms/list_submissions.html:11
+msgid "Delete selected submissions"
+msgstr "删除选定的提交"
+
+#: templates/wagtailimportexport/import_from_csv.html:3
+#: templates/wagtailimportexport/import_from_csv.html:13
+msgid "Import pages"
+msgstr "导入页面"
+
+#: templates/wagtailimportexport/import_from_csv.html:25
+msgid "Import"
+msgstr "导入"
+
+#: templates/wagtailimportexport/index.html:3
+#: templates/wagtailimportexport/index.html:5
+msgid "Import / export pages"
+msgstr "导入 / 导出页面"
+
+#: templates/wagtailimportexport/index.html:11
+msgid "Import from JSON file"
+msgstr "从 JSON 文件导入"
+
+#: templates/wagtailimportexport/index.html:12
+msgid "Export to JSON file"
+msgstr "导出到 JSON 文件"
+
+#: templates/wagtailimportexport/index.html:16
+msgid "Import from CSV file"
+msgstr "从 CSV 文件导入"
+
+#: templates/wagtailimportexport/index.html:20
+msgid "Import from API"
+msgstr "从 API 导入"
+
+#: views.py:253
+#, python-format
+msgid "Import failed: %(reason)s"
+msgstr "导入失败：%(reason)s"
+
+#: views.py:257
+#, python-format
+msgid "%(count)s page imported."
+msgid_plural "%(count)s pages imported."
+msgstr[0] "已导入 %(count)s 页。"
+
+#: wagtail_flexible_forms/blocks.py:14
+msgid "Label"
+msgstr "标签"
+
+#: wagtail_flexible_forms/blocks.py:15
+msgid "Help text"
+msgstr "帮助文本"
+
+#: wagtail_flexible_forms/blocks.py:46
+msgid "Required"
+msgstr "必需的"
+
+#: wagtail_flexible_forms/blocks.py:58
+msgid "Phone"
+msgstr "电话"
+
+#: wagtail_flexible_forms/blocks.py:62
+msgid "Format"
+msgstr "格式"
+
+#: wagtail_flexible_forms/blocks.py:63 wagtail_flexible_forms/blocks.py:80
+#: wagtail_flexible_forms/blocks.py:89
+msgid "Default value"
+msgstr "默认值"
+
+#: wagtail_flexible_forms/blocks.py:66
+msgid "Text field (single line)"
+msgstr "文本字段（单行）"
+
+#: wagtail_flexible_forms/blocks.py:85
+msgid "Text field (multi line)"
+msgstr "文本字段（多行）"
+
+#: wagtail_flexible_forms/blocks.py:94
+msgid "Number field"
+msgstr "数字字段"
+
+#: wagtail_flexible_forms/blocks.py:103
+msgid "Checkbox field"
+msgstr "复选框字段"
+
+#: wagtail_flexible_forms/blocks.py:128
+msgid "Dropdown field"
+msgstr "下拉字段"
+
+#: wagtail_flexible_forms/blocks.py:139
+msgid "Checkbox"
+msgstr "复选框"
+
+#: wagtail_flexible_forms/blocks.py:145
+msgid "Multiple checkboxes field"
+msgstr "多个复选框字段"
+
+#: wagtail_flexible_forms/blocks.py:176
+msgid "Date field"
+msgstr "日期字段"
+
+#: wagtail_flexible_forms/blocks.py:191
+msgid "Time field"
+msgstr "时间字段"
+
+#: wagtail_flexible_forms/blocks.py:217
+msgid "Date+time field"
+msgstr "日期+时间字段"
+
+#: wagtail_flexible_forms/blocks.py:225
+msgid "Image field"
+msgstr "图片字段"
+
+#: wagtail_flexible_forms/blocks.py:233
+msgid "File field"
+msgstr "文件字段"
+
+#: wagtail_flexible_forms/blocks.py:261
+msgid "Form step"
+msgstr "Form 步骤"
+
+#: wagtail_flexible_forms/blocks.py:268
+msgid "Form steps"
+msgstr "Form 步骤"
+
+#: wagtail_flexible_forms/edit_handlers.py:14
+msgid "{} submissions"
+msgstr "{} 提交"
+
+#: wagtail_flexible_forms/models.py:87
+#, python-format
+msgid "Step %s"
+msgstr "步骤 %s"
+
+#: wagtail_flexible_forms/models.py:277
+msgid "last modification"
+msgstr "最后修改"
+
+#: wagtail_flexible_forms/models.py:285
+msgid "In progress"
+msgstr "进行中"
+
+#: wagtail_flexible_forms/models.py:293
+msgid "form submission"
+msgstr "表单提交"
+
+#: wagtail_flexible_forms/models.py:294
+msgid "form submissions"
+msgstr "表单提交"
+
+#: wagtail_flexible_forms/models.py:521
+msgid "Created"
+msgstr "已创建"
+
+#: wagtail_flexible_forms/models.py:522
+msgid "Changed"
+msgstr "已改变"
+
+#: wagtail_flexible_forms/models.py:523
+msgid "Deleted"
+msgstr "已删除"
+
+#: wagtail_flexible_forms/models.py:568
+#, python-format
+msgid "“%s” set."
+msgstr "“%s” 已设置。"
+
+#: wagtail_flexible_forms/models.py:569
+#, python-format
+msgid "“%s” set to “%s”."
+msgstr "“%s” 设置成 “%s”。"
+
+#: wagtail_flexible_forms/models.py:571
+#, python-format
+msgid "“%s” unset."
+msgstr "“%s” 未设置。"
+
+#: wagtail_flexible_forms/models.py:573
+#, python-format
+msgid "“%s” changed."
+msgstr "“%s” 已改变。"
+
+#: wagtail_flexible_forms/models.py:574
+#, python-format
+msgid "“%s” changed from “%s” to “%s”."
+msgstr "“%s” 由 “%s” 改变成 “%s”。"
+
+#: wagtail_flexible_forms/models.py:592
+msgid "Submission created."
+msgstr "提交已创建。"
+
+#: wagtail_flexible_forms/models.py:594
+msgid "Submission deleted."
+msgstr "提交已删除。"
+
+#: wagtail_flexible_forms/models.py:711
+msgid "Successfully submitted the form."
+msgstr "成功提交表单。"
+
+#: wagtail_flexible_forms/models.py:734
+msgid "Status"
+msgstr "状态"
+
+#: wagtail_flexible_forms/models.py:735
+msgid "User"
+msgstr "用户"
+
+#: wagtail_flexible_forms/models.py:736
+msgid "First modification"
+msgstr "首次修改"
+
+#: wagtail_flexible_forms/models.py:737
+msgid "Last modification"
+msgstr "最后一次修改"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:21
+#: wagtail_flexible_forms/wagtail_hooks.py:59
+msgid "Forms"
+msgstr "表单"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:70 wagtail_hooks.py:106
+msgid "See all submissions"
+msgstr "查看所有提交"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:80
+msgid "See unprocessed submissions"
+msgstr "查看未处理的提交"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:88 wagtail_hooks.py:127
+msgid "Edit this form page"
+msgstr "编辑此表单页面"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:94
+msgid "status"
+msgstr "状态"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:100
+msgid "Complete or reviewed"
+msgstr "完成或已审查"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:165
+msgid "mark as reviewed"
+msgstr "标记为已审核"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:166
+msgid "Mark this submission as reviewed"
+msgstr "将此提交标记为已审核"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:177
+msgid "approve"
+msgstr "批准"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:178
+msgid "Approve this submission"
+msgstr "批准此提交"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:189
+msgid "reject"
+msgstr "拒绝"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:190
+msgid "Reject this submission"
+msgstr "拒绝此提交"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:229
+#, python-format
+msgid "Reverted to the “%s” status."
+msgstr "恢复到 “%s” 状态。"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:237
+#, python-format
+msgid "Successfully changed the status to “%s”."
+msgstr "成功地将状态更改为 “%s”。"
+
+#: wagtail_flexible_forms/wagtail_hooks.py:238
+msgid "Revert"
+msgstr "恢复"
+
+#: wagtail_hooks.py:122
+msgid "See all Submissions"
+msgstr "查看所有提交"

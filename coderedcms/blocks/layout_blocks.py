@@ -31,7 +31,7 @@ class ColumnBlock(BaseLayoutBlock):
     class Meta:
         template = 'coderedcms/blocks/column_block.html'
         icon = 'placeholder'
-        label = 'Column'
+        label = _('Column')
 
 
 class GridBlock(BaseLayoutBlock):
@@ -109,4 +109,4 @@ class HeroBlock(BaseLayoutBlock):
     class Meta:
         template = 'coderedcms/blocks/hero_block.html'
         icon = 'fa-newspaper-o'
-        label = 'Hero Unit'
+        label = _('Hero Unit')

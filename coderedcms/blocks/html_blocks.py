@@ -296,3 +296,4 @@ class QuoteBlock(BaseBlock):
 class RichTextBlock(blocks.RichTextBlock):
     class Meta:
         template = 'coderedcms/blocks/rich_text_block.html'
+        label = _('Text')

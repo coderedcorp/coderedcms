@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 17:19+0800\n"
+"POT-Creation-Date: 2021-11-04 23:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,29 +74,29 @@ msgstr "跟踪事件类别"
 msgid "Tracking Event Label"
 msgstr "跟踪事件标签"
 
-#: blocks/base_blocks.py:190
+#: blocks/base_blocks.py:191
 msgid "Column Breakpoint"
 msgstr "列断点"
 
-#: blocks/base_blocks.py:191
+#: blocks/base_blocks.py:192
 msgid ""
 "Screen size at which the column will expand horizontally or stack vertically."
 msgstr "列将水平扩展或垂直堆叠的屏幕大小。"
 
-#: blocks/base_blocks.py:248 models/page_models.py:362
+#: blocks/base_blocks.py:249 models/page_models.py:362
 #: models/snippet_models.py:283 models/snippet_models.py:343
 msgid "Content"
 msgstr "内容"
 
-#: blocks/base_blocks.py:278
+#: blocks/base_blocks.py:279
 msgid "Page link"
 msgstr "页面链接"
 
-#: blocks/base_blocks.py:282 blocks/html_blocks.py:51
+#: blocks/base_blocks.py:283 blocks/html_blocks.py:51
 msgid "Document link"
 msgstr "文档链接"
 
-#: blocks/base_blocks.py:287
+#: blocks/base_blocks.py:288
 msgid "Other link"
 msgstr "其他链接"
 
@@ -331,7 +331,7 @@ msgid "Embed Media"
 msgstr "嵌入媒体"
 
 #: blocks/html_blocks.py:121 blocks/html_blocks.py:136
-#: blocks/html_blocks.py:151 forms.py:20
+#: blocks/html_blocks.py:151 blocks/html_blocks.py:299 forms.py:20
 msgid "Text"
 msgstr "文本"
 

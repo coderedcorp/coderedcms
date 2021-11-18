@@ -1,7 +1,7 @@
 Stream Forms
 ============
 
-CodeRed CMS integrates with ``wagtail_flexible_forms`` (https://github.com/noripyt/wagtail-flexible-forms).
+Wagtail CRX integrates with ``wagtail_flexible_forms`` (https://github.com/noripyt/wagtail-flexible-forms).
 A Stream Form enables forms built from StreamFields for advanced functionality such as multi-step forms,
 mixed content and form fields, and conditional logic.
 
@@ -62,7 +62,7 @@ StreamField that contains a mix of form fields and content blocks.
 Implementation
 --------------
 
-The stream form functionality is built-in to CodeRed CMS but is not enabled by default.
+The stream form functionality is built-in to Wagtail CRX but is not enabled by default.
 To implement, add the following to your ``website/models.py``
 
 .. code-block:: python

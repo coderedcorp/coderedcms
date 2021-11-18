@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     # This project
     'website',
 
-    # CodeRed CMS
+    # Wagtail CRX (CodeRed Extensions)
     'coderedcms',
     'bootstrap4',
     'modelcluster',

@@ -1,5 +1,5 @@
-CodeRed CMS 0.19.0 release notes
-================================
+v0.19.0 release notes
+=====================
 
 
 Bug fixes

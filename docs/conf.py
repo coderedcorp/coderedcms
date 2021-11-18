@@ -21,7 +21,7 @@ import datetime
 
 # -- Project information -----------------------------------------------------
 
-project = 'CodeRed CMS'
+project = 'Wagtail CRX'
 copyright = '2018-' + str(datetime.datetime.now().year) + ', CodeRed LLC'
 author = 'CodeRed LLC'
 

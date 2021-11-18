@@ -5,7 +5,7 @@ Code for site at: http://localhost
 
 ## Getting started
 
-Make sure Python 3.5 or higher is installed on your system.
+Make sure a recent version of Python is installed on your system.
 Open this directory in a command prompt, then:
 
 1. Install the software:
@@ -24,7 +24,7 @@ Open this directory in a command prompt, then:
 ## Documentation links
 
 * To customize the content, design, and features of the site see
-  [CodeRed CMS](https://docs.coderedcorp.com/cms/).
+  [Wagtail CRX](https://docs.coderedcorp.com/cms/).
 
 * For deeper customization of backend code see
   [Wagtail](http://docs.wagtail.io/) and
@@ -35,4 +35,4 @@ Open this directory in a command prompt, then:
 ---
 
 Made with ♥ using [Wagtail](https://wagtail.io/) +
-[CodeRed CMS](https://www.coderedcorp.com/cms/)
+[CodeRed Extensions](https://www.coderedcorp.com/cms/)

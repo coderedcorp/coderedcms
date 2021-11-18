@@ -1,5 +1,5 @@
 """
-Base and abstract pages used in CodeRed CMS.
+Base and abstract pages used in Wagtail CRX.
 """
 
 import json

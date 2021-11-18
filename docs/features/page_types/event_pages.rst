@@ -31,7 +31,7 @@ Content Tab
 Implementation
 --------------
 
-The event functionality is built-in to CodeRed CMS but it is not enabled by default.
+The event functionality is built-in to Wagtail CRX but it is not enabled by default.
 
 There are two abstract pages available when dealing with events.  The first ``CoderedEventPage`` holds
 the information regarding an event.  Dates, location, etc. all will fall under this page.  The

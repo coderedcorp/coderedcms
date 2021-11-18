@@ -48,13 +48,13 @@ Setting up the page models
 
 Just like in Django or Wagtail, you will need to set up your page models in the ``models.py`` file of your
 project. Navigate to ``mysite\website\models.py`` in your code editor and open up the ``models.py`` file.
-You should already see a few page models in there from CodeRed CMS, as well as imports at the top from the
+You should already see a few page models in there from Wagtail CRX, as well as imports at the top from the
 frameworks that we are using.
 
 .. code-block:: python
 
     """
-    Creatable pages used in CodeRed CMS.
+    Create or customize your page models here.
     """
     from modelcluster.fields import ParentalKey
     from coderedcms.forms import CoderedFormField
@@ -194,7 +194,7 @@ for that information. We do, however, need a few fields.
 
 .. code:: python
 
-    # At top of the file, under the CodeRed CMS import, add these imports
+    # At top of the file add these imports
     from django.db import models
     from wagtail.admin.edit_handlers import FieldPanel
     from wagtail.core.fields import RichTextField

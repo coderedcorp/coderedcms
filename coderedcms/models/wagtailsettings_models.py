@@ -1,5 +1,5 @@
 """
-Custom wagtail settings used by CodeRed CMS.
+Custom wagtail settings used by Wagtail CRX.
 Settings are user-configurable on a per-site basis (multisite).
 Global project or developer settings should be defined in coderedcms.settings.py .
 """

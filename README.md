@@ -1,19 +1,13 @@
-<p align="center">
-  <a href="https://www.coderedcorp.com/cms/"><img src="https://www.coderedcorp.com/static/img/cms-hero.png" width="75%" alt=""></a>
-</p>
-<h3 align="center">Wagtail CRX</h3>
-<p align="center">
-  The professional WordPress alternative for building marketing websites with
-  Wagtail and Bootstrap.
-</p>
-<p align="center">
-  <a href="https://www.coderedcorp.com/cms/">Website</a>
-  |
-  <a href="https://docs.coderedcorp.com/cms/">Documentation</a>
-  |
-  <a href="https://www.coderedcorp.com/blog/tag/django-wagtail/">Blog</a>
-</p>
+# Wagtail CRX (CodeRed Extensions)
 
+The professional WordPress alternative for building marketing websites with
+Wagtail and Bootstrap.
+
+[Website](https://www.coderedcorp.com/cms/)
+|
+[Documentation](https://docs.coderedcorp.com/wagtail-crx/)
+|
+[Blog](https://www.coderedcorp.com/blog/tag/django-wagtail/)
 
 
 ## Status
@@ -74,38 +68,7 @@ are ready to use out-of-the box! This saves development time and avoids
 
 6. Run `python manage.py runserver` to launch the development server, and go to `http://localhost:8000` in your browser, or `http://localhost:8000/admin/` to log in with your admin account.
 
-See the [documentation](https://docs.coderedcorp.com/cms/) for next steps and customizing your new site.
-
-
-## Inspiration and Design Philosophy
-
-### Inspiration from WordPress
-
-We the creators of Wagtail CRX deal with WordPress sites on a daily basis. While WordPress is fantastic for blogs and do-it-yourself websites, we feel it is very frustrating for use in a professional environment where the site needs to be actively enhanced, maintained, and secured on a daily basis. We designed Wagtail CRX as a marketing-focused WordPress replacement, *not* a WordPress clone. The intended audience is an agency, technology firm, business, or non-profit who has at least one full stack web developer managing the website.
-
-WordPress users will feel comfortable with the CodeRed Extensions, as many of the editing and design paradigms are similar such as:
-
-* Global site and branding settings.
-
-* Main menu builder is familiar.
-
-* Editors can change the template used by each page.
-
-PLUS many aspects are greatly enhanced:
-
-* Visual content blocks eliminate need for cryptic short-codes.
-
-* Content blocks can each be customized with CSS classes and selectable templates.
-
-* Developers can easily customize the editing interface and page types without 3rd party plugins or themes.
-
-* The site can be professionally managed with better control over 3rd party plugins to prevent unplanned breakage (if you've ever managed a large WordPress site - you know exactly how painful this is).
-
-### As an Extension of Wagtail
-
-Wagtail CRX is a pip package that essentially wraps Wagtail and provides marketing-specific features that are ready to be used out of the box. Everything that can be done with Wagtail can be done with CRX.
-
-One major point of difference between between CodeRed and stock Wagtail is the approach to design and content. Wagtail being more of a CMS framework, is focused on a clear separation between design (UX) and content. We agree with this approach for larger informational sites. But as is usually the case with marketing sites, design and information are more tightly coupled. Developers shouldn’t *need* to create a new page type or a new block just to handle a design deviation that is used in one place on the site. Designers and editors shouldn’t *need* to engage the developer for every minor design-related change such as changing a CSS class. For this reason, CodeRed blurs the lines of design and content by enabling editors to specify templates on a per-page and per-block basis, CSS classes per-block, and many other logo, layout, and branding settings. We realize this is not the right approach for every site - but we do believe it adds a lot of value for marketing sites.
+See the [documentation](https://docs.coderedcorp.com/wagtail-crx/) for next steps and customizing your new site.
 
 
 ## Contributors
@@ -114,7 +77,7 @@ In addition to the CodeRed team, many thanks to the Wagtail community and our
 [independent contributors](https://github.com/coderedcorp/coderedcms/graphs/contributors).
 
 If you're interested in building, developing, or contributing to Wagtail CRX,
-check out the [Contributing Guide](https://docs.coderedcorp.com/cms/stable/contributing/index.html).
+check out the [Contributing Guide](https://docs.coderedcorp.com/wagtail-crx/stable/contributing/index.html).
 
 
 ## Contact

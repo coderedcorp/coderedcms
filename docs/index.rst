@@ -47,14 +47,14 @@ web developers to save time and turn out high-quality websites. CRX is not a
 drag-n-drop or no-code solution (although many of the features do not require
 coding).
 
-Our motivation for making Wagtail CRX is to enable a junior or frontend-only
-developer to quickly build a Wagtail website by pulling in pre-built components
-which have been heavily tested and are guaranteed to work in a consistent way.
-This is why the project is tightly coupled with Bootstrap CSS. This is a boon
-for web development agencies: rather than copy-pasting code from one project to
-the next, code is centralized in a generic way in CRX and can be syndicated to
-many sites. This also helps with maintanence and Wagtail upgrades --- bugs and
-upgrades can generally be handled once in CRX then pushed out to all sites.
+Our motivation for making Wagtail CRX is to enable a developer to quickly build
+a Wagtail website by pulling in pre-built components which have been heavily
+tested and are guaranteed to work in a consistent way. This is why the project
+is tightly coupled with Bootstrap CSS. This is a boon for web development teams:
+rather than copy-pasting code from one project to the next, code is centralized
+in a generic way in CRX and can be syndicated to many sites. This also helps
+with maintanence and Wagtail upgrades --- bugs and upgrades can generally be
+handled once in CRX then pushed out to all sites.
 
 
 Join us

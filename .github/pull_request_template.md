@@ -1,6 +1,6 @@
 Thank you for contributing! Please follow the guidelines below to submit your
 pull request. Additional details are available in our
-[Contributor Guide](https://docs.coderedcorp.com/cms/stable/contributing/index.html).
+[Contributor Guide](https://docs.coderedcorp.com/wagtail-crx/stable/contributing/index.html).
 
 #### Description of change
 Explain what you changed, and how or why it works the way it does.

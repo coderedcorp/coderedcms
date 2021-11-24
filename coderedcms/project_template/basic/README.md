@@ -24,7 +24,7 @@ Open this directory in a command prompt, then:
 ## Documentation links
 
 * To customize the content, design, and features of the site see
-  [Wagtail CRX](https://docs.coderedcorp.com/cms/).
+  [Wagtail CRX](https://docs.coderedcorp.com/wagtail-crx/).
 
 * For deeper customization of backend code see
   [Wagtail](http://docs.wagtail.io/) and

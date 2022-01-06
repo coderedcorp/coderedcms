@@ -1,6 +1,10 @@
-{% extends "wagtailadmin/base.forked.html" %}
+{% extends "wagtailadmin/base.html" %}
 {% load wagtailimages_tags wagtailsettings_tags %}
 
+{% block furniture %}
+    {% include "coderedcms/includes/codered_banner.html" %}
+    {{ block.super }}
+{% endblock %}
 
 {% block branding_logo %}
     {% if settings.coderedcms.LayoutSettings.logo %}

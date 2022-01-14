@@ -1,0 +1,14 @@
+v0.22.3 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Form submission emails were broken on custom form pages which override
+  ``get_form_fields()`` and do not return fields as classes inheriting
+  ``AbstractFormField`` (Bug was introduced in 0.22.2).
+
+* Prevent upward path traversals outside of ``CODERED_PROTECTED_MEDIA_ROOT``
+  when serving protected media files. This only applies to logged in users,
+  anonymous users do not have permission to access this URL.

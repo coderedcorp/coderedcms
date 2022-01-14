@@ -1,0 +1,13 @@
+{% load coderedcms_tags %}
+<div
+    data-block="calendar"
+    data-default-date='{% now "Y-m-d" %}'
+    data-default-view='{{ page.fullcalendar_view }}'
+    data-event-display='{{ page.fullcalendar_event_display }}'
+    data-page-id="{{ page.id }}"
+    data-timezone="{{ 'TIME_ZONE'|django_settings }}">
+    <noscript>JavaScript is required to view the Calendar.</noscript>
+</div>
+<div class="text-right text-muted">
+    <i>Listed in {{ 'TIME_ZONE'|django_settings }} time.</i>
+</div>

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
     'wagtailcache',
     'wagtailimportexport',
+    'wagtailseo',
 
     # Wagtail
     'wagtail.contrib.forms',
@@ -198,3 +199,8 @@ BOOTSTRAP4 = {
 # Tags
 
 TAGGIT_CASE_INSENSITIVE = True
+
+
+# Sets default for primary key IDs
+# See https://docs.djangoproject.com/en/{{ docs_version }}/ref/models/fields/#bigautofield
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

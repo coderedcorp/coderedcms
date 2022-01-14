@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
     'wagtailcache',
     'wagtailimportexport',
+    'wagtailseo',
 
     # Wagtail
     'wagtail.contrib.forms',
@@ -207,6 +208,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 WAGTAIL_CACHE = False
 
 SECRET_KEY = 'not needed'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 NOSE_ARGS = ['--nocapture',
              '--nologcapture', ]

@@ -1,0 +1,18 @@
+v0.22.2 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Form submission email contents were empty and being attached in a text file.
+  The contents are now in the email as expected (Bug was introduced in 0.22.0).
+
+* Field labels in form submission emails now show the exact label as entered
+  on the Wagtail page, instead of a "humanized" version of the field ID.
+
+* Fix layout of fields in the Wagtail admin, which may appear centered instead
+  of left-aligned under certain StreamField conditions.
+
+* Regenerate initial migration file in project template, so that new projects
+  are up to date with built-in models.

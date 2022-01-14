@@ -1,0 +1,64 @@
+v0.22.0 release notes
+=====================
+
+
+New features
+------------
+
+* Upgraded to Wagtail 2.14
+
+* Can now order child pages by Classifiers, using the Classifier Term's
+  sort order, in addition to ordering by model attributes. Read details in
+  :doc:`/features/page_types/web_pages`.
+
+* Background behind site's logo shown in the Wagtail Admin now follows "Navbar
+  color scheme" setting to improve appearance of dark logos.
+
+* Updated support for Google ``UA-``, ``G-``, and ``GTM-`` tracking scripts.
+  See :doc:`/how_to/add_tracking_scripts`.
+
+* ``CoderedFormMixin`` has a new method ``send_mail()`` which can be overridden
+  in your models to have the form send mail in a different way or using a
+  different backend as needed.
+
+
+Bug fixes
+---------
+
+* Cache is now cleared more reliably whenever pages or snippets are created,
+  edited, published, unpublished, or deleted.
+
+* EventIndexPage now displays event times using the project ``TIME_ZONE``,
+  and other related improvements to event handling. See
+  :doc:`/features/page_types/event_pages`.
+
+* CSS/JS files provided by CodeRed CMS are now cache-busted by version number.
+  This should help resolve minor inconsistencies that arise between upgrades.
+
+
+Maintenance
+-----------
+
+* Updated calendar to fullcalendar.js 5.9. This removes several JavaScript
+  dependencies and also works towards removal of jQuery.
+
+
+Upgrade considerations
+----------------------
+
+* Wagtail 2.14 dropped Django 2.2 support. For most CodeRed CMS sites no changes
+  are required.
+
+
+Supported software
+------------------
+
+* Python 3.6, 3.7, 3.8, 3.9
+
+* Django 3.0, 3.1, 3.2
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.22.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/32?closed=1>`_.

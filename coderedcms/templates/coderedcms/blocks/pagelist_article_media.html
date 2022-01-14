@@ -12,8 +12,8 @@
         {% endif %}
         <div class="media-body">
             <h5 class="mt-0"><a href="{{article.url}}">{{article.title}}</a></h5>
-            <div class="mb-2 text-muted">{{article.get_pub_date}} {% if article.get_pub_date and article.get_author_name %} &bull; {% endif %} {{article.get_author_name}}</div>
-            <div class="mb-2 text-muted">{{article.caption}}</div>
+            <div class="card-subtitle mb-2 text-muted">{{article.seo_published_at}} &bull; {{article.seo_author}}</div>
+            <div class="card-subtitle mb-2 text-muted">{{article.caption}}</div>
             {% if self.show_preview %}
             <p>{{article.body_preview}}</p>
             {% endif %}

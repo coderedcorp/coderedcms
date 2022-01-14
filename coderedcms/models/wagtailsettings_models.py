@@ -7,10 +7,7 @@ Global project or developer settings should be defined in coderedcms.settings.py
 import json
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from modelcluster.fields import ParentalKey
-from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import HelpPanel, InlinePanel, FieldPanel, MultiFieldPanel
-from wagtail.core.models import Orderable
+from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
@@ -270,13 +267,25 @@ class AnalyticsSettings(BaseSetting):
     ga_tracking_id = models.CharField(
         blank=True,
         max_length=255,
-        verbose_name=_('GA Tracking ID'),
-        help_text=_('Your Google Analytics tracking ID (begins with "UA-")'),
+        verbose_name=_('UA Tracking ID'),
+        help_text=_('Your Google "Universal Analytics" tracking ID (begins with "UA-")'),
+    )
+    ga_g_tracking_id = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('G Tracking ID'),
+        help_text=_('Your Google Analytics 4 tracking ID (begins with "G-")'),
     )
     ga_track_button_clicks = models.BooleanField(
         default=False,
         verbose_name=_('Track button clicks'),
         help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),  # noqa
+    )
+    gtm_id = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Google Tag Manager ID'),
+        help_text=_('Begins with "GTM-"'),
     )
     head_scripts = MonospaceField(
         blank=True,
@@ -292,12 +301,29 @@ class AnalyticsSettings(BaseSetting):
     )
 
     panels = [
+        HelpPanel(
+            heading=_('Know your tracking'),
+            content=_(
+                '<h3><b>Which tracking IDs do I need?</b></h3>'
+                '<p>Before adding tracking to your site, '
+                '<a href="https://docs.coderedcorp.com/cms/how_to/add_tracking_scripts.html" '
+                'target="_blank">read about the difference between UA, G, GTM, '
+                'and other tracking IDs</a>.</p>'
+            ),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel('ga_tracking_id'),
+                FieldPanel('ga_g_tracking_id'),
                 FieldPanel('ga_track_button_clicks'),
             ],
-            heading=_('Google Analytics')
+            heading=_('Google Analytics'),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('gtm_id'),
+            ],
+            heading=_('Google Tag Manager'),
         ),
         MultiFieldPanel(
             [
@@ -379,50 +405,6 @@ class GeneralSettings(BaseSetting):
 
     class Meta:
         verbose_name = _('General')
-
-
-@register_setting(icon='fa-line-chart')
-class SeoSettings(BaseSetting):
-    """
-    Additional search engine optimization and meta tags
-    that can be turned on or off.
-    """
-    class Meta:
-        verbose_name = _('SEO')
-
-    og_meta = models.BooleanField(
-        default=True,
-        verbose_name=_('Use OpenGraph Markup'),
-        help_text=_('Show an optimized preview when linking to this site on Facebook, Linkedin, Twitter, and others. See http://ogp.me/.'),  # noqa
-    )
-    twitter_meta = models.BooleanField(
-        default=True,
-        verbose_name=_('Use Twitter Markup'),
-        help_text=_('Shows content as a "card" when linking to this site on Twitter. See https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.'),  # noqa
-    )
-    struct_meta = models.BooleanField(
-        default=True,
-        verbose_name=_('Use Structured Data'),
-        help_text=_('Optimizes information about your organization for search engines. See https://schema.org/.'),  # noqa
-    )
-    amp_pages = models.BooleanField(
-        default=True,
-        verbose_name=_('Use AMP Pages'),
-        help_text=_('Generates an alternate AMP version of Article pages that are preferred by search engines. See https://www.ampproject.org/'),  # noqa
-    )
-
-    panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('og_meta'),
-                FieldPanel('twitter_meta'),
-                FieldPanel('struct_meta'),
-                FieldPanel('amp_pages'),
-                HelpPanel(content=_('If these settings are enabled, the corresponding values in each page’s SEO tab are used.')),  # noqa
-            ],
-            heading=_('Search Engine Optimization')
-        )
-    ]
 
 
 @register_setting(icon='fa-puzzle-piece')

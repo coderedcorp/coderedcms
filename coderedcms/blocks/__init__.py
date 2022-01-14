@@ -53,10 +53,6 @@ from .layout_blocks import (
     GridBlock,
     HeroBlock
 )
-from .metadata_blocks import (  # noqa
-    OpenHoursBlock,
-    StructuredDataActionBlock
-)
 from .base_blocks import (  # noqa
     BaseBlock,
     BaseLayoutBlock,

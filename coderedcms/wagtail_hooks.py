@@ -10,35 +10,51 @@ from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
+from coderedcms import __version__
 from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
 
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     return format_html(
-        '<link rel="stylesheet" type="text/css" href="{}">',
-        static('coderedcms/css/codered-admin.css')
+        '<link rel="stylesheet" type="text/css" href="{}?v={}">',
+        static('coderedcms/css/codered-admin.css'),
+        __version__,
     )
 
 
 @hooks.register('insert_editor_css')
 def editor_css():
     return format_html(
-        '<link rel="stylesheet" type="text/css" href="{}">',
-        static('coderedcms/css/codered-editor.css')
+        '<link rel="stylesheet" type="text/css" href="{}?v={}">',
+        static('coderedcms/css/codered-editor.css'),
+        __version__,
     )
 
 
 @hooks.register('insert_editor_js')
 def collapsible_js():
-    return format_html('<script src="{}"></script>', static('coderedcms/js/codered-editor.js'))
+    return format_html(
+        '<script src="{}?v={}"></script>',
+        static('coderedcms/js/codered-editor.js'),
+        __version__,
+    )
 
 
-@hooks.register('after_create_page')
-@hooks.register('after_edit_page')
-def clear_wagtailcache(request, page):
-    if page.live:
-        clear_cache()
+def clear_wagtailcache(*args, **kwargs):
+    clear_cache()
+
+
+# Clear cache whenever pages/snippets are changed. Err on the side of clearing
+# the cache vs not clearing the cache, as this usually leads to support requests
+# when staff members make edits but do not see the changes.
+hooks.register('after_delete_page', clear_wagtailcache)
+hooks.register('after_move_page', clear_wagtailcache)
+hooks.register('after_publish_page', clear_wagtailcache)
+hooks.register('after_unpublish_page', clear_wagtailcache)
+hooks.register('after_create_snippet', clear_wagtailcache)
+hooks.register('after_edit_snippet', clear_wagtailcache)
+hooks.register('after_delete_snippet', clear_wagtailcache)
 
 
 @hooks.register('filter_form_submissions_for_user')

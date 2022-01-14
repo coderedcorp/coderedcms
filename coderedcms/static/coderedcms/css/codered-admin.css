@@ -126,21 +126,33 @@ input[type='checkbox']::before, input[type='radio']::before {
         margin: 0;
         width: auto;
     }
-    /* Labels for page editor forms (except labels for nested streamfields) */
-    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) .field > label {
+    /* Labels for page editor forms */
+    body:not(.login) ul.fields > li:not(.label-above) .field > label {
         width:20%;
         max-width:15em;
     }
-    /* Fields for page editor forms (except nested streamfields) */
+    /* (undo previous rule for nested streamfields) */
+    body:not(.login) ul.fields > li.stream-field > .field > label {
+        width: 100%;
+        max-width: unset;
+    }
+
+    /* Fields for page editor forms */
     li.codered-collapsible label+.field,
-    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) label+.field-content,
-    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) label+.field {
+    body:not(.login) ul.fields > li:not(.label-above) label+.field-content,
+    body:not(.login) ul.fields > li:not(.label-above) label+.field {
         display:block;
         flex-grow: 1;
         float:none;
         margin: 0 auto;
         width: 80%;
     }
+    /* (undo previous rule in nested streamfields) */
+    body:not(.login) ul.fields > li.stream-field > .field > label+.field-content,
+    body:not(.login) ul.fields > li.stream-field > .field > label+.field {
+        width: 100%;
+    }
+
     /* Labels for streamfield forms (except labels for nested streamfields) */
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
     body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
@@ -150,10 +162,10 @@ input[type='checkbox']::before, input[type='radio']::before {
         max-width:15em;
     }
     /* Fields for streamfield forms (except nested streamfields) */
-    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) ul.fields > li > .field,
-    body:not(.login) ul.fields > li:not(.label-above):not(.stream-field) ul.fields > li > .field
-    body:not(.login) .struct-block ul.fields > li:not(.label-above):not(.stream-field) .field > .field,
-    body:not(.login) .multiple     ul.fields > li:not(.label-above):not(.stream-field) .field > .field {
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .field,
+    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .field
+    body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > .field,
+    body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > .field {
         width: 80%;
     }
     .object.full .field-content {
@@ -203,17 +215,33 @@ input[type='checkbox']::before, input[type='radio']::before {
     content: "\f12e";
 }
 
+/* Show the site's custom logo in the wagtail admin */
+
 .logo {
     margin: 0 auto;
     padding: 1em;
+    margin-bottom: 1em;
 }
-.logo img.logo-custom {
+.logo img.codered-logo-custom {
     width:auto;
     height:auto;
     max-height:80px;
     max-width:100%;
 }
-
+.codered-logo-container {
+    box-sizing: border-box;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.codered-logo-container.navbar-light {
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.codered-logo-container.navbar-dark {
+    background-color: transparent;
+}
 
 /* Fix side menu to be able to fit more links without breaking */
 
@@ -267,12 +295,10 @@ input[type='checkbox']::before, input[type='radio']::before {
 
 .button-advanced-settings {
     display:block;
-    background-color:#aaa;
     font-size:0.8em;
     font-weight:600;
-}
-.button-advanced-settings:hover {
-    background-color:#999;
+    margin-top: -20px;
+    align-self: flex-start;
 }
 
 .power-by {

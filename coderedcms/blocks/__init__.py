@@ -66,7 +66,6 @@ from .base_blocks import (  # noqa
     CoderedAdvSettings,
     CoderedAdvTrackingSettings,
     CollectionChooserBlock,
-    MultiSelectBlock
 )
 
 # Collections of blocks commonly used together.

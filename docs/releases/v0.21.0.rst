@@ -1,0 +1,39 @@
+v0.21.0 release notes
+=====================
+
+
+New features
+------------
+
+* Upgraded to Wagtail 2.13
+
+* Added new ``<head>`` and ``<body>`` tracking script settings. See
+  :doc:`/how_to/add_tracking_scripts`.
+
+* Added new ``coderedcms.fields.MonospaceField`` for rendering text area fields
+  in the Wagtail admin with monospace input and spell-checking disabled. This is
+  used by the new tracking settings and is useful for implementing code-oriented
+  fields.
+
+Upgrade considerations
+----------------------
+
+* ``coderedcms.blocks.MultiSelectBlock`` has been removed and is now replaced
+  with ``wagtail.core.blocks.MultipleChoiceBlock``.
+
+* You may need to find/replace
+  ``coderedcms.blocks.base_blocks.MultiSelectBlock`` with
+  ``wagtail.core.blocks.MultipleChoiceBlock`` in any old migrations so that they
+  may continue working.
+
+* Follow `Wagtail 2.12 upgrade considerations <https://docs.wagtail.io/en/stable/releases/2.12.html#upgrade-considerations>`_
+  and `Wagtail 2.13 upgrade considerations <https://docs.wagtail.io/en/stable/releases/2.13.html#upgrade-considerations>`_.
+
+* You may need to run ``python manage.py makemigrations website`` and
+  ``python manage.py migrate`` after upgrading.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.21.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/31?closed=1>`_.

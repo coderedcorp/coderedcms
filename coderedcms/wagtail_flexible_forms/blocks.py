@@ -3,7 +3,7 @@ from django.db.models import BLANK_CHOICE_DASH
 from django.utils.dateparse import parse_datetime
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from unidecode import unidecode
+from anyascii import anyascii
 from wagtail.core.blocks import (
     StructBlock, TextBlock, CharBlock, BooleanBlock, ListBlock, StreamBlock,
     DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock, RichTextBlock,
@@ -18,7 +18,7 @@ class FormFieldBlock(StructBlock):
     widget = None
 
     def get_slug(self, struct_value):
-        return slugify(unidecode(struct_value['field_label']))
+        return slugify(anyascii(struct_value['field_label']))
 
     def get_field_class(self, struct_value):
         return self.field_class

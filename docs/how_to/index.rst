@@ -9,6 +9,7 @@ with CodeRed CMS.
     :maxdepth: 1
 
     headers_and_footers
+    add_tracking_scripts
     link_targets
     translation
     docker

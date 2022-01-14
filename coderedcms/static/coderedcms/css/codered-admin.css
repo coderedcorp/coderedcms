@@ -290,6 +290,14 @@ input[type='checkbox']::before, input[type='radio']::before {
     }
 }
 
+/* Display the optional banner above main content */
+
+.codered-banner {
+    position: absolute;
+}
+.codered-banner ~ .content-wrapper {
+    padding-top: calc(1.5em + 8px);
+}
 
 /* Custom */
 

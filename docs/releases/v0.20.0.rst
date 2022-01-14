@@ -28,6 +28,9 @@ Upgrade considerations
   issues after updating. See `Wagtail 2.11 release notes
   <https://docs.wagtail.io/en/stable/releases/2.11.html#run-before-declaration-needed-in-initial-homepage-migration>`_.
 
+* If you have forms and form submissions in your database, you may need to add the ``unidecode`` library to your project's ``requirements.txt``.
+  Wagtail 2.11 replaces ``unidecode`` with ``anyascii`` for Unicode to Ascii conversion. Your older form data will still need the ``unidecode`` library
+  to be read by Wagtail. Read more in the `Wagtail 2.11 notes for other features <https://docs.wagtail.io/en/stable/releases/2.11.html#other-features>`_.
 
 Thank you!
 ----------

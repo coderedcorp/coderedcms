@@ -7,12 +7,14 @@ Global project or developer settings should be defined in coderedcms.settings.py
 import json
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, HelpPanel, MultiFieldPanel
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
-
 from coderedcms.fields import MonospaceField
 from coderedcms.settings import cr_settings
 from coderedcms.models.snippet_models import Navbar, Footer

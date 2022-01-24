@@ -36,3 +36,8 @@ External Link With Sub-Links
 Document Link With Sub-Links
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Document**: The document you want to link to that will be downloaded.
+
+Site Navbars
+------------
+
+In **Settings > Layout**, select which Navbars you want to display on your site under the Site Navbars section.

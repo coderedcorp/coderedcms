@@ -4,7 +4,8 @@ v0.23.0 release notes
 
 New features
 ------------
-
+* Navbar and Footer choosers in Settings to allow for different navbar menus and footers per site on multi-sites.
+* Navbar and Footer choosers in Settings also control the render order of more than one navbar menu/footer on a single site.
 
 Bug fixes
 ---------

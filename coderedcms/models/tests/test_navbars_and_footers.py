@@ -95,17 +95,12 @@ class NavbarFooterTestCase(WagtailPageTests):
         )
         # get the navbar (orderable)
         self.settings.save()
-        # update settings for using 2 navs, then check that both navbars show
+        # update settings for using 2 navs, then check that both navbars show and in right order
         response = self.client.get(self.homepage.url, follow=True)
         self.assertContains(
             response,
-            text=f'<ul class="navbar-nav" id="{self.navbar.custom_id}">',
-            status_code=200,
-            html=True,
-        )
-        self.assertContains(
-            response,
-            text=f'<ul class="navbar-nav" id="{self.navbar2.custom_id}">',
+            text=f'<ul class="navbar-nav" id="{self.navbar.custom_id}">'
+            f'</ul><ul class="navbar-nav" id="{self.navbar2.custom_id}">',
             status_code=200,
             html=True,
         )
@@ -134,13 +129,13 @@ class NavbarFooterTestCase(WagtailPageTests):
         )
         # get the footer (orderable)
         self.settings.save()
-        # update settings for using 2 navs, then check that both navbars show
+        # update settings for using 2 footers, then check that both footers show
         response = self.client.get(self.homepage.url, follow=True)
         self.assertContains(
-            response, text=f'<div id="{self.footer.custom_id}">', status_code=200, html=True
-        )
-        self.assertContains(
-            response, text=f'<div id="{self.footer2.custom_id}">', status_code=200, html=True
+            response,
+            text=f'<div id="{self.footer.custom_id}"></div><div id="{self.footer2.custom_id}">',
+            status_code=200,
+            html=True,
         )
 
 

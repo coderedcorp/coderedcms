@@ -1,8 +1,8 @@
 # what imports do I need?
 # possibly use https://pypi.org/project/django-test-migrations/ instead?
 
-from django.apps import apps
-from django.test import Client, TestCase
+
+from django.test import Client
 
 # from django_test_migrations.contrib.unittest_case import MigratorTestCase
 # from django.db.migrations.executor import MigrationExecutor
@@ -20,7 +20,7 @@ from coderedcms.models.wagtailsettings_models import (
 )
 
 
-class NavbarTestCase(WagtailPageTests):
+class NavbarFooterTestCase(WagtailPageTests):
     """
     Test that the relevant navbar chooser settings appear in the homepage HTML.
     """
@@ -35,11 +35,11 @@ class NavbarTestCase(WagtailPageTests):
         self.site = Site.objects.filter(is_default_site=True)[0]
         self.homepage = WebPage.objects.get(url_path="/home/")
 
-        # create 1 nav snippet
-        self.navbar = Navbar.objects.create(
-            name="Nav1",
-            custom_id="Nav1"
-        )
+        # create 2 nav snippets
+        self.navbar = Navbar.objects.create(name="Nav1", custom_id="Nav1")
+        self.navbar2 = Navbar.objects.create(name="Nav2", custom_id="Nav2")
+        self.footer = Footer.objects.create(name="Footer1", custom_id="Footer1")
+        self.footer2 = Footer.objects.create(name="Footer2", custom_id="Footer2")
 
         # Populate settings.
         self.settings = LayoutSettings.for_site(self.site)
@@ -47,9 +47,14 @@ class NavbarTestCase(WagtailPageTests):
         self.navbarorderable = NavbarOrderable.objects.create(
             sort_order=0,
             navbar_chooser=LayoutSettings.objects.get(id=self.settings.id),
-            navbar=Navbar.objects.get(id=self.navbar.id)
+            navbar=Navbar.objects.get(id=self.navbar.id),
         )
-        # get the navbar (orderable)
+        self.footerorderable = FooterOrderable.objects.create(
+            sort_order=0,
+            footer_chooser=LayoutSettings.objects.get(id=self.settings.id),
+            footer=Footer.objects.get(id=self.footer.id),
+        )
+        # save settings
         self.settings.save()
 
     def test_get(self):
@@ -64,12 +69,79 @@ class NavbarTestCase(WagtailPageTests):
         Make sure navbar is on homepage.
         """
         response = self.client.get(self.homepage.url, follow=True)
-        self.assertIn(f'<ul class="navbar-nav" id="{self.navbar.custom_id}">', str(response.content), 1)
-        # set 1 navbar, check that the chosen one is there but not the other
+        # Checks if specified HTML is within response
+        # https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.SimpleTestCase.assertContains
+        self.assertContains(
+            response,
+            text=f'<ul class="navbar-nav" id="{self.navbar.custom_id}">',
+            status_code=200,
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            text=f'<ul class="navbar-nav" id="{self.navbar2.custom_id}">',
+            status_code=200,
+            html=True,
+        )
 
     def test_multi_navbars(self):
-        pass
+        """
+        Adds another navbar and checks if it shows on page.
+        """
+        self.navbarorderable2 = NavbarOrderable.objects.create(
+            sort_order=1,
+            navbar_chooser=LayoutSettings.objects.get(id=self.settings.id),
+            navbar=Navbar.objects.get(id=self.navbar2.id),
+        )
+        # get the navbar (orderable)
+        self.settings.save()
         # update settings for using 2 navs, then check that both navbars show
+        response = self.client.get(self.homepage.url, follow=True)
+        self.assertContains(
+            response,
+            text=f'<ul class="navbar-nav" id="{self.navbar.custom_id}">',
+            status_code=200,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            text=f'<ul class="navbar-nav" id="{self.navbar2.custom_id}">',
+            status_code=200,
+            html=True,
+        )
+
+    def test_footer(self):
+        """
+        Make sure footer is on homepage.
+        """
+        response = self.client.get(self.homepage.url, follow=True)
+
+        self.assertContains(
+            response, text=f'<div id="{self.footer.custom_id}">', status_code=200, html=True
+        )
+        self.assertNotContains(
+            response, text=f'<div id="{self.footer2.custom_id}">', status_code=200, html=True
+        )
+
+    def test_multi_footers(self):
+        """
+        Adds another footer to settings and checks if it shows on page.
+        """
+        self.footerorderable2 = FooterOrderable.objects.create(
+            sort_order=1,
+            footer_chooser=LayoutSettings.objects.get(id=self.settings.id),
+            footer=Footer.objects.get(id=self.footer2.id),
+        )
+        # get the footer (orderable)
+        self.settings.save()
+        # update settings for using 2 navs, then check that both navbars show
+        response = self.client.get(self.homepage.url, follow=True)
+        self.assertContains(
+            response, text=f'<div id="{self.footer.custom_id}">', status_code=200, html=True
+        )
+        self.assertContains(
+            response, text=f'<div id="{self.footer2.custom_id}">', status_code=200, html=True
+        )
 
 
 # # Set up
@@ -83,7 +155,8 @@ class NavbarTestCase(WagtailPageTests):
 
 #     def setUp(self):
 #         assert self.migrate_from and self.migrate_to, \
-#             "TestCase '{}' must define migrate_from and migrate_to properties".format(type(self).__name__)
+#         "TestCase '{}' must define migrate_from and
+#         migrate_to properties".format(type(self).__name__)
 #         self.migrate_from = [(self.app, self.migrate_from)]
 #         self.migrate_to = [(self.app, self.migrate_to)]
 #         executor = MigrationExecutor(connection)
@@ -114,18 +187,14 @@ class NavbarTestCase(WagtailPageTests):
 #         Navbar.id = Navbar.objects.create(
 #             name="Main Nav",
 #             menu_items = StreamField([('external_link', 'item1'), ('external_link', 'item2') ])
-#             # menu_items = json.dumps[
-#             # {\"type\": \"row\", \"value\": {\"settings\": {\"custom_template\": \"\", \"custom_css_class\": \"\", \"custom_id\": \"\"}, \"fluid\": false, \"content\": [{\"type\": \"content\", \"value\": {\"settings\": {\"custom_template\": \"\", \"custom_css_class\": \"\", \"custom_id\": \"\", \"column_breakpoint\": \"md\"}, \"column_size\": \"\", \"content\": [{\"type\": \"text\", \"value\": \"<h2>Footer Content</h2>\", \"id\": \"5d6be173-bab8-4d2f-93a9-94614267e776\"}]}, \"id\": \"016bdac5-0b6c-484f-ae53-b9ae115d5dd9\"}]}, \"id\": \"0d39786b-e959-4382-898a-20946f979da1\"}
-#             # ]
-#         ).id
+#             # menu_items = build content here
+#         )
 #         Footer = apps.get_model('coderedcms', 'Footer')
 #         Footer.id = Footer.objects.create(
 #             name="Main Footer",
 #             content=StreamField([('text', 'this is a footer')])
-#             # content = json.dumps[
-#             # {\"type\": \"row\", \"value\": {\"settings\": {\"custom_template\": \"\", \"custom_css_class\": \"\", \"custom_id\": \"\"}, \"fluid\": false, \"content\": [{\"type\": \"content\", \"value\": {\"settings\": {\"custom_template\": \"\", \"custom_css_class\": \"\", \"custom_id\": \"\", \"column_breakpoint\": \"md\"}, \"column_size\": \"\", \"content\": [{\"type\": \"text\", \"value\": \"<h2>Footer Content</h2>\", \"id\": \"5d6be173-bab8-4d2f-93a9-94614267e776\"}]}, \"id\": \"016bdac5-0b6c-484f-ae53-b9ae115d5dd9\"}]}, \"id\": \"0d39786b-e959-4382-898a-20946f979da1\"}
-#             # ]
-#         ).id
+#             # content = build content here
+#         )
 
-#     def test_navs_footers_migrated(self):
-#         NavbarOrderable = apps.get_model('coderedcms', 'NavbarOrderable')
+#    def t_navs_footers_migrated(self):
+#           NavbarOrderable = apps.get_model('coderedcms', 'NavbarOrderable')

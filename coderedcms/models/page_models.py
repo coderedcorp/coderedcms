@@ -888,12 +888,12 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
                 ical_event.add('dtend', dt_end)
 
         # Add a reminder alarm
-            reminder_hours = 15
+            reminder_mins = 15
             alarm = Alarm()
             alarm.add("action", "DISPLAY")
             alarm.add('description', "Reminder")
             # Sets the reminder alarm
-            alarm.add("TRIGGER;RELATED=START", "-PT{0}H".format(reminder_hours))
+            alarm.add("TRIGGER;RELATED=START", "-PT{0}M".format(reminder_mins))
             ical_event.add_component(alarm)
 
         if occurrence:

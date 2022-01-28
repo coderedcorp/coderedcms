@@ -6,7 +6,7 @@ import json
 import logging
 import os
 import warnings
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 import geocoder
@@ -887,6 +887,15 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             if dt_end:
                 ical_event.add('dtend', dt_end)
 
+        # Add a reminder alarm
+            reminder_hours = 15
+            alarm = Alarm()
+            alarm.add("action", "DISPLAY")
+            alarm.add('description', "Reminder")
+            # Sets the reminder alarm
+            alarm.add("TRIGGER;RELATED=START", "-PT{0}H".format(reminder_hours))
+            ical_event.add_component(alarm)
+
         if occurrence:
             freq = occurrence.repeat.split(":")[1] if occurrence.repeat else None
             repeat_until = occurrence.repeat_until.strftime(
@@ -902,13 +911,6 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
             if repeat_until:
                 ical_event.add('until', repeat_until)
-
-            # https://python.hotexamples.com/examples/icalendar/Alarm/-/python-alarm-class-examples.html
-            alarm = Alarm()
-            alarm.add("TRIGGER;RELATED=START", "-PT{0}M".format('45'))
-            alarm.add('action', 'display')
-            ical_event.add_component(alarm)
-            ical_event.add(alarm)
 
         return ical_event
 

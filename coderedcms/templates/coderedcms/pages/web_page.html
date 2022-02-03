@@ -3,7 +3,8 @@
 
 {% block content_pre_body %}
   {% if self.cover_image %}
-  {% image page.cover_image original as cover_image %}
+  {% block cover_image %}
+  {% image page.cover_image fill-2000x1000 as cover_image %}
   <div class="hero-bg mb-5" style="background-image:url({{cover_image.url}});">
     <div class="hero-fg">
       <div class="container">
@@ -11,6 +12,7 @@
       </div>
     </div>
   </div>
+  {% endblock %}
   {% else %}
   <div class="container my-5">
     <h1>{{page.title}}</h1>

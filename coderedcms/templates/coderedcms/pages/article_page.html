@@ -5,8 +5,10 @@
 {% block content %}
     <article class="codered-article {%if self.cover_image %}has-img{% endif %}">
         {% if self.cover_image %}
-        {% image self.cover_image original as cover_image %}
-        <img src="{{cover_image.url}}" class="w-100" />
+        {% block cover_image %}
+        {% image self.cover_image fill-2000x1000 as cover_image %}
+        <img src="{{cover_image.url}}" class="img-fluid" />
+        {% endblock %}
         {% endif %}
         <div class="container">
             <div class="article-header">

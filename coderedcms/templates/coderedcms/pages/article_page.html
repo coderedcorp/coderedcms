@@ -5,7 +5,7 @@
 {% block content %}
     <article class="codered-article {%if self.cover_image %}has-img{% endif %}">
         {% if self.cover_image %}
-        {% image self.cover_image orignal as cover_image %}
+        {% image self.cover_image original as cover_image %}
         <img src="{{cover_image.url}}" class="w-100" />
         {% endif %}
         <div class="container">

@@ -877,7 +877,8 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         ical_event = ICalEvent()
         ical_event.add('summary', self.title)
         # needs to get full page url, not just slug
-        ical_event.add('description', f'Visit the Event Page: {self.full_url}')
+        desc_str = _('Details')
+        ical_event.add('description', f'{desc_str}: {self.full_url}')
         if self.address:
             ical_event.add('location', self.address)
 
@@ -887,7 +888,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             if dt_end:
                 ical_event.add('dtend', dt_end)
 
-        # Add a reminder alarm
+            # Add a reminder alarm
             reminder_mins = 15
             alarm = Alarm()
             alarm.add("action", "DISPLAY")

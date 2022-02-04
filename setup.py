@@ -31,6 +31,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3 :: Only',
         'Framework :: Django',
         'Framework :: Django :: 3.0',
@@ -50,7 +51,7 @@ setup(
         'Django>=3.0,<3.3',             # should be the same as wagtail
         'geocoder==1.38.*',
         'icalendar==4.0.*',
-        'wagtail==2.14.*',
+        'wagtail==2.15.*',
         'wagtailfontawesome>=1.2.*',
         'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3',

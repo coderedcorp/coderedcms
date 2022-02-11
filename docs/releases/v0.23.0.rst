@@ -25,7 +25,7 @@ Upgrade considerations
     * Specify the `new default in your settings <https://docs.wagtail.org/en/stable/releases/2.15.html#database-search-backends-replaced>`_.
     * Next, you will need to run the `update_index command <https://docs.wagtail.org/en/stable/reference/management_commands.html#update-index>`_.
 
-* Other upgrade considerations for `Wagtail 2.15 <https://docs.wagtail.org/en/stable/releases/2.15.html#upgrade-considerations>`_ and `Wagtail 2.16 <https://docs.wagtail.org/en/stable/releases/2.16.html#upgrade-considerations>`_ may apply to your site.
+* Other upgrade considerations for `Wagtail 2.15 <https://docs.wagtail.org/en/stable/releases/2.15.html#upgrade-considerations>`_.
 
 Supported software
 ------------------

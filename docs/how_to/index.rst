@@ -15,3 +15,5 @@ with CodeRed CMS.
     docker
     use_custom_image_model
     convert_image_model
+    get_page_classifiers
+    host_your_project

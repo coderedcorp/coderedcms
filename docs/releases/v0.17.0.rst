@@ -1,5 +1,5 @@
-CodeRed CMS 0.17.0 release notes
-================================
+v0.17.0 release notes
+=====================
 
 
 New features

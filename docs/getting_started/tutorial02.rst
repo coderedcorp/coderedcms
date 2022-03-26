@@ -12,11 +12,11 @@ on our site. For now, the only page is Home Page. Click the pencil icon to edit 
 "Home Page" and then the "Edit" button.
 
 Here in the body section is where we can add our content. Each component in this section is called
-a "block" and provides a different format of content. CodeRed CMS is heavily based on Bootstrap CSS
+a "block" and provides a different format of content. Wagtail CRX is heavily based on Bootstrap CSS
 and its grid system, which means all content is based in rows and columns that dynamically stack depending
 on the visitor's screen size.
 
-First, let's make a big flashy hero unit. A hero unit in CodeRed CMS is a block that allows for
+First, let's make a big flashy hero unit. A hero unit in Wagtail CRX is a block that allows for
 a full-width background image or background color, and has lots of padding by default.
 
 Select the **Hero Unit** block. Next set a background image or color - we are going to download and use

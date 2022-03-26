@@ -1,5 +1,5 @@
-CodeRed CMS 0.16.1 release notes
-================================
+v0.16.1 release notes
+=====================
 
 
 Bug fixes

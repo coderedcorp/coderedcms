@@ -1,5 +1,5 @@
 ///
-/// CodeRed CMS Sass starter template
+/// Wagtail CRX Sass starter template
 ///
 /// Import scss sources from the coderedcms pip package,
 /// or from your own local directory as needed.
@@ -49,7 +49,7 @@
 @import "coderedcms/vendor/bootstrap/scss/utilities";
 @import "coderedcms/vendor/bootstrap/scss/print";
 
-// CodeRed CMS styles.
+// Wagtail CRX (CodeRed Extensions) styles.
 @import "coderedcms/scss/codered-hero";
 @import "coderedcms/scss/codered-richtext";
 @import "coderedcms/scss/codered-gallery";

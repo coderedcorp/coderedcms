@@ -1,7 +1,7 @@
-Run CodeRed CMS with Docker
+Run Wagtail CRX with Docker
 ===========================
 
-CodeRed CMS runs well in Docker. When working with Docker, there are two
+Wagtail CRX runs well in Docker. When working with Docker, there are two
 different approaches. This guide will also work with any Wagtail site, or most
 types of Django sites.
 

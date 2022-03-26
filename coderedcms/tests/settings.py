@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     # Test
     'coderedcms.tests.testapp',
 
-    # CodeRed CMS
+    # Wagtail CRX (CodeRed Extensions)
     'coderedcms',
     'bootstrap4',
     'modelcluster',

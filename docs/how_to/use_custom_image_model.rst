@@ -1,9 +1,9 @@
-Using a Custom Image Model in CodeRed CMS
+Using a Custom Image Model in Wagtail CRX
 =========================================
 
 .. versionadded:: 0.19
 
-    Added support for custom image models. You must be on CodeRed CMS version
+    Added support for custom image models. You must be on Wagtail CRX version
     0.19 or higher in order to follow this guide.
 
 Using a custom image model is a very similar process to using a custom user
@@ -23,7 +23,7 @@ empty database and have **never run coderedcms migrations!**
 .. include:: _custom_image3.rst
 
 
-Step 4: Migrate CodeRed CMS
+Step 4: Migrate Wagtail CRX
 ---------------------------
 
 Now you may run **all** migrations which will properly wire everything up to

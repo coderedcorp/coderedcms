@@ -9,7 +9,6 @@ from wagtail.core import hooks
 
 from coderedcms.api.mailchimp import MailchimpApi
 
-from ast import literal_eval
 import json
 
 

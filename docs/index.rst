@@ -3,10 +3,11 @@ Wagtail CRX Documentation
 
 `Official website <https://www.coderedcorp.com/cms/>`_ | `Source code on GitHub <https://github.com/coderedcorp/coderedcms>`_
 
-Formerly known as CodeRed CMS, Wagtail CRX (CodeRed Extensions),
-provides a large set of enhancements and pre-built components for Wagtail which
-are ready to use out-of-the box. This saves development time and avoids
-"re-inventing the wheel" by providing features commonly needed by websites:
+Formerly known as CodeRed CMS, Wagtail CRX (short for Wagtail + CodeRed
+Extensions), provides a large set of enhancements and pre-built components for
+Wagtail which are ready to use out-of-the box. This saves development time and
+avoids "re-inventing the wheel" by providing features commonly needed by
+websites:
 
 * Streamfield blocks and templates for Bootstrap 4: rows, columns, hero units,
   carousels, buttons, modals, cards, and more!
@@ -52,9 +53,9 @@ a Wagtail website by pulling in pre-built components which have been heavily
 tested and are guaranteed to work in a consistent way. This is why the project
 is tightly coupled with Bootstrap CSS. This is a boon for web development teams:
 rather than copy-pasting code from one project to the next, code is centralized
-in a generic way in CRX and can be syndicated to many sites. This also helps
-with maintanence and Wagtail upgrades --- bugs and upgrades can generally be
-handled once in CRX then pushed out to all sites.
+in a generic way in CRX and can be reused by many sites. This also helps
+with maintenance and Wagtail upgrades --- bugs and upgrades can generally be
+implemented once in CRX then pushed out to all sites.
 
 
 Join us

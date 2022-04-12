@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 <a href="{{self.downloadable_file.url}}" download="{{self.downloadable_file.url}}"
-    {% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks and not format == 'amp' %}
+    {% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}
         data-ga-event-category='{{self.settings.ga_tracking_event_category|default:"Download"}}'
         data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.button_title}}'
     {% endif %}
@@ -15,7 +15,7 @@
 {% endif %}
 </a>
 
-{% if self.automatic_download and not format == 'amp' %}
+{% if self.automatic_download %}
 <script>
     $(document).ready(function(){
         window.open("{{self.downloadable_file.url}}", '_blank');

@@ -6,7 +6,7 @@ Basic Installation
 ------------------
 
 #. Make a directory (folder) for your project.
-#. Create a virtual environment. 
+#. Create a virtual environment.
     **Not sure how to create a virtual environment?**
     Creating a virtual environment for your project only involves a few commands.
     See below:
@@ -26,13 +26,13 @@ Basic Installation
         $ source ./venv/bin/activate
 
     You can name your virtual environment anything you like. It is just for your use
-    on your computer. 
+    on your computer.
 
     Learn more about virtual environments by visiting the `Python documentation on virtual
     environments here <https://docs.python.org/3/tutorial/venv.html>`_.
 
     .. note::
-        You will need to be in the directory (folder) of your CodeRed CMS project and have your
+        You will need to be in the directory (folder) of your Wagtail project and have your
         virtual environment activated to install dependencies and run your site.
 
 #. Run ``pip install coderedcms``
@@ -48,7 +48,7 @@ Basic Installation
    http://localhost:8000 in your browser, or http://localhost:8000/admin/ to log in
    with your admin account.
 
-✨🎉 You now have CodeRed CMS up and running! 🎉✨
+✨🎉 You now have Wagtail CRX up and running! 🎉✨
 
 Follow the tutorial to build :doc:`tutorial01`
 
@@ -100,14 +100,14 @@ CSS or JavaScript as needed.
 Starter Templates
 -----------------
 
-You can start a new CodeRed CMS project with a custom template directory available on
+You can start a new Wagtail CRX project with a custom template directory available on
 or at a URL using the ``--template`` option. Additionally, we provide some built-in templates:
 
 +------------+-----------------------------------------------------------------+
 | Template   | Description                                                     |
 +============+=================================================================+
-| ``basic``  | The default CodeRed CMS starter project. The simplest option,   |
-|            | good for most sites.                                            |
+| ``basic``  | The default starter project. The simplest option, good for most |
+|            | sites.                                                          |
 +------------+-----------------------------------------------------------------+
 | ``sass``   | Similar to basic, but with extra tooling to support SCSS to CSS |
 |            | compilation.                                                    |

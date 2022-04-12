@@ -1,7 +1,7 @@
 Tutorial Part 8: SEO Metadata
 =============================
 
-CodeRed CMS includes all of the technical tools you need to populate your site
+Wagtail CRX includes all of the technical tools you need to populate your site
 with good SEO data.
 
 

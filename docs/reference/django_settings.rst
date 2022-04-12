@@ -1,7 +1,7 @@
-CodeRed CMS Django Settings
+Wagtail CRX Django Settings
 ===========================
 
-Default settings are loaded from ``coderedcms/settings.py``. Available settings for CodeRed CMS:
+Default settings are loaded from ``coderedcms/settings.py``. Available settings for Wagtail CRX:
 
 
 CODERED_PROTECTED_MEDIA_ROOT

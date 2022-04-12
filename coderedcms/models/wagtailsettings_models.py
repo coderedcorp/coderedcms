@@ -1,5 +1,5 @@
 """
-Custom wagtail settings used by CodeRed CMS.
+Custom wagtail settings used by Wagtail CRX.
 Settings are user-configurable on a per-site basis (multisite).
 Global project or developer settings should be defined in coderedcms.settings.py .
 """
@@ -258,7 +258,7 @@ class AnalyticsSettings(BaseSetting):
             content=_(
                 '<h3><b>Which tracking IDs do I need?</b></h3>'
                 '<p>Before adding tracking to your site, '
-                '<a href="https://docs.coderedcorp.com/cms/how_to/add_tracking_scripts.html" '
+                '<a href="https://docs.coderedcorp.com/wagtail-crx/how_to/add_tracking_scripts.html" '  # noqa
                 'target="_blank">read about the difference between UA, G, GTM, '
                 'and other tracking IDs</a>.</p>'
             ),

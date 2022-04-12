@@ -7,7 +7,7 @@ against this practice, hence Wagtail does not provide the ability to set the
 ``target`` attribute of links in rich text fields. But, the reality of the
 matter is that not everyone shares this opinion.
 
-CodeRed CMS provides a setting that will use JavaScript to open all external
+Wagtail CRX provides a setting that will use JavaScript to open all external
 links, meaning any link not on the current domain, to open with
 ``target='_blank'``:
 

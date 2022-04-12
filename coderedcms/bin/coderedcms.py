@@ -20,7 +20,7 @@ class CreateProject(TemplateCommand):
     """
     Based on django.core.management.startproject
     """
-    help = "Creates the directory structure for a new CodeRed CMS project."
+    help = "Creates the directory structure for a new Wagtail CRX project."
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
@@ -72,7 +72,7 @@ class CreateProject(TemplateCommand):
         options['files'] = ['Dockerfile']
 
         # Set options
-        message = "Creating a CodeRed CMS project called %(project_name)s"
+        message = "Creating a Wagtail CRX project called %(project_name)s"
 
         if options.get('sitename'):
             message += " for %(sitename)s"

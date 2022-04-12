@@ -54,7 +54,7 @@ is rendered in the ``{% block index_filters %}`` block on the page template, whi
 in ``base.html`` but is overridden in various other templates such as ``web_page_notitle.html``
 and ``article_index_page.html``.
 
-CodeRed CMS provides two filtering templates by default, a Bootstrap nav in
+Wagtail CRX provides two filtering templates by default, a Bootstrap nav in
 ``coderedcms/includes/classifier_nav.html`` and a simple select/dropdown form in
 ``coderedcms/includes/classifier_dropdowns.html``. Most likely, you will want to implement your
 own filtering UI based on your own website needs, but you can follow the example in these two

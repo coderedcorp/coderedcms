@@ -1,10 +1,10 @@
 Blocks
 ======
 
-.. note::
-    This section is a Work in progress. There are many more blocks included in
-    CodeRed CMS than those listed below. More documentation will be added over
-    time before the project reaches an stable 1.0 release.
+Wagtail CRX includes several blocks which can be used in the StreamField.
+Content blocks are used for actual content (text, images, etc.); Layout blocks
+are used for creating structures that hold other blocks (for example, rows and
+columns).
 
 .. toctree::
     :maxdepth: 2

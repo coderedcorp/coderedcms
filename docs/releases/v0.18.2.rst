@@ -1,5 +1,5 @@
-CodeRed CMS 0.18.2 release notes
-================================
+v0.18.2 release notes
+=====================
 
 
 Bug fixes

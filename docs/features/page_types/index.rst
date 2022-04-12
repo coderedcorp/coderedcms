@@ -1,6 +1,9 @@
 Page Types
 ==========
 
+Wagtail CRX includes several abstract page types which provided common website
+functionality.
+
 .. toctree::
     :maxdepth: 1
 
@@ -15,7 +18,7 @@ Page Types
 Design Philosophy
 -----------------
 
-Pages for your CodeRed CMS site use a "Parent-Child" relationship.  A parent
+Pages in Wagtail follow a "Parent-Child" relationship.  A parent
 page is any page that is an ancestor of other pages in the site's tree
 structure.  A child page is any page that is a descendant of another page in the
 site's tree structure.  A lot of specific site functionality is broken up into
@@ -25,7 +28,7 @@ your site, you would add an "Article Landing Page", which would have your
 
 .. note::
 
-    | A site's page structure could look like the following:
+    A site's page structure could look like the following:
 
         Home Page -> Article Landing Page -> Article Page
 
@@ -53,7 +56,7 @@ Development Philosophy
 ----------------------
 
 When it comes to pages on the site, we strive to keep all the core functionality
-in Abstract models.  When you create a new CodeRed CMS project, your generated
+in Abstract models.  When you create a new Wagtail CRX project, your generated
 app will come pre-loaded with Concrete implementations of some of these Abstract
 models.  These concrete models are yours to modify as needed.  But do be advised
 that changing built in functionality could have untested consequences.  By

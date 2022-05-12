@@ -41,15 +41,15 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     install_requires=[
         'beautifulsoup4>=4.8,<4.10',    # should be the same as wagtail
         'django-eventtools==1.0.*',
         'django-bootstrap4>=2.0,<2.4',
-        'Django>=3.2,<3.3',             # should be the same as wagtail
+        'Django>=3.2,<4.1',             # should be the same as wagtail
         'geocoder==1.38.*',
         'icalendar==4.0.*',
-        'wagtail==2.15.*',
+        'wagtail==2.16.*',
         'wagtailfontawesome>=1.2.*',
         'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3',

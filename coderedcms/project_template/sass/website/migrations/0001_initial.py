@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('coderedcms', '0024_analyticssettings'),
+        ('coderedcms', '0025_delete_socialmediasettings'),
         ('wagtailcore', '0062_comment_models_and_pagesubscription'),
     ]
 

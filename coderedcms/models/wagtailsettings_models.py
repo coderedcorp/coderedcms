@@ -4,7 +4,6 @@ Settings are user-configurable on a per-site basis (multisite).
 Global project or developer settings should be defined in coderedcms.settings.py .
 """
 
-import json
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, MultiFieldPanel
@@ -14,84 +13,6 @@ from wagtail.images import get_image_model_string
 
 from coderedcms.fields import MonospaceField
 from coderedcms.settings import cr_settings
-
-
-@register_setting(icon='fa-facebook-official')
-class SocialMediaSettings(BaseSetting):
-    """
-    Social media accounts.
-    """
-    class Meta:
-        verbose_name = _('Social Media')
-
-    facebook = models.URLField(
-        blank=True,
-        verbose_name=_('Facebook'),
-        help_text=_('Your Facebook page URL'),
-    )
-    twitter = models.URLField(
-        blank=True,
-        verbose_name=_('Twitter'),
-        help_text=_('Your Twitter page URL'),
-    )
-    instagram = models.CharField(
-        max_length=255,
-        blank=True,
-        verbose_name=_('Instagram'),
-        help_text=_('Your Instagram username, without the @'),
-    )
-    youtube = models.URLField(
-        blank=True,
-        verbose_name=_('YouTube'),
-        help_text=_('Your YouTube channel or user account URL'),
-    )
-    linkedin = models.URLField(
-        blank=True,
-        verbose_name=_('LinkedIn'),
-        help_text=_('Your LinkedIn page URL'),
-    )
-    googleplus = models.URLField(
-        blank=True,
-        verbose_name=_('Google'),
-        help_text=_('Your Google+ page or Google business listing URL'),
-    )
-
-    @property
-    def twitter_handle(self):
-        """
-        Gets the handle of the twitter account from a URL.
-        """
-        return self.twitter.strip().strip('/').split('/')[-1]
-
-    @property
-    def social_json(self):
-        """
-        Returns non-blank social accounts as a JSON list.
-        """
-        socialist = [
-            self.facebook,
-            self.twitter,
-            self.instagram,
-            self.youtube,
-            self.linkedin,
-            self.googleplus,
-        ]
-        socialist = list(filter(None, socialist))
-        return json.dumps(socialist)
-
-    panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('facebook'),
-                FieldPanel('twitter'),
-                FieldPanel('instagram'),
-                FieldPanel('youtube'),
-                FieldPanel('linkedin'),
-                FieldPanel('googleplus'),
-            ],
-            _('Social Media Accounts'),
-        )
-    ]
 
 
 @register_setting(icon='fa-desktop')

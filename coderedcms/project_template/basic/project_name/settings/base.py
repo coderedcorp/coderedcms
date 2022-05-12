@@ -185,7 +185,6 @@ WAGTAIL_SITE_NAME = '{{ sitename }}'
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
-# New search backend as of Wagtail 2.15, which will become default in Wagtail 2.17
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.database',

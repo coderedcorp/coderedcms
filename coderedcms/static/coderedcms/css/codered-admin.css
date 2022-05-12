@@ -185,7 +185,6 @@ input[type='checkbox']::before, input[type='radio']::before {
 
 .content {
     padding-bottom:100px;
-    background-color:unset;
 }
 
 .responsive-img {

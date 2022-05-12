@@ -271,21 +271,9 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     # Search
     ###############
 
-    search_fields = [
-        index.SearchField('title', partial_match=True, boost=3),
-        index.SearchField('seo_title', partial_match=True, boost=3),
+    search_fields = Page.search_fields + [
+        index.SearchField('seo_title', partial_match=True, boost=2),
         index.SearchField('search_description', boost=2),
-        index.FilterField('title'),
-        index.FilterField('id'),
-        index.FilterField('live'),
-        index.FilterField('owner'),
-        index.FilterField('content_type'),
-        index.FilterField('path'),
-        index.FilterField('depth'),
-        index.FilterField('locked'),
-        index.FilterField('first_published_at'),
-        index.FilterField('last_published_at'),
-        index.FilterField('latest_revision_created_at'),
         index.FilterField('index_show_subpages'),
         index.FilterField('index_order_by'),
         index.FilterField('custom_template'),

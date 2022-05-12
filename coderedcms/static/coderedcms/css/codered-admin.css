@@ -1,5 +1,5 @@
-/*
-CodeRed CMS (https://www.coderedcorp.com/cms/)
+/*!
+Wagtail CRX (https://www.coderedcorp.com/cms/)
 Copyright 2018-2021 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
@@ -290,6 +290,14 @@ input[type='checkbox']::before, input[type='radio']::before {
     }
 }
 
+/* Display the optional banner above main content */
+
+.codered-banner {
+    position: absolute;
+}
+.codered-banner ~ .content-wrapper {
+    padding-top: calc(1.5em + 8px);
+}
 
 /* Custom */
 

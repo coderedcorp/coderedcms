@@ -2,7 +2,7 @@ Contributing
 ============
 
 
-Developing CodeRed CMS
+Developing Wagtail CRX
 ----------------------
 
 To create a test project locally:
@@ -61,15 +61,15 @@ branch.
 A Note on Cross-Platform Support
 --------------------------------
 
-CodeRed CMS works equally well on Windows, macOS, and Linux. When adding new features
+Wagtail CRX works equally well on Windows, macOS, and Linux. When adding new features
 or new dependencies, ensure that these utilize proper cross-platform utilities in Python.
 
-To ease local development of CodeRed CMS, we have some automation scripts using
+To ease local development of Wagtail CRX, we have some automation scripts using
 cross-platform `PowerShell Core <https://github.com/powershell/powershell>`_.
 Throughout this contributing guide, you will encounter various PowerShell
 scripts which provide an easy way of running quality control measures.
 
-Our goal is that users of any platform can develop or host a CodeRed CMS website easily.
+Our goal is that users of any platform can develop or host a Wagtail CRX website easily.
 
 
 CSS Development
@@ -85,14 +85,11 @@ from the command prompt as so:
 
     $ cd coderedcms/static/coderedcms/
 
-    // Build human readable CSS, and source map for nicer debugging.
+    $ # Build human readable CSS, and source map for nicer debugging.
     $ pysassc -g -t expanded scss/codered-front.scss css/codered-front.css
 
-    // Build minified CSS.
+    $ # Build minified CSS.
     $ pysassc -t compressed scss/codered-front.scss css/codered-front.min.css
-
-Finally, copy the license header comment into codered-front.min.css (since ``pysassc`` does
-not have an argument to preserve comments while also using compressed output).
 
 The generated CSS files must also be committed to version control whenever a sass file is
 changed, as they are distributed as part of our package.
@@ -112,9 +109,9 @@ license header comment states copyright, ownership, license, and also provides c
 
 .. code-block:: text
 
-    /*
-    CodeRed CMS (https://www.coderedcorp.com/cms/)
-    Copyright 2018-2019 CodeRed LLC
+    /*!
+    Wagtail CRX (https://www.coderedcorp.com/cms/)
+    Copyright 2018-2021 CodeRed LLC
     License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
     @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
     */
@@ -138,7 +135,7 @@ If changing SASS sources, be sure to test ``.scss`` files in
 ``coderedcms/project_template/sass/`` which may require changes.
 
 
-Testing CodeRed CMS
+Testing Wagtail CRX
 -------------------
 
 To run the unit tests, run the following command. This will output a unit test
@@ -172,8 +169,8 @@ Adding New Tests
 Test coverage at the moment is fairly minimal and it is highly recommended that
 new features and models include proper unit tests. Any testing infrastructure
 (i.e. implementations of abstract models and migrations) needed should be added
-to the ``tests`` app in your local copy of CodeRed CMS. The tests themselves
-should be in their relevant section in CodeRed CMS (i.e. tests for models in
+to the ``tests`` app in your local copy of Wagtail CRX. The tests themselves
+should be in their relevant section in Wagtail CRX (i.e. tests for models in
 ``coderedcms.models.page_models`` should be located in
 ``coderedcms.models.tests.test_page_models``).
 

@@ -1,5 +1,5 @@
 """
-Base and abstract pages used in CodeRed CMS.
+Base and abstract pages used in Wagtail CRX.
 """
 
 import json
@@ -31,6 +31,7 @@ from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from eventtools.models import BaseEvent, BaseOccurrence
+from icalendar import Alarm
 from icalendar import Event as ICalEvent
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.tags import ClusterTaggableManager
@@ -875,6 +876,9 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     def convert_to_ical_format(self, dt_start=None, dt_end=None, occurrence=None):
         ical_event = ICalEvent()
         ical_event.add('summary', self.title)
+        # needs to get full page url, not just slug
+        desc_str = _('Details')
+        ical_event.add('description', f'{desc_str}: {self.full_url}')
         if self.address:
             ical_event.add('location', self.address)
 
@@ -883,6 +887,15 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
             if dt_end:
                 ical_event.add('dtend', dt_end)
+
+            # Add a reminder alarm
+            reminder_mins = 15
+            alarm = Alarm()
+            alarm.add("action", "DISPLAY")
+            alarm.add('description', "Reminder")
+            # Sets the reminder alarm
+            alarm.add("TRIGGER;RELATED=START", "-PT{0}M".format(reminder_mins))
+            ical_event.add_component(alarm)
 
         if occurrence:
             freq = occurrence.repeat.split(":")[1] if occurrence.repeat else None

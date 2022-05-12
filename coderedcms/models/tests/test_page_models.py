@@ -64,7 +64,8 @@ class AbstractPageTestCase():
 
     def test_not_available(self):
         """
-        Tests to make sure the page is not creatable and not in CodeRed CMS's global list of page models.  # noqa
+        Tests to make sure the page is not creatable and not in our global
+        list of page models.
         """
         self.assertFalse(self.model.is_creatable)
         self.assertFalse(self.model in get_page_models())
@@ -79,7 +80,8 @@ class ConcretePageTestCase():
 
     def test_is_available(self):
         """
-        Tests to make sure the page is creatable and in CodeRed CMS's global list of page models.
+        Tests to make sure the page is creatable and in our global list of
+        page models.
         """
         self.assertTrue(self.model.is_creatable)
         self.assertTrue(self.model in get_page_models())

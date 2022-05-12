@@ -194,7 +194,7 @@ class CoderedAdvColumnSettings(CoderedAdvSettings):
 
 class BaseBlock(blocks.StructBlock):
     """
-    Common attributes for all blocks used in CodeRed CMS.
+    Common attributes for all blocks used in Wagtail CRX.
     """
     # subclasses can override this to determine the advanced settings class
     advsettings_class = CoderedAdvSettings
@@ -235,7 +235,7 @@ class BaseBlock(blocks.StructBlock):
 
 class BaseLayoutBlock(BaseBlock):
     """
-    Common attributes for all blocks used in CodeRed CMS.
+    Common attributes for all blocks used in Wagtail CRX.
     """
     # Subclasses can override this to provide a default list of blocks for the content.
     content_streamblocks = []

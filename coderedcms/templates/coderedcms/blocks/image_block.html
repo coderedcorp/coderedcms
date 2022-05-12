@@ -1,20 +1,8 @@
 {% load wagtailimages_tags %}
 
-{% image self.image max-1000x1000 as self_image %}
-
-{% if format == 'amp' %}
-
-<amp-img src="{{self_image.url}}"
-layout="responsive" width="{{self_image.width}}" height="{{self_image.height}}"
-class="{{self.settings.custom_css_class}}"
-{% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}
-alt="{{self_image.image.title}}"></amp-img>
-
-{% else %}
+{% image self.image max-2000x2000 as self_image %}
 
 <img src="{{self_image.url}}"
-class="w-100 {{self.settings.custom_css_class}}"
+class="img-fluid {{self.settings.custom_css_class}}"
 {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}
 alt="{{self_image.image.title}}" />
-
-{% endif %}

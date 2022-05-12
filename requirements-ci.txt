@@ -6,4 +6,5 @@ codespell
 flake8
 pytest-cov
 pytest-django
-sphinx==3.*  # Docs are currently broken in sphinx 4.
+sphinx
+sphinx-wagtail-theme

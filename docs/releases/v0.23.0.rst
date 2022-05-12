@@ -10,6 +10,8 @@ New features
 Bug fixes
 ---------
 
+* Fix the ``CODERED_BANNER`` :doc:`setting </reference/django_settings>`
+  not being applied to the site's CMS.
 
 Maintenance
 -----------

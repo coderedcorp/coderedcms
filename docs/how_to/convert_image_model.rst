@@ -3,7 +3,7 @@ Convert Existing Site to Use a Custom Image Model
 
 .. versionadded:: 0.19
 
-    Added support for custom image models. You must be on CodeRed CMS version
+    Added support for custom image models. You must be on version
     0.19 or higher in order to follow this guide.
 
 Using a custom image model is a very similar process to using a custom user
@@ -17,7 +17,7 @@ much more easily achieved with a separate "metadata" model with a `OneToOne
 relationship to the Image model, and do a reverse lookup (e.g.
 ``image.metadata``).
 
-Before starting this guide, ensure you have updated to the latest CodeRed CMS,
+Before starting this guide, ensure you have updated to the latest Wagtail CRX,
 have run all migrations, and do not have any pending migrations.
 
 .. code-block:: console

@@ -1,17 +1,22 @@
 Release Notes
 =============
 
-CodeRed CMS follows the ``[major].[minor].[maintenance]`` versioning scheme.
+Wagtail CRX (previously CodeRed CMS) follows the
+``[major].[minor].[patch]`` versioning scheme.
 
 * **Major** - significant changes that may not be backwards compatible.
+
 * **Minor** - new features, enhancements, and bug fixes that are most likely
   but not guaranteed to be backwards compatible.
-* **Maintenance** - guaranteed to be backwards compatible. These changes are
+
+* **Patch** - guaranteed to be backwards compatible. These changes are
   reserved for bug, security, or documentation fixes only.
 
 .. note::
-    CodeRed CMS may have breaking changes between minor version upgrades until reaching a stable
-    1.0 status. Releases with a zero major version number are considered "beta" quality.
+
+   There may be breaking changes between minor version upgrades until reaching a
+   stable 1.0 status. Releases with a zero major version number are considered
+   "beta" quality.
 
 
 .. toctree::

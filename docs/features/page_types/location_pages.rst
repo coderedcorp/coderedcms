@@ -18,7 +18,7 @@ Layout Tab
 * **Center Longitude**: The longitude you want the Google map to center on.
 * **Zoom**: The zoom level you want the Google map to default to.  This requires an API key to use zoom. The zoom values can be between 1-20.  1: World, 5: Landmass continent, 10: City, 15: Streets, 20: Buildings
 
-Next, save the Location Landing Page. Now create a child "Location Page" under your new "Location Landing Page". 
+Next, save the Location Landing Page. Now create a child "Location Page" under your new "Location Landing Page".
 
 
 Location Page
@@ -48,7 +48,7 @@ Settings Tab
 Implementation
 --------------
 
-The store locator is built-in to CodeRed CMS but is not enabled by default. To implement, add
+The store locator is built-in to Wagtail CRX but is not enabled by default. To implement, add
 the following to your ``website/models.py``::
 
     from coderedcms.models import CoderedLocationIndexPage, CoderedLocationPage

@@ -33,7 +33,7 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
     """
     class Meta:
         template = 'coderedcms/blocks/button_block.html'
-        icon = 'fa-hand-pointer-o'
+        icon = 'cr-hand-pointer-o'
         label = _('Button Link')
         value_class = LinkStructValue
 
@@ -92,7 +92,7 @@ class EmbedGoogleMapBlock(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/google_map.html'
-        icon = 'fa-map'
+        icon = 'cr-map'
         label = _('Google Map')
 
 
@@ -123,7 +123,7 @@ class H1Block(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/h1_block.html'
-        icon = 'fa-header'
+        icon = 'cr-header'
         label = _('Heading 1')
 
 
@@ -138,7 +138,7 @@ class H2Block(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/h2_block.html'
-        icon = 'fa-header'
+        icon = 'cr-header'
         label = _('Heading 2')
 
 
@@ -153,7 +153,7 @@ class H3Block(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/h3_block.html'
-        icon = 'fa-header'
+        icon = 'cr-header'
         label = _('Heading 3')
 
 
@@ -162,7 +162,7 @@ class TableBlock(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/table_block.html'
-        icon = 'fa-table'
+        icon = 'table'
         label = 'Table'
 
 

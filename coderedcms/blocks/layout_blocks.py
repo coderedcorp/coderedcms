@@ -45,7 +45,7 @@ class GridBlock(BaseLayoutBlock):
 
     class Meta:
         template = 'coderedcms/blocks/grid_block.html'
-        icon = 'fa-columns'
+        icon = 'cr-columns'
         label = _('Responsive Grid Row')
 
     def __init__(self, local_blocks=None, **kwargs):
@@ -67,7 +67,7 @@ class CardGridBlock(BaseLayoutBlock):
 
     class Meta:
         template = 'coderedcms/blocks/cardgrid_deck.html'
-        icon = 'fa-th-large'
+        icon = 'cr-th-large'
         label = _('Card Grid')
 
 
@@ -108,5 +108,5 @@ class HeroBlock(BaseLayoutBlock):
 
     class Meta:
         template = 'coderedcms/blocks/hero_block.html'
-        icon = 'fa-newspaper-o'
+        icon = 'cr-newspaper-o'
         label = 'Hero Unit'

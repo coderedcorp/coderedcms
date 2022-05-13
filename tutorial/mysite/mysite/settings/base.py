@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'modelcluster',
     'taggit',
-    'wagtailfontawesome',
     'wagtailcache',
     'wagtailimportexport',
     'wagtailseo',

@@ -4,8 +4,11 @@ v0.23.0 release notes
 
 New features
 ------------
+
+* Upgraded to Wagtail 2.16
+
 * Navbar and Footer choosers in Settings to allow for different navbar menus and footers per site on multi-sites.
-* Navbar and Footer choosers in Settings also control the render order of more than one navbar menu/footer on a single site.
+
 
 Bug fixes
 ---------
@@ -16,17 +19,32 @@ Bug fixes
 Maintenance
 -----------
 
+* Upgrade dependency ``django-bootstrap4`` to version 22.1
 
 Upgrade considerations
 ----------------------
+
+* Wagtail is now using a new search backend.
+
+  * Specify the `new default in your settings <https://docs.wagtail.org/en/stable/releases/2.15.html#database-search-backends-replaced>`_.
+
+  * Next, you will need to run the `update_index command <https://docs.wagtail.org/en/stable/reference/management_commands.html#update-index>`_.
+
+* Other upgrade considerations for `Wagtail 2.15 <https://docs.wagtail.org/en/stable/releases/2.15.html#upgrade-considerations>`_.
+
+* Other upgrade considerations for `Wagtail 2.16 <https://docs.wagtail.org/en/stable/releases/2.16.html#upgrade-considerations>`_.
+
+* Font Awesome (``wagtailfontawesome``) has been removed as a dependency. You
+  should remove this from your ``INSTALLED_APPS`` and/or ``requirements.txt``
+  file (unless you are using it elsewhere in your code).
 
 
 Supported software
 ------------------
 
-* Python 3.6, 3.7, 3.8, 3.9
+* Python 3.7, 3.8, 3.9, 3.10
 
-* Django 3.0, 3.1, 3.2
+* Django 3.2
 
 
 Thank you!

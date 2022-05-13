@@ -44,7 +44,7 @@ class CardBlock(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/card_foot.html'
-        icon = 'fa-list-alt'
+        icon = 'cr-list-alt'
         label = _('Card')
 
 
@@ -91,7 +91,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
     )
     footer = blocks.StreamBlock(
         [
-            ('text', blocks.CharBlock(icon='fa-file-text-o', max_length=255, label=_('Simple Text'))),  # noqa
+            ('text', blocks.CharBlock(icon='cr-font', max_length=255, label=_('Simple Text'))),  # noqa
             ('button', ButtonBlock()),
         ],
         required=False,
@@ -100,7 +100,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
 
     class Meta:
         template = 'coderedcms/blocks/modal_block.html'
-        icon = 'fa-window-maximize'
+        icon = 'cr-window-maximize'
         label = _('Modal')
 
 
@@ -228,7 +228,7 @@ class PriceListItemBlock(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/pricelistitem_block.html'
-        icon = 'fa-usd'
+        icon = 'cr-usd'
         label = _('Price List Item')
 
 
@@ -250,7 +250,7 @@ class PriceListBlock(BaseBlock):
 
     class Meta:
         template = 'coderedcms/blocks/pricelist_block.html'
-        icon = 'fa-usd'
+        icon = 'cr-usd'
         label = _('Price List')
 
 
@@ -268,7 +268,7 @@ class ContentWallBlock(BaseBlock):
     )
 
     class Meta:
-        icon = 'fa-stop'
+        icon = 'cr-stop'
         label = _('Content Wall')
         template = 'coderedcms/blocks/content_wall_block.html'
 
@@ -280,6 +280,6 @@ class ReusableContentBlock(BaseBlock):
     content = SnippetChooserBlock('coderedcms.ReusableContent')
 
     class Meta:
-        icon = 'fa-recycle'
+        icon = 'cr-recycle'
         label = _('Reusable Content')
         template = 'coderedcms/blocks/reusable_content_block.html'

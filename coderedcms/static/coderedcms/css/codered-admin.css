@@ -1,16 +1,11 @@
 /*!
 Wagtail CRX (https://www.coderedcorp.com/cms/)
-Copyright 2018-2021 CodeRed LLC
+Copyright 2018-2022 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
 
 /* Font sizes and inputs */
 
-html, body {
-    color: #000;
-    background-color:#fff;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif !important;
-}
 code, pre, textarea.monospace,
 .monospace textarea {
     font-family: SFMono-Regular,Menlo,Monaco,Consolas,monospace;
@@ -21,46 +16,15 @@ code, pre, textarea.monospace,
     border:unset;
 }
 
-.summary ul.stats,
-.summary ul.stats span {
-    font-family:inherit !important;
-    font-weight:600 !important;
-}
-
-h1, h2, h3, h4, h5, h6,
-.button, .halloeditor, .tagit, input, select, textarea {
-    font-family:inherit;
-}
-
-body.ready input[type='checkbox'], body.ready input[type='radio'] {
-    background-color:unset;
-    border:none;
-}
-
 .halloeditor, .tagit, input:not([type="submit"]), select, textarea {
-    border:1.5px solid #ddd;
     padding-top:0.5em;
     padding-bottom:0.5em;
     font-weight:normal;
 }
 
-.halloeditor:hover, .tagit:hover, input:hover, select:hover, textarea:hover {
-    border:1.5px solid #ddd;
-}
-
-.nav-search button::before {
-    line-height: 2.5em;
-}
-
 input[type='checkbox'], input[type='radio'] {
-    height:unset;
     margin-right: 0.5em;
     padding-top: 0;
-}
-input[type='checkbox']::before, input[type='radio']::before {
-    border:1.5px solid #ccc;
-    position: relative;
-    top:unset;
 }
 .date_field .input::after,
 .date_field .input::before,
@@ -74,14 +38,6 @@ input[type='checkbox']::before, input[type='radio']::before {
 .url_field .input::before {
     font-size:1.7em;
     top:0.35em;
-}
-.full input {
-    background-color:white;
-}
-.full input:focus, .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus,
-.tag_field.focused .tagit {
-    border-color:#00b0b1;
-    background-color:#f2fcfc;
 }
 .choice_field .input select,
 .model_choice_field .input select,
@@ -175,9 +131,6 @@ input[type='checkbox']::before, input[type='radio']::before {
     .input {
         width:100%;
     }
-    label, .boolean_field, .widget-checkbox_input {
-        padding-top: 0.5em;
-    }
 }
 
 
@@ -185,7 +138,6 @@ input[type='checkbox']::before, input[type='radio']::before {
 
 .content {
     padding-bottom:100px;
-    background-color:unset;
 }
 
 .responsive-img {
@@ -195,100 +147,27 @@ input[type='checkbox']::before, input[type='radio']::before {
     margin-right: auto;
 }
 
-.tab-nav a {
-    font-size: 1em;
-}
-
-.tab-nav li.seo a::before,
-.tab-nav li.integrations a::before {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: "FontAwesome";
-    vertical-align: middle;
-    text-transform: none;
-    content: "\f201";
-    margin-right: .5em;
-    font-weight: 400;
-}
-
-.tab-nav li.integrations a::before {
-    content: "\f12e";
-}
-
 /* Show the site's custom logo in the wagtail admin */
 
-.logo {
-    margin: 0 auto;
-    padding: 1em;
-    margin-bottom: 1em;
-}
-.logo img.codered-logo-custom {
+.codered-logo-custom {
     width:auto;
     height:auto;
     max-height:80px;
     max-width:100%;
+    display: block;
 }
 .codered-logo-container {
     box-sizing: border-box;
-    padding-top: 1em;
-    padding-bottom: 1em;
 }
 .codered-logo-container.navbar-light {
     background-color: #f1f1f1;
     border-radius: 6px;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: 0.25em;
 }
 .codered-logo-container.navbar-dark {
     background-color: transparent;
 }
 
-/* Fix side menu to be able to fit more links without breaking */
-
-.nav-main a {
-    padding: 0.6em 0.8em;
-    font-size: 1.1em;
-}
-.nav-submenu .menu-item a {
-    padding: 0.6em 0 0.6em 3.5em;
-}
-
-.nav-main .account:hover, .nav-main .account:focus {
-  outline: none;
-  background-color: #0a0a0a;
-  color: #fff;
-}
-
-.submenu-active * {
-    box-sizing: border-box;
-}
-
-@media screen and (min-width:50em) {
-    li.submenu-active .nav-submenu {
-        width: 220px;
-    }
-    li.submenu-active .nav-submenu a {
-        width:100%;
-    }
-    .nav-submenu h2, .nav-submenu ul {
-        width:100%;
-    }
-    .nav-main {
-        margin-bottom: 0px;
-    }
-    .nav-main .account em {
-        margin-top:0.9em;
-        font-size: 0.9em;
-    }
-    .nav-main .nav-footer-submenu {
-        overflow: hidden;
-        display: block;
-    }
-    .nav-footer .avatar {
-        width: 40px;
-        height: 40px;
-    }
-}
 
 /* Display the optional banner above main content */
 
@@ -304,28 +183,6 @@ input[type='checkbox']::before, input[type='radio']::before {
 .button-advanced-settings {
     display:block;
     font-size:0.8em;
-    font-weight:600;
     margin-top: -20px;
     align-self: flex-start;
-}
-
-.power-by {
-    background-color:#1a1a1a;
-    border-top:1px solid #333;
-    font-size:10px;
-    text-align: center;
-}
-
-.power-by a {
-    color:#fff;
-    padding: 2px;
-}
-.power-by a:hover {
-    background-color:#f00;
-}
-
-.power-by img {
-    width:75px;
-    height:auto;
-    padding-left:2px;
 }

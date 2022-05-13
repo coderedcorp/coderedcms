@@ -19,7 +19,7 @@ from coderedcms.settings import cr_settings
 from coderedcms.models.snippet_models import Navbar, Footer
 
 
-@register_setting(icon='fa-desktop')
+@register_setting(icon='cr-desktop')
 class LayoutSettings(ClusterableModel, BaseSetting):
     """
     Branding, navbar, and theme settings.
@@ -179,7 +179,7 @@ class FooterOrderable(Orderable, models.Model):
     ]
 
 
-@register_setting(icon='fa-google')
+@register_setting(icon='cr-google')
 class AnalyticsSettings(BaseSetting):
     """
     Tracking and Google Analytics.
@@ -258,7 +258,7 @@ class AnalyticsSettings(BaseSetting):
     ]
 
 
-@register_setting(icon='fa-universal-access')
+@register_setting(icon='cr-universal-access')
 class ADASettings(BaseSetting):
     """
     Accessibility related options.
@@ -330,7 +330,7 @@ class GeneralSettings(BaseSetting):
         verbose_name = _('General')
 
 
-@register_setting(icon='fa-puzzle-piece')
+@register_setting(icon='cr-puzzle-piece')
 class GoogleApiSettings(BaseSetting):
     """
     Settings for Google API services.
@@ -346,7 +346,7 @@ class GoogleApiSettings(BaseSetting):
     )
 
 
-@register_setting(icon='fa-puzzle-piece')
+@register_setting(icon='cr-puzzle-piece')
 class MailchimpApiSettings(BaseSetting):
     """
     Settings for Mailchimp API services.

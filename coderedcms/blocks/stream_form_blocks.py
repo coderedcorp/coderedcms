@@ -43,49 +43,49 @@ class CoderedStreamFormFieldBlock(form_blocks.OptionalFormFieldBlock, FormBlockM
 class CoderedStreamFormCharFieldBlock(form_blocks.CharFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Text or Email input")
-        icon = "fa-window-minimize"
+        icon = "cr-window-minimize"
 
 
 class CoderedStreamFormTextFieldBlock(form_blocks.TextFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Multi-line text")
-        icon = "fa-align-left"
+        icon = "cr-align-left"
 
 
 class CoderedStreamFormNumberFieldBlock(form_blocks.NumberFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Numbers only")
-        icon = "fa-hashtag"
+        icon = "cr-hashtag"
 
 
 class CoderedStreamFormCheckboxFieldBlock(form_blocks.CheckboxFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Single Checkbox")
-        icon = "fa-check-square-o"
+        icon = "cr-check-square-o"
 
 
 class CoderedStreamFormRadioButtonsFieldBlock(form_blocks.RadioButtonsFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Radios")
-        icon = "fa-list-ul"
+        icon = "list-ul"
 
 
 class CoderedStreamFormDropdownFieldBlock(form_blocks.DropdownFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Dropdown")
-        icon = "fa-list-alt"
+        icon = "cr-list-alt"
 
 
 class CoderedStreamFormCheckboxesFieldBlock(form_blocks.CheckboxesFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Checkboxes")
-        icon = "fa-list-ul"
+        icon = "list-ul"
 
 
 class CoderedStreamFormDateFieldBlock(form_blocks.DateFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Date")
-        icon = "fa-calendar"
+        icon = "date"
 
     field_class = CoderedDateField
     widget = CoderedDateInput
@@ -94,7 +94,7 @@ class CoderedStreamFormDateFieldBlock(form_blocks.DateFieldBlock, FormBlockMixin
 class CoderedStreamFormTimeFieldBlock(form_blocks.TimeFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Time")
-        icon = "fa-clock-o"
+        icon = "time"
 
     field_class = CoderedTimeField
     widget = CoderedTimeInput
@@ -103,7 +103,7 @@ class CoderedStreamFormTimeFieldBlock(form_blocks.TimeFieldBlock, FormBlockMixin
 class CoderedStreamFormDateTimeFieldBlock(form_blocks.DateTimeFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Date and Time")
-        icon = "fa-calendar"
+        icon = "date"
 
     field_class = CoderedDateTimeField
     widget = CoderedDateTimeInput
@@ -112,13 +112,13 @@ class CoderedStreamFormDateTimeFieldBlock(form_blocks.DateTimeFieldBlock, FormBl
 class CoderedStreamFormImageFieldBlock(form_blocks.ImageFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Image Upload")
-        icon = "fa-picture-o"
+        icon = "image"
 
 
 class CoderedStreamFormFileFieldBlock(form_blocks.FileFieldBlock, FormBlockMixin):
     class Meta:
         label = _("Secure File Upload")
-        icon = "fa-upload"
+        icon = "upload"
 
     field_class = SecureFileField
 

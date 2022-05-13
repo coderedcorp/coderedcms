@@ -67,7 +67,7 @@ from .base_blocks import (  # noqa
 # Collections of blocks commonly used together.
 
 HTML_STREAMBLOCKS = [
-    ('text', RichTextBlock(icon='fa-file-text-o')),
+    ('text', RichTextBlock(icon='cr-font')),
     ('button', ButtonBlock()),
     ('image', ImageBlock()),
     ('image_link', ImageLinkBlock()),

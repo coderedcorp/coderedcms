@@ -151,7 +151,7 @@ class CoderedFormField(AbstractFormField):
         max_length=16,
         choices=FORM_FIELD_CHOICES,
         blank=False,
-        default='Single line text'
+        default=_('Single line text')
     )
 
 

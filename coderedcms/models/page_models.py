@@ -359,7 +359,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         if cls.integration_panels:
             panels.append(ObjectList(
                 cls.integration_panels,
-                heading='Integrations',
+                heading=_('Integrations'),
                 classname='integrations'
             ))
 
@@ -702,7 +702,7 @@ class CoderedArticleIndexPage(CoderedWebPage):
     index_show_subpages_default = True
 
     index_order_by_default = '-date_display'
-    index_order_by_choices = (('-date_display', 'Display publish date, newest first'),) + \
+    index_order_by_choices = (('-date_display', _('Display publish date, newest first')),) + \
         CoderedWebPage.index_order_by_choices
 
     show_images = models.BooleanField(
@@ -939,7 +939,7 @@ class CoderedEventIndexPage(CoderedWebPage):
 
     index_order_by_default = 'next_occurrence'
     index_order_by_choices = (
-        ('next_occurrence', 'Display next occurrence, soonest first'),
+        ('next_occurrence', _('Display next occurrence, soonest first')),
     ) + CoderedWebPage.index_order_by_choices
 
     default_calendar_view = models.CharField(
@@ -1476,7 +1476,7 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     form_builder = CoderedFormBuilder
 
     body_content_panels = [
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields', label=_("Form fields")),
     ] + \
         CoderedWebPage.body_content_panels + \
         CoderedFormMixin.body_content_panels + [

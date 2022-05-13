@@ -187,7 +187,8 @@ class CoderedAdvColumnSettings(CoderedAdvSettings):
         choices=cr_settings['FRONTEND_COL_BREAK_CHOICES'],
         default=cr_settings['FRONTEND_COL_BREAK_DEFAULT'],
         required=False,
-        verbose_name=_('Column Breakpoint'),
+        # verbose_name=_('Column Breakpoint'),
+        label=_('Column Breakpoint'),
         help_text=_('Screen size at which the column will expand horizontally or stack vertically.'),  # noqa
     )
 

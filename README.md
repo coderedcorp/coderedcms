@@ -80,6 +80,18 @@ If you're interested in building, developing, or contributing to Wagtail CRX,
 check out the [Contributing Guide](https://docs.coderedcorp.com/wagtail-crx/stable/contributing/index.html).
 
 
+## Attribution
+
+Icon files in `coderedcms/templates/coderedcms/icons/`:
+
+* Were sourced from the Fork Awesome project at
+  https://github.com/ForkAwesome/Fork-Awesome.
+* Are licensed under the Creative Commons Attribution 3.0 Unported
+  license, a copy of which is available at
+  https://creativecommons.org/licenses/by/3.0/
+* Have been modified from the original sources.
+
+
 ## Contact
 
 We would love to hear your questions, comments, and feedback. Open an issue on Github, message us on [#coderedcms in the Wagtail slack](https://wagtailcms.slack.com/messages/CEU45SBRR).

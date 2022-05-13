@@ -147,22 +147,6 @@ input[type='checkbox'], input[type='radio'] {
     margin-right: auto;
 }
 
-.tab-nav li.seo a::before,
-.tab-nav li.integrations a::before {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: "FontAwesome";
-    vertical-align: middle;
-    text-transform: none;
-    content: "\f201";
-    margin-right: .5em;
-    font-weight: 400;
-}
-
-.tab-nav li.integrations a::before {
-    content: "\f12e";
-}
-
 /* Show the site's custom logo in the wagtail admin */
 
 .codered-logo-custom {

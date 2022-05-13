@@ -30,6 +30,11 @@ Upgrade considerations
 
 * Other upgrade considerations for `Wagtail 2.16 <https://docs.wagtail.org/en/stable/releases/2.16.html#upgrade-considerations>`_.
 
+* Font Awesome (``wagtailfontawesome``) has been removed as a dependency. You
+  should remove this from your ``INSTALLED_APPS`` and/or ``requirements.txt``
+  file (unless you are using it elsewhere in your code).
+
+
 Supported software
 ------------------
 

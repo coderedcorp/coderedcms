@@ -41,6 +41,37 @@ def collapsible_js():
     )
 
 
+@hooks.register("register_icons")
+def register_icons(icons):
+    """
+    Add custom SVG icons to the Wagtail admin.
+    """
+    # These SVG files should be in the django templates folder, and follow exact
+    # specifications to work with Wagtail:
+    # https://github.com/wagtail/wagtail/pull/6028
+    icons.append("coderedcms/icons/cr-align-left.svg")
+    icons.append("coderedcms/icons/cr-check-square-o.svg")
+    icons.append("coderedcms/icons/cr-columns.svg")
+    icons.append("coderedcms/icons/cr-desktop.svg")
+    icons.append("coderedcms/icons/cr-font.svg")
+    icons.append("coderedcms/icons/cr-google.svg")
+    icons.append("coderedcms/icons/cr-hand-pointer-o.svg")
+    icons.append("coderedcms/icons/cr-hashtag.svg")
+    icons.append("coderedcms/icons/cr-header.svg")
+    icons.append("coderedcms/icons/cr-list-alt.svg")
+    icons.append("coderedcms/icons/cr-map.svg")
+    icons.append("coderedcms/icons/cr-newspaper-o.svg")
+    icons.append("coderedcms/icons/cr-puzzle-piece.svg")
+    icons.append("coderedcms/icons/cr-recycle.svg")
+    icons.append("coderedcms/icons/cr-stop.svg")
+    icons.append("coderedcms/icons/cr-th-large.svg")
+    icons.append("coderedcms/icons/cr-universal-access.svg")
+    icons.append("coderedcms/icons/cr-usd.svg")
+    icons.append("coderedcms/icons/cr-window-maximize.svg")
+    icons.append("coderedcms/icons/cr-window-minimize.svg")
+    return icons
+
+
 def clear_wagtailcache(*args, **kwargs):
     clear_cache()
 

@@ -34,7 +34,6 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Framework :: Django',
         'Framework :: Django :: 3.2',
-        'Framework :: Django :: 4.0',
         'Framework :: Wagtail',
         'Framework :: Wagtail :: 2',
         'Topic :: Internet :: WWW/HTTP',

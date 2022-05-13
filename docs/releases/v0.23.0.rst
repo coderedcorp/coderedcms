@@ -7,16 +7,44 @@ New features
 
 * Upgraded to Wagtail 2.16
 
+* Calendar/Events:
+
+  * Add link to the page in the body of ``ical`` downloads for that event.
+
+  * Add 15 minute reminder to ``ical`` downloads.
+
+* The project has formally changed names from "CodeRed CMS" to "Wagtail CRX".
+  This is short for Wagtail + CodeRed Extensions. To accurately reflect our
+  alignment with Wagtail there are a number of visual changes:
+
+  * New docs theme, based on the Wagtail theme.
+
+  * Removed "powered by CodeRed" logo at bottom of Wagtail admin.
+
+  * Style of the Wagtail admin more closely matches stock Wagtail.
+
+
 Bug fixes
 ---------
 
 * Fix the ``CODERED_BANNER`` :doc:`setting </reference/django_settings>`
-  not being applied to the site's CMS.
+  not showing up in the Wagtail admin.
+
+* Image blocks are no longer scaled larger than the original image size.
+  Previously, they were forced to 100% of the container size, which made small
+  icons etc. look too large.
+
 
 Maintenance
 -----------
 
 * Upgrade dependency ``django-bootstrap4`` to version 22.1
+
+* Remove traces of old AMP code.
+
+* Removed some of our CSS customizations in the Wagtail admin, in preparation
+  for UI changes coming in Wagtail 3.
+
 
 Upgrade considerations
 ----------------------
@@ -34,6 +62,11 @@ Upgrade considerations
 * Font Awesome (``wagtailfontawesome``) has been removed as a dependency. You
   should remove this from your ``INSTALLED_APPS`` and/or ``requirements.txt``
   file (unless you are using it elsewhere in your code).
+
+* Social Media Settings were removed. These were unused in the system. If you
+  happen to be using them in your project code, you should create a copy of the
+  ``SocialMediaSettings`` model in your local project code, and migrate data to
+  it, before upgrading. `This change shows what was removed <https://github.com/coderedcorp/coderedcms/pull/482/files#diff-f2b3f43b8ce0d03ffdd2f133da2f81e186e25c063e374f731727820aa9c14713L20>`_.
 
 
 Supported software

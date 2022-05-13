@@ -1,52 +1,10 @@
 /*!
 Wagtail CRX (https://www.coderedcorp.com/cms/)
-Copyright 2018-2021 CodeRed LLC
+Copyright 2018-2022 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
 
-/* Reset fonts to system */
-
-.title .halloeditor, .title input, .title textarea,
-.Draftail-Editor .DraftEditor-root {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
-}
-
-
 /* Inputs and form fields */
-
-.title .halloeditor, .title input, .title textarea {
-    font-size:2.5em;
-}
-.full .halloeditor, .full input, .full textarea {
-    padding-top:1em;
-    padding-bottom:1em;
-    background-color:transparent;
-}
-
-.c-sf-block input[type='text'],
-.c-sf-block input[type='email'],
-.c-sf-block input[type='url'],
-.c-sf-block input[type='number'],
-.c-sf-block input[type='date'],
-.c-sf-block input[type='time'],
-.c-sf-block input[type='datetime'],
-.c-sf-block input[type='datetime-local'],
-.c-sf-block textarea,
-.c-sf-block select,
-.c-sf-block .richtext,
-.c-sf-block .tagit {
-    background-color:white;
-    border:1.5px solid #ddd;
-}
-
-.c-sf-block input:focus,
-.c-sf-block textarea:focus,
-.c-sf-block select:focus,
-.c-sf-block .richtext:focus,
-.c-sf-block .tagit:focus {
-    border-color:#00b0b1;
-    background-color:#f2fcfc;
-}
 
 .c-sf-button {
     max-width: 200px;
@@ -54,16 +12,12 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 
 .input input,
 .input select {
-    width: 300px;
-    max-width: 100%;
-}
-.input input[type='radio'],
-.input input[type='checkbox'] {
-    width: auto;
+    max-width: 300px;
 }
 .input textarea,
 .full .input input {
-    width:100%;
+    width: 100%;
+    max-width: 100%;
 }
 .input input[type='color']{
     height: 40px;
@@ -72,10 +26,6 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 
 
 /* Override and enhance the streamfield editor to support our deeply nested streamfields. */
-
-.chooser .unchosen::before, .chooser .chosen::before {
-    color:rgba(0,0,0,0.2)
-}
 
 .c-sf-block {
     display: block;
@@ -116,11 +66,6 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
     background-color: inherit;;
 }
 
-.object > h2,
-.object > .title-wrapper label {
-    font-weight: 600;
-}
-
 .object .multiple {
     width:100%;
     max-width:100%;
@@ -137,65 +82,10 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
     padding-top:0;
 }
 
-.stream-menu.stream-menu-closed .toggle {
-    color:#888;
-}
-
 .fields > li, .field-col {
     padding-bottom:0.5em;
 }
 
-.tagit, input, select, textarea {
-    color:#000;
-}
-.tagit, input, select, textarea {
-    font-weight:normal;
-}
-
-.stream-menu-inner h3 {
-    color: #ccc;
-    text-transform: uppercase;
-    font-weight: 700;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
-    padding: 0.5em;
-}
-
-
-/* Draftail */
-
-.Draftail-Toolbar {
-    border: none !important;
-    border-radius:0 !important;
-    color:rgba(0,0,0,0.2) !important;
-    padding: 0 !important;
-    transition: all ease .25s;
-}
-.Draftail-Toolbar:hover {
-    color:rgba(0,0,0,0.7) !important;
-    transition: all ease .25s;
-}
-.Draftail-Toolbar .Draftail-ToolbarButton--active {
-    background-color:rgba(0,0,0,0.05) !important;
-    border:none;
-    transition: all ease .25s;
-}
-.Draftail-Toolbar:hover .Draftail-ToolbarButton--active {
-    background-color:rgba(0,0,0,0.2) !important;
-    transition: all ease .25s;
-}
-.Draftail-Toolbar .Draftail-ToolbarGroup + .Draftail-ToolbarGroup::before {
-    content: none;
-}
-.Draftail-Toolbar .Draftail-ToolbarGroup + .Draftail-ToolbarGroup {
-    margin-left: 1em;
-}
-
-.Draftail-Editor .DraftEditor-root {
-    color:#000 !important;
-}
-.Draftail-DividerBlock {
-    background-color:#ccc !important;
-}
 
 
 /* Custom */
@@ -238,11 +128,4 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 }
 .codered-callout p {
     font-size: 1rem;
-}
-.codered-callout .codered-new {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,0.1);
-    font-size: 0.6em;
-    padding: 0.3em 0.6em;
-    text-transform: uppercase;
 }

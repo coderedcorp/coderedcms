@@ -45,8 +45,8 @@ setup(
     install_requires=[
         'beautifulsoup4>=4.8,<4.10',    # should be the same as wagtail
         'django-eventtools==1.0.*',
-        'django-bootstrap4>=2.0,<2.4',
-        'Django>=3.2,<4.1',             # should be the same as wagtail
+        'django-bootstrap4==22.1',
+        'Django>=3.2,<4.0',             # should be the same as wagtail
         'geocoder==1.38.*',
         'icalendar==4.0.*',
         'wagtail==2.16.*',

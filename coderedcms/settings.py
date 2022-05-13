@@ -1,6 +1,7 @@
 import os
-from django.conf import settings
 from functools import lru_cache
+from django.conf import settings
+import bootstrap4.bootstrap as bootstrap
 
 
 PROJECT_DIR = settings.PROJECT_DIR if getattr(settings, 'PROJECT_DIR') else os.path.dirname(
@@ -188,9 +189,5 @@ def get_config():
 
 cr_settings = get_config()
 
-try:
-    import bootstrap4.bootstrap as bootstrap
-except ImportError:
-    import bootstrap3.bootstrap as bootstrap
 
 get_bootstrap_setting = bootstrap.get_bootstrap_setting

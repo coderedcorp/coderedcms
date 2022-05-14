@@ -140,6 +140,20 @@ class CoderedAdvSettings(blocks.StructBlock):
         max_length=255,
         label=_('Custom ID'),
     )
+    padding = blocks.ChoiceBlock(
+        choices=cr_settings['FRONTEND_PADDING_CHOICES'],
+        default=cr_settings['FRONTEND_PADDING_DEFAULT'],
+        required=False,
+        label=_('Padding'),
+        help_text=_('Add additional spacing around this block.'),
+    )
+    align_text = blocks.ChoiceBlock(
+        choices=cr_settings['FRONTEND_ALIGN_CHOICES'],
+        default=cr_settings['FRONTEND_ALIGN_DEFAULT'],
+        required=False,
+        label=_('Alignment'),
+        help_text=_('Aligns text, images, and buttons within this block.'),
+    )
 
     class Meta:
         form_template = 'wagtailadmin/block_forms/base_block_settings_struct.html'

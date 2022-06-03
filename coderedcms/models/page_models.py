@@ -1045,7 +1045,6 @@ class CoderedEventOccurrence(Orderable, BaseOccurrence):
     class Meta(Orderable.Meta):
         verbose_name = _('CodeRed Event Occurrence')
         abstract = True
-        ordering = ["sort_order"]
 
 
 class CoderedFormMixin(models.Model):

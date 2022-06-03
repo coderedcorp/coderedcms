@@ -81,7 +81,6 @@ class CarouselSlide(Orderable, models.Model):
     """
     class Meta(Orderable.Meta):
         verbose_name = _('Carousel Slide')
-        ordering = ["sort_order"]
 
     carousel = ParentalKey(
         Carousel,
@@ -176,7 +175,6 @@ class ClassifierTerm(Orderable, models.Model):
     class Meta(Orderable.Meta):
         verbose_name = _('Classifier Term')
         verbose_name_plural = _('Classifier Terms')
-        ordering = ["sort_order"]
 
     classifier = ParentalKey(
         Classifier,

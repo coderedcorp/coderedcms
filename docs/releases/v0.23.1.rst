@@ -1,0 +1,15 @@
+v0.23.1 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Correctly order classifiers, carousels, and other "orderables" based on the
+  order set in the Wagtail admin.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.23.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/38?closed=1>`_.

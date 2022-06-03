@@ -79,7 +79,7 @@ class CarouselSlide(Orderable, models.Model):
     Represents a slide for the Carousel model. Can be modified through the
     snippets UI.
     """
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = _('Carousel Slide')
 
     carousel = ParentalKey(
@@ -172,7 +172,7 @@ class ClassifierTerm(Orderable, models.Model):
     """
     Term used to categorize a page.
     """
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = _('Classifier Term')
         verbose_name_plural = _('Classifier Terms')
 

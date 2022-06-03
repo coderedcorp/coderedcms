@@ -68,6 +68,13 @@ Upgrade considerations
   ``SocialMediaSettings`` model in your local project code, and migrate data to
   it, before upgrading. `This change shows what was removed <https://github.com/coderedcorp/coderedcms/pull/482/files#diff-f2b3f43b8ce0d03ffdd2f133da2f81e186e25c063e374f731727820aa9c14713L20>`_.
 
+* You may need to generate migrations in your app, and apply migrations with:
+
+  .. code-block:: text
+
+     python manage.py makemigrations website
+     python manage.py migrate
+
 
 Supported software
 ------------------

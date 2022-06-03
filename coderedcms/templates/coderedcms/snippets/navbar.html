@@ -24,16 +24,21 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbar">
+    <div class="{% block navbar_wrapper_classes %}collapse navbar-collapse{% endblock %}" id="navbar">
+      {% block all_navbars %}
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
-      <ul class="navbar-nav {{navbar.custom_css_class}}"
+      {% block each_navbar %}
+      <ul class="{% block navbar_classes %}navbar-nav {{navbar.custom_css_class}}{% endblock %}"
         {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
         {% for item in navbar.menu_items %}
             {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
         {% endfor %}
       </ul>
+      {% endblock %}
       {% endfor %}
+      {% endblock %}
+      {% block navbar_search %}
       {% if settings.coderedcms.LayoutSettings.navbar_search %}
       <form class="form-inline ml-auto" action="{% url 'codered_search' %}" method="GET">
           {% load bootstrap4 %}
@@ -44,6 +49,7 @@
           </div>
       </form>
       {% endif %}
+      {% endblock %}
     </div>
 
   {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}

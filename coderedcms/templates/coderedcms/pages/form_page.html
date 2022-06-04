@@ -11,11 +11,12 @@
     <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
-        {% bootstrap_form form layout='horizontal' %}
+        {% bootstrap_form form layout='horizontal' exclude='wagtailcaptcha'%}
 
         {% block captcha %}
             {% if page.spam_protection %}
                 {% include 'coderedcms/includes/form_honeypot.html' %}
+                {% bootstrap_field form.wagtailcaptcha layout='horizontal' %}
             {% endif %}
         {% endblock %}
 

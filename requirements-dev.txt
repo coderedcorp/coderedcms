@@ -5,3 +5,4 @@
 libsass
 twine
 wheel
+django-simple-captcha

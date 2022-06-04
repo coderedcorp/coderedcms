@@ -4,6 +4,7 @@ Enhancements to wagtail.contrib.forms.
 import csv
 import os
 import re
+from captcha.fields import CaptchaField
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -107,9 +108,20 @@ class CoderedTimeField(forms.TimeField):
 
 
 class CoderedFormBuilder(FormBuilder):
+    CAPTCHA_FIELD_NAME = 'wagtailcaptcha'
     """
     Enhance wagtail FormBuilder with additional custom fields.
     """
+
+    # The following function is sourced from https://github.com/acarasimon96/wagtail-django-simple-captcha
+    # with small tweeks to integrate with the CodeRedCMS codebase (under the MIT license)
+    @property
+    def formfields(self):
+        # Add wagtailcaptcha to formfields property
+        fields = super(CoderedFormBuilder, self).formfields
+        fields[self.CAPTCHA_FIELD_NAME] = CaptchaField(label='')
+
+        return fields
 
     def create_file_field(self, field, options):
         return SecureFileField(**options)
@@ -123,6 +135,12 @@ class CoderedFormBuilder(FormBuilder):
     def create_time_field(self, field, options):
         return CoderedTimeField(**options)
 
+    # The following function is sourced from https://github.com/acarasimon96/wagtail-django-simple-captcha
+    # with small tweeks to integrate with the CodeRedCMS codebase (under the MIT license)
+    @staticmethod
+    def remove_captcha_field(form):
+        form.fields.pop(CoderedFormBuilder.CAPTCHA_FIELD_NAME, None)
+        form.cleaned_data.pop(CoderedFormBuilder.CAPTCHA_FIELD_NAME, None)
 
 class CoderedSubmissionsListView(WagtailSubmissionsListView):
     def get_csv_response(self, context):

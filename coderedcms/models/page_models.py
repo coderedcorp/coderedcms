@@ -554,17 +554,6 @@ class CoderedWebPage(CoderedPage):
         preview = body[:200] + "..." if len(body) > 200 else body
         return mark_safe(preview)
 
-    @property
-    def page_ptr(self):
-        """
-        Overwrite of `page_ptr` to make it compatible with wagtailimportexport.
-        """
-        return self.base_page_ptr
-
-    @page_ptr.setter
-    def page_ptr(self, value):
-        self.base_page_ptr = value
-
 
 class CoderedArticlePage(CoderedWebPage):
     """

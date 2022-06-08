@@ -50,7 +50,6 @@ setup(
         'icalendar==4.0.*',
         'wagtail==2.16.*',
         'wagtail-cache==1.*',
-        'wagtail-import-export>=0.2,<0.3',
         'wagtail-seo==1.*',
     ],
     entry_points={

@@ -1,21 +1,72 @@
+"""
+This code is largely copied or extended upon the now defunct
+``wagtailimportexport`` package.
+
+In the future we may want to build a more robust import/exporter for CSV files,
+or simply deprecate all of this functionality.
+
+See: https://github.com/torchbox/wagtail-import-export/
+"""
 import csv
 import copy
 
 from django import forms
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
-from django.db import transaction
-
+from django.db import models, transaction
+from django.utils.translation import ugettext as _
+from modelcluster.models import get_all_child_relations
+from wagtail.admin.widgets import AdminPageChooser
 from wagtail.core.models import Page
-
-from wagtailimportexport.forms import ImportFromFileForm
-from wagtailimportexport.importing import update_page_references
 
 from coderedcms.forms import get_page_model_choices
 
 
-class ImportPagesFromCSVFileForm(ImportFromFileForm):
+class ImportPagesFromCSVFileForm(forms.Form):
+    """
+    Mostly copied from:
+    https://github.com/torchbox/wagtail-import-export/blob/master/wagtailimportexport/forms.py#L29
+    with addition of ``page_type``.
+    """
     page_type = forms.ChoiceField(choices=get_page_model_choices)
+
+    file = forms.FileField(label=_("File to import"))
+
+    parent_page = forms.ModelChoiceField(
+        queryset=Page.objects.all(),
+        widget=AdminPageChooser(can_choose_root=True, show_edit_link=False),
+        label=_("Destination parent page"),
+        help_text=_("Imported pages will be created as children of this page.")
+    )
+
+
+def update_page_references(model, pages_by_original_id):
+    """
+    Copied from:
+    https://github.com/torchbox/wagtail-import-export/blob/master/wagtailimportexport/importing.py#L67
+    """
+    for field in model._meta.get_fields():
+        if isinstance(field, models.ForeignKey) and issubclass(field.related_model, Page):
+            linked_page_id = getattr(model, field.attname)
+            try:
+                # see if the linked page is one of the ones we're importing
+                linked_page = pages_by_original_id[linked_page_id]
+            except KeyError:
+                # any references to pages outside of the import should be left unchanged
+                continue
+
+            # update fk to the linked page's new ID
+            setattr(model, field.attname, linked_page.id)
+
+    # update references within inline child models, including the ParentalKey pointing back
+    # to the page
+    for rel in get_all_child_relations(model):
+        for child in getattr(model, rel.get_accessor_name()).all():
+            # reset the child model's PK so that it will be inserted as a new record
+            # rather than updating an existing one
+            child.pk = None
+            # update page references on the child model, including the ParentalKey
+            update_page_references(child, pages_by_original_id)
 
 
 @transaction.atomic()
@@ -69,7 +120,7 @@ def import_pages(import_data, parent_page):
             strict_fks=False
         )
         base_page = pages_by_original_id[specific_page.id]
-        specific_page.page_ptr = base_page
+        specific_page.base_page_ptr = base_page
         specific_page.__dict__.update(base_page.__dict__)
         specific_page.content_type = ContentType.objects.get_for_model(model)
         update_page_references(specific_page, pages_by_original_id)
@@ -80,7 +131,12 @@ def import_pages(import_data, parent_page):
 
 def convert_csv_to_json(csv_file, page_type):
     pages_json = {"pages": []}
-    default_page_data = {"app_label": "website", "content": {"pk": None}, "model": page_type}
+    app_label, klass = page_type.split(":")
+    default_page_data = {
+        "app_label": app_label,
+        "content": {"pk": None},
+        "model": klass,
+    }
 
     pages_csv_dict = csv.DictReader(csv_file)
     for row in pages_csv_dict:

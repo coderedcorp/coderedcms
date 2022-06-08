@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'wagtailcache',
-    'wagtailimportexport',
     'wagtailseo',
 
     # Wagtail

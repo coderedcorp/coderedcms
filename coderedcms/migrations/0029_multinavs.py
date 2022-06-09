@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
     atomic = False
 
     dependencies = [
-        ('coderedcms', '0024_analyticssettings'),
+        ('coderedcms', '0028_auto_20220609_1532'),
     ]
 
     operations = [

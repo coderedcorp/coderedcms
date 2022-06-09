@@ -12,7 +12,7 @@ from wagtail.core.models import Collection
 from wagtail.core.utils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
 
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 
 
 class ClassifierTermChooserBlock(blocks.FieldBlock):
@@ -109,14 +109,14 @@ class ButtonMixin(blocks.StructBlock):
         label=_('Button Title'),
     )
     button_style = blocks.ChoiceBlock(
-        choices=cr_settings['FRONTEND_BTN_STYLE_CHOICES'],
-        default=cr_settings['FRONTEND_BTN_STYLE_DEFAULT'],
+        choices=crx_settings.CRX_FRONTEND_BTN_STYLE_CHOICES,
+        default=crx_settings.CRX_FRONTEND_BTN_STYLE_DEFAULT,
         required=False,
         label=_('Button Style'),
     )
     button_size = blocks.ChoiceBlock(
-        choices=cr_settings['FRONTEND_BTN_SIZE_CHOICES'],
-        default=cr_settings['FRONTEND_BTN_SIZE_DEFAULT'],
+        choices=crx_settings.CRX_FRONTEND_BTN_SIZE_CHOICES,
+        default=crx_settings.CRX_FRONTEND_BTN_SIZE_DEFAULT,
         required=False,
         label=_('Button Size'),
     )
@@ -184,8 +184,8 @@ class CoderedAdvColumnSettings(CoderedAdvSettings):
     BaseBlockSettings plus additional column fields.
     """
     column_breakpoint = blocks.ChoiceBlock(
-        choices=cr_settings['FRONTEND_COL_BREAK_CHOICES'],
-        default=cr_settings['FRONTEND_COL_BREAK_DEFAULT'],
+        choices=crx_settings.CRX_FRONTEND_COL_BREAK_CHOICES,
+        default=crx_settings.CRX_FRONTEND_COL_BREAK_DEFAULT,
         required=False,
         verbose_name=_('Column Breakpoint'),
         help_text=_('Screen size at which the column will expand horizontally or stack vertically.'),  # noqa
@@ -207,8 +207,10 @@ class BaseBlock(blocks.StructBlock):
         Construct and inject settings block, then initialize normally.
         """
         klassname = self.__class__.__name__.lower()
-        choices = cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get('*', ()) + \
-            cr_settings['FRONTEND_TEMPLATES_BLOCKS'].get(klassname, ())
+        choices = (
+            crx_settings.CRX_FRONTEND_TEMPLATES_BLOCKS.get('*', []) +
+            crx_settings.CRX_FRONTEND_TEMPLATES_BLOCKS.get(klassname, [])
+        )
 
         if not local_blocks:
             local_blocks = ()

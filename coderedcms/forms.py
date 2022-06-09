@@ -13,7 +13,7 @@ from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmission
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
 
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 from coderedcms.utils import attempt_protected_media_value_conversion
 
 FORM_FIELD_CHOICES = (
@@ -64,13 +64,13 @@ class SecureFileField(forms.FileField):
             self._check_blacklist(value)
 
     def _check_whitelist(self, value):
-        if cr_settings['PROTECTED_MEDIA_UPLOAD_WHITELIST']:
-            if os.path.splitext(value.name)[1].lower() not in cr_settings['PROTECTED_MEDIA_UPLOAD_WHITELIST']:  # noqa
+        if crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST:
+            if os.path.splitext(value.name)[1].lower() not in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST:  # noqa
                 raise ValidationError(self.error_messages['whitelist_file'])
 
     def _check_blacklist(self, value):
-        if cr_settings['PROTECTED_MEDIA_UPLOAD_BLACKLIST']:
-            if os.path.splitext(value.name)[1].lower() in cr_settings['PROTECTED_MEDIA_UPLOAD_BLACKLIST']:  # noqa
+        if crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST:
+            if os.path.splitext(value.name)[1].lower() in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST:  # noqa
                 raise ValidationError(self.error_messages['blacklist_file'])
 
 

@@ -69,7 +69,7 @@ from coderedcms.blocks import (
     STREAMFORM_BLOCKS,
     ContentWallBlock,
 )
-from coderedcms.fields import ColorField
+from coderedcms.fields import CoderedStreamField, ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import (
@@ -259,7 +259,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     # Settings
     ###############
 
-    content_walls = StreamField(
+    content_walls = CoderedStreamField(
         [
             ('content_wall', ContentWallBlock())
         ],

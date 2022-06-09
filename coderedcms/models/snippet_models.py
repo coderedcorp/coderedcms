@@ -12,13 +12,13 @@ from wagtail.admin.edit_handlers import (
     InlinePanel,
     MultiFieldPanel,
     StreamFieldPanel)
-from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.images import get_image_model_string
 
 from coderedcms.blocks import HTML_STREAMBLOCKS, LAYOUT_STREAMBLOCKS, NAVIGATION_STREAMBLOCKS
+from coderedcms.fields import CoderedStreamField
 from coderedcms.settings import cr_settings
 
 
@@ -112,7 +112,7 @@ class CarouselSlide(Orderable, models.Model):
         verbose_name=_('Custom ID'),
     )
 
-    content = StreamField(HTML_STREAMBLOCKS, blank=True)
+    content = CoderedStreamField(HTML_STREAMBLOCKS, blank=True)
 
     panels = (
         [
@@ -235,9 +235,10 @@ class Navbar(models.Model):
         blank=True,
         verbose_name=_('Custom ID'),
     )
-    menu_items = StreamField(
+    menu_items = CoderedStreamField(
         NAVIGATION_STREAMBLOCKS,
         verbose_name=_('Navigation links'),
+        blank=True,
     )
 
     panels = [
@@ -278,9 +279,10 @@ class Footer(models.Model):
         blank=True,
         verbose_name=_('Custom ID'),
     )
-    content = StreamField(
+    content = CoderedStreamField(
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('Content'),
+        blank=True,
     )
 
     panels = [
@@ -312,9 +314,10 @@ class ReusableContent(models.Model):
         max_length=255,
         verbose_name=_('Name'),
     )
-    content = StreamField(
+    content = CoderedStreamField(
         LAYOUT_STREAMBLOCKS,
-        verbose_name=_('content')
+        verbose_name=_('content'),
+        blank=True,
     )
 
     panels = [
@@ -338,9 +341,10 @@ class ContentWall(models.Model):
         max_length=255,
         verbose_name=_('Name'),
     )
-    content = StreamField(
+    content = CoderedStreamField(
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('Content'),
+        blank=True,
     )
     is_dismissible = models.BooleanField(
         default=True,

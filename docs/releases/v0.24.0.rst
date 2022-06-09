@@ -72,3 +72,9 @@ reference.
 * Choice fields on internal concrete models have been replaced with a
   lazy-loading mechanism to load choices and defaults at runtime. This further
   eliminates historic migration problems.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.24.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/37?closed=1>`_.

@@ -231,6 +231,14 @@ def event_get_calendar_events(request):
 
 
 @login_required
+def import_index(request):
+    """
+    Landing page to replace wagtailimportexport.
+    """
+    return render(request, 'wagtailimportexport/index.html')
+
+
+@login_required
 def import_pages_from_csv_file(request):
     """
     Overwrite of the `import_pages` view from wagtailimportexport.  By default, the `import_pages`

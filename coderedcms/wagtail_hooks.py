@@ -6,6 +6,7 @@ from django.http.response import HttpResponse
 from django.urls import reverse
 from django.utils.html import format_html, mark_safe
 from django.utils.translation import gettext_lazy as _
+from wagtail.admin.menu import MenuItem
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
@@ -121,6 +122,20 @@ def serve_document_directly(document, request):
     response['Content-Disposition'] = 'inline;filename="{0}"'.format(document.filename)
     response['Content-Encoding'] = content_encoding
     return response
+
+
+class ImportExportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return request.user.is_superuser
+
+
+@hooks.register('register_settings_menu_item')
+def register_import_export_menu_item():
+    return ImportExportMenuItem(
+        _('Import'),
+        reverse('import_index'),
+        classnames='icon icon-download',
+    )
 
 
 class CoderedSubmissionAdmin(SubmissionAdmin):

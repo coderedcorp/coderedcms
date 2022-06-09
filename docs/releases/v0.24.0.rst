@@ -6,6 +6,15 @@ This release is focused primarily on resolving internal tech debt. This
 translates to improved reliability and improved developer experience.
 
 
+New features
+------------
+
+* Navbars and footers are now orderable and support multi-site. This is
+  configured under **Settings > Layout**.
+
+* Supports Django 4.0.
+
+
 Upgrade considerations
 ----------------------
 
@@ -19,6 +28,20 @@ Upgrade considerations
   this from ``INSTALLED_APPS`` in your Django settings. As a result,
   import/export from JSON files has been removed. However we have preserved the
   ability to import Pages from CSV files. See :doc:`/features/import_export`.
+
+* Behavior of Navbars and Footers has changed. If your navbar and footer does
+  not look correct after upgrading, you may need to sychronize your
+  customizations to ``navbar.html`` and ``footer.html`` with the `stock versions
+  which can be found here
+  <https://github.com/coderedcorp/coderedcms/tree/dev/coderedcms/templates/coderedcms/snippets>`_.
+
+
+Supported software
+------------------
+
+* Python 3.7, 3.8, 3.9, 3.10
+
+* Django 3.2, 4.0
 
 
 Internal changes

@@ -12,7 +12,6 @@ from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
 from coderedcms import __version__
-from coderedcms.wagtail_flexible_forms.wagtail_hooks import FormAdmin, SubmissionAdmin
 
 
 @hooks.register('insert_global_admin_css')
@@ -91,12 +90,12 @@ hooks.register('after_delete_snippet', clear_wagtailcache)
 
 @hooks.register('filter_form_submissions_for_user')
 def codered_forms(user, editable_forms):
-    from coderedcms.models import CoderedFormMixin
     """
     Add our own CoderedFormPage to editable_forms, since wagtail is unaware
     of its existence. Essentially this is a fork of wagtail.contrib.forms.get_forms_for_user()
     and wagtail.contrib.forms.get_form_types()
     """
+    from coderedcms.models import CoderedFormMixin
     form_models = [
         model for model in get_page_models()
         if issubclass(model, CoderedFormMixin)
@@ -136,49 +135,3 @@ def register_import_export_menu_item():
         reverse('import_index'),
         classnames='icon icon-download',
     )
-
-
-class CoderedSubmissionAdmin(SubmissionAdmin):
-
-    def __init__(self, parent=None):
-        from coderedcms.models import CoderedSessionFormSubmission
-        self.model = CoderedSessionFormSubmission
-        super().__init__(parent=parent)
-
-
-class CoderedFormAdmin(FormAdmin):
-    list_display = ('title', 'action_links')
-
-    def all_submissions_link(self, obj, label=_('See all submissions'),
-                             url_suffix=''):
-        return '<a href="%s?page_id=%s%s">%s</a>' % (
-            reverse(CoderedSubmissionAdmin().url_helper.get_action_url_name('index')),
-            obj.pk, url_suffix, label)
-    all_submissions_link.short_description = ''
-    all_submissions_link.allow_tags = True
-
-    def action_links(self, obj):
-        from coderedcms.models import CoderedFormPage, CoderedStreamFormPage
-        actions = []
-        if issubclass(type(obj.specific), CoderedFormPage):
-            actions.append(
-                '<a href="{0}">{1}</a>'.format(reverse(
-                    'wagtailforms:list_submissions',
-                    args=(obj.pk,)),
-                    _('See all Submissions')
-                )
-            )
-            actions.append(
-                '<a href="{0}">{1}</a>'.format(
-                    reverse("wagtailadmin_pages:edit", args=(obj.pk,)), _("Edit this form page")
-                )
-            )
-        elif issubclass(type(obj.specific), CoderedStreamFormPage):
-            actions.append(self.unprocessed_submissions_link(obj))
-            actions.append(self.all_submissions_link(obj))
-            actions.append(self.edit_link(obj))
-
-        return mark_safe("<br />".join(actions))
-
-# modeladmin_register(CoderedFormAdmin)
-# modeladmin_register(CoderedSubmissionAdmin)

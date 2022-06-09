@@ -1,8 +1,7 @@
-from django.conf.urls import url
 from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.utils import quote
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.modeladmin.helpers import (
     PermissionHelper, PagePermissionHelper, PageAdminURLHelper, AdminURLHelper,
@@ -302,9 +301,11 @@ class SubmissionAdmin(ModelAdmin):
     def get_admin_urls_for_registration(self):
         urls = super().get_admin_urls_for_registration()
         urls += (
-            url(self.url_helper.get_action_url_pattern('set_status'),
+            path(
+                self.url_helper.get_action_url_pattern('set_status'),
                 self.set_status_view,
-                name=self.url_helper.get_action_url_name('set_status')),
+                name=self.url_helper.get_action_url_name('set_status')
+            ),
         )
         return urls
 

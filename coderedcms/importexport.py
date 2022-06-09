@@ -14,7 +14,7 @@ from django import forms
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.db import models, transaction
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from modelcluster.models import get_all_child_relations
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.core.models import Page

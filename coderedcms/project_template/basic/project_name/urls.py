@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.urls import include, path, re_path
+from django.urls import include, path
 from django.contrib import admin
 from wagtail.documents import urls as wagtaildocs_urls
 from coderedcms import admin_urls as coderedadmin_urls
@@ -20,11 +20,11 @@ urlpatterns = [
     # For anything not caught by a more specific rule above, hand over to
     # the page serving mechanism. This should be the last pattern in
     # the list:
-    re_path(r'', include(codered_urls)),
+    path('', include(codered_urls)),
 
     # Alternatively, if you want CMS pages to be served from a subpath
     # of your site, rather than the site root:
-    #    re_path(r"^pages/", include(codered_urls)),
+    #    path("pages/", include(codered_urls)),
 ]
 
 

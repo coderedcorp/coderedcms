@@ -1,6 +1,6 @@
-from django.urls import re_path
+from django.urls import path
 from coderedcms.views import search
 
 urlpatterns = [
-    re_path(r'', search, name='codered_search'),
+    path('', search, name='codered_search'),
 ]

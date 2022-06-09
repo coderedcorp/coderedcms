@@ -12,7 +12,7 @@ from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
 
 from coderedcms.fields import MonospaceField
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 
 
 @register_setting(icon='cr-desktop')
@@ -43,15 +43,15 @@ class LayoutSettings(BaseSetting):
     navbar_color_scheme = models.CharField(
         blank=True,
         max_length=50,
-        choices=cr_settings['FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES'],
-        default=cr_settings['FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT'],
+        choices=None,
+        default='',
         verbose_name=_('Navbar color scheme'),
         help_text=_('Optimizes text and other navbar elements for use with light or dark backgrounds.'),  # noqa
     )
     navbar_class = models.CharField(
         blank=True,
         max_length=255,
-        default=cr_settings['FRONTEND_NAVBAR_CLASS_DEFAULT'],
+        default='',
         verbose_name=_('Navbar CSS class'),
         help_text=_('Custom classes applied to navbar e.g. "bg-light", "bg-dark", "bg-primary".'),
     )
@@ -73,16 +73,16 @@ class LayoutSettings(BaseSetting):
     navbar_collapse_mode = models.CharField(
         blank=True,
         max_length=50,
-        choices=cr_settings['FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES'],
-        default=cr_settings['FRONTEND_NAVBAR_COLLAPSE_MODE_DEFAULT'],
+        choices=None,
+        default='',
         verbose_name=_('Collapse navbar menu'),
         help_text=_('Control on what screen sizes to show and collapse the navbar menu links.'),
     )
     navbar_format = models.CharField(
         blank=True,
         max_length=50,
-        choices=cr_settings['FRONTEND_NAVBAR_FORMAT_CHOICES'],
-        default=cr_settings['FRONTEND_NAVBAR_FORMAT_DEFAULT'],
+        choices=None,
+        default='',
         verbose_name=_('Navbar format'),
     )
     navbar_search = models.BooleanField(
@@ -93,10 +93,9 @@ class LayoutSettings(BaseSetting):
     frontend_theme = models.CharField(
         blank=True,
         max_length=50,
-        choices=cr_settings['FRONTEND_THEME_CHOICES'],
-        default=cr_settings['FRONTEND_THEME_DEFAULT'],
+        choices=None,
+        default='',
         verbose_name=_('Theme variant'),
-        help_text=cr_settings['FRONTEND_THEME_HELP'],
     )
 
     panels = [
@@ -127,6 +126,33 @@ class LayoutSettings(BaseSetting):
             heading=_('Theming')
         ),
     ]
+
+    def __init__(self, *args, **kwargs):
+        """
+        Inject custom choices and defaults into the form fields
+        to enable customization of settings without causing migration issues.
+        """
+        super().__init__(*args, **kwargs)
+        # Set choices dynamically.
+        self._meta.get_field('frontend_theme').choices = (
+            crx_settings.CRX_FRONTEND_THEME_CHOICES
+        )
+        self._meta.get_field('navbar_collapse_mode').choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES
+        )
+        self._meta.get_field('navbar_color_scheme').choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES
+        )
+        self._meta.get_field('navbar_format').choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_CHOICES
+        )
+        # Set default dynamically.
+        if not self.id:
+            self.frontend_theme = crx_settings.CRX_FRONTEND_THEME_DEFAULT
+            self.navbar_class = crx_settings.CRX_FRONTEND_NAVBAR_CLASS_DEFAULT
+            self.navbar_collapse_mode = crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_DEFAULT
+            self.navbar_color_scheme = crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT
+            self.navbar_format = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_DEFAULT
 
 
 @register_setting(icon='cr-google')

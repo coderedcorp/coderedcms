@@ -19,7 +19,7 @@ from wagtail.images import get_image_model_string
 
 from coderedcms.blocks import HTML_STREAMBLOCKS, LAYOUT_STREAMBLOCKS, NAVIGATION_STREAMBLOCKS
 from coderedcms.fields import CoderedStreamField
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 
 
 @register_snippet
@@ -49,8 +49,8 @@ class Carousel(ClusterableModel):
     animation = models.CharField(
         blank=True,
         max_length=20,
-        choices=cr_settings['FRONTEND_CAROUSEL_FX_CHOICES'],
-        default=cr_settings['FRONTEND_CAROUSEL_FX_DEFAULT'],
+        choices=None,
+        default='',
         verbose_name=_('Animation'),
         help_text=_('The animation when transitioning between slides.'),
     )
@@ -72,6 +72,20 @@ class Carousel(ClusterableModel):
 
     def __str__(self):
         return self.name
+
+    def __init__(self, *args, **kwargs):
+        """
+        Inject custom choices and defaults into the form fields
+        to enable customization of settings without causing migration issues.
+        """
+        super().__init__(*args, **kwargs)
+        # Set choices dynamically.
+        self._meta.get_field('animation').choices = (
+            crx_settings.CRX_FRONTEND_CAROUSEL_FX_CHOICES
+        )
+        # Set default dynamically.
+        if not self.id:
+            self.animation = crx_settings.CRX_FRONTEND_CAROUSEL_FX_DEFAULT
 
 
 class CarouselSlide(Orderable, models.Model):

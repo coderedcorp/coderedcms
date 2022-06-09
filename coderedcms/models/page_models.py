@@ -86,7 +86,7 @@ from coderedcms.wagtail_flexible_forms.models import (
     SessionFormSubmission,
     SubmissionRevision,
 )
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
 
@@ -331,8 +331,10 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         """
         super().__init__(*args, **kwargs)
         klassname = self.__class__.__name__.lower()
-        template_choices = cr_settings['FRONTEND_TEMPLATES_PAGES'].get('*', ()) + \
-            cr_settings['FRONTEND_TEMPLATES_PAGES'].get(klassname, ())
+        template_choices = (
+            crx_settings.CRX_FRONTEND_TEMPLATES_PAGES.get('*', []) +
+            crx_settings.CRX_FRONTEND_TEMPLATES_PAGES.get(klassname, [])
+        )
 
         self._meta.get_field('index_order_by').choices = self.index_order_by_choices
         self._meta.get_field('custom_template').choices = template_choices
@@ -1082,15 +1084,15 @@ class CoderedFormMixin(models.Model):
     )
     button_style = models.CharField(
         blank=True,
-        choices=cr_settings['FRONTEND_BTN_STYLE_CHOICES'],
-        default=cr_settings["FRONTEND_BTN_STYLE_DEFAULT"],
+        choices=crx_settings.CRX_FRONTEND_BTN_STYLE_CHOICES,
+        default=crx_settings.CRX_FRONTEND_BTN_STYLE_DEFAULT,
         max_length=255,
         verbose_name=_('Button style'),
     )
     button_size = models.CharField(
         blank=True,
-        choices=cr_settings['FRONTEND_BTN_SIZE_CHOICES'],
-        default=cr_settings["FRONTEND_BTN_SIZE_DEFAULT"],
+        choices=crx_settings.CRX_FRONTEND_BTN_SIZE_CHOICES,
+        default=crx_settings.CRX_FRONTEND_BTN_SIZE_DEFAULT,
         max_length=255,
         verbose_name=_('Button Size'),
     )
@@ -1203,7 +1205,7 @@ class CoderedFormMixin(models.Model):
                     for chunk in val.chunks():
                         destination.write(chunk)
 
-                processed_data[key] = "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], path)
+                processed_data[key] = "{0}{1}".format(crx_settings.CRX_PROTECTED_MEDIA_URL, path)
             else:
                 processed_data[key] = val
 
@@ -1211,8 +1213,8 @@ class CoderedFormMixin(models.Model):
 
     def get_storage(self):
         return FileSystemStorage(
-            location=cr_settings['PROTECTED_MEDIA_ROOT'],
-            base_url=cr_settings['PROTECTED_MEDIA_URL']
+            location=crx_settings.CRX_PROTECTED_MEDIA_ROOT,
+            base_url=crx_settings.CRX_PROTECTED_MEDIA_URL
         )
 
     def process_form_submission(self, request, form, form_submission, processed_data):
@@ -1561,13 +1563,13 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
         return value
 
     def render_link(self, value):
-        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+        return "{0}{1}".format(crx_settings.CRX_PROTECTED_MEDIA_URL, value)
 
     def render_image(self, value):
-        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+        return "{0}{1}".format(crx_settings.CRX_PROTECTED_MEDIA_URL, value)
 
     def render_file(self, value):
-        return "{0}{1}".format(cr_settings['PROTECTED_MEDIA_URL'], value)
+        return "{0}{1}".format(crx_settings.CRX_PROTECTED_MEDIA_URL, value)
 
 
 @receiver(post_save)
@@ -1702,8 +1704,8 @@ class CoderedStreamFormPage(CoderedFormMixin, CoderedStreamFormMixin, CoderedWeb
 
     def get_storage(self):
         return FileSystemStorage(
-            location=cr_settings['PROTECTED_MEDIA_ROOT'],
-            base_url=cr_settings['PROTECTED_MEDIA_URL']
+            location=crx_settings.CRX_PROTECTED_MEDIA_ROOT,
+            base_url=crx_settings.CRX_PROTECTED_MEDIA_URL
         )
 
 

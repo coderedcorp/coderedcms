@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 
 from .base_blocks import BaseLayoutBlock, CoderedAdvColumnSettings
 
@@ -20,8 +20,8 @@ class ColumnBlock(BaseLayoutBlock):
     Renders content in a column.
     """
     column_size = blocks.ChoiceBlock(
-        choices=cr_settings['FRONTEND_COL_SIZE_CHOICES'],
-        default=cr_settings['FRONTEND_COL_SIZE_DEFAULT'],
+        choices=crx_settings.CRX_FRONTEND_COL_SIZE_CHOICES,
+        default=crx_settings.CRX_FRONTEND_COL_SIZE_DEFAULT,
         required=False,
         label=_('Column size'),
     )

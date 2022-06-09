@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render
 from django.utils import timezone
-from django.utils.translation import ungettext, gettext_lazy as _
+from django.utils.translation import ngettext, gettext_lazy as _
 from icalendar import Calendar
 from wagtail.admin import messages
 from wagtail.search.backends import db, get_search_backend
@@ -261,7 +261,7 @@ def import_pages_from_csv_file(request):
                     "Import failed: %(reason)s") % {'reason': e}
                 )
             else:
-                messages.success(request, ungettext(
+                messages.success(request, ngettext(
                     "%(count)s page imported.",
                     "%(count)s pages imported.",
                     page_count) % {'count': page_count}

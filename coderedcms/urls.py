@@ -15,9 +15,9 @@ from coderedcms.views import (
 
 urlpatterns = [
     # CodeRed custom URLs
-    re_path(r'^favicon\.ico$', favicon, name='codered_favicon'),
-    re_path(r'^robots\.txt$', robots, name='codered_robots'),
-    re_path(r'^sitemap\.xml$', sitemap, name='codered_sitemap'),
+    path(r'favicon.ico', favicon, name='codered_favicon'),
+    path(r'robots.txt', robots, name='codered_robots'),
+    path(r'sitemap.xml', sitemap, name='codered_sitemap'),
     re_path(r'^{0}(?P<path>.*)$'.format(
         crx_settings.CRX_PROTECTED_MEDIA_URL.lstrip('/')),
         serve_protected_file,
@@ -34,5 +34,5 @@ urlpatterns = [
     path('ajax/calendar/events/', event_get_calendar_events, name='event_get_calendar_events'),
 
     # Wagtail
-    re_path(r'', include(wagtailcore_urls)),
+    path('', include(wagtailcore_urls)),
 ]

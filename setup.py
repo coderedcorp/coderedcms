@@ -34,7 +34,6 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Framework :: Django',
         'Framework :: Django :: 3.2',
-        'Framework :: Django :: 4.0',
         'Framework :: Wagtail',
         'Framework :: Wagtail :: 2',
         'Topic :: Internet :: WWW/HTTP',
@@ -51,7 +50,6 @@ setup(
         'icalendar==4.0.*',
         'wagtail==2.16.*',
         'wagtail-cache==1.*',
-        'wagtail-import-export>=0.2,<0.3',
         'wagtail-seo==1.*',
     ],
     entry_points={

@@ -23,7 +23,7 @@ from coderedcms.models import (
     LayoutSettings
 )
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 
 
 def search(request):
@@ -112,7 +112,7 @@ def serve_protected_file(request, path):
     Function that serves protected files uploaded from forms.
     """
     # Fully resolve all provided paths.
-    mediapath = os.path.abspath(cr_settings['PROTECTED_MEDIA_ROOT'])
+    mediapath = os.path.abspath(crx_settings.CRX_PROTECTED_MEDIA_ROOT)
     fullpath = os.path.abspath(os.path.join(mediapath, path))
 
     # Path must be a sub-path of the PROTECTED_MEDIA_ROOT, and exist.
@@ -228,6 +228,14 @@ def event_get_calendar_events(request):
         page.get_calendar_events(start=start, end=end),
         safe=False
     )
+
+
+@login_required
+def import_index(request):
+    """
+    Landing page to replace wagtailimportexport.
+    """
+    return render(request, 'wagtailimportexport/index.html')
 
 
 @login_required

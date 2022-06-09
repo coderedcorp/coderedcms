@@ -1,0 +1,51 @@
+v0.24.0 release notes
+=====================
+
+
+This release is focused primarily on resolving internal tech debt. This
+translates to improved reliability and improved developer experience.
+
+
+Upgrade considerations
+----------------------
+
+* Template tag ``codered_settings`` has been renamed ``crx_settings``. You
+  should find/replace this in any of your HTML or other Django template files.
+
+* Django settings beginning with ``CODERED_*`` have been renamed to ``CRX_*``.
+  You should find/replace these in your Django settings files.
+
+* ``wagtail-import-export`` has been removed as a dependency. You should remove
+  this from ``INSTALLED_APPS`` in your Django settings. As a result,
+  import/export from JSON files has been removed. However we have preserved the
+  ability to import Pages from CSV files. See :doc:`/features/import_export`.
+
+
+Internal changes
+----------------
+
+The following changes are not publicly documented APIs, but have changed. Most
+sites should not be using any of these APIs and therefore can ignore this
+section. In case your site deeply hooks into the package, these are here for
+reference.
+
+* ``coderedcms.settings.cr_settings`` has been replaced with
+  ``coderedcms.settings.crx_settings`` which is no longer a dictionary, but an
+  object which behaves exactly like the Django settings. This object will first
+  retrieve a Django setting, and if it does not exist, will then load a CRX
+  default.
+
+* Internal uses of Wagtail ``StreamField`` on concrete models have been replaced
+  with ``CoderedStreamField`` which will not generate migrations based on block
+  changes. This effectively eliminites most of our historic migration problems.
+
+  As a result, all past migrations have been hand-edited to reflect this change.
+  No action is required in client sites.
+
+  Client sites can freely use ``coderedcms.fields.CoderedStreamField`` in place
+  of Wagtail's ``StreamField`` to eliminate the giant migrations problem
+  inherent to Wagtail. However this API is not publicly documented at this time.
+
+* Choice fields on internal concrete models have been replaced with a
+  lazy-loading mechanism to load choices and defaults at runtime. This further
+  eliminates historic migration problems.

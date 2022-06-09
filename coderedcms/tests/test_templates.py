@@ -1,10 +1,7 @@
-from unittest.mock import patch
-
 import pytest
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import override_settings, TestCase
 
-from coderedcms.templatetags.coderedcms_tags import cr_settings
 
 EXPECTED_BANNER_HTML = """
 <div class="codered-banner" style="background-color:#f00; color:#fff; width:100%; padding:4px;">
@@ -16,7 +13,7 @@ EXPECTED_BANNER_HTML = """
 @pytest.mark.django_db
 class TestSiteBanner(TestCase):
 
-    @patch.dict(cr_settings, {"BANNER": "Test"})
+    @override_settings(CRX_BANNER="Test")
     def test_with_banner(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
@@ -41,7 +38,7 @@ class TestWagtailAdminBanner(TestCase):
     def tearDown(self):
         self.client.logout()
 
-    @patch.dict(cr_settings, {"BANNER": "Test"})
+    @override_settings(CRX_BANNER="Test")
     def test_with_banner(self):
         response = self.client.get("/admin/")
         self.assertEqual(response.status_code, 200)

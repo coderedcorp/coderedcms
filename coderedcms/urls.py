@@ -1,7 +1,7 @@
 from django.urls import include, path, re_path
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.core import urls as wagtailcore_urls
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 from coderedcms.views import (
     event_generate_ical_for_calendar,
     event_generate_recurring_ical_for_event,
@@ -19,7 +19,7 @@ urlpatterns = [
     re_path(r'^robots\.txt$', robots, name='codered_robots'),
     re_path(r'^sitemap\.xml$', sitemap, name='codered_sitemap'),
     re_path(r'^{0}(?P<path>.*)$'.format(
-        cr_settings['PROTECTED_MEDIA_URL'].lstrip('/')),
+        crx_settings.CRX_PROTECTED_MEDIA_URL.lstrip('/')),
         serve_protected_file,
         name="serve_protected_file"
     ),

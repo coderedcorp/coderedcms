@@ -3,7 +3,6 @@ import random
 
 from bs4 import BeautifulSoup
 from django import template
-from django.conf import settings
 from django.db.models.query import QuerySet
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
@@ -13,8 +12,9 @@ from wagtail.images.models import Image
 from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
-from coderedcms.settings import cr_settings, get_bootstrap_setting
 from coderedcms.models.snippet_models import Navbar, Footer
+from coderedcms.settings import crx_settings as crx_settings_obj
+from coderedcms.settings import get_bootstrap_setting
 from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 register = template.Library()
@@ -113,7 +113,7 @@ def get_pageform(page, request):
 
 @register.simple_tag
 def process_form_cell(request, cell):
-    if isinstance(cell, str) and cell.startswith(cr_settings['PROTECTED_MEDIA_URL']):
+    if isinstance(cell, str) and cell.startswith(crx_settings_obj.CRX_PROTECTED_MEDIA_URL):
         return utils.get_protected_media_link(request, cell, render_link=True)
     if utils.uri_validator(str(cell)):
         return mark_safe("<a href='{0}'>{1}</a>".format(cell, cell))
@@ -121,8 +121,8 @@ def process_form_cell(request, cell):
 
 
 @register.filter
-def codered_settings(value):
-    return cr_settings.get(value, None)
+def crx_settings(value):
+    return getattr(crx_settings_obj, value)
 
 
 @register.filter
@@ -132,7 +132,7 @@ def bootstrap_settings(value):
 
 @register.filter
 def django_settings(value):
-    return getattr(settings, value)
+    return getattr(crx_settings_obj, value)
 
 
 @register.simple_tag

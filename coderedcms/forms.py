@@ -3,8 +3,8 @@ Enhancements to wagtail.contrib.forms.
 """
 import csv
 import os
-import re
 from django import forms
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpResponse
@@ -13,7 +13,7 @@ from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmission
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
 
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 from coderedcms.utils import attempt_protected_media_value_conversion
 
 FORM_FIELD_CHOICES = (
@@ -64,13 +64,13 @@ class SecureFileField(forms.FileField):
             self._check_blacklist(value)
 
     def _check_whitelist(self, value):
-        if cr_settings['PROTECTED_MEDIA_UPLOAD_WHITELIST']:
-            if os.path.splitext(value.name)[1].lower() not in cr_settings['PROTECTED_MEDIA_UPLOAD_WHITELIST']:  # noqa
+        if crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST:
+            if os.path.splitext(value.name)[1].lower() not in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST:  # noqa
                 raise ValidationError(self.error_messages['whitelist_file'])
 
     def _check_blacklist(self, value):
-        if cr_settings['PROTECTED_MEDIA_UPLOAD_BLACKLIST']:
-            if os.path.splitext(value.name)[1].lower() in cr_settings['PROTECTED_MEDIA_UPLOAD_BLACKLIST']:  # noqa
+        if crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST:
+            if os.path.splitext(value.name)[1].lower() in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST:  # noqa
                 raise ValidationError(self.error_messages['blacklist_file'])
 
 
@@ -172,16 +172,13 @@ class SearchForm(forms.Form):
 def get_page_model_choices():
     """
     Returns a list of tuples of all creatable Codered pages
-    in the format of ("Custom Codered Page", "CustomCoderedPage")
+    in the format of (app_label:model, "Verbose Name")
     """
     from coderedcms.models import get_page_models
-    return (
-        (
-            page.__name__,
-            re.sub(
-                r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))',
-                r' \1',
-                page.__name__
-            )
-        ) for page in get_page_models() if page.is_creatable
-    )
+
+    rval = []
+    for page in get_page_models():
+        if page.is_creatable:
+            ct = ContentType.objects.get_for_model(page)
+            rval.append((f"{ct.app_label}:{ct.model}", ct.name))
+    return rval

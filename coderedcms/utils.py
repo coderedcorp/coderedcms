@@ -2,7 +2,7 @@ from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.utils.html import mark_safe
 
-from coderedcms.settings import cr_settings
+from coderedcms.settings import crx_settings
 
 
 def get_protected_media_link(request, path, render_link=False):
@@ -27,7 +27,7 @@ def uri_validator(possible_uri):
 
 def attempt_protected_media_value_conversion(request, value):
     try:
-        if value.startswith(cr_settings['PROTECTED_MEDIA_URL']):
+        if value.startswith(crx_settings.CRX_PROTECTED_MEDIA_URL):
             new_value = get_protected_media_link(request, value)
             return new_value
     except AttributeError:

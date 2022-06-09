@@ -14,13 +14,23 @@
     {% include "wagtailadmin/shared/header.html" with title=title_str icon="download" %}
 
     <div class="nice-padding">
-        <form action="{% url 'import_from_csv' %}" enctype="multipart/form-data" method="POST" novalidate>
+        <form action="{% url 'import_from_csv' %}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" %}
                 {% endfor %}
             </ul>
+
+            <br>
+            <p>
+              <b>{% trans "IMPORTANT:" %}</b>
+              {% trans "CSV file must be in the correct format before importing." %}
+              <a href="https://docs.coderedcorp.com/wagtail-crx/features/import_export.html">
+                {% trans "Read the importing guide." %}
+              </a>
+            </p>
+            <br>
 
             <input type="submit" value="{% trans 'Import' %}" class="button">
         </form>

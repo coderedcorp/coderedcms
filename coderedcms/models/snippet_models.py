@@ -12,14 +12,14 @@ from wagtail.admin.edit_handlers import (
     InlinePanel,
     MultiFieldPanel,
     StreamFieldPanel)
-from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.images import get_image_model_string
 
 from coderedcms.blocks import HTML_STREAMBLOCKS, LAYOUT_STREAMBLOCKS, NAVIGATION_STREAMBLOCKS
-from coderedcms.settings import cr_settings
+from coderedcms.fields import CoderedStreamField
+from coderedcms.settings import crx_settings
 
 
 @register_snippet
@@ -49,8 +49,8 @@ class Carousel(ClusterableModel):
     animation = models.CharField(
         blank=True,
         max_length=20,
-        choices=cr_settings['FRONTEND_CAROUSEL_FX_CHOICES'],
-        default=cr_settings['FRONTEND_CAROUSEL_FX_DEFAULT'],
+        choices=None,
+        default='',
         verbose_name=_('Animation'),
         help_text=_('The animation when transitioning between slides.'),
     )
@@ -73,13 +73,27 @@ class Carousel(ClusterableModel):
     def __str__(self):
         return self.name
 
+    def __init__(self, *args, **kwargs):
+        """
+        Inject custom choices and defaults into the form fields
+        to enable customization of settings without causing migration issues.
+        """
+        super().__init__(*args, **kwargs)
+        # Set choices dynamically.
+        self._meta.get_field('animation').choices = (
+            crx_settings.CRX_FRONTEND_CAROUSEL_FX_CHOICES
+        )
+        # Set default dynamically.
+        if not self.id:
+            self.animation = crx_settings.CRX_FRONTEND_CAROUSEL_FX_DEFAULT
+
 
 class CarouselSlide(Orderable, models.Model):
     """
     Represents a slide for the Carousel model. Can be modified through the
     snippets UI.
     """
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = _('Carousel Slide')
 
     carousel = ParentalKey(
@@ -112,7 +126,7 @@ class CarouselSlide(Orderable, models.Model):
         verbose_name=_('Custom ID'),
     )
 
-    content = StreamField(HTML_STREAMBLOCKS, blank=True)
+    content = CoderedStreamField(HTML_STREAMBLOCKS, blank=True)
 
     panels = (
         [
@@ -172,7 +186,7 @@ class ClassifierTerm(Orderable, models.Model):
     """
     Term used to categorize a page.
     """
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = _('Classifier Term')
         verbose_name_plural = _('Classifier Terms')
 
@@ -235,9 +249,10 @@ class Navbar(models.Model):
         blank=True,
         verbose_name=_('Custom ID'),
     )
-    menu_items = StreamField(
+    menu_items = CoderedStreamField(
         NAVIGATION_STREAMBLOCKS,
         verbose_name=_('Navigation links'),
+        blank=True,
     )
 
     panels = [
@@ -278,9 +293,10 @@ class Footer(models.Model):
         blank=True,
         verbose_name=_('Custom ID'),
     )
-    content = StreamField(
+    content = CoderedStreamField(
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('Content'),
+        blank=True,
     )
 
     panels = [
@@ -312,9 +328,10 @@ class ReusableContent(models.Model):
         max_length=255,
         verbose_name=_('Name'),
     )
-    content = StreamField(
+    content = CoderedStreamField(
         LAYOUT_STREAMBLOCKS,
-        verbose_name=_('content')
+        verbose_name=_('content'),
+        blank=True,
     )
 
     panels = [
@@ -338,9 +355,10 @@ class ContentWall(models.Model):
         max_length=255,
         verbose_name=_('Name'),
     )
-    content = StreamField(
+    content = CoderedStreamField(
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('Content'),
+        blank=True,
     )
     is_dismissible = models.BooleanField(
         default=True,

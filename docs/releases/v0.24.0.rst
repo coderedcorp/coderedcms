@@ -30,7 +30,7 @@ Upgrade considerations
   ability to import Pages from CSV files. See :doc:`/features/import_export`.
 
 * Behavior of Navbars and Footers has changed. If your navbar and footer does
-  not look correct after upgrading, you may need to sychronize your
+  not look correct after upgrading, you may need to synchronize your
   customizations to ``navbar.html`` and ``footer.html`` with the `stock versions
   which can be found here
   <https://github.com/coderedcorp/coderedcms/tree/dev/coderedcms/templates/coderedcms/snippets>`_.

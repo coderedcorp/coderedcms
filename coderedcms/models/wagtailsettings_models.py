@@ -6,17 +6,21 @@ Global project or developer settings should be defined in coderedcms.settings.py
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, HelpPanel, MultiFieldPanel
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
-
 from coderedcms.fields import MonospaceField
 from coderedcms.settings import crx_settings
+from coderedcms.models.snippet_models import Navbar, Footer
 
 
 @register_setting(icon='cr-desktop')
-class LayoutSettings(BaseSetting):
+class LayoutSettings(ClusterableModel, BaseSetting):
     """
     Branding, navbar, and theme settings.
     """
@@ -106,6 +110,11 @@ class LayoutSettings(BaseSetting):
             ],
             heading=_('Branding')
         ),
+        InlinePanel(
+            'site_navbar',
+            help_text=_('Choose one or more navbars for your site.'),
+            heading=_('Site Navbars')
+        ),
         MultiFieldPanel(
             [
                 FieldPanel('navbar_color_scheme'),
@@ -118,6 +127,11 @@ class LayoutSettings(BaseSetting):
                 FieldPanel('navbar_search'),
             ],
             heading=_('Site Navbar Layout')
+        ),
+        InlinePanel(
+            'site_footer',
+            help_text=_('Choose one or more footers for your site.'),
+            heading=_('Site Footers')
         ),
         MultiFieldPanel(
             [
@@ -153,6 +167,42 @@ class LayoutSettings(BaseSetting):
             self.navbar_collapse_mode = crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_DEFAULT
             self.navbar_color_scheme = crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT
             self.navbar_format = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_DEFAULT
+
+
+class NavbarOrderable(Orderable, models.Model):
+    navbar_chooser = ParentalKey(
+        LayoutSettings,
+        related_name="site_navbar",
+        verbose_name=_('Site Navbars')
+    )
+    navbar = models.ForeignKey(
+        Navbar,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("navbar")
+    ]
+
+
+class FooterOrderable(Orderable, models.Model):
+    footer_chooser = ParentalKey(
+        LayoutSettings,
+        related_name="site_footer",
+        verbose_name=_('Site Footers')
+    )
+    footer = models.ForeignKey(
+        Footer,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("footer")
+    ]
 
 
 @register_setting(icon='cr-google')

@@ -15,3 +15,8 @@ Fields
 **Custom CSS class**: If you need to add a specific css class for this footer, add it here.
 **Custom ID**: If you need to add a specific ID for this footer, add it here.
 **Content**: A streamfield that contains the layout blocks for the content wall.
+
+Site Footers
+------------
+
+In **Settings > Layout**, select which Footers you want to display on your site under the Site Footers section.

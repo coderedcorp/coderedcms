@@ -63,6 +63,12 @@ for our sweets shop!
 
     The website with our menu added. Also note that we are using some Bootstrap colors on the site.
 
+Site Navbars Settings
+---------------------
+
+After you create your navbar, go to **Settings > Layout** and scroll down to **Site Navbars**. Click on the plus sign
+to select your new navbar and add it to your site. The Save.
+
 .. _footer:
 
 Customizing the Footer
@@ -136,3 +142,10 @@ then choosing which page or external link you want. See our example below:
 
         What our footer looks like on the website.
         Remember, we have done minimal styling on the site.
+
+
+Site Footers Settings
+---------------------
+
+After you create your footer, go to **Settings > Layout** and scroll down to **Site Footers**. Click on the plus sign
+to select your new footer and add it to your site. The Save.

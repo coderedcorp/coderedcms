@@ -1,6 +1,8 @@
 {% load wagtailcore_tags coderedcms_tags %}
-<footer>
 
+{% if settings.coderedcms.LayoutSettings.site_footer %}
+
+<footer>
 {% get_footers as footers %}
 {% for footer in footers %}
     <div {% if footer.custom_id %} id="{{footer.custom_id}}"{% endif %} {% if footer.custom_css_class %} class="{{footer.custom_css_class}}"{% endif %}>
@@ -9,5 +11,6 @@
         {% endfor %}
     </div>
 {% endfor %}
-
 </footer>
+
+{% endif %}

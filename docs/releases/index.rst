@@ -22,6 +22,7 @@ Wagtail CRX (previously CodeRed CMS) follows the
 .. toctree::
     :maxdepth: 1
 
+    v0.24.1
     v0.24.0
     v0.23.1
     v0.23.0

@@ -97,6 +97,11 @@ stages:
     - script: coderedcms start testproject
       displayName: 'CR-QC: Generate a test project'
 
+    - script: |
+        cd testproject/
+        python manage.py makemigrations --check
+      displayName: 'CR-QC: Check migrations'
+
     - pwsh: ./ci/run-flake8.ps1
       displayName: 'CR-QC: Flake8'
 

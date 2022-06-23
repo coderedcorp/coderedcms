@@ -46,7 +46,7 @@
                 {% for pt in pagetypes %}
                 <li class="nav-item">
                     {% query_update qs_nop 't' pt.content_type.model as qs_t %}
-                    <a class="nav-link {% if form.t.value == pt.content_type.model %}active{% endif %}" href="?{{qs_t.urlencode}}">{{pt.search_name_plural}}</a>
+                    <a class="nav-link {% if form.t.value == pt.content_type.model %}active{% endif %}" href="?{{qs_t.urlencode}}">{{pt|get_name_of_class}}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -60,7 +60,11 @@
             {% for page in results_paginated %}
             <div class="mb-5">
                 {% with page=page.specific %}
-                    {% include page.search_template %}
+                    {% if page.search_template %}
+                      {% include page.search_template %}
+                    {% else %}
+                      {% include 'coderedcms/pages/search_result.html' %}
+                    {% endif %}
                 {% endwith %}
             </div>
             {% endfor %}

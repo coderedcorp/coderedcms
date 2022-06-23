@@ -184,3 +184,8 @@ def map_to_bootstrap_alert(message_tag):
         return message_to_alert_dict[message_tag]
     except KeyError:
         return ''
+
+
+@register.filter
+def get_name_of_class(class_type):
+    return class_type.__class__.__name__

@@ -107,16 +107,8 @@ def get_page_models():
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
-        if 'search_db_include' not in dct:
-            cls._search_db_include = False
-        if 'search_db_boost' not in dct:
-            cls._search_db_boost = 0
         if 'search_filterable' not in dct:
             cls.search_filterable = False
-        if 'search_name' not in dct:
-            cls._search_name = cls._meta.verbose_name
-        if 'search_name_plural' not in dct:
-            cls._search_name_plural = cls._meta.verbose_name_plural
         if 'search_template' not in dct:
             cls.search_template = 'coderedcms/pages/search_result.html'
         if not cls._meta.abstract:
@@ -131,7 +123,7 @@ class CoderedPageMeta(PageBase):
             ),
             DeprecationWarning,
         )
-        return self._search_db_include
+        return False
 
     @property
     def search_db_boost(self):
@@ -142,7 +134,7 @@ class CoderedPageMeta(PageBase):
             ),
             DeprecationWarning,
         )
-        return self._search_db_boost
+        return 0
 
     @property
     def search_name(self):
@@ -153,7 +145,7 @@ class CoderedPageMeta(PageBase):
             ),
             DeprecationWarning,
         )
-        return self._search_name
+        return self._meta.verbose_name
 
     @property
     def search_name_plural(self):
@@ -164,7 +156,7 @@ class CoderedPageMeta(PageBase):
             ),
             DeprecationWarning,
         )
-        return self._search_name_plural
+        return self._meta.verbose_name_plural
 
 
 class CoderedTag(TaggedItemBase):

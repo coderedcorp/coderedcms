@@ -109,6 +109,10 @@ class CoderedPageMeta(PageBase):
         super().__init__(name, bases, dct)
         if 'search_filterable' not in dct:
             cls.search_filterable = False
+        if 'search_name' not in dct:
+            cls.search_name = cls._meta.verbose_name
+        if 'search_name_plural' not in dct:
+            cls.search_name_plural = cls._meta.verbose_name_plural
         if 'search_template' not in dct:
             cls.search_template = 'coderedcms/pages/search_result.html'
         if not cls._meta.abstract:
@@ -135,28 +139,6 @@ class CoderedPageMeta(PageBase):
             DeprecationWarning,
         )
         return 0
-
-    @property
-    def search_name(self):
-        warnings.warn(
-            (
-                "This attribute of CoderedPageMeta has been deprecated in favor of"
-                " Wagtail's included search functionality."
-            ),
-            DeprecationWarning,
-        )
-        return self._meta.verbose_name
-
-    @property
-    def search_name_plural(self):
-        warnings.warn(
-            (
-                "This attribute of CoderedPageMeta has been deprecated in favor of"
-                " Wagtail's included search functionality."
-            ),
-            DeprecationWarning,
-        )
-        return self._meta.verbose_name_plural
 
 
 class CoderedTag(TaggedItemBase):

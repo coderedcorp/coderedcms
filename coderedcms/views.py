@@ -21,6 +21,7 @@ from coderedcms.models import (
 )
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from coderedcms.settings import crx_settings
+from coderedcms.templatetags.coderedcms_tags import get_name_of_class
 
 
 def search(request):
@@ -37,19 +38,10 @@ def search(request):
         search_model = search_form.cleaned_data['t']
 
         # get all page models
-        pagemodels = sorted(get_page_models(), key=lambda k: k.__name__)
-        # If any types have the search_filterable flag set, only show those
-        # else, show all
-        filter_types = False
+        pagemodels = sorted(get_page_models(), key=get_name_of_class)
+        # filter based on is search_filterable
         for model in pagemodels:
             if hasattr(model, "search_filterable") and model.search_filterable:
-                if not filter_types:
-                    filter_types = True
-                    # if we turn out to be using search_filterable, reset our list
-                    pagetypes = []
-                pagetypes.append(model)
-
-            if not filter_types:
                 pagetypes.append(model)
 
         results = Page.objects.live()

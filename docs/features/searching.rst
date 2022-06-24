@@ -14,19 +14,21 @@ The template can be overridden per model with the ``search_template`` attribute.
 
 Search result filtering
 -----------------------
-By default, search results can be filtered by the page type to allow for a more specific search.
 
-
-To all filtering only by specific page types, add ``search_filterable = True`` to the page model.
-The ``verbose_name`` and ``verbose_name_plural`` fields are then used to display the labels for
-these filters.
-For example, to specify search filtering only by Blog or by Products in addition to All Results::
+To enable additional filtering by page type, add ``search_filterable = True`` to the page model.
+The ``search_name`` and ``search_name_plural`` fields are then used to display the labels for
+these filters (defaults to ``verbose_name`` and ``verbose_name_plural`` if not specified).
+For example, to enable search filtering by Blog or by Products in addition to All Results::
 
     class BlogPage(CoderedArticlePage):
         search_filterable = True
+        search_name = 'Blog Post'
+        search_name_plural = 'Blog'
 
     class Product(CoderedWebPage):
         search_filterable = True
+        search_name = 'Product'
+        search_name_plural = 'Products'
 
 Would enable the following filter options on the search page: All Results, Blog, Products.
 
@@ -34,7 +36,7 @@ Would enable the following filter options on the search page: All Results, Blog,
 Search fields
 -------------
 
-**Deprecated in 0.25, instead the Wagtail search parameters should be used. https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html#module-wagtail.contrib.search_promotions**
+.. deprecated:: 0.25, instead the `Wagtail search parameters<https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html#module-wagtail.contrib.search_promotions>`_ should be used.
 
 If using the Wagtail DatabaseSearch backend (default), only page Title and Search Description
 fields are searched upon. This is due to a limitation in the DatabaseSearch backend;

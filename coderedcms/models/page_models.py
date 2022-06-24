@@ -126,7 +126,7 @@ class CoderedPageMeta(PageBase):
     def search_db_include(self):
         warnings.warn(
             (
-                "This attribute of CoderedPageMeta has been depricated in favor of"
+                "This attribute of CoderedPageMeta has been deprecated in favor of"
                 " Wagtail's included search functionality."
             ),
             DeprecationWarning,
@@ -137,7 +137,7 @@ class CoderedPageMeta(PageBase):
     def search_db_boost(self):
         warnings.warn(
             (
-                "This attribute of CoderedPageMeta has been depricated in favor of"
+                "This attribute of CoderedPageMeta has been deprecated in favor of"
                 " Wagtail's included search functionality."
             ),
             DeprecationWarning,
@@ -148,7 +148,7 @@ class CoderedPageMeta(PageBase):
     def search_name(self):
         warnings.warn(
             (
-                "This attribute of CoderedPageMeta has been depricated in favor of"
+                "This attribute of CoderedPageMeta has been deprecated in favor of"
                 " Wagtail's included search functionality."
             ),
             DeprecationWarning,
@@ -159,7 +159,7 @@ class CoderedPageMeta(PageBase):
     def search_name_plural(self):
         warnings.warn(
             (
-                "This attribute of CoderedPageMeta has been depricated in favor of"
+                "This attribute of CoderedPageMeta has been deprecated in favor of"
                 " Wagtail's included search functionality."
             ),
             DeprecationWarning,

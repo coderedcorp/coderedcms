@@ -45,7 +45,6 @@ def search(request):
             if hasattr(model, "search_filterable") and model.search_filterable:
                 if not filter_types:
                     filter_types = True
-                    print(model.search_name)
                     # if we turn out to be using search_filterable, reset our list
                     pagetypes = []
                 pagetypes.append(model)
@@ -55,13 +54,17 @@ def search(request):
 
         results = Page.objects.live()
         if search_model:
-            model = ContentType.objects.get(model=search_model).model_class()
-            results = results.type(model)
+            try:
+                # If provided a model name, try to get it
+                model = ContentType.objects.get(model=search_model).model_class()
+                results = results.type(model)
+            except ContentType.DoesNotExist:
+                # Maintain existing behavior of only returning objects if the page type is real
+                results = None
 
-        results = results.search(search_query)
-
-        # paginate results
+        # get and paginate results
         if results:
+            results = results.search(search_query)
             paginator = Paginator(results, GeneralSettings.for_request(request).search_num_results)
             page = request.GET.get('p', 1)
             try:

@@ -1,5 +1,5 @@
 Accordion Block
-===========
+===============
 
 Creates a collapsible section with a button to toggle.
 

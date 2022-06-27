@@ -37,6 +37,7 @@ from .html_blocks import (
     TableBlock
 )
 from .content_blocks import (  # noqa
+    AccordionBlock,
     CardBlock,
     CarouselBlock,
     ContentWallBlock,
@@ -82,6 +83,10 @@ HTML_STREAMBLOCKS = [
 ]
 
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
+    ('accordion', AccordionBlock([
+        ('row', GridBlock(HTML_STREAMBLOCKS)),
+        ('html', blocks.RawHTMLBlock(icon='code', form_classname='monospace', label=_('HTML'))),
+    ])),
     ('card', CardBlock()),
     ('carousel', CarouselBlock()),
     ('image_gallery', ImageGalleryBlock()),

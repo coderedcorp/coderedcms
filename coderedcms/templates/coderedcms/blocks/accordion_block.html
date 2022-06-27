@@ -1,0 +1,20 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+
+{% load wagtailcore_tags coderedcms_tags %}
+
+{% block block_render %}
+
+{% generate_random_id as modal_id %}
+<a
+  href="#"
+  data-toggle="collapse"
+  data-target="#{{modal_id}}"
+  role="button"
+  aria-expanded="false"
+  aria-controls="{{modal_id}}"
+  class="btn {{self.button_size}} {{self.button_style}}"
+>{{self.button_title}}</a>
+<div id="{{modal_id}}" class="collapse">
+  {% include_block self.content %}
+</div>
+{% endblock %}

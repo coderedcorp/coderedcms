@@ -36,7 +36,8 @@ Would enable the following filter options on the search page: All Results, Blog,
 Search fields
 -------------
 
-.. deprecated:: 0.25, instead the `Wagtail search parameters <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html#module-wagtail.contrib.search_promotions>`_ should be used.
+.. deprecated:: 0.25
+    Use the `Wagtail search parameters <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html#module-wagtail.contrib.search_promotions>`_ instead.
 
 If using the Wagtail DatabaseSearch backend (default), only page Title and Search Description
 fields are searched upon. This is due to a limitation in the DatabaseSearch backend;

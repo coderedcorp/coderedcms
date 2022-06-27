@@ -35,25 +35,25 @@
         </form>
         {% endif %}
 
-        {% if pagetypes %}
         {% block search_page_types %}
-          {% query_update request.GET 'p' None as qs_nop %}
-          <div class="mt-5">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                {% query_update qs_nop 't' None as qs_t %}
-                <a class="nav-link {% if not form.t.value %}active{% endif %}" href="?{{qs_t.urlencode}}">{% trans 'All Results' %}</a>
-              </li>
-              {% for pt in pagetypes %}
-              <li class="nav-item">
-                {% query_update qs_nop 't' pt.content_type.model as qs_t %}
-                <a class="nav-link {% if form.t.value == pt.content_type.model %}active{% endif %}" href="?{{qs_t.urlencode}}">{{pt|get_plural_name_of_class}}</a>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
+          {% if pagetypes %}
+            {% query_update request.GET 'p' None as qs_nop %}
+            <div class="mt-5">
+              <ul class="nav nav-pills">
+                <li class="nav-item">
+                  {% query_update qs_nop 't' None as qs_t %}
+                  <a class="nav-link {% if not form.t.value %}active{% endif %}" href="?{{qs_t.urlencode}}">{% trans 'All Results' %}</a>
+                </li>
+                {% for pt in pagetypes %}
+                <li class="nav-item">
+                  {% query_update qs_nop 't' pt.content_type.model as qs_t %}
+                  <a class="nav-link {% if form.t.value == pt.content_type.model %}active{% endif %}" href="?{{qs_t.urlencode}}">{{pt|get_plural_name_of_class}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
         {% endblock search_page_types %}
-        {% endif %}
 
         <hr class="mb-5">
 

@@ -37,9 +37,11 @@ Search fields
 -------------
 
 .. deprecated:: 0.25
-    Use the `Wagtail search parameters <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html#module-wagtail.contrib.search_promotions>`_ instead.
 
-If using the Wagtail DatabaseSearch backend (default), only page Title and Search Description
+   The following behavior and the ``search_db_*`` options were removed in 0.25.
+   Use the `Wagtail search parameters <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html#module-wagtail.contrib.search_promotions>`_ instead.
+
+If using the ``wagtail.search.backends.db`` backend (removed in Wagtail 3.0), only page Title and Search Description
 fields are searched upon. This is due to a limitation in the DatabaseSearch backend;
 other backends such as PostgreSQL and Elasticsearch will search on additional specific fields
 such as body, article captions, etc. To enable more specific searching while still using the

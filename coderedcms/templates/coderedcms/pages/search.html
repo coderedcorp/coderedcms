@@ -5,6 +5,7 @@
 
 {% block extra_head %}
 <title>{% if not form.s.value %}{% trans 'Search' %}{% else %}{% trans 'Search for' %} “{{form.s.value}}”{% endif %} — {{ site.site_name }}</title>
+{{ block.super }}
 {% endblock %}
 
 {% block content_pre_body %}

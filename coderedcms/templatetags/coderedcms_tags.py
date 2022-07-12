@@ -184,3 +184,29 @@ def map_to_bootstrap_alert(message_tag):
         return message_to_alert_dict[message_tag]
     except KeyError:
         return ''
+
+
+@register.filter
+def get_name_of_class(class_type):
+    if hasattr(class_type.__class__, "search_name"):
+        return class_type.__class__.search_name
+    elif (
+            hasattr(class_type.__class__, "_meta") and
+            hasattr(class_type.__class__._meta, "verbose_name")
+    ):
+        return class_type.__class__._meta.verbose_name
+    else:
+        return class_type.__class__.__name__
+
+
+@register.filter
+def get_plural_name_of_class(class_type):
+    if hasattr(class_type.__class__, "search_name_plural"):
+        return class_type.__class__.search_name_plural
+    elif (
+            hasattr(class_type.__class__, "_meta") and
+            hasattr(class_type.__class__._meta, "verbose_name_plural")
+    ):
+        return class_type.__class__._meta.verbose_name_plural
+    else:
+        return class_type.__class__.__name__ + "s"

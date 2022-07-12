@@ -1,6 +1,5 @@
 import mimetypes
 import os
-from itertools import chain
 from datetime import datetime
 from django.http import Http404, HttpResponse, HttpResponsePermanentRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -11,19 +10,18 @@ from django.utils import timezone
 from django.utils.translation import ngettext, gettext_lazy as _
 from icalendar import Calendar
 from wagtail.admin import messages
-from wagtail.search.backends import db, get_search_backend
-from wagtail.search.models import Query
+from wagtail.core.models import Page, get_page_models
 from coderedcms import utils
 from coderedcms.forms import SearchForm
 from coderedcms.models import (
     CoderedPage,
     CoderedEventPage,
-    get_page_models,
     GeneralSettings,
     LayoutSettings
 )
 from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from coderedcms.settings import crx_settings
+from coderedcms.templatetags.coderedcms_tags import get_name_of_class
 
 
 def search(request):
@@ -39,49 +37,26 @@ def search(request):
         search_query = search_form.cleaned_data['s']
         search_model = search_form.cleaned_data['t']
 
-        # get all codered models
-        pagemodels = sorted(get_page_models(), key=lambda k: k.search_name)
-        # get filterable models
+        # get all page models
+        pagemodels = sorted(get_page_models(), key=get_name_of_class)
+        # filter based on is search_filterable
         for model in pagemodels:
-            if model.search_filterable:
+            if hasattr(model, "search_filterable") and model.search_filterable:
                 pagetypes.append(model)
 
-        # get backend
-        backend = get_search_backend()
+        results = Page.objects.live()
+        if search_model:
+            try:
+                # If provided a model name, try to get it
+                model = ContentType.objects.get(model=search_model).model_class()
+                results = results.type(model)
+            except ContentType.DoesNotExist:
+                # Maintain existing behavior of only returning objects if the page type is real
+                results = None
 
-        # DB search. Since this backend can't handle inheritance or scoring,
-        # search specified page types in the desired order and chain the results together.
-        # This provides better search results than simply searching limited fields on CoderedPage.
-        db_models = []
-        if backend.__class__ == db.SearchBackend:
-            for model in get_page_models():
-                if model.search_db_include:
-                    db_models.append(model)
-            db_models = sorted(db_models, reverse=True, key=lambda k: k.search_db_boost)
-
-        if backend.__class__ == db.SearchBackend and db_models:
-            for model in db_models:
-                # if search_model is provided, only search on that model
-                if not search_model or search_model == ContentType.objects.get_for_model(model).model:  # noqa
-                    curr_results = model.objects.live().search(search_query)
-                    if results:
-                        results = list(chain(results, curr_results))
-                    else:
-                        results = curr_results
-
-        # Fallback for any other search backend
-        else:
-            if search_model:
-                try:
-                    model = ContentType.objects.get(model=search_model).model_class()
-                    results = model.objects.live().search(search_query)
-                except ContentType.DoesNotExist:
-                    results = None
-            else:
-                results = CoderedPage.objects.live().order_by('-last_published_at').search(search_query)  # noqa
-
-        # paginate results
+        # get and paginate results
         if results:
+            results = results.search(search_query)
             paginator = Paginator(results, GeneralSettings.for_request(request).search_num_results)
             page = request.GET.get('p', 1)
             try:
@@ -92,9 +67,6 @@ def search(request):
                 results_paginated = paginator.page(1)
             except InvalidPage:
                 results_paginated = paginator.page(1)
-
-        # Log the query so Wagtail can suggest promoted results
-        Query.get(search_query).add_hit()
 
     # Render template
     return render(request, 'coderedcms/pages/search.html', {

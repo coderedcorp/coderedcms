@@ -107,18 +107,6 @@ def get_page_models():
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
-        if 'search_db_include' not in dct:
-            cls.search_db_include = False
-        if 'search_db_boost' not in dct:
-            cls.search_db_boost = 0
-        if 'search_filterable' not in dct:
-            cls.search_filterable = False
-        if 'search_name' not in dct:
-            cls.search_name = cls._meta.verbose_name
-        if 'search_name_plural' not in dct:
-            cls.search_name_plural = cls._meta.verbose_name_plural
-        if 'search_template' not in dct:
-            cls.search_template = 'coderedcms/pages/search_result.html'
         if not cls._meta.abstract:
             CODERED_PAGE_MODELS.append(cls)
 

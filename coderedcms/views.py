@@ -16,7 +16,6 @@ from coderedcms import utils
 from coderedcms.forms import SearchForm
 from coderedcms.models import (
     CoderedPage,
-    CoderedEventPage,
     GeneralSettings,
     LayoutSettings
 )

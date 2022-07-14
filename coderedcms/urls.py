@@ -31,7 +31,8 @@ urlpatterns = [
          name='event_generate_recurring_ical'),
     path('ical/generate/calendar/', event_generate_ical_for_calendar,
          name='event_generate_ical_for_calendar'),
-    path('ajax/calendar/events/', event_get_calendar_events, name='event_get_calendar_events'),
+    path('ajax/calendar/events/', event_get_calendar_events,
+         name='event_get_calendar_events'),
 
     # Wagtail
     path('', include(wagtailcore_urls)),

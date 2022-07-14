@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnIn
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.utils.translation import ngettext, gettext_lazy as _
+from django.views.decorators.http import require_POST
 from icalendar import Calendar
 from wagtail.admin import messages
 from wagtail.core.models import Page, get_page_models
@@ -114,88 +115,133 @@ def robots(request):
     )
 
 
+@require_POST
 def event_generate_single_ical_for_event(request):
-    if request.method == "POST":
+    # Parse input.
+    try:
         event_pk = request.POST['event_pk']
-        event_page_models = CoderedEventPage.__subclasses__()
+    except KeyError:
+        return HttpResponse("event_pk required", status=400)
+
+    try:
         dt_start_str = utils.fix_ical_datetime_format(request.POST['datetime_start'])
         dt_end_str = utils.fix_ical_datetime_format(request.POST['datetime_end'])
+        dt_start = None
+        dt_end = None
+        if dt_start_str:
+            dt_start = datetime.strptime(dt_start_str, "%Y-%m-%dT%H:%M:%S%z")
+        if dt_end_str:
+            dt_end = datetime.strptime(dt_end_str, "%Y-%m-%dT%H:%M:%S%z")
+    except KeyError:
+        return HttpResponse(
+            "datetime_start and datetime_end required.",
+            status=400,
+        )
+    except ValueError:
+        return HttpResponse(
+            "datetime_start and datetime_end must be valid datetimes.",
+            status=400,
+        )
 
-        dt_start = datetime.strptime(dt_start_str, "%Y-%m-%dT%H:%M:%S%z") if dt_start_str else None
-        dt_end = datetime.strptime(dt_end_str, "%Y-%m-%dT%H:%M:%S%z") if dt_end_str else None
-        for event_page_model in event_page_models:
-            try:
-                event = event_page_model.objects.get(pk=event_pk)
-                break
-            except event_page_model.DoesNotExist:
-                pass
-        ical = Calendar()
-        ical.add_component(event.create_single_ical(dt_start=dt_start, dt_end=dt_end))
-        response = HttpResponse(ical.to_ical(), content_type="text/calendar")
-        response['Filename'] = "{0}.ics".format(event.slug)
-        response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
-        return response
-    raise Http404()
+    # Get the page.
+    try:
+        event = CoderedPage.objects.get(pk=event_pk).specific
+    except (CoderedPage.DoesNotExist, ValueError):
+        raise Http404("Event does not exist")
+
+    # Generate the ical file.
+    ical = Calendar()
+    ical.add_component(event.create_single_ical(dt_start=dt_start, dt_end=dt_end))
+    response = HttpResponse(ical.to_ical(), content_type="text/calendar")
+    response['Filename'] = "{0}.ics".format(event.slug)
+    response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
+    return response
 
 
+@require_POST
 def event_generate_recurring_ical_for_event(request):
-    if request.method == "POST":
+    # Parse input.
+    try:
         event_pk = request.POST['event_pk']
-        event_page_models = CoderedEventPage.__subclasses__()
-        for event_page_model in event_page_models:
-            try:
-                event = event_page_model.objects.get(pk=event_pk)
-                break
-            except event_page_model.DoesNotExist:
-                pass
-        ical = Calendar()
-        for e in event.create_recurring_ical():
-            ical.add_component(e)
-        response = HttpResponse(ical.to_ical(), content_type="text/calendar")
-        response['Filename'] = "{0}.ics".format(event.slug)
-        response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
-        return response
-    raise Http404()
+    except KeyError:
+        return HttpResponse("event_pk required", status=400)
+
+    # Get the page.
+    try:
+        event = CoderedPage.objects.get(pk=event_pk).specific
+    except (CoderedPage.DoesNotExist, ValueError):
+        raise Http404("Event does not exist")
+
+    # Generate the ical file.
+    ical = Calendar()
+    for e in event.create_recurring_ical():
+        ical.add_component(e)
+    response = HttpResponse(ical.to_ical(), content_type="text/calendar")
+    response['Filename'] = "{0}.ics".format(event.slug)
+    response['Content-Disposition'] = 'attachment; filename={0}.ics'.format(event.slug)
+    return response
 
 
+@require_POST
 def event_generate_ical_for_calendar(request):
-    if request.method == "POST":
-        try:
-            page = CoderedPage.objects.get(id=request.POST.get('page_id')).specific
-        except ValueError:
-            raise Http404
+    # Parse input.
+    try:
+        page_id = request.POST["page_id"]
+    except KeyError:
+        return HttpResponse("page_id required", status=400)
 
-        ical = Calendar()
-        for event_page in page.get_index_children():
-            for e in event_page.specific.create_recurring_ical():
-                ical.add_component(e)
-        response = HttpResponse(ical.to_ical(), content_type="text/calendar")
-        response['Filename'] = "calendar.ics"
-        response['Content-Disposition'] = 'attachment; filename=calendar.ics'
-        return response
-    raise Http404()
+    # Get the page.
+    try:
+        page = CoderedPage.objects.get(pk=page_id).specific
+    except (CoderedPage.DoesNotExist, ValueError):
+        raise Http404("Page does not exist")
+
+    # Generate the ical file.
+    ical = Calendar()
+    for event_page in page.get_index_children():
+        for e in event_page.specific.create_recurring_ical():
+            ical.add_component(e)
+    response = HttpResponse(ical.to_ical(), content_type="text/calendar")
+    response['Filename'] = "calendar.ics"
+    response['Content-Disposition'] = 'attachment; filename=calendar.ics'
+    return response
 
 
 def event_get_calendar_events(request):
     """
     JSON list of events compatible with fullcalendar.js
     """
+    # Parse input.
     try:
-        page = CoderedPage.objects.get(id=request.GET.get('pid')).specific
-    except ValueError:
-        raise Http404
+        page_id = request.GET["pid"]
+    except KeyError:
+        return HttpResponse("pid required", status=400)
+
     start = None
     end = None
     start_str = request.GET.get('start', None)
     end_str = request.GET.get('end', None)
-    if start_str:
-        start = timezone.make_aware(
-            datetime.strptime(start_str[:10], "%Y-%m-%d"),
+    try:
+        if start_str:
+            start = timezone.make_aware(
+                datetime.strptime(start_str[:10], "%Y-%m-%d"),
+            )
+        if end_str:
+            end = timezone.make_aware(
+                datetime.strptime(end_str[:10], "%Y-%m-%d"),
+            )
+    except ValueError:
+        return HttpResponse(
+            "start and end must be valid datetimes.",
+            status=400
         )
-    if end_str:
-        end = timezone.make_aware(
-            datetime.strptime(end_str[:10], "%Y-%m-%d"),
-        )
+
+    # Get the page.
+    try:
+        page = CoderedPage.objects.get(pk=page_id).specific
+    except (CoderedPage.DoesNotExist, ValueError):
+        raise Http404("Page does not exist")
+
     return JsonResponse(
         page.get_calendar_events(start=start, end=end),
         safe=False

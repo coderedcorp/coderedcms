@@ -83,10 +83,7 @@ HTML_STREAMBLOCKS = [
 ]
 
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
-    ('accordion', AccordionBlock([
-        ('row', GridBlock(HTML_STREAMBLOCKS)),
-        ('html', blocks.RawHTMLBlock(icon='code', form_classname='monospace', label=_('HTML'))),
-    ])),
+    ('accordion', AccordionBlock()),
     ('card', CardBlock()),
     ('carousel', CarouselBlock()),
     ('image_gallery', ImageGalleryBlock()),

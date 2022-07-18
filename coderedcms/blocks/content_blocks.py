@@ -12,10 +12,12 @@ from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChoo
 from .html_blocks import ButtonBlock
 
 
-class AccordionBlock(ButtonMixin, BaseLayoutBlock):
+class AccordionBlock(ButtonMixin, BaseBlock):
     """
     Wraps child comonents in a .collapse element, to allow them to be shown/hidden
     """
+
+    carousel = SnippetChooserBlock('coderedcms.Accordion')
 
     class Meta:
         template = 'coderedcms/blocks/accordion_block.html'

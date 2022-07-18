@@ -14,6 +14,6 @@
   class="btn {{self.button_size}} {{self.button_style}}"
 >{{self.button_title}}</button>
 <div id="{{modal_id}}" class="collapse">
-  {% include_block self.content %}
+  {% include_block self.accordion.content %}
 </div>
 {% endblock %}

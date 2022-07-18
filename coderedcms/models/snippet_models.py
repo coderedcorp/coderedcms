@@ -344,6 +344,14 @@ class ReusableContent(models.Model):
 
 
 @register_snippet
+class Accordion(ReusableContent):
+    """Class for reusable content in a collapsible block."""
+    class Meta:
+        verbose_name = _('Accordion')
+        verbose_name_plural = _("Accordions")
+
+
+@register_snippet
 class ContentWall(models.Model):
     """
     Snippet that restricts access to a page with a modal.

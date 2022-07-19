@@ -1,0 +1,34 @@
+v0.25.0 release notes
+=====================
+
+
+New features
+------------
+
+* Search now searches all Wagtail ``Page`` models. Previously it would only
+  search models inheriting from ``CoderedPage``. Search has also been refactored
+  in accordance with the new Wagtail search backends.
+
+* Search page template has new blocks to facilitate extending and customizing
+  the appearance. See ``templates/coderedcms/pages/search.html``.
+
+
+Bug fixes
+---------
+
+* Validate POST and GET inputs on calendar/event ajax views. Spam bots posting
+  invalid parameters would cause 500 server errors; instead this will now cause
+  more appropriate 400/404 errors.
+
+
+Upgrade considerations
+----------------------
+
+* ``search_db_*`` fields on page models have been removed in favor of native
+  Wagtail search features. See :doc:`/features/searching`.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.25.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/40?closed=1>`_.

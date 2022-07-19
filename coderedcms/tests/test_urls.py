@@ -2,6 +2,7 @@ import pytest
 import unittest
 
 from ast import literal_eval
+from datetime import timedelta
 
 from django.urls import reverse
 from django.test import Client
@@ -76,21 +77,19 @@ class TestEventURLs(unittest.TestCase):
         self.root_page.add_child(instance=event_page)
         occurrence = EventOccurrence(
             event=event_page,
-            start='2019-01-01T10:00:00+0000',
-            end='2019-01-01T11:00:00+0000'
+            start=timezone.now(),
+            end=timezone.now() + timedelta(hours=1),
         )
         occurrence.save()
 
+        ajax_url = reverse("event_generate_single_ical")
+
         response = self.client.post(
-            "/ical/generate/single/",
+            ajax_url,
             {
                 'event_pk': event_page.pk,
-                'datetime_start': EventOccurrence.objects.get(
-                    event=event_page
-                ).start.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
-                'datetime_end': EventOccurrence.objects.get(
-                    event=event_page
-                ).end.strftime("%Y-%m-%d %H:%M:%S%z").replace(' ', 'T'),
+                'datetime_start': occurrence.start.strftime("%Y-%m-%dT%H:%M:%S%z"),
+                'datetime_end': occurrence.end.strftime("%Y-%m-%dT%H:%M:%S%z"),
             },
             follow=True
         )
@@ -119,6 +118,30 @@ class TestEventURLs(unittest.TestCase):
             )
         )
 
+        # Test that garbage requests are handled appropriately.
+        response = self.client.post(ajax_url)
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(ajax_url, {"event_pk": "junk"})
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(
+            ajax_url,
+            {
+                "event_pk": "junk",
+                "datetime_start": "junk",
+                "datetime_end": "junk",
+            }
+        )
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(
+            ajax_url,
+            {
+                "event_pk": "junk",
+                "datetime_start": "2022-07-14T10:00:00+0000",
+                "datetime_end": "2022-07-14T10:00:00+0000",
+            }
+        )
+        self.assertEqual(response.status_code, 404)
+
     def test_generate_recurring_event(self):
         event_page = EventPage(
             path='/recurring-event/',
@@ -134,8 +157,10 @@ class TestEventURLs(unittest.TestCase):
         )
         occurrence.save()
 
+        ajax_url = reverse("event_generate_recurring_ical")
+
         response = self.client.post(
-            "/ical/generate/recurring/",
+            ajax_url,
             {'event_pk': event_page.pk},
             follow=True
         )
@@ -164,6 +189,12 @@ class TestEventURLs(unittest.TestCase):
             )
         )
 
+        # Test that garbage requests are handled appropriately.
+        response = self.client.post(ajax_url)
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(ajax_url, {"event_pk": "junk"})
+        self.assertEqual(response.status_code, 404)
+
     def test_generate_calendar(self):
         calendar_page = EventIndexPage(
             path='/event-index-page/',
@@ -187,8 +218,10 @@ class TestEventURLs(unittest.TestCase):
         )
         occurrence.save()
 
+        ajax_url = reverse("event_generate_ical_for_calendar")
+
         response = self.client.post(
-            "/ical/generate/calendar/",
+            ajax_url,
             {'page_id': calendar_page.pk},
             follow=True
         )
@@ -214,6 +247,12 @@ class TestEventURLs(unittest.TestCase):
             )
         )
 
+        # Test that garbage requests are handled appropriately.
+        response = self.client.post(ajax_url)
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(ajax_url, {"page_id": "junk"})
+        self.assertEqual(response.status_code, 404)
+
     def test_ajax_calendar(self):
         calendar_page = EventIndexPage(
             path='/event-index-page/',
@@ -237,8 +276,10 @@ class TestEventURLs(unittest.TestCase):
         )
         occurrence_one.save()
 
+        ajax_url = reverse("event_get_calendar_events")
+
         response = self.client.post(
-            "/ajax/calendar/events/?pid=" + str(calendar_page.pk),
+            f"{ajax_url}?pid={calendar_page.pk}",
             follow=True,
             **{'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
         )
@@ -261,6 +302,14 @@ class TestEventURLs(unittest.TestCase):
             end,
             event_local_end.strftime("%Y-%m-%dT%H:%M:%S%z")
         )
+
+        # Test that garbage requests are handled appropriately.
+        response = self.client.post(ajax_url)
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(f"{ajax_url}?pid=junk&start=junk&end=junk")
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(f"{ajax_url}?pid=junk")
+        self.assertEqual(response.status_code, 404)
 
 
 @pytest.mark.django_db

@@ -1,0 +1,15 @@
+v0.25.1 release notes
+=====================
+
+
+Bug fixes
+---------
+
+* Correct generation of .ics files to be consistent with the iCal format, fixing
+  compatability with Outlook for Mac and other highly compliant software.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `0.25.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/41>`_.

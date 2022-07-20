@@ -150,6 +150,8 @@ def event_generate_single_ical_for_event(request):
 
     # Generate the ical file.
     ical = Calendar()
+    ical.add('prodid', '-//Wagtail CRX//')
+    ical.add('version', '2.0')
     ical.add_component(event.create_single_ical(dt_start=dt_start, dt_end=dt_end))
     response = HttpResponse(ical.to_ical(), content_type="text/calendar")
     response['Filename'] = "{0}.ics".format(event.slug)
@@ -173,6 +175,8 @@ def event_generate_recurring_ical_for_event(request):
 
     # Generate the ical file.
     ical = Calendar()
+    ical.add('prodid', '-//Wagtail CRX//')
+    ical.add('version', '2.0')
     for e in event.create_recurring_ical():
         ical.add_component(e)
     response = HttpResponse(ical.to_ical(), content_type="text/calendar")
@@ -197,6 +201,8 @@ def event_generate_ical_for_calendar(request):
 
     # Generate the ical file.
     ical = Calendar()
+    ical.add('prodid', '-//Wagtail CRX//')
+    ical.add('version', '2.0')
     for event_page in page.get_index_children():
         for e in event_page.specific.create_recurring_ical():
             ical.add_component(e)

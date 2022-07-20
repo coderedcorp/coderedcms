@@ -5,7 +5,6 @@ Base and abstract pages used in Wagtail CRX.
 import json
 import logging
 import uuid
-import pytz
 import os
 import warnings
 from datetime import date, datetime
@@ -847,7 +846,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         ical_event.add('summary', self.title)
         # needs to get full page url, not just slug
         desc_str = _('Details')
-        ical_event.add('dtstamp', datetime.now())
+        ical_event.add('dtstamp', timezone.now())
         ical_event.add('description', f'{desc_str}: {self.full_url}')
         ical_event.add('uid', uuid.uuid4())
         if self.address:
@@ -855,12 +854,12 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
         if dt_start:
             # Convert to utc to remove timezone confusion
-            dt_start = dt_start.astimezone(pytz.utc)
+            dt_start = dt_start.astimezone(timezone.utc)
             ical_event.add('dtstart', dt_start)
 
             if dt_end:
                 # Convert to utc to remove timezone confusion
-                dt_end = dt_end.astimezone(pytz.utc)
+                dt_end = dt_end.astimezone(timezone.utc)
                 ical_event.add('dtend', dt_end)
 
             # Add a reminder alarm

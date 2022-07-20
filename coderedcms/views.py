@@ -150,6 +150,8 @@ def event_generate_single_ical_for_event(request):
 
     # Generate the ical file.
     ical = Calendar()
+    ical.add('prodid', '-//Wagtail CRX//')
+    ical.add('version', '2.0')
     ical.add_component(event.create_single_ical(dt_start=dt_start, dt_end=dt_end))
     response = HttpResponse(ical.to_ical(), content_type="text/calendar")
     response['Filename'] = "{0}.ics".format(event.slug)

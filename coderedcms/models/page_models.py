@@ -4,7 +4,6 @@ Base and abstract pages used in Wagtail CRX.
 
 import json
 import logging
-import uuid
 import os
 import warnings
 from datetime import date, datetime
@@ -848,7 +847,12 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         desc_str = _('Details')
         ical_event.add('dtstamp', timezone.now())
         ical_event.add('description', f'{desc_str}: {self.full_url}')
-        ical_event.add('uid', uuid.uuid4())
+        # NOTE: The use of the url for the id is technically breaking the iCal standard,
+        #  which recommends against use of identifiable info:
+        # https://icalendar.org/New-Properties-for-iCalendar-RFC-7986/5-3-uid-property.html
+        # If this breaks in the future,
+        # implementing a uuid field on the object is probably necessary.
+        ical_event.add('uid', self.get_full_url())
         if self.address:
             ical_event.add('location', self.address)
 

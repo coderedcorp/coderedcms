@@ -8,6 +8,8 @@ import os
 import warnings
 from datetime import date, datetime
 from typing import Dict, List, Optional, TYPE_CHECKING, Union
+# This is a requirement for icalendar, even if django doesn't require it
+import pytz
 
 import geocoder
 from django import forms
@@ -102,7 +104,6 @@ CODERED_PAGE_MODELS = []
 
 def get_page_models():
     return CODERED_PAGE_MODELS
-
 
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
@@ -840,7 +841,12 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         # Return the event instances, possibly spliced if num_instances_to_return is set.
         return event_instances[:num_of_instances_to_return] if num_of_instances_to_return else event_instances  # noqa
 
-    def convert_to_ical_format(self, dt_start=None, dt_end=None, occurrence=None):
+    def convert_to_ical_format(
+        self,
+        dt_start: datetime = None,
+        dt_end: datetime = None,
+        occurrence=None,
+    ):
         ical_event = ICalEvent()
         ical_event.add('summary', self.title)
         # needs to get full page url, not just slug
@@ -858,12 +864,12 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
         if dt_start:
             # Convert to utc to remove timezone confusion
-            dt_start = dt_start.astimezone(timezone.utc)
+            dt_start = dt_start.astimezone(pytz.utc)
             ical_event.add('dtstart', dt_start)
 
             if dt_end:
                 # Convert to utc to remove timezone confusion
-                dt_end = dt_end.astimezone(timezone.utc)
+                dt_end = dt_end.astimezone(pytz.utc)
                 ical_event.add('dtend', dt_end)
 
             # Add a reminder alarm

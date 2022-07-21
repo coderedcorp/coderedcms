@@ -6,7 +6,7 @@ Bug fixes
 ---------
 
 * Correct generation of .ics files to be consistent with the iCal format, fixing
-  compatability with Outlook for Mac and other highly compliant software.
+  compatibility with Outlook for Mac and other highly compliant software.
 
 
 Thank you!

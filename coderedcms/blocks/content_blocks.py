@@ -14,14 +14,14 @@ from .html_blocks import ButtonBlock
 
 class AccordionBlock(ButtonMixin, BaseBlock):
     """
-    Wraps child comonents in a .collapse element, to allow them to be shown/hidden
+    Allows selecting an accordion snippet
     """
 
-    carousel = SnippetChooserBlock('coderedcms.Accordion')
+    accordion = SnippetChooserBlock('coderedcms.Accordion')
 
     class Meta:
         template = 'coderedcms/blocks/accordion_block.html'
-        icon = 'arrows-up-down'
+        icon = 'bars'
         label = 'Accordion'
 
 

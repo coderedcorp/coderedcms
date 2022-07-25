@@ -4,16 +4,9 @@
 
 {% block block_render %}
 
-{% generate_random_id as modal_id %}
-<button
-  data-toggle="collapse"
-  data-target="#{{modal_id}}"
-  role="button"
-  aria-expanded="false"
-  aria-controls="{{modal_id}}"
-  class="btn {{self.button_size}} {{self.button_style}}"
->{{self.button_title}}</button>
-<div id="{{modal_id}}" class="collapse">
-  {% include_block self.accordion.content %}
-</div>
+{% with a_id=self.accordion.id %}
+
+<button class="btn {{self.button_size}} {{self.button_style}}" type="button" data-toggle="collapse" data-target="#accordion-{{a_id}}" aria-expanded="false" aria-controls="accordion-{{a_id}}">{{self.button_title}}</button>
+<div id="accordion-{{a_id}}" class="collapse">{% include_block self.accordion.content %}</div>
+{% endwith %}
 {% endblock %}

@@ -845,14 +845,25 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         ical_event.add('summary', self.title)
         # needs to get full page url, not just slug
         desc_str = _('Details')
+        ical_event.add('dtstamp', timezone.now())
         ical_event.add('description', f'{desc_str}: {self.full_url}')
+        # NOTE: The use of the url for the id is technically breaking the iCal standard,
+        #  which recommends against use of identifiable info:
+        # https://icalendar.org/New-Properties-for-iCalendar-RFC-7986/5-3-uid-property.html
+        # If this breaks in the future,
+        # implementing a uuid field on the object is probably necessary.
+        ical_event.add('uid', self.get_full_url())
         if self.address:
             ical_event.add('location', self.address)
 
         if dt_start:
+            # Convert to utc to remove timezone confusion
+            dt_start = dt_start.astimezone(timezone.utc)
             ical_event.add('dtstart', dt_start)
 
             if dt_end:
+                # Convert to utc to remove timezone confusion
+                dt_end = dt_end.astimezone(timezone.utc)
                 ical_event.add('dtend', dt_end)
 
             # Add a reminder alarm

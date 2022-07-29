@@ -7,13 +7,12 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
-    StreamFieldPanel)
-from wagtail.core.models import Orderable
-from wagtail.images.edit_handlers import ImageChooserPanel
+)
+from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 from wagtail.images import get_image_model_string
 
@@ -126,15 +125,19 @@ class CarouselSlide(Orderable, models.Model):
         verbose_name=_('Custom ID'),
     )
 
-    content = CoderedStreamField(HTML_STREAMBLOCKS, blank=True)
+    content = CoderedStreamField(
+        HTML_STREAMBLOCKS,
+        blank=True,
+        use_json_field=True,
+    )
 
     panels = (
         [
-            ImageChooserPanel('image'),
+            FieldPanel('image'),
             FieldPanel('background_color'),
             FieldPanel('custom_css_class'),
             FieldPanel('custom_id'),
-            StreamFieldPanel('content'),
+            FieldPanel('content'),
         ]
     )
 
@@ -253,6 +256,7 @@ class Navbar(models.Model):
         NAVIGATION_STREAMBLOCKS,
         verbose_name=_('Navigation links'),
         blank=True,
+        use_json_field=True,
     )
 
     panels = [
@@ -264,7 +268,7 @@ class Navbar(models.Model):
             ],
             heading=_('Attributes')
         ),
-        StreamFieldPanel('menu_items')
+        FieldPanel('menu_items')
     ]
 
     def __str__(self):
@@ -297,6 +301,7 @@ class Footer(models.Model):
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('Content'),
         blank=True,
+        use_json_field=True,
     )
 
     panels = [
@@ -308,7 +313,7 @@ class Footer(models.Model):
             ],
             heading=_('Attributes')
         ),
-        StreamFieldPanel('content')
+        FieldPanel('content')
     ]
 
     def __str__(self):
@@ -332,11 +337,12 @@ class ReusableContent(models.Model):
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('content'),
         blank=True,
+        use_json_field=True,
     )
 
     panels = [
         FieldPanel('name'),
-        StreamFieldPanel('content')
+        FieldPanel('content')
     ]
 
     def __str__(self):
@@ -359,6 +365,7 @@ class ContentWall(models.Model):
         LAYOUT_STREAMBLOCKS,
         verbose_name=_('Content'),
         blank=True,
+        use_json_field=True,
     )
     is_dismissible = models.BooleanField(
         default=True,
@@ -379,7 +386,7 @@ class ContentWall(models.Model):
             ],
             heading=_('Content Wall')
         ),
-        StreamFieldPanel('content'),
+        FieldPanel('content'),
     ]
 
     def __str__(self):

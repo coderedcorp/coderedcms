@@ -4,148 +4,22 @@ Copyright 2018-2022 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
 
+
 /* Font sizes and inputs */
 
-code, pre, textarea.monospace,
+code,
+pre,
+textarea.monospace,
 .monospace textarea {
-    font-family: SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-family: var(--w-font-mono);
+  font-weight: normal;
 }
 
-.content-wrapper {
-    background-color:unset;
-    border:unset;
+.input input[type='color']{
+    height: 40px;
+    padding: 5px;
 }
 
-.halloeditor, .tagit, input:not([type="submit"]), select, textarea {
-    padding-top:0.5em;
-    padding-bottom:0.5em;
-    font-weight:normal;
-}
-
-input[type='checkbox'], input[type='radio'] {
-    margin-right: 0.5em;
-    padding-top: 0;
-}
-.date_field .input::after,
-.date_field .input::before,
-.date_time_field .input::after,
-.date_time_field .input::before,
-.iconfield .input::after,
-.iconfield .input::before,
-.time_field .input::after,
-.time_field .input::before,
-.url_field .input::after,
-.url_field .input::before {
-    font-size:1.7em;
-    top:0.35em;
-}
-.choice_field .input select,
-.model_choice_field .input select,
-.typed_choice_field .input select {
-    margin-right:-3em;
-    padding-right: 3em;
-}
-.choice_field .input select ~ span:after,
-.model_choice_field .input select ~ span:after,
-.typed_choice_field .input select ~ span:after {
-    font-size:2.2em !important;
-    right:unset;
-}
-
-.field-content {
-    width:100%;
-}
-
-.field-row {
-    margin-bottom: 0;
-}
-
-
-/* Display labels and fields horizontally, except .label-above or nested .stream-field */
-
-@media screen and (min-width:50em) {
-    body:not(.login) .c-sf-block .fields > li,
-    body:not(.login) ul.fields > li:not(.label-above) .field {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
-    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
-    body:not(.login) ul.fields > li:not(.label-above) .field > label,
-    body:not(.login) .field-content ul > li:not(.label-above) > label {
-        color:inherit;
-        font-weight:normal;
-        display:block;
-        float:none;
-        margin: 0;
-        width: auto;
-    }
-    /* Labels for page editor forms */
-    body:not(.login) ul.fields > li:not(.label-above) .field > label {
-        width:20%;
-        max-width:15em;
-    }
-    /* (undo previous rule for nested streamfields) */
-    body:not(.login) ul.fields > li.stream-field > .field > label {
-        width: 100%;
-        max-width: unset;
-    }
-
-    /* Fields for page editor forms */
-    li.codered-collapsible label+.field,
-    body:not(.login) ul.fields > li:not(.label-above) label+.field-content,
-    body:not(.login) ul.fields > li:not(.label-above) label+.field {
-        display:block;
-        flex-grow: 1;
-        float:none;
-        margin: 0 auto;
-        width: 80%;
-    }
-    /* (undo previous rule in nested streamfields) */
-    body:not(.login) ul.fields > li.stream-field > .field > label+.field-content,
-    body:not(.login) ul.fields > li.stream-field > .field > label+.field {
-        width: 100%;
-    }
-
-    /* Labels for streamfield forms (except labels for nested streamfields) */
-    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > label,
-    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .label,
-    body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > label,
-    body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > label {
-        width:20%;
-        max-width:15em;
-    }
-    /* Fields for streamfield forms (except nested streamfields) */
-    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .field,
-    body:not(.login) ul.fields > li:not(.label-above) ul.fields > li > .field
-    body:not(.login) .struct-block ul.fields > li:not(.label-above) .field > .field,
-    body:not(.login) .multiple     ul.fields > li:not(.label-above) .field > .field {
-        width: 80%;
-    }
-    .object.full .field-content {
-        flex-grow: 1;
-        margin: 0 auto;
-    }
-    .input {
-        width:100%;
-    }
-}
-
-
-/* General layout */
-
-.content {
-    padding-bottom:100px;
-}
-
-.responsive-img {
-    width: 100%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 /* Show the site's custom logo in the wagtail admin */
 
@@ -157,10 +31,11 @@ input[type='checkbox'], input[type='radio'] {
     display: block;
 }
 .codered-logo-container {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 15px;
 }
 .codered-logo-container.navbar-light {
-    background-color: #f1f1f1;
+    background-color: #fff;
     border-radius: 6px;
     padding: 0.25em;
 }
@@ -173,16 +48,8 @@ input[type='checkbox'], input[type='radio'] {
 
 .codered-banner {
     position: absolute;
+    z-index: 1;
 }
 .codered-banner ~ .content-wrapper {
     padding-top: calc(1.5em + 8px);
-}
-
-/* Custom */
-
-.button-advanced-settings {
-    display:block;
-    font-size:0.8em;
-    margin-top: -20px;
-    align-self: flex-start;
 }

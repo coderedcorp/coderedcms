@@ -9,7 +9,7 @@ from django.test import Client
 from django.test.utils import override_settings
 from django.utils import timezone
 
-from wagtail.core.models import Site, Page
+from wagtail.models import Site, Page
 from wagtail.images.tests.utils import Image, get_test_image_file
 
 from coderedcms.models import LayoutSettings

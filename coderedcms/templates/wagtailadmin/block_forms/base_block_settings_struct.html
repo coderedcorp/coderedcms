@@ -1,17 +1,17 @@
 {% load wagtailadmin_tags  %}
 
 <div class="{{ classname }} codered-collapsible collapsed c-sf-container">
-    <button type="button" class="button button-small button-advanced-settings">
-        <i class="icon icon-fa-cog" aria-hidden="true"></i> Advanced Settings
-    </button>
-    <div class="codered-collapsible-target" style="display:none;">
+  <button type="button" class="button button-small">
+    <i class="icon icon-fa-cog" aria-hidden="true"></i> Advanced Settings
+  </button>
+  <div class="codered-collapsible-target" style="display:none;">
     {% for child in children.values %}
-        <div class="field {% if child.block.required %}required{% endif %}" data-contentpath="{{ child.block.name }}">
-            {% if child.block.label %}
-                <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
-            {% endif %}
-            {{ child.render_form }}
-        </div>
-    {% endfor %}
+    <div class="field {% if child.block.required %}required{% endif %}" data-contentpath="{{ child.block.name }}">
+      {% if child.block.label %}
+      <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
+      {% endif %}
+      {{ child.render_form }}
     </div>
+    {% endfor %}
+  </div>
 </div>

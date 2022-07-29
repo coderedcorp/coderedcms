@@ -9,7 +9,7 @@ creating recursion.
 import logging
 from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock

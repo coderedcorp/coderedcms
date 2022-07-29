@@ -7,9 +7,9 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from wagtail.core import blocks
-from wagtail.core.models import Collection
-from wagtail.core.utils import resolve_model_string
+from wagtail import blocks
+from wagtail.models import Collection
+from wagtail.coreutils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
 
 from coderedcms.settings import crx_settings

@@ -1,6 +1,6 @@
 from django.urls import include, path, re_path
 from wagtail.contrib.sitemaps.views import sitemap
-from wagtail.core import urls as wagtailcore_urls
+from wagtail import urls as wagtailcore_urls
 from coderedcms.settings import crx_settings
 from coderedcms.views import (
     event_generate_ical_for_calendar,

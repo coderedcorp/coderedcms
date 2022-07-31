@@ -35,7 +35,7 @@ Basic Installation
         You will need to be in the directory (folder) of your Wagtail project and have your
         virtual environment activated to install dependencies and run your site.
 
-#. Run ``pip install wagtailcrx``
+#. Run ``pip install wagtail-crx``
 #. Run ``wagtailcrx start mysite --sitename "My Company Inc." --domain www.example.com``
 
    .. note::
@@ -58,7 +58,7 @@ Installing with Sass Support
 
 To create a project that is pre-configured to use Sass for CSS compilation:
 
-#. Run ``pip install wagtailcrx``
+#. Run ``pip install wagtail-crx``
 #. Run
 
    .. code-block:: console

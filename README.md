@@ -54,7 +54,7 @@ are ready to use out-of-the box! This saves development time and avoids
 
 ## Quick start
 
-1. Run `pip install wagtailcrx`
+1. Run `pip install wagtail-crx`
 
 2. Run `wagtailcrx start mysite --sitename "My Company Inc." --domain www.example.com`
 

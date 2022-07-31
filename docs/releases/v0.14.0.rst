@@ -19,7 +19,7 @@ New features
 Maintenance
 -----------
 
-* New projects created with ``coderedcms start`` include a ``.gitignore`` file that ignores
+* New projects created with ``wagtailcrx start`` include a ``.gitignore`` file that ignores
   editor files (VS Code, emacs, vim, sublime, pycharm, etc.) files by default.
 
 
@@ -27,4 +27,4 @@ Upgrade considerations
 ----------------------
 
 * You will need to run ``python manage.py makemigrations website`` and ``python manage.py migrate`` after upgrading.
-* Some blocks within coderedcms/blocks/content_blocks.py have been moved to coderedcms/blocks/html_blocks.py.
+* Some blocks within wagtailcrx/blocks/content_blocks.py have been moved to wagtailcrx/blocks/html_blocks.py.

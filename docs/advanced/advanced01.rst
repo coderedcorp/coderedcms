@@ -20,40 +20,40 @@ pulling in Wagtail tags to make your template work the way it should.
     tags at the top of the template or your template will not render.
 
 The templates directory inside your ``website`` app is empty by default. Any templates you put
-in here will override the default coderedcms templates if they follow the same name and directory
+in here will override the default wagtailcrx templates if they follow the same name and directory
 structure. This uses the standard Django template rendering engine. For example, to change the
-formatting of the article page, copy ``coderedcms/templates/coderedcms/pages/article_page.html``
-to ``website/templates/coderedcms/pages/article_page.html`` and modify it.
+formatting of the article page, copy ``wagtailcrx/templates/wagtailcrx/pages/article_page.html``
+to ``website/templates/wagtailcrx/pages/article_page.html`` and modify it.
 The `source code for built-in templates can be found on GitHub
-<https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/>`_.
+<https://github.com/coderedcorp/wagtailcrx/blob/dev/wagtailcrx/templates/wagtailcrx/>`_.
 
 
 Example 1: Navbar Customization
 -------------------------------
 
-The built-in template for the navbar can be found in ``templates/coderedcms/snippets/navbar.html``. This
+The built-in template for the navbar can be found in ``templates/wagtailcrx/snippets/navbar.html``. This
 file may not actually be in your installation folders for your site; however, you can see its contents
-by visiting the Wagtail CRX source code here: `navbar.html <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/navbar.html>`_.
+by visiting the Wagtail CRX source code here: `navbar.html <https://github.com/coderedcorp/wagtailcrx/blob/dev/wagtailcrx/templates/wagtailcrx/snippets/navbar.html>`_.
 
 Let’s say that you want to have a 2-tiered navbar with the logo on the top tier and the menu items on the
 second tier. The default navbar does not have that as an option, so you will want to override this template.
 
 Look at your folder structure for your project. In the ``website`` folder, you should see another folder
-called ``templates``. In there are two folders as well: ``website`` and ``coderedcms``. The ``coderedcms`` template
+called ``templates``. In there are two folders as well: ``website`` and ``wagtailcrx``. The ``wagtailcrx`` template
 folder is likely empty at this point because the CMS is pulling in the default templates from source, but you can
-add templates to the ``coderedcms`` folder **if you are overriding the default templates**.
+add templates to the ``wagtailcrx`` folder **if you are overriding the default templates**.
 
 Most of your custom templates will go into your ``website`` folder because they are not overriding the
 default templates in the CMS but either extending them or creating completely new ones specific to
 your site.
 
 .. note::
-    Adding templates to the ``coderedcms`` templates folder does not change the default templates
+    Adding templates to the ``wagtailcrx`` templates folder does not change the default templates
     throughout all of Wagtail CRX but does override those specific templates for your website app.
 
-Your ``website`` folder currently only has a folder for ``coderedcms`` in the ``templates`` folder.
+Your ``website`` folder currently only has a folder for ``wagtailcrx`` in the ``templates`` folder.
 You can add a new ``website`` folder in ``templates`` (because we will use it in another tutorial),
-but for now, you will want to add a ``snippets`` folder inside the ``templates\coderedcms`` folder
+but for now, you will want to add a ``snippets`` folder inside the ``templates\wagtailcrx`` folder
 so that your folder structure looks something like this:
 
 .. figure:: img/advanced_folder_structure1.png
@@ -62,7 +62,7 @@ so that your folder structure looks something like this:
     Our folder structure for templates within our website app.
 
 The folder structure needs to be the same as the default folder structure in the CMS if you want to
-override the navbar template. Now you should have ``templates\coderedcms\snippets``. Navigate to
+override the navbar template. Now you should have ``templates\wagtailcrx\snippets``. Navigate to
 the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
 
 **You are now ready to begin customizing the navbar template!**
@@ -75,7 +75,7 @@ the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
 
 .. code-block:: Django
 
-    {% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n %}
+    {% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags wagtailcrx_tags i18n %}
 
 3. Next, we need to figure out how to move the logo (aka the ``navbar-brand``) into its own section for
    the navbar. Maybe we could essentially create two navbars, one that just has the logo and one that has
@@ -92,28 +92,28 @@ the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
 
    .. code-block:: Django
 
-      {% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n %}
+      {% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags wagtailcrx_tags i18n %}
 
 
-      {% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
+      {% if not settings.wagtailcrx.LayoutSettings.navbar_wrapper_fluid %}
       <div class="container">
       {% endif %}
       <nav class="navbar navbar-header bg-warning">
 
-      {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+      {% if not settings.wagtailcrx.LayoutSettings.navbar_content_fluid %}
       <div class="container">
       {% endif %}
          <div>
          <a class="navbar-brand" href="/">
-               {% if settings.coderedcms.LayoutSettings.logo %}
-               {% image settings.coderedcms.LayoutSettings.logo original as logo %}
+               {% if settings.wagtailcrx.LayoutSettings.logo %}
+               {% image settings.wagtailcrx.LayoutSettings.logo original as logo %}
                <img class="img-fluid" src="{{logo.url}}" alt="{{site.site_name}}" />
                {% else %}
                {{site.site_name}}
                {% endif %}
          </a>
          </div>
-      {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+      {% if not settings.wagtailcrx.LayoutSettings.navbar_content_fluid %}
       </div><!-- /.container -->
       {% endif %}
 
@@ -123,7 +123,7 @@ the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
    ``<nav class="navbar {% get_navbar_css %}">``, we have added our own Bootstrap classes since this part of the
    navbar will not be getting its CSS settings from the CMS.
 
-   However, we did keep the ``{% if settings.coderedcms.LayoutSettings.logo %} {% endif %}`` block because we want
+   However, we did keep the ``{% if settings.wagtailcrx.LayoutSettings.logo %} {% endif %}`` block because we want
    to show the name of the site **if no logo is uploaded in the CMS**.
 
 6. Now we can include the code block for the normal navbar beneath it. Place this code below the ``</nav>`` in
@@ -136,7 +136,7 @@ the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
 
       <nav class="navbar {% get_navbar_css %}">
 
-      {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+      {% if not settings.wagtailcrx.LayoutSettings.navbar_content_fluid %}
       <div class="container">
       {% endif %}
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,7 +153,7 @@ the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
                {% endfor %}
          </ul>
          {% endfor %}
-         {% if settings.coderedcms.LayoutSettings.navbar_search %}
+         {% if settings.wagtailcrx.LayoutSettings.navbar_search %}
          <form class="ml-auto form-inline" action="{% url 'codered_search' %}" method="GET">
                {% load bootstrap4 %}
                {% get_searchform request as form %}
@@ -166,22 +166,22 @@ the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
 
          </div>
 
-      {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+      {% if not settings.wagtailcrx.LayoutSettings.navbar_content_fluid %}
       </div><!-- /.container -->
       {% endif %}
 
       </nav>
 
-      {% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
+      {% if not settings.wagtailcrx.LayoutSettings.navbar_wrapper_fluid %}
       </div><!-- /.container -->
       {% endif %}
 
       {# Navbar offset #}
-      {% if settings.coderedcms.LayoutSettings.navbar_fixed %}
-         {% if settings.coderedcms.LayoutSettings.logo %}
-         <div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
+      {% if settings.wagtailcrx.LayoutSettings.navbar_fixed %}
+         {% if settings.wagtailcrx.LayoutSettings.logo %}
+         <div class="{{settings.wagtailcrx.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.wagtailcrx.LayoutSettings.navbar_collapse_mode}}"></div>
          {% else %}
-         <div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
+         <div class="{{settings.wagtailcrx.LayoutSettings.navbar_format}}-fixed-offset {{settings.wagtailcrx.LayoutSettings.navbar_collapse_mode}}"></div>
          {% endif %}
       {% endif %}
 

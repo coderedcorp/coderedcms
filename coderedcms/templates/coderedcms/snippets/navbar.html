@@ -1,19 +1,19 @@
-{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n %}
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags wagtailcrx_tags i18n %}
 {% wagtail_site as site %}
 
-{% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
+{% if not settings.wagtailcrx.LayoutSettings.navbar_wrapper_fluid %}
 <div class="container">
 {% endif %}
 
 <nav class="navbar {% get_navbar_css %}">
 
-  {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+  {% if not settings.wagtailcrx.LayoutSettings.navbar_content_fluid %}
   <div class="container">
   {% endif %}
 
     <a class="navbar-brand" href="/">
-      {% if settings.coderedcms.LayoutSettings.logo %}
-        {% image settings.coderedcms.LayoutSettings.logo original as logo %}
+      {% if settings.wagtailcrx.LayoutSettings.logo %}
+        {% image settings.wagtailcrx.LayoutSettings.logo original as logo %}
         <img src="{{logo.url}}" alt="{{site.site_name}}" />
       {% else %}
         {{site.site_name}}
@@ -25,7 +25,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
-      {% if settings.coderedcms.LayoutSettings.site_navbar %}
+      {% if settings.wagtailcrx.LayoutSettings.site_navbar %}
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
       <ul class="navbar-nav {{navbar.custom_css_class}}"
@@ -36,7 +36,7 @@
       </ul>
       {% endfor %}
       {% endif %}
-      {% if settings.coderedcms.LayoutSettings.navbar_search %}
+      {% if settings.wagtailcrx.LayoutSettings.navbar_search %}
       <form class="form-inline ml-auto" action="{% url 'codered_search' %}" method="GET">
           {% load bootstrap4 %}
           {% get_searchform request as form %}
@@ -48,21 +48,21 @@
       {% endif %}
     </div>
 
-  {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
+  {% if not settings.wagtailcrx.LayoutSettings.navbar_content_fluid %}
   </div><!-- /.container -->
   {% endif %}
 
 </nav>
 
-{% if not settings.coderedcms.LayoutSettings.navbar_wrapper_fluid %}
+{% if not settings.wagtailcrx.LayoutSettings.navbar_wrapper_fluid %}
 </div><!-- /.container -->
 {% endif %}
 
 {# Navbar offset #}
-{% if settings.coderedcms.LayoutSettings.navbar_fixed %}
-    {% if settings.coderedcms.LayoutSettings.logo %}
-      <div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
+{% if settings.wagtailcrx.LayoutSettings.navbar_fixed %}
+    {% if settings.wagtailcrx.LayoutSettings.logo %}
+      <div class="{{settings.wagtailcrx.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.wagtailcrx.LayoutSettings.navbar_collapse_mode}}"></div>
     {% else %}
-      <div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
+      <div class="{{settings.wagtailcrx.LayoutSettings.navbar_format}}-fixed-offset {{settings.wagtailcrx.LayoutSettings.navbar_collapse_mode}}"></div>
     {% endif %}
 {% endif %}

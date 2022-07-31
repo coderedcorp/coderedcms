@@ -11,4 +11,4 @@ Bug fixes
 Thank you!
 ----------
 
-Thanks to everyone who contributed to `0.25.2 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/42?closed=1>`_.
+Thanks to everyone who contributed to `0.25.2 on GitHub <https://github.com/coderedcorp/wagtailcrx/milestone/42?closed=1>`_.

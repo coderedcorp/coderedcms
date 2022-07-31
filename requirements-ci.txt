@@ -1,7 +1,7 @@
-# Install coderedcms from local directory.
+# Install wagtailcrx from local directory.
 -e .
 
-# Requirements, in addition to coderedcms, needed for CI runner.
+# Requirements, in addition to wagtailcrx, needed for CI runner.
 codespell
 flake8
 pytest-cov

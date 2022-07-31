@@ -1,7 +1,7 @@
-from coderedcms.models.page_models import CoderedPage
+from wagtailcrx.models.page_models import CoderedPage
 from modelcluster.fields import ParentalKey
-from coderedcms.forms import CoderedFormField
-from coderedcms.models import (
+from wagtailcrx.forms import CoderedFormField
+from wagtailcrx.models import (
     CoderedArticlePage,
     CoderedArticleIndexPage,
     CoderedEventIndexPage,
@@ -27,8 +27,8 @@ class ArticlePage(CoderedArticlePage):
     # Only allow this page to be created beneath an ArticleIndexPage.
     parent_page_types = ['testapp.ArticleIndexPage']
 
-    template = 'coderedcms/pages/article_page.html'
-    search_template = 'coderedcms/pages/article_page.search.html'
+    template = 'wagtailcrx/pages/article_page.html'
+    search_template = 'wagtailcrx/pages/article_page.search.html'
 
 
 class ArticleIndexPage(CoderedArticleIndexPage):
@@ -45,7 +45,7 @@ class ArticleIndexPage(CoderedArticleIndexPage):
     # Only allow ArticlePages beneath this page.
     subpage_types = ['testapp.ArticlePage']
 
-    template = 'coderedcms/pages/article_index_page.html'
+    template = 'wagtailcrx/pages/article_index_page.html'
 
 
 class FormPage(CoderedFormPage):
@@ -55,7 +55,7 @@ class FormPage(CoderedFormPage):
     class Meta:
         verbose_name = 'Form'
 
-    template = 'coderedcms/pages/form_page.html'
+    template = 'wagtailcrx/pages/form_page.html'
 
 
 class FormPageField(CoderedFormField):
@@ -82,7 +82,7 @@ class WebPage(CoderedWebPage):
     class Meta:
         verbose_name = 'Web Page'
 
-    template = 'coderedcms/pages/web_page.html'
+    template = 'wagtailcrx/pages/web_page.html'
 
 
 class EventPage(CoderedEventPage):
@@ -91,7 +91,7 @@ class EventPage(CoderedEventPage):
 
     parent_page_types = ['testapp.EventIndexPage']
     subpage_types = []
-    template = 'coderedcms/pages/event_page.html'
+    template = 'wagtailcrx/pages/event_page.html'
 
 
 class EventIndexPage(CoderedEventIndexPage):
@@ -107,7 +107,7 @@ class EventIndexPage(CoderedEventIndexPage):
     # Only allow EventPages beneath this page.
     subpage_types = ['testapp.EventPage']
 
-    template = 'coderedcms/pages/event_index_page.html'
+    template = 'wagtailcrx/pages/event_index_page.html'
 
 
 class EventOccurrence(CoderedEventOccurrence):
@@ -121,7 +121,7 @@ class LocationPage(CoderedLocationPage):
     class Meta:
         verbose_name = 'Location Page'
 
-    template = 'coderedcms/pages/location_page.html'
+    template = 'wagtailcrx/pages/location_page.html'
 
     # Only allow LocationIndexPages above this page.
     parent_page_types = ['testapp.LocationIndexPage']
@@ -142,14 +142,14 @@ class LocationIndexPage(CoderedLocationIndexPage):
     # Only allow LocationPages beneath this page.
     subpage_types = ['testapp.LocationPage']
 
-    template = 'coderedcms/pages/location_index_page.html'
+    template = 'wagtailcrx/pages/location_index_page.html'
 
 
 class StreamFormPage(CoderedStreamFormPage):
     class Meta:
         verbose_name = 'Stream Form'
 
-    template = 'coderedcms/pages/stream_form_page.html'
+    template = 'wagtailcrx/pages/stream_form_page.html'
 
 
 class StreamFormConfirmEmail(CoderedEmail):
@@ -174,4 +174,4 @@ class IndexTestPage(CoderedPage):
 
     index_query_pagemodel = "testapp.WebPage"
 
-    template = 'coderedcms/pages/base.html'
+    template = 'wagtailcrx/pages/base.html'

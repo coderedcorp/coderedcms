@@ -12,8 +12,8 @@ from django.utils import timezone
 from wagtail.models import Site, Page
 from wagtail.images.tests.utils import Image, get_test_image_file
 
-from coderedcms.models import LayoutSettings
-from coderedcms.tests.testapp.models import EventPage, EventIndexPage, EventOccurrence
+from wagtailcrx.models import LayoutSettings
+from wagtailcrx.tests.testapp.models import EventPage, EventIndexPage, EventOccurrence
 
 
 @pytest.mark.django_db

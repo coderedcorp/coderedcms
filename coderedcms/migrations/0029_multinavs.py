@@ -5,9 +5,9 @@ import modelcluster.fields
 
 def add_navbar_orderables(apps, schema_editor):
     Site = apps.get_model('wagtailcore', 'Site')
-    LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
-    Navbar = apps.get_model('coderedcms', 'Navbar')
-    NavbarOrderable = apps.get_model('coderedcms', 'NavbarOrderable')
+    LayoutSettings = apps.get_model('wagtailcrx', 'LayoutSettings')
+    Navbar = apps.get_model('wagtailcrx', 'Navbar')
+    NavbarOrderable = apps.get_model('wagtailcrx', 'NavbarOrderable')
     # If it's a new site, this migration will not run.
     try:
         site = Site.objects.get(is_default_site=True)
@@ -24,9 +24,9 @@ def add_navbar_orderables(apps, schema_editor):
 
 def add_footer_orderables(apps, schema_editor):
     Site = apps.get_model('wagtailcore', 'Site')
-    LayoutSettings = apps.get_model('coderedcms', 'LayoutSettings')
-    Footer = apps.get_model('coderedcms', 'Footer')
-    FooterOrderable = apps.get_model('coderedcms', 'FooterOrderable')
+    LayoutSettings = apps.get_model('wagtailcrx', 'LayoutSettings')
+    Footer = apps.get_model('wagtailcrx', 'Footer')
+    FooterOrderable = apps.get_model('wagtailcrx', 'FooterOrderable')
     # If it's a new site, this migration will not run.
     try:
         site = Site.objects.get(is_default_site=True)
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
     atomic = False
 
     dependencies = [
-        ('coderedcms', '0028_auto_20220609_1532'),
+        ('wagtailcrx', '0028_auto_20220609_1532'),
     ]
 
     operations = [
@@ -55,8 +55,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('navbar', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='coderedcms.navbar')),
-                ('navbar_chooser', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='site_navbar', to='coderedcms.layoutsettings', verbose_name='Site Navbars')),
+                ('navbar', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='wagtailcrx.navbar')),
+                ('navbar_chooser', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='site_navbar', to='wagtailcrx.layoutsettings', verbose_name='Site Navbars')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -68,8 +68,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('footer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='coderedcms.footer')),
-                ('footer_chooser', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='site_footer', to='coderedcms.layoutsettings', verbose_name='Site Footers')),
+                ('footer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='wagtailcrx.footer')),
+                ('footer_chooser', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='site_footer', to='wagtailcrx.layoutsettings', verbose_name='Site Footers')),
             ],
             options={
                 'ordering': ['sort_order'],

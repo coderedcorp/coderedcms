@@ -61,23 +61,23 @@ from wagtailcache.cache import WagtailCacheMixin
 from wagtailseo.models import SeoMixin, TwitterCard
 from wagtailseo.utils import get_struct_data_images, StructDataEncoder
 
-from coderedcms import utils
-from coderedcms.blocks import (
+from wagtailcrx import utils
+from wagtailcrx.blocks import (
     CONTENT_STREAMBLOCKS,
     LAYOUT_STREAMBLOCKS,
     STREAMFORM_BLOCKS,
     ContentWallBlock,
 )
-from coderedcms.fields import CoderedStreamField, ColorField
-from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
-from coderedcms.models.snippet_models import ClassifierTerm
-from coderedcms.models.wagtailsettings_models import (
+from wagtailcrx.fields import CoderedStreamField, ColorField
+from wagtailcrx.forms import CoderedFormBuilder, CoderedSubmissionsListView
+from wagtailcrx.models.snippet_models import ClassifierTerm
+from wagtailcrx.models.wagtailsettings_models import (
     GeneralSettings,
     GoogleApiSettings,
     LayoutSettings,
 )
-from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
-from coderedcms.wagtail_flexible_forms.models import (
+from wagtailcrx.wagtail_flexible_forms.blocks import FormFieldBlock, FormStepBlock
+from wagtailcrx.wagtail_flexible_forms.models import (
     Step,
     Steps,
     StreamFormMixin,
@@ -85,15 +85,15 @@ from coderedcms.wagtail_flexible_forms.models import (
     SessionFormSubmission,
     SubmissionRevision,
 )
-from coderedcms.settings import crx_settings
-from coderedcms.widgets import ClassifierSelectWidget
+from wagtailcrx.settings import crx_settings
+from wagtailcrx.widgets import ClassifierSelectWidget
 
 
 if TYPE_CHECKING:
     from wagtail.images.models import AbstractImage
 
 
-logger = logging.getLogger('coderedcms')
+logger = logging.getLogger('wagtailcrx')
 
 
 CODERED_PAGE_MODELS = []
@@ -107,7 +107,7 @@ class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
         # Copy of how django generates `db_table`, for compatibility with
-        # renaming `coderedcms` app to `wagtailcrx`.
+        # renaming `wagtailcrx` app to `wagtailcrx`.
         if crx_settings.CRX_DB_PREFIX:
             from django.db import connection
             from django.db.backends.utils import truncate_name
@@ -124,7 +124,7 @@ class CoderedPageMeta(PageBase):
 class CoderedTag(TaggedItemBase):
     class Meta:
         verbose_name = _('CodeRed Tag')
-    content_object = ParentalKey('coderedcms.CoderedPage', related_name='tagged_items')
+    content_object = ParentalKey('wagtailcrx.CoderedPage', related_name='tagged_items')
 
 
 class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
@@ -167,7 +167,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
     # Subclasses can override this to query on a specific
     # page model, rather than the default wagtail Page.
-    index_query_pagemodel = 'coderedcms.CoderedPage'
+    index_query_pagemodel = 'wagtailcrx.CoderedPage'
 
     # Subclasses can override these fields to enable custom
     # ordering based on specific subpage fields.
@@ -186,7 +186,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         verbose_name=_('Show list of child pages')
     )
     index_order_by_classifier = models.ForeignKey(
-        'coderedcms.Classifier',
+        'wagtailcrx.Classifier',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -210,7 +210,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         verbose_name=_('Number per page'),
     )
     index_classifiers = ParentalManyToManyField(
-        'coderedcms.Classifier',
+        'wagtailcrx.Classifier',
         blank=True,
         verbose_name=_('Filter child pages by'),
         help_text=_('Enable filtering child pages by these classifiers.'),
@@ -241,7 +241,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     ###############
 
     classifier_terms = ParentalManyToManyField(
-        'coderedcms.ClassifierTerm',
+        'wagtailcrx.ClassifierTerm',
         blank=True,
         verbose_name=_('Classifiers'),
         help_text=_('Categorize and group pages together with classifiers. Used to organize and filter pages across the site.'),  # noqa
@@ -526,7 +526,7 @@ class CoderedWebPage(CoderedPage):
         verbose_name = _('CodeRed Web Page')
         abstract = True
 
-    template = 'coderedcms/pages/web_page.html'
+    template = 'wagtailcrx/pages/web_page.html'
 
     # Child pages should override based on what blocks they want in the body.
     # Default is LAYOUT_STREAMBLOCKS which is the fullest editor experience.
@@ -570,7 +570,7 @@ class CoderedArticlePage(CoderedWebPage):
         verbose_name = _('CodeRed Article')
         abstract = True
 
-    template = 'coderedcms/pages/article_page.html'
+    template = 'wagtailcrx/pages/article_page.html'
 
     # Override body to provide simpler content
     body = StreamField(
@@ -698,7 +698,7 @@ class CoderedArticleIndexPage(CoderedWebPage):
         verbose_name = _('CodeRed Article Index Page')
         abstract = True
 
-    template = 'coderedcms/pages/article_index_page.html'
+    template = 'wagtailcrx/pages/article_index_page.html'
 
     index_show_subpages_default = True
 
@@ -950,7 +950,7 @@ class CoderedEventIndexPage(CoderedWebPage):
         BLOCK = 'block', _('Solid rectangles')
         DOT = 'list-item', _('Dots with labels')
 
-    template = 'coderedcms/pages/event_index_page.html'
+    template = 'wagtailcrx/pages/event_index_page.html'
 
     index_show_subpages_default = True
 
@@ -1485,8 +1485,8 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
         verbose_name = _('CodeRed Form Page')
         abstract = True
 
-    template = 'coderedcms/pages/form_page.html'
-    landing_page_template = 'coderedcms/pages/form_page_landing.html'
+    template = 'wagtailcrx/pages/form_page.html'
+    landing_page_template = 'wagtailcrx/pages/form_page_landing.html'
 
     base_form_class = WagtailAdminFormPageForm
 
@@ -1693,8 +1693,8 @@ class CoderedStreamFormPage(CoderedFormMixin, CoderedStreamFormMixin, CoderedWeb
         verbose_name = _('CodeRed Advanced Form Page')
         abstract = True
 
-    template = 'coderedcms/pages/stream_form_page.html'
-    landing_page_template = 'coderedcms/pages/form_page_landing.html'
+    template = 'wagtailcrx/pages/stream_form_page.html'
+    landing_page_template = 'wagtailcrx/pages/form_page_landing.html'
 
     form_fields = StreamField(
         STREAMFORM_BLOCKS,
@@ -1747,7 +1747,7 @@ class CoderedLocationPage(CoderedWebPage):
         verbose_name = _('CodeRed Location')
         abstract = True
 
-    template = 'coderedcms/pages/location_page.html'
+    template = 'wagtailcrx/pages/location_page.html'
 
     # Override body to provide simpler content
     body = StreamField(
@@ -1836,7 +1836,7 @@ class CoderedLocationPage(CoderedWebPage):
     @property
     def render_pin_description(self):
         return render_to_string(
-            'coderedcms/includes/map_pin_description.html',
+            'wagtailcrx/includes/map_pin_description.html',
             {
                 'page': self
             }
@@ -1845,7 +1845,7 @@ class CoderedLocationPage(CoderedWebPage):
     @property
     def render_list_description(self):
         return render_to_string(
-            'coderedcms/includes/map_list_description.html',
+            'wagtailcrx/includes/map_list_description.html',
             {
                 'page': self
             }
@@ -1896,7 +1896,7 @@ class CoderedLocationIndexPage(CoderedWebPage):
         verbose_name = _('CodeRed Location Index Page')
         abstract = True
 
-    template = 'coderedcms/pages/location_index_page.html'
+    template = 'wagtailcrx/pages/location_index_page.html'
 
     index_show_subpages_default = True
 

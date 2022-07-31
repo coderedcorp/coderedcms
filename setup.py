@@ -1,6 +1,6 @@
 import os
 from setuptools import setup
-from coderedcms import __version__
+from wagtailcrx import __version__
 
 with open(os.path.join(os.path.dirname(__file__), "README.md"), encoding="utf8") as readme:
     README = readme.read()
@@ -9,15 +9,15 @@ with open(os.path.join(os.path.dirname(__file__), "README.md"), encoding="utf8")
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='coderedcms',
+    name='wagtailcrx',
     version=__version__,
-    packages=['coderedcms'],
+    packages=['wagtailcrx'],
     include_package_data=True,
     license='BSD License',
     description='Wagtail-based CMS by CodeRed for building marketing websites.',
     long_description=README,
     long_description_content_type='text/markdown',
-    url='https://github.com/coderedcorp/coderedcms',
+    url='https://github.com/coderedcorp/wagtailcrx',
     author='CodeRed LLC',
     author_email='info@coderedcorp.com',
     classifiers=[
@@ -55,7 +55,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "coderedcms=coderedcms.bin.coderedcms:main"
+            "wagtailcrx=wagtailcrx.bin.wagtailcrx:main"
         ]
     },
     zip_safe=False,

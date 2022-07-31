@@ -10,7 +10,7 @@ Bug fixes
 
 * Fix custom CSS class and Google Maps API key in Google Map block.
 
-* ``coderedcms start`` now pins the version of CodeRed CMS in the generated
+* ``wagtailcrx start`` now pins the version of CodeRed CMS in the generated
   ``requirements.txt`` file.
 
 
@@ -24,7 +24,7 @@ New features
 * Button and Link blocks can now link to fragments. See new :doc:`block
   documentation </features/blocks/index>`.
 
-* ``coderedcms start`` no longer creates a boilerplate Dockerfile. This has
+* ``wagtailcrx start`` no longer creates a boilerplate Dockerfile. This has
   been replaced with a more thorough guide: :doc:`/how_to/docker`.
 
 * The boilerplate ``.scss`` files created when starting a new SASS project have
@@ -74,7 +74,7 @@ Upgrade considerations
     ``wagtail.core.middleware.SiteMiddleware`` from the Django ``MIDDLEWARE``
     (in ``settings/base.py``)
 
-* If you have overridden ``coderedcms/pages/base.html``, you may need to update
+* If you have overridden ``wagtailcrx/pages/base.html``, you may need to update
   references to ``jquery-3.4.1`` to ``jquery-3.5.1``.
 
 * If using SASS, you may need to update your ``custom.scss`` and/or
@@ -94,11 +94,11 @@ Upgrade considerations
   ``python manage.py migrate`` after upgrading.
 
 
-.. _the files from our sass starter project: https://github.com/coderedcorp/coderedcms/tree/dev/coderedcms/project_template/sass/website/static/website/src
+.. _the files from our sass starter project: https://github.com/coderedcorp/wagtailcrx/tree/dev/wagtailcrx/project_template/sass/website/static/website/src
 .. _download a copy of the Bootstrap 4.3 sources: https://getbootstrap.com/docs/4.3/getting-started/download/
 
 
 Thank you!
 ----------
 
-Thanks to everyone who contributed to `0.19.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/26?closed=1>`_.
+Thanks to everyone who contributed to `0.19.0 on GitHub <https://github.com/coderedcorp/wagtailcrx/milestone/26?closed=1>`_.

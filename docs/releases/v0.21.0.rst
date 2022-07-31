@@ -10,7 +10,7 @@ New features
 * Added new ``<head>`` and ``<body>`` tracking script settings. See
   :doc:`/how_to/add_tracking_scripts`.
 
-* Added new ``coderedcms.fields.MonospaceField`` for rendering text area fields
+* Added new ``wagtailcrx.fields.MonospaceField`` for rendering text area fields
   in the Wagtail admin with monospace input and spell-checking disabled. This is
   used by the new tracking settings and is useful for implementing code-oriented
   fields.
@@ -38,14 +38,14 @@ Upgrade considerations
   worth the maintenance burden. `See reasoning for this change
   <https://github.com/coderedcorp/wagtail-seo/issues/21>`_.
 
-  * ``coderedcms_tags.convert_to_amp`` has been removed.
+  * ``wagtailcrx_tags.convert_to_amp`` has been removed.
 
-  * ``coderedcms.utils.convert_to_amp()`` has been removed.
+  * ``wagtailcrx.utils.convert_to_amp()`` has been removed.
 
   * You should remove any ``amp_template`` attributes from your models, as they
     are no longer used.
 
-* ``coderedcms/pages/base.html`` template has been modified. If you implement or
+* ``wagtailcrx/pages/base.html`` template has been modified. If you implement or
   extend your own ``base.html``, the following changes are notable:
 
   * template blocks: ``html_seo_base``, ``html_seo_extra``, ``og_seo_base``,
@@ -63,26 +63,26 @@ Upgrade considerations
 
   * ``CoderedArticlePage.get_description`` -> ``CoderedArticlePage.seo_description``
 
-  * ``coderedcms_tags.og_image`` -> ``page.seo_image_url``
+  * ``wagtailcrx_tags.og_image`` -> ``page.seo_image_url``
 
-  * ``coderedcms_tags.structured_data_datetime`` has been removed.
+  * ``wagtailcrx_tags.structured_data_datetime`` has been removed.
 
 * Some built-in blocks used in the Wagtail admin have been replaced:
 
-  * ``coderedcms.blocks.MultiSelectBlock`` -> ``wagtail.core.blocks.MultipleChoiceBlock``
+  * ``wagtailcrx.blocks.MultiSelectBlock`` -> ``wagtail.core.blocks.MultipleChoiceBlock``
 
-  * ``coderedcms.blocks.OpenHoursValue`` -> ``wagtailseo.blocks.OpenHoursValue``
+  * ``wagtailcrx.blocks.OpenHoursValue`` -> ``wagtailseo.blocks.OpenHoursValue``
 
-  * ``coderedcms.blocks.OpenHoursBlock`` -> ``wagtailseo.blocks.OpenHoursBlock``
+  * ``wagtailcrx.blocks.OpenHoursBlock`` -> ``wagtailseo.blocks.OpenHoursBlock``
 
-  * ``coderedcms.blocks.StructuredDataActionBlock`` -> ``wagtailseo.blocks.StructuredDataActionBlock``
+  * ``wagtailcrx.blocks.StructuredDataActionBlock`` -> ``wagtailseo.blocks.StructuredDataActionBlock``
 
 * CodeRed CMS now sets ``default_auto_field = 'django.db.models.AutoField'`` for
   its own concrete models. If you had previously manually specified a different
   ``DEFAULT_AUTO_FIELD`` Django setting, you may need to create a migration.
 
 * You may need to find/replace
-  ``coderedcms.blocks.base_blocks.MultiSelectBlock`` with
+  ``wagtailcrx.blocks.base_blocks.MultiSelectBlock`` with
   ``wagtail.core.blocks.MultipleChoiceBlock`` in any old migrations so that they
   may continue working.
 
@@ -104,4 +104,4 @@ Supported software
 Thank you!
 ----------
 
-Thanks to everyone who contributed to `0.21.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/31?closed=1>`_.
+Thanks to everyone who contributed to `0.21.0 on GitHub <https://github.com/coderedcorp/wagtailcrx/milestone/31?closed=1>`_.

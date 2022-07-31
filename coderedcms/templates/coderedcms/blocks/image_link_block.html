@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
 
 <a href="{{self.url}}"
-    {% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}
+    {% if settings.wagtailcrx.AnalyticsSettings.ga_track_button_clicks %}
         data-ga-event-category='{{self.settings.ga_tracking_event_category|default:"ImageLink"}}'
         data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.alt_text}}'
     {% endif %}

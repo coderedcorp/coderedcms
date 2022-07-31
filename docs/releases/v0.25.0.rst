@@ -10,7 +10,7 @@ New features
   in accordance with the new Wagtail search backends.
 
 * Search page template has new blocks to facilitate extending and customizing
-  the appearance. See ``templates/coderedcms/pages/search.html``.
+  the appearance. See ``templates/wagtailcrx/pages/search.html``.
 
 
 Bug fixes
@@ -31,4 +31,4 @@ Upgrade considerations
 Thank you!
 ----------
 
-Thanks to everyone who contributed to `0.25.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/40?closed=1>`_.
+Thanks to everyone who contributed to `0.25.0 on GitHub <https://github.com/coderedcorp/wagtailcrx/milestone/40?closed=1>`_.

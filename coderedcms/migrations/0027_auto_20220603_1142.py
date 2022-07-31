@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0026_auto_20220513_1627'),
+        ('wagtailcrx', '0026_auto_20220513_1627'),
     ]
 
     operations = [

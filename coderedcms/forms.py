@@ -13,8 +13,8 @@ from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmission
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
 
-from coderedcms.settings import crx_settings
-from coderedcms.utils import attempt_protected_media_value_conversion
+from wagtailcrx.settings import crx_settings
+from wagtailcrx.utils import attempt_protected_media_value_conversion
 
 FORM_FIELD_CHOICES = (
     (_("Text"), (
@@ -77,7 +77,7 @@ class SecureFileField(forms.FileField):
 # Date
 
 class CoderedDateInput(forms.DateInput):
-    template_name = 'coderedcms/formfields/date.html'
+    template_name = 'wagtailcrx/formfields/date.html'
 
 
 class CoderedDateField(forms.DateField):
@@ -87,7 +87,7 @@ class CoderedDateField(forms.DateField):
 # Datetime
 
 class CoderedDateTimeInput(forms.DateTimeInput):
-    template_name = 'coderedcms/formfields/datetime.html'
+    template_name = 'wagtailcrx/formfields/datetime.html'
 
 
 class CoderedDateTimeField(forms.DateTimeField):
@@ -98,7 +98,7 @@ class CoderedDateTimeField(forms.DateTimeField):
 # Time
 
 class CoderedTimeInput(forms.TimeInput):
-    template_name = 'coderedcms/formfields/time.html'
+    template_name = 'wagtailcrx/formfields/time.html'
 
 
 class CoderedTimeField(forms.TimeField):
@@ -174,7 +174,7 @@ def get_page_model_choices():
     Returns a list of tuples of all creatable Codered pages
     in the format of (app_label:model, "Verbose Name")
     """
-    from coderedcms.models import get_page_models
+    from wagtailcrx.models import get_page_models
 
     rval = []
     for page in get_page_models():

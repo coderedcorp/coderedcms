@@ -1,5 +1,5 @@
 from wagtail.models import Site
-from coderedcms.models.wagtailsettings_models import MailchimpApiSettings
+from wagtailcrx.models.wagtailsettings_models import MailchimpApiSettings
 
 import requests
 

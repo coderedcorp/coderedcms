@@ -1,7 +1,7 @@
 from django.test import Client
 from wagtail.test.utils import WagtailPageTests
 
-from coderedcms.models.page_models import (
+from wagtailcrx.models.page_models import (
     CoderedArticleIndexPage,
     CoderedArticlePage,
     CoderedEventIndexPage,
@@ -14,8 +14,8 @@ from coderedcms.models.page_models import (
     CoderedWebPage,
     get_page_models
 )
-from coderedcms.models.snippet_models import Classifier, ClassifierTerm
-from coderedcms.tests.testapp.models import (
+from wagtailcrx.models.snippet_models import Classifier, ClassifierTerm
+from wagtailcrx.tests.testapp.models import (
     ArticleIndexPage,
     ArticlePage,
     EventIndexPage,

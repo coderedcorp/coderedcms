@@ -33,7 +33,7 @@ Upgrade considerations
   not look correct after upgrading, you may need to synchronize your
   customizations to ``navbar.html`` and ``footer.html`` with the `stock versions
   which can be found here
-  <https://github.com/coderedcorp/coderedcms/tree/dev/coderedcms/templates/coderedcms/snippets>`_.
+  <https://github.com/coderedcorp/wagtailcrx/tree/dev/wagtailcrx/templates/wagtailcrx/snippets>`_.
 
 
 Supported software
@@ -52,8 +52,8 @@ sites should not be using any of these APIs and therefore can ignore this
 section. In case your site deeply hooks into the package, these are here for
 reference.
 
-* ``coderedcms.settings.cr_settings`` has been replaced with
-  ``coderedcms.settings.crx_settings`` which is no longer a dictionary, but an
+* ``wagtailcrx.settings.cr_settings`` has been replaced with
+  ``wagtailcrx.settings.crx_settings`` which is no longer a dictionary, but an
   object which behaves exactly like the Django settings. This object will first
   retrieve a Django setting, and if it does not exist, will then load a CRX
   default.
@@ -65,7 +65,7 @@ reference.
   As a result, all past migrations have been hand-edited to reflect this change.
   No action is required in client sites.
 
-  Client sites can freely use ``coderedcms.fields.CoderedStreamField`` in place
+  Client sites can freely use ``wagtailcrx.fields.CoderedStreamField`` in place
   of Wagtail's ``StreamField`` to eliminate the giant migrations problem
   inherent to Wagtail. However this API is not publicly documented at this time.
 
@@ -77,4 +77,4 @@ reference.
 Thank you!
 ----------
 
-Thanks to everyone who contributed to `0.24.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/37?closed=1>`_.
+Thanks to everyone who contributed to `0.24.0 on GitHub <https://github.com/coderedcorp/wagtailcrx/milestone/37?closed=1>`_.

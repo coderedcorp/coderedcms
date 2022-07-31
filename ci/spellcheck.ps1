@@ -16,7 +16,7 @@ $ExitCode = 0
 
 # Run spell checker.
 codespell --skip="migrations,vendor,_build,*.css.map,*.jpg,*.png,*.pyc" `
-    coderedcms docs
+    wagtailcrx docs
 $ExitCode = $LastExitCode
 
 # Print output.

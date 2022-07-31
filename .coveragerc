@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = coderedcms
+source = wagtailcrx
 
 [report]
 exclude_lines =

@@ -2,7 +2,7 @@ from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.utils.html import mark_safe
 
-from coderedcms.settings import crx_settings
+from wagtailcrx.settings import crx_settings
 
 
 def get_protected_media_link(request, path, render_link=False):

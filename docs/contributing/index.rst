@@ -7,15 +7,15 @@ Developing Wagtail CRX
 
 To create a test project locally:
 
-#. Clone the code from https://github.com/coderedcorp/coderedcms (dev branch).
-#. Run ``pip install -r requirements-dev.txt`` from the root coderedcms
+#. Clone the code from https://github.com/coderedcorp/wagtailcrx (dev branch).
+#. Run ``pip install -r requirements-dev.txt`` from the root wagtailcrx
    directory. This will install development tools, and also make the install
    editable, which is relevant when running ``makemigrations`` in test project
-   to actually generate the migration files in the coderedcms pip package.
+   to actually generate the migration files in the wagtailcrx pip package.
 #. Follow the steps in :doc:`/getting_started/install`. Use ``testproject`` for
    your project name to ensure it is ignored by git.
-#. When making model or block changes within coderedcms, run
-   ``makemigrations coderedcms`` in the test project to generate the relevant
+#. When making model or block changes within wagtailcrx, run
+   ``makemigrations wagtailcrx`` in the test project to generate the relevant
    migration files for the pip package. ALWAYS follow steps 4 and 5 in
    :doc:`/getting_started/install` with a fresh database before making migrations.
 #. When model or block changes affect the local test project (i.e. the "website"
@@ -24,7 +24,7 @@ To create a test project locally:
    satisfied, re-generate the ``0001_initial.py`` migration in
    ``project_template/website/migrations/`` as so:
 
-       #. Create a new test project using ``coderedcms start testproject``.
+       #. Create a new test project using ``wagtailcrx start testproject``.
        #. Before running migrations, DELETE all migrations in
           ``testproject/website/migrations/``.
        #. Run ``python manage.py makemigrations website``. This should generate
@@ -33,12 +33,12 @@ To create a test project locally:
           your newly generated migration.
 
 When making changes that are potentially destructive or backwards incompatible,
-increment the minor version number until coderedcms reaches a stable 1.0 release.
-Each production project that uses coderedcms should specify the appropriate
+increment the minor version number until wagtailcrx reaches a stable 1.0 release.
+Each production project that uses wagtailcrx should specify the appropriate
 version in its requirements.txt to prevent breakage.
 
 .. note::
-    When testing existing projects with coderedcms installed from a development
+    When testing existing projects with wagtailcrx installed from a development
     branch, be sure to use a disposable database, as it is likely that the
     migrations will not be the same migrations that get released.
 
@@ -50,7 +50,7 @@ Primary development takes place in individual branches for each feature or bug.
 Changes are then made as a pull request against the ``dev`` branch.
 
 The ``dev`` branch is the primary working branch, representing the development
-version of coderedcms.
+version of wagtailcrx.
 
 Releases are maintained in ``release/X.Y`` branches, where X is the Major
 version and Y is the Minor version. Maintenance patches are applied in ``dev``
@@ -77,13 +77,13 @@ CSS Development
 
 When CSS changes are needed for front-end code (not the wagtail admin), Sass should be used.
 Each block, page, snippet, or other component that requires styling should have a dedicated ``.scss``
-file created beginning with an underscore in ``coderedcms/static/scss/``. Then import the file
+file created beginning with an underscore in ``wagtailcrx/static/scss/``. Then import the file
 in our main ``codered-front.scss`` file. Then build a human readable and minified version of CSS
 from the command prompt as so:
 
 .. code-block:: console
 
-    $ cd coderedcms/static/coderedcms/
+    $ cd wagtailcrx/static/wagtailcrx/
 
     $ # Build human readable CSS, and source map for nicer debugging.
     $ pysassc -g -t expanded scss/codered-front.scss css/codered-front.css
@@ -112,7 +112,7 @@ license header comment states copyright, ownership, license, and also provides c
     /*!
     Wagtail CRX (https://www.coderedcorp.com/cms/)
     Copyright 2018-2021 CodeRed LLC
-    License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
+    License: https://github.com/coderedcorp/wagtailcrx/blob/dev/LICENSE
     @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
     */
 
@@ -125,14 +125,14 @@ Upgrading 3rd-Party CSS/JavaScript Libraries
 --------------------------------------------
 
 External front-end libraries are included in two places:
-* Source or distributables are in ``coderedcms/static/coderedcms/vendor/``.
-* Referenced via a CDN in ``coderedcms/static/coderedcms/codered-front.js``.
+* Source or distributables are in ``wagtailcrx/static/wagtailcrx/vendor/``.
+* Referenced via a CDN in ``wagtailcrx/static/wagtailcrx/codered-front.js``.
 
 To upgrade, replace the relevant files or links in these two sources. Then be
 sure to change any URLs if applicable within the ``base.html`` template.
 
 If changing SASS sources, be sure to test ``.scss`` files in
-``coderedcms/project_template/sass/`` which may require changes.
+``wagtailcrx/project_template/sass/`` which may require changes.
 
 
 Testing Wagtail CRX
@@ -143,7 +143,7 @@ report and code coverage report:
 
 .. code-block:: console
 
-    $ pytest coderedcms/
+    $ pytest wagtailcrx/
 
 Or more conveniently, run the PowerShell script, which will also print out the
 code coverage percentage in the console:
@@ -171,19 +171,19 @@ new features and models include proper unit tests. Any testing infrastructure
 (i.e. implementations of abstract models and migrations) needed should be added
 to the ``tests`` app in your local copy of Wagtail CRX. The tests themselves
 should be in their relevant section in Wagtail CRX (i.e. tests for models in
-``coderedcms.models.page_models`` should be located in
-``coderedcms.models.tests.test_page_models``).
+``wagtailcrx.models.page_models`` should be located in
+``wagtailcrx.models.tests.test_page_models``).
 
 For example, here is how you would add tests for a new abstract page type,
-``CoderedCustomPage`` that would live in ``coderedcms/models/page_models.py``:
+``CoderedCustomPage`` that would live in ``wagtailcrx/models/page_models.py``:
 
-#. Navigate to ``coderedcms/tests/testapp/models.py``
-#. Add the following import: ``from coderedcms.models.page_models import CoderedCustomPage``
+#. Navigate to ``wagtailcrx/tests/testapp/models.py``
+#. Add the following import: ``from wagtailcrx.models.page_models import CoderedCustomPage``
 #. Implement a concrete version of ``CoderedCustomPage``, i.e. ``CustomPage(CoderedCustomPage)``.
 #. Run ``python manage.py makemigrations`` to make new testing migrations.
-#. Navigate to ``coderedcms/models/tests/test_page_models.py``
-#. Add the following import: ``from coderedcms.models import CoderedCustomPage``
-#. Add the following import: ``from coderedcms.tests.testapp.models import CustomPage``
+#. Navigate to ``wagtailcrx/models/tests/test_page_models.py``
+#. Add the following import: ``from wagtailcrx.models import CoderedCustomPage``
+#. Add the following import: ``from wagtailcrx.tests.testapp.models import CustomPage``
 #. Add the following to the bottom of the file:
 
    .. code-block:: python
@@ -225,7 +225,7 @@ Contributor Guidelines
 ----------------------
 
 We are happy to accept pull requests from the community if it aligns with our
-vision for coderedcms. When creating a pull request, please make sure you
+vision for wagtailcrx. When creating a pull request, please make sure you
 include the following:
 
 * A description in the pull request of what this change does and how it works.
@@ -308,7 +308,7 @@ Publishing a New Release
 .. note::
 
     For creating pre-releases, use the "rc" version specifier in
-    ``coderedcms/__init__.py``. When publishing a production release, leave this
+    ``wagtailcrx/__init__.py``. When publishing a production release, leave this
     blank. After a release is completed, increment the version and add the
     "dev0" version specifier.
 

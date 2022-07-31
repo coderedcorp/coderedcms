@@ -7,7 +7,7 @@ New features
 
 * New block ``{% block no_results %}`` in ``location_index_page.html`` template for adding custom HTML
   when there are no search results in the Store Finder.
-* New default home page template at ``coderedcms/pages/home_page.html`` for developer convenience.
+* New default home page template at ``wagtailcrx/pages/home_page.html`` for developer convenience.
   This template provides a "blank slate" to be extended and customized as needed.
 
 

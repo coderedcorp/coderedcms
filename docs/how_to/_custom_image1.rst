@@ -2,7 +2,7 @@ Step 1: Create a custom image model in a new app
 ------------------------------------------------
 
 It is imperative that the custom image model lives in a Django app which does
-not rely on or import ``coderedcms``. It is recommended to create a separate
+not rely on or import ``wagtailcrx``. It is recommended to create a separate
 "pure" app to contain custom image and document models for your site. Failure
 to separate the custom image model will create a circular dependency issue in
 migrations.

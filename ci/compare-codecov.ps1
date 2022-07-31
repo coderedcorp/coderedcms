@@ -27,7 +27,7 @@ param(
     [string] $wd = (Get-Item (Split-Path $PSCommandPath -Parent)).Parent,
     [string] $org = "coderedcorp",
     [string] $project = "cr-github",
-    [string] $pipeline_name = "coderedcms"
+    [string] $pipeline_name = "wagtailcrx"
 )
 
 # Hide "UI" and progress bars.

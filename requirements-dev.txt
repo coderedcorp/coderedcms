@@ -1,7 +1,7 @@
 # Everything from ci
 -r requirements-ci.txt
 
-# Requirements, in addition to coderedcms, needed for development.
+# Requirements, in addition to wagtailcrx, needed for development.
 libsass
 twine
 wheel

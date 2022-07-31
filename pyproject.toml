@@ -16,8 +16,8 @@ exclude = '''
     | buck-out
     | build
     | dist
-    | coderedcms/project_template
-    | coderedcms/tests/settings.py
+    | wagtailcrx/project_template
+    | wagtailcrx/tests/settings.py
     | .*/migrations
     | \.github
     | ci

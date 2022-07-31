@@ -9,13 +9,13 @@ from django.utils.html import mark_safe
 from wagtail.models import Collection
 from wagtail.images.models import Image
 
-from coderedcms import utils, __version__
-from coderedcms.blocks import CoderedAdvSettings
-from coderedcms.forms import SearchForm
-from coderedcms.models.snippet_models import Navbar, Footer
-from coderedcms.settings import crx_settings as crx_settings_obj
-from coderedcms.settings import get_bootstrap_setting
-from coderedcms.models.wagtailsettings_models import LayoutSettings
+from wagtailcrx import utils, __version__
+from wagtailcrx.blocks import CoderedAdvSettings
+from wagtailcrx.forms import SearchForm
+from wagtailcrx.models.snippet_models import Navbar, Footer
+from wagtailcrx.settings import crx_settings as crx_settings_obj
+from wagtailcrx.settings import get_bootstrap_setting
+from wagtailcrx.models.wagtailsettings_models import LayoutSettings
 
 register = template.Library()
 
@@ -31,7 +31,7 @@ def is_file_form(form):
 
 
 @register.simple_tag
-def coderedcms_version():
+def wagtailcrx_version():
     return __version__
 
 

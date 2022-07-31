@@ -2,7 +2,7 @@ from django.db import models
 from django.forms.widgets import Textarea
 from wagtail.fields import StreamField
 
-from coderedcms.widgets import ColorPickerWidget
+from wagtailcrx.widgets import ColorPickerWidget
 
 
 class CoderedStreamField(StreamField):
@@ -14,7 +14,7 @@ class CoderedStreamField(StreamField):
     the blocks in our concrete models dynamically, this creates a slew of
     migration problems (most commonly: a client overrides CODERED_FRONTEND_*,
     which changes a string used in a concrete model, which triggers a migration
-    back in coderedcms). Eliminiating the blocks from the deconstructed
+    back in wagtailcrx). Eliminiating the blocks from the deconstructed
     StreamField allows us to have dynamic streamfields without breaking
     migrations or having to refactor the core concepts of this package.
 
@@ -52,7 +52,7 @@ class CoderedStreamField(StreamField):
         The output should look something like this, regardless of how many
         blocks are nested within the StreamField::
 
-            ("body", coderedcms.fields.CoderedStreamField([]))
+            ("body", wagtailcrx.fields.CoderedStreamField([]))
 
         """
         name, path, block_types, kwargs = super().deconstruct()

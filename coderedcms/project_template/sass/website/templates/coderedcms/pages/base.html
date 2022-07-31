@@ -1,12 +1,12 @@
-{% extends "coderedcms/pages/base.html" %}
+{% extends "wagtailcrx/pages/base.html" %}
 {% load static %}
 
 {% block frontend_assets %}
 {# Leave this section blank since we are pulling in Bootstrap/theme assets through Sass in custom.css #}
 {% endblock %}
 
-{% block coderedcms_assets %}
-{# Leave this section blank since we are pulling in coderedcms assets through Sass in custom.css #}
+{% block wagtailcrx_assets %}
+{# Leave this section blank since we are pulling in wagtailcrx assets through Sass in custom.css #}
 {% endblock %}
 
 {% block custom_assets %}
@@ -15,8 +15,8 @@
 {% endblock %}
 
 {% block frontend_scripts %}
-{# Load Bootstrap scripts distributed by coderedcms #}
-<script src="{% static 'coderedcms/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+{# Load Bootstrap scripts distributed by wagtailcrx #}
+<script src="{% static 'wagtailcrx/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 {% endblock %}
 
 {% block custom_scripts %}

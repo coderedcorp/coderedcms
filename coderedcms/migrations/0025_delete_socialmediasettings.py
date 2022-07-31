@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0024_analyticssettings'),
+        ('wagtailcrx', '0024_analyticssettings'),
     ]
 
     operations = [

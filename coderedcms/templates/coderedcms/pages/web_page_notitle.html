@@ -1,13 +1,13 @@
-{% extends "coderedcms/pages/base.html" %}
+{% extends "wagtailcrx/pages/base.html" %}
 
 {% block navbar %}
-    {% include 'coderedcms/snippets/navbar.html' %}
+    {% include 'wagtailcrx/snippets/navbar.html' %}
 {% endblock %}
 
 {% block index_filters %}
     {% if page.index_show_subpages and page.index_classifiers.exists %}
     <div class="container">
-        {% include "coderedcms/includes/classifier_dropdowns.html" with formclass="form-inline" %}
+        {% include "wagtailcrx/includes/classifier_dropdowns.html" with formclass="form-inline" %}
     </div>
     {% endif %}
 {% endblock %}
@@ -21,5 +21,5 @@
 {% endblock %}
 
 {% block footer %}
-{% include 'coderedcms/snippets/footer.html' %}
+{% include 'wagtailcrx/snippets/footer.html' %}
 {% endblock %}

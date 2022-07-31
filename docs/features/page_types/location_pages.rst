@@ -51,7 +51,7 @@ Implementation
 The store locator is built-in to Wagtail CRX but is not enabled by default. To implement, add
 the following to your ``website/models.py``::
 
-    from coderedcms.models import CoderedLocationIndexPage, CoderedLocationPage
+    from wagtailcrx.models import CoderedLocationIndexPage, CoderedLocationPage
 
 
     class LocationPage(CoderedLocationPage):
@@ -61,7 +61,7 @@ the following to your ``website/models.py``::
         class Meta:
             verbose_name = 'Location Page'
 
-        template = 'coderedcms/pages/location_page.html'
+        template = 'wagtailcrx/pages/location_page.html'
 
         # Only allow LocationIndexPages above this page.
         parent_page_types = ['website.LocationIndexPage']
@@ -81,7 +81,7 @@ the following to your ``website/models.py``::
         # Only allow LocationPages beneath this page.
         subpage_types = ['website.LocationPage']
 
-        template = 'coderedcms/pages/location_index_page.html'
+        template = 'wagtailcrx/pages/location_index_page.html'
 
 Next run ``python manage.py makemigrations website`` and ``python manage.py migrate`` to create
 the new pages in your project.

@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0006_mailchimpapisettings'),
+        ('wagtailcrx', '0006_mailchimpapisettings'),
     ]
 
     operations = [

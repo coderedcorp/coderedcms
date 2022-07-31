@@ -8,7 +8,7 @@ import wagtail.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0019_spelling_corrections'),
+        ('wagtailcrx', '0019_spelling_corrections'),
     ]
 
     operations = [

@@ -6,11 +6,11 @@ Bug fixes
 ---------
 
 * Fix a bug where Django 4.0 and higher would try to generate a migration in
-  coderedcms. We have added this migration (it does not affect functionality,
+  wagtailcrx. We have added this migration (it does not affect functionality,
   and is essentially a no-op).
 
 
 Thank you!
 ----------
 
-Thanks to everyone who contributed to `0.24.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/39?closed=1>`_.
+Thanks to everyone who contributed to `0.24.1 on GitHub <https://github.com/coderedcorp/wagtailcrx/milestone/39?closed=1>`_.

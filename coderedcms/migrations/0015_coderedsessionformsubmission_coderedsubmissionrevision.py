@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
         ('contenttypes', '0002_remove_content_type_name'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('coderedcms', '0014_classifiers'),
+        ('wagtailcrx', '0014_classifiers'),
     ]
 
     operations = [

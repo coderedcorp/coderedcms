@@ -1,7 +1,7 @@
 Wagtail CRX Documentation
 =========================
 
-`Official website <https://www.coderedcorp.com/cms/>`_ | `Source code on GitHub <https://github.com/coderedcorp/coderedcms>`_
+`Official website <https://www.coderedcorp.com/cms/>`_ | `Source code on GitHub <https://github.com/coderedcorp/wagtailcrx>`_
 
 Formerly known as CodeRed CMS, Wagtail CRX (short for Wagtail + CodeRed
 Extensions), provides a large set of enhancements and pre-built components for
@@ -61,7 +61,7 @@ implemented once in CRX then pushed out to all sites.
 Join us
 -------
 
-Have questions or ideas? Join us in the **#coderedcms** channel on the
+Have questions or ideas? Join us in the **#wagtailcrx** channel on the
 `Wagtail Slack <https://wagtail.io/slack/>`_.
 
 

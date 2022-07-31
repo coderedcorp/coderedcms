@@ -9,7 +9,7 @@ per page, edit the value in Settings > General > Search Settings.
 Search result formatting
 ------------------------
 
-Each search result is rendered using the template at ``coderedcms/pages/search_result.html``.
+Each search result is rendered using the template at ``wagtailcrx/pages/search_result.html``.
 The template can be overridden per model with the ``search_template`` attribute.
 
 Search result filtering

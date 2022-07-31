@@ -1,5 +1,5 @@
-{% extends "coderedcms/pages/web_page_notitle.html" %}
-{% load bootstrap4 i18n coderedcms_tags wagtailcore_tags %}
+{% extends "wagtailcrx/pages/web_page_notitle.html" %}
+{% load bootstrap4 i18n wagtailcrx_tags wagtailcore_tags %}
 
 {% wagtail_site as site %}
 
@@ -21,7 +21,7 @@
 {% block content_body %}
 <div class="container">
   {% block search_form %}
-  {% if not settings.coderedcms.LayoutSettings.navbar_search %}
+  {% if not settings.wagtailcrx.LayoutSettings.navbar_search %}
   <form class="mt-5" action="{% url 'codered_search' %}" method="GET">
     <div class="row">
       <div class="col-sm-9">
@@ -68,12 +68,12 @@
     {% if page.search_template %}
     {% include page.search_template %}
     {% else %}
-    {% include 'coderedcms/pages/search_result.html' %}
+    {% include 'wagtailcrx/pages/search_result.html' %}
     {% endif %}
     {% endwith %}
   </div>
   {% endfor %}
-  {% include "coderedcms/includes/pagination.html" with items=results_paginated %}
+  {% include "wagtailcrx/includes/pagination.html" with items=results_paginated %}
   {% endblock search_results %}
 
   {% elif form.s.value %}

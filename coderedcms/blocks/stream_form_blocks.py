@@ -1,9 +1,9 @@
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 
-from coderedcms.wagtail_flexible_forms import blocks as form_blocks
-from coderedcms.blocks.base_blocks import BaseBlock, CoderedAdvSettings
-from coderedcms.forms import (
+from wagtailcrx.wagtail_flexible_forms import blocks as form_blocks
+from wagtailcrx.blocks.base_blocks import BaseBlock, CoderedAdvSettings
+from wagtailcrx.forms import (
     CoderedDateField, CoderedDateInput,
     CoderedDateTimeField, CoderedDateTimeInput,
     CoderedTimeField, CoderedTimeInput,

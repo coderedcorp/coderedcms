@@ -12,7 +12,7 @@ from wagtail.models import Collection
 from wagtail.coreutils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
 
-from coderedcms.settings import crx_settings
+from wagtailcrx.settings import crx_settings
 
 
 class ClassifierTermChooserBlock(blocks.FieldBlock):
@@ -30,7 +30,7 @@ class ClassifierTermChooserBlock(blocks.FieldBlock):
 
     @cached_property
     def target_model(self):
-        return resolve_model_string('coderedcms.ClassifierTerm')
+        return resolve_model_string('wagtailcrx.ClassifierTerm')
 
     @cached_property
     def field(self):

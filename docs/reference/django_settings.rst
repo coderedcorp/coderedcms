@@ -1,14 +1,14 @@
 Wagtail CRX Django Settings
 ===========================
 
-Default settings are loaded from ``coderedcms/settings.py``. Available settings
+Default settings are loaded from ``wagtailcrx/settings.py``. Available settings
 for Wagtail CRX:
 
 
 CRX_BANNER
 ----------
 
-If you define a value for this ``CRX_BANNER``, CodeRedCMS will show this text in
+If you define a value for this ``CRX_BANNER``, wagtailcrx will show this text in
 a banner on both the front end and in the CMS of your site. This is useful for
 flagging non-production environments like staging. For example::
 
@@ -43,7 +43,7 @@ admin related to rendering blocks, pages, and templates. By default, all
 CRX_FRONTEND_* settings are designed to work with Bootstrap 4 CSS framework, but
 these can be customized if using a different CSS framework or theme variant.
 
-`Available settings are defined here <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/settings.py>`.
+`Available settings are defined here <https://github.com/coderedcorp/wagtailcrx/blob/dev/wagtailcrx/settings.py>`.
 
 
 CRX_PROTECTED_MEDIA_ROOT

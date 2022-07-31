@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
-from coderedcms.settings import crx_settings
+from wagtailcrx.settings import crx_settings
 
 from .base_blocks import BaseLayoutBlock, CoderedAdvColumnSettings
 
@@ -29,7 +29,7 @@ class ColumnBlock(BaseLayoutBlock):
     advsettings_class = CoderedAdvColumnSettings
 
     class Meta:
-        template = 'coderedcms/blocks/column_block.html'
+        template = 'wagtailcrx/blocks/column_block.html'
         icon = 'placeholder'
         label = 'Column'
 
@@ -44,7 +44,7 @@ class GridBlock(BaseLayoutBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/grid_block.html'
+        template = 'wagtailcrx/blocks/grid_block.html'
         icon = 'cr-columns'
         label = _('Responsive Grid Row')
 
@@ -66,7 +66,7 @@ class CardGridBlock(BaseLayoutBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/cardgrid_deck.html'
+        template = 'wagtailcrx/blocks/cardgrid_deck.html'
         icon = 'cr-th-large'
         label = _('Card Grid')
 
@@ -107,6 +107,6 @@ class HeroBlock(BaseLayoutBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/hero_block.html'
+        template = 'wagtailcrx/blocks/hero_block.html'
         icon = 'cr-newspaper-o'
         label = 'Hero Unit'

@@ -67,13 +67,13 @@ To implement, add the following to your ``website/models.py``
 
 .. code-block:: python
 
-    from coderedcms.models import CoderedEmail, CoderedStreamFormPage
+    from wagtailcrx.models import CoderedEmail, CoderedStreamFormPage
 
     class StreamFormPage(CoderedStreamFormPage):
         class Meta:
             verbose_name = 'Stream Form'
 
-        template = 'coderedcms/pages/stream_form_page.html'
+        template = 'wagtailcrx/pages/stream_form_page.html'
 
     class StreamFormConfirmEmail(CoderedEmail):
         page = ParentalKey('StreamFormPage', related_name='confirmation_emails')

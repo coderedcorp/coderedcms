@@ -27,10 +27,10 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     # Test
-    'coderedcms.tests.testapp',
+    'wagtailcrx.tests.testapp',
 
     # Wagtail CRX (CodeRed Extensions)
-    'coderedcms',
+    'wagtailcrx',
     'bootstrap4',
     'modelcluster',
     'taggit',
@@ -88,7 +88,7 @@ MIDDLEWARE = [
     'wagtailcache.cache.FetchFromCacheMiddleware',
 ]
 
-ROOT_URLCONF = 'coderedcms.tests.urls'
+ROOT_URLCONF = 'wagtailcrx.tests.urls'
 
 TEMPLATES = [
     {
@@ -195,7 +195,7 @@ WAGTAILADMIN_BASE_URL = ''
 # Bootstrap
 
 BOOTSTRAP4 = {
-    # set to blank since coderedcms already loads jquery and bootstrap
+    # set to blank since wagtailcrx already loads jquery and bootstrap
     'jquery_url': '',
     'base_url': '',
     # remove green highlight on inputs

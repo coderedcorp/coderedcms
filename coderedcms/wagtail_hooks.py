@@ -11,14 +11,14 @@ from wagtail import hooks
 from wagtail.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
-from coderedcms import __version__
+from wagtailcrx import __version__
 
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
-        static('coderedcms/css/codered-admin.css'),
+        static('wagtailcrx/css/codered-admin.css'),
         __version__,
     )
 
@@ -27,7 +27,7 @@ def global_admin_css():
 def editor_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
-        static('coderedcms/css/codered-editor.css'),
+        static('wagtailcrx/css/codered-editor.css'),
         __version__,
     )
 
@@ -36,7 +36,7 @@ def editor_css():
 def collapsible_js():
     return format_html(
         '<script src="{}?v={}"></script>',
-        static('coderedcms/js/codered-editor.js'),
+        static('wagtailcrx/js/codered-editor.js'),
         __version__,
     )
 
@@ -49,26 +49,26 @@ def register_icons(icons):
     # These SVG files should be in the django templates folder, and follow exact
     # specifications to work with Wagtail:
     # https://github.com/wagtail/wagtail/pull/6028
-    icons.append("coderedcms/icons/cr-align-left.svg")
-    icons.append("coderedcms/icons/cr-check-square-o.svg")
-    icons.append("coderedcms/icons/cr-columns.svg")
-    icons.append("coderedcms/icons/cr-desktop.svg")
-    icons.append("coderedcms/icons/cr-font.svg")
-    icons.append("coderedcms/icons/cr-google.svg")
-    icons.append("coderedcms/icons/cr-hand-pointer-o.svg")
-    icons.append("coderedcms/icons/cr-hashtag.svg")
-    icons.append("coderedcms/icons/cr-header.svg")
-    icons.append("coderedcms/icons/cr-list-alt.svg")
-    icons.append("coderedcms/icons/cr-map.svg")
-    icons.append("coderedcms/icons/cr-newspaper-o.svg")
-    icons.append("coderedcms/icons/cr-puzzle-piece.svg")
-    icons.append("coderedcms/icons/cr-recycle.svg")
-    icons.append("coderedcms/icons/cr-stop.svg")
-    icons.append("coderedcms/icons/cr-th-large.svg")
-    icons.append("coderedcms/icons/cr-universal-access.svg")
-    icons.append("coderedcms/icons/cr-usd.svg")
-    icons.append("coderedcms/icons/cr-window-maximize.svg")
-    icons.append("coderedcms/icons/cr-window-minimize.svg")
+    icons.append("wagtailcrx/icons/cr-align-left.svg")
+    icons.append("wagtailcrx/icons/cr-check-square-o.svg")
+    icons.append("wagtailcrx/icons/cr-columns.svg")
+    icons.append("wagtailcrx/icons/cr-desktop.svg")
+    icons.append("wagtailcrx/icons/cr-font.svg")
+    icons.append("wagtailcrx/icons/cr-google.svg")
+    icons.append("wagtailcrx/icons/cr-hand-pointer-o.svg")
+    icons.append("wagtailcrx/icons/cr-hashtag.svg")
+    icons.append("wagtailcrx/icons/cr-header.svg")
+    icons.append("wagtailcrx/icons/cr-list-alt.svg")
+    icons.append("wagtailcrx/icons/cr-map.svg")
+    icons.append("wagtailcrx/icons/cr-newspaper-o.svg")
+    icons.append("wagtailcrx/icons/cr-puzzle-piece.svg")
+    icons.append("wagtailcrx/icons/cr-recycle.svg")
+    icons.append("wagtailcrx/icons/cr-stop.svg")
+    icons.append("wagtailcrx/icons/cr-th-large.svg")
+    icons.append("wagtailcrx/icons/cr-universal-access.svg")
+    icons.append("wagtailcrx/icons/cr-usd.svg")
+    icons.append("wagtailcrx/icons/cr-window-maximize.svg")
+    icons.append("wagtailcrx/icons/cr-window-minimize.svg")
     return icons
 
 
@@ -95,7 +95,7 @@ def codered_forms(user, editable_forms):
     of its existence. Essentially this is a fork of wagtail.contrib.forms.get_forms_for_user()
     and wagtail.contrib.forms.get_form_types()
     """
-    from coderedcms.models import CoderedFormMixin
+    from wagtailcrx.models import CoderedFormMixin
     form_models = [
         model for model in get_page_models()
         if issubclass(model, CoderedFormMixin)

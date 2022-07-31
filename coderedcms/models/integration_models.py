@@ -7,14 +7,14 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel
 from wagtail import hooks
 
-from coderedcms.api.mailchimp import MailchimpApi
+from wagtailcrx.api.mailchimp import MailchimpApi
 
 import json
 
 
 class MailchimpSubscriberIntegrationWidget(Input):
-    template_name = 'coderedcms/formfields/mailchimp/subscriber_integration_widget.html'
-    js_template_name = 'coderedcms/formfields/mailchimp/subscriber_integration_js.html'
+    template_name = 'wagtailcrx/formfields/mailchimp/subscriber_integration_widget.html'
+    js_template_name = 'wagtailcrx/formfields/mailchimp/subscriber_integration_js.html'
 
     def get_context(self, name, value, attrs):
         ctx = super(MailchimpSubscriberIntegrationWidget, self).get_context(name, value, attrs)

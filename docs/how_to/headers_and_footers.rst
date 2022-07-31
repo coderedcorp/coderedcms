@@ -18,7 +18,7 @@ snippet under **Snippets > Navbar**.
 Customizing the design of the stock navbar can be accomplished by baked in
 Django template overrides.
 
-Create a ``templates\coderedcms\snippets`` directory in your project,
+Create a ``templates\wagtailcrx\snippets`` directory in your project,
 most likely in the ``website`` directory.
 
 In that directory create a file called ``navbar.html``. This file will then
@@ -27,7 +27,7 @@ override the ``navbar.html`` file included with Wagtail CRX.
 It is advisable to initially copy the contents of `Wagtail CRX navbar.html`_, but
 not necessary.
 
-.. _Wagtail CRX navbar.html: https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/navbar.html
+.. _Wagtail CRX navbar.html: https://github.com/coderedcorp/wagtailcrx/blob/dev/wagtailcrx/templates/wagtailcrx/snippets/navbar.html
 
 
 Footer
@@ -46,7 +46,7 @@ site. Content can be added to the footer by creating a "Footer" snippet under
 Customizing the design of the sock footer can be accomplished similarly to the
 navbar, by overriding the Django template.
 
-Create a ``templates/coderedcms/snippets/`` directory in your project,
+Create a ``templates/wagtailcrx/snippets/`` directory in your project,
 most likely in the ``website`` directory.
 
 In that directory create a filed named ``footer.html``. This file will then
@@ -63,4 +63,4 @@ footer.html`_, but not necessary.
     select a different navbar/footer per site in a multisite installation OR render several navbars/footers in selected order
     on a single site.
 
-.. _Wagtail CRX footer.html: https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/footer.html
+.. _Wagtail CRX footer.html: https://github.com/coderedcorp/wagtailcrx/blob/dev/wagtailcrx/templates/wagtailcrx/snippets/footer.html

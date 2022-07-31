@@ -41,7 +41,7 @@ calendar or list.
 To implement, add the following to your ``website/models.py``::
 
     from modelcluster.fields import ParentalKey
-    from coderedcms.models import (
+    from wagtailcrx.models import (
         CoderedEventPage,
         CoderedEventIndexPage,
         CoderedEventOccurrence
@@ -53,7 +53,7 @@ To implement, add the following to your ``website/models.py``::
 
         parent_page_types = ['website.EventIndexPage']
         subpage_types = []
-        template = 'coderedcms/pages/event_page.html'
+        template = 'wagtailcrx/pages/event_page.html'
 
 
     class EventIndexPage(CoderedEventIndexPage):
@@ -68,7 +68,7 @@ To implement, add the following to your ``website/models.py``::
         # Only allow EventPages beneath this page.
         subpage_types = ['website.EventPage']
 
-        template = 'coderedcms/pages/event_index_page.html'
+        template = 'wagtailcrx/pages/event_index_page.html'
 
 
     class EventOccurrence(CoderedEventOccurrence):

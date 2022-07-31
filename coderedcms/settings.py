@@ -122,32 +122,32 @@ class _DefaultSettings:
 
     CRX_FRONTEND_TEMPLATES_BLOCKS = {
         'cardblock': [
-            ('coderedcms/blocks/card_block.html', 'Card'),
-            ('coderedcms/blocks/card_head.html', 'Card with header'),
-            ('coderedcms/blocks/card_foot.html', 'Card with footer'),
-            ('coderedcms/blocks/card_head_foot.html', 'Card with header and footer'),
-            ('coderedcms/blocks/card_blurb.html', 'Blurb - rounded image and no border'),
-            ('coderedcms/blocks/card_img.html', 'Cover image - use image as background'),
+            ('wagtailcrx/blocks/card_block.html', 'Card'),
+            ('wagtailcrx/blocks/card_head.html', 'Card with header'),
+            ('wagtailcrx/blocks/card_foot.html', 'Card with footer'),
+            ('wagtailcrx/blocks/card_head_foot.html', 'Card with header and footer'),
+            ('wagtailcrx/blocks/card_blurb.html', 'Blurb - rounded image and no border'),
+            ('wagtailcrx/blocks/card_img.html', 'Cover image - use image as background'),
         ],
         'cardgridblock': [
-            ('coderedcms/blocks/cardgrid_group.html', 'Card group - attached cards of equal size'),
-            ('coderedcms/blocks/cardgrid_deck.html', 'Card deck - separate cards of equal size'),
-            ('coderedcms/blocks/cardgrid_columns.html', 'Card masonry - fluid brick pattern'),
+            ('wagtailcrx/blocks/cardgrid_group.html', 'Card group - attached cards of equal size'),
+            ('wagtailcrx/blocks/cardgrid_deck.html', 'Card deck - separate cards of equal size'),
+            ('wagtailcrx/blocks/cardgrid_columns.html', 'Card masonry - fluid brick pattern'),
         ],
         'pagelistblock': [
-            ('coderedcms/blocks/pagelist_block.html', 'General, simple list'),
-            ('coderedcms/blocks/pagelist_list_group.html', 'General, list group navigation panel'),
-            ('coderedcms/blocks/pagelist_article_media.html', 'Article, media format'),
-            ('coderedcms/blocks/pagelist_article_card_group.html',
+            ('wagtailcrx/blocks/pagelist_block.html', 'General, simple list'),
+            ('wagtailcrx/blocks/pagelist_list_group.html', 'General, list group navigation panel'),
+            ('wagtailcrx/blocks/pagelist_article_media.html', 'Article, media format'),
+            ('wagtailcrx/blocks/pagelist_article_card_group.html',
                 'Article, card group - attached cards of equal size'),
-            ('coderedcms/blocks/pagelist_article_card_deck.html',
+            ('wagtailcrx/blocks/pagelist_article_card_deck.html',
              'Article, card deck - separate cards of equal size'),
-            ('coderedcms/blocks/pagelist_article_card_columns.html',
+            ('wagtailcrx/blocks/pagelist_article_card_columns.html',
              'Article, card masonry - fluid brick pattern'),
         ],
         'pagepreviewblock': [
-            ('coderedcms/blocks/pagepreview_card.html', 'Card'),
-            ('coderedcms/blocks/pagepreview_form.html', 'Form inputs'),
+            ('wagtailcrx/blocks/pagepreview_card.html', 'Card'),
+            ('wagtailcrx/blocks/pagepreview_form.html', 'Form inputs'),
         ],
         # templates that are available for all block types
         '*': [
@@ -159,10 +159,10 @@ class _DefaultSettings:
         # templates that are available for all page types
         '*': [
             ('', 'Default'),
-            ('coderedcms/pages/web_page.html', 'Web page showing title and cover image'),
-            ('coderedcms/pages/web_page_notitle.html', 'Web page without title and cover image'),
-            ('coderedcms/pages/home_page.html', 'Home page without title and cover image'),
-            ('coderedcms/pages/base.html', 'Blank page - no navbar or footer'),
+            ('wagtailcrx/pages/web_page.html', 'Web page showing title and cover image'),
+            ('wagtailcrx/pages/web_page_notitle.html', 'Web page without title and cover image'),
+            ('wagtailcrx/pages/home_page.html', 'Home page without title and cover image'),
+            ('wagtailcrx/pages/base.html', 'Blank page - no navbar or footer'),
         ],
     }
 

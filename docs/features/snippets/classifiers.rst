@@ -55,8 +55,8 @@ in ``base.html`` but is overridden in various other templates such as ``web_page
 and ``article_index_page.html``.
 
 Wagtail CRX provides two filtering templates by default, a Bootstrap nav in
-``coderedcms/includes/classifier_nav.html`` and a simple select/dropdown form in
-``coderedcms/includes/classifier_dropdowns.html``. Most likely, you will want to implement your
+``wagtailcrx/includes/classifier_nav.html`` and a simple select/dropdown form in
+``wagtailcrx/includes/classifier_dropdowns.html``. Most likely, you will want to implement your
 own filtering UI based on your own website needs, but you can follow the example in these two
 templates.
 
@@ -74,7 +74,7 @@ model (Snippet example below)::
             max_length=255,
         )
         classifier_terms = ParentalManyToManyField(
-            'coderedcms.ClassifierTerm',
+            'wagtailcrx.ClassifierTerm',
             blank=True,
         )
         panels = [
@@ -88,7 +88,7 @@ to select classifier terms. However, if you prefer to have the checkboxes groupe
 by the Classifier they belong to (same UI as the **Classify** tab in the page editor),
 use the built-in ``ClassifierSelectWidget``::
 
-        from coderedcms.widgets import ClassifierSelectWidget
+        from wagtailcrx.widgets import ClassifierSelectWidget
 
         panels = [
             FieldPanel('name')

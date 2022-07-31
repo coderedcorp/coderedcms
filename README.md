@@ -14,8 +14,8 @@ Wagtail and Bootstrap.
 
 |                        |                      |
 |------------------------|----------------------|
-| Python Package         | [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Django Version](https://img.shields.io/pypi/djversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Wheel](https://img.shields.io/pypi/wheel/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI](https://img.shields.io/pypi/v/coderedcms)](https://pypi.org/project/coderedcms/) |
-| Build                  | [![Build Status](https://dev.azure.com/coderedcorp/cr-github/_apis/build/status/coderedcms?branchName=dev)](https://dev.azure.com/coderedcorp/coderedcms/_build/latest?definitionId=1&branchName=dev) [![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/coderedcorp/cr-github/1/dev)](https://dev.azure.com/coderedcorp/cr-github/_build/latest?definitionId=1&branchName=dev) [![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/coderedcorp/cr-github/1/dev)](https://dev.azure.com/coderedcorp/cr-github/_build/latest?definitionId=1&branchName=dev) |
+| Python Package         | [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/wagtailcrx)](https://pypi.org/project/wagtailcrx/) [![PyPI - Django Version](https://img.shields.io/pypi/djversions/wagtailcrx)](https://pypi.org/project/wagtailcrx/) [![PyPI - Wheel](https://img.shields.io/pypi/wheel/wagtailcrx)](https://pypi.org/project/wagtailcrx/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/wagtailcrx)](https://pypi.org/project/wagtailcrx/) [![PyPI](https://img.shields.io/pypi/v/wagtailcrx)](https://pypi.org/project/wagtailcrx/) |
+| Build                  | [![Build Status](https://dev.azure.com/coderedcorp/cr-github/_apis/build/status/wagtailcrx?branchName=dev)](https://dev.azure.com/coderedcorp/wagtailcrx/_build/latest?definitionId=1&branchName=dev) [![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/coderedcorp/cr-github/1/dev)](https://dev.azure.com/coderedcorp/cr-github/_build/latest?definitionId=1&branchName=dev) [![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/coderedcorp/cr-github/1/dev)](https://dev.azure.com/coderedcorp/cr-github/_build/latest?definitionId=1&branchName=dev) |
 
 
 ## What is Wagtail CRX?
@@ -54,9 +54,9 @@ are ready to use out-of-the box! This saves development time and avoids
 
 ## Quick start
 
-1. Run `pip install coderedcms`
+1. Run `pip install wagtailcrx`
 
-2. Run `coderedcms start mysite --sitename "My Company Inc." --domain www.example.com`
+2. Run `wagtailcrx start mysite --sitename "My Company Inc." --domain www.example.com`
 
     *Note: `--sitename` and `--domain` are optional to pre-populate settings of your website.*
 
@@ -74,7 +74,7 @@ See the [documentation](https://docs.coderedcorp.com/wagtail-crx/) for next step
 ## Contributors
 
 In addition to the CodeRed team, many thanks to the Wagtail community and our
-[independent contributors](https://github.com/coderedcorp/coderedcms/graphs/contributors).
+[independent contributors](https://github.com/coderedcorp/wagtailcrx/graphs/contributors).
 
 If you're interested in building, developing, or contributing to Wagtail CRX,
 check out the [Contributing Guide](https://docs.coderedcorp.com/wagtail-crx/stable/contributing/index.html).
@@ -82,7 +82,7 @@ check out the [Contributing Guide](https://docs.coderedcorp.com/wagtail-crx/stab
 
 ## Attribution
 
-Icon files in `coderedcms/templates/coderedcms/icons/`:
+Icon files in `wagtailcrx/templates/wagtailcrx/icons/`:
 
 * Were sourced from the Fork Awesome project at
   https://github.com/ForkAwesome/Fork-Awesome.
@@ -94,4 +94,4 @@ Icon files in `coderedcms/templates/coderedcms/icons/`:
 
 ## Contact
 
-We would love to hear your questions, comments, and feedback. Open an issue on Github, message us on [#coderedcms in the Wagtail slack](https://wagtailcms.slack.com/messages/CEU45SBRR).
+We would love to hear your questions, comments, and feedback. Open an issue on Github, message us on [#wagtailcrx in the Wagtail slack](https://wagtailcms.slack.com/messages/CEU45SBRR).

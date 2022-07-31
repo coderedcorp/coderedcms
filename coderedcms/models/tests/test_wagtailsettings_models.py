@@ -2,8 +2,8 @@ from django.test import Client
 from wagtail.test.utils import WagtailPageTests
 from wagtail.models import Site
 
-from coderedcms.tests.testapp.models import WebPage
-from coderedcms.models.wagtailsettings_models import AnalyticsSettings
+from wagtailcrx.tests.testapp.models import WebPage
+from wagtailcrx.models.wagtailsettings_models import AnalyticsSettings
 
 
 class AnalyticsSettingsTestCase(WagtailPageTests):

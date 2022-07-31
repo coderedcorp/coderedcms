@@ -13,7 +13,7 @@ using a custom image model. To switch to a custom image model mid-project,
 see :doc:`convert_image_model`.
 
 Before starting this guide, it is important that you are starting with a fresh
-empty database and have **never run coderedcms migrations!**
+empty database and have **never run wagtailcrx migrations!**
 
 
 .. include:: _custom_image1.rst

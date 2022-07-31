@@ -9,7 +9,7 @@ New features
 * Updated to Wagtail 2.4, which now includes Python 3.7 support.
 * Apple-touch-icon favicons are now included for better experience with iOS devices.
 * The "password required" page has been Bootstrap-ified and matches the website style.
-* ``coderedcms start`` command has new ``--sitename`` and ``--domain`` options to help pre-populate
+* ``wagtailcrx start`` command has new ``--sitename`` and ``--domain`` options to help pre-populate
   settings. The command also has more helpful output for beginners.
 
 
@@ -28,7 +28,7 @@ Bug fixes
 Maintenance
 -----------
 
-* Standardized edit handler definitions in ``coderedcms/models/page_models.py``.
+* Standardized edit handler definitions in ``wagtailcrx/models/page_models.py``.
 * Removed unused CSS from deprecated "Formatted Code Block".
 * Updated wagtail-cache to 0.3, which includes Redis support.
 * Squashed all migrations in generated website app into 2 migrations.

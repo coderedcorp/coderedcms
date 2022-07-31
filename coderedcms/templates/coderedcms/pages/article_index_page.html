@@ -1,6 +1,6 @@
-{% extends "coderedcms/pages/web_page.html" %}
+{% extends "wagtailcrx/pages/web_page.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailcrx_tags %}
 
 {% block index_filters %}{% endblock %}
 
@@ -41,12 +41,12 @@
         {% if page.index_classifiers.exists %}
             </div>
             <div class="col-md-3">
-                {% include "coderedcms/includes/classifier_nav.html" with navclass="nav-pills flex-column" %}
+                {% include "wagtailcrx/includes/classifier_nav.html" with navclass="nav-pills flex-column" %}
             </div>
         </div>
         {% endif %}
 
-    {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
+    {% include "wagtailcrx/includes/pagination.html" with items=index_paginated %}
 
 </div>
 {% endif %}

@@ -9,13 +9,13 @@ New features
   Vimeo, Tweets, Facebook posts, GitHub gists, Spotify, Etsy, Tumblr, and dozens of other sources.
 * NEW tags on all ``CoderedPage`` pages. Tags provide a global and flexible way of organizing
   and categorizing content. More tagging features coming soon.
-* NEW color picker available in the wagtail admin. Use ``coderedcms.fields.ColorField`` on your
-  models or ``coderedcms.widgets.ColorPickerWidget`` on Django form fields.
+* NEW color picker available in the wagtail admin. Use ``wagtailcrx.fields.ColorField`` on your
+  models or ``wagtailcrx.widgets.ColorPickerWidget`` on Django form fields.
 * NEW official documentation! More user and how-to guides coming soon.
   Available at https://docs.coderedcorp.com/wagtail-crx/.
 * Updated to Wagtail 2.3.
 * Added support for Django 2.1. Supports Django 1.11 through 2.1.
-* Added additional template blocks in ``coderedcms/pages/base.html`` for easier extending.
+* Added additional template blocks in ``wagtailcrx/pages/base.html`` for easier extending.
 
 
 Bug fixes
@@ -34,9 +34,9 @@ Maintenance
 Upgrade considerations
 ----------------------
 
-* Some template blocks added to ``coderedcms/pages/web_page.html`` in 0.9 were removed and replaced
-  with more general blocks in ``coderedcms/pages/base.html``.
-* "Formatted Code" block (``coderedcms.blocks.CodeBlock``) was removed. If needed, use a 3rd party
+* Some template blocks added to ``wagtailcrx/pages/web_page.html`` in 0.9 were removed and replaced
+  with more general blocks in ``wagtailcrx/pages/base.html``.
+* "Formatted Code" block (``wagtailcrx.blocks.CodeBlock``) was removed. If needed, use a 3rd party
   block instead such as `wagtailcodeblock <https://github.com/FlipperPA/wagtailcodeblock>`_,
   or use the new "Embed Media" block with GitHub gists.
 * ``CODERED_CACHE_PAGES`` setting replaced with ``WAGTAIL_CACHE``.

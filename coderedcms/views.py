@@ -12,16 +12,16 @@ from django.views.decorators.http import require_POST
 from icalendar import Calendar
 from wagtail.admin import messages
 from wagtail.models import Page, get_page_models
-from coderedcms import utils
-from coderedcms.forms import SearchForm
-from coderedcms.models import (
+from wagtailcrx import utils
+from wagtailcrx.forms import SearchForm
+from wagtailcrx.models import (
     CoderedPage,
     GeneralSettings,
     LayoutSettings
 )
-from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
-from coderedcms.settings import crx_settings
-from coderedcms.templatetags.coderedcms_tags import get_name_of_class
+from wagtailcrx.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
+from wagtailcrx.settings import crx_settings
+from wagtailcrx.templatetags.wagtailcrx_tags import get_name_of_class
 
 
 def search(request):
@@ -69,7 +69,7 @@ def search(request):
                 results_paginated = paginator.page(1)
 
     # Render template
-    return render(request, 'coderedcms/pages/search.html', {
+    return render(request, 'wagtailcrx/pages/search.html', {
         'request': request,
         'pagetypes': pagetypes,
         'form': search_form,

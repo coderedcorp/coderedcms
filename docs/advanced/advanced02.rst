@@ -57,8 +57,8 @@ frameworks that we are using.
     Create or customize your page models here.
     """
     from modelcluster.fields import ParentalKey
-    from coderedcms.forms import CoderedFormField
-    from coderedcms.models import (
+    from wagtailcrx.forms import CoderedFormField
+    from wagtailcrx.models import (
         CoderedArticlePage,
         CoderedArticleIndexPage,
         CoderedEmail,
@@ -78,8 +78,8 @@ frameworks that we are using.
         # Only allow this page to be created beneath an ArticleIndexPage.
         parent_page_types = ['website.ArticleIndexPage']
 
-        template = 'coderedcms/pages/article_page.html'
-        search_template = 'coderedcms/pages/article_page.search.html'
+        template = 'wagtailcrx/pages/article_page.html'
+        search_template = 'wagtailcrx/pages/article_page.search.html'
 
 
     class ArticleIndexPage(CoderedArticleIndexPage):
@@ -95,7 +95,7 @@ frameworks that we are using.
         # Only allow ArticlePages beneath this page.
         subpage_types = ['website.ArticlePage']
 
-        template = 'coderedcms/pages/article_index_page.html'
+        template = 'wagtailcrx/pages/article_index_page.html'
 
 
     class FormPage(CoderedFormPage):
@@ -105,7 +105,7 @@ frameworks that we are using.
         class Meta:
             verbose_name = 'Form'
 
-        template = 'coderedcms/pages/form_page.html'
+        template = 'wagtailcrx/pages/form_page.html'
 
 
     class FormPageField(CoderedFormField):
@@ -133,7 +133,7 @@ frameworks that we are using.
         class Meta:
             verbose_name = 'Web Page'
 
-        template = 'coderedcms/pages/web_page.html'
+        template = 'wagtailcrx/pages/web_page.html'
 
 
 Before we begin adding our fields for our new page models, we should add the page class, meta class,
@@ -184,8 +184,8 @@ template prepared:
 
 .. code:: Django
 
-    {% extends "coderedcms/pages/web_page.html" %}
-    {% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+    {% extends "wagtailcrx/pages/web_page.html" %}
+    {% load wagtailcore_tags wagtailimages_tags wagtailcrx_tags %}
 
 
 Now we can turn our attention back to our page models, specifically the CupcakesPage.
@@ -291,8 +291,8 @@ page tags at the top of the page earlier. In case you need to add them, they are
 
 .. code::
 
-    {% extends "coderedcms/pages/web_page.html" %}
-    {% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+    {% extends "wagtailcrx/pages/web_page.html" %}
+    {% load wagtailcore_tags wagtailimages_tags wagtailcrx_tags %}
 
 Now we want to tell the page to not display the page's title where the cover image would be if there is no cover
 image (because we plan to use the page's title aka the cupcake name elsewhere on the page).
@@ -312,8 +312,8 @@ as add a border around the image that is centered within the column.
 
 .. code:: Django
 
-    {% extends "coderedcms/pages/web_page.html" %}
-    {% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+    {% extends "wagtailcrx/pages/web_page.html" %}
+    {% load wagtailcore_tags wagtailimages_tags wagtailcrx_tags %}
 
     {% block content_pre_body %}
         {% if self.cover_image %}
@@ -373,8 +373,8 @@ and trouble. How can we dynamically update our Cupcake Landing Page?
 
 .. code:: Django
 
-    {% extends "coderedcms/pages/web_page.html" %}
-    {% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+    {% extends "wagtailcrx/pages/web_page.html" %}
+    {% load wagtailcore_tags wagtailimages_tags wagtailcrx_tags %}
 
     {% block index_content %}
     <div class="container">

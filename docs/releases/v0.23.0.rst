@@ -66,7 +66,7 @@ Upgrade considerations
 * Social Media Settings were removed. These were unused in the system. If you
   happen to be using them in your project code, you should create a copy of the
   ``SocialMediaSettings`` model in your local project code, and migrate data to
-  it, before upgrading. `This change shows what was removed <https://github.com/coderedcorp/coderedcms/pull/482/files#diff-f2b3f43b8ce0d03ffdd2f133da2f81e186e25c063e374f731727820aa9c14713L20>`_.
+  it, before upgrading. `This change shows what was removed <https://github.com/coderedcorp/wagtailcrx/pull/482/files#diff-f2b3f43b8ce0d03ffdd2f133da2f81e186e25c063e374f731727820aa9c14713L20>`_.
 
 * You may need to generate migrations in your app, and apply migrations with:
 
@@ -87,4 +87,4 @@ Supported software
 Thank you!
 ----------
 
-Thanks to everyone who contributed to `0.23.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/33?closed=1>`_.
+Thanks to everyone who contributed to `0.23.0 on GitHub <https://github.com/coderedcorp/wagtailcrx/milestone/33?closed=1>`_.

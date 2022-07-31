@@ -1,7 +1,7 @@
 """
 Custom wagtail settings used by Wagtail CRX.
 Settings are user-configurable on a per-site basis (multisite).
-Global project or developer settings should be defined in coderedcms.settings.py .
+Global project or developer settings should be defined in wagtailcrx.settings.py .
 """
 
 from django.db import models
@@ -12,9 +12,9 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, HelpPanel, MultiFieldP
 from wagtail.models import Orderable
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
-from coderedcms.fields import MonospaceField
-from coderedcms.settings import crx_settings
-from coderedcms.models.snippet_models import Navbar, Footer
+from wagtailcrx.fields import MonospaceField
+from wagtailcrx.settings import crx_settings
+from wagtailcrx.models.snippet_models import Navbar, Footer
 
 
 @register_setting(icon='cr-desktop')

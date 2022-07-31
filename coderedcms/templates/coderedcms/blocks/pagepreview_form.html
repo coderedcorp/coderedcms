@@ -1,5 +1,5 @@
-{% extends 'coderedcms/blocks/base_block.html' %}
-{% load bootstrap4 coderedcms_tags wagtailcore_tags %}
+{% extends 'wagtailcrx/blocks/base_block.html' %}
+{% load bootstrap4 wagtailcrx_tags wagtailcore_tags %}
 
 {% block block_render %}
 
@@ -12,7 +12,7 @@
 
         {% block captcha %}
             {% if page.spam_protection %}
-                {% include 'coderedcms/includes/form_honeypot.html' %}
+                {% include 'wagtailcrx/includes/form_honeypot.html' %}
             {% endif %}
         {% endblock %}
 

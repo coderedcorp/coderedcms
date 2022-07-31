@@ -24,7 +24,7 @@ from .base_blocks import (
 )
 
 
-logger = logging.getLogger('coderedcms')
+logger = logging.getLogger('wagtailcrx')
 
 
 class ButtonBlock(ButtonMixin, BaseLinkBlock):
@@ -32,7 +32,7 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
     A link styled as a button.
     """
     class Meta:
-        template = 'coderedcms/blocks/button_block.html'
+        template = 'wagtailcrx/blocks/button_block.html'
         icon = 'cr-hand-pointer-o'
         label = _('Button Link')
         value_class = LinkStructValue
@@ -54,7 +54,7 @@ class DownloadBlock(ButtonMixin, BaseBlock):
     advsettings_class = CoderedAdvTrackingSettings
 
     class Meta:
-        template = 'coderedcms/blocks/download_block.html'
+        template = 'wagtailcrx/blocks/download_block.html'
         icon = 'download'
         label = _('Download')
 
@@ -91,7 +91,7 @@ class EmbedGoogleMapBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/google_map.html'
+        template = 'wagtailcrx/blocks/google_map.html'
         icon = 'cr-map'
         label = _('Google Map')
 
@@ -107,7 +107,7 @@ class EmbedVideoBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/embed_video_block.html'
+        template = 'wagtailcrx/blocks/embed_video_block.html'
         icon = 'media'
         label = _('Embed Media')
 
@@ -122,7 +122,7 @@ class H1Block(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/h1_block.html'
+        template = 'wagtailcrx/blocks/h1_block.html'
         icon = 'cr-header'
         label = _('Heading 1')
 
@@ -137,7 +137,7 @@ class H2Block(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/h2_block.html'
+        template = 'wagtailcrx/blocks/h2_block.html'
         icon = 'cr-header'
         label = _('Heading 2')
 
@@ -152,7 +152,7 @@ class H3Block(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/h3_block.html'
+        template = 'wagtailcrx/blocks/h3_block.html'
         icon = 'cr-header'
         label = _('Heading 3')
 
@@ -161,7 +161,7 @@ class TableBlock(BaseBlock):
     table = WagtailTableBlock()
 
     class Meta:
-        template = 'coderedcms/blocks/table_block.html'
+        template = 'wagtailcrx/blocks/table_block.html'
         icon = 'table'
         label = 'Table'
 
@@ -175,7 +175,7 @@ class ImageBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/image_block.html'
+        template = 'wagtailcrx/blocks/image_block.html'
         icon = 'image'
         label = _('Image')
 
@@ -194,7 +194,7 @@ class ImageLinkBlock(BaseLinkBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/image_link_block.html'
+        template = 'wagtailcrx/blocks/image_link_block.html'
         icon = 'image'
         label = _('Image Link')
         value_class = LinkStructValue
@@ -227,7 +227,7 @@ class PageListBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/pagelist_block.html'
+        template = 'wagtailcrx/blocks/pagelist_block.html'
         icon = 'list-ul'
         label = _('Latest Pages')
 
@@ -267,7 +267,7 @@ class PagePreviewBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/pagepreview_block.html'
+        template = 'wagtailcrx/blocks/pagepreview_block.html'
         icon = 'doc-empty-inverse'
         label = _('Page Preview')
 
@@ -288,11 +288,11 @@ class QuoteBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/quote_block.html'
+        template = 'wagtailcrx/blocks/quote_block.html'
         icon = 'openquote'
         label = _('Quote')
 
 
 class RichTextBlock(blocks.RichTextBlock):
     class Meta:
-        template = 'coderedcms/blocks/rich_text_block.html'
+        template = 'wagtailcrx/blocks/rich_text_block.html'

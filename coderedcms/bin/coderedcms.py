@@ -53,8 +53,8 @@ class CreateProject(TemplateCommand):
         options['secret_key'] = get_random_secret_key()
 
         # Handle custom template logic
-        import coderedcms
-        codered_path = os.path.dirname(coderedcms.__file__)
+        import wagtailcrx
+        codered_path = os.path.dirname(wagtailcrx.__file__)
         if not options['template']:
             options['template'] = 'basic'
         template_path = os.path.join(
@@ -62,7 +62,7 @@ class CreateProject(TemplateCommand):
             options['template']
         )
 
-        # Check if provided template is built-in to coderedcms,
+        # Check if provided template is built-in to wagtailcrx,
         # otherwise, do not change it.
         if os.path.isdir(template_path):
             options['template'] = template_path
@@ -93,7 +93,7 @@ class CreateProject(TemplateCommand):
             options['domain_nowww'] = options['domain']
 
         # Add additional custom options to the context.
-        options['coderedcms_release'] = coderedcms.release
+        options['wagtailcrx_release'] = wagtailcrx.release
 
         # Print a friendly message
         print(message % {

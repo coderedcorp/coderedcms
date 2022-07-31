@@ -16,9 +16,9 @@ from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 from wagtail.images import get_image_model_string
 
-from coderedcms.blocks import HTML_STREAMBLOCKS, LAYOUT_STREAMBLOCKS, NAVIGATION_STREAMBLOCKS
-from coderedcms.fields import CoderedStreamField
-from coderedcms.settings import crx_settings
+from wagtailcrx.blocks import HTML_STREAMBLOCKS, LAYOUT_STREAMBLOCKS, NAVIGATION_STREAMBLOCKS
+from wagtailcrx.fields import CoderedStreamField
+from wagtailcrx.settings import crx_settings
 
 
 @register_snippet

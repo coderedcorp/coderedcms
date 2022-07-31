@@ -48,9 +48,9 @@ stages:
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt
-      displayName: 'CR-QC: Install coderedcms from local repo'
+      displayName: 'CR-QC: Install wagtailcrx from local repo'
 
-    - script: coderedcms start testproject
+    - script: wagtailcrx start testproject
       displayName: 'CR-QC: Create starter project from template'
 
     - pwsh: ./ci/run-tests.ps1
@@ -89,12 +89,12 @@ stages:
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt
-      displayName: 'CR-QC: Install coderedcms from local repo'
+      displayName: 'CR-QC: Install wagtailcrx from local repo'
 
     - pwsh: ./ci/spellcheck.ps1
       displayName: 'CR-QC: Spelling'
 
-    - script: coderedcms start testproject
+    - script: wagtailcrx start testproject
       displayName: 'CR-QC: Generate a test project'
 
     - script: |
@@ -139,7 +139,7 @@ stages:
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt
-      displayName: 'CR-QC: Install coderedcms from local repo'
+      displayName: 'CR-QC: Install wagtailcrx from local repo'
 
     - pwsh: ./ci/make-docs.ps1
       displayName: 'CR-QC: Build documentation'

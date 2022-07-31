@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0040_page_draft_title'),
-        ('coderedcms', '0005_auto_20181214_2214'),
+        ('wagtailcrx', '0005_auto_20181214_2214'),
     ]
 
     operations = [

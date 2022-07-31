@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('taggit', '0004_alter_taggeditem_content_type_alter_taggeditem_tag'),
-        ('coderedcms', '0029_multinavs'),
+        ('wagtailcrx', '0029_multinavs'),
     ]
 
     operations = [

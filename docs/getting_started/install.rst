@@ -35,8 +35,8 @@ Basic Installation
         You will need to be in the directory (folder) of your Wagtail project and have your
         virtual environment activated to install dependencies and run your site.
 
-#. Run ``pip install coderedcms``
-#. Run ``coderedcms start mysite --sitename "My Company Inc." --domain www.example.com``
+#. Run ``pip install wagtailcrx``
+#. Run ``wagtailcrx start mysite --sitename "My Company Inc." --domain www.example.com``
 
    .. note::
        ``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.
@@ -58,12 +58,12 @@ Installing with Sass Support
 
 To create a project that is pre-configured to use Sass for CSS compilation:
 
-#. Run ``pip install coderedcms``
+#. Run ``pip install wagtailcrx``
 #. Run
 
    .. code-block:: console
 
-       $ coderedcms start mysite --template sass --sitename "My Company Inc." --domain www.example.com
+       $ wagtailcrx start mysite --template sass --sitename "My Company Inc." --domain www.example.com
 
    .. note::
        ``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.
@@ -93,7 +93,7 @@ To create a project that is pre-configured to use Sass for CSS compilation:
    with your admin account.
 
 When working with Sass, you will want to look at the base.html file provided at:
-``mysite/website/templates/coderedcms/pages/base.html`` to load in any custom
+``mysite/website/templates/wagtailcrx/pages/base.html`` to load in any custom
 CSS or JavaScript as needed.
 
 

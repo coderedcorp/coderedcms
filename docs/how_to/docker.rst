@@ -59,10 +59,10 @@ extension). Copy the contents below into the file:
     RUN python manage.py migrate
     RUN python manage.py collectstatic --noinput
 
-    # Create a "coderedcms" user account to run the app.
-    RUN useradd coderedcms
-    RUN chown -R coderedcms /app/
-    USER coderedcms
+    # Create a "wagtailcrx" user account to run the app.
+    RUN useradd wagtailcrx
+    RUN chown -R wagtailcrx /app/
+    USER wagtailcrx
 
     # Finally, run the app on port 8000.
     EXPOSE 8000
@@ -108,10 +108,10 @@ extension). Copy the contents below into the file:
     # Code will end up living in /app/
     WORKDIR /app/
 
-    # Create a "coderedcms" user account to run the appp.
-    RUN useradd coderedcms
-    RUN chown -R coderedcms /app/
-    USER coderedcms
+    # Create a "wagtailcrx" user account to run the appp.
+    RUN useradd wagtailcrx
+    RUN chown -R wagtailcrx /app/
+    USER wagtailcrx
 
     # Copy our entrypoint script.
     COPY ./docker-entrypoint.sh /usr/local/bin/

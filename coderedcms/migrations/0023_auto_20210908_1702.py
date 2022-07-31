@@ -7,14 +7,14 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0022_auto_20210731_1853'),
+        ('wagtailcrx', '0022_auto_20210731_1853'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='coderedpage',
             name='index_order_by_classifier',
-            field=models.ForeignKey(blank=True, help_text='Child pages will first be sorted following the order of this classifier’s terms (from Snippets > Classifiers).', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='coderedcms.classifier', verbose_name='Order child pages by classifier'),
+            field=models.ForeignKey(blank=True, help_text='Child pages will first be sorted following the order of this classifier’s terms (from Snippets > Classifiers).', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcrx.classifier', verbose_name='Order child pages by classifier'),
         ),
         migrations.AlterField(
             model_name='coderedpage',

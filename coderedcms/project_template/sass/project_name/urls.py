@@ -2,9 +2,9 @@ from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
 from wagtail.documents import urls as wagtaildocs_urls
-from coderedcms import admin_urls as coderedadmin_urls
-from coderedcms import search_urls as coderedsearch_urls
-from coderedcms import urls as codered_urls
+from wagtailcrx import admin_urls as coderedadmin_urls
+from wagtailcrx import search_urls as coderedsearch_urls
+from wagtailcrx import urls as codered_urls
 
 urlpatterns = [
     # Admin

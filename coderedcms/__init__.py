@@ -1,5 +1,5 @@
 """
-Maintains version of coderedcms.
+Maintains version of wagtailcrx.
 4th element is for pre-releases. Leave blank for stable releases.
 
     X.Y.ZaN   # Alpha release

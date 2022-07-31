@@ -2,8 +2,8 @@
 Create or customize your page models here.
 """
 from modelcluster.fields import ParentalKey
-from coderedcms.forms import CoderedFormField
-from coderedcms.models import (
+from wagtailcrx.forms import CoderedFormField
+from wagtailcrx.models import (
     CoderedArticlePage,
     CoderedArticleIndexPage,
     CoderedEmail,
@@ -28,8 +28,8 @@ class ArticlePage(CoderedArticlePage):
     # Only allow this page to be created beneath an ArticleIndexPage.
     parent_page_types = ['website.ArticleIndexPage']
 
-    template = 'coderedcms/pages/article_page.html'
-    search_template = 'coderedcms/pages/article_page.search.html'
+    template = 'wagtailcrx/pages/article_page.html'
+    search_template = 'wagtailcrx/pages/article_page.search.html'
 
 
 class ArticleIndexPage(CoderedArticleIndexPage):
@@ -45,7 +45,7 @@ class ArticleIndexPage(CoderedArticleIndexPage):
     # Only allow ArticlePages beneath this page.
     subpage_types = ['website.ArticlePage']
 
-    template = 'coderedcms/pages/article_index_page.html'
+    template = 'wagtailcrx/pages/article_index_page.html'
 
 
 class FormPage(CoderedFormPage):
@@ -55,7 +55,7 @@ class FormPage(CoderedFormPage):
     class Meta:
         verbose_name = 'Form'
 
-    template = 'coderedcms/pages/form_page.html'
+    template = 'wagtailcrx/pages/form_page.html'
 
 
 class FormPageField(CoderedFormField):
@@ -83,7 +83,7 @@ class WebPage(CoderedWebPage):
     class Meta:
         verbose_name = 'Web Page'
 
-    template = 'coderedcms/pages/web_page.html'
+    template = 'wagtailcrx/pages/web_page.html'
 
 
 class CupcakesIndexPage(CoderedWebPage):

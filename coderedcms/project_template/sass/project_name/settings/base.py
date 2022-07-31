@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'website',
 
     # Wagtail CRX (CodeRed Extensions)
-    'coderedcms',
+    'wagtailcrx',
     'bootstrap4',
     'modelcluster',
     'taggit',
@@ -192,7 +192,7 @@ WAGTAILADMIN_BASE_URL = 'http://{{ domain }}'
 # Bootstrap
 
 BOOTSTRAP4 = {
-    # set to blank since coderedcms already loads jquery and bootstrap
+    # set to blank since wagtailcrx already loads jquery and bootstrap
     'jquery_url': '',
     'base_url': '',
     # remove green highlight on inputs

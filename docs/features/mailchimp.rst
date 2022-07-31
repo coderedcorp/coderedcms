@@ -22,7 +22,7 @@ To get the functionality working, you need to do the following:
 Here is what the resulting code will look like in ``website/models.py``::
 
     from modelcluster.fields import ParentalKey
-    from coderedcms.models import CoderedFormPage, MailchimpSubscriberIntegration
+    from wagtailcrx.models import CoderedFormPage, MailchimpSubscriberIntegration
     from wagtail.admin.edit_handlers import InlinePanel
 
     class FormPageMailchimpSubscriberIntegration(MailchimpSubscriberIntegration):
@@ -36,7 +36,7 @@ Here is what the resulting code will look like in ``website/models.py``::
         class Meta:
             verbose_name = 'Form'
 
-        template = 'coderedcms/pages/form_page.html'
+        template = 'wagtailcrx/pages/form_page.html'
 
         integration_panels = [
             InlinePanel('mailchimp_integrations',

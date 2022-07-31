@@ -43,7 +43,7 @@ Now, apply the migration:
 Step 4: Migrate your models and database schema by hand
 -------------------------------------------------------
 
-At this point the database tables of existing coderedcms models have FK pointing
+At this point the database tables of existing wagtailcrx models have FK pointing
 to ``wagtailimages.Image``, however Django thinks they are pointing to the new
 custom image table, hence creating FOREIGN KEY constraint problems.
 
@@ -64,19 +64,19 @@ on the subject.
 
 To help with your database update, below is a list of each concrete CodeRed
 model which references the Image. A `search query of the source code
-<https://github.com/coderedcorp/coderedcms/search?l=Python&q=get_image_model_string>`_
+<https://github.com/coderedcorp/wagtailcrx/search?l=Python&q=get_image_model_string>`_
 can also yield specific results.
 
-* ``coderedcms.models.CoderedPage.cover_image``
+* ``wagtailcrx.models.CoderedPage.cover_image``
 
-* ``coderedcms.models.CoderedPage.og_image``
+* ``wagtailcrx.models.CoderedPage.og_image``
 
-* ``coderedcms.models.CoderedPage.struct_org_logo``
+* ``wagtailcrx.models.CoderedPage.struct_org_logo``
 
-* ``coderedcms.models.CoderedPage.struct_org_image``
+* ``wagtailcrx.models.CoderedPage.struct_org_image``
 
-* ``coderedcms.models.CarouselSlide.image``
+* ``wagtailcrx.models.CarouselSlide.image``
 
-* ``coderedcms.models.LayoutSettings.logo``
+* ``wagtailcrx.models.LayoutSettings.logo``
 
-* ``coderedcms.models.LayoutSettings.favicon``
+* ``wagtailcrx.models.LayoutSettings.favicon``

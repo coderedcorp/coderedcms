@@ -2,9 +2,9 @@ from django.test import Client
 from wagtail.test.utils import WagtailPageTests
 from wagtail.models import Site
 
-from coderedcms.tests.testapp.models import WebPage
-from coderedcms.models.snippet_models import Footer, Navbar
-from coderedcms.models.wagtailsettings_models import (
+from wagtailcrx.tests.testapp.models import WebPage
+from wagtailcrx.models.snippet_models import Footer, Navbar
+from wagtailcrx.models.wagtailsettings_models import (
     LayoutSettings,
     NavbarOrderable,
     FooterOrderable,

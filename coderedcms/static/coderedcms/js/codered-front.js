@@ -1,7 +1,7 @@
 /*
 Wagtail CRX (https://www.coderedcorp.com/cms/)
 Copyright 2018-2021 CodeRed LLC
-License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
+License: https://github.com/coderedcorp/wagtailcrx/blob/dev/LICENSE
 @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
 */
 
@@ -35,11 +35,11 @@ libs = {
         head: '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" integrity="sha256-FjyLCG3re1j4KofUTQQXmaWJw13Jdb7LQvXlkFxTDJI=" crossorigin="anonymous">'
     },
     coderedmaps: {
-        url: "/static/coderedcms/js/codered-maps.js?v=" + cr_version,
+        url: "/static/wagtailcrx/js/codered-maps.js?v=" + cr_version,
         integrity: "",
     },
     coderedstreamforms: {
-        url: "/static/coderedcms/js/codered-streamforms.js?v=" + cr_version,
+        url: "/static/wagtailcrx/js/codered-streamforms.js?v=" + cr_version,
         integrity: "",
     }
 }

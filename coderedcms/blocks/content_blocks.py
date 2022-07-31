@@ -43,7 +43,7 @@ class CardBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/card_foot.html'
+        template = 'wagtailcrx/blocks/card_foot.html'
         icon = 'cr-list-alt'
         label = _('Card')
 
@@ -52,12 +52,12 @@ class CarouselBlock(BaseBlock):
     """
     Enables choosing a Carousel snippet.
     """
-    carousel = SnippetChooserBlock('coderedcms.Carousel')
+    carousel = SnippetChooserBlock('wagtailcrx.Carousel')
 
     class Meta:
         icon = 'image'
         label = _('Carousel')
-        template = 'coderedcms/blocks/carousel_block.html'
+        template = 'wagtailcrx/blocks/carousel_block.html'
 
 
 class ImageGalleryBlock(BaseBlock):
@@ -71,7 +71,7 @@ class ImageGalleryBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/image_gallery_block.html'
+        template = 'wagtailcrx/blocks/image_gallery_block.html'
         icon = 'image'
         label = _('Image Gallery')
 
@@ -99,7 +99,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/modal_block.html'
+        template = 'wagtailcrx/blocks/modal_block.html'
         icon = 'cr-window-maximize'
         label = _('Modal')
 
@@ -126,7 +126,7 @@ class NavExternalLinkBlock(NavBaseLinkBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/external_link_block.html'
+        template = 'wagtailcrx/blocks/external_link_block.html'
         label = _('External Link')
 
 
@@ -139,7 +139,7 @@ class NavPageLinkBlock(NavBaseLinkBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/page_link_block.html'
+        template = 'wagtailcrx/blocks/page_link_block.html'
         label = _('Page Link')
 
 
@@ -152,7 +152,7 @@ class NavDocumentLinkBlock(NavBaseLinkBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/document_link_block.html'
+        template = 'wagtailcrx/blocks/document_link_block.html'
         label = _('Document Link')
 
 
@@ -227,7 +227,7 @@ class PriceListItemBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/pricelistitem_block.html'
+        template = 'wagtailcrx/blocks/pricelistitem_block.html'
         icon = 'cr-usd'
         label = _('Price List Item')
 
@@ -249,7 +249,7 @@ class PriceListBlock(BaseBlock):
     )
 
     class Meta:
-        template = 'coderedcms/blocks/pricelist_block.html'
+        template = 'wagtailcrx/blocks/pricelist_block.html'
         icon = 'cr-usd'
         label = _('Price List')
 
@@ -258,7 +258,7 @@ class ContentWallBlock(BaseBlock):
     """
     Enables choosing a ContentWall snippet.
     """
-    content_wall = SnippetChooserBlock('coderedcms.ContentWall')
+    content_wall = SnippetChooserBlock('wagtailcrx.ContentWall')
     show_content_wall_on_children = blocks.BooleanBlock(
         required=False,
         default=False,
@@ -270,16 +270,16 @@ class ContentWallBlock(BaseBlock):
     class Meta:
         icon = 'cr-stop'
         label = _('Content Wall')
-        template = 'coderedcms/blocks/content_wall_block.html'
+        template = 'wagtailcrx/blocks/content_wall_block.html'
 
 
 class ReusableContentBlock(BaseBlock):
     """
     Enables choosing a ResusableContent snippet.
     """
-    content = SnippetChooserBlock('coderedcms.ReusableContent')
+    content = SnippetChooserBlock('wagtailcrx.ReusableContent')
 
     class Meta:
         icon = 'cr-recycle'
         label = _('Reusable Content')
-        template = 'coderedcms/blocks/reusable_content_block.html'
+        template = 'wagtailcrx/blocks/reusable_content_block.html'

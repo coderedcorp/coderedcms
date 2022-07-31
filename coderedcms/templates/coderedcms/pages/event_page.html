@@ -1,5 +1,5 @@
-{% extends "coderedcms/pages/web_page.html" %}
-{% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+{% extends "wagtailcrx/pages/web_page.html" %}
+{% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags wagtailcrx_tags %}
 
 {% block content_pre_body %}
     {{ block.super }}
@@ -9,7 +9,7 @@
         {% if self.address %}
         <p class="d-md-inline-block mr-4"><b>Where:</b> {{self.address}}</p>
         {% endif %}
-        <div class="float-lg-right">{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=nextup.0 end=nextup.1 %}</div>
+        <div class="float-lg-right">{% include "wagtailcrx/includes/ical/single_ical_button.html" with event=self start=nextup.0 end=nextup.1 %}</div>
         <hr>
     </div>
     {% endwith %}
@@ -19,7 +19,7 @@
 
     {% block map %}
         <div class="container">
-            {% include 'coderedcms/includes/iframe_gmap.html' with address=page.address %}
+            {% include 'wagtailcrx/includes/iframe_gmap.html' with address=page.address %}
         </div>
     {% endblock %}
 
@@ -38,13 +38,13 @@
                         <tr>
                             <td>{{date.0}}</td>
                             <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
-                            <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=date.0 end=date.1 %}</td>
+                            <td>{% include "wagtailcrx/includes/ical/single_ical_button.html" with event=self start=date.0 end=date.1 %}</td>
                         </tr>
                         {% endfor %}
                     </table>
                 </div>
                 {% block ical %}
-                    {% include "coderedcms/includes/ical/recurring_ical_button.html" with event=self %}
+                    {% include "wagtailcrx/includes/ical/recurring_ical_button.html" with event=self %}
                 {% endblock %}
             </div>
         {% endif %}

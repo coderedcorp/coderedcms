@@ -106,6 +106,17 @@ def get_page_models():
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
+        # Copy of how django generates `db_table`, for compatibility with
+        # renaming `coderedcms` app to `wagtailcrx`.
+        if crx_settings.CRX_DB_PREFIX:
+            from django.db import connection
+            from django.db.backends.utils import truncate_name
+            cls.db_table = "%s_%s" % (crx_settings.CRX_DB_PREFIX, cls.model_name)
+            cls.db_table = truncate_name(
+                cls.db_table, connection.ops.max_name_length()
+            )
+
+        # Append to our registry of known models derived from CoderedPage.
         if not cls._meta.abstract:
             CODERED_PAGE_MODELS.append(cls)
 

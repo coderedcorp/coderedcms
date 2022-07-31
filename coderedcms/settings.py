@@ -5,21 +5,11 @@ import bootstrap4.bootstrap as bootstrap
 
 class _DefaultSettings:
 
-    CRX_PROTECTED_MEDIA_URL = '/protected/'
-    CRX_PROTECTED_MEDIA_ROOT = os.path.join(settings.BASE_DIR, 'protected')
-    CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST = []
-    CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST = [
-        '.app',
-        '.bat',
-        '.exe',
-        '.jar',
-        '.php',
-        '.pl',
-        '.ps1',
-        '.py',
-        '.rb',
-        '.sh',
-    ]
+    CRX_BANNER = None
+    CRX_BANNER_BACKGROUND = '#f00'
+    CRX_BANNER_TEXT_COLOR = '#fff'
+
+    CRX_DB_PREFIX = None
 
     CRX_FRONTEND_BTN_SIZE_DEFAULT = ''
     CRX_FRONTEND_BTN_SIZE_CHOICES = [
@@ -176,9 +166,21 @@ class _DefaultSettings:
         ],
     }
 
-    CRX_BANNER = None
-    CRX_BANNER_BACKGROUND = '#f00'
-    CRX_BANNER_TEXT_COLOR = '#fff'
+    CRX_PROTECTED_MEDIA_URL = '/protected/'
+    CRX_PROTECTED_MEDIA_ROOT = os.path.join(settings.BASE_DIR, 'protected')
+    CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST = []
+    CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST = [
+        '.app',
+        '.bat',
+        '.exe',
+        '.jar',
+        '.php',
+        '.pl',
+        '.ps1',
+        '.py',
+        '.rb',
+        '.sh',
+    ]
 
     def __getattribute__(self, attr: str):
         # First load from Django settings.

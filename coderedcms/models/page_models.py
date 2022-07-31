@@ -39,24 +39,21 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.tags import ClusterTaggableManager
 from pathlib import Path
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
-    PageChooserPanel,
-    StreamFieldPanel,
     TabbedInterface
 )
-from wagtail.core import hooks
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Orderable, PageBase, Page, Site
-from wagtail.core.utils import resolve_model_string
-from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
+from wagtail import hooks
+from wagtail.fields import StreamField
+from wagtail.models import Orderable, PageBase, Page, Site
+from wagtail.coreutils import resolve_model_string
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
 from wagtail.images import get_image_model_string
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod
@@ -254,6 +251,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             ('content_wall', ContentWallBlock())
         ],
         blank=True,
+        use_json_field=True,
         verbose_name=_('Content Walls')
     )
 
@@ -275,7 +273,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     ###############
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel('cover_image'),
+        FieldPanel('cover_image'),
     ]
 
     body_content_panels = []
@@ -309,7 +307,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
 
     settings_panels = Page.settings_panels + [
-        StreamFieldPanel('content_walls'),
+        FieldPanel('content_walls'),
     ]
 
     integration_panels = []
@@ -355,7 +353,8 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
                 classname='integrations'
             ))
 
-        return TabbedInterface(panels).bind_to(model=cls)
+        edit_handler = TabbedInterface(panels)
+        return edit_handler.bind_to_model(cls)
 
     @property
     def seo_logo(self) -> "Optional[AbstractImage]":
@@ -520,7 +519,12 @@ class CoderedWebPage(CoderedPage):
 
     # Child pages should override based on what blocks they want in the body.
     # Default is LAYOUT_STREAMBLOCKS which is the fullest editor experience.
-    body = StreamField(LAYOUT_STREAMBLOCKS, null=True, blank=True)
+    body = StreamField(
+        LAYOUT_STREAMBLOCKS,
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
     # Search fields
     search_fields = (
@@ -530,7 +534,7 @@ class CoderedWebPage(CoderedPage):
 
     # Panels
     body_content_panels = [
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
     @property
@@ -558,7 +562,12 @@ class CoderedArticlePage(CoderedWebPage):
     template = 'coderedcms/pages/article_page.html'
 
     # Override body to provide simpler content
-    body = StreamField(CONTENT_STREAMBLOCKS, null=True, blank=True)
+    body = StreamField(
+        CONTENT_STREAMBLOCKS,
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
     caption = models.CharField(
         max_length=255,
@@ -1141,7 +1150,7 @@ class CoderedFormMixin(models.Model):
     body_content_panels = [
         MultiFieldPanel(
             [
-                PageChooserPanel('thank_you_page'),
+                FieldPanel('thank_you_page'),
                 FieldPanel('button_text'),
                 FieldPanel('button_style'),
                 FieldPanel('button_size'),
@@ -1676,11 +1685,15 @@ class CoderedStreamFormPage(CoderedFormMixin, CoderedStreamFormMixin, CoderedWeb
     template = 'coderedcms/pages/stream_form_page.html'
     landing_page_template = 'coderedcms/pages/form_page_landing.html'
 
-    form_fields = StreamField(STREAMFORM_BLOCKS)
+    form_fields = StreamField(
+        STREAMFORM_BLOCKS,
+        use_json_field=True,
+    )
+
     encoder = StreamFormJSONEncoder
 
     body_content_panels = [
-        StreamFieldPanel('form_fields')
+        FieldPanel('form_fields')
     ] + \
         CoderedFormMixin.body_content_panels + [
             InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
@@ -1726,7 +1739,12 @@ class CoderedLocationPage(CoderedWebPage):
     template = 'coderedcms/pages/location_page.html'
 
     # Override body to provide simpler content
-    body = StreamField(CONTENT_STREAMBLOCKS, null=True, blank=True)
+    body = StreamField(
+        CONTENT_STREAMBLOCKS,
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
     address = models.TextField(
         blank=True,

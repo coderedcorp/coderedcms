@@ -11,7 +11,7 @@ from django.utils.translation import ngettext, gettext_lazy as _
 from django.views.decorators.http import require_POST
 from icalendar import Calendar
 from wagtail.admin import messages
-from wagtail.core.models import Page, get_page_models
+from wagtail.models import Page, get_page_models
 from coderedcms import utils
 from coderedcms.forms import SearchForm
 from coderedcms.models import (

@@ -145,6 +145,6 @@ class CupcakesPage(CoderedWebPage):
     # Add custom fields to the body
     body_content_panels = CoderedWebPage.body_content_panels + [
         FieldPanel("description"),
-        ImageChooserPanel("photo"),
+        FieldPanel("photo"),
         FieldPanel("days_available"),
     ]

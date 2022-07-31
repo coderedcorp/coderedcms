@@ -53,7 +53,7 @@ model in ``website/models.py``:
     class WebPage(CoderedWebPage):
         body_content_panels = []
         content_panels = CodredWebPage.content_panels + [
-            StreamFieldPanel('body'),
+            FieldPanel('body'),
         ]
 
 

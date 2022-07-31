@@ -1836,15 +1836,13 @@ class CoderedLocationPage(CoderedWebPage):
         }
 
     def save(self, *args, **kwargs):
-        if self.auto_update_latlng and GoogleApiSettings.for_site(
-            Site.objects.get(is_default_site=True)
-        ).google_maps_api_key:
+        if self.auto_update_latlng:
             try:
-                g = geocoder.google(self.address, key=GoogleApiSettings.for_site(
-                    Site.objects.get(is_default_site=True)
-                ).google_maps_api_key)
-                self.latitude = g.latlng[0]
-                self.longitude = g.latlng[1]
+                api_key = GoogleApiSettings.for_site(self.get_site()).google_maps_api_key
+                if api_key:
+                    g = geocoder.google(self.address, key=api_key)
+                    self.latitude = g.latlng[0]
+                    self.longitude = g.latlng[1]
             except TypeError:
                 # Raised if google denied the request
                 pass
@@ -1853,9 +1851,7 @@ class CoderedLocationPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = GoogleApiSettings.for_site(
-            Site.objects.get(is_default_site=True)
-        ).google_maps_api_key
+        context['google_api_key'] = GoogleApiSettings.for_site(self.get_site()).google_maps_api_key
         return context
 
 
@@ -1947,7 +1943,5 @@ class CoderedLocationIndexPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context['google_api_key'] = GoogleApiSettings.for_site(
-            Site.objects.get(is_default_site=True)
-        ).google_maps_api_key
+        context['google_api_key'] = GoogleApiSettings.for_site(self.get_site()).google_maps_api_key
         return context

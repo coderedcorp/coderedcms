@@ -1,5 +1,5 @@
 Accordions
-=========
+==========
 
 A representation of an accordion or other collapsible content.
 
@@ -12,11 +12,11 @@ Fields
 ------
 
 Accordion
-~~~~~~
+~~~~~~~~~
 **Name**: A unique name for your accordion.  It can be anything, it is just used as a personal reference to easily tell them apart.
 
 Panel
-~~~~~~
+~~~~~
 
 To add a panel to your accordion, click the "Add Panels" button.
 

@@ -387,6 +387,11 @@ class AccordionPanel(Orderable, models.Model):
         verbose_name=_('Accordion'),
     )
 
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
     content = CoderedStreamField(HTML_STREAMBLOCKS, blank=True)
 
     custom_css_class = models.CharField(

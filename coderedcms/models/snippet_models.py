@@ -344,11 +344,63 @@ class ReusableContent(models.Model):
 
 
 @register_snippet
-class Accordion(ReusableContent):
+class Accordion(ClusterableModel):
     """Class for reusable content in a collapsible block."""
     class Meta:
         verbose_name = _('Accordion')
         verbose_name_plural = _("Accordions")
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
+    panels = (
+        [
+            MultiFieldPanel(
+                heading=_('accordion'),
+                children=[
+                    FieldPanel('name'),
+                ]
+            ),
+            InlinePanel('accordion_panels', label=_('Panels'))
+        ]
+    )
+
+    def __str__(self):
+        return self.name
+
+
+@register_snippet
+class AccordionPanel(Orderable, models.Model):
+    """A panel for a collapsible accordion"""
+
+    accordion = ParentalKey(
+        Accordion,
+        related_name='accordion_panels',
+        verbose_name=_('Accordion'),
+    )
+
+    content = CoderedStreamField(HTML_STREAMBLOCKS, blank=True)
+
+    custom_css_class = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Custom CSS class'),
+    )
+    custom_id = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Custom ID'),
+    )
+
+    panels = (
+        [
+            FieldPanel('custom_css_class'),
+            FieldPanel('custom_id'),
+            StreamFieldPanel('content'),
+        ]
+    )
 
 
 @register_snippet

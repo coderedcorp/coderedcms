@@ -4,9 +4,24 @@
 
 {% block block_render %}
 
-{% with a_id=self.accordion.id %}
-
-<button class="btn {{self.button_size}} {{self.button_style}}" type="button" data-toggle="collapse" data-target="#accordion-{{a_id}}" aria-expanded="false" aria-controls="accordion-{{a_id}}">{{self.button_title}}</button>
-<div id="accordion-{{a_id}}" class="collapse">{% include_block self.accordion.content %}</div>
+{% with a_id=self.accordion.id accordion=self.accordion %}
+<div class="accordion" id="accordion-{{a_id}}">
+  {% for panel in accordion.accordion_panels.all %}
+    <div class="card">
+      <div class="card-header" id="accordion-heading-{{forloop.counter}}">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{foorloop.counter}}" aria-expanded="true" aria-controls="collapse{{foorloop.counter}}">
+            {{panel.name}}
+          </button>
+        </h2>
+      </div>
+      <div id="collapse{{forloop.counter}}" class="collapse show" aria-labelledby="accordion-heading-{{forloop.counter}}" data-parent="#accordion-{{a_id}}">
+        <div class="card-body">
+          {% include_block panel.content %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
 {% endwith %}
 {% endblock %}

@@ -12,7 +12,7 @@ from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChoo
 from .html_blocks import ButtonBlock
 
 
-class AccordionBlock(ButtonMixin, BaseBlock):
+class AccordionBlock(BaseBlock):
     """
     Allows selecting an accordion snippet
     """

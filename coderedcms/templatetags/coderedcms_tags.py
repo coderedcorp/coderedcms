@@ -6,7 +6,7 @@ from django import template
 from django.db.models.query import QuerySet
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 from wagtail.images.models import Image
 
 from coderedcms import utils, __version__

@@ -4,7 +4,7 @@ from django.utils.dateparse import parse_datetime
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from anyascii import anyascii
-from wagtail.core.blocks import (
+from wagtail.blocks import (
     StructBlock, TextBlock, CharBlock, BooleanBlock, ListBlock, StreamBlock,
     DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock, RichTextBlock,
 )

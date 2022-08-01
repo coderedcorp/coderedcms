@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django import VERSION as DJANGO_VERSION
 from django.db import migrations
 
-from wagtail.core.models import Locale
+from wagtail.models import Locale
 
 
 def initial_data(apps, schema_editor):

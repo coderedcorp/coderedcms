@@ -17,7 +17,7 @@ from django.db import models, transaction
 from django.utils.translation import gettext as _
 from modelcluster.models import get_all_child_relations
 from wagtail.admin.widgets import AdminPageChooser
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from coderedcms.forms import get_page_model_choices
 

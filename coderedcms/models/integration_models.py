@@ -4,8 +4,8 @@ from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core import hooks
+from wagtail.admin.panels import FieldPanel
+from wagtail import hooks
 
 from coderedcms.api.mailchimp import MailchimpApi
 

@@ -9,8 +9,8 @@ from wagtail.contrib.modeladmin.helpers import (
 from wagtail.contrib.modeladmin.options import ModelAdmin
 from wagtail.contrib.modeladmin.views import IndexView, InstanceSpecificView
 from wagtail.admin import messages
-from wagtail.core import hooks
-from wagtail.core.models import Page
+from wagtail import hooks
+from wagtail.models import Page
 from wagtail.contrib.forms.utils import get_forms_for_user
 
 from .models import SessionFormSubmission

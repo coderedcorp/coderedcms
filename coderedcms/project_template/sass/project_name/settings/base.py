@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-    'wagtail.core',
+    'wagtail',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
@@ -186,7 +186,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://{{ domain }}'
+WAGTAILADMIN_BASE_URL = 'http://{{ domain }}'
 
 
 # Bootstrap

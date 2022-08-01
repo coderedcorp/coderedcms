@@ -4,98 +4,16 @@ Copyright 2018-2022 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
 
-/* Inputs and form fields */
-
-.c-sf-button {
-    max-width: 200px;
-}
-
-.input input,
-.input select {
-    max-width: 300px;
-}
-.input textarea,
-.full .input input {
-    width: 100%;
-    max-width: 100%;
-}
-.input input[type='color']{
-    height: 40px;
-    padding: 5px;
-}
-
-
-/* Override and enhance the streamfield editor to support our deeply nested streamfields. */
-
-.c-sf-block {
-    display: block;
-}
-
-.c-sf-block:hover,
-.c-sf-block:focus {
-    box-shadow: 0 0 20px rgba(0,0,0,0.2) !important;
-}
-
-.c-sf-add-panel,
-.c-sf-container {
-    padding: 0 !important;
-    width:100%;
-    flex-basis: 100%;
-}
-
-.field.char_field.widget-draftail_rich_text_area .field-content,
-.field.char_field.widget-textarea .field-content {
-    width:100%;
-    max-width:100%;
-}
-
-.sequence-controls {
-    border: none;
-    background-color: transparent;
-    top: unset;
-}
-.sequence-controls h3 label {
-    font-weight: bold;
-}
-
-.tab-content {
-    width: 100%;
-}
-
-.object.stream-field {
-    background-color: inherit;;
-}
-
-.object .multiple {
-    width:100%;
-    max-width:100%;
-}
-
-.object fieldset {
-    width:100%;
-    max-width:100%;
-}
-.object > fieldset {
-    padding-top:6em;
-}
-.object > fieldset fieldset {
-    padding-top:0;
-}
-
-.fields > li, .field-col {
-    padding-bottom:0.5em;
-}
-
-
-
-/* Custom */
 
 .codered-collapsible {
     padding:0;
+    margin-top: -40px;
 }
-
 .codered-collapsible .codered-collapsible-target {
     padding: 10px 0 0;
+}
+.codered-collapsible > button {
+    max-width: 140px;
 }
 
 .codered-checkbox-group {

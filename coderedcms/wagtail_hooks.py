@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.menu import MenuItem
-from wagtail.core import hooks
-from wagtail.core.models import UserPagePermissionsProxy, get_page_models
+from wagtail import hooks
+from wagtail.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
 from coderedcms import __version__

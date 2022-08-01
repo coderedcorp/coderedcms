@@ -7,8 +7,8 @@ import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields
 import wagtail.contrib.table_block.blocks
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.documents.blocks
 import wagtail.embeds.blocks
 import wagtail.images.blocks

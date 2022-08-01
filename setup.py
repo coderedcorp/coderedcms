@@ -48,10 +48,10 @@ setup(
         'django-bootstrap4==22.1',
         'Django>=3.2,<4.1',             # should be the same as wagtail
         'geocoder==1.38.*',
-        'icalendar==4.0.*',
-        'wagtail==2.16.*',
-        'wagtail-cache==1.*',
-        'wagtail-seo==1.*',
+        'icalendar==4.1.*',
+        'wagtail==3.*',
+        'wagtail-cache==2.*',
+        'wagtail-seo==2.*',
     ],
     entry_points={
         "console_scripts": [

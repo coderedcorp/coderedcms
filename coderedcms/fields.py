@@ -1,6 +1,6 @@
 from django.db import models
 from django.forms.widgets import Textarea
-from wagtail.core.fields import StreamField
+from wagtail.fields import StreamField
 
 from coderedcms.widgets import ColorPickerWidget
 

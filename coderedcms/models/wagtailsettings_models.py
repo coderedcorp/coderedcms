@@ -8,10 +8,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, HelpPanel, MultiFieldPanel
-from wagtail.core.models import Orderable
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, HelpPanel, MultiFieldPanel
+from wagtail.models import Orderable
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
 from coderedcms.fields import MonospaceField
@@ -105,8 +103,8 @@ class LayoutSettings(ClusterableModel, BaseSetting):
     panels = [
         MultiFieldPanel(
             [
-                ImageChooserPanel('logo'),
-                ImageChooserPanel('favicon'),
+                FieldPanel('logo'),
+                FieldPanel('favicon'),
             ],
             heading=_('Branding')
         ),
@@ -183,7 +181,7 @@ class NavbarOrderable(Orderable, models.Model):
     )
 
     panels = [
-        SnippetChooserPanel("navbar")
+        FieldPanel("navbar")
     ]
 
 
@@ -201,7 +199,7 @@ class FooterOrderable(Orderable, models.Model):
     )
 
     panels = [
-        SnippetChooserPanel("footer")
+        FieldPanel("footer")
     ]
 
 

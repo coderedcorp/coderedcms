@@ -7,6 +7,7 @@ functionality.
 .. toctree::
     :maxdepth: 1
 
+    accordions
     carousels
     classifiers
     content_walls

@@ -413,6 +413,7 @@ class AccordionPanel(Orderable, models.Model):
         [
             FieldPanel('custom_css_class'),
             FieldPanel('custom_id'),
+            FieldPanel("name"),
             FieldPanel('content'),
         ]
     )

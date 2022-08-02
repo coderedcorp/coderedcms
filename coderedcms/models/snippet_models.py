@@ -364,7 +364,7 @@ class Accordion(ClusterableModel):
     panels = (
         [
             MultiFieldPanel(
-                heading=_('accordion'),
+                heading=_('Accordion'),
                 children=[
                     FieldPanel('name'),
                 ]
@@ -375,6 +375,7 @@ class Accordion(ClusterableModel):
 
     def __str__(self):
         return self.name
+
 
 class AccordionPanel(Orderable, models.Model):
     """A panel for a collapsible accordion"""

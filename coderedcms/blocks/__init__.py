@@ -37,6 +37,7 @@ from .html_blocks import (
     TableBlock
 )
 from .content_blocks import (  # noqa
+    AccordionBlock,
     CardBlock,
     CarouselBlock,
     ContentWallBlock,
@@ -82,6 +83,7 @@ HTML_STREAMBLOCKS = [
 ]
 
 CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
+    ('accordion', AccordionBlock()),
     ('card', CardBlock()),
     ('carousel', CarouselBlock()),
     ('image_gallery', ImageGalleryBlock()),

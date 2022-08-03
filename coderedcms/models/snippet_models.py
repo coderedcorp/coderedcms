@@ -350,6 +350,75 @@ class ReusableContent(models.Model):
 
 
 @register_snippet
+class Accordion(ClusterableModel):
+    """Class for reusable content in a collapsible block."""
+    class Meta:
+        verbose_name = _('Accordion')
+        verbose_name_plural = _("Accordions")
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
+    panels = (
+        [
+            MultiFieldPanel(
+                heading=_('Accordion'),
+                children=[
+                    FieldPanel('name'),
+                ]
+            ),
+            InlinePanel('accordion_panels', label=_('Panels'))
+        ]
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class AccordionPanel(Orderable, models.Model):
+    """A panel for a collapsible accordion"""
+
+    accordion = ParentalKey(
+        Accordion,
+        related_name='accordion_panels',
+        verbose_name=_('Accordion'),
+    )
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+
+    content = CoderedStreamField(
+        HTML_STREAMBLOCKS,
+        blank=True,
+        use_json_field=True,
+    )
+
+    custom_css_class = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Custom CSS class'),
+    )
+    custom_id = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Custom ID'),
+    )
+
+    panels = (
+        [
+            FieldPanel('custom_css_class'),
+            FieldPanel('custom_id'),
+            FieldPanel("name"),
+            FieldPanel('content'),
+        ]
+    )
+
+
+@register_snippet
 class ContentWall(models.Model):
     """
     Snippet that restricts access to a page with a modal.

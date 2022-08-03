@@ -12,6 +12,19 @@ from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChoo
 from .html_blocks import ButtonBlock
 
 
+class AccordionBlock(BaseBlock):
+    """
+    Allows selecting an accordion snippet
+    """
+
+    accordion = SnippetChooserBlock('coderedcms.Accordion')
+
+    class Meta:
+        template = 'coderedcms/blocks/accordion_block.html'
+        icon = 'bars'
+        label = 'Accordion'
+
+
 class CardBlock(BaseBlock):
     """
     A component of information with image, text, and buttons.

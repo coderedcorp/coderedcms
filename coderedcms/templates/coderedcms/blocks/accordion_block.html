@@ -1,0 +1,27 @@
+{% extends 'coderedcms/blocks/base_block.html' %}
+
+{% load wagtailcore_tags coderedcms_tags %}
+
+{% block block_render %}
+
+{% with a_id=self.accordion.id accordion=self.accordion %}
+<div class="accordion" id="accordion-{{a_id}}">
+  {% for panel in accordion.accordion_panels.all %}
+    <div class="card">
+      <div class="card-header" id="accordion-heading-{{forloop.counter}}">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-{{a_id}}-{{forloop.counter}}" aria-expanded="false" aria-controls="collapse-{{a_id}}-{{forloop.counter}}">
+            {{panel.name}}
+          </button>
+        </h2>
+      </div>
+      <div id="collapse-{{a_id}}-{{forloop.counter}}" class="collapse" aria-labelledby="accordion-heading-{{forloop.counter}}" data-parent="#accordion-{{a_id}}">
+        <div class="card-body">
+          {% include_block panel.content %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endwith %}
+{% endblock %}

@@ -9,7 +9,7 @@ class _DefaultSettings:
     CRX_BANNER_BACKGROUND = '#f00'
     CRX_BANNER_TEXT_COLOR = '#fff'
 
-    CRX_DB_PREFIX = None
+    CRX_DB_TABLE_CODEREDCMS = False
 
     CRX_FRONTEND_BTN_SIZE_DEFAULT = ''
     CRX_FRONTEND_BTN_SIZE_CHOICES = [

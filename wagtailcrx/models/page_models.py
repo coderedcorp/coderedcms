@@ -108,13 +108,19 @@ class CoderedPageMeta(PageBase):
         super().__init__(name, bases, dct)
         # Copy of how django generates `db_table`, for compatibility with
         # renaming `wagtailcrx` app to `wagtailcrx`.
-        if crx_settings.CRX_DB_PREFIX:
-            from django.db import connection
-            from django.db.backends.utils import truncate_name
-            cls.db_table = "%s_%s" % (crx_settings.CRX_DB_PREFIX, cls.model_name)
-            cls.db_table = truncate_name(
-                cls.db_table, connection.ops.max_name_length()
-            )
+        # if (
+        #     not cls._meta.abstract
+        #     and cls._meta.app_label == "wagtailcrx"
+        #     and crx_settings.CRX_DB_TABLE_CODEREDCMS
+        # ):
+        #     from django.db import connection
+        #     from django.db.backends.utils import truncate_name
+        #     print(f"HERE - `{cls._meta.db_table}`")
+        #     cls._meta.db_table = "coderedcms_%s" % cls._meta.model_name
+        #     cls._meta.db_table = truncate_name(
+        #         cls._meta.db_table, connection.ops.max_name_length()
+        #     )
+        #     print(f"     - `{cls._meta.db_table}`")
 
         # Append to our registry of known models derived from CoderedPage.
         if not cls._meta.abstract:
@@ -124,6 +130,9 @@ class CoderedPageMeta(PageBase):
 class CoderedTag(TaggedItemBase):
     class Meta:
         verbose_name = _('CodeRed Tag')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_coderedtag"
+
     content_object = ParentalKey('wagtailcrx.CoderedPage', related_name='tagged_items')
 
 
@@ -134,6 +143,8 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     """
     class Meta:
         verbose_name = _('CodeRed Page')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_coderedpage"
 
     # Do not allow this page type to be created in wagtail admin
     is_creatable = False

@@ -30,6 +30,8 @@ class Carousel(ClusterableModel):
     """
     class Meta:
         verbose_name = _('Carousel')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_carousel"
 
     name = models.CharField(
         max_length=255,
@@ -94,6 +96,8 @@ class CarouselSlide(Orderable, models.Model):
     """
     class Meta(Orderable.Meta):
         verbose_name = _('Carousel Slide')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_carouselslide"
 
     carousel = ParentalKey(
         Carousel,
@@ -151,6 +155,8 @@ class Classifier(ClusterableModel):
         verbose_name = _('Classifier')
         verbose_name_plural = _('Classifiers')
         ordering = ['name']
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_classifier"
 
     slug = models.SlugField(
         allow_unicode=True,
@@ -192,6 +198,8 @@ class ClassifierTerm(Orderable, models.Model):
     class Meta(Orderable.Meta):
         verbose_name = _('Classifier Term')
         verbose_name_plural = _('Classifier Terms')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_classifierterm"
 
     classifier = ParentalKey(
         Classifier,
@@ -282,6 +290,8 @@ class Footer(models.Model):
     """
     class Meta:
         verbose_name = _('Footer')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_footer"
 
     name = models.CharField(
         max_length=255,
@@ -328,6 +338,8 @@ class ReusableContent(models.Model):
     class Meta:
         verbose_name = _('Reusable Content')
         verbose_name_plural = _('Reusable Content')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_reusablecontent"
 
     name = models.CharField(
         max_length=255,
@@ -356,6 +368,8 @@ class ContentWall(models.Model):
     """
     class Meta:
         verbose_name = _('Content Wall')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_contentwall"
 
     name = models.CharField(
         max_length=255,

@@ -24,6 +24,8 @@ class LayoutSettings(ClusterableModel, BaseSetting):
     """
     class Meta:
         verbose_name = _('Layout')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_layoutsettings"
 
     logo = models.ForeignKey(
         get_image_model_string(),
@@ -168,6 +170,11 @@ class LayoutSettings(ClusterableModel, BaseSetting):
 
 
 class NavbarOrderable(Orderable, models.Model):
+
+    class Meta:
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_navbarorderable"
+
     navbar_chooser = ParentalKey(
         LayoutSettings,
         related_name="site_navbar",
@@ -186,6 +193,11 @@ class NavbarOrderable(Orderable, models.Model):
 
 
 class FooterOrderable(Orderable, models.Model):
+
+    class Meta:
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_footerorderable"
+
     footer_chooser = ParentalKey(
         LayoutSettings,
         related_name="site_footer",
@@ -210,6 +222,8 @@ class AnalyticsSettings(BaseSetting):
     """
     class Meta:
         verbose_name = _('Tracking')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_analyticssettings"
 
     ga_tracking_id = models.CharField(
         blank=True,
@@ -289,6 +303,8 @@ class ADASettings(BaseSetting):
     """
     class Meta:
         verbose_name = 'Accessibility'
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_adasettings"
 
     skip_navigation = models.BooleanField(
         default=False,
@@ -312,6 +328,11 @@ class GeneralSettings(BaseSetting):
     Various site-wide settings. A good place to put
     one-off settings that don't belong anywhere else.
     """
+
+    class Meta:
+        verbose_name = _('General')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_generalsettings"
 
     from_email_address = models.CharField(
 
@@ -350,9 +371,6 @@ class GeneralSettings(BaseSetting):
         ),
     ]
 
-    class Meta:
-        verbose_name = _('General')
-
 
 @register_setting(icon='cr-puzzle-piece')
 class GoogleApiSettings(BaseSetting):
@@ -361,6 +379,8 @@ class GoogleApiSettings(BaseSetting):
     """
     class Meta:
         verbose_name = _('Google API')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_googleapisettings"
 
     google_maps_api_key = models.CharField(
         blank=True,
@@ -377,6 +397,8 @@ class MailchimpApiSettings(BaseSetting):
     """
     class Meta:
         verbose_name = _('Mailchimp API')
+        if crx_settings.CRX_DB_TABLE_CODEREDCMS:
+            db_table = "coderedcms_mailchimpapisettings"
 
     mailchimp_api_key = models.CharField(
         blank=True,

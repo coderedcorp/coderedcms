@@ -1,82 +1,62 @@
 /// Custom variables for this project which will override Bootstrap defaults.
-/// Change the variables here to match your brand.
+/// Some of the most commonly used variables are included below.
+/// Uncomment and change, or add more variables here to match your brand.
 ///
 /// All variables can be found here:
-///   https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss
+///   https://github.com/twbs/bootstrap/blob/v5.2.0/scss/_variables.scss
 ///
 /// Bootstrap themeing guide can be found here:
-///   https://getbootstrap.com/docs/4.5/getting-started/theming/
+///   https://getbootstrap.com/docs/5.2/customize/overview/
 
 
-// Color system
+/// Color system
+///
+/// For example, if your brand color is neon green (#00ff00), set primary to the
+/// hex value, then reference $primary where needed. This way Bootstrap will
+/// pick up on your color and use it everywhere:
+///
+///     $primary: #00ff00
+///
+/// See: https://getbootstrap.com/docs/5.2/customize/color/
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
-
-$blue:    #007bff !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #28a745 !default;
-$teal:    #20c997 !default;
-$cyan:    #17a2b8 !default;
-
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
-$success:       $green !default;
-$info:          $cyan !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-800 !default;
+// $primary:       $blue;
+// $secondary:     $gray-600;
+// $success:       $green;
+// $info:          $cyan;
+// $warning:       $yellow;
+// $danger:        $red;
+// $light:         $gray-100;
+// $dark:          $gray-900;
 
 
-// Body
-//
-// Settings for the `<body>` element.
+/// Body
+///
+/// Settings for the `<body>` element.
 
-$body-bg:                   $white !default;
-$body-color:                $gray-900 !default;
+// $body-bg:                   $white;
+// $body-color:                $gray-900;
 
 
-// Typography
-//
-// Font, line-height, and color for body text, headings, and more.
+/// Typography
+///
+/// Font, line-height, and color for body text, headings, and more.
 
-// stylelint-disable value-keyword-case
-$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
-$font-family-base:            $font-family-sans-serif !default;
-// stylelint-enable value-keyword-case
+// Body fonts.
+// $font-family-base:            null;
+// $font-size-base:              1rem;
+// $font-weight-light:           300;
+// $font-weight-normal:          400;
+// $font-weight-semibold:        600;
+// $font-weight-bold:            700;
+// $font-weight-base:            $font-weight-normal;
 
-$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
-$font-size-lg:                $font-size-base * 1.25 !default;
-$font-size-sm:                $font-size-base * .875 !default;
-
-$font-weight-lighter:         lighter !default;
-$font-weight-light:           300 !default;
-$font-weight-normal:          400 !default;
-$font-weight-bold:            700 !default;
-$font-weight-bolder:          bolder !default;
-
-$font-weight-base:            $font-weight-normal !default;
-$line-height-base:            1.5 !default;
-
-$h1-font-size:                $font-size-base * 2.5 !default;
-$h2-font-size:                $font-size-base * 2 !default;
-$h3-font-size:                $font-size-base * 1.75 !default;
-$h4-font-size:                $font-size-base * 1.5 !default;
-$h5-font-size:                $font-size-base * 1.25 !default;
-$h6-font-size:                $font-size-base !default;
+// Headings
+// $headings-font-family:        null;
+// $headings-font-weight:        500;
+// $headings-color:              null;
+// $h1-font-size:                $font-size-base * 2.5;
+// $h2-font-size:                $font-size-base * 2;
+// $h3-font-size:                $font-size-base * 1.75;
+// $h4-font-size:                $font-size-base * 1.5;
+// $h5-font-size:                $font-size-base * 1.25;
+// $h6-font-size:                $font-size-base;

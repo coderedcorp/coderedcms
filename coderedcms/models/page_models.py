@@ -36,7 +36,7 @@ from eventtools.models import BaseEvent, BaseOccurrence
 from icalendar import Alarm
 from icalendar import Event as ICalEvent
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from modelcluster.tags import ClusterTaggableManager
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from pathlib import Path
 from taggit.models import TaggedItemBase
 from wagtail.admin.panels import (
@@ -1435,7 +1435,7 @@ class CoderedFormMixin(models.Model):
         if form.is_valid():
             processed_data = self.process_data(form, request)
             form_submission = self.get_submission_class()(
-                form_data=json.dumps(processed_data, cls=self.encoder),
+                form_data=processed_data,
                 page=self,
             )
             self.process_form_submission(

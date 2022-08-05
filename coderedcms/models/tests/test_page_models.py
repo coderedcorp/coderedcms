@@ -98,10 +98,19 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
 
     def test_post(self):
         """
-        Tests to make sure a basic version of the page serves a 200 from a POST request.
+        Tests to make sure a basic version of the page accepts data and is
+        viewable in the Wagtail admin.
         """
-        response = self.client.post(self.basic_page.url, follow=True)
+        # TODO: add form field via streamfield.
+        response = self.client.post(
+            self.basic_page.url,
+            {
+                'name': 'Monty Python'
+            },
+            follow=True
+        )
         self.assertEqual(response.status_code, 200)
+        # TODO: log in as superuser and get wagtail admin form submission page.
 
     def test_spam(self):
         """

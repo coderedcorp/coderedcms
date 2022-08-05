@@ -1,6 +1,5 @@
 import os
 from django.conf import settings
-import bootstrap4.bootstrap as bootstrap
 
 
 class _DefaultSettings:
@@ -49,12 +48,6 @@ class _DefaultSettings:
         ('btn-outline-dark', 'Outline Dark'),
     ]
 
-    CRX_FRONTEND_CAROUSEL_FX_DEFAULT = ''
-    CRX_FRONTEND_CAROUSEL_FX_CHOICES = [
-        ('', 'Slide'),
-        ('carousel-fade', 'Fade'),
-    ]
-
     CRX_FRONTEND_COL_SIZE_DEFAULT = ''
     CRX_FRONTEND_COL_SIZE_CHOICES = [
         ('', 'Automatically size'),
@@ -84,7 +77,7 @@ class _DefaultSettings:
     CRX_FRONTEND_NAVBAR_FORMAT_DEFAULT = ''
     CRX_FRONTEND_NAVBAR_FORMAT_CHOICES = [
         ('', 'Default Bootstrap Navbar'),
-        ('codered-navbar-center', 'Centered logo at top'),
+        ('crx-navbar-center', 'Centered logo at top'),
     ]
 
     CRX_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT = 'navbar-light'
@@ -118,7 +111,9 @@ class _DefaultSettings:
         ('lux', 'Lux - A touch of class'),
         ('materia', 'Materia - Material is the metaphor'),
         ('minty', 'Minty - A fresh feel'),
+        ('morph', 'Morph - A neumorphic layer'),
         ('pulse', 'Pulse - A trace of purple'),
+        ('quartz', 'A glassmorphic layer'),
         ('sandstone', 'Sandstone - A touch of warmth'),
         ('simplex', 'Simplex - Mini and minimalist'),
         ('sketchy', 'Sketchy - A hand-drawn look for mockups and mirth'),
@@ -127,7 +122,9 @@ class _DefaultSettings:
         ('spacelab', 'Spacelab - Silvery and sleek'),
         ('superhero', 'Superhero - The brave and the blue'),
         ('united', 'United - Ubuntu orange and unique font'),
+        ('vapor', 'A cyberpunk aesthetic'),
         ('yeti', 'Yeti - A friendly foundation'),
+        ('zephyr', 'Breezy and beautiful'),
     ]
 
     CRX_FRONTEND_TEMPLATES_BLOCKS = {
@@ -190,6 +187,13 @@ class _DefaultSettings:
 
 
 crx_settings = _DefaultSettings()
+
+
+# Default to bootstrap5, but fallback to bootstrap4 for compatibility.
+try:
+    import django_bootstrap5.core as bootstrap
+except ImportError:
+    import bootstrap4.bootstrap as bootstrap
 
 
 get_bootstrap_setting = bootstrap.get_bootstrap_setting

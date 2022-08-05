@@ -30,7 +30,7 @@ INSTALLED_APPS = [
 
     # Wagtail CRX (CodeRed Extensions)
     'coderedcms',
-    'bootstrap4',
+    'django_bootstrap5',
     'modelcluster',
     'taggit',
     'wagtailcache',
@@ -189,17 +189,6 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = 'http://localhost'
-
-
-# Bootstrap
-
-BOOTSTRAP4 = {
-    # set to blank since coderedcms already loads jquery and bootstrap
-    'jquery_url': '',
-    'base_url': '',
-    # remove green highlight on inputs
-    'success_css_class': ''
-}
 
 
 # Tags

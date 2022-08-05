@@ -7,7 +7,7 @@
 <div class="container">
 {% endif %}
 <nav class="navbar navbar-header bg-cherry">
-  
+
   {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
   <div class="container">
   {% endif %}
@@ -32,7 +32,7 @@
   {% if not settings.coderedcms.LayoutSettings.navbar_content_fluid %}
   <div class="container">
   {% endif %}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -47,12 +47,12 @@
       </ul>
       {% endfor %}
       {% if settings.coderedcms.LayoutSettings.navbar_search %}
-      <form class="ml-auto form-inline" action="{% url 'codered_search' %}" method="GET">
-          {% load bootstrap4 %}
+      <form class="d-flex ms-auto" action="{% url 'codered_search' %}" method="GET">
+          {% load django_bootstrap5 %}
           {% get_searchform request as form %}
           {% bootstrap_form form layout='inline' %}
           <div class="form-group">
-            <button class="btn btn-outline-primary ml-2" type="submit">{% trans 'Search' %}</button>
+            <button class="btn btn-outline-primary ms-2" type="submit">{% trans 'Search' %}</button>
           </div>
       </form>
       {% endif %}

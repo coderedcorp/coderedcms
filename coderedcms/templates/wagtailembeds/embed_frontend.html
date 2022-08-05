@@ -1,20 +1,19 @@
 {% load coderedcms_tags %}
 
 {% if embed.ratio %}
-    {# If an aspect ratio is included, use the appropriate Bootstrap 4 class #}
-    {% if embed.ratio > 0.9 %}
-        <div class="embed-responsive embed-responsive-1by1">
-    {% elif embed.ratio > 0.7 %}
-        <div class="embed-responsive embed-responsive-4by3">
-    {% elif embed.ratio > 0.5 %}
-        <div class="embed-responsive embed-responsive-16by9">
-    {% else %}
-        <div class="embed-responsive embed-responsive-21by9">
-    {% endif %}
+{# If an aspect ratio is included, use the appropriate Bootstrap class #}
+{% if embed.ratio > 0.9 %}
+<div class="ratio ratio-1x1">
+{% elif embed.ratio > 0.7 %}
+<div class="ratio ratio-4x3">
+{% elif embed.ratio > 0.5 %}
+<div class="ratio ratio-16x9">
 {% else %}
-    {# Otherwise, center it in a row, for things like Tweets. #}
-    <div class="row justify-content-center">
+<div class="ratio ratio-21x9">
 {% endif %}
-
+{% else %}
+{# Otherwise, center it in a row, for things like Tweets. #}
+<div class="row justify-content-center">
+{% endif %}
 {% render_iframe_from_embed embed %}
 </div>

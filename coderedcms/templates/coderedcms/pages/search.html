@@ -1,5 +1,5 @@
 {% extends "coderedcms/pages/web_page_notitle.html" %}
-{% load bootstrap4 i18n coderedcms_tags wagtailcore_tags %}
+{% load django_bootstrap5 i18n coderedcms_tags wagtailcore_tags %}
 
 {% wagtail_site as site %}
 
@@ -24,13 +24,11 @@
   {% if not settings.coderedcms.LayoutSettings.navbar_search %}
   <form class="mt-5" action="{% url 'codered_search' %}" method="GET">
     <div class="row">
-      <div class="col-sm-9">
-        {% bootstrap_form form size='large' layout='inline' %}
+      <div class="col-8 col-sm-9">
+        {% bootstrap_form form size="lg" layout="inline" server_side_validation=False %}
       </div>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <button class="btn btn-lg btn-block btn-outline-primary" type="submit">{% trans 'Search' %}</button>
-        </div>
+      <div class="col-4 col-sm-3">
+        <button class="btn btn-lg w-100 btn-outline-primary" type="submit">{% trans "Search" %}</button>
       </div>
     </div>
   </form>
@@ -79,7 +77,7 @@
   {% elif form.s.value %}
 
   {% block search_noresults %}
-  <p>{% trans 'No results found.' %}</p>
+  <p>{% trans "No results found." %}</p>
   {% endblock search_noresults %}
 
   {% endif %}

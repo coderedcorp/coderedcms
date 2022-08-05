@@ -62,11 +62,6 @@ class LayoutSettings(ClusterableModel, BaseSetting):
         verbose_name=_('Fixed navbar'),
         help_text=_('Fixed navbar will remain at the top of the page when scrolling.'),
     )
-    navbar_wrapper_fluid = models.BooleanField(
-        default=True,
-        verbose_name=_('Full width navbar'),
-        help_text=_('The navbar will fill edge to edge.'),
-    )
     navbar_content_fluid = models.BooleanField(
         default=False,
         verbose_name=_('Full width navbar contents'),
@@ -118,7 +113,6 @@ class LayoutSettings(ClusterableModel, BaseSetting):
                 FieldPanel('navbar_color_scheme'),
                 FieldPanel('navbar_class'),
                 FieldPanel('navbar_fixed'),
-                FieldPanel('navbar_wrapper_fluid'),
                 FieldPanel('navbar_content_fluid'),
                 FieldPanel('navbar_collapse_mode'),
                 FieldPanel('navbar_format'),

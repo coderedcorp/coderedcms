@@ -1,0 +1,108 @@
+/// Location pages styles.
+/// This includes the google map/search functionality on the location index page.
+/// TODO: rename/cleanup css class names.
+/// TODO: prefix our styles with 'crx-' to reduce potential collisions.
+
+.map-container {
+  min-height: 600px;
+  width: 100%;
+}
+
+#infowindow-content {
+  display: none;
+
+  .title {
+    font-weight: bold;
+  }
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+
+  label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 300;
+  margin-left: 12px;
+  line-height: 34px;
+  text-overflow: ellipsis;
+  width: 200px;
+  top: 10px !important;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  &:focus {
+    border-color: #4d90fe;
+  }
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#target {
+  width: 345px;
+}
+
+.address-card {
+  margin: 0 auto;
+  font-size: 1.4em;
+
+  .card-body p {
+    margin-bottom: 0;
+  }
+}
+
+.map-button {
+  background-color: white;
+  color: black;
+  border-radius: 1px;
+  z-index: 999;
+
+  @media (min-width: 768px) {
+    position: absolute;
+    top: 13px;
+    left: 430px;
+  }
+}
+
+#LocationList {
+  max-height: 600px;
+  overflow-y: scroll;
+}

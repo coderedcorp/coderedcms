@@ -50,13 +50,14 @@
 @import "coderedcms/vendor/bootstrap/scss/print";
 
 // Wagtail CRX (CodeRed Extensions) styles.
-@import "coderedcms/scss/codered-hero";
-@import "coderedcms/scss/codered-richtext";
-@import "coderedcms/scss/codered-gallery";
-@import "coderedcms/scss/codered-pricelist";
-@import "coderedcms/scss/codered-article";
-@import "coderedcms/scss/codered-location";
-@import "coderedcms/scss/codered-navbar";
-@import "coderedcms/scss/codered-bs-overrides";
+@import "coderedcms/scss/crx-article";
+@import "coderedcms/scss/crx-bs-overrides";
+@import "coderedcms/scss/crx-gallery";
+@import "coderedcms/scss/crx-grid";
+@import "coderedcms/scss/crx-hero";
+@import "coderedcms/scss/crx-location";
+@import "coderedcms/scss/crx-navbar";
+@import "coderedcms/scss/crx-pricelist";
+@import "coderedcms/scss/crx-richtext";
 
 // Your custom styles here.

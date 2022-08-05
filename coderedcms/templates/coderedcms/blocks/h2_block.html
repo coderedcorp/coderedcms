@@ -1,4 +1,3 @@
-<h2 {% if self.settings.custom_css_class %}class="{{self.settings.custom_css_class}}"{% endif %}
-{% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
-    {{ self.text }}
+<h2 {% if self.settings.custom_css_class %}class="{{self.settings.custom_css_class}}"{% endif %} {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+  {{ self.text }}
 </h2>

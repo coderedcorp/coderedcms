@@ -1,0 +1,49 @@
+/*!
+Wagtail CRX (https://www.coderedcorp.com/cms/)
+Copyright 2018-2022 CodeRed LLC
+License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
+*/
+
+
+.crx-collapsible {
+    padding:0;
+    margin-top: -40px;
+}
+.crx-collapsible .crx-collapsible-target {
+    padding: 10px 0 0;
+}
+.crx-collapsible > button {
+    max-width: 140px;
+}
+
+.crx-checkbox-group {
+    margin-bottom: 1em;
+}
+.crx-checkbox-group ul {
+    margin-top: 0.5em;
+}
+.crx-checkbox-group label {
+    padding-bottom: 0.25em;
+}
+.crx-checkbox-group label input {
+    margin-right: 0.25em;
+}
+
+.crx-callout {
+    background-color: #f0f1f2;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 2em 3em;
+    text-align: center;
+}
+.crx-callout .crx-big-icon {
+    font-size: 10rem;
+    color: rgba(0,0,0,0.1);
+}
+.crx-callout h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.crx-callout p {
+    font-size: 1rem;
+}

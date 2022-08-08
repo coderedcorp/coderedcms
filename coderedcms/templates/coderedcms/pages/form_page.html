@@ -1,34 +1,28 @@
 {% extends "coderedcms/pages/web_page.html" %}
-
-{% load wagtailcore_tags coderedcms_tags bootstrap4 %}
-
+{% load wagtailcore_tags coderedcms_tags django_bootstrap5 %}
 {% block content_body %}
-
 {{ block.super }}
-
 {% if page.form_live %}
-<div class="container">
-    <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
-        {% csrf_token %}
+<div class="container my-5">
+  <form class="{{ page.form_css_class }}" id="{{ page.form_id }}" action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
+    {% csrf_token %}
+    {% bootstrap_form form layout="horizontal" %}
 
-        {% bootstrap_form form layout='horizontal' %}
+    {% block captcha %}
+    {% if page.spam_protection %}
+    {% include "coderedcms/includes/form_honeypot.html" %}
+    {% endif %}
+    {% endblock %}
 
-        {% block captcha %}
-            {% if page.spam_protection %}
-                {% include 'coderedcms/includes/form_honeypot.html' %}
-            {% endif %}
-        {% endblock %}
-
-        <div class="form-group mt-5 row">
-            <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
-            <div class="{{'horizontal_field_class'|bootstrap_settings}}">
-                <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
-                    {{ page.button_text }}
-                </button>
-            </div>
-        </div>
-    </form>
+    <div class="row">
+      <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
+      <div class="{{'horizontal_field_class'|bootstrap_settings}}">
+        <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+          {{ page.button_text }}
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 {% endif %}
-
 {% endblock %}

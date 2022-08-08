@@ -18,7 +18,7 @@ from coderedcms import __version__
 def global_admin_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
-        static('coderedcms/css/codered-admin.css'),
+        static('coderedcms/css/crx-admin.css'),
         __version__,
     )
 
@@ -27,7 +27,7 @@ def global_admin_css():
 def editor_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
-        static('coderedcms/css/codered-editor.css'),
+        static('coderedcms/css/crx-editor.css'),
         __version__,
     )
 
@@ -36,7 +36,7 @@ def editor_css():
 def collapsible_js():
     return format_html(
         '<script src="{}?v={}"></script>',
-        static('coderedcms/js/codered-editor.js'),
+        static('coderedcms/js/crx-editor.js'),
         __version__,
     )
 

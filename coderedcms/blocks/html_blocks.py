@@ -42,10 +42,6 @@ class DownloadBlock(ButtonMixin, BaseBlock):
     """
     Link to a file that can be downloaded.
     """
-    automatic_download = blocks.BooleanBlock(
-        required=False,
-        label=_('Auto download'),
-    )
     downloadable_file = DocumentChooserBlock(
         required=False,
         label=_('Document link'),

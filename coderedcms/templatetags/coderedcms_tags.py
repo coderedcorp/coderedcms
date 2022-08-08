@@ -101,7 +101,7 @@ def get_footers(context) -> 'QuerySet[Footer]':
 
 @register.simple_tag
 def get_searchform(request=None):
-    if request:
+    if request.GET:
         return SearchForm(request.GET)
     return SearchForm()
 

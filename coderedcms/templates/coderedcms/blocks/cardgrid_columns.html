@@ -1,10 +1,12 @@
 {% extends "coderedcms/blocks/grid_block.html" %}
 {% load wagtailcore_tags %}
-
 {% block grid_content %}
-<div class="card-columns {{self.settings.custom_css_class}}">
-      {% for block in self.content %}
-            {% include_block block %}
-      {% endfor %}
+  <div class="row {{self.settings.custom_css_class}}" data-masonry='{"percentPosition": true }'>
+    {% for block in self.content %}
+    <div class="col-sm-6 col-lg-4 mb-4">
+      {% include_block column %}
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

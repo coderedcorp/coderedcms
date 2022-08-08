@@ -1,6 +1,6 @@
 import os
+from django.apps import apps
 from django.conf import settings
-import bootstrap4.bootstrap as bootstrap
 
 
 class _DefaultSettings:
@@ -49,12 +49,6 @@ class _DefaultSettings:
         ('btn-outline-dark', 'Outline Dark'),
     ]
 
-    CRX_FRONTEND_CAROUSEL_FX_DEFAULT = ''
-    CRX_FRONTEND_CAROUSEL_FX_CHOICES = [
-        ('', 'Slide'),
-        ('carousel-fade', 'Fade'),
-    ]
-
     CRX_FRONTEND_COL_SIZE_DEFAULT = ''
     CRX_FRONTEND_COL_SIZE_CHOICES = [
         ('', 'Automatically size'),
@@ -84,7 +78,7 @@ class _DefaultSettings:
     CRX_FRONTEND_NAVBAR_FORMAT_DEFAULT = ''
     CRX_FRONTEND_NAVBAR_FORMAT_CHOICES = [
         ('', 'Default Bootstrap Navbar'),
-        ('codered-navbar-center', 'Centered logo at top'),
+        ('crx-navbar-center', 'Centered logo at top'),
     ]
 
     CRX_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT = 'navbar-light'
@@ -118,7 +112,9 @@ class _DefaultSettings:
         ('lux', 'Lux - A touch of class'),
         ('materia', 'Materia - Material is the metaphor'),
         ('minty', 'Minty - A fresh feel'),
+        ('morph', 'Morph - A neumorphic layer'),
         ('pulse', 'Pulse - A trace of purple'),
+        ('quartz', 'A glassmorphic layer'),
         ('sandstone', 'Sandstone - A touch of warmth'),
         ('simplex', 'Simplex - Mini and minimalist'),
         ('sketchy', 'Sketchy - A hand-drawn look for mockups and mirth'),
@@ -127,7 +123,9 @@ class _DefaultSettings:
         ('spacelab', 'Spacelab - Silvery and sleek'),
         ('superhero', 'Superhero - The brave and the blue'),
         ('united', 'United - Ubuntu orange and unique font'),
+        ('vapor', 'A cyberpunk aesthetic'),
         ('yeti', 'Yeti - A friendly foundation'),
+        ('zephyr', 'Breezy and beautiful'),
     ]
 
     CRX_FRONTEND_TEMPLATES_BLOCKS = {
@@ -190,6 +188,18 @@ class _DefaultSettings:
 
 
 crx_settings = _DefaultSettings()
+
+
+# If the older django-bootstrap4 is the only version listed in INSTALLED_APPS,
+# use it for compatibility. Otherwise use django-bootstrap5 which is a
+# dependency of coderedcms.
+if (
+    apps.is_installed("bootstrap4")
+    and not apps.is_installed("django_bootstrap5")
+):
+    import bootstrap4.bootstrap as bootstrap
+else:
+    import django_bootstrap5.core as bootstrap
 
 
 get_bootstrap_setting = bootstrap.get_bootstrap_setting

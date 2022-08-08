@@ -1,7 +1,9 @@
 {% block block_render %}
-    <blockquote class="blockquote {{self.settings.custom_css_class}}"
-    {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
-        <p class="mb-0">{{self.text}}</p>
-        {% if self.author %}<footer class="blockquote-footer">{{self.author}}</footer>{% endif %}
-    </blockquote>
+<figure class="{{self.settings.custom_css_class}}" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+<blockquote class="blockquote">
+  <p>{{self.text}}</p>
+</blockquote>
+{% if self.author %}
+<figcaption class="blockquote-footer">{{self.author}}</figcaption>
+{% endif %}
 {% endblock %}

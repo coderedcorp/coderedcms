@@ -155,7 +155,7 @@ the ``snippets`` folder and create a ``navbar.html`` file inside of that folder.
          {% endfor %}
          {% if settings.coderedcms.LayoutSettings.navbar_search %}
          <form class="ml-auto form-inline" action="{% url 'codered_search' %}" method="GET">
-               {% load bootstrap4 %}
+               {% load django_bootstrap5 %}
                {% get_searchform request as form %}
                {% bootstrap_form form layout='inline' %}
                <div class="form-group">

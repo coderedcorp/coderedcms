@@ -78,7 +78,7 @@ CSS Development
 When CSS changes are needed for front-end code (not the wagtail admin), Sass should be used.
 Each block, page, snippet, or other component that requires styling should have a dedicated ``.scss``
 file created beginning with an underscore in ``coderedcms/static/scss/``. Then import the file
-in our main ``codered-front.scss`` file. Then build a human readable and minified version of CSS
+in our main ``crx-front.scss`` file. Then build a human readable and minified version of CSS
 from the command prompt as so:
 
 .. code-block:: console
@@ -86,10 +86,10 @@ from the command prompt as so:
     $ cd coderedcms/static/coderedcms/
 
     $ # Build human readable CSS, and source map for nicer debugging.
-    $ pysassc -g -t expanded scss/codered-front.scss css/codered-front.css
+    $ pysassc -g -t expanded scss/crx-front.scss css/crx-front.css
 
     $ # Build minified CSS.
-    $ pysassc -t compressed scss/codered-front.scss css/codered-front.min.css
+    $ pysassc -t compressed scss/crx-front.scss css/crx-front.min.css
 
 The generated CSS files must also be committed to version control whenever a sass file is
 changed, as they are distributed as part of our package.
@@ -98,8 +98,8 @@ changed, as they are distributed as part of our package.
 JavaScript Development
 ----------------------
 
-All JavaScript should use ``codered-front.js`` as an entry point, meaning feature
-detection should happen in ``codered-front.js`` and then only load secondary scripts and CSS
+All JavaScript should use ``crx-front.js`` as an entry point, meaning feature
+detection should happen in ``crx-front.js`` and then only load secondary scripts and CSS
 as needed. This ensures only one single small JavaScript file is required on page load, which
 reduces render-blocking resources and page load time.
 
@@ -126,7 +126,7 @@ Upgrading 3rd-Party CSS/JavaScript Libraries
 
 External front-end libraries are included in two places:
 * Source or distributables are in ``coderedcms/static/coderedcms/vendor/``.
-* Referenced via a CDN in ``coderedcms/static/coderedcms/codered-front.js``.
+* Referenced via a CDN in ``coderedcms/static/coderedcms/crx-front.js``.
 
 To upgrade, replace the relevant files or links in these two sources. Then be
 sure to change any URLs if applicable within the ``base.html`` template.

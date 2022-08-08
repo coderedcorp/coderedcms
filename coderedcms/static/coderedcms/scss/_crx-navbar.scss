@@ -1,0 +1,108 @@
+/// Custom adjustments to bootstrap navbar to work better out of the box.
+/// TODO: sass-ify this, code below is copied from old crx-front.css
+
+.navbar-brand img {
+  height: 50px;
+  width: auto;
+}
+
+.-fixed-img-offset {
+  margin-top: 76px;
+}
+
+.-fixed-offset {
+  margin-top: 56px;
+}
+
+.crx-navbar-center-fixed-img-offset {
+  margin-top: 175px;
+}
+
+.crx-navbar-center-fixed-offset {
+  margin-top: 56px;
+}
+
+.crx-navbar-center {
+  text-align: center;
+}
+
+.crx-navbar-center .navbar-collapse {
+  justify-content: center;
+}
+
+.crx-navbar-center .navbar-brand {
+  margin: 0;
+}
+
+.crx-navbar-center .navbar-brand img {
+  height: 150px;
+  width: auto;
+}
+
+/* sm */
+@media (min-width: 576px) {
+
+  .crx-navbar-center.navbar-expand-sm>.container,
+  .crx-navbar-center.navbar-expand-sm>.container-fluid {
+    display: block;
+  }
+
+  .crx-navbar-center-fixed-img-offset.navbar-expand-sm {
+    margin-top: 217px;
+  }
+
+  .crx-navbar-center-fixed-offset.navbar-expand-sm {
+    margin-top: 96px;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+
+  .crx-navbar-center.navbar-expand-md>.container,
+  .crx-navbar-center.navbar-expand-md>.container-fluid {
+    display: block;
+  }
+
+  .crx-navbar-center-fixed-img-offset.navbar-expand-md {
+    margin-top: 217px;
+  }
+
+  .crx-navbar-center-fixed-offset.navbar-expand-md {
+    margin-top: 96px;
+  }
+}
+
+/* lg */
+@media (min-width: 992px) {
+
+  .crx-navbar-center.navbar-expand-lg>.container,
+  .crx-navbar-center.navbar-expand-lg>.container-fluid {
+    display: block;
+  }
+
+  .crx-navbar-center-fixed-img-offset.navbar-expand-sm {
+    margin-top: 217px;
+  }
+
+  .crx-navbar-center-fixed-offset.navbar-expand-sm {
+    margin-top: 96px;
+  }
+}
+
+/* xl */
+@media (min-width: 1200px) {
+
+  .crx-navbar-center.navbar-expand-xl>.container,
+  .crx-navbar-center.navbar-expand-xl>.container-fluid {
+    display: block;
+  }
+
+  .crx-navbar-center-fixed-img-offset.navbar-expand-xl {
+    margin-top: 217px;
+  }
+
+  .crx-navbar-center-fixed-offset.navbar-expand-xl {
+    margin-top: 96px;
+  }
+}

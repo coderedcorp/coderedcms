@@ -1481,14 +1481,16 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
 
     form_builder = CoderedFormBuilder
 
-    body_content_panels = [
-        InlinePanel('form_fields', label="Form fields"),
-    ] + \
+    body_content_panels = \
         CoderedWebPage.body_content_panels + \
-        CoderedFormMixin.body_content_panels + [
+        [
+            InlinePanel('form_fields', label="Form fields"),
+        ] + \
+        CoderedFormMixin.body_content_panels + \
+        [
             FormSubmissionsPanel(),
             InlinePanel('confirmation_emails', label=_('Confirmation Emails'))
-    ]
+        ]
 
     settings_panels = CoderedPage.settings_panels + CoderedFormMixin.settings_panels
 

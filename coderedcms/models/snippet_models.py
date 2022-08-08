@@ -45,14 +45,6 @@ class Carousel(ClusterableModel):
         verbose_name=_('Show indicators'),
         help_text=_('Shows small indicators at the bottom of the carousel based on the number of slides.'),  # noqa
     )
-    animation = models.CharField(
-        blank=True,
-        max_length=20,
-        choices=None,
-        default='',
-        verbose_name=_('Animation'),
-        help_text=_('The animation when transitioning between slides.'),
-    )
 
     panels = (
         [
@@ -62,7 +54,6 @@ class Carousel(ClusterableModel):
                     FieldPanel('name'),
                     FieldPanel('show_controls'),
                     FieldPanel('show_indicators'),
-                    FieldPanel('animation'),
                 ]
             ),
             InlinePanel('carousel_slides', label=_('Slides'))
@@ -71,20 +62,6 @@ class Carousel(ClusterableModel):
 
     def __str__(self):
         return self.name
-
-    def __init__(self, *args, **kwargs):
-        """
-        Inject custom choices and defaults into the form fields
-        to enable customization of settings without causing migration issues.
-        """
-        super().__init__(*args, **kwargs)
-        # Set choices dynamically.
-        self._meta.get_field('animation').choices = (
-            crx_settings.CRX_FRONTEND_CAROUSEL_FX_CHOICES
-        )
-        # Set default dynamically.
-        if not self.id:
-            self.animation = crx_settings.CRX_FRONTEND_CAROUSEL_FX_DEFAULT
 
 
 class CarouselSlide(Orderable, models.Model):

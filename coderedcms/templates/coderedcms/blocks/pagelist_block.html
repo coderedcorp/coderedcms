@@ -1,16 +1,15 @@
-{% extends 'coderedcms/blocks/base_block.html' %}
+{% extends "coderedcms/blocks/base_block.html" %}
 {% load wagtailcore_tags %}
-
 {% block block_render %}
-
 <ul>
-    {% for page in pages %}
-    {% with page=page.specific %}
-    <li><a href="{% pageurl page %}">
-        {{page.title}} {% if self.show_preview %}<small class="text-muted">– {{page.body_preview}}</small>{% endif %}
-    </a></li>
-    {% endwith %}
-    {% endfor %}
+  {% for page in pages %}
+  {% with page=page.specific %}
+  <li>
+    <a href="{% pageurl page %}">
+      {{page.title}} {% if self.show_preview %}<small class="text-muted">– {{page.body_preview}}</small>{% endif %}
+    </a>
+  </li>
+  {% endwith %}
+  {% endfor %}
 </ul>
-
 {% endblock %}

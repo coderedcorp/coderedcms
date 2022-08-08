@@ -205,7 +205,7 @@ class CoderedAdvColumnSettings(CoderedAdvSettings):
         verbose_name=_("Column Breakpoint"),
         help_text=_(
             "Screen size at which the column will expand horizontally or stack vertically."
-        ),  # noqa
+        ),
     )
 
 

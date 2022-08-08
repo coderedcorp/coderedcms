@@ -218,14 +218,6 @@ codebase, run:
 
     $ flake8 .
 
-Alternatively, our continuous integration only analyzes the diff between your
-changes and the dev branch. To analyze just the diff of your current changes,
-run the PowerShell script:
-
-.. code-block:: console
-
-    $ ./ci/run-flake8.ps1
-
 
 Contributor Guidelines
 ----------------------

@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -8,7 +8,7 @@ SECRET_KEY = "{{ secret_key }}"
 
 ALLOWED_HOSTS = ["*"]
 
-INSTALLED_APPS += [
+INSTALLED_APPS += [  # noqa
     "django_sass",
 ]
 
@@ -17,6 +17,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 WAGTAIL_CACHE = False
 
 try:
-    from .local_settings import *
+    from .local import *  # noqa
 except ImportError:
     pass

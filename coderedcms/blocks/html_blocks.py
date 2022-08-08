@@ -87,7 +87,8 @@ class EmbedGoogleMapBlock(BaseBlock):
         default=14,
         label=_("Map zoom level"),
         help_text=_(
-            "Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"  # noqa
+            "Requires API key to use zoom. "
+            "1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"
         ),
     )
 
@@ -218,7 +219,8 @@ class PageListBlock(BaseBlock):
         required=True,
         label=_("Parent page"),
         help_text=_(
-            "Show a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab."  # noqa
+            "Show a preview of pages that are children of the selected page. "
+            "Uses ordering specified in the page’s LAYOUT tab."
         ),
     )
     classified_by = ClassifierTermChooserBlock(
@@ -258,7 +260,12 @@ class PageListBlock(BaseBlock):
                 except AttributeError:
                     # `pages` is not a queryset, or is not a queryset of CoderedPage.
                     logger.warning(
-                        "Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children()  # noqadid not return a queryset or is not a queryset of CoderedPage models.",  # noqa
+                        (
+                            "Tried to filter by ClassifierTerm in PageListBlock, "
+                            "but <%s.%s ('%s')>.get_index_children() "
+                            "did not return a queryset or is not a queryset of "
+                            "CoderedPage models."
+                        ),
                         indexer._meta.app_label,
                         indexer.__class__.__name__,
                         indexer.title,

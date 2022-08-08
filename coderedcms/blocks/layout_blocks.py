@@ -85,7 +85,7 @@ class HeroBlock(BaseLayoutBlock):
         label=_("Parallax Effect"),
         help_text=_(
             "Background images scroll slower than foreground images, creating an illusion of depth."
-        ),  # noqa
+        ),
     )
     background_image = ImageChooserBlock(required=False)
     tile_image = blocks.BooleanBlock(

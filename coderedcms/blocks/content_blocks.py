@@ -118,7 +118,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
                 blocks.CharBlock(
                     icon="cr-font", max_length=255, label=_("Simple Text")
                 ),
-            ),  # noqa
+            ),
             ("button", ButtonBlock()),
         ],
         required=False,
@@ -303,8 +303,9 @@ class ContentWallBlock(BaseBlock):
         default=False,
         verbose_name=_("Show content walls on children pages?"),
         help_text=_(
-            "If this is checked, the content walls will be displayed on all children pages of this page."
-        ),  # noqa
+            "If this is checked, the content walls will be displayed on all "
+            "children pages of this page."
+        ),
     )
 
     class Meta:

@@ -82,7 +82,7 @@ class SecureFileField(forms.FileField):
             if (
                 os.path.splitext(value.name)[1].lower()
                 not in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST
-            ):  # noqa
+            ):
                 raise ValidationError(self.error_messages["whitelist_file"])
 
     def _check_blacklist(self, value):
@@ -90,7 +90,7 @@ class SecureFileField(forms.FileField):
             if (
                 os.path.splitext(value.name)[1].lower()
                 in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST
-            ):  # noqa
+            ):
                 raise ValidationError(self.error_messages["blacklist_file"])
 
 

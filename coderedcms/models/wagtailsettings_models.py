@@ -55,8 +55,9 @@ class LayoutSettings(ClusterableModel, BaseSetting):
         default="",
         verbose_name=_("Navbar color scheme"),
         help_text=_(
-            "Optimizes text and other navbar elements for use with light or dark backgrounds."
-        ),  # noqa
+            "Optimizes text and other navbar elements for use with light or "
+            "dark backgrounds."
+        ),
     )
     navbar_class = models.CharField(
         blank=True,
@@ -238,8 +239,10 @@ class AnalyticsSettings(BaseSetting):
         default=False,
         verbose_name=_("Track button clicks"),
         help_text=_(
-            "Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options."
-        ),  # noqa
+            "Track all button clicks using Google Analytics event tracking. "
+            "Event tracking details can be specified in each button’s advanced "
+            "settings options."
+        ),
     )
     gtm_id = models.CharField(
         blank=True,
@@ -308,8 +311,9 @@ class ADASettings(BaseSetting):
         default=False,
         verbose_name=_("Show skip navigation link"),
         help_text=_(
-            'Shows a "Skip Navigation" link above the navbar that takes you directly to the main content.'
-        ),  # noqa
+            'Shows a "Skip Navigation" link above the navbar that takes you '
+            "directly to the main content."
+        ),
     )
 
     panels = [
@@ -334,8 +338,10 @@ class GeneralSettings(BaseSetting):
         max_length=255,
         verbose_name=_("From email address"),
         help_text=_(
-            'The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)'
-        ),  # noqa
+            "The default email address this site appears to send from. "
+            'For example: "sender@example.com" or '
+            '"Sender Name <sender@example.com>" (without quotes)'
+        ),
     )
     search_num_results = models.PositiveIntegerField(
         default=10,

@@ -21,16 +21,18 @@ class CoderedFormAdvSettings(CoderedAdvSettings):
         max_length=255,
         label=_("Condition Trigger ID"),
         help_text=_(
-            'The "Custom ID" of another field that that will trigger this field to be shown/hidden.'
-        ),  # noqa
+            'The "Custom ID" of another field that that will trigger this '
+            "field to be shown/hidden."
+        ),
     )
     condition_trigger_value = blocks.CharBlock(
         required=False,
         max_length=255,
         label=_("Condition Trigger Value"),
         help_text=_(
-            'The value of the field in "Condition Trigger ID" that will trigger this field to be shown.'
-        ),  # noqa
+            'The value of the field in "Condition Trigger ID" that will '
+            "trigger this field to be shown."
+        ),
     )
 
 

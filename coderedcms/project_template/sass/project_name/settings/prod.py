@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -68,13 +68,8 @@ TEMPLATES = [
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(BASE_DIR, "cache"),
+        "LOCATION": os.path.join(BASE_DIR, "cache"),  # noqa
         "KEY_PREFIX": "coderedcms",
         "TIMEOUT": 14400,  # in seconds
     }
 }
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass

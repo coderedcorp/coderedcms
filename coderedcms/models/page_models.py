@@ -247,8 +247,9 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_("Classifiers"),
         help_text=_(
-            "Categorize and group pages together with classifiers. Used to organize and filter pages across the site."
-        ),  # noqa
+            "Categorize and group pages together with classifiers. "
+            "Used to organize and filter pages across the site."
+        ),
     )
     tags = ClusterTaggableManager(
         through=CoderedTag,
@@ -512,7 +513,12 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
                                 )
                         except AttributeError:
                             logger.warning(
-                                "Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CoderedPage models.",  # noqa
+                                (
+                                    "Tried to filter by ClassifierTerm, "
+                                    "but <%s.%s ('%s')>.get_index_children() "
+                                    "did not return a queryset or is not a "
+                                    "queryset of CoderedPage models."
+                                ),
                                 self._meta.app_label,
                                 self.__class__.__name__,
                                 self.title,
@@ -521,7 +527,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             pagenum = request.GET.get("p", 1)
             try:
                 paged_children = paginator.page(pagenum)
-            except (PageNotAnInteger, EmptyPage, InvalidPage) as e:  # noqa
+            except (PageNotAnInteger, EmptyPage, InvalidPage):
                 paged_children = paginator.page(1)
 
             context["index_paginated"] = paged_children
@@ -892,7 +898,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             event_instances[:num_of_instances_to_return]
             if num_of_instances_to_return
             else event_instances
-        )  # noqa
+        )
 
     def convert_to_ical_format(
         self,
@@ -1124,16 +1130,19 @@ class CoderedFormMixin(models.Model):
         blank=True,
         verbose_name=_("Email form submissions to"),
         help_text=_(
-            "Optional - email form submissions to this address. Separate multiple addresses by comma."
-        ),  # noqa
+            "Optional - email form submissions to this address. "
+            "Separate multiple addresses by comma."
+        ),
     )
     reply_address = models.CharField(
         max_length=255,
         blank=True,
         verbose_name=_("Reply-to address"),
         help_text=_(
-            'Optional - to reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}'
-        ),  # noqa
+            "Optional - to reply to the submitter, specify the email field here. "
+            "For example, if a form field above is labeled "
+            '"Your Email", enter: {{ your_email }}'
+        ),
     )
     subject = models.CharField(
         max_length=255,
@@ -1701,7 +1710,7 @@ def create_submission_changed_revision(sender, **kwargs):
             if created
             else CoderedSubmissionRevision.CHANGED
         ),
-    )  # noqa
+    )
 
 
 @receiver(post_delete)
@@ -1711,7 +1720,7 @@ def create_submission_deleted_revision(sender, **kwargs):
     submission = kwargs["instance"]
     CoderedSubmissionRevision.create_from_submission(
         submission, SubmissionRevision.DELETED
-    )  # noqa
+    )
 
 
 class CoderedStep(Step):
@@ -1880,7 +1889,8 @@ class CoderedLocationPage(CoderedWebPage):
         default=True,
         verbose_name=_("Auto Update Latitude and Longitude"),
         help_text=_(
-            "If checked, automatically update the latitude and longitude when the address is updated."
+            "If checked, automatically update the latitude and longitude "
+            "when the address is updated."
         ),
     )
     map_title = models.CharField(
@@ -2026,8 +2036,9 @@ class CoderedLocationIndexPage(CoderedWebPage):
             MinValueValidator(1),
         ],
         help_text=_(
-            "Requires API key to use zoom. 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"
-        ),  # noqa
+            "Requires API key to use zoom. "
+            "1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings"
+        ),
     )
 
     layout_panels = CoderedWebPage.layout_panels + [

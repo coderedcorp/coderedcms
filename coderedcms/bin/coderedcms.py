@@ -13,7 +13,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write(
         "This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(
             *(REQUIRED_PYTHON + CURRENT_PYTHON)
-        )  # noqa
+        )
     )
     sys.exit(1)
 
@@ -143,15 +143,15 @@ def help_index():
     print(
         "Type '%s help <subcommand>' for help on a specific subcommand.\n"
         % prog_name()
-    )  # NOQA
-    print("Available subcommands:\n")  # NOQA
+    )
+    print("Available subcommands:\n")
     for name, cmd in sorted(COMMANDS.items()):
-        print("    %s%s" % (name.ljust(20), cmd.help))  # NOQA
+        print("    %s%s" % (name.ljust(20), cmd.help))
 
 
 def unknown_command(command):
-    print("Unknown command: '%s'" % command)  # NOQA
-    print("Type '%s help' for usage." % prog_name())  # NOQA
+    print("Unknown command: '%s'" % command)
+    print("Type '%s help' for usage." % prog_name())
     sys.exit(1)
 
 

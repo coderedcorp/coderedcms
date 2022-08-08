@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coderedcms', '0032_accordion_accordionpanel'),
+        ('coderedcms', '0033_alter_coderedpage_struct_org_actions_and_more'),
     ]
 
     operations = [

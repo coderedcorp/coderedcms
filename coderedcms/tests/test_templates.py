@@ -12,12 +12,13 @@ EXPECTED_BANNER_HTML = """
 
 @pytest.mark.django_db
 class TestSiteBanner(TestCase):
-
     @override_settings(CRX_BANNER="Test")
     def test_with_banner(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
-        self.assertInHTML(EXPECTED_BANNER_HTML, response.content.decode("utf-8"))
+        self.assertInHTML(
+            EXPECTED_BANNER_HTML, response.content.decode("utf-8")
+        )
 
     def test_without_banner(self):
         response = self.client.get("/")
@@ -29,9 +30,7 @@ class TestSiteBanner(TestCase):
 class TestWagtailAdminBanner(TestCase):
     def setUp(self):
         admin = get_user_model().objects.create_superuser(
-            "admin",
-            email="admin@example.com",
-            password="admin"
+            "admin", email="admin@example.com", password="admin"
         )
         self.client.force_login(admin)
 
@@ -42,7 +41,9 @@ class TestWagtailAdminBanner(TestCase):
     def test_with_banner(self):
         response = self.client.get("/admin/")
         self.assertEqual(response.status_code, 200)
-        self.assertInHTML(EXPECTED_BANNER_HTML, response.content.decode("utf-8"))
+        self.assertInHTML(
+            EXPECTED_BANNER_HTML, response.content.decode("utf-8")
+        )
 
     def test_without_banner(self):
         response = self.client.get("/admin/")

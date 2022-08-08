@@ -27,7 +27,9 @@ def is_advanced_setting(obj):
 
 @register.filter
 def is_file_form(form):
-    return any([isinstance(field.field.widget, ClearableFileInput) for field in form])
+    return any(
+        [isinstance(field.field.widget, ClearableFileInput) for field in form]
+    )
 
 
 @register.simple_tag
@@ -37,25 +39,25 @@ def coderedcms_version():
 
 @register.simple_tag
 def generate_random_id():
-    value = ''.join(random.choice(string.ascii_letters + string.digits) for n in range(20))
+    value = "".join(
+        random.choice(string.ascii_letters + string.digits) for n in range(20)
+    )
     return "cr-{}".format(value)
 
 
 @register.simple_tag
 def is_menu_item_dropdown(value):
-    return \
-        len(value.get('sub_links', [])) > 0 or \
-        (
-            value.get('show_child_links', False) and
-            len(value.get('page', []).get_children().live()) > 0
-        )
+    return len(value.get("sub_links", [])) > 0 or (
+        value.get("show_child_links", False)
+        and len(value.get("page", []).get_children().live()) > 0
+    )
 
 
 @register.simple_tag(takes_context=True)
 def is_active_page(context, curr_page, other_page):
-    if hasattr(curr_page, 'get_url') and hasattr(other_page, 'get_url'):
-        curr_url = curr_page.get_url(context['request'])
-        other_url = other_page.get_url(context['request'])
+    if hasattr(curr_page, "get_url") and hasattr(other_page, "get_url"):
+        curr_url = curr_page.get_url(context["request"])
+        other_url = other_page.get_url(context["request"])
         return curr_url == other_url
     return False
 
@@ -68,34 +70,36 @@ def get_pictures(collection_id):
 
 @register.simple_tag(takes_context=True)
 def get_navbar_css(context):
-    layout = LayoutSettings.for_request(context['request'])
+    layout = LayoutSettings.for_request(context["request"])
     fixed = "fixed-top" if layout.navbar_fixed else ""
-    return " ".join([
-        fixed,
-        layout.navbar_collapse_mode,
-        layout.navbar_color_scheme,
-        layout.navbar_format,
-        layout.navbar_class
-    ])
+    return " ".join(
+        [
+            fixed,
+            layout.navbar_collapse_mode,
+            layout.navbar_color_scheme,
+            layout.navbar_format,
+            layout.navbar_class,
+        ]
+    )
 
 
 @register.simple_tag(takes_context=True)
-def get_navbars(context) -> 'QuerySet[Navbar]':
-    layout = LayoutSettings.for_request(context['request'])
+def get_navbars(context) -> "QuerySet[Navbar]":
+    layout = LayoutSettings.for_request(context["request"])
     navbarorderables = layout.site_navbar.all()
     navbars = Navbar.objects.filter(
         navbarorderable__in=navbarorderables
-        ).order_by('navbarorderable__sort_order')
+    ).order_by("navbarorderable__sort_order")
     return navbars
 
 
 @register.simple_tag(takes_context=True)
-def get_footers(context) -> 'QuerySet[Footer]':
-    layout = LayoutSettings.for_request(context['request'])
+def get_footers(context) -> "QuerySet[Footer]":
+    layout = LayoutSettings.for_request(context["request"])
     footerorderables = layout.site_footer.all()
     footers = Footer.objects.filter(
         footerorderable__in=footerorderables
-        ).order_by('footerorderable__sort_order')
+    ).order_by("footerorderable__sort_order")
     return footers
 
 
@@ -113,7 +117,9 @@ def get_pageform(page, request):
 
 @register.simple_tag
 def process_form_cell(request, cell):
-    if isinstance(cell, str) and cell.startswith(crx_settings_obj.CRX_PROTECTED_MEDIA_URL):
+    if isinstance(cell, str) and cell.startswith(
+        crx_settings_obj.CRX_PROTECTED_MEDIA_URL
+    ):
         return utils.get_protected_media_link(request, cell, render_link=True)
     if utils.uri_validator(str(cell)):
         return mark_safe("<a href='{0}'>{1}</a>".format(cell, cell))
@@ -146,7 +152,7 @@ def query_update(querydict, key=None, value=None):
             get[key] = value
         else:
             try:
-                del(get[key])
+                del get[key]
             except KeyError:
                 pass
     return get
@@ -156,8 +162,8 @@ def query_update(querydict, key=None, value=None):
 def render_iframe_from_embed(embed):
     soup = BeautifulSoup(embed.html, "html.parser")
     try:
-        iframe_tags = soup.find('iframe')
-        iframe_tags['title'] = embed.title
+        iframe_tags = soup.find("iframe")
+        iframe_tags["title"] = embed.title
         return mark_safe(soup.prettify())
     except AttributeError:
         pass
@@ -173,26 +179,25 @@ def map_to_bootstrap_alert(message_tag):
     Converts a message level to a bootstrap 4 alert class
     """
     message_to_alert_dict = {
-        'debug': 'primary',
-        'info': 'info',
-        'success': 'success',
-        'warning': 'warning',
-        'error': 'danger'
+        "debug": "primary",
+        "info": "info",
+        "success": "success",
+        "warning": "warning",
+        "error": "danger",
     }
 
     try:
         return message_to_alert_dict[message_tag]
     except KeyError:
-        return ''
+        return ""
 
 
 @register.filter
 def get_name_of_class(class_type):
     if hasattr(class_type.__class__, "search_name"):
         return class_type.__class__.search_name
-    elif (
-            hasattr(class_type.__class__, "_meta") and
-            hasattr(class_type.__class__._meta, "verbose_name")
+    elif hasattr(class_type.__class__, "_meta") and hasattr(
+        class_type.__class__._meta, "verbose_name"
     ):
         return class_type.__class__._meta.verbose_name
     else:
@@ -203,9 +208,8 @@ def get_name_of_class(class_type):
 def get_plural_name_of_class(class_type):
     if hasattr(class_type.__class__, "search_name_plural"):
         return class_type.__class__.search_name_plural
-    elif (
-            hasattr(class_type.__class__, "_meta") and
-            hasattr(class_type.__class__._meta, "verbose_name_plural")
+    elif hasattr(class_type.__class__, "_meta") and hasattr(
+        class_type.__class__._meta, "verbose_name_plural"
     ):
         return class_type.__class__._meta.verbose_name_plural
     else:

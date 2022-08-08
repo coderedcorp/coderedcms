@@ -9,7 +9,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
-from wagtail.contrib.forms.views import SubmissionsListView as WagtailSubmissionsListView
+from wagtail.contrib.forms.views import (
+    SubmissionsListView as WagtailSubmissionsListView,
+)
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import AbstractFormField
 
@@ -17,40 +19,52 @@ from coderedcms.settings import crx_settings
 from coderedcms.utils import attempt_protected_media_value_conversion
 
 FORM_FIELD_CHOICES = (
-    (_("Text"), (
-        ("singleline", _("Single line text")),
-        ("multiline", _("Multi-line text")),
-        ("email", _("Email")),
-        ("number", _("Number - only allows integers")),
-        ("url", _("URL")),
-    ),),
-    (_("Choice"), (
-        ("checkboxes", _("Checkboxes")),
-        ("dropdown", _("Drop down")),
-        ("radio", _("Radio buttons")),
-        ("multiselect", _("Multiple select")),
-        ("checkbox", _("Single checkbox")),
-    ),),
-    (_("Date & Time"), (
-        ("date", _("Date")),
-        ("time", _("Time")),
-        ("datetime", _("Date and time")),
-    ),),
-    (_("File Upload"), (
-        ("file", _("Secure File - login required to access uploaded files")),
-    ),),
-    (_("Other"), (
-        ("hidden", _("Hidden field")),
-    ),),
+    (
+        _("Text"),
+        (
+            ("singleline", _("Single line text")),
+            ("multiline", _("Multi-line text")),
+            ("email", _("Email")),
+            ("number", _("Number - only allows integers")),
+            ("url", _("URL")),
+        ),
+    ),
+    (
+        _("Choice"),
+        (
+            ("checkboxes", _("Checkboxes")),
+            ("dropdown", _("Drop down")),
+            ("radio", _("Radio buttons")),
+            ("multiselect", _("Multiple select")),
+            ("checkbox", _("Single checkbox")),
+        ),
+    ),
+    (
+        _("Date & Time"),
+        (
+            ("date", _("Date")),
+            ("time", _("Time")),
+            ("datetime", _("Date and time")),
+        ),
+    ),
+    (
+        _("File Upload"),
+        (("file", _("Secure File - login required to access uploaded files")),),
+    ),
+    (
+        _("Other"),
+        (("hidden", _("Hidden field")),),
+    ),
 )
 
 
 # Files
 
+
 class SecureFileField(forms.FileField):
     custom_error_messages = {
-        'blacklist_file': _('Submitted file is not allowed.'),
-        'whitelist_file': _('Submitted file is not allowed.')
+        "blacklist_file": _("Submitted file is not allowed."),
+        "whitelist_file": _("Submitted file is not allowed."),
     }
 
     def __init__(self, **kwargs):
@@ -65,19 +79,26 @@ class SecureFileField(forms.FileField):
 
     def _check_whitelist(self, value):
         if crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST:
-            if os.path.splitext(value.name)[1].lower() not in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST:  # noqa
-                raise ValidationError(self.error_messages['whitelist_file'])
+            if (
+                os.path.splitext(value.name)[1].lower()
+                not in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST
+            ):  # noqa
+                raise ValidationError(self.error_messages["whitelist_file"])
 
     def _check_blacklist(self, value):
         if crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST:
-            if os.path.splitext(value.name)[1].lower() in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST:  # noqa
-                raise ValidationError(self.error_messages['blacklist_file'])
+            if (
+                os.path.splitext(value.name)[1].lower()
+                in crx_settings.CRX_PROTECTED_MEDIA_UPLOAD_BLACKLIST
+            ):  # noqa
+                raise ValidationError(self.error_messages["blacklist_file"])
 
 
 # Date
 
+
 class CoderedDateInput(forms.DateInput):
-    template_name = 'coderedcms/formfields/date.html'
+    template_name = "coderedcms/formfields/date.html"
 
 
 class CoderedDateField(forms.DateField):
@@ -86,24 +107,31 @@ class CoderedDateField(forms.DateField):
 
 # Datetime
 
+
 class CoderedDateTimeInput(forms.DateTimeInput):
-    template_name = 'coderedcms/formfields/datetime.html'
+    template_name = "coderedcms/formfields/datetime.html"
 
 
 class CoderedDateTimeField(forms.DateTimeField):
     widget = CoderedDateTimeInput()
-    input_formats = ['%Y-%m-%dT%H:%M', '%m/%d/%Y %I:%M %p', '%m/%d/%Y %I:%M%p', '%m/%d/%Y %H:%M']
+    input_formats = [
+        "%Y-%m-%dT%H:%M",
+        "%m/%d/%Y %I:%M %p",
+        "%m/%d/%Y %I:%M%p",
+        "%m/%d/%Y %H:%M",
+    ]
 
 
 # Time
 
+
 class CoderedTimeInput(forms.TimeInput):
-    template_name = 'coderedcms/formfields/time.html'
+    template_name = "coderedcms/formfields/time.html"
 
 
 class CoderedTimeField(forms.TimeField):
     widget = CoderedTimeInput()
-    input_formats = ['%H:%M', '%I:%M %p', '%I:%M%p']
+    input_formats = ["%H:%M", "%I:%M %p", "%I:%M%p"]
 
 
 class CoderedFormBuilder(FormBuilder):
@@ -127,15 +155,19 @@ class CoderedFormBuilder(FormBuilder):
 class CoderedSubmissionsListView(WagtailSubmissionsListView):
     def get_csv_response(self, context):
         filename = self.get_csv_filename()
-        response = HttpResponse(content_type='text/csv; charset=utf-8')
-        response['Content-Disposition'] = 'attachment;filename={}'.format(filename)
+        response = HttpResponse(content_type="text/csv; charset=utf-8")
+        response["Content-Disposition"] = "attachment;filename={}".format(
+            filename
+        )
 
         writer = csv.writer(response)
-        writer.writerow(context['data_headings'])
-        for data_row in context['data_rows']:
+        writer.writerow(context["data_headings"])
+        for data_row in context["data_rows"]:
             modified_data_row = []
             for cell in data_row:
-                modified_cell = attempt_protected_media_value_conversion(self.request, cell)
+                modified_cell = attempt_protected_media_value_conversion(
+                    self.request, cell
+                )
                 modified_data_row.append(modified_cell)
 
             writer.writerow(modified_data_row)
@@ -147,11 +179,11 @@ class CoderedFormField(AbstractFormField):
         abstract = True
 
     field_type = models.CharField(
-        verbose_name=_('field type'),
+        verbose_name=_("field type"),
         max_length=16,
         choices=FORM_FIELD_CHOICES,
         blank=False,
-        default='Single line text'
+        default="Single line text",
     )
 
 
@@ -159,13 +191,13 @@ class SearchForm(forms.Form):
     s = forms.CharField(
         max_length=255,
         required=False,
-        label=_('Search'),
+        label=_("Search"),
     )
     t = forms.CharField(
         widget=forms.HiddenInput,
         max_length=255,
         required=False,
-        label=_('Page type'),
+        label=_("Page type"),
     )
 
 

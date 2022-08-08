@@ -30,7 +30,9 @@ class NavbarFooterTestCase(WagtailPageTests):
         self.navbar = Navbar.objects.create(name="Nav1", custom_id="Nav1")
         self.navbar2 = Navbar.objects.create(name="Nav2", custom_id="Nav2")
         self.footer = Footer.objects.create(name="Footer1", custom_id="Footer1")
-        self.footer2 = Footer.objects.create(name="Footer2", custom_id="Footer2")
+        self.footer2 = Footer.objects.create(
+            name="Footer2", custom_id="Footer2"
+        )
 
         # Populate settings.
         self.settings = LayoutSettings.for_site(self.site)
@@ -103,10 +105,16 @@ class NavbarFooterTestCase(WagtailPageTests):
         response = self.client.get(self.homepage.url, follow=True)
 
         self.assertContains(
-            response, text=f'<div id="{self.footer.custom_id}">', status_code=200, html=True
+            response,
+            text=f'<div id="{self.footer.custom_id}">',
+            status_code=200,
+            html=True,
         )
         self.assertNotContains(
-            response, text=f'<div id="{self.footer2.custom_id}">', status_code=200, html=True
+            response,
+            text=f'<div id="{self.footer2.custom_id}">',
+            status_code=200,
+            html=True,
         )
 
     def test_multi_footers(self):

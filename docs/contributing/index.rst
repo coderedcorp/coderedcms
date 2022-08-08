@@ -205,6 +205,12 @@ For example, here is how you would add tests for a new abstract page type,
 Static Analysis
 ---------------
 
+All code should be formatted with ``black`` before comitting:
+
+.. code-block:: console
+
+    $ black .
+
 Flake8 is used to check for syntax and style errors. To analyze the entire
 codebase, run:
 

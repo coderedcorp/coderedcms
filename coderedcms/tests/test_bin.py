@@ -7,7 +7,7 @@ from coderedcms.bin.coderedcms import main as coderedcms_main
 
 class TestCoderedcmsStart(unittest.TestCase):
     CURR_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    TEST_DIR = os.path.join(CURR_DIR, 'testproject-unittest')
+    TEST_DIR = os.path.join(CURR_DIR, "testproject-unittest")
 
     def setup(self):
         # Clean/create directory to start into
@@ -22,14 +22,14 @@ class TestCoderedcmsStart(unittest.TestCase):
 
     def test_help(self):
         # Set args
-        sys.argv = ['coderedcms', 'help']
+        sys.argv = ["coderedcms", "help"]
         # Run
         coderedcms_main()
         # Nothing to assert here... just make sure it doesn't error out.
 
     def test_help_start(self):
         # Set args
-        sys.argv = ['coderedcms', 'help', 'start']
+        sys.argv = ["coderedcms", "help", "start"]
         # Run
         coderedcms_main()
         # Nothing to assert here... just make sure it doesn't error out.
@@ -37,53 +37,72 @@ class TestCoderedcmsStart(unittest.TestCase):
     def test_default(self):
         self.setup()
         # Set args
-        sys.argv = ['coderedcms', 'start', 'myproject', self.TEST_DIR]
+        sys.argv = ["coderedcms", "start", "myproject", self.TEST_DIR]
         # Run
         coderedcms_main()
         # Assert files exist
-        self.assertTrue(os.path.exists(os.path.join(self.TEST_DIR, 'README.md')))
+        self.assertTrue(
+            os.path.exists(os.path.join(self.TEST_DIR, "README.md"))
+        )
         self.cleanup()
 
     def test_allopts(self):
         self.setup()
         # Set args
         sys.argv = [
-            'coderedcms',
-            'start',
-            'myproject',
+            "coderedcms",
+            "start",
+            "myproject",
             self.TEST_DIR,
-            '--template', 'basic',
-            '--sitename', 'MegaCorp, Inc.',
-            '--domain', 'example.com'
+            "--template",
+            "basic",
+            "--sitename",
+            "MegaCorp, Inc.",
+            "--domain",
+            "example.com",
         ]
         # Run
         coderedcms_main()
         # Assert files exist
-        self.assertTrue(os.path.exists(os.path.join(self.TEST_DIR, 'README.md')))
+        self.assertTrue(
+            os.path.exists(os.path.join(self.TEST_DIR, "README.md"))
+        )
         self.cleanup()
 
     def test_domain_www(self):
         self.setup()
         # Set args
         sys.argv = [
-            'coderedcms',
-            'start',
-            'myproject',
+            "coderedcms",
+            "start",
+            "myproject",
             self.TEST_DIR,
-            '--domain', 'www.example.com'
+            "--domain",
+            "www.example.com",
         ]
         # Run
         coderedcms_main()
         # Assert files exist
-        self.assertTrue(os.path.exists(os.path.join(self.TEST_DIR, 'README.md')))
+        self.assertTrue(
+            os.path.exists(os.path.join(self.TEST_DIR, "README.md"))
+        )
         self.cleanup()
 
     def test_template_sass(self):
         self.setup()
         # Set args
-        sys.argv = ['coderedcms', 'start', 'myproject', self.TEST_DIR, '--template', 'sass']
+        sys.argv = [
+            "coderedcms",
+            "start",
+            "myproject",
+            self.TEST_DIR,
+            "--template",
+            "sass",
+        ]
         # Run
         coderedcms_main()
         # Assert files exist
-        self.assertTrue(os.path.exists(os.path.join(self.TEST_DIR, 'README.md')))
+        self.assertTrue(
+            os.path.exists(os.path.join(self.TEST_DIR, "README.md"))
+        )
         self.cleanup()

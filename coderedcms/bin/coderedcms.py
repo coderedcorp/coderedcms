@@ -11,7 +11,9 @@ REQUIRED_PYTHON = (3, 4)
 
 if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write(
-        "This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(*(REQUIRED_PYTHON + CURRENT_PYTHON))  # noqa
+        "This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(
+            *(REQUIRED_PYTHON + CURRENT_PYTHON)
+        )  # noqa
     )
     sys.exit(1)
 
@@ -20,24 +22,25 @@ class CreateProject(TemplateCommand):
     """
     Based on django.core.management.startproject
     """
+
     help = "Creates the directory structure for a new Wagtail CRX project."
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--sitename',
-            help='Human readable name of your website or brand, e.g. "Mega Corp Inc."'
+            "--sitename",
+            help='Human readable name of your website or brand, e.g. "Mega Corp Inc."',
         )
         parser.add_argument(
-            '--domain',
-            help='Domain that will be used for your website in production, e.g. "www.example.com"'
+            "--domain",
+            help='Domain that will be used for your website in production, e.g. "www.example.com"',
         )
         super().add_arguments(parser)
 
     def handle(self, **options):
         # pop standard args
-        project_name = options.pop('name')
-        target = options.pop('directory')
+        project_name = options.pop("name")
+        target = options.pop("directory")
 
         # Make sure given name is not already in use by another python package/module.
         try:
@@ -45,68 +48,76 @@ class CreateProject(TemplateCommand):
         except ImportError:
             pass
         else:
-            sys.exit("'%s' conflicts with the name of an existing "
-                     "Python module and cannot be used as a project "
-                     "name. Please try another name." % project_name)
+            sys.exit(
+                "'%s' conflicts with the name of an existing "
+                "Python module and cannot be used as a project "
+                "name. Please try another name." % project_name
+            )
 
         # Create a random SECRET_KEY to put it in the main settings.
-        options['secret_key'] = get_random_secret_key()
+        options["secret_key"] = get_random_secret_key()
 
         # Handle custom template logic
         import coderedcms
+
         codered_path = os.path.dirname(coderedcms.__file__)
-        if not options['template']:
-            options['template'] = 'basic'
+        if not options["template"]:
+            options["template"] = "basic"
         template_path = os.path.join(
-            os.path.join(codered_path, 'project_template'),
-            options['template']
+            os.path.join(codered_path, "project_template"), options["template"]
         )
 
         # Check if provided template is built-in to coderedcms,
         # otherwise, do not change it.
         if os.path.isdir(template_path):
-            options['template'] = template_path
+            options["template"] = template_path
 
         # Treat these files as Django templates to render the boilerplate.
-        options['extensions'] = ['py', 'md', 'txt']
-        options['files'] = ['Dockerfile']
+        options["extensions"] = ["py", "md", "txt"]
+        options["files"] = ["Dockerfile"]
 
         # Set options
         message = "Creating a Wagtail CRX project called %(project_name)s"
 
-        if options.get('sitename'):
+        if options.get("sitename"):
             message += " for %(sitename)s"
         else:
-            options['sitename'] = project_name
+            options["sitename"] = project_name
 
-        if options.get('domain'):
+        if options.get("domain"):
             message += " (%(domain)s)"
             # Stip protocol out of domain if it is present.
-            options['domain'] = options['domain'].split('://')[-1]
+            options["domain"] = options["domain"].split("://")[-1]
             # Figure out www logic.
-            if options['domain'].startswith('www.'):
-                options['domain_nowww'] = options['domain'].split('www.')[-1]
+            if options["domain"].startswith("www."):
+                options["domain_nowww"] = options["domain"].split("www.")[-1]
             else:
-                options['domain_nowww'] = options['domain']
+                options["domain_nowww"] = options["domain"]
         else:
-            options['domain'] = 'localhost'
-            options['domain_nowww'] = options['domain']
+            options["domain"] = "localhost"
+            options["domain_nowww"] = options["domain"]
 
         # Add additional custom options to the context.
-        options['coderedcms_release'] = coderedcms.release
+        options["coderedcms_release"] = coderedcms.release
 
         # Print a friendly message
-        print(message % {
-            'project_name': project_name,
-            'sitename': options.get('sitename'),
-            'domain': options.get('domain'),
-        })
+        print(
+            message
+            % {
+                "project_name": project_name,
+                "sitename": options.get("sitename"),
+                "domain": options.get("domain"),
+            }
+        )
 
         # Run command
-        super().handle('project', project_name, target, **options)
+        super().handle("project", project_name, target, **options)
 
         # Be a friend once again.
-        print("Success! %(project_name)s has been created" % {'project_name': project_name})
+        print(
+            "Success! %(project_name)s has been created"
+            % {"project_name": project_name}
+        )
 
         nextsteps = """
 Next steps:
@@ -116,11 +127,11 @@ Next steps:
     4. python manage.py runserver
     5. Go to http://localhost:8000/admin/ and start editing!
 """
-        print(nextsteps % {'directory': target if target else project_name})
+        print(nextsteps % {"directory": target if target else project_name})
 
 
 COMMANDS = {
-    'start': CreateProject(),
+    "start": CreateProject(),
 }
 
 
@@ -129,7 +140,10 @@ def prog_name():
 
 
 def help_index():
-    print("Type '%s help <subcommand>' for help on a specific subcommand.\n" % prog_name())  # NOQA
+    print(
+        "Type '%s help <subcommand>' for help on a specific subcommand.\n"
+        % prog_name()
+    )  # NOQA
     print("Available subcommands:\n")  # NOQA
     for name, cmd in sorted(COMMANDS.items()):
         print("    %s%s" % (name.ljust(20), cmd.help))  # NOQA
@@ -148,7 +162,7 @@ def main():
         help_index()
         return
 
-    if command_name == 'help':
+    if command_name == "help":
         try:
             help_command_name = sys.argv[2]
         except IndexError:

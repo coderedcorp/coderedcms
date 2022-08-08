@@ -102,6 +102,9 @@ stages:
         python manage.py makemigrations --check
       displayName: 'CR-QC: Check migrations'
 
+    - script: black --check
+      displayName: 'CR-QC: Black'
+
     - pwsh: ./ci/run-flake8.ps1
       displayName: 'CR-QC: Flake8'
 

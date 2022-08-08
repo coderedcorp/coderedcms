@@ -4,7 +4,7 @@ from django.template import engines
 from django.test import TestCase
 
 
-django_engine = engines['django']
+django_engine = engines["django"]
 html_id_re = re.compile(r"^[A-Za-z][A-Za-z0-9_:\.-]*$")
 
 

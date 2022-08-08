@@ -51,7 +51,7 @@ setup(
         'icalendar==4.1.*',
         'wagtail==3.*',
         'wagtail-cache==2.*',
-        'wagtail-seo==2.*',
+        'wagtail-seo>=2.2,<3',
     ],
     entry_points={
         "console_scripts": [

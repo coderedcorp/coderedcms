@@ -1,4 +1,5 @@
 import os
+from django.apps import apps
 from django.conf import settings
 
 
@@ -189,11 +190,16 @@ class _DefaultSettings:
 crx_settings = _DefaultSettings()
 
 
-# Default to bootstrap5, but fallback to bootstrap4 for compatibility.
-try:
-    import django_bootstrap5.core as bootstrap
-except ImportError:
+# If the older django-bootstrap4 is the only version listed in INSTALLED_APPS,
+# use it for compatibility. Otherwise use django-bootstrap5 which is a
+# dependency of coderedcms.
+if (
+    apps.is_installed("bootstrap4")
+    and not apps.is_installed("django_bootstrap5")
+):
     import bootstrap4.bootstrap as bootstrap
+else:
+    import django_bootstrap5.core as bootstrap
 
 
 get_bootstrap_setting = bootstrap.get_bootstrap_setting

@@ -205,20 +205,18 @@ For example, here is how you would add tests for a new abstract page type,
 Static Analysis
 ---------------
 
+All code should be formatted with ``black`` before committing:
+
+.. code-block:: console
+
+    $ black .
+
 Flake8 is used to check for syntax and style errors. To analyze the entire
 codebase, run:
 
 .. code-block:: console
 
     $ flake8 .
-
-Alternatively, our continuous integration only analyzes the diff between your
-changes and the dev branch. To analyze just the diff of your current changes,
-run the PowerShell script:
-
-.. code-block:: console
-
-    $ ./ci/run-flake8.ps1
 
 
 Contributor Guidelines

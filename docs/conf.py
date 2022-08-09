@@ -34,7 +34,7 @@ author = "CodeRed LLC"
 extensions = ["sphinx_wagtail_theme"]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -86,6 +86,6 @@ html_static_path = ["_static"]
 # defined by theme itself.  Builtin themes are using these templates by
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
-html_sidebars = {'**': ['searchbox.html', 'globaltoc.html', 'sponsor.html']}
+html_sidebars = {"**": ["searchbox.html", "globaltoc.html", "sponsor.html"]}
 
 html_css_files = ["custom.css"]

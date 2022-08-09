@@ -1,26 +1,23 @@
 [tool.black]
-line-length = 100
-target-version = ['py37']
-include = '\.pyi?$'
+line-length = 80
+target-version = ['py37', 'py38', 'py39', 'py310']
 exclude = '''
-
 (
   /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
+      \.eggs
+    | \.git
+    | \.github
     | \.hg
     | \.mypy_cache
     | \.tox
     | \.venv
     | _build
-    | buck-out
     | build
-    | dist
-    | coderedcms/project_template
-    | coderedcms/tests/settings.py
-    | .*/migrations
-    | \.github
     | ci
+    | dist
+    | migrations
+    | testproject
+    | venv
   )/
 )
 '''

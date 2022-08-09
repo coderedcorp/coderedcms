@@ -14,29 +14,29 @@ from wagtailcache.cache import clear_cache
 from coderedcms import __version__
 
 
-@hooks.register('insert_global_admin_css')
+@hooks.register("insert_global_admin_css")
 def global_admin_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
-        static('coderedcms/css/crx-admin.css'),
+        static("coderedcms/css/crx-admin.css"),
         __version__,
     )
 
 
-@hooks.register('insert_editor_css')
+@hooks.register("insert_editor_css")
 def editor_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
-        static('coderedcms/css/crx-editor.css'),
+        static("coderedcms/css/crx-editor.css"),
         __version__,
     )
 
 
-@hooks.register('insert_editor_js')
+@hooks.register("insert_editor_js")
 def collapsible_js():
     return format_html(
         '<script src="{}?v={}"></script>',
-        static('coderedcms/js/crx-editor.js'),
+        static("coderedcms/js/crx-editor.js"),
         __version__,
     )
 
@@ -79,16 +79,16 @@ def clear_wagtailcache(*args, **kwargs):
 # Clear cache whenever pages/snippets are changed. Err on the side of clearing
 # the cache vs not clearing the cache, as this usually leads to support requests
 # when staff members make edits but do not see the changes.
-hooks.register('after_delete_page', clear_wagtailcache)
-hooks.register('after_move_page', clear_wagtailcache)
-hooks.register('after_publish_page', clear_wagtailcache)
-hooks.register('after_unpublish_page', clear_wagtailcache)
-hooks.register('after_create_snippet', clear_wagtailcache)
-hooks.register('after_edit_snippet', clear_wagtailcache)
-hooks.register('after_delete_snippet', clear_wagtailcache)
+hooks.register("after_delete_page", clear_wagtailcache)
+hooks.register("after_move_page", clear_wagtailcache)
+hooks.register("after_publish_page", clear_wagtailcache)
+hooks.register("after_unpublish_page", clear_wagtailcache)
+hooks.register("after_create_snippet", clear_wagtailcache)
+hooks.register("after_edit_snippet", clear_wagtailcache)
+hooks.register("after_delete_snippet", clear_wagtailcache)
 
 
-@hooks.register('filter_form_submissions_for_user')
+@hooks.register("filter_form_submissions_for_user")
 def codered_forms(user, editable_forms):
     """
     Add our own CoderedFormPage to editable_forms, since wagtail is unaware
@@ -96,13 +96,13 @@ def codered_forms(user, editable_forms):
     and wagtail.contrib.forms.get_form_types()
     """
     from coderedcms.models import CoderedFormMixin
+
     form_models = [
-        model for model in get_page_models()
+        model
+        for model in get_page_models()
         if issubclass(model, CoderedFormMixin)
     ]
-    form_types = list(
-        ContentType.objects.get_for_models(*form_models).values()
-    )
+    form_types = list(ContentType.objects.get_for_models(*form_models).values())
 
     editable_forms = UserPagePermissionsProxy(user).editable_pages()
     editable_forms = editable_forms.filter(content_type__in=form_types)
@@ -110,7 +110,7 @@ def codered_forms(user, editable_forms):
     return editable_forms
 
 
-@hooks.register('before_serve_document')
+@hooks.register("before_serve_document")
 def serve_document_directly(document, request):
     """
     This hook prevents documents from being downloaded unless
@@ -118,8 +118,10 @@ def serve_document_directly(document, request):
     """
     content_type, content_encoding = mimetypes.guess_type(document.filename)
     response = HttpResponse(document.file.read(), content_type=content_type)
-    response['Content-Disposition'] = 'inline;filename="{0}"'.format(document.filename)
-    response['Content-Encoding'] = content_encoding
+    response["Content-Disposition"] = 'inline;filename="{0}"'.format(
+        document.filename
+    )
+    response["Content-Encoding"] = content_encoding
     return response
 
 
@@ -128,10 +130,10 @@ class ImportExportMenuItem(MenuItem):
         return request.user.is_superuser
 
 
-@hooks.register('register_settings_menu_item')
+@hooks.register("register_settings_menu_item")
 def register_import_export_menu_item():
     return ImportExportMenuItem(
-        _('Import'),
-        reverse('import_index'),
-        classnames='icon icon-download',
+        _("Import"),
+        reverse("import_index"),
+        classnames="icon icon-download",
     )

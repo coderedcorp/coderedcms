@@ -12,7 +12,7 @@ from coderedcms.models.page_models import (
     CoderedPage,
     CoderedStreamFormPage,
     CoderedWebPage,
-    get_page_models
+    get_page_models,
 )
 from coderedcms.models.snippet_models import Classifier, ClassifierTerm
 from coderedcms.tests.testapp.models import (
@@ -25,23 +25,22 @@ from coderedcms.tests.testapp.models import (
     LocationIndexPage,
     LocationPage,
     StreamFormPage,
-    WebPage
+    WebPage,
 )
 
 
-class BasicPageTestCase():
+class BasicPageTestCase:
     """
     This is a testing mixin used to run common tests for basic versions of page types.
     """
+
     class Meta:
         abstract = True
 
     def setUp(self):
         self.client = Client()
-        self.basic_page = self.model(
-            title=str(self.model._meta.verbose_name)
-        )
-        self.homepage = WebPage.objects.get(url_path='/home/')
+        self.basic_page = self.model(title=str(self.model._meta.verbose_name))
+        self.homepage = WebPage.objects.get(url_path="/home/")
         self.homepage.add_child(instance=self.basic_page)
 
     def tearDown(self):
@@ -55,10 +54,11 @@ class BasicPageTestCase():
         self.assertEqual(response.status_code, 200)
 
 
-class AbstractPageTestCase():
+class AbstractPageTestCase:
     """
     This is a testing mixin used to run common tests for abstract page types.
     """
+
     class Meta:
         abstract = True
 
@@ -71,10 +71,11 @@ class AbstractPageTestCase():
         self.assertFalse(self.model in get_page_models())
 
 
-class ConcretePageTestCase():
+class ConcretePageTestCase:
     """
     This is a testing mixin used to run common tests for concrete page types.
     """
+
     class Meta:
         abstract = True
 
@@ -103,11 +104,7 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         """
         # TODO: add form field via streamfield.
         response = self.client.post(
-            self.basic_page.url,
-            {
-                'name': 'Monty Python'
-            },
-            follow=True
+            self.basic_page.url, {"name": "Monty Python"}, follow=True
         )
         self.assertEqual(response.status_code, 200)
         # TODO: log in as superuser and get wagtail admin form submission page.
@@ -116,8 +113,12 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         """
         Test to check if the default spam catching works.
         """
-        response = self.client.post(self.basic_page.url, {'cr-decoy-comments': 'This is Spam'}, follow=True)  # noqa
-        messages = list(response.context['messages'])
+        response = self.client.post(
+            self.basic_page.url,
+            {"cr-decoy-comments": "This is Spam"},
+            follow=True,
+        )
+        messages = list(response.context["messages"])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), self.basic_page.get_spam_message())
 
@@ -126,7 +127,7 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         Test to check if the default spam catching won't mark correct posts as spam.
         """
         response = self.client.post(self.basic_page.url)
-        self.assertFalse(hasattr(response, 'is_spam'))
+        self.assertFalse(hasattr(response, "is_spam"))
 
 
 class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
@@ -219,6 +220,7 @@ class IndexTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     """
     Tests indexing features (show/sort/filter child pages).
     """
+
     model = IndexTestPage
 
     def setUp(self):

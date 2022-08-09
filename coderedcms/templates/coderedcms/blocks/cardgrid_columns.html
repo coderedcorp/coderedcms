@@ -4,7 +4,7 @@
   <div class="row {{self.settings.custom_css_class}}" data-masonry='{"percentPosition": true }'>
     {% for block in self.content %}
     <div class="col-sm-6 col-lg-4 mb-4">
-      {% include_block column %}
+      {% include_block block %}
     </div>
     {% endfor %}
   </div>

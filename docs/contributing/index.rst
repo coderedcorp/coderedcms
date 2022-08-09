@@ -205,7 +205,7 @@ For example, here is how you would add tests for a new abstract page type,
 Static Analysis
 ---------------
 
-All code should be formatted with ``black`` before comitting:
+All code should be formatted with ``black`` before committing:
 
 .. code-block:: console
 

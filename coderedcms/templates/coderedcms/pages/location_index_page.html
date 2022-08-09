@@ -1,5 +1,5 @@
 {% extends "coderedcms/pages/web_page.html" %}
-{% load wagtailcore_tags static %}
+{% load coderedcms_tags wagtailcore_tags static %}
 {% block content_body %}
 {{ block.super }}
 <div class="container">
@@ -13,9 +13,6 @@
         data-latitude="{{ page.center_latitude }}"
         data-longitude="{{ page.center_longitude }}"
         data-geojson-url="{{ request.path }}?data-format=geojson"
-        data-key="{{ google_api_key }}"
-        data-callback="initMap"
-        data-libraries="places"
         data-show-list="True"
         data-show-search="True"
         data-map-type-control=false>
@@ -38,4 +35,9 @@
     {% endblock %}
   </div>
 </div>
+{% endblock %}
+{% block coderedcms_scripts %}
+{{ block.super }}
+<script src="{% static 'coderedcms/js/crx-maps.js' %}?v={% coderedcms_version %}"></script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initMap&libraries=places"></script>
 {% endblock %}

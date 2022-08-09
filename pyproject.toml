@@ -12,11 +12,12 @@ exclude = '''
     | \.tox
     | \.venv
     | _build
-    | buck-out
     | build
+    | ci
     | dist
     | migrations
-    | ci
+    | testproject
+    | venv
   )/
 )
 '''

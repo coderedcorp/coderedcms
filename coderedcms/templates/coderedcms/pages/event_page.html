@@ -8,8 +8,9 @@
   {% if self.address %}
   <p class="d-md-inline-block me-4"><b>Where:</b> {{self.address}}</p>
   {% endif %}
-  <div class="float-lg-end">{% include "coderedcms/includes/ical/single_ical_button.html" with event=self
-    start=nextup.0 end=nextup.1 %}</div>
+  <div class="float-lg-end">
+    {% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=nextup.0 end=nextup.1 %}
+  </div>
   <hr>
 </div>
 {% endwith %}
@@ -40,8 +41,7 @@
       <tr>
         <td>{{date.0}}</td>
         <td>{% if date.0 != date.1 %}{{date.1}}{% endif %}</td>
-        <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=date.0 end=date.1 %}
-        </td>
+        <td>{% include "coderedcms/includes/ical/single_ical_button.html" with event=self start=date.0 end=date.1 %}</td>
       </tr>
       {% endfor %}
     </table>

@@ -9,32 +9,18 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
  * Main script which is used to detect CRX features requiring JavaScript.
  *
  * Loads the necessary libraries for that feature, then initializes any
- * feature-specific code.
+ * feature-specific code. This should only be used for features that might be
+ * site-wide (e.g. StreamField blocks that could occur anywhere). For
+ * functionality that is page-specific, include the JavaScript normally via a
+ * script tag on that page instead.
  *
  * This file must run with "pure" JavaScript - assume jQuery or any other
  * scripts are not yet loaded.
  */
 const libs = {
-  jquery: {
-    url: "https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js",
-    integrity: "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=",
-  },
   masonry: {
     url: "https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js",
     integrity: "sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=",
-  },
-  fullcalendar: {
-    url: "https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js",
-    integrity: "sha256-sR+oJaZ3c0FHR6+kKaX1zeXReUGbzuNI8QTKpGHE0sg=",
-    head: '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">',
-  },
-  coderedmaps: {
-    url: "/static/coderedcms/js/crx-maps.js?v=" + cr_version,
-    integrity: "",
-  },
-  coderedstreamforms: {
-    url: "/static/coderedcms/js/crx-streamforms.js?v=" + cr_version,
-    integrity: "",
   },
 };
 
@@ -60,7 +46,7 @@ function load_script(lib, success) {
     // Then call the `success` callback.
     fetch(lib.url, {
       integrity: lib.integrity,
-      referrerPolicy: "no-referrer",
+      referrerPolicy: "origin",
     })
       .then(function (response) {
         return response.text();
@@ -78,68 +64,6 @@ function load_script(lib, success) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  /** Calendar **/
-  if (document.querySelectorAll("[data-block='calendar']").length > 0) {
-    load_script(libs.fullcalendar, function () {
-      var calendars = document.querySelectorAll("[data-block='calendar']");
-      calendars.forEach(function (el) {
-        var pageId = el.dataset.pageId; // data-page-id
-        var defaultDate = el.dataset.defaultDate; // data-default-date
-        var defaultView = el.dataset.defaultView; // data-default-view
-        var eventDisplay = el.dataset.eventDisplay; // data-event-display
-        var timezone = el.dataset.timezone; // data-timezone
-        var calendar = new FullCalendar.Calendar(el, {
-          headerToolbar: {
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-          },
-          themeSystem: "bootstrap",
-          bootstrapFontAwesome: false,
-          buttonText: {
-            prev: "← prev",
-            next: "next →",
-          },
-          initialDate: defaultDate,
-          initialView: defaultView,
-          fixedWeekCount: false,
-          timeZone: timezone,
-          eventDisplay: eventDisplay,
-          eventSources: {
-            url: "/ajax/calendar/events/",
-            method: "GET",
-            extraParams: {
-              pid: pageId,
-            },
-          },
-        });
-        calendar.render();
-      });
-    });
-  }
-
-  /** Location Pages (Google Maps) **/
-  if (document.querySelector("#cr-map")) {
-    load_script(libs.coderedmaps, function () {
-      var map = document.querySelector("#cr-map");
-      fetch(
-        "https://maps.googleapis.com/maps/api/js?" +
-          new URLSearchParams({
-            key: map.dataset.key, // data-key
-            callback: map.dataset.callback, // data-callback
-            libraries: map.dataset.libraries, // data-libraries
-          })
-      );
-    });
-  }
-
-  /** StreamForms **/
-  if (document.querySelectorAll(".stream-form-input").length > 0) {
-    load_script(libs.jquery, function () {
-      load_script(libs.coderedstreamforms);
-    });
-  }
-
   /** Lightbox **/
   document.querySelectorAll(".lightbox-preview").forEach(function (el) {
     el.addEventListener("click", function (event) {

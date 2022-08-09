@@ -1,5 +1,5 @@
 {% extends "coderedcms/pages/web_page.html" %}
-{% load wagtailcore_tags coderedcms_tags %}
+{% load coderedcms_tags static wagtailcore_tags %}
 {% block content_body %}
 {{ block.super }}
 {% if page.form_live %}
@@ -57,4 +57,9 @@
   {% endblock %}
 </div>
 {% endif %}
+{% endblock %}
+{% block coderedcms_scripts %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="{% static 'coderedcms/js/crx-streamforms.js' %}?v={% coderedcms_version %}"></script>
 {% endblock %}

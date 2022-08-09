@@ -1,5 +1,5 @@
 {% extends "coderedcms/pages/web_page.html" %}
-{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+{% load coderedcms_tags static wagtailcore_tags wagtailimages_tags %}
 {% block content_post_body %}
 {% if self.default_calendar_view %}
 <div class="container">
@@ -42,4 +42,15 @@
   {% endfor %}
   {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
 </div>
+{% endblock %}
+
+{% block coderedcms_assets %}
+{{ block.super }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+{% endblock %}
+
+{% block coderedcms_scripts %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js" integrity="sha256-sR+oJaZ3c0FHR6+kKaX1zeXReUGbzuNI8QTKpGHE0sg=" crossorigin="anonymous"></script>
+<script src="{% static 'coderedcms/js/crx-events.js' %}?v={% coderedcms_version %}"></script>
 {% endblock %}

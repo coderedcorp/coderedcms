@@ -120,7 +120,9 @@ def serve_protected_file(request, path):
 def favicon(request):
     icon = LayoutSettings.for_request(request).favicon
     if icon:
-        return HttpResponsePermanentRedirect(icon.get_rendition("original").url)
+        return HttpResponsePermanentRedirect(
+            icon.get_rendition("fill-256x256|format-webp").url
+        )
     raise Http404()
 
 

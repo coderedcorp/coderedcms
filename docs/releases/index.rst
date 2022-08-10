@@ -12,16 +12,10 @@ Wagtail CRX (previously CodeRed CMS) follows the
 * **Patch** - guaranteed to be backwards compatible. These changes are
   reserved for bug, security, or documentation fixes only.
 
-.. note::
-
-   There may be breaking changes between minor version upgrades until reaching a
-   stable 1.0 status. Releases with a zero major version number are considered
-   "beta" quality.
-
-
 .. toctree::
     :maxdepth: 1
 
+    v1.0.0
     v0.25.2
     v0.25.1
     v0.25.0

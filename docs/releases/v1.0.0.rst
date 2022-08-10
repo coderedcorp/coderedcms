@@ -98,7 +98,7 @@ If upgrading your site to Bootstrap 5
 
    * ``stream_form_page.html`` has changed.
 
-   * ``form_page.html`` and all other forms have changed to use
+   * ``form_page.html`` and ``pagepreview_form.html`` have changed to use
      ``django_bootstrap5`` rendering.
 
    * ``article_index_page.html`` and ``article_page.html`` have a new design
@@ -127,7 +127,7 @@ If upgrading your site to Bootstrap 5
       {% endblock %}
 
 #. All CSS class names and JavaScript files beginning with ``codered-`` have
-   been renamed to ``crx-``. Find and replace those in your templates.
+   been renamed to ``crx-``. Find and replace those in your templates and CSS.
 
 #. The new templates all use WebP images. See: :doc:`/how_to/images` for options
    to disable this if needed.
@@ -162,6 +162,30 @@ staying on Bootstrap 4!
           "coderedcms",
           ...,
       ]
+
+Final steps: after deploying
+''''''''''''''''''''''''''''
+
+Locally in development, and after deploying your upgraded site to production,
+you should run the following commands to clean up the site.
+
+Run migrations (as usual):
+
+.. code-block:: text
+
+   python manage.py migrate
+
+Delete old media renditions:
+
+.. code-block:: text
+
+   python manage.py wagtail_update_image_renditions --purge-only
+
+Update Wagtail search index:
+
+.. code-block:: text
+
+   python manage.py wagtail_update_index
 
 
 Thank you!

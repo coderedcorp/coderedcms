@@ -99,9 +99,7 @@
   {% include "coderedcms/includes/codered_banner.html" %}
 
   {% block ada_skip %}
-  {% if settings.coderedcms.ADASettings.skip_navigation %}
-  <a href='#content' title='Skip Navigation'>Skip Navigation</a>
-  {% endif %}
+  <a class="visually-hidden-focusable" href="#content">Skip navigation</a>
   {% endblock %}
 
   {% wagtailuserbar %}

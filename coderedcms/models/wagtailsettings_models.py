@@ -298,34 +298,6 @@ class AnalyticsSettings(BaseSetting):
     ]
 
 
-@register_setting(icon="cr-universal-access")
-class ADASettings(BaseSetting):
-    """
-    Accessibility related options.
-    """
-
-    class Meta:
-        verbose_name = "Accessibility"
-
-    skip_navigation = models.BooleanField(
-        default=False,
-        verbose_name=_("Show skip navigation link"),
-        help_text=_(
-            'Shows a "Skip Navigation" link above the navbar that takes you '
-            "directly to the main content."
-        ),
-    )
-
-    panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel("skip_navigation"),
-            ],
-            heading=_("Accessibility"),
-        )
-    ]
-
-
 @register_setting(icon="cog")
 class GeneralSettings(BaseSetting):
     """

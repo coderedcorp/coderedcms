@@ -1,4 +1,4 @@
-{% load i18n static coderedcms_tags i18n wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
+{% load coderedcms_tags i18n static wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
 {% wagtail_site as site %}
@@ -49,7 +49,7 @@
     cr_version = "{% coderedcms_version %}";
   </script>
 
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   {# SEO Metadata #}
@@ -57,23 +57,21 @@
 
   {% block frontend_assets %}
   {% if settings.coderedcms.LayoutSettings.frontend_theme %}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.0/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.0/{{settings.coderedcms.LayoutSettings.frontend_theme}}/bootstrap.min.css">
   {% else %}
-  <link rel="stylesheet" href="{% static 'coderedcms/vendor/bootstrap/dist/css/bootstrap.min.css' %}?v={% coderedcms_version %}" />
+  <link rel="stylesheet" href="{% static 'coderedcms/vendor/bootstrap/dist/css/bootstrap.min.css' %}?v={% coderedcms_version %}">
   {% endif %}
   {% endblock %}
 
   {% block coderedcms_assets %}
   {% if "DEBUG"|django_settings %}
-  <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/crx-front.css' %}?v={% coderedcms_version %}">
+  <link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.css' %}?v={% coderedcms_version %}">
   {% else %}
-  <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/crx-front.min.css' %}?v={% coderedcms_version %}">
+  <link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.min.css' %}?v={% coderedcms_version %}">
   {% endif %}
   {% endblock %}
 
-  {% block custom_assets %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-  {% endblock %}
+  {% block custom_assets %}{% endblock %}
 
   {% block favicon %}
   {% if settings.coderedcms.LayoutSettings.favicon %}
@@ -83,7 +81,7 @@
   {% image settings.coderedcms.LayoutSettings.favicon fill-180x180 format-png as favicon_iphone_plus %}
   {% image settings.coderedcms.LayoutSettings.favicon fill-152x152 format-png as favicon_ipad %}
   {% image settings.coderedcms.LayoutSettings.favicon fill-167x167 format-png as favicon_ipad_pro %}
-  <link rel="icon" type="image/webp" href="{{ favicon_webp.url }}" />
+  <link rel="icon" type="image/webp" href="{{ favicon_webp.url }}">
   <link rel="apple-touch-icon" href="{{ favicon_iphone_plus.url }}">
   <link rel="apple-touch-icon" sizes="120x120" href="{{ favicon_iphone.url }}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ favicon_iphone_plus.url }}">
@@ -162,13 +160,10 @@
   {% endblock %}
 
   {% block coderedcms_scripts %}
-  <script type="text/javascript" src="{% static 'coderedcms/js/crx-front.js' %}?v={% coderedcms_version %}"></script>
+  <script src="{% static 'coderedcms/js/crx-front.js' %}?v={% coderedcms_version %}"></script>
   {% endblock %}
 
-  {% block custom_scripts %}
-  {# Legacy behavior, remove this in the future and leave blank for client sites to implement. #}
-  <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
-  {% endblock %}
+  {% block custom_scripts %}{% endblock %}
 
   {% include "wagtailseo/struct_data.html" %}
 

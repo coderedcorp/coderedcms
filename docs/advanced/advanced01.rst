@@ -227,7 +227,7 @@ As you can see, you may not need to use a lot of custom CSS. Sometimes a Bootstr
 Sometimes all you need to do is customize your template HTML and then add Bootstrap classes as needed. It all
 depends on your use case.
 
-For our custom navbar, we needed to un-check the "fixed navbar" option in the CMS via **Settings > Layout** in
+For our custom navbar, we needed to un-check the "fixed navbar" option in the CMS via **Settings > CRX Settings** in
 order for it to work. Check out what our 2-tiered navbar looks like:
 
 .. figure:: img/advanced_two_tiered_navbar.png

@@ -3,8 +3,8 @@ Searching
 
 A search page is available by default at the ``/search/`` URL, which can be customized in the
 ``urls.py`` file in your project. To enable a search bar in the navigation bar, check
-Settings > Layout > Search box. Search results are paginated; to specify the number of results
-per page, edit the value in Settings > General > Search Settings.
+Settings > CRX Settings > Search box. Search results are paginated; to specify the number of results
+per page, edit the value in Settings > CRX Settings > Search Settings.
 
 Search result formatting
 ------------------------

@@ -23,7 +23,7 @@ Logo & icon
 -----------
 
 The logo that appears in the navbar, the wagtail admin, and your favicon can be set in
-Settings > Layout. Here you can also change navbar settings (based on Bootstrap CSS framework).
+Settings > CRX Settings. Here you can also change navbar settings (based on Bootstrap CSS framework).
 
 :ref:`logo`
 

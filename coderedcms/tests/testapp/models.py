@@ -17,10 +17,6 @@ from coderedcms.models import (
 
 
 class ArticlePage(CoderedArticlePage):
-    """
-    Article, suitable for news or blog content.
-    """
-
     class Meta:
         verbose_name = "Article"
         ordering = [
@@ -35,10 +31,6 @@ class ArticlePage(CoderedArticlePage):
 
 
 class ArticleIndexPage(CoderedArticleIndexPage):
-    """
-    Shows a list of article sub-pages.
-    """
-
     class Meta:
         verbose_name = "Article Landing Page"
 
@@ -54,10 +46,6 @@ class ArticleIndexPage(CoderedArticleIndexPage):
 
 
 class FormPage(CoderedFormPage):
-    """
-    A page with an html <form>.
-    """
-
     class Meta:
         verbose_name = "Form"
 
@@ -65,10 +53,6 @@ class FormPage(CoderedFormPage):
 
 
 class FormPageField(CoderedFormField):
-    """
-    A field that links to a FormPage.
-    """
-
     class Meta:
         ordering = ["sort_order"]
 
@@ -76,18 +60,11 @@ class FormPageField(CoderedFormField):
 
 
 class FormConfirmEmail(CoderedEmail):
-    """
-    Sends a confirmation email after submitting a FormPage.
-    """
 
     page = ParentalKey("FormPage", related_name="confirmation_emails")
 
 
 class WebPage(CoderedWebPage):
-    """
-    General use page with featureful streamfield and SEO attributes.
-    """
-
     class Meta:
         verbose_name = "Web Page"
 
@@ -104,10 +81,6 @@ class EventPage(CoderedEventPage):
 
 
 class EventIndexPage(CoderedEventIndexPage):
-    """
-    Shows a list of event sub-pages.
-    """
-
     class Meta:
         verbose_name = "Events Landing Page"
 
@@ -125,10 +98,6 @@ class EventOccurrence(CoderedEventOccurrence):
 
 
 class LocationPage(CoderedLocationPage):
-    """
-    A page that holds a location.  This could be a store, a restaurant, etc.
-    """
-
     class Meta:
         verbose_name = "Location Page"
 
@@ -139,12 +108,6 @@ class LocationPage(CoderedLocationPage):
 
 
 class LocationIndexPage(CoderedLocationIndexPage):
-    """
-    A page that holds a list of locations and displays them with a Google Map.
-    This does require a Google Maps API Key that can be defined in Settings >
-    Google API Settings
-    """
-
     class Meta:
         verbose_name = "Location Landing Page"
 

@@ -19,4 +19,4 @@ Fields
 Site Footers
 ------------
 
-In **Settings > Layout**, select which Footers you want to display on your site under the Site Footers section.
+In **Settings > CRX Settings**, select which Footers you want to display on your site under the Site Footers section.

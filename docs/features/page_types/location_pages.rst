@@ -70,7 +70,7 @@ the following to your ``website/models.py``::
     class LocationIndexPage(CoderedLocationIndexPage):
         """
         A page that holds a list of locations and displays them with a Google Map.
-        This does require a Google Maps API Key that can be defined in Settings > Google API Settings
+        This does require a Google Maps API Key in Settings > CRX Settings
         """
         class Meta:
             verbose_name = 'Location Landing Page'
@@ -87,7 +87,7 @@ Next run ``python manage.py makemigrations website`` and ``python manage.py migr
 the new pages in your project.
 
 Now when going to the wagtail admin, you can create a Location Index Page, and child Location Pages.
-Also be sure to add a Google Maps API key under Settings > Google API Settings.
+Also be sure to add a Google Maps API key under Settings > CRX Settings.
 
 .. note::
     Before creating or importing location pages, add your Google API key for automatic geolocation.

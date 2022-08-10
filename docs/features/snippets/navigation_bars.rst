@@ -40,4 +40,4 @@ Document Link With Sub-Links
 Site Navbars
 ------------
 
-In **Settings > Layout**, select which Navbars you want to display on your site under the Site Navbars section.
+In **Settings > CRX Settings**, select which Navbars you want to display on your site under the Site Navbars section.

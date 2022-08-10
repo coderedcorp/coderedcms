@@ -20,6 +20,11 @@ New features
 
 * New Accordion snippet and block. See :doc:`/features/snippets/accordions`.
 
+* Added hidden "skip navigation" link for accessibility.
+
+* Most settings have been consolidated in the Wagtail admin under
+  **Settings > CRX Settings**
+
 * Codebase has been formatted with ``black`` to improve readability and
   maintainability.
 
@@ -66,6 +71,19 @@ Updating Python code
    argument.
 
 #. Rename ``BASE_URL`` to ``WAGTAILADMIN_BASE_URL`` in your Django settings.
+
+#. Find and delete any references to ``ADASettings`` in your Python and HTML
+   code.
+
+#. Find and replace the following references in both Python and HTML code:
+
+   * ``GeneralSettings``
+   * ``GoogleApiSettings``
+   * ``MailchimpApiSettings``
+
+   with:
+
+   * ``LayoutSettings``
 
 #. Make and run migrations:
 

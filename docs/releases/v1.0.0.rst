@@ -1,0 +1,170 @@
+v1.0.0 release notes
+====================
+
+Today we celebrate our 43rd public release of CRX! This is the largest release
+ever with tons of performance improvements that will increase the speed and
+accessibility of your CRX website.
+
+
+New features
+------------
+
+* Upgrade to Wagtail 3.
+
+* Upgrade to Bootstrap 5 (ships with Bootstrap 5.2).
+
+* Removed jQuery, modernizr, and many other JavaScript improvements.
+
+* Use WebP image format. If you need to support older browsers released prior to
+  2020, disable this feature. See :doc:`/how_to/images`.
+
+* New Accordion snippet and block. See :doc:`/features/snippets/accordions`.
+
+* Codebase has been formatted with ``black`` to improve readability and
+  maintainability.
+
+* CRX 1, Wagtail 3, and Bootstrap 5 all drop support for Internet Explorer. If
+  you need to support Internet Explorer, follow the Bootstrap 4 guide below.
+
+
+Upgrade instructions
+--------------------
+
+.. important::
+
+   It is highly recommended to first upgrade and deploy your site in production
+   with version 0.25 before performing the upgrade to 1.0.
+
+Updating Python code
+''''''''''''''''''''
+
+#. Run ``pip install coderedcms==1.0.*`` and update your ``requirements.txt``
+   with ``coderedcms==1.0.*``.
+
+#. Follow the `Wagtail 3 upgrade instructions
+   <https://docs.wagtail.org/en/stable/releases/3.0.html#upgrade-considerations-changes-affecting-all-projects>`_.
+   This primarily involes running the following tool to update the Wagtail
+   imports:
+
+   .. code-block:: text
+
+      wagtail updatemodulepaths
+
+#. Find and replace the following panels in your Python code:
+
+   * ``StreamFieldPanel``
+   * ``RichTextFieldPanel``
+   * ``ImageChooserPanel``
+   * ``DocumentChooserPanel``
+   * ``SnippetChooserPanel``
+
+   with:
+
+   * ``FieldPanel``
+
+#. Find all instances of ``StreamField(`` and add the ``use_json_field=True``
+   argument.
+
+#. Rename ``BASE_URL`` to ``WAGTAILADMIN_BASE_URL`` in your Django settings.
+
+#. Make and run migrations:
+
+   .. code-block:: text
+
+      python manage.py makemigrations
+      python manage.py migrate
+
+#. Next, choose whether to upgrade to Bootstrap 5, or stay on Bootstrap 4.
+
+If upgrading your site to Bootstrap 5
+'''''''''''''''''''''''''''''''''''''
+
+#. Add ``django_bootstrap5`` to ``INSTALLED_APPS``..
+
+#. If you are not using ``django-bootstrap4`` elsewhere in your project, remove
+   ``bootstrap4`` from ``INSTALLED_APPS``.
+
+#. In your Django settings file, remove the ``BOOTSTRAP4`` dictionary.
+
+#. Update your HTML templates to `Bootstrap 5.2 <https://getbootstrap.com/>`_.
+   Compare your custom templates to the stock ones for help:
+   https://github.com/coderedcorp/coderedcms/tree/dev/coderedcms/templates.
+
+#. Notable template changes:
+
+   * ``event_index_page.html`` and ``calendar.html`` have changed.
+
+   * ``location_index_page.html`` has changed.
+
+   * ``stream_form_page.html`` has changed.
+
+   * ``form_page.html`` and all other forms have changed to use
+     ``django_bootstrap5`` rendering.
+
+   * ``article_index_page.html`` and ``article_page.html`` have a new design
+     that is closer to stock Bootstrap.
+
+   * ``grid_block.html`` now has with a CSS class ``crx-grid`` which
+     adds padding to the top and bottom. This can be disabled in sass builds, or
+     overridden with CSS or in the template.
+
+   * Blocks no longer render with a ``<div class="block-*">`` wrapper. This may
+     affect custom CSS.
+
+#. ``pages/base.html`` template has removed ``{% block required_scripts %}``.
+   Delete it from your template if it is present.
+
+#. If you still rely on jQuery, be sure to add it to your base template in
+   ``{% block custom_scripts %}``. Generally speaking, any instance of the
+   ``custom_scripts`` block should call ``block.super`` to preserve scripts from
+   parent templates as such:
+
+   .. code-block:: django
+
+      {% block custom_scripts %}
+      {{ block.super }}
+      <script src="my-script-here.js"></script>
+      {% endblock %}
+
+#. All CSS class names and JavaScript files beginning with ``codered-`` have
+   been renamed to ``crx-``. Find and replace those in your templates.
+
+#. The new templates all use WebP images. See: :doc:`/how_to/images` for options
+   to disable this if needed.
+
+#. If you are using Sass, update your ``_variables.scss`` and ``custom.scss``
+   files appropriately. As a starting point, update your Sass files to match our
+   project template:
+   https://github.com/coderedcorp/coderedcms/tree/dev/coderedcms/project_template/sass/website/static/website/src.
+
+If staying on Bootstrap 4
+'''''''''''''''''''''''''
+
+While we recommend *eventually* upgrading to Bootstrap 5, for larger sites or
+highly customized sites, this can be a lengthy process. We have published a
+`compatibility theme <https://github.com/coderedcorp/coderedcms-bootstrap4>`_
+which preserves all the old Bootstrap 4 templates, CSS, Sass, and JavaScript.
+
+Do not follow any of the steps above in the Bootstrap 5 section if you are
+staying on Bootstrap 4!
+
+#. Run ``pip install coderedcms-bootstrap4`` and add to your
+   ``requirements.txt`` file ``coderedcms-bootstrap4==1.*``.
+
+#. In your Django settings file, add ``coderedcms_bootstrap4`` **ABOVE** the
+   ``coderedcms`` app:
+
+   .. code-block:: python
+
+      INSTALLED_APPS = [
+          ...,
+          "coderedcms_bootstrap4",
+          "coderedcms",
+          ...,
+      ]
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `1.0.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/1?closed=1>`_.

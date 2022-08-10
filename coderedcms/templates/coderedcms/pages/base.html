@@ -45,7 +45,7 @@
   {# Pass in CMS variables to JavaScript #}
   <script>
     cr_site_url = "{{site.root_url}}";
-    cr_external_new_tab = {{settings.coderedcms.GeneralSettings.external_new_tab|yesno:"true,false"}};
+    cr_external_new_tab = {{settings.coderedcms.LayoutSettings.external_new_tab|yesno:"true,false"}};
     cr_version = "{% coderedcms_version %}";
   </script>
 

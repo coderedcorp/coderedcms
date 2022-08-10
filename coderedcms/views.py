@@ -24,7 +24,7 @@ from wagtail.admin import messages
 from wagtail.models import Page, get_page_models
 from coderedcms import utils
 from coderedcms.forms import SearchForm
-from coderedcms.models import CoderedPage, GeneralSettings, LayoutSettings
+from coderedcms.models import CoderedPage, LayoutSettings
 from coderedcms.importexport import (
     convert_csv_to_json,
     import_pages,
@@ -70,7 +70,7 @@ def search(request):
         if results:
             results = results.search(search_query)
             paginator = Paginator(
-                results, GeneralSettings.for_request(request).search_num_results
+                results, LayoutSettings.for_request(request).search_num_results
             )
             page = request.GET.get("p", 1)
             try:

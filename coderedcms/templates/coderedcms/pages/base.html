@@ -65,15 +65,13 @@
 
   {% block coderedcms_assets %}
   {% if "DEBUG"|django_settings %}
-  <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/crx-front.css' %}?v={% coderedcms_version %}">
+  <link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.css' %}?v={% coderedcms_version %}">
   {% else %}
-  <link rel="stylesheet" type="text/css" href="{% static 'coderedcms/css/crx-front.min.css' %}?v={% coderedcms_version %}">
+  <link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.min.css' %}?v={% coderedcms_version %}">
   {% endif %}
   {% endblock %}
 
-  {% block custom_assets %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-  {% endblock %}
+  {% block custom_assets %}{% endblock %}
 
   {% block favicon %}
   {% if settings.coderedcms.LayoutSettings.favicon %}
@@ -162,7 +160,7 @@
   {% endblock %}
 
   {% block coderedcms_scripts %}
-  <script type="text/javascript" src="{% static 'coderedcms/js/crx-front.js' %}?v={% coderedcms_version %}"></script>
+  <script src="{% static 'coderedcms/js/crx-front.js' %}?v={% coderedcms_version %}"></script>
   {% endblock %}
 
   {% block custom_scripts %}{% endblock %}

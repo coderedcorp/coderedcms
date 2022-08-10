@@ -8,7 +8,7 @@ Let's begin to work on our navigation and footer setup.
 Customizing the navigation
 --------------------------
 
-The general layout of your navbar can be found in the **Settings > Layout**
+The general layout of your navbar can be found in the **Settings > CRX Settings**
 section of the Wagtail Admin. We previously discussed choosing a dark or
 light navbar and adding Bootstrap classes, but you can also add/remove the
 Search bar, set it to fixed (stays at the top even when you scroll) or full-width,
@@ -66,7 +66,7 @@ for our sweets shop!
 Site Navbars Settings
 ---------------------
 
-After you create your navbar, go to **Settings > Layout** and scroll down to **Site Navbars**. Click on the plus sign
+After you create your navbar, go to **Settings > CRX Settings** and scroll down to **Site Navbars**. Click on the plus sign
 to select your new navbar and add it to your site. The Save.
 
 .. _footer:
@@ -147,5 +147,5 @@ then choosing which page or external link you want. See our example below:
 Site Footers Settings
 ---------------------
 
-After you create your footer, go to **Settings > Layout** and scroll down to **Site Footers**. Click on the plus sign
+After you create your footer, go to **Settings > CRX Settings** and scroll down to **Site Footers**. Click on the plus sign
 to select your new footer and add it to your site. The Save.

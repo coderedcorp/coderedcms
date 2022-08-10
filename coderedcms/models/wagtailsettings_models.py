@@ -29,7 +29,7 @@ class LayoutSettings(ClusterableModel, BaseSetting):
     """
 
     class Meta:
-        verbose_name = _("Layout")
+        verbose_name = _("CRX Settings")
 
     logo = models.ForeignKey(
         get_image_model_string(),
@@ -109,6 +109,35 @@ class LayoutSettings(ClusterableModel, BaseSetting):
         default="",
         verbose_name=_("Theme variant"),
     )
+    from_email_address = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("From email address"),
+        help_text=_(
+            "The default email address this site appears to send from. "
+            'For example: "sender@example.com" or '
+            '"Sender Name <sender@example.com>" (without quotes)'
+        ),
+    )
+    search_num_results = models.PositiveIntegerField(
+        default=10,
+        verbose_name=_("Number of results per page"),
+    )
+    external_new_tab = models.BooleanField(
+        default=False, verbose_name=_("Open all external links in new tab")
+    )
+    google_maps_api_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Google Maps API Key"),
+        help_text=_("The API Key used for Google Maps."),
+    )
+    mailchimp_api_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Mailchimp API Key"),
+        help_text=_("The API Key used for Mailchimp."),
+    )
 
     panels = [
         MultiFieldPanel(
@@ -117,11 +146,6 @@ class LayoutSettings(ClusterableModel, BaseSetting):
                 FieldPanel("favicon"),
             ],
             heading=_("Branding"),
-        ),
-        InlinePanel(
-            "site_navbar",
-            help_text=_("Choose one or more navbars for your site."),
-            heading=_("Site Navbars"),
         ),
         MultiFieldPanel(
             [
@@ -135,6 +159,17 @@ class LayoutSettings(ClusterableModel, BaseSetting):
             ],
             heading=_("Site Navbar Layout"),
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel("frontend_theme"),
+            ],
+            heading=_("Theming"),
+        ),
+        InlinePanel(
+            "site_navbar",
+            help_text=_("Choose one or more navbars for your site."),
+            heading=_("Site Navbars"),
+        ),
         InlinePanel(
             "site_footer",
             help_text=_("Choose one or more footers for your site."),
@@ -142,9 +177,18 @@ class LayoutSettings(ClusterableModel, BaseSetting):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("frontend_theme"),
+                FieldPanel("from_email_address"),
+                FieldPanel("search_num_results"),
+                FieldPanel("external_new_tab"),
             ],
-            heading=_("Theming"),
+            heading=_("General"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("google_maps_api_key"),
+                FieldPanel("mailchimp_api_key"),
+            ],
+            heading=_("API Keys"),
         ),
     ]
 
@@ -296,115 +340,3 @@ class AnalyticsSettings(BaseSetting):
             heading=_("Other Tracking Scripts"),
         ),
     ]
-
-
-@register_setting(icon="cr-universal-access")
-class ADASettings(BaseSetting):
-    """
-    Accessibility related options.
-    """
-
-    class Meta:
-        verbose_name = "Accessibility"
-
-    skip_navigation = models.BooleanField(
-        default=False,
-        verbose_name=_("Show skip navigation link"),
-        help_text=_(
-            'Shows a "Skip Navigation" link above the navbar that takes you '
-            "directly to the main content."
-        ),
-    )
-
-    panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel("skip_navigation"),
-            ],
-            heading=_("Accessibility"),
-        )
-    ]
-
-
-@register_setting(icon="cog")
-class GeneralSettings(BaseSetting):
-    """
-    Various site-wide settings. A good place to put
-    one-off settings that don't belong anywhere else.
-    """
-
-    from_email_address = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_("From email address"),
-        help_text=_(
-            "The default email address this site appears to send from. "
-            'For example: "sender@example.com" or '
-            '"Sender Name <sender@example.com>" (without quotes)'
-        ),
-    )
-    search_num_results = models.PositiveIntegerField(
-        default=10,
-        verbose_name=_("Number of results per page"),
-    )
-    external_new_tab = models.BooleanField(
-        default=False, verbose_name=_("Open all external links in new tab")
-    )
-
-    panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel("from_email_address"),
-            ],
-            _("Email"),
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("search_num_results"),
-            ],
-            _("Search Settings"),
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("external_new_tab"),
-            ],
-            _("Links"),
-        ),
-    ]
-
-    class Meta:
-        verbose_name = _("General")
-
-
-@register_setting(icon="cr-puzzle-piece")
-class GoogleApiSettings(BaseSetting):
-    """
-    Settings for Google API services.
-    """
-
-    class Meta:
-        verbose_name = _("Google API")
-
-    google_maps_api_key = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_("Google Maps API Key"),
-        help_text=_("The API Key used for Google Maps."),
-    )
-
-
-@register_setting(icon="cr-puzzle-piece")
-class MailchimpApiSettings(BaseSetting):
-    """
-    Settings for Mailchimp API services.
-    """
-
-    class Meta:
-        verbose_name = _("Mailchimp API")
-
-    mailchimp_api_key = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_("Mailchimp API Key"),
-        help_text=_("The API Key used for Mailchimp."),
-    )

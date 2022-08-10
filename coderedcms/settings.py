@@ -129,7 +129,7 @@ class _DefaultSettings:
         ("minty", "Minty - A fresh feel"),
         ("morph", "Morph - A neumorphic layer"),
         ("pulse", "Pulse - A trace of purple"),
-        ("quartz", "A glassmorphic layer"),
+        ("quartz", "Quartz - A glassmorphic layer"),
         ("sandstone", "Sandstone - A touch of warmth"),
         ("simplex", "Simplex - Mini and minimalist"),
         ("sketchy", "Sketchy - A hand-drawn look for mockups and mirth"),
@@ -138,9 +138,9 @@ class _DefaultSettings:
         ("spacelab", "Spacelab - Silvery and sleek"),
         ("superhero", "Superhero - The brave and the blue"),
         ("united", "United - Ubuntu orange and unique font"),
-        ("vapor", "A cyberpunk aesthetic"),
+        ("vapor", "Vapor - A cyberpunk aesthetic"),
         ("yeti", "Yeti - A friendly foundation"),
-        ("zephyr", "Breezy and beautiful"),
+        ("zephyr", "Zephyr - Breezy and beautiful"),
     ]
 
     CRX_FRONTEND_TEMPLATES_BLOCKS = {

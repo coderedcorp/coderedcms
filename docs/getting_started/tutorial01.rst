@@ -54,7 +54,7 @@ will show "Simple Sweet Desserts".
 Adding your logo
 ----------------
 
-First, and most important, is the logo. Go to **Settings > Layout**. Here are the site-wide
+First, and most important, is the logo. Go to **Settings > CRX Settings**. Here are the site-wide
 visual and design settings for your website. At the top are two settings for your logo and
 favicon. Both will be scaled to fit wherever they are used, but we recommend
 the following image parameters:
@@ -89,7 +89,7 @@ Changing navbar and global site colors
 
 The default style is a light-colored navbar and the standard Bootstrap colors.
 But if you have a white or light colored logo, you might prefer a dark navbar.
-To change the navbar color, go to **Settings > Layout** and alter the following settings:
+To change the navbar color, go to **Settings > CRX Settings** and alter the following settings:
 
 * **Navbar color scheme:** Dark
 * **Navbar CSS class:** ``bg-dark`` (or some other CSS class. See

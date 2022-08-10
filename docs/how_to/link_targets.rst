@@ -11,5 +11,5 @@ Wagtail CRX provides a setting that will use JavaScript to open all external
 links, meaning any link not on the current domain, to open with
 ``target='_blank'``:
 
-**Settings > General > Open all external links in
+**Settings > CRX Settings > Open all external links in
 new tab**

@@ -43,13 +43,9 @@
 {% block navbar_offset %}
 {% if settings.coderedcms.LayoutSettings.navbar_fixed %}
 {% if settings.coderedcms.LayoutSettings.logo %}
-<div
-  class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}">
-</div>
+<div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
 {% else %}
-<div
-  class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}">
-</div>
+<div class="{{settings.coderedcms.LayoutSettings.navbar_format}}-fixed-offset {{settings.coderedcms.LayoutSettings.navbar_collapse_mode}}"></div>
 {% endif %}
 {% endif %}
 {% endblock %}

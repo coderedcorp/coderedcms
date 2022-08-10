@@ -1,5 +1,5 @@
-Import/Export
-=============
+Import Pages
+============
 
 CRX includes the ability to import pages from CSV files. This is useful for
 example in a store locator, where a list of stores needs to be uploaded

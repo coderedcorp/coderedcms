@@ -45,7 +45,7 @@
   {# Pass in CMS variables to JavaScript #}
   <script>
     cr_site_url = "{{site.root_url}}";
-    cr_external_new_tab = {{settings.coderedcms.GeneralSettings.external_new_tab|yesno:"true,false"}};
+    cr_external_new_tab = {{settings.coderedcms.LayoutSettings.external_new_tab|yesno:"true,false"}};
     cr_version = "{% coderedcms_version %}";
   </script>
 
@@ -99,9 +99,7 @@
   {% include "coderedcms/includes/codered_banner.html" %}
 
   {% block ada_skip %}
-  {% if settings.coderedcms.ADASettings.skip_navigation %}
-  <a href='#content' title='Skip Navigation'>Skip Navigation</a>
-  {% endif %}
+  <a class="visually-hidden-focusable" href="#content">Skip navigation</a>
   {% endblock %}
 
   {% wagtailuserbar %}

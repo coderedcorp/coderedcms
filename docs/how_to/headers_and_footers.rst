@@ -57,7 +57,7 @@ footer.html`_, but not necessary.
 
 .. note::
 
-    You can now create more than one navbar menu or footer and choose which ones to render on your site. In **Settings > Layout**,
+    You can now create more than one navbar menu or footer and choose which ones to render on your site. In **Settings > CRX Settings**,
     select your navbars in **Site Navbars**. Select your footers in **Site Footers**. The Site Navbar Layout includes settings for the whole
     navbar, while the Site Navbar chooser allows you to choose which menu you want for your site. This features allows you to
     select a different navbar/footer per site in a multisite installation OR render several navbars/footers in selected order

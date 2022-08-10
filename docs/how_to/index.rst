@@ -8,6 +8,7 @@ website with Wagtail CRX.
 .. toctree::
     :maxdepth: 1
 
+    images
     headers_and_footers
     add_tracking_scripts
     link_targets

@@ -311,17 +311,17 @@ class AnalyticsSettings(BaseSetting):
         HelpPanel(
             heading=_("Know your tracking"),
             content=_(
-                "<h3><b>Which tracking IDs do I need?</b></h3>"
+                "<h2>Which tracking IDs do I need?</h2>"
                 "<p>Before adding tracking to your site, "
                 '<a href="https://docs.coderedcorp.com/wagtail-crx/how_to/add_tracking_scripts.html" '  # noqa
-                'target="_blank">read about the difference between UA, G, GTM, '
+                'target="_blank">read about the difference between G, UA, GTM, '
                 "and other tracking IDs</a>.</p>"
             ),
         ),
         MultiFieldPanel(
             [
-                FieldPanel("ga_tracking_id"),
                 FieldPanel("ga_g_tracking_id"),
+                FieldPanel("ga_tracking_id"),
                 FieldPanel("ga_track_button_clicks"),
             ],
             heading=_("Google Analytics"),

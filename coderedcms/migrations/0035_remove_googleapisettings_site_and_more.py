@@ -9,14 +9,17 @@ def copy_settings(apps, schema_editor):
     GoogleApiSettings = apps.get_model("coderedcms", "GoogleApiSettings")
     MailchimpApiSettings = apps.get_model("coderedcms", "MailchimpApiSettings")
     for s in LayoutSettings.objects.all():
-        gen = GeneralSettings.objects.get(site=s.site)
-        goog = GoogleApiSettings.objects.get(site=s.site)
-        mc = MailchimpApiSettings.objects.get(site=s.site)
-        s.external_new_tab = gen.external_new_tab
-        s.from_email_address = gen.from_email_address
-        s.search_num_results = gen.search_num_results
-        s.google_maps_api_key = goog.google_maps_api_key
-        s.mailchimp_api_key = mc.mailchimp_api_key
+        gen = GeneralSettings.objects.filter(site=s.site).first()
+        goog = GoogleApiSettings.objects.filter(site=s.site).first()
+        mc = MailchimpApiSettings.objects.filter(site=s.site).first()
+        if gen:
+            s.external_new_tab = gen.external_new_tab
+            s.from_email_address = gen.from_email_address
+            s.search_num_results = gen.search_num_results
+        if goog:
+            s.google_maps_api_key = goog.google_maps_api_key
+        if mc:
+            s.mailchimp_api_key = mc.mailchimp_api_key
         s.save()
 
 

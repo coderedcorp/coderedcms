@@ -176,7 +176,7 @@ def render_iframe_from_embed(embed):
 @register.filter
 def map_to_bootstrap_alert(message_tag):
     """
-    Converts a message level to a bootstrap 4 alert class
+    Converts a message level to a Bootstrap 5 alert class
     """
     message_to_alert_dict = {
         "debug": "primary",

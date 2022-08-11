@@ -1,0 +1,12 @@
+/* Add your custom styles here */
+
+
+/* Adds a bit of spacing to "Responsive Grid Row" blocks. */
+.crx-grid {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.crx-grid .crx-grid {
+  padding-top: 0;
+  padding-bottom: 0;
+}

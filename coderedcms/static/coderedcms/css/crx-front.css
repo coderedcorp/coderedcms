@@ -3,6 +3,49 @@ Wagtail CRX (https://www.coderedcorp.com/cms/)
 Copyright 2018-2022 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 */
+.crx-article .article-body {
+  max-width: 800px;
+}
+
+@media (min-width: 768px) {
+  .crx-article .article-body {
+    font-size: 1.2em;
+  }
+}
+
+.crx-article .article-author-img {
+  max-height: 3em;
+}
+
+[class^="container"] [class^="container"] {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  background-size: cover;
+  background-position: center center;
+}
+
+.container-fluid .carousel {
+  margin: 0 -15px;
+}
+
+.carousel .no-image {
+  height: 500px;
+}
+
+.modal-lightbox {
+  max-width: 100vw;
+  text-align: center;
+}
+
+.modal-lightbox img {
+  max-height: 90vh;
+  max-width: 90vw;
+}
+
 .hero-bg {
   background-size: cover;
   background-repeat: no-repeat;
@@ -21,83 +64,6 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 
 .hero-fg {
   padding: 80px 0;
-}
-
-.crx-grid {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-
-.crx-grid .crx-grid {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.richtext-image.left {
-  float: left;
-  margin: 0 1em 1em 0;
-}
-
-.richtext-image.right {
-  float: right;
-  margin: 0 0 1em 1em;
-}
-
-.richtext-image.full-width {
-  width: 100%;
-  height: auto;
-}
-
-.modal-lightbox {
-  max-width: 100vw;
-  text-align: center;
-}
-
-.modal-lightbox img {
-  max-height: 90vh;
-  max-width: 90vw;
-}
-
-.leaders {
-  max-width: 40em;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-.leaders:before {
-  float: left;
-  width: 0;
-  white-space: nowrap;
-  content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
-}
-
-.leaders span:first-child {
-  padding-right: 0.33em;
-  background: white;
-}
-
-.leaders span + span {
-  float: right;
-  padding-left: 0.33em;
-  padding-right: 15px;
-  background: white;
-  position: relative;
-  z-index: 1;
-  margin-right: -15px;
-}
-
-.crx-article .article-body {
-  max-width: 800px;
-}
-
-@media (min-width: 768px) {
-  .crx-article .article-body {
-    font-size: 1.2em;
-  }
-}
-
-.crx-article .article-author-img {
-  max-height: 3em;
 }
 
 .map-container {
@@ -300,23 +266,47 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
   }
 }
 
-[class^="container"] [class^="container"] {
-  width: 100%;
+.leaders {
+  max-width: 40em;
   padding: 0;
-  margin: 0;
+  overflow-x: hidden;
 }
 
-.card {
-  background-size: cover;
-  background-position: center center;
+.leaders:before {
+  float: left;
+  width: 0;
+  white-space: nowrap;
+  content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
 }
 
-.container-fluid .carousel {
-  margin: 0 -15px;
+.leaders span:first-child {
+  padding-right: 0.33em;
+  background: white;
 }
 
-.carousel .no-image {
-  height: 500px;
+.leaders span + span {
+  float: right;
+  padding-left: 0.33em;
+  padding-right: 15px;
+  background: white;
+  position: relative;
+  z-index: 1;
+  margin-right: -15px;
+}
+
+.richtext-image.left {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.richtext-image.right {
+  float: right;
+  margin: 0 0 1em 1em;
+}
+
+.richtext-image.full-width {
+  width: 100%;
+  height: auto;
 }
 
 /*# sourceMappingURL=crx-front.css.map */

@@ -122,9 +122,8 @@ If upgrading your site to Bootstrap 5
    * ``article_index_page.html`` and ``article_page.html`` have a new design
      that is closer to stock Bootstrap.
 
-   * ``grid_block.html`` now has with a CSS class ``crx-grid`` which
-     adds padding to the top and bottom. This can be disabled in sass builds, or
-     overridden with CSS or in the template.
+   * ``grid_block.html`` now has with a CSS class ``crx-grid`` which you can
+     target with CSS.
 
    * Blocks no longer render with a ``<div class="block-*">`` wrapper. This may
      affect custom CSS.
@@ -198,6 +197,13 @@ Delete old media renditions:
 .. code-block:: text
 
    python manage.py wagtail_update_image_renditions --purge-only
+
+
+Clear the cache:
+
+.. code-block:: text
+
+   python manage.py clear_wagtail_cache
 
 Update Wagtail search index:
 

@@ -16,39 +16,41 @@ textarea.monospace,
 }
 
 .input input[type='color']{
-    height: 40px;
-    padding: 5px;
+  height: 40px;
+  padding: 5px;
 }
 
 
 /* Show the site's custom logo in the wagtail admin */
 
 .crx-logo-custom {
-    width:auto;
-    height:auto;
-    max-height:80px;
-    max-width:100%;
-    display: block;
+  width: auto;
+  height: auto;
+  max-height: 80px;
+  max-width: 100%;
+  display: block;
 }
 .crx-logo-container {
   box-sizing: border-box;
   margin: 0 15px;
 }
 .crx-logo-container.navbar-light {
-    background-color: #fff;
-    border-radius: 6px;
-    padding: 0.25em;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 0.25em;
 }
 .crx-logo-container.navbar-dark {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 
 /* Display the optional banner above main content */
 
 .crx-banner {
-    position: absolute;
-    z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 .crx-banner ~ .content-wrapper {
     padding-top: calc(1.5em + 8px);

@@ -1,12 +1,5 @@
-.figure img {
-  border-radius: 0.25rem;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
-}
-
-.figure .caption {
-  color: #6C6C6C;
+.caption-text {
   font-style: italic;
-  margin-top: 0.5rem;
 }
 
 pre .c,
@@ -19,5 +12,5 @@ pre .sd {
 .sponsor {
   font-size: 0.9em;
   line-height: 1.2em;
-  max-width: 275px;
+  text-decoration: none;
 }

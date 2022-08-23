@@ -47,7 +47,7 @@
       </ul>
       {% endfor %}
       {% if settings.coderedcms.LayoutSettings.navbar_search %}
-      <form class="d-flex ms-auto" action="{% url 'codered_search' %}" method="GET">
+      <form class="d-flex ms-auto" action="{% url 'crx_search' %}" method="GET">
           {% load django_bootstrap5 %}
           {% get_searchform request as form %}
           {% bootstrap_form form layout='inline' %}

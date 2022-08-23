@@ -91,6 +91,13 @@ Updating Python code & Django templates
 #. Find and replace ``codered_banner.html`` with ``crx_banner.html`` in your
    Python and HTML code.
 
+#. Find and replace the following URL names in your Python and HTML code:
+
+   * ``codered_favicon`` with ``crx_favicon``
+   * ``codered_robots`` with ``crx_robots``
+   * ``codered_search`` with ``crx_search``
+   * ``codered_sitemap`` with ``crx_sitemap``
+
 #. Make and run migrations:
 
    .. code-block:: text

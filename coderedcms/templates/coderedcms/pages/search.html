@@ -22,7 +22,7 @@
 <div class="container">
   {% block search_form %}
   {% if not settings.coderedcms.LayoutSettings.navbar_search %}
-  <form class="mt-5" action="{% url 'codered_search' %}" method="GET">
+  <form class="mt-5" action="{% url 'crx_search' %}" method="GET">
     <div class="row">
       <div class="col-8 col-sm-9">
         {% bootstrap_form form size="lg" layout="inline" server_side_validation=False %}

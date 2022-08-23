@@ -104,18 +104,18 @@ if TYPE_CHECKING:
 logger = logging.getLogger("coderedcms")
 
 
-CODERED_PAGE_MODELS = []
+CRX_PAGE_MODELS = []
 
 
 def get_page_models():
-    return CODERED_PAGE_MODELS
+    return CRX_PAGE_MODELS
 
 
 class CoderedPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
         if not cls._meta.abstract:
-            CODERED_PAGE_MODELS.append(cls)
+            CRX_PAGE_MODELS.append(cls)
 
 
 class CoderedTag(TaggedItemBase):

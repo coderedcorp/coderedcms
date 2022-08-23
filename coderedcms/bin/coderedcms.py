@@ -60,11 +60,11 @@ class CreateProject(TemplateCommand):
         # Handle custom template logic
         import coderedcms
 
-        codered_path = os.path.dirname(coderedcms.__file__)
+        crx_path = os.path.dirname(coderedcms.__file__)
         if not options["template"]:
             options["template"] = "basic"
         template_path = os.path.join(
-            os.path.join(codered_path, "project_template"), options["template"]
+            os.path.join(crx_path, "project_template"), options["template"]
         )
 
         # Check if provided template is built-in to coderedcms,

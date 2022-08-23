@@ -12,7 +12,7 @@ class CoderedStreamField(StreamField):
 
     Since our StreamFields are generally huge, and we also let sites override
     the blocks in our concrete models dynamically, this creates a slew of
-    migration problems (most commonly: a client overrides CODERED_FRONTEND_*,
+    migration problems (most commonly: a client overrides CRX_FRONTEND_*,
     which changes a string used in a concrete model, which triggers a migration
     back in coderedcms). Eliminiating the blocks from the deconstructed
     StreamField allows us to have dynamic streamfields without breaking

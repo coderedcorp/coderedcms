@@ -15,9 +15,9 @@ from coderedcms.views import (
 
 urlpatterns = [
     # CodeRed custom URLs
-    path(r"favicon.ico", favicon, name="codered_favicon"),
-    path(r"robots.txt", robots, name="codered_robots"),
-    path(r"sitemap.xml", sitemap, name="codered_sitemap"),
+    path(r"favicon.ico", favicon, name="crx_favicon"),
+    path(r"robots.txt", robots, name="crx_robots"),
+    path(r"sitemap.xml", sitemap, name="crx_sitemap"),
     re_path(
         r"^{0}(?P<path>.*)$".format(
             crx_settings.CRX_PROTECTED_MEDIA_URL.lstrip("/")

@@ -51,7 +51,7 @@ Custom CSS
 A Django app called ``website`` has been created to hold your custom changes. In website/static/
 there are custom.css and custom.js files that get loaded on every page by default. Adding
 anything to these files will automatically populate on the site and override any default styles.
-By default, Bootstrap 4 and jQuery are already included on the site.
+By default, Bootstrap 5 is already included on the site.
 
 .. note::
     You can also use Bootstrap color and utility classes in the **Custom CSS** fields on your pages in CMS.

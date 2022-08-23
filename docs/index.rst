@@ -1,26 +1,24 @@
-Wagtail CRX Documentation
-=========================
+Wagtail CRX (CodeRed Extensions)
+================================
 
 `Official website <https://www.coderedcorp.com/cms/>`_ | `Source code on GitHub <https://github.com/coderedcorp/coderedcms>`_
 
-Formerly known as CodeRed CMS, Wagtail CRX (short for Wagtail + CodeRed
-Extensions), provides a large set of enhancements and pre-built components for
-Wagtail which are ready to use out-of-the box. This saves development time and
-avoids "re-inventing the wheel" by providing features commonly needed by
-websites:
+CRX, formerly known as CodeRed CMS, provides a large set of enhancements and
+pre-built components for Wagtail which are ready to use out-of-the box! This
+saves development time and avoids "re-inventing the wheel" by providing features
+commonly needed by websites:
 
-* Streamfield blocks and templates for Bootstrap 4: rows, columns, hero units,
-  carousels, buttons, modals, cards, and more!
+* Streamfield blocks and page templates for Bootstrap 5: rows, columns, hero
+  units, carousels, buttons, modals, cards, and more!
 
 * Settings for adding logo, navigation, footer, and other common elements.
 
 * Rich set of SEO tagging attributes on each page.
 
-* Configurable Google Analytics tracking.
+* Configurable Google Analytics and other tracking.
 
 * Robust form builder including the ability for multi-step forms, conditional
-  logic, customized confirmation emails, MailChimp integration, and more (all
-  from within the streamfield!)
+  logic, customized confirmation emails, MailChimp integration, and more.
 
 * Article pages for building blogs, news, etc.
 

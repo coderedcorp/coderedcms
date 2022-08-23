@@ -16,11 +16,14 @@ flagging non-production environments like staging. For example::
 
 You can include basic HTML code, such as a link, in the banner.
 
-The banner defaults to a background color of red and a text color of white. If
-you want to customize this for a particular environment, you can; for example::
+The banner defaults to yellow background and black text. If you want to
+customize the color, you can specify any HTML color name or code. For example::
 
     CRX_BANNER_BACKGROUND = '#FFFFE0'	# light yellow background
     CRX_BANNER_TEXT_COLOR = '#000'		# black text color
+
+For greater customization, you can fully override the banner's HTML template:
+``coderedcms/includes/crx_banner.html``.
 
 
 CRX_BANNER_BACKGROUND
@@ -40,7 +43,7 @@ CRX_FRONTEND_*
 
 Various frontend settings to specify defaults and choices used in the wagtail
 admin related to rendering blocks, pages, and templates. By default, all
-CRX_FRONTEND_* settings are designed to work with Bootstrap 4 CSS framework, but
+CRX_FRONTEND_* settings are designed to work with Bootstrap 5 CSS framework, but
 these can be customized if using a different CSS framework or theme variant.
 
 `Available settings are defined here <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/settings.py>`.

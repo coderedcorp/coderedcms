@@ -4,7 +4,7 @@ from django.test import override_settings, TestCase
 
 
 EXPECTED_BANNER_HTML = """
-<div class="crx-banner" style="background-color:#f00; color:#fff; width:100%; padding:4px;">
+<div class="crx-banner" style="background-color:#ff0; color:#000; text-align:center; padding:4px;">
   Test
 </div>
 """

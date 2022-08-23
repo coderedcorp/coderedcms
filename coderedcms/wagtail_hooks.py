@@ -89,7 +89,7 @@ hooks.register("after_delete_snippet", clear_wagtailcache)
 
 
 @hooks.register("filter_form_submissions_for_user")
-def codered_forms(user, editable_forms):
+def crx_forms(user, editable_forms):
     """
     Add our own CoderedFormPage to editable_forms, since wagtail is unaware
     of its existence. Essentially this is a fork of wagtail.contrib.forms.get_forms_for_user()

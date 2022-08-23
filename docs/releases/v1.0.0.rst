@@ -23,7 +23,10 @@ New features
 * Added hidden "skip navigation" link for accessibility.
 
 * Most settings have been consolidated in the Wagtail admin under
-  **Settings > CRX Settings**
+  **Settings > CRX Settings**.
+
+* Banner color has been changed from red to yellow, and appearance is slightly
+  improved in the Wagtail admin.
 
 * Codebase has been formatted with ``black`` to improve readability and
   maintainability.
@@ -40,8 +43,8 @@ Upgrade instructions
    It is highly recommended to first upgrade and deploy your site in production
    with version 0.25 before performing the upgrade to 1.0.
 
-Updating Python code
-''''''''''''''''''''
+Updating Python code & Django templates
+'''''''''''''''''''''''''''''''''''''''
 
 #. Run ``pip install coderedcms==1.0.*`` and update your ``requirements.txt``
    with ``coderedcms==1.0.*``.
@@ -75,7 +78,7 @@ Updating Python code
 #. Find and delete any references to ``ADASettings`` in your Python and HTML
    code.
 
-#. Find and replace the following references in both Python and HTML code:
+#. Find and replace the following references in your Python and HTML code:
 
    * ``GeneralSettings``
    * ``GoogleApiSettings``
@@ -84,6 +87,16 @@ Updating Python code
    with:
 
    * ``LayoutSettings``
+
+#. Find and replace ``codered_banner.html`` with ``crx_banner.html`` in your
+   Python and HTML code.
+
+#. Find and replace the following URL names in your Python and HTML code:
+
+   * ``codered_favicon`` with ``crx_favicon``
+   * ``codered_robots`` with ``crx_robots``
+   * ``codered_search`` with ``crx_search``
+   * ``codered_sitemap`` with ``crx_sitemap``
 
 #. Make and run migrations:
 

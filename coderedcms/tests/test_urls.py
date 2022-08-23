@@ -45,14 +45,14 @@ class TestSiteURLs(unittest.TestCase):
 
     def test_search(self):
         response = self.client.get(
-            reverse("codered_search"), {"s": "Test Search Query"}, follow=True
+            reverse("crx_search"), {"s": "Test Search Query"}, follow=True
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(response.context["results"], None)
 
         response = self.client.get(
-            reverse("codered_search"),
+            reverse("crx_search"),
             {
                 "s": "keyword",
                 "t": "t",

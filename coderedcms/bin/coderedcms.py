@@ -86,7 +86,7 @@ class CreateProject(TemplateCommand):
 
         if options.get("domain"):
             message += " (%(domain)s)"
-            # Stip protocol out of domain if it is present.
+            # Strip protocol out of domain if it is present.
             options["domain"] = options["domain"].split("://")[-1]
             # Figure out www logic.
             if options["domain"].startswith("www."):

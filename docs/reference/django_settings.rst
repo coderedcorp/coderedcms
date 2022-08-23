@@ -16,11 +16,14 @@ flagging non-production environments like staging. For example::
 
 You can include basic HTML code, such as a link, in the banner.
 
-The banner defaults to a background color of red and a text color of white. If
-you want to customize this for a particular environment, you can; for example::
+The banner defaults to yellow background and black text. If you want to
+customize the color, you can specify any HTML color name or code. For example::
 
     CRX_BANNER_BACKGROUND = '#FFFFE0'	# light yellow background
     CRX_BANNER_TEXT_COLOR = '#000'		# black text color
+
+For greater customization, you can fully override the banner's HTML template:
+``coderedcms/includes/crx_banner.html``.
 
 
 CRX_BANNER_BACKGROUND

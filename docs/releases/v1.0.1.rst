@@ -1,0 +1,7 @@
+v1.0.1 release notes
+====================
+
+Bug fixes
+---------
+
+* Remove bundled jQuery files which are no longer used.

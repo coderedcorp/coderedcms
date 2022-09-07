@@ -9,8 +9,7 @@
       </a>
     </li>
     <li class="page-item disabled">
-      <span class="page-link">{% trans 'Page' %} {{ items.number }} {% trans 'of' %} {{ items.paginator.num_pages
-        }}</span>
+      <span class="page-link">{% trans 'Page' %} {{ items.number }} {% trans 'of' %} {{ items.paginator.num_pages }}</span>
     </li>
     <li class="page-item {% if not items.has_next %}disabled{% endif %}">
       <a class="page-link" href="{% if items.has_next %}?{% query_update request.GET 'p' items.next_page_number as q %}{{q.urlencode}}{% else %}#{% endif %}" aria-label="Next">

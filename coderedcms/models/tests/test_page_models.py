@@ -1,5 +1,5 @@
 from django.test import Client
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,
@@ -130,19 +130,19 @@ class ConcreteFormPageTestCase(ConcreteBasicPageTestCase):
         self.assertFalse(hasattr(response, "is_spam"))
 
 
-class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedArticleIndexPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedArticleIndexPage
 
 
-class CoderedArticlePageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedArticlePageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedArticlePage
 
 
-class CoderedFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedFormPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedFormPage
 
 
-class CoderedPageTestCase(WagtailPageTests):
+class CoderedPageTestCase(WagtailPageTestCase):
     model = CoderedPage
 
     def test_not_available(self):
@@ -150,73 +150,73 @@ class CoderedPageTestCase(WagtailPageTests):
         self.assertTrue(self.model in get_page_models())
 
 
-class CoderedWebPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedWebPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedWebPage
 
 
-class CoderedLocationIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedLocationIndexPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedLocationIndexPage
 
 
-class CoderedLocationPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedLocationPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedLocationPage
 
 
-class CoderedEventIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedEventIndexPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedEventIndexPage
 
 
-class CoderedEventPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedEventPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedEventPage
 
 
-class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
+class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTestCase):
     model = CoderedStreamFormPage
 
 
 # -- CONCRETE PAGES ------------------------------------------------------------
 
 
-class ArticlePageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class ArticlePageTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     model = ArticlePage
 
 
-class ArticleIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class ArticleIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     model = ArticleIndexPage
 
 
-class FormPageTestCase(ConcreteFormPageTestCase, WagtailPageTests):
+class FormPageTestCase(ConcreteFormPageTestCase, WagtailPageTestCase):
     model = FormPage
 
 
-class WebPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class WebPageTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     model = WebPage
 
 
-class EventIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class EventIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     model = EventIndexPage
 
 
-class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     model = EventPage
 
 
-class LocationIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class LocationIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     model = LocationIndexPage
 
 
-class LocationPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class LocationPageTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     model = LocationPage
 
 
-class StreamFormPageTestCase(ConcreteFormPageTestCase, WagtailPageTests):
+class StreamFormPageTestCase(ConcreteFormPageTestCase, WagtailPageTestCase):
     model = StreamFormPage
 
 
 # -- PAGES FOR TESTING SPECIFIC FUNCTIONALITY ----------------------------------
 
 
-class IndexTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
+class IndexTestCase(ConcreteBasicPageTestCase, WagtailPageTestCase):
     """
     Tests indexing features (show/sort/filter child pages).
     """

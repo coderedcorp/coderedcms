@@ -1,12 +1,12 @@
 from django.test import Client
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Site
 
 from coderedcms.tests.testapp.models import WebPage
 from coderedcms.models.wagtailsettings_models import AnalyticsSettings
 
 
-class AnalyticsSettingsTestCase(WagtailPageTests):
+class AnalyticsSettingsTestCase(WagtailPageTestCase):
     """
     Test that the relevant analytics settings appear in the homepage HTML.
     """

@@ -1,5 +1,5 @@
 from django.test import Client
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 from wagtail.models import Site
 
 from coderedcms.tests.testapp.models import WebPage
@@ -11,7 +11,7 @@ from coderedcms.models.wagtailsettings_models import (
 )
 
 
-class NavbarFooterTestCase(WagtailPageTests):
+class NavbarFooterTestCase(WagtailPageTestCase):
     """
     Test that the relevant navbar chooser settings appear in the homepage HTML.
     """

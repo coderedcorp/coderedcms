@@ -6,7 +6,11 @@ class ColorPickerWidget(forms.TextInput):
 
 
 class ClassifierSelectWidget(forms.CheckboxSelectMultiple):
-    template_name = "coderedcms/widgets/checkbox_classifiers.html"
+    import sys
+    if sys.modules['wagtail'].__version__ >= '4.0':
+        template_name = "coderedcms/widgets/checkbox_classifiers.html"
+    else:
+        template_name = "coderedcms/widgets/checkbox_classifiers_old.html"
 
     def optgroups(self, name, value, attrs=None):
         from coderedcms.models.snippet_models import Classifier

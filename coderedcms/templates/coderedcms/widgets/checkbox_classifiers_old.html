@@ -1,0 +1,42 @@
+{% if widget.optgroups %}
+{% with id=widget.attrs.id %}
+<div class="field-row {{ widget.attrs.class }}" {% if id %}id="{{ id }}"{% endif %}>
+  {% for group, options, index in widget.optgroups %}
+  {% if group %}
+  <div class="field-col col4">
+    <ul class="crx-checkbox-group">
+      <li><label>{{ group }}</label>
+        {% endif %}
+        <ul {% if id %}id="{{ id }}_{{ index }}"{% endif %}>
+          {% for option in options %}
+          <li>{% include option.template_name with widget=option %}</li>
+          {% endfor %}
+        </ul>
+        {% if group %}
+      </li>
+    </ul>
+  </div>
+  {% endif %}
+  {% if forloop.counter|divisibleby:3 %}
+  <div class="clearfix"></div>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endwith %}
+{% else %}
+{% load i18n %}
+<div class="crx-callout">
+  <div class="crx-big-icon icon icon-snippet"></div>
+  <h3>
+    {% trans "Organize Pages with Classifiers" %}
+  </h3>
+  <p>
+    {% trans "Use Classifiers to create custom categories and filters."%}
+  </p>
+  <div>
+    <a class="button bicolor icon icon-plus" href="{% url 'wagtailsnippets:add' 'coderedcms' 'classfier' %}">
+      {% trans "Add Classifier" %}
+    </a>
+  </div>
+</div>
+{% endif %}

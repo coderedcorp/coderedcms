@@ -15,7 +15,11 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
 )
 from wagtail.models import Orderable
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+try:
+    from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+except ImportError:
+    #wagtail<4.0
+    from wagtail.contrib.settings.models import BaseSetting as BaseSiteSetting, register_setting
 from wagtail.images import get_image_model_string
 from coderedcms.fields import MonospaceField
 from coderedcms.settings import crx_settings

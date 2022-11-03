@@ -1,5 +1,9 @@
 from django.test import Client
-from wagtail.test.utils import WagtailPageTestCase
+try:
+    from wagtail.test.utils import WagtailPageTestCase
+except ImportError:
+    #wagtail<4.1
+    from wagtail.test.utils import WagtailPageTests as WagtailPageTestCase 
 
 from coderedcms.models.page_models import (
     CoderedArticleIndexPage,

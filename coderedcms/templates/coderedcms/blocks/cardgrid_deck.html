@@ -1,11 +1,8 @@
-{% extends "coderedcms/blocks/grid_block.html" %}
-{% load wagtailcore_tags %}
-{% block grid_content %}
+{% extends "coderedcms/blocks/grid_block.html" %} {% load wagtailcore_tags %} {%
+block grid_content %}
 <div class="row {{self.settings.custom_css_class}}">
-  <div class="col">
-    {% for block in self.content %}
-    {% include_block block %}
-    {% endfor %}
-  </div>
+  {% for block in self.content %}
+  <div class="col">{% include_block block %}</div>
+  {% endfor %}
 </div>
 {% endblock %}

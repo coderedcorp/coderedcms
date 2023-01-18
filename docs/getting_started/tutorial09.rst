@@ -1,70 +1,55 @@
-Tutorial Part 9: Images
-=======================
+Tutorial Part 9: SEO Metadata
+=============================
 
-The Media you add to your site in the CMS is an important part of your page design. Images catch people's eyes,
-and good images make good impressions. Let's go over some ways that you can optimize your images for
-your website.
+Wagtail CRX includes all of the technical tools you need to populate your site
+with good SEO data.
 
-Preparing your images for upload
---------------------------------
 
-The CMS will accept the following file types for images:
+Enabling SEO Metadata
+---------------------
 
-* **GIF**
+To enable or disable different types of metadata, go to **Settings > SEO**. This
+will take you to the SEO settings.
 
-* **JPEG/JPG**
+.. figure:: img/tutorial_settings_seo_global.png
+    :alt: Settings admin for SEO.
 
-* **PNG**
+    The Settings admin for SEO.
 
-* **WEBP**
+SEO settings for best practices are already selected for you, but you can change this if you would like.
 
-If your image is not saved in any of these formats, you need to convert your image or save your image again
-in one of these formats.
 
-To keep your website fast, large image files should never be uploaded. If your
-image file exceeds **10.0 MB**, it will not be able to be uploaded. You will
-need to decrease the file size. This can be done using an editing program, like
-Photoshop or `GIMP (free) <https://www.gimp.org/>`_. You can also use sites like
-`BeFunky <https://www.befunky.com/>`_ to re-size your images. Make them smaller
-by changing the dimensions of the image.
+Adding SEO metadata to your pages
+---------------------------------
 
-.. note::
+Now you will want to add SEO metadata to your pages in the CMS. This can be easily done from the page editor.
+In the admin, navigate to the page that you want to add SEO, click the Edit option, and go to the **SEO tab**
+at the top of the page editor. These are the options that you will see in the page-level SEO editor for Home page:
 
-    Photos should ideally be no larger than around 200KB to 300KB. A file size
-    that is too large will slow down your site. Ideally, images published on a
-    website should not be more than 2,000px for the width or the height. Check
-    out this awesome tutorial on `Image Sizes from Shutterstock
-    <https://www.shutterstock.com/blog/common-aspect-ratios-photo-image-sizes>`_
-    to learn more.
+.. figure:: img/tutorial_page_seo_options.png
+    :alt: Page options for SEO.
 
-In some cases, you may want to crop your image so that the part that you want to
-focus on is more in the frame.
+    The page options for SEO in the Home page.
 
-Ways to upload your images
---------------------------
+The most important section to fill out is the **Page Meta Data**.
 
-While you have already practiced uploading images from within the page editors, you can also upload images in bulk.
-Go to **Images** from the admin bar. There, you will be able to either drag and drop your images into the upload area,
-or upload them from your computer using the upload button. Use descriptive names and/or image tags for the images so
-that you can easily search for them and use them in your pages. These tags are for admin use only --- they do not appear
-anywhere to visitors of your website.
+* **Slug**: This is part of the URL. For example, it would be yoursite.com/home, with the "home" being the slug.
 
-.. figure:: img/tutorial_images_upload_admin.png
-    :alt: Upload admin for Images.
+* **Page Title**: You could just use your actual page title, but if you want something more specific or search-engine detailed, you can add one specifically for SEO.
 
-    The upload admin for Images.
+* **Search Description**: This is a tagline or brief description of what the page is about. It should contain the most important keyword/s.
 
-CMS editing tools for images
-----------------------------
+* **Open Graph Preview Image**: If people share your page on social media sites, this sets a small photo to display with the page link.
 
-While the majority of your image editing should be done in an actual image editor, Wagtail does provide some tools to help you
-optimize your images for your site.
+* **Structured Data**: These are a set of fields pertaining to your
+  organization, such as open hours, address, organization type, etc., which
+  search engines use for pulling up company information to display in search
+  results or in maps. Structured Data fields should be added on the Home page,
+  and also on any page representing a physical location For example, if we had
+  additional branch locations of our cupcake shop, we would want to add the
+  relevant structured data on each branch's page.
 
-.. figure:: img/tutorial_images_editor.png
-    :alt: CMS editor for Images.
+To save, just **Publish** the page as normal.
 
-    The CMS editor for Images.
-
-The title can either be the name of the image or a custom title. You can also add tags to your images for easy searching in the CMS.
-The **Focal Point** is optional, but it defines the image's most important region. Move your cursor over the image while you see a + sign,
-then release your cursor or mouse when you have finished defining the focal point.
+For information about metadata best practices, see the `SEO Starter Guide from
+Google <https://support.google.com/webmasters/answer/7451184?hl=en>`_

@@ -1,6 +1,10 @@
 Installation
 ============
 
+.. note::
+     The tutorial uses Sass Support. If you you want to follow the tutorial use Sass support.  See:
+     :ref:`sass_install`
+
 
 Basic Installation
 ------------------
@@ -50,10 +54,7 @@ Basic Installation
 
 ✨🎉 You now have Wagtail CRX up and running! 🎉✨
 
-Follow the tutorial to build: :doc:`tutorial01`.
-
-You can also play around with our tutorial database. Learn more: :ref:`load-data`.
-
+.. _sass_install:
 
 Installing with Sass Support
 ----------------------------
@@ -98,31 +99,7 @@ When working with Sass, you will want to look at the base.html file provided at:
 ``mysite/website/templates/coderedcms/pages/base.html`` to load in any custom
 CSS or JavaScript as needed.
 
-.. _load-data:
-
-Adding Our Tutorial Database
-----------------------------
-
-You can follow along with our tutorial and upload your own pictures and content; however,
-we have included our database data from our tutorial project so you can take a tour inside of
-the project and play around with it. The database is located in ``website > fixtures > database.json``.
-
-Follow these steps to upload it:
-
-1. Navigate to the tutorial project in the Command Line by going to ``coderedcms > tutorial > mysite``. 
-
-2. In a fresh virtual environment, type ``pip install -r requirements.txt`` to set up the requirements for the project.
-
-3. Set up your database like usual. If you want to use a database other than the default ``sqlite3``, you will need to set it up first. It will be an empty database for now.
-
-4. Do the initial migration for the tutorial site with ``python manage.py migrate``.
-
-5. Navigate to the ``database.json`` file in the Fixtures folder and copy the path to the file. 
-
-6. From the Command Line, type ``python manage.py loaddata "path/to/database.json"``, replacing that last part with the correct path to the file.
-
-7. Check to see if it worked by running ``python manage.py runserver``. You should now see our tutorial project with all of the content we have added to the site. It's ready for you to play around with it!
-
+Follow the tutorial to build: :doc:`tutorial01`.
 
 Starter Templates
 -----------------
@@ -130,12 +107,12 @@ Starter Templates
 You can start a new Wagtail CRX project with a custom template directory available on
 or at a URL using the ``--template`` option. Additionally, we provide some built-in templates:
 
-+------------+-----------------------------------------------------------------+
-| Template   | Description                                                     |
-+============+=================================================================+
-| ``basic``  | The default starter project. The simplest option, good for most |
-|            | sites.                                                          |
-+------------+-----------------------------------------------------------------+
-| ``sass``   | Similar to basic, but with extra tooling to support SCSS to CSS |
-|            | compilation.                                                    |
-+------------+-----------------------------------------------------------------+
++------------+-------------------------------------------------------------------+
+| Template   | Description                                                       |
++============+===================================================================+
+| ``basic``  | The simplest option, good for many sites.                         |
+|            |                                                                   |
++------------+-------------------------------------------------------------------+
+| ``sass``   | Similar to basic, but with extra tooling to support SCSS to CSS   |
+|            | compilation. Used in the tutorial                                 |
++------------+-------------------------------------------------------------------+

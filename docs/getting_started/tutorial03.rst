@@ -1,151 +1,149 @@
-Tutorial Part 3: Navbar & Footer
-================================
+Tutorial Part 3: Adding Content, Custom CSS
+===========================================
 
-Let's begin to work on our navigation and footer setup.
-
-.. _navbar:
-
-Customizing the navigation
---------------------------
-
-The general layout of your navbar can be found in the **Settings > CRX Settings**
-section of the Wagtail Admin. We previously discussed choosing a dark or
-light navbar and adding Bootstrap classes, but you can also add/remove the
-Search bar, set it to fixed (stays at the top even when you scroll) or full-width,
-decide on which screen size it will collapse into a menu hamburger, and whether to
-center the logo at the top or keep it toward the left-hand side.
-
-.. note::
-    In Layout, we added the Bootstrap background color class ``bg-warning`` but you can choose whatever
-    you like for your site. We also decided to remove the Search Bar from the Navbar by de-selecting the
-    option to show the Search Bar. It's recommended to review all of the available settings, and go ahead
-    and play around with them!
-
-Create your menus
------------------
-
-Your navbar will have links to your other pages or external content that you want
-to share. To build your menu, go to **Snippets > Navigation Bars**.
-
-In the top right-hand corner is a button that says **Add Navigation Bar**.
-Click on this button to start! (Alternatively, you can also click on the link that says "Why not add one?")
-
-.. figure:: img/tutorial_new_nav_edit1.png
-    :alt: The edit screen for adding a navbar.
-
-    The edit screen for adding a new navbar
-
-Name your navbar. In this case, this will be our main navigation bar so we have simply named it
-Main Nav.
-
-There are three types of links that you can add to your navbar. Let's briefly describe each one:
-
-* **Page link with sub-links** - Add links to pages from within your website. Add sub-links for dropdown items.
-
-* **External link with sub-links** - Add external links from other websites to your site, as well as sub-links.
-
-* **Document link with sub-links** - Add document links with sub-links to your navbar.
-
-We don't have any other pages set up yet, but we can still create our menu. For now, we will just link to
-the Home page and update it once we have more pages.
-
-.. figure:: img/tutorial_navbar_add_item1.png
-    :alt: Adding a menu item with page link.
-
-    The edit screen with our first navbar item.
-
-Continue to add as many navbar items as you want for your website. You can always edit your menu and add more
-top-level items or dropdowns as you make more pages. We are going to start with our three most important ones
-for our sweets shop!
-
-.. figure:: img/tutorial_navbar_front1.png
-    :alt: Our menu added to the navbar - front view.
-
-    The website with our menu added. Also note that we are using some Bootstrap colors on the site.
-
-Site Navbars Settings
----------------------
-
-After you create your navbar, go to **Settings > CRX Settings** and scroll down to **Site Navbars**. Click on the plus sign
-to select your new navbar and add it to your site. The Save.
-
-.. _footer:
-
-Customizing the Footer
-----------------------
-
-Now, let's head down to work on the footer, which is another menu of links. You can add more links in the footer
-that maybe won't belong in the main navigation but are still important. Go to **Snippets > Footers** to begin
-working on the footer. In the top right-hand corner is a button that says **Add Footer**. Click on this button to start!
-(Alternatively, you can also click on the link that says "Why not add one?")
-
-Give your footer a name. We choose Main Footer since this will be the main footer for our site.
-
-Let's get some practice with Responsive Grid Rows and Columns! We want to make a 4-column footer with our logo in the
-first column, our sub-page links in the second column, our main page links in the third column, and contact
-information in the fourth column. Don't worry - This is actually going to be easy!
-
-.. note::
-    To keep up with our color scheme, we have also added a Bootstrap background color class to the
-    Attributes section. See `Bootstrap color utilities <https://getbootstrap.com/docs/4.3/utilities/colors/#background-color>`_.
-
-.. figure:: img/tutorial_footer_edit1.png
-    :alt: Getting started on our footer.
-
-    The edit screen as we prepare to begin adding the layout for the footer.
-
-To set up our 4-column footer, choose **Responsive Grid Row** from the layout choices at the bottom. Now click on
-**Add Column**. You can specify the column size in the dropdown that says **Column size**. Since we want to have
-four evenly sized columns, we are going to choose a 1/4 Column size.
-
-.. note::
-    Bootstrap uses a 12-column grid, and our footer is going to span the entire 12 columns. To figure out
-    how to size our columns, we do some math. We are slicing up the 12-column grid into fourths to have four columns,
-    so our columns need to be 1/4 each. Read more about Bootstrap grids and columns here: `Bootstrap Grid <https://getbootstrap.com/docs/4.0/layout/grid/>`_.
-
-From within the Responsive Grid Row block, keep selecting the + sign below your **Column** until you have all of
-the columns that you need. Then remember to make sure to choose the size of the column if you have a particular
-layout in mind. Otherwise, it will automatically size on its own.
-
-.. figure:: img/tutorial_footer_edit2.png
-    :alt: Our Responsive Grid Row and Columns set up.
-
-    The edit screen as we set up our layout for the footer.
-
-Add Content to the Footer
--------------------------
-
-Now that we have our layout, let's begin adding content! You see that there are several different choices for content
-available within the column block.
-
-1. We're going to choose the **Image Link** block in the first column so that we can add
-our logo and link to the Home page.
-
-    .. figure:: img/tutorial_imagelink_example.png
-        :alt: Our logo added as an image, the Home page linked, and Alt Text added.
-
-        The edit screen for the Image Link block in our first column.
-
-2. In the second through fourth columns, we are going to choose the Text block and list the Pages that we want to
-link to and our contact information. You can add links in the text block by highlighting the text and selecting the chain-link icon,
-then choosing which page or external link you want. See our example below:
-
-    .. figure:: img/tutorial_footer_edit3.png
-        :alt: Our footer with our text blocks and page links added.
-
-        The edit screen for our footer with our content added.
-
-3. Once you're happy with your Footer, hit **Save**. Let's see what it looks like!
-
-    .. figure:: img/tutorial_footer_previews.png
-        :alt: What our footer looks like on the website.
-
-        What our footer looks like on the website.
-        Remember, we have done minimal styling on the site.
+Now let's start adding some content to our site.
 
 
-Site Footers Settings
----------------------
+Adding a hero unit to the home page
+-----------------------------------
 
-After you create your footer, go to **Settings > CRX Settings** and scroll down to **Site Footers**. Click on the plus sign
-to select your new footer and add it to your site. The Save.
+In the admin dashboard, select **Pages >**. This will open a tree-style view of all the pages
+on our site. You will see all the pages we added. Click the pencil icon to edit the home page, or click
+"Home" and then the "Edit" button.
+
+Here in the body section is where we can add our content. Each component in this section is called
+a "block" and provides a different format of content. Wagtail CRX is heavily based on Bootstrap CSS
+and its grid system, which means all content is based in rows and columns that dynamically stack depending
+on the visitor's screen size.
+
+First, let's make a big flashy hero unit. A hero unit in Wagtail CRX is a block that allows for
+a full-width background image or background color, and has lots of padding by default.
+
+Select the **Hero Unit** block. Next set a background image or color - we are going to download and use
+`this image <https://pixabay.com/photos/laboratory-analysis-chemistry-2815641/>`_ from `Pixabay <https://pixabay.com>`_.
+
+Now to add content to our hero unit, under the Content field select **Responsive Grid Row** and then
+a **Column**. Inside our column, we will add **Text** and format it.
+
+
+Next, click the small "+" icon directly below the text field. This will let you add another block
+directly below the text, but still in the same column.
+
+Select the **Button Link** block. There are a few options here.  We are going to do Page Link and link it to
+"What's happening at CRX-Pharma" page. Change the only required field **Button Title** to "Read Our Blog", and change the **Button Size** to large.
+
+My editing page now looks like this (ignore the misplaced side menu, that is just a result of the screenshot):
+
+.. figure:: images/tut03/hero_unit_editor.jpeg
+    :alt: The home page editor after adding a hero unit.
+
+    The home page editor after adding a hero unit.
+
+Next click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
+Great success!
+
+.. figure:: images/tut03/hero_unit.jpeg
+    :alt: The home page preview after adding a hero unit.
+
+    The home page preview after adding a hero unit.
+
+Custom CSS
+----------
+
+You may have noticed that the white text in our hero was a little hard to read.
+Let's add text shadow to the text with CSS to make it stand out from the backdrop.
+
+* In your file explorer go to **mysite>website>static>website>src>custom.scss**
+* Add the following code under *// Add your custom styles here.* (line 26) :
+
+.. code-block::
+
+    .text-shadow {
+        text-shadow: $dark 1px 1px 12px;
+    }
+
+* We will also add this :
+
+.. code-block::
+
+    body {
+        background-color: #a4f1e9;
+    }
+
+* Next we will remove the global body color (line 36) in the **mysite>website>static>website>src>_variables.scss** file
+because it's changing the background-color of the inputs.  This is another way to alter the colors of the site.  We will see a few more
+examples throughout the tutorial.
+
+* Compile the sass. In your terminal:
+
+    * Stop your server with `ctrl + c`.
+
+    * Run:
+
+.. code-block:: console
+
+     $ python manage.py sass website/static/website/src/custom.scss website/static/website/css/custom.css
+
+
+* Restart server with `python manage.py runserver`
+
+Lets use that CSS class *text-shadow* we just made.
+* Back to the home page editor screen, in the column block, click **Advanced Settings**
+* Enter "text-shadow" in the Custom CSS Class field.  See below :
+
+.. figure:: images/tut03/custom_css.jpeg
+    :alt: adding custom CSS
+
+    Adding a custom class
+
+* **Save** and **Publish**
+
+.. figure:: images/tut03/hero_unit_shadow.jpeg
+    :alt: Hero with shadow
+
+    The hero unit with text shadow and the search input background no longer is teal.
+
+
+Adding cards to the home page
+-----------------------------
+
+Next, let's say our company offers three different baked goods, and we would like to add three
+uniformly-sized cards on the home page representing that. Go back to the tab with the home page
+editor. All the way at the bottom of the page, click the "+" icon directly below the "Hero Unit" block.
+This will add a new block directly below the hero unit.
+
+Select the **Card Grid** block. The select **Card** to add the first card. Now fill out the **Title**,
+**Body**, and add a **Button Link** at the bottom.
+
+Next add and fill out two more cards by clicking the "+" icon directly below our current card block.
+
+The editing page now looks like this (ignore the misplaced side menu, that is just a result of the screenshot):
+
+.. figure:: img/tutorial_edit_home2.png
+    :alt: The home page editor after adding a card grid with three cards.
+
+    The home page editor after adding a card grid with three cards.
+
+Next click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
+Lookin' good!
+
+.. figure:: img/tutorial_front_home2.png
+    :alt: The home page preview after adding the card grid.
+
+    The home page preview after adding the card grid.
+
+
+Adding more content to the home page
+------------------------------------
+
+Continue following this pattern to add content. While the **Hero Unit** and **Card Grid** provide
+"special" content formats, the **Responsive Grid Row** is the most general purpose block for adding content,
+and you will probably find yourself using it the most all throughout your site. Of course, there is also an
+**HTML** block for inserting raw HTML if needed.
+
+When you are finished editing the home page, click the arrow next to the "Save Draft" button and select **Publish**.
+
+.. figure:: img/tutorial_publish.png
+    :alt: Publishing a page.
+
+    Publishing a page.

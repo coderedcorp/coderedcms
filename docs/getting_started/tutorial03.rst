@@ -22,17 +22,21 @@ a full-width background image or background color, and has lots of padding by de
 Select the **Hero Unit** block. Next set a background image or color - we are going to download and use
 `this image <https://pixabay.com/photos/laboratory-analysis-chemistry-2815641/>`_ from `Pixabay <https://pixabay.com>`_.
 
-Now to add content to our hero unit, under the Content field select **Responsive Grid Row** and then
-a **Column**. Inside our column, we will add **Text** and format it.
+Now to add content to our hero unit, under the content field select **Responsive Grid Row** and then a **Column**. Inside our column,
+we will add **Text** and format it.
 
+* Add "Building a Healthier World" as an H2 in bold.
+* Add "Research. Discovery. Manufacturing." as an H4 in italics in the same text editor.
 
 Next, click the small "+" icon directly below the text field. This will let you add another block
 directly below the text, but still in the same column.
 
-Select the **Button Link** block. There are a few options here.  We are going to do Page Link and link it to
-"What's happening at CRX-Pharma" page. Change the only required field **Button Title** to "Read Our Blog", and change the **Button Size** to large.
+* Select the **Button Link** block. There are a few options here.
+* We are going to do Page Link and link it to"What's Happening at CRX-Pharma" page.
+* Change the **Button Title** field to "Read Our Blog"
+* Change the **Button Size** to large.
 
-My editing page now looks like this (ignore the misplaced side menu, that is just a result of the screenshot):
+My editing page now looks like this:
 
 .. figure:: images/tut03/hero_unit_editor.jpeg
     :alt: The home page editor after adding a hero unit.
@@ -70,9 +74,9 @@ Let's add text shadow to the text with CSS to make it stand out from the backdro
         background-color: #a4f1e9;
     }
 
-* Next we will remove the global body color (line 36) in the **mysite>website>static>website>src>_variables.scss** file
-because it's changing the background-color of the inputs.  This is another way to alter the colors of the site.  We will see a few more
-examples throughout the tutorial.
+* Next we will remove the global body color $bg-body (line 36) in the **mysite>website>static>website>src>_variables.scss** file
+  because it's changing the background-color of the inputs.  This is another way to alter the colors of the site.
+
 
 * Compile the sass. In your terminal:
 
@@ -87,7 +91,7 @@ examples throughout the tutorial.
 
 * Restart server with `python manage.py runserver`
 
-Lets use that CSS class *text-shadow* we just made.
+Lets use the CSS class *text-shadow* we just made.
 * Back to the home page editor screen, in the column block, click **Advanced Settings**
 * Enter "text-shadow" in the Custom CSS Class field.  See below :
 
@@ -101,49 +105,157 @@ Lets use that CSS class *text-shadow* we just made.
 .. figure:: images/tut03/hero_unit_shadow.jpeg
     :alt: Hero with shadow
 
-    The hero unit with text shadow and the search input background no longer is teal.
+    The hero unit with text shadow and the search input background no longer is light teal.
 
 
 Adding cards to the home page
 -----------------------------
 
-Next, let's say our company offers three different baked goods, and we would like to add three
-uniformly-sized cards on the home page representing that. Go back to the tab with the home page
-editor. All the way at the bottom of the page, click the "+" icon directly below the "Hero Unit" block.
+.. note::
+    We used these images from pixabay in our cards.  You'll need to download them.
+
+    * `stethoscope <https://pixabay.com/photos/laboratory-analysis-chemistry-2815641/>`_
+    * `lab equipment <https://pixabay.com/photos/laboratory-apparatus-equipment-217041/>`_
+    * `colorful brain <https://pixabay.com/illustrations/brain-mind-psychology-idea-drawing-2062057/>`_
+
+Let's add three cards to highlight the company's strengths. Go back to the tab with the home page editor.
+All the way at the bottom of the page, click the "+" icon directly below the "Hero Unit" block.
 This will add a new block directly below the hero unit.
 
-Select the **Card Grid** block. The select **Card** to add the first card. Now fill out the **Title**,
-**Body**, and add a **Button Link** at the bottom.
+* Select the **Card Grid** block.
+* Select **Card** to add the first card.
+* Add an image (stethoscope)
+* Now fill out the **Title** with "Industry Leader in Innovations"
+* Fill out the **Body** with a few sentences of text
+* Add a **Button Link** at the bottom
+* Use **Page Link** and link it to the "About Us" page created in Part 2
+* Fill out **Button Title** with "Our History"
 
-Next add and fill out two more cards by clicking the "+" icon directly below our current card block.
+Next add and fill out two more cards by scrolling down and clicking the "+" icon directly below our current card block.
+The second card should have:
+* An image (lab equipment)
+* **Title** "Unparalleled Manufacturing"
+* **Body** with a few sentences of text
+* **Button Link** with:
+*   **Page Link** to "Our Facility" Page
+*   **Button Title** "Our Facility"
 
-The editing page now looks like this (ignore the misplaced side menu, that is just a result of the screenshot):
+The third card should have:
+* An image (colorful brain)
+* **Title** "Our Philosophy"
+* **Body** with a few sentences of text
+* **Button Link** with:
+*    **Page Link** to "Our Products" Page
+*    **Button Title** "Shop With Us"
 
-.. figure:: img/tutorial_edit_home2.png
-    :alt: The home page editor after adding a card grid with three cards.
+The editing page now looks like this:
 
-    The home page editor after adding a card grid with three cards.
+.. figure:: images/tut03/cards_1.jpeg
+    :alt: The home page editor after adding a card grid with three cards 1 of 2.
+
+    The home page editor after adding a card grid with three cards 1 of 2.
+
+.. figure:: images/tut03/cards_2.jpeg
+    :alt: The home page editor after adding a card grid with three cards 2 of 2.
+
+    The home page editor after adding a card grid with three cards 2 of 2.
 
 Next click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
 Lookin' good!
 
-.. figure:: img/tutorial_front_home2.png
+.. figure:: images/tut03/card_preview.jpeg
     :alt: The home page preview after adding the card grid.
 
     The home page preview after adding the card grid.
+
+.. note::
+ At this point you may notice that the cards aren't the same height.  You can fix this two ways.  One you can add the bootstrap
+ CSS class of h-100 to each card, two you can add `$card-height: 100%` in the _variables.scss.  If you the sass option remember to compile the sass files.
+ You can also use bootstrap classes to get different grid sizes.
+ See bootstrap `docs <https://getbootstrap.com/docs/5.2/components/card/#grid-cards>`_ for more information.
+ Add a class like `row-cols-1 row-cols-md-2` in the custom CSS field on the card grid block to get a grid with 2 cards wide.
+
+We added h-100 to each card as seen here:
+
+.. figure:: images/tut03/h_100.jpeg
+    :alt: card block with custom class of h-100
+
+    Card block with custom class of h-100.  Be sure to do this to each card.
+
+
+.. figure:: images/tut03/card_preview_h100.jpeg
+    :alt: The home page preview with the same size cards.
+
+    The home page preview with the same size cards.
+
 
 
 Adding more content to the home page
 ------------------------------------
 
-Continue following this pattern to add content. While the **Hero Unit** and **Card Grid** provide
-"special" content formats, the **Responsive Grid Row** is the most general purpose block for adding content,
-and you will probably find yourself using it the most all throughout your site. Of course, there is also an
+We'll continue following this pattern to add content. While the **Hero Unit** and **Card Grid** provide
+"special" content formats, the **Responsive Grid Row** is the most general purpose block for adding content. There is also an
 **HTML** block for inserting raw HTML if needed.
 
-When you are finished editing the home page, click the arrow next to the "Save Draft" button and select **Publish**.
+Let's look at this in practice.
 
-.. figure:: img/tutorial_publish.png
-    :alt: Publishing a page.
+* Add a **Responsive Grid Row** below the **Card Grid**
+* Select **Column**
+* Change **Column size** to "Half - 1/2 column"
+* Select **Text**
+* Enter "Our Products" and make it an H2.
+* Enter a few sentences of text under the "Our Products" in the same text editor.
+* Add a Button link to the "Direct to Consumer". (child of Our Products).  Be sure to give a Title.
+* Add a Button link to the "Bulk Sales". (child of Our Products).  Be sure to give a Title.
+* Below the Column Block (second to last "+") Add another **Column**
+* Change **Column size** to "Half - 1/2 column"
+* Add an **Image**  We used `this one <https://pixabay.com/photos/medications-tablets-medicine-cure-1853400/>_`
 
-    Publishing a page.
+.. figure:: images/tut03/our_products_editing.jpeg
+    :alt: Our Products editing Page
+
+    Our Products editing Page.
+
+* **Save** and **Preview**
+
+.. figure:: images/tut03/our_products_preview.jpeg
+    :alt: Our Products preview Page
+
+    Home Page with Our Products added.
+
+We are going to do another more **Responsive Grid Rows**
+
+* Add another Responsive Grid Row
+* Add a Column set it to 1/2 column with this `image <https://pixabay.com/photos/building-hospital-white-modern-2654823/>_`
+* Add a Column set it to 1/2 column add text for Our Facility
+* Add a Button Link under the text block that is linked to Our Facility.
+
+* **Save** and **Preview**
+
+.. figure:: images/tut03/our_facility.jpeg
+    :alt: Home Page with Our Facility added.
+
+    Home Page with Our Facility added
+
+For the Last two **Responsive Grid Rows** you are on your own reference the image last image on this page as a guide.
+Follow these links to get the images. (note: I cropped my images square):
+
+* `doctor 1 <https://pixabay.com/photos/doctor-gray-hair-experience-2337835/>`
+* `doctor 2 <https://pixabay.com/photos/woman-doctor-surgeon-physician-2141808/>`
+
+To get the green background, white text, and proper padding you will want to put "bg-secondary text-white p-5"
+in the Custom CSS field on each column with text.  These are bootstrap classes that come pre-loaded in Wagtail-CRX.
+
+.. figure:: images/tut03/custom_classes.jpeg
+    :alt: bootstrap classes on columns
+
+    Bootstrap classes on columns
+
+Hopefully you were able to follow along and your page looks like this:
+
+.. figure:: images/tut03/home_page_finished.jpeg
+    :alt: home page after tutorial part 3
+
+    home page after tutorial part 3
+
+Next we will look at building a Navbar and Footer

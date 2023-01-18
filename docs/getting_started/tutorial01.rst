@@ -198,3 +198,9 @@ Now hard refresh your browser at http://localhost:8000 and you should see the ne
     :alt: teal background
 
     The global colors have been updated!
+
+.. note::
+    The background color in the search input is not ideal and will be addressed in the part 3 of the tutorial.
+    The goal of the this section was to demonstrate how to use bootstrap variables to change global properties.
+    You can now use bootstrap classes with "primary" and will see the color we set and not the default.
+

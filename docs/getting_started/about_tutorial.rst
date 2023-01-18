@@ -31,7 +31,7 @@ If it does not look like that:
 
 
 .. note::
-    Every time a change is made to the sass we have to compile it and hard refresh the browser.
+    Every time a change is made to the sass files we have to compile it and hard refresh the browser.
 
 
 Follow the tutorial: :doc:`tutorial01`.

@@ -16,9 +16,7 @@ decide on which screen size it will collapse into a menu hamburger, and whether 
 center the logo at the top or keep it toward the left-hand side.
 
 .. note::
-    In Layout, we added the Bootstrap background color class ``bg-warning`` but you can choose whatever
-    you like for your site. We also decided to remove the Search Bar from the Navbar by de-selecting the
-    option to show the Search Bar. It's recommended to review all of the available settings, and go ahead
+    It's recommended to review all of the available settings, and go ahead
     and play around with them!
 
 Create your menus
@@ -30,7 +28,7 @@ to share. To build your menu, go to **Snippets > Navigation Bars**.
 In the top right-hand corner is a button that says **Add Navigation Bar**.
 Click on this button to start! (Alternatively, you can also click on the link that says "Why not add one?")
 
-.. figure:: img/tutorial_new_nav_edit1.png
+.. figure:: images/tut04/new_nav_edit.jpeg
     :alt: The edit screen for adding a navbar.
 
     The edit screen for adding a new navbar

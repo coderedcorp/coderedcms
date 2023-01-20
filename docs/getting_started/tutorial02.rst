@@ -44,7 +44,7 @@ Repeat this process again for the following web pages:
 * Our Products
 * Our Facility
 
-We are going to add two different types of pages:
+In addition to those, we are going to add two different types of pages:
 
 **Form**
 

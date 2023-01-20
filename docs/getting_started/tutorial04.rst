@@ -44,28 +44,31 @@ There are three types of links that you can add to your navbar. Let's briefly de
 
 * **Document link with sub-links** - Add document links with sub-links to your navbar.
 
-We don't have any other pages set up yet, but we can still create our menu. For now, we will just link to
-the Home page and update it once we have more pages.
+Let's add **Page Links** to our navigation bar.
 
-.. figure:: img/tutorial_navbar_add_item1.png
+* Add **Page link with sub-links**
+* Click "choose page" and link to "Home"
+* Add another **Page link with sub-links** by selecting the "+" at the bottom of the page.
+* Click "choose page" and link to "About Us"
+* Add another **Page link with sub-links** by selecting the "+" at the bottom of the page.
+* Click "choose page" and link to "Our Products"
+* At the bottom of this block check "Show Child Pages"
+* Add another **Page link with sub-links** by selecting the "+" at the bottom of the page.
+* Click "choose page" and link to "Contact Us"
+* **Save**
+
+.. figure:: images/tut04/nav_links_edit.jpeg
     :alt: Adding a menu item with page link.
 
     The edit screen with our first navbar item.
 
-Continue to add as many navbar items as you want for your website. You can always edit your menu and add more
-top-level items or dropdowns as you make more pages. We are going to start with our three most important ones
-for our sweets shop!
-
-.. figure:: img/tutorial_navbar_front1.png
-    :alt: Our menu added to the navbar - front view.
-
-    The website with our menu added. Also note that we are using some Bootstrap colors on the site.
-
 Site Navbars Settings
 ---------------------
 
-After you create your navbar, go to **Settings > CRX Settings** and scroll down to **Site Navbars**. Click on the plus sign
-to select your new navbar and add it to your site. The Save.
+To use the newly created navbar, go to **Settings > CRX Settings** and scroll down to **Site Navbars**. Click on the plus sign
+to select your new navbar and add it to your site. Then Save.  View your homepage and you should see it.  Also the links should be working.
+It's recommended that you test your work as you go.  If things aren't working, make sure the pages we made in part 2 are published.  Look at the screenshots for the navbar to see if they match.
+
 
 .. _footer:
 
@@ -77,24 +80,20 @@ that maybe won't belong in the main navigation but are still important. Go to **
 working on the footer. In the top right-hand corner is a button that says **Add Footer**. Click on this button to start!
 (Alternatively, you can also click on the link that says "Why not add one?")
 
-Give your footer a name. We choose Main Footer since this will be the main footer for our site.
+Give your footer a name. We chose Main Footer since this will be the main footer for our site.
 
-Let's get some practice with Responsive Grid Rows and Columns! We want to make a 4-column footer with our logo in the
-first column, our sub-page links in the second column, our main page links in the third column, and contact
-information in the fourth column. Don't worry - This is actually going to be easy!
+Let's get some practice with Responsive Grid Rows and Columns! We want to make a 4-column footer with sub-page links in the first column, external links to social media in the second,
+an address in the third, and placeholder links for legal disclosures in the last column.
 
 .. note::
-    To keep up with our color scheme, we have also added a Bootstrap background color class to the
-    Attributes section. See `Bootstrap color utilities <https://getbootstrap.com/docs/4.3/utilities/colors/#background-color>`_.
+    To keep up with our design, we have also added a few Bootstrap classes to our footer.  In the Custom CSS Class field add "bg-secondary text-white".
+    This will change the footer's background color to the green we set in Part 01 and uses a built in Bootstrap class to make the text white.
 
-.. figure:: img/tutorial_footer_edit1.png
-    :alt: Getting started on our footer.
+To set up our 4-column footer:
 
-    The edit screen as we prepare to begin adding the layout for the footer.
-
-To set up our 4-column footer, choose **Responsive Grid Row** from the layout choices at the bottom. Now click on
-**Add Column**. You can specify the column size in the dropdown that says **Column size**. Since we want to have
-four evenly sized columns, we are going to choose a 1/4 Column size.
+* Choose **Responsive Grid Row** from the layout choices at the bottom.
+* Click on **Add Column**. You can specify the column size in the dropdown that says **Column size**.
+* Choose a 1/4 Column size for all 4 columns.
 
 .. note::
     Bootstrap uses a 12-column grid, and our footer is going to span the entire 12 columns. To figure out
@@ -102,13 +101,7 @@ four evenly sized columns, we are going to choose a 1/4 Column size.
     so our columns need to be 1/4 each. Read more about Bootstrap grids and columns here: `Bootstrap Grid <https://getbootstrap.com/docs/4.0/layout/grid/>`_.
 
 From within the Responsive Grid Row block, keep selecting the + sign below your **Column** until you have all of
-the columns that you need. Then remember to make sure to choose the size of the column if you have a particular
-layout in mind. Otherwise, it will automatically size on its own.
-
-.. figure:: img/tutorial_footer_edit2.png
-    :alt: Our Responsive Grid Row and Columns set up.
-
-    The edit screen as we set up our layout for the footer.
+the columns that you need. Then remember to make sure to choose the size of the column.  Otherwise, it will automatically size on its own.
 
 Add Content to the Footer
 -------------------------
@@ -116,34 +109,122 @@ Add Content to the Footer
 Now that we have our layout, let's begin adding content! You see that there are several different choices for content
 available within the column block.
 
-1. We're going to choose the **Image Link** block in the first column so that we can add
-our logo and link to the Home page.
+We will be using a text block in all 4 columns.  In the first column's text block:
 
-    .. figure:: img/tutorial_imagelink_example.png
-        :alt: Our logo added as an image, the Home page linked, and Alt Text added.
+* Enter "Short Cuts:" and hit enter to make a new line (alternatively you can click the right angled arrow to get a new line.)
+* Click on the chain link symbol which should bring up this screen:
 
-        The edit screen for the Image Link block in our first column.
+.. figure:: images/tut04/choose_a_page.jpeg
+    :alt: Link editing screen
 
-2. In the second through fourth columns, we are going to choose the Text block and list the Pages that we want to
-link to and our contact information. You can add links in the text block by highlighting the text and selecting the chain-link icon,
-then choosing which page or external link you want. See our example below:
+    Link editing screen.
 
-    .. figure:: img/tutorial_footer_edit3.png
-        :alt: Our footer with our text blocks and page links added.
+* Choose "What's New at CRX-Pharma" page
+* Do this a few more times choosing the "Careers", "Our Products", "Contact Us" pages.
 
-        The edit screen for our footer with our content added.
+For the second column's text block:
 
-3. Once you're happy with your Footer, hit **Save**. Let's see what it looks like!
+* Enter "Social Media:" and hit enter to make a new line.
+* Click on the chain link symbol which should bring up the link modal.
+* Click **External Link**
+* Enter "www.facebook.com" in the URL field.
+* Enter "Facebook" in the Link text field.
+* Click **Insert link**
+* Do this a few more times for other Social Media sites, such as twitter, linkedIn, and Instagram
 
-    .. figure:: img/tutorial_footer_previews.png
-        :alt: What our footer looks like on the website.
+For the third column's text block:
 
-        What our footer looks like on the website.
-        Remember, we have done minimal styling on the site.
+* Enter "Address:" and hit enter to make a new line.
+* Enter an address (format it to your liking)
+* Click on the chain link symbol which should bring up the link modal.
+* Click **Phone Link**
+* Enter a Phone number in the field and leave the other blank, click **Insert link**.
+* Click on the chain link symbol which should bring up the link modal.
+* Click **Email Link**
+* Enter an Email address in that field and "Email Us" in the Link text, click **Insert link**.
 
+For the fourth column's text block:
+
+* Enter "Legal:" and hit enter to make a new line.
+* Here you could link to a page using the link editor.  You could also choose document (next to the chain link) and upload a PDF with your policies or terms of service.
+* For this tutorial we are going just make it placeholder text (meaning no links).  We put a line for Privacy Policy, Terms of Use, and Disclosures
+
+Our Editing Page:
+
+.. figure:: images/tut04/footer_edit.jpeg
+    :alt: Footer Editing Page
+
+    Footer Editing Page
+
+Once you're happy with your Footer, hit **Save**. Let's see what it looks like!
 
 Site Footers Settings
 ---------------------
 
 After you create your footer, go to **Settings > CRX Settings** and scroll down to **Site Footers**. Click on the plus sign
-to select your new footer and add it to your site. The Save.
+to select your new footer and add it to your site. Click Save. Navigate to the home page and view your work. Here's ours:
+
+.. figure:: images/tut04/footer_no_style.jpeg
+    :alt: Footer before CSS
+
+    Footer after editing and before CSS
+
+Well I don't like the Bootstrap default blue links. Lets add some custom CSS and give it a nicer look.
+
+* In your file explorer go to **mysite>website>static>website>src>custom.scss**
+* Add the following code under *// Add your custom styles here.* (line 26) :
+
+.. code-block::
+
+    .secondary-links {
+     a {
+        color: $white;
+        text-decoration: none;
+     }
+
+     a:hover {
+        color: $dark;
+      }
+    }
+
+Our custom.scss now looks like this:
+
+.. figure:: images/tut04/secondary_links.jpg
+    :alt: custom.scss file with secondary link class added
+
+    custom.scss file with secondary link class added
+
+Remember to compile your sass:
+
+* Stop your server with `ctrl + c`.
+
+    * Run:
+
+.. code-block:: console
+
+     $ python manage.py sass website/static/website/src/custom.scss website/static/website/css/custom.css
+
+
+* Restart server with `python manage.py runserver`
+* Go to back to **Snippets > Footers**
+* Edit "Main Footer"
+* Add "secondary-links" the new css class along side "bg-secondary text-white" in the Custom CSS Class field.
+
+.. figure:: images/tut04/adding_sec_links.jpeg
+    :alt: secondary-link class added to Custom CSS Class field
+
+    secondary-link class added to Custom CSS Class field
+
+* **Save**
+* Navigate to the Home page at http://localhost:8000/
+* Be sure to hard refresh and load the current CSS stylesheet.
+
+.. figure:: images/tut04/footer_style.jpeg
+    :alt: footer with new class secondary-link class
+
+    footer with new class secondary-link class
+
+Take a moment to hover over the link text and see it changes color.  Now the homepage is starting to feel like a
+professional site.  Let's look at building out a blog.
+
+

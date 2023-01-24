@@ -19,11 +19,11 @@ center the logo at the top or keep it toward the left-hand side.
     It's recommended to review all of the available settings, and go ahead
     and play around with them!
 
-Create your menus
------------------
+Create your Navbar
+------------------
 
 Your navbar will have links to your other pages or external content that you want
-to share. To build your menu, go to **Snippets > Navigation Bars**.
+to share. To build your Navbar, go to **Snippets > Navigation Bars**.
 
 In the top right-hand corner is a button that says **Add Navigation Bar**.
 Click on this button to start! (Alternatively, you can also click on the link that says "Why not add one?")
@@ -67,7 +67,7 @@ Site Navbars Settings
 
 To use the newly created navbar, go to **Settings > CRX Settings** and scroll down to **Site Navbars**. Click on the plus sign
 to select your new navbar and add it to your site. Then Save.  View your homepage and you should see it.  Also the links should be working.
-It's recommended that you test your work as you go.  If things aren't working, make sure the pages we made in part 2 are published.  Look at the screenshots for the navbar to see if they match.
+It's recommended that you test your work as you go.  If things aren't working, make sure the pages we made in part 2 are published.  Reference the screenshots to make sure they match.
 
 
 .. _footer:
@@ -75,7 +75,7 @@ It's recommended that you test your work as you go.  If things aren't working, m
 Customizing the Footer
 ----------------------
 
-Now, let's head down to work on the footer, which is another menu of links. You can add more links in the footer
+Let's work on the footer, which is another menu of links. You can add more links in the footer
 that maybe won't belong in the main navigation but are still important. Go to **Snippets > Footers** to begin
 working on the footer. In the top right-hand corner is a button that says **Add Footer**. Click on this button to start!
 (Alternatively, you can also click on the link that says "Why not add one?")
@@ -86,7 +86,7 @@ Let's get some practice with Responsive Grid Rows and Columns! We want to make a
 an address in the third, and placeholder links for legal disclosures in the last column.
 
 .. note::
-    To keep up with our design, we have also added a few Bootstrap classes to our footer.  In the Custom CSS Class field add "bg-secondary text-white".
+    To keep up with our design, we have also added a few Bootstrap classes to our footer.  In the Custom CSS Class field, add "bg-secondary text-white".
     This will change the footer's background color to the green we set in Part 01 and uses a built in Bootstrap class to make the text white.
 
 To set up our 4-column footer:
@@ -169,7 +169,7 @@ to select your new footer and add it to your site. Click Save. Navigate to the h
 
     Footer after editing and before CSS
 
-Well I don't like the Bootstrap default blue links. Lets add some custom CSS and give it a nicer look.
+Let's change the Bootstrap default blue links by adding custom CSS to give it a nicer look.
 
 * In your file explorer go to **mysite>website>static>website>src>custom.scss**
 * Add the following code under *// Add your custom styles here.* (line 26) :

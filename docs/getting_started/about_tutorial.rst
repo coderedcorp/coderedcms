@@ -12,7 +12,7 @@ It is likely that your code editor will look slightly different.
 Sass support
 ------------
 
-This tutorial uses sass support.  This allows us to easily override the bootstrap colors.
+This tutorial uses sass support.  This allows us to easily override the default bootstrap colors.
 The few extra steps at the beginning saves us from writing more CSS to accomplish the same goal.
 See:  :ref:`sass_install`
 

@@ -77,7 +77,7 @@ the following image parameters:
 * **Logo:** probably does not need to be any larger than 500x500 pixels, unless you plan to have
   a giant logo. Any image ratio is fine, logos come in all shapes and sizes.
 
-    .. figure:: images/tut01/CRX-Pharma.png
+    .. figure:: images/tut01/Crx-Pharma.png
        :alt:  logo.
 
        Right click and download this image to follow along.
@@ -85,7 +85,7 @@ the following image parameters:
 * **Favicon:** does not need to be any larger than 200x200 pixels. A 1:1 (square) image ratio is
   best here - if the image is not square, it will be scaled to a square.
 
-    .. figure:: images/tut01/CRX-Pharma-favicon.png
+    .. figure:: images/tut01/Crx-Pharma-favicon.png
         :alt:  logo.
 
         Right click and download this image to follow along.

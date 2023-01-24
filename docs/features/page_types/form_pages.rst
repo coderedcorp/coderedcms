@@ -6,10 +6,15 @@ Create a form that can be used to collect information from your users.
 Usage
 -----
 
-First start by creating a "Form" (may be named differently on your specific website). Add content to this page as you would for a normal Web Page. 
+First start by creating a "Form" (may be named differently on your specific website). Add content to this page as you would for a normal Web Page.
 
 Content Tab
 ~~~~~~~~~~~
+
+.. _form-fields:
+
+Form Fields
+-----------
 
 * **Form Fields**: The data you want to collect on the form.  You can add as many fields as required ranging from all form input types like text, files, radio buttons, etc.
 
@@ -38,7 +43,7 @@ Confirmation Emails
 Click the "Add Confirmation Emails" button to add additional emails you want to send out when a form is submitted.
 
 You can reference your form fields in the Confirmation Email's fields using Django bracket notation. For example, for the
-**To Addresses:** you could reference your form field Email by using ``{{email}}``. 
+**To Addresses:** you could reference your form field Email by using ``{{email}}``.
 
 The Django variable tags are generated automatically from the form fields that you create and are in lowercase letters, with any spaces indicated by an underscore.
 If you had a form field with the label "Number of Cupcakes," the Django tag would be ``number_of_cupcakes`` which you would place in

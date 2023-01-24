@@ -12,43 +12,33 @@ is important to remember because sub-pages can be accessed by the parent page (a
 landing page).
 
 .. note::
-    Before we can add any Articles, we have to create the Article Landing Page.
+    We are going to use the "What's Happening at CRX-Pharma" page for our blog.
 
-Click on **Pages > Home** to get to the screen that will allow you to create child pages under the Home page.
-It looks like this:
+Go to **Pages > Home** in wagtail admin. This screen will allow you to create child pages as seen in Part 02 of the tutorial.
+Ours looks like this:
 
-.. figure:: img/tutorial_home_child_edit1.png
+.. figure:: images/tut05/blog_start.jpeg
     :alt: Screen for adding pages under the Home page.
 
     The admin screen for adding pages under the Home page.
 
-Click on the button that says **Add Child Page**. Because we are still using the built-in page types, you should
-only see three types of pages available for now:
+You should see the Article Landing with titled "What's New at CRX-Pharma". Hover over it to reveal more options.
+These options include: **Edit, View Live, Add child page, and More**.  If you click on **More** you'll see a drop down menu
+with **Move, Copy, Delete, Unpublish, and History**.
 
-* **Article Landing Page** - The landing page for articles, blog posts, etc.
+* **Move** allows you to change where that page is in site's tree structure.
+* **Copy** will make a copy of the page.
+* **Delete** removes the page from the project.
+* **Unpublish** keep the page but it will no longer be accessible live.
+* **History** allows you to see changes made to the page.
 
-* **Form** - A page type for building forms.
+For now, We want to add a few posts, so select **Add Child Page**. This will
+take you to the Article page type for editing!  Seen here:
 
-* **Web Page** - A basic page type for building any type of web page.
-
-.. figure:: img/tutorial_home_child_edit2.png
-    :alt: Screen for Home page sub-page types.
-
-    The admin screen for choosing sub-page types under the Home page.
-
-Select the **Article Landing Page** to begin. For now, we will keep this particular page simple.
-Just give it a title of Blog. Add a cover image if you would like one. Now **Publish** it. We will
-come back to it later on in this tutorial.
-
-Go back to the admin screen for adding pages under the Home page. You should now see the Article Landing
-Page listed that we named Blog. Hover over it to reveal more options for Blog, and you should see the options
-to add child pages to the Blog page. We want to add a few posts, so select **Add Child Page**. This will
-take you to the Article page type for editing!
-
-.. figure:: img/tutorial_blank_article.png
+.. figure:: images/tut05/new_article.jpeg
     :alt: A fresh article page in edit mode.
 
-    The edit screen for a fresh article page.
+    The edit screen for an article page.
 
 The anatomy of an Article Page
 ------------------------------
@@ -66,50 +56,48 @@ case. We will want to fill in the following:
 
 * **Body** - Content for our article or blog
 
-Let's write a short blog about the story of our cupcakes. Once we fill in the information we want to add above, we
+Let's write a short blog about the story about a fictious vaccine that CRX-Pharma created. Once we fill in the information we want to add above, we
 can select what we want to add to the body of the blog post. We will choose a **Text** block.
+We added `this image <https://pixabay.com/illustrations/pill-capsule-medicine-medical-1884775/>`_ in our text block with the Image tool in the text editor.
+This is what our editor looks like:
 
-After we add our Content in the Text block, we can add other types of content if we like. How about a button?
-Select the + sign under the Text block, then choose **Button Link**. Continue to add different content blocks
-as you see fit for the blog post.
-
-.. figure:: img/tutorial_blog_post_edit.png
+.. figure:: images/tut05/blog_editor.jpeg
     :alt: The edit screen for our first blog post.
 
     The edit screen for our first blog post.
 
 Now publish it and see what it looks like! This is what our blog post looks like:
 
-.. figure:: img/tutorial_blog_post_published.png
+.. figure:: images/tut05/blog_preview.jpeg
     :alt: Our first published blog post.
 
     Our first published blog post.
 
 Add a few more blog posts to get some practice, then we will return to our Blog landing page.
 
-Completing our Blog landing page
---------------------------------
-
-On the admin page, we can select to edit the main Blog page. Click the **Edit** button that is under the
-word **Blog**. Alternatively, you can find the Blog page in the Home page admin view or by clicking on Pages.
-
-.. figure:: img/tutorial_blog_admin_view.png
+.. figure:: images/tut05/blog_editor2.jpeg
     :alt: Admin view to edit our pages.
 
     The admin view to edit our blog posts and our Blog landing page.
+
+Completing our Blog landing page
+--------------------------------
+
+On the admin page, we can select to edit the main Blog page. Click the **Edit** button that is under the "What' New at CRX-Pharma".
+Alternatively, you can find the Blog page in the Home page admin view or by clicking on Pages.
 
 Just like on the other pages, we can add a cover image and build the layout. Let's do that! We will use
 Responsive Grid Row and just one full-width column for an introduction. Then we will show you the different
 ways to display your sub-pages on the landing page.
 
-.. figure:: img/tutorial_blog_landing_edit1.png
+.. figure:: images/tut05/landing_page_editor.jpeg
     :alt: The edit screen showing our intro on Blog page
 
     The edit screen showing the introduction on our Blog landing page.
 
 Publish and see what happens!
 
-.. figure:: img/tutorial_blog_landing_published.png
+.. figure:: images/tut05/landing_page_preview.jpeg
     :alt: Our published Blog page
 
     The published Blog landing page.
@@ -135,7 +123,7 @@ Go back into the editor for the Blog landing page. You should see the following 
 
 We want the **Layout** tab. Click on that tab and you'll see something like this:
 
-.. figure:: img/tutorial_blog_landing_layout_tab.png
+.. figure:: images/tut05/landing_page_settings.jpeg
     :alt: The Layout tab for the Blog landing page
 
     The Layout tab for the Blog landing page.

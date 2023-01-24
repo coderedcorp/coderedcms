@@ -56,7 +56,7 @@ case. We will want to fill in the following:
 
 * **Body** - Content for our article or blog
 
-Let's write a short blog about the story about a fictious vaccine that CRX-Pharma created. Once we fill in the information we want to add above, we
+Let's write a short blog about the story about a fictitious vaccine that CRX-Pharma created. Once we fill in the information we want to add above, we
 can select what we want to add to the body of the blog post. We will choose a **Text** block.
 We added `this image <https://pixabay.com/illustrations/pill-capsule-medicine-medical-1884775/>`_ in our text block with the Image tool in the text editor.
 This is what our editor looks like:

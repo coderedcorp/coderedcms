@@ -103,7 +103,7 @@ Let's make a few changes to see the difference. In the editing screen,
     About us page with cancer Classifier selected.
 
 Notice that, Only pages with the correct classifier show up. What a powerful tool!  If you were to publish a new page with the selected classifier this page will
-automatically update with the new post.  Also take a look at the advanced settings for the lastest pages block.  There are different templates you can use for displaying article pages.
+automatically update with the new post.  Also take a look at the advanced settings for the latest pages block.  There are different templates you can use for displaying article pages.
 
 Using Classifiers on an Article Landing Page
 --------------------------------------------

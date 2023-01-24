@@ -19,20 +19,24 @@ on the visitor's screen size.
 First, let's make a big flashy hero unit. A hero unit in Wagtail CRX is a block that allows for
 a full-width background image or background color, and has lots of padding by default.
 
-Select the **Hero Unit** block. Next set a background image or color - we are going to download and use
-`this image <https://pixabay.com/photos/laboratory-analysis-chemistry-2815641/>`_ from `Pixabay <https://pixabay.com>`_.
+* Select the **Hero Unit** block.
+* Be sure full-width is selected.  (It should be by default when using a Hero Unit block)
+* Next set a background image - we are going to download and use `this laboratory image <https://pixabay.com/photos/laboratory-analysis-chemistry-2815641/>`_ from `Pixabay <https://pixabay.com>`_.
+* Enter "white" in the Text color field
 
-Now to add content to our hero unit, under the content field select **Responsive Grid Row** and then a **Column**. Inside our column,
-we will add **Text** and format it.
+Now to add content to our hero unit, under the content field:
 
-* Add "Building a Healthier World" as an H2 in bold.
-* Add "Research. Discovery. Manufacturing." as an H4 in italics in the same text editor.
+* Select **Responsive Grid Row**
+* Select **Column**. Inside our column,
+* Add **Text** block
+* Enter "Building a Healthier World" as an H2 in bold.
+* Enter "Research. Discovery. Manufacturing." as an H4 in italics in the same text editor.
 
 Next, click the small "+" icon directly below the text field. This will let you add another block
 directly below the text, but still in the same column.
 
 * Select the **Button Link** block. There are a few options here.
-* We are going to do Page Link and link it to"What's Happening at CRX-Pharma" page.
+* Choose **Page Link** and link it to "What's Happening at CRX-Pharma" page.
 * Change the **Button Title** field to "Read Our Blog"
 * Change the **Button Size** to large.
 
@@ -43,7 +47,7 @@ My editing page now looks like this:
 
     The home page editor after adding a hero unit.
 
-Next click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
+Next click **Save draft** and then **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
 Great success!
 
 .. figure:: images/tut03/hero_unit.jpeg
@@ -54,10 +58,10 @@ Great success!
 Custom CSS
 ----------
 
-You may have noticed that the white text in our hero was a little hard to read.
-Let's add text shadow to the text with CSS to make it stand out from the backdrop.
+You may have noticed a few issues with our page. The white text in our hero is a little hard to read and the search input is light teal.
+Let's add text-shadow to the text with our own custom CSS class to make it stand out from the backdrop, and change how we are giving the body a background-color.
 
-* In your file explorer go to **mysite>website>static>website>src>custom.scss**
+* In your file explorer go to *mysite>website>static>website>src>custom.scss*
 * Add the following code under *// Add your custom styles here.* (line 26) :
 
 .. code-block::
@@ -74,8 +78,18 @@ Let's add text shadow to the text with CSS to make it stand out from the backdro
         background-color: #a4f1e9;
     }
 
-* Next we will remove the global body color $bg-body (line 36) in the **mysite>website>static>website>src>_variables.scss** file
+.. figure:: images/tut03/custom_css_inVScode.jpg
+    :alt: custom.scss after adding custom classes.
+
+    custom.scss after adding custom classes.  Be sure to save this file!
+
+* Next we will remove or comment out the global body color $bg-body (line 36) in the *mysite>website>static>website>src>_variables.scss* file
   because it's changing the background-color of the inputs.  This is another way to alter the colors of the site.
+
+.. figure:: images/tut03/body_commented_out.jpg
+    :alt: $bg-body commented out.
+
+    $bg-body commented out in mysite>website>static>website>src>_variables.scss.  Be sure to save this file!
 
 
 * Compile the sass. In your terminal:
@@ -91,7 +105,10 @@ Let's add text shadow to the text with CSS to make it stand out from the backdro
 
 * Restart server with `python manage.py runserver`
 
+
+
 Lets use the CSS class *text-shadow* we just made.
+
 * Back to the home page editor screen, in the column block, click **Advanced Settings**
 * Enter "text-shadow" in the Custom CSS Class field.  See below :
 
@@ -107,6 +124,7 @@ Lets use the CSS class *text-shadow* we just made.
 
     The hero unit with text shadow and the search input background no longer is light teal.
 
+Awesome.  The inputs are no longer have the light teal background and our text in the Hero Unit has a shadow that makes it stand out from the backdrop.
 
 Adding cards to the home page
 -----------------------------
@@ -118,14 +136,14 @@ Adding cards to the home page
     * `lab equipment <https://pixabay.com/photos/laboratory-apparatus-equipment-217041/>`_
     * `colorful brain <https://pixabay.com/illustrations/brain-mind-psychology-idea-drawing-2062057/>`_
 
-Let's add three cards to highlight the company's strengths. Go back to the tab with the home page editor.
+Let's add three cards to highlight CRX-pharma's strengths. Go back to the tab with the home page editor.
 All the way at the bottom of the page, click the "+" icon directly below the "Hero Unit" block.
 This will add a new block directly below the hero unit.
 
 * Select the **Card Grid** block.
 * Select **Card** to add the first card.
 * Add an image (stethoscope)
-* Now fill out the **Title** with "Industry Leader in Innovations"
+* Fill out the **Title** with "Industry Leader in Innovations"
 * Fill out the **Body** with a few sentences of text
 * Add a **Button Link** at the bottom
 * Use **Page Link** and link it to the "About Us" page created in Part 2
@@ -133,6 +151,7 @@ This will add a new block directly below the hero unit.
 
 Next add and fill out two more cards by scrolling down and clicking the "+" icon directly below our current card block.
 The second card should have:
+
 * An image (lab equipment)
 * **Title** "Unparalleled Manufacturing"
 * **Body** with a few sentences of text
@@ -141,6 +160,7 @@ The second card should have:
 *   **Button Title** "Our Facility"
 
 The third card should have:
+
 * An image (colorful brain)
 * **Title** "Our Philosophy"
 * **Body** with a few sentences of text
@@ -160,7 +180,7 @@ The editing page now looks like this:
 
     The home page editor after adding a card grid with three cards 2 of 2.
 
-Next click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
+**Save draft** and click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
 Lookin' good!
 
 .. figure:: images/tut03/card_preview.jpeg
@@ -171,9 +191,7 @@ Lookin' good!
 .. note::
  At this point you may notice that the cards aren't the same height.  You can fix this two ways.  One you can add the bootstrap
  CSS class of h-100 to each card, two you can add `$card-height: 100%` in the _variables.scss.  If you the sass option remember to compile the sass files.
- You can also use bootstrap classes to get different grid sizes.
- See bootstrap `docs <https://getbootstrap.com/docs/5.2/components/card/#grid-cards>`_ for more information.
- Add a class like `row-cols-1 row-cols-md-2` in the custom CSS field on the card grid block to get a grid with 2 cards wide.
+ This is the most basic use case of card-grid check out :ref:`card-grid` for more information.
 
 We added h-100 to each card as seen here:
 
@@ -205,11 +223,11 @@ Let's look at this in practice.
 * Select **Text**
 * Enter "Our Products" and make it an H2.
 * Enter a few sentences of text under the "Our Products" in the same text editor.
-* Add a Button link to the "Direct to Consumer". (child of Our Products).  Be sure to give a Title.
-* Add a Button link to the "Bulk Sales". (child of Our Products).  Be sure to give a Title.
+* Add a **Button link** linked to the "Direct to Consumer". (child of Our Products).  Be sure to give a Title.
+* Add a **Button link** linked to the "Bulk Sales". (child of Our Products).  Be sure to give a Title.
 * Below the Column Block (second to last "+") Add another **Column**
 * Change **Column size** to "Half - 1/2 column"
-* Add an **Image**  We used `this one <https://pixabay.com/photos/medications-tablets-medicine-cure-1853400/>_`
+* Add an **Image**  We used `this one <https://pixabay.com/photos/medications-tablets-medicine-cure-1853400/>`_
 
 .. figure:: images/tut03/our_products_editing.jpeg
     :alt: Our Products editing Page
@@ -226,7 +244,7 @@ Let's look at this in practice.
 We are going to do another more **Responsive Grid Rows**
 
 * Add another Responsive Grid Row
-* Add a Column set it to 1/2 column with this `image <https://pixabay.com/photos/building-hospital-white-modern-2654823/>_`
+* Add a Column set it to 1/2 column with this `image <https://pixabay.com/photos/building-hospital-white-modern-2654823/>`_
 * Add a Column set it to 1/2 column add text for Our Facility
 * Add a Button Link under the text block that is linked to Our Facility.
 
@@ -240,8 +258,8 @@ We are going to do another more **Responsive Grid Rows**
 For the Last two **Responsive Grid Rows** you are on your own reference the image last image on this page as a guide.
 Follow these links to get the images. (note: I cropped my images square):
 
-* `doctor 1 <https://pixabay.com/photos/doctor-gray-hair-experience-2337835/>`
-* `doctor 2 <https://pixabay.com/photos/woman-doctor-surgeon-physician-2141808/>`
+* `doctor 1 <https://pixabay.com/photos/doctor-gray-hair-experience-2337835/>`_
+* `doctor 2 <https://pixabay.com/photos/woman-doctor-surgeon-physician-2141808/>`_
 
 To get the green background, white text, and proper padding you will want to put "bg-secondary text-white p-5"
 in the Custom CSS field on each column with text.  These are bootstrap classes that come pre-loaded in Wagtail-CRX.
@@ -256,6 +274,6 @@ Hopefully you were able to follow along and your page looks like this:
 .. figure:: images/tut03/home_page_finished.jpeg
     :alt: home page after tutorial part 3
 
-    home page after tutorial part 3
+    home page after tutorial part 3 (note: the images of the doctors were cropped to be square)
 
 Next we will look at building a Navbar and Footer

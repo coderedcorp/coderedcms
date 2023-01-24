@@ -56,7 +56,7 @@ And edit ``mysite/settings/base.py`` by changing ``WAGTAIL_SITE_NAME`` as so::
 
     Changing the site name in base.py
 
-Now the admin dashboard and login page show "Simple Sweet Desserts Ltd.", and the Home page at http://localhost:8000/
+Now the admin dashboard and login page show "CRX-Pharma", and the Home page at http://localhost:8000/
 will show "CRX-Pharma".
 
 .. figure:: images/tut01/updated_settings.jpg
@@ -75,7 +75,7 @@ favicon. Both will be scaled to fit wherever they are used, but we recommend
 the following image parameters:
 
 * **Logo:** probably does not need to be any larger than 500x500 pixels, unless you plan to have
-  a giant logo. Any image ratio is fine, logos come in all shapes and sizes. 😀
+  a giant logo. Any image ratio is fine, logos come in all shapes and sizes.
 
     .. figure:: images/tut01/CRX-Pharma.png
        :alt:  logo.
@@ -88,7 +88,7 @@ the following image parameters:
     .. figure:: images/tut01/CRX-Pharma-favicon.png
         :alt:  logo.
 
-    Right click and download this image to follow along.
+        Right click and download this image to follow along.
 
 .. note::
     We recommend PNG format at 300 DPI so that your logo will look sharp on high resolution
@@ -136,8 +136,8 @@ what works best for you. Once again, most of these settings utilize default Boot
 
     Our site with a dark navbar.
 
-This look isn't ideal for the CRX-pharma website, so in the admin screen lets navigate back to **Settings > CRX Settings** again.
-Then change our settings back to:
+This look isn't ideal for the CRX-pharma website, so in the admin screen lets navigate back to **Settings > CRX Settings**.
+Then change our settings to:
 
  * **Navbar color scheme:** Light
  * **Navbar CSS class:** ``bg-light``
@@ -202,5 +202,6 @@ Now hard refresh your browser at http://localhost:8000 and you should see the ne
 .. note::
     The background color in the search input is not ideal and will be addressed in the part 3 of the tutorial.
     The goal of the this section was to demonstrate how to use bootstrap variables to change global properties.
-    You can now use bootstrap classes with "primary" and will see the color we set and not the default.
+    You can now use bootstrap classes with "primary" or "secondary" and our new colors will override the defaults.
+    A great example of this is the buttons. The default buttons will be dark blue.
 

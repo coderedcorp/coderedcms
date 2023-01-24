@@ -44,12 +44,13 @@ Ways to upload your images
 --------------------------
 
 While you have already practiced uploading images from within the page editors, you can also upload images in bulk.
-Go to **Images** from the admin bar. There, you will be able to either drag and drop your images into the upload area,
+Go to **Images** from the admin bar. There, you will see images you have already uploaded.  You can click on an image to see additional options for that image.
+You can also click **Add an image**, that takes you to a screen to either drag and drop your images into the upload area,
 or upload them from your computer using the upload button. Use descriptive names and/or image tags for the images so
 that you can easily search for them and use them in your pages. These tags are for admin use only --- they do not appear
 anywhere to visitors of your website.
 
-.. figure:: img/tutorial_images_upload_admin.png
+.. figure:: images/tut10/bulk_image_uploader.JPEG
     :alt: Upload admin for Images.
 
     The upload admin for Images.
@@ -60,7 +61,7 @@ CMS editing tools for images
 While the majority of your image editing should be done in an actual image editor, Wagtail does provide some tools to help you
 optimize your images for your site.
 
-.. figure:: img/tutorial_images_editor.png
+.. figure:: images/tut10/image_editor.JPEG
     :alt: CMS editor for Images.
 
     The CMS editor for Images.

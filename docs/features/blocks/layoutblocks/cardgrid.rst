@@ -3,6 +3,10 @@
 Card Grid Block
 ===============
 
+ You can also use bootstrap classes to get different grid sizes.
+ See bootstrap `docs <https://getbootstrap.com/docs/5.2/components/card/#grid-cards>`_ for more information.
+ Add a class like `row-cols-1 row-cols-md-2` in the custom CSS field on the card grid block to get a grid with 2 cards wide.
+
 Creates a card grid layout with content and button options
 
 Field Reference
@@ -14,10 +18,10 @@ Fields and purposes:
 
 * **Content** - The individual cards in the grid
 
-In your page editor, choose **Card Grid**. Select the **Card** content block within the Card grid block 
-to get started on creating your Card Grid. The grid is designed to automatically create the layout of 
-your cards with an image, title, subtitle, body and button links. Create as many cards as you would 
-like for your card grid. They will be sized based on available space on the screen. 
+In your page editor, choose **Card Grid**. Select the **Card** content block within the Card grid block
+to get started on creating your Card Grid. The grid is designed to automatically create the layout of
+your cards with an image, title, subtitle, body and button links. Create as many cards as you would
+like for your card grid. They will be sized based on available space on the screen.
 
 We have a card grid on the home page of our tutorial site Simple Sweet Desserts. It looks like this:
 

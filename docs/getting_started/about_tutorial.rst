@@ -25,10 +25,14 @@ After following the installation guide and compiling the sass (step 7), your sit
 
 If it does not look like that:
 
-* Make sure you compiled you followed :ref:`sass_install` and not the basic installation
+* Make sure you compiled the sass and followed :ref:`sass_install` and not the basic installation
 * Check that your stylesheet is linked in `mysite/website/templates/coderedcms/pages/base.html`
 * Hard refresh your browser to reload the CSS stylesheet.
 
+.. figure:: images/about_tutorial/base_html.jpg
+    :alt: Linked Style Sheet
+
+    The Style sheet is linked on line 14
 
 .. note::
     Every time a change is made to the sass files we have to compile it and hard refresh the browser.

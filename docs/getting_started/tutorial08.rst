@@ -9,96 +9,79 @@ just for forms!
 Adding a Form page to your site
 -------------------------------
 
-Just like before, we will go to the admin to make a new page under Home page. This time we are
-going to select **Form** for our page type. This is what a new Form page looks like:
+Let's work on the "Contact Us" form we made in part 2 of the tutorial.  Using the side menu select **Pages > Home > Contact Us** Click the pencil or click the title and then edit.
+This will take you to the editing screen.
 
-.. figure:: img/tutorial_new_form_page.png
-    :alt: A new Form page.
+.. figure:: images/tut08/contact_us_start.jpeg
+    :alt:  The editing screen for a form.
 
-    A new Form page ready for us to build.
+    The editing screen for a form.
 
 Creating the Form page
 ----------------------
 
-1. Give your form a name.
+Our contact form is going to be utilitarian, however you can add a hero unit or other content blocks in the body section. Our body section will remain blank.
+Click add form fields. You will be presented with this block:
 
-2. Add a cover image if you want to include one.
+.. figure:: images/tut08/form_fields.jpeg
+    :alt:  adding a form field
 
-3. Begin adding your fields. Select the **Add Form Fields**.
+    Adding a form field
 
-4. **Label** and **Field Type** are required, while the others are optional.
+* **Label** is the title or name of the form.
+* **Help Text** is a prompt or helper text that goes directly beneath the input
+* **Required** is a checkbox to decide if the user has to put in a value.  HTML validation will not allow a user to submit a form that doesn't have all the required form fields filled out.
+* **Field Type** has all the options for different types of inputs.  (For this demo we will be using different types of text inputs). To learn more, read :ref:`form-fields`
+* **Choices** are for the values that checkbox, radio, or dropdown inputs use.
+* **Default value** is a value that will be inside the input.
 
-5. Make a field required or not. Some fields that should be required are Name, Phone, Email, and Message.
+For our contact us form we want a Name, Email, Phone, and Message field all of which will be required. Notice that we changed field type to match the type of input we want.
+This will give some validation before the user is able to submit the form.  For instance, the field type "email" will check that the input has an email format and require
+it matches before that format before it allows the user to submit.  Field type "number" will only allow numbers and some symbols like the dash "-" and "." this ideal phone numbers or prices.
+Field type "Multi-line text" is great for messages.  Here's our editor and the form after we add these fields **Save draft** and **Preview**.
 
-6. The **Field Types** available include: Text, Choice, Date & Time, File Upload, and Other.
+.. figure:: images/tut08/form_fields_editor.jpeg
+    :alt:  form field editor with our inputs
 
-7. For fields like Name, you would choose **single-line text**.
+    The form field editor with our inputs.
 
-8. For fields like Message, you would choose **multi-line text.**
+.. figure:: images/tut08/contact_us_form.jpeg
+    :alt:  Contact us form
 
-9. Custom field types such as **Email** and **URL** are available.
+    Our Contact us form.
 
-10. After you build the Form Fields, you can add more page content.
+Cool, so now let's look at the rest of the settings on the from editing page. Scroll down to the Form Settings section directly below what we just worked on.
 
-11. In **Form Settings**, you can select a Thank You page (if you've made one).
+* **Thank you page:** you can select a Thank You page (if you've made one).  Here is what you get by default if you don't link a page:
 
-12. Choose the **Button Text** and **Button Style**.
+.. figure:: images/tut08/thank_you_default.jpeg
+    :alt: thank you default
 
-13. In **Form Submissions**, add the email address (or addresses) where you want the submissions to go. You can also add a prepared subject line here.
+    thank you default
 
-14. Save and/or publish the form.
+* **Button text** is what the form's submit button says.  It has a default value of "Submit"
+* **Button style** is the how the button looks.  Check out `bootstrap buttons <https://getbootstrap.com/docs/5.2/components/buttons/>`_
+* **Button size** utilize the different button sizes provided by bootstrap with this setting.
+* **Button CSS Class** A custom CSS style applied to the button.
+* **Form CSS Class** A custom CSS class applied to <form> element.
+* **Form CSS Class** A custom ID class applied to <form> element.
 
-.. figure:: img/tutorial__form_edit.png
-    :alt: Our form with fields.
+For CRX-Pharma, let's change the button size to large and leave the rest of the settings as they are.  Next let's look at Form Submissions:
 
-    A Form page with fields and settings.
+* **Save form submissions** Submissions are saved to database and can be exported at any time.
+* **Email form submissions to:** Use this to email form submissions to an email address(es). Separate multiple addresses by a comma.
+* **Reply-to-address** To reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}
+* **Subject** is to give the email a subject.
 
-Then this is what the form looks like on the frontend:
-
-.. figure:: img/tutorial_form_published.png
-    :alt: A form that has been published.
-
-    Our published form page.
-
-For practice, make a few more forms. We probably need some Forms for General Inquiries,
-Career Interest, Special Event Requests, etc.
+For CRX-Pharma, We will leave the email part blank but keep **Save form submissions** selected.
 
 Setting up Confirmation Emails
 ------------------------------
 
-Confirmation emails would be a good way to provide great customer service. So, we have decided to also add a Confirmation
-email after someone fills out the Custom Cupcake Order form. Scroll down to the last field on the Form Page in editor
-mode for the **Confirmation Emails** section.
-
-Our From Address will be our email address that is designated for orders with a BCC to our bakery owner. We've added the
-subject line "Order Received!" and a message that says "Thank you for your order! We have received it and will contact
-you within 24 hours for more details and to arrange payment!"
-
-Confirmation Emails uses Django template language and HTML for best results. To learn more, read :ref:`confirmation-emails`.
+There is also a section to setup confirmation emails.  Confirmation Emails uses Django template language and HTML for best results. To learn more, read :ref:`confirmation-emails`.
 
 .. note::
 
     By default when running locally, confirmation emails are not sent, but are
     instead printed to the command line.
 
-Creating our Contact Us page
-----------------------------
-
-You could use a single form as your Contact Us page, but we want to show you that you can add several forms
-to your Contact Us page. We are going to add three forms to our contact page.
-
-First, make a Web Page under Home page that has the title of Contact Us. Add a title, cover image, and a Responsive
-Grid Row. Once we get to the content blocks, select the Text block and add the titles of your web forms, then link to
-their pages. You can continue to add content to this page as you'd like. This is what we did:
-
-.. figure:: img/tutorial_contact_us_edit.png
-    :alt: Edit mode for our Contact Us page.
-
-    The edit screen for our Contact Us page.
-
-Publish the page and see the result. This is how our Contact Us page looks so far:
-
-.. figure:: img/tutorial_contact_us_published.png
-    :alt: The published Contact Us page.
-
-    The published Contact Us page. We will customize the style later on.

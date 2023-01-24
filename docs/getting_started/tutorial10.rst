@@ -50,7 +50,7 @@ or upload them from your computer using the upload button. Use descriptive names
 that you can easily search for them and use them in your pages. These tags are for admin use only --- they do not appear
 anywhere to visitors of your website.
 
-.. figure:: images/tut10/bulk_image_uploader.JPEG
+.. figure:: images/tut10/bulk_image_uploader.jpeg
     :alt: Upload admin for Images.
 
     The upload admin for Images.
@@ -61,7 +61,7 @@ CMS editing tools for images
 While the majority of your image editing should be done in an actual image editor, Wagtail does provide some tools to help you
 optimize your images for your site.
 
-.. figure:: images/tut10/image_editor.JPEG
+.. figure:: images/tut10/image_editor.jpeg
     :alt: CMS editor for Images.
 
     The CMS editor for Images.

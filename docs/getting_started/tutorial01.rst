@@ -69,8 +69,8 @@ will show "CRX-Pharma".
 Adding your logo
 ----------------
 
-First, and most important, is the logo. Go to **Settings > CRX Settings**. Here are the site-wide
-visual and design settings for your website. At the top are two settings for your logo and
+First, and most important, is the logo. Go to **Settings > CRX Settings**, where there are site-wide
+visual and design settings for your website. At the top, are two settings for your logo and
 favicon. Both will be scaled to fit wherever they are used, but we recommend
 the following image parameters:
 
@@ -95,8 +95,8 @@ the following image parameters:
     mobile devices and retina displays. However, any image format will work.
 
 After uploading your logo and favicon, click "Save". You should now instantly see your logo
-applied in the dashboard. In a new tab, go to http://localhost:8000/ and you'll see that your
-logo and favicon show up everywhere on your site.
+applied in the dashboard. In a new browser tab, go to http://localhost:8000/ and you'll see that your
+logo and favicon show up on your site.
 
 
 .. figure:: images/tut01/adding_logo.jpeg
@@ -120,7 +120,7 @@ To change the navbar color, go to **Settings > CRX Settings** in the admin scree
 
 * **Navbar color scheme:** Dark
 * **Navbar CSS class:** ``bg-dark`` (or some other CSS class. See
-  `Bootstrap color utilities <https://getbootstrap.com/docs/4.3/utilities/colors/#background-color>`_)
+  `Bootstrap color utilities <https://getbootstrap.com/docs/5.2/utilities/colors/#background-color>`_)
 
 .. figure:: images/tut01/navbar_settings.jpeg
     :alt: Navbar settings.

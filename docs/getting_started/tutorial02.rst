@@ -4,6 +4,8 @@ Tutorial Part 2: Adding Pages
 We're going to add some placeholder pages to our project.
 We will go in more detail and build these pages out later in the tutorial.
 Having placeholder pages will help when we build out out the homepage, navbar, and footer.
+We will be able to link to the correct page as we make button, image, nav and other links.
+This a preference not a requirement for Wagtail-CRX.  You can build and link in any order.
 
 * Go back to the admin screen http://localhost:8000/admin/
 * In the side menu click **Pages** and then **Home**. This brings you here:

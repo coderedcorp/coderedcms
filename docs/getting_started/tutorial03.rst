@@ -14,17 +14,17 @@ on our site. You will see all the pages we added. Click the pencil icon to edit 
 Here in the body section is where we can add our content. Each component in this section is called
 a "block" and provides a different format of content. Wagtail CRX is heavily based on Bootstrap CSS
 and its grid system, which means all content is based in rows and columns that dynamically stack depending
-on the visitor's screen size.
+on the visitor's screen size.  `Read more here. <https://getbootstrap.com/docs/5.2/layout/grid/>`_
 
 First, let's make a big flashy hero unit. A hero unit in Wagtail CRX is a block that allows for
 a full-width background image or background color, and has lots of padding by default.
 
 * Select the **Hero Unit** block.
-* Be sure full-width is selected.  (It should be by default when using a Hero Unit block)
+* Be sure full-width is selected.  (It should be selected by default when using a Hero Unit block)
 * Next set a background image - we are going to download and use `this laboratory image <https://pixabay.com/photos/laboratory-analysis-chemistry-2815641/>`_ from `Pixabay <https://pixabay.com>`_.
 * Enter "white" in the Text color field
 
-Now to add content to our hero unit, under the content field:
+Let's add content to our hero unit. Under the **Content** field:
 
 * Select **Responsive Grid Row**
 * Select **Column**. Inside our column,
@@ -84,7 +84,7 @@ Let's add text-shadow to the text with our own custom CSS class to make it stand
     custom.scss after adding custom classes.  Be sure to save this file!
 
 * Next we will remove or comment out the global body color $bg-body (line 36) in the *mysite>website>static>website>src>_variables.scss* file
-  because it's changing the background-color of the inputs.  This is another way to alter the colors of the site.
+  because it's changing the background-color of the inputs.  Using the HTML body tag is another way to alter the background color of the site.
 
 .. figure:: images/tut03/body_commented_out.jpg
     :alt: $bg-body commented out.
@@ -107,7 +107,7 @@ Let's add text-shadow to the text with our own custom CSS class to make it stand
 
 
 
-Lets use the CSS class *text-shadow* we just made.
+Lets use the *text-shadow* class we just made.
 
 * Back to the home page editor screen, in the column block, click **Advanced Settings**
 * Enter "text-shadow" in the Custom CSS Class field.  See below :
@@ -190,7 +190,7 @@ Lookin' good!
 
 .. note::
  At this point you may notice that the cards aren't the same height.  You can fix this two ways.  One you can add the bootstrap
- CSS class of h-100 to each card, two you can add `$card-height: 100%` in the _variables.scss.  If you the sass option remember to compile the sass files.
+ CSS class of h-100 to each card, two you can add `$card-height: 100%` in the _variables.scss.  If you use the sass option remember to compile the sass files.
  This is the most basic use case of card-grid check out :ref:`card-grid` for more information.
 
 We added h-100 to each card as seen here:

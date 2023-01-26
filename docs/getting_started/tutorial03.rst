@@ -107,8 +107,6 @@ Let's add text-shadow to the text with our own custom CSS class to make it stand
 
 * Restart server with `python manage.py runserver`
 
-
-
 Lets use the *text-shadow* class we just made.
 
 * Back to the home page editor screen, in the column block, click **Advanced Settings**
@@ -208,7 +206,8 @@ We added h-100 to each card as seen here:
 
     The home page preview with the same size cards.
 
-
+.. note::
+    Check out these resource for cards: :ref:`card-grid` and :ref:`card-block`.
 
 Adding more content to the home page
 ------------------------------------

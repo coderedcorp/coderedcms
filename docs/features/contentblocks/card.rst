@@ -24,5 +24,14 @@ Fields and purposes:
 
 * **Links > Button Link** - The button link to include at the bottom of the card, set to link to a page or external link
 
+* **Advanced Settings > Template** - Multiple options for Card layouts.  See Below for reference.
+
 Explore `Bootstrap Cards <https://getbootstrap.com/docs/4.0/components/card/>`_ to get an understanding of the
 appearance and function of cards.
+
+Here is the same card, using different templates in the advanced settings:
+
+.. figure:: img/card_layout_options.jpeg
+    :alt: Grid of a card with different layout templates selected
+
+    A Grid of a card with different layout templates selected.

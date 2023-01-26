@@ -152,6 +152,8 @@ setting, click "Save", and view your site. Pick one that looks best to you. If y
 doing a lot of heavy CSS customization, you might want to stick with the default to ensure
 compatibility with the Bootstrap documentation.
 
+.. _global-sass-colors:
+
 Global Site Colors with Sass
 ----------------------------
 

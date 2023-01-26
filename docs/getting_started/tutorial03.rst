@@ -55,6 +55,8 @@ Great success!
 
     The home page preview after adding a hero unit.
 
+.. _custom_css:
+
 Custom CSS
 ----------
 

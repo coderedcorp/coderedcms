@@ -40,4 +40,4 @@ and choose a password. If the page doesn't contain any sensitive information, th
 super-complex.
 
 You can set up password-protected pages for sales presentations, for example, or to share private or specialized,
-but not sensitive, information.
+but not sensitive, information!

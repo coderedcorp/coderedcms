@@ -4,7 +4,7 @@
 {% with a_id=self.accordion.id accordion=self.accordion %}
 <div class="accordion" id="accordion-{{a_id}}">
   {% for panel in accordion.accordion_panels.all %}
-  <div class="accordion-item">
+  <div id="{{panel.custom_id}}" class="accordion-item {{panel.custom_css_class}}">
     <h2 class="accordion-header" id="accordion-heading-{{forloop.counter}}">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
         data-bs-target="#collapse-{{a_id}}-{{forloop.counter}}" aria-expanded="false"

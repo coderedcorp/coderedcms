@@ -40,7 +40,7 @@ To change the name, go to **Settings > Sites**, and click on the site that is th
     is for use with multi-sites. For example, if you have a parent company that operates many separate
     brand websites within one CMS, then ``WAGTAIL_SITE_NAME`` would be the name of the parent company.
 
-For my website, I'm going to change **Settings > Sites > Site name** to "CRX-Pharma".
+For this website, Let's change the name to **Settings > Sites > Site name** to "CRX-Pharma".
 
 .. figure:: images/tut01/sitename.jpeg
     :alt: Changing the site name.
@@ -56,7 +56,7 @@ And edit ``mysite/settings/base.py`` by changing ``WAGTAIL_SITE_NAME`` as so::
 
     Changing the site name in base.py
 
-Now the admin dashboard and login page show "CRX-Pharma", and the Home page at http://localhost:8000/
+Now the admin dashboard, login page, and Home page (at http://localhost:8000/)
 will show "CRX-Pharma".
 
 .. figure:: images/tut01/updated_settings.jpg
@@ -94,15 +94,14 @@ the following image parameters:
     We recommend PNG format at 300 DPI so that your logo will look sharp on high resolution
     mobile devices and retina displays. However, any image format will work.
 
-After uploading your logo and favicon, click "Save". You should now instantly see your logo
-applied in the dashboard. In a new browser tab, go to http://localhost:8000/ and you'll see that your
-logo and favicon show up on your site.
-
-
 .. figure:: images/tut01/adding_logo.jpeg
     :alt: Adding the logo.
 
     Adding the logo.
+
+After uploading your logo and favicon, click "Save". You should now instantly see your logo
+applied in the dashboard. In a new browser tab, go to http://localhost:8000/ and you'll see that your
+logo and favicon show up on your site.
 
 .. figure:: images/tut01/logo_on_front.jpg
     :alt: The logo on our website.
@@ -137,7 +136,7 @@ what works best for you. Once again, most of these settings utilize default Boot
     Our site with a dark navbar.
 
 This look isn't ideal for the CRX-pharma website, so in the admin screen lets navigate back to **Settings > CRX Settings**.
-Then change our settings to:
+Then change our settings back to the defaults:
 
  * **Navbar color scheme:** Light
  * **Navbar CSS class:** ``bg-light``
@@ -148,9 +147,9 @@ and **Save.**
 
 Beyond the navbar, you can swap out the entire Bootstrap CSS theme in use. We provide a few simple
 themes from `Bootswatch <https://bootswatch.com/>`_. Select an option from the **Theme variant**
-setting, click "Save", and view your site. Pick one that looks best to you. If you are going to be
-doing a lot of heavy CSS customization, you might want to stick with the default to ensure
-compatibility with the Bootstrap documentation.
+setting, click "Save", and view your site. If you are going to be doing a lot of heavy CSS customization,
+you might want to stick with the default to ensure compatibility with the Bootstrap documentation.  For CRX-Pharma,
+we are going to use the default theme and use Sass to change our colors.
 
 .. _global-sass-colors:
 
@@ -205,5 +204,8 @@ Now hard refresh your browser at http://localhost:8000 and you should see the ne
     The background color in the search input is not ideal and will be addressed in the part 3 of the tutorial.
     The goal of the this section was to demonstrate how to use bootstrap variables to change global properties.
     You can now use bootstrap classes with "primary" or "secondary" and our new colors will override the defaults.
-    A great example of this is the buttons. The default buttons will be dark blue.
+    Buttons are a great example of this. When adding a button or button link, they are options for style.
+    The default style is "primary" which references the sass variable we set in the _variables.scss file.  So with one line of code,
+    anything that references primary will be dark blue (`#1b477d`).
+
 

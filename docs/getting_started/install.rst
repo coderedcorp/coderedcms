@@ -2,7 +2,7 @@ Installation
 ============
 
 .. note::
-     The tutorial uses Sass Support. If you you want to follow the tutorial use Sass support.  See:
+     The tutorial uses Sass Support. It is recommended to use sass to follow along with the tutorial.  See:
      :ref:`sass_install`
 
 
@@ -99,7 +99,7 @@ When working with Sass, you will want to look at the base.html file provided at:
 ``mysite/website/templates/coderedcms/pages/base.html`` to load in any custom
 CSS or JavaScript as needed.
 
-Follow the tutorial to build: :doc:`tutorial01`.
+Follow the tutorial to build a website with us: :doc:`tutorial01`.
 
 Starter Templates
 -----------------

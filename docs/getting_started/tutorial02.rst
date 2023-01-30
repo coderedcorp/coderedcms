@@ -5,7 +5,7 @@ We're going to add some placeholder pages to our project.
 We will go in more detail and build these pages out later in the tutorial.
 Having placeholder pages will help when we build out out the homepage, navbar, and footer.
 We will be able to link to the correct page as we make button, image, nav and other links.
-This a preference not a requirement for Wagtail-CRX.  You can build and link in any order.
+This a preference not a requirement for Wagtail-CRX.  You can build and link pages in any order.
 
 * Go back to the admin screen http://localhost:8000/admin/
 * In the side menu click **Pages** and then **Home**. This brings you here:
@@ -46,7 +46,8 @@ Repeat this process again for the following web pages:
 * Our Products
 * Our Facility
 
-In addition to those, we are going to add two different types of pages:
+Be sure to **Publish** each page.  Later when we setup links to these pages, they can give an error if the page is not published.
+In addition to web pages, we are going to add two different types of pages:
 
 **Form**
 
@@ -67,7 +68,7 @@ After adding the pages the dashboard should look like this:
 .. figure:: images/tut02/pages_home_full.jpeg
     :alt: The pages dashboard with the all the pages
 
-    The pages dashboard with the all the pages
+    The pages dashboard with the all the pages we just added.  Notice you can choose how to sort your pages, the default is most recently updated.
 
 
 The last pages we will make are children of a child page.
@@ -92,7 +93,7 @@ You should be redirected to admin screen for the Our Products Page.  Here you ca
  * **Save** and **Publish**
 
 .. note::
-    In the Pages Admin screen there are options for editing, viewing, deleting, unpublishing,
+    In the Pages Admin screen, there are options for editing, viewing, deleting, unpublishing,
     and to see the History of changes made on pages.  Explore these powerful tools!
 
 Now we have all these pages let's build out the rest of the site.

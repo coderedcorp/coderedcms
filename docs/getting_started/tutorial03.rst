@@ -61,7 +61,7 @@ Custom CSS
 ----------
 
 You may have noticed a few issues with our page. The white text in our hero is a little hard to read and the search input is light teal.
-Let's add text-shadow to the text with our own custom CSS class to make it stand out from the backdrop, and change how we are giving the body a background-color.
+Let's add text-shadow to the hero text with our own custom CSS class.  This will make the text stand out from the backdrop. We will also change how we are giving the body a background-color.
 
 * In your file explorer go to *mysite>website>static>website>src>custom.scss*
 * Add the following code under *// Add your custom styles here.* (line 26) :
@@ -80,13 +80,17 @@ Let's add text-shadow to the text with our own custom CSS class to make it stand
         background-color: #a4f1e9;
     }
 
+Using the HTML body tag is another way to alter the background color of the site.
+
+Our custom.scss file after adding the above code:
+
 .. figure:: images/tut03/custom_css_inVScode.jpg
     :alt: custom.scss after adding custom classes.
 
     custom.scss after adding custom classes.  Be sure to save this file!
 
 * Next we will remove or comment out the global body color $bg-body (line 36) in the *mysite>website>static>website>src>_variables.scss* file
-  because it's changing the background-color of the inputs.  Using the HTML body tag is another way to alter the background color of the site.
+  because it's changing the background-color of the inputs.  Our newly added css will now change the background-color of the body.
 
 .. figure:: images/tut03/body_commented_out.jpg
     :alt: $bg-body commented out.
@@ -106,6 +110,7 @@ Let's add text-shadow to the text with our own custom CSS class to make it stand
 
 
 * Restart server with `python manage.py runserver`
+* Hard refresh your web browser
 
 Lets use the *text-shadow* class we just made.
 
@@ -132,7 +137,7 @@ Adding cards to the home page
 .. note::
     We used these images from pixabay in our cards.  You'll need to download them.
 
-    * `stethoscope <https://pixabay.com/photos/laboratory-analysis-chemistry-2815641/>`_
+    * `stethoscope <https://pixabay.com/photos/blood-pressure-stethoscope-medical-1584223/>`_
     * `lab equipment <https://pixabay.com/photos/laboratory-apparatus-equipment-217041/>`_
     * `colorful brain <https://pixabay.com/illustrations/brain-mind-psychology-idea-drawing-2062057/>`_
 
@@ -193,7 +198,7 @@ Lookin' good!
  CSS class of h-100 to each card, two you can add `$card-height: 100%` in the _variables.scss.  If you use the sass option remember to compile the sass files.
  This is the most basic use case of card-grid check out :ref:`card-grid` for more information.
 
-We added h-100 to each card as seen here:
+To make all the cards equal height, We added bootstrap class h-100 to each card as seen here:
 
 .. figure:: images/tut03/h_100.jpeg
     :alt: card block with custom class of h-100
@@ -216,9 +221,9 @@ We'll continue following this pattern to add content. While the **Hero Unit** an
 "special" content formats, the **Responsive Grid Row** is the most general purpose block for adding content. There is also an
 **HTML** block for inserting raw HTML if needed.
 
-Let's look at this in practice.
+Let's look at **Responsive Grid Row** in practice.
 
-* Add a **Responsive Grid Row** below the **Card Grid**
+* Add a **Responsive Grid Row** below our **Card Grid**
 * Select **Column**
 * Change **Column size** to "Half - 1/2 column"
 * Select **Text**
@@ -242,7 +247,7 @@ Let's look at this in practice.
 
     Home Page with Our Products added.
 
-We are going to do another more **Responsive Grid Rows**
+We are going to do another **Responsive Grid Row**
 
 * Add another Responsive Grid Row
 * Add a Column set it to 1/2 column with this `image <https://pixabay.com/photos/building-hospital-white-modern-2654823/>`_
@@ -256,14 +261,16 @@ We are going to do another more **Responsive Grid Rows**
 
     Home Page with Our Facility added
 
-For the Last two **Responsive Grid Rows** you are on your own reference the image last image on this page as a guide.
-Follow these links to get the images. (note: I cropped my images square):
+For the Last two **Responsive Grid Rows** reference the last image on this page as a guide.
+Follow these links to get the images. (note: I cropped my images square using a photo editor):
 
 * `doctor 1 <https://pixabay.com/photos/doctor-gray-hair-experience-2337835/>`_
 * `doctor 2 <https://pixabay.com/photos/woman-doctor-surgeon-physician-2141808/>`_
 
-To get the green background, white text, and proper padding you will want to put "bg-secondary text-white p-5"
+To get the green background, white text, and proper padding you will want to add "bg-secondary text-white p-5"
 in the Custom CSS field on each column with text.  These are bootstrap classes that come pre-loaded in Wagtail-CRX.
+When we set the secondary color to green in part 01 of the tutorial, we made all the bootstrap classes that have "secondary" in the class name
+reference that color.  This screenshot shows how to add these classes to the column.  You must open advanced settings on the column:
 
 .. figure:: images/tut03/custom_classes.jpeg
     :alt: bootstrap classes on columns

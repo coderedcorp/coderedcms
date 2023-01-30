@@ -1,3 +1,5 @@
+.. _customizing_templates:
+
 Customizing Templates & CSS
 ===========================
 
@@ -89,6 +91,7 @@ look at your website.  The navbar should be gone.  The empty file is now overrid
 .. figure:: img/A01/logo_centered.jpeg
     :alt: preview of navbar
 
+.. _adding_custom_css:
 
 Adding Custom CSS
 -----------------

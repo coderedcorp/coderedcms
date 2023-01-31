@@ -49,7 +49,7 @@ The most important section to fill out is the **Search and Social Previews**.
   additional branch locations, we would want to add the
   relevant structured data on each branch's page.
 
-To save, just **Publish** the page as normal.
+To save, just **Save** and **Publish** the page as normal.
 
 For information about metadata best practices, see the `SEO Starter Guide from
 Google <https://support.google.com/webmasters/answer/7451184?hl=en>`_

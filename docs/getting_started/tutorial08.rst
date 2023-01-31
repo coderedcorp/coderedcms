@@ -35,10 +35,10 @@ Click add form fields. You will be presented with this block:
 * **Choices** are for the values that checkbox, radio, or dropdown inputs use.
 * **Default value** is a value that will be inside the input.
 
-For our contact us form we want a Name, Email, Phone, and Message field all of which will be required. Notice that we changed field type to match the type of input we want.
-This will give some validation before the user is able to submit the form.  For instance, the field type "email" will check that the input has an email format and require
-it matches before that format before it allows the user to submit.  Field type "number" will only allow numbers and some symbols like the dash "-" and "." this ideal phone numbers or prices.
-Field type "Multi-line text" is great for messages.  Here's our editor and the form after we add these fields **Save draft** and **Preview**.
+For the "Contact Us" form we want a Name, Email, Phone, and Message field. Notice that we changed **Field type** to match the type of input.
+This will give some validation before the user is able to submit the form.  For instance, the field type "email" will require the input data matches an email format before
+it allows the user to submit.  Field type "number" will only allow numbers and some symbols like the dash "-" and ".". This is ideal phone numbers or prices.
+Field type "Multi-line text" is great for messages as it gives more space on the page automatically.  Here's our editor and the form after we add these fields **Save draft** and **Preview**.
 
 .. figure:: images/tut08/form_fields_editor.jpeg
     :alt:  form field editor with our inputs
@@ -61,7 +61,7 @@ Cool, so now let's look at the rest of the settings on the from editing page. Sc
 
 * **Button text** is what the form's submit button says.  It has a default value of "Submit"
 * **Button style** is the how the button looks.  Check out `bootstrap buttons <https://getbootstrap.com/docs/5.2/components/buttons/>`_
-* **Button size** utilize the different button sizes provided by bootstrap with this setting.
+* **Button size** changes the size of the button.
 * **Button CSS Class** A custom CSS style applied to the button.
 * **Form CSS Class** A custom CSS class applied to <form> element.
 * **Form CSS Class** A custom ID class applied to <form> element.
@@ -69,7 +69,7 @@ Cool, so now let's look at the rest of the settings on the from editing page. Sc
 For CRX-Pharma, let's change the button size to large and leave the rest of the settings as they are.  Next let's look at Form Submissions:
 
 * **Save form submissions** Submissions are saved to database and can be exported at any time.
-* **Email form submissions to:** Use this to email form submissions to an email address(es). Separate multiple addresses by a comma.
+* **Email form submissions to:** Use this to email form submissions to an email address(es). Separate multiple email addresses by a comma.
 * **Reply-to-address** To reply to the submitter, specify the email field here. For example, if a form field above is labeled "Your Email", enter: {{ your_email }}
 * **Subject** is to give the email a subject.
 

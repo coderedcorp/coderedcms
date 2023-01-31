@@ -32,7 +32,7 @@ Let's publish this page and see what it looks like:
 
     Our published web page.
 
-Wow! Our site is really coming together!  Here a challenge for you.
+Our site is really coming together!  Here a challenge for you.
 Let's make all the h1 headings blue and bold(font-weight: 700).
 Try on your own.  Here is the CSS you need.
 
@@ -49,14 +49,9 @@ Here is what my code editor looks like:
 .. figure:: images/tut06/h1css.jpg
     :alt: code editor with css code
 
-    I put my h1 just under the body and above the custom classes.  This a preference and a way to organize the code.
+    I put the h1 tag just under the body tag and above the custom classes.  This a preference to organize the code. HTML Tags then custom css classes.
 
-Remember to compile the sass and refresh your page.  Now site wide the h1 or titles of web pages will match our theme.
-
-.. figure:: images/tut06/h1css.jpg
-    :alt: code editor with css code
-
-    I put my h1 just under the body and above the custom classes.  This a preference and a way to organize the code.
+Remember to compile the sass and refresh your page.  Now the h1 headings (titles of each web page) will match our theme.
 
 
 .. figure:: images/tut06/h1_preview.jpeg

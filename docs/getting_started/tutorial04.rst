@@ -25,7 +25,7 @@ Create your Navbar
 Your navbar will have links to your other pages or external content that you want
 to share. To build your Navbar, go to **Snippets > Navigation Bars**.
 
-In the top right-hand corner is a button that says **Add Navigation Bar**.
+There is a button in the top right corner named **Add Navigation Bar**.
 Click on this button to start! (Alternatively, you can also click on the link that says "Why not add one?")
 
 .. figure:: images/tut04/new_nav_edit.jpeg
@@ -33,8 +33,8 @@ Click on this button to start! (Alternatively, you can also click on the link th
 
     The edit screen for adding a new navbar
 
-Name your navbar. In this case, this will be our main navigation bar so we have simply named it
-Main Nav.
+Giving the navbar a name is required. Also note, as you use different editing interfaces in Wagtail-CRX, required fields are marked with a red asterisk (*).
+Since, this will be a site wide navigation bar we have named it Main Nav Bar.
 
 There are three types of links that you can add to your navbar. Let's briefly describe each one:
 
@@ -67,8 +67,13 @@ Site Navbars Settings
 
 To use the newly created navbar, go to **Settings > CRX Settings** and scroll down to **Site Navbars**. Click on the plus sign
 to select your new navbar and add it to your site. Then Save.  View your homepage and you should see it.  Also the links should be working.
-It's recommended that you test your work as you go.  If things aren't working, make sure the pages we made in part 2 are published.  Reference the screenshots to make sure they match.
+It's recommended that you test your work as you go.  If things aren't working, make sure the pages we made in part 2 are published.
+Reference the screenshots to make sure they match.
 
+.. figure:: images/tut04/home_page_navbar.jpeg
+    :alt: Preview of navbar
+
+    Navbar on the homepage
 
 .. _footer:
 
@@ -82,8 +87,8 @@ working on the footer. In the top right-hand corner is a button that says **Add 
 
 Give your footer a name. We chose Main Footer since this will be the main footer for our site.
 
-Let's get some practice with Responsive Grid Rows and Columns! We want to make a 4-column footer with sub-page links in the first column, external links to social media in the second,
-an address in the third, and placeholder links for legal disclosures in the last column.
+Let's get some practice with Responsive Grid Rows and Columns! We want to make a 4-column footer with sub-page links in the first column,
+external links to social media in the second, an address in the third, and links for legal disclosures in the last column.
 
 .. note::
     To keep up with our design, we have also added a few Bootstrap classes to our footer.  In the Custom CSS Class field, add "bg-secondary text-white".
@@ -143,11 +148,37 @@ For the third column's text block:
 * Click **Email Link**
 * Enter an Email address in that field and "Email Us" in the Link text, click **Insert link**.
 
-For the fourth column's text block:
+For the fourth column's text block let's add a document link.
+Here's a fake legal disclosure we can use: :download:`fake legal pdf <images/tut04/CRXPharmaFakeLegal.pdf>`.
+Download that file.  Remember it's location on your computer. In the fourth column's text editor:
 
 * Enter "Legal:" and hit enter to make a new line.
-* Here you could link to a page using the link editor.  You could also choose document (next to the chain link) and upload a PDF with your policies or terms of service.
-* For this tutorial we are going just make it placeholder text (meaning no links).  We put a line for Privacy Policy, Terms of Use, and Disclosures
+* Choose document (next to the chain link)
+
+.. figure:: images/tut04/document_link.jpeg
+    :alt: Text editor with document link highlighted
+
+    Text editor with document link highlighted
+
+* This opens the document management modal
+
+.. figure:: images/tut04/document_modal.jpeg
+    :alt: document management modal
+
+    document management modal
+
+* Select the Upload Tab
+* Choose the file provided above.
+* Change the Title to "Privacy Policy"
+
+.. figure:: images/tut04/document_pp.jpeg
+    :alt: document management modal with document selected
+
+    document management modal with document selected
+
+* Select Upload.
+* And now you see the document link in your text editor.
+* For the rest of the legal section, we are going use placeholder text (meaning no links).  We put a line for Terms of Use, and Disclosures
 
 Our Editing Page:
 
@@ -225,6 +256,11 @@ Remember to compile your sass:
     footer with new class secondary-link class
 
 Take a moment to hover over the link text and see it changes color.  Now the homepage is starting to feel like a
-professional site.  Let's look at building out a blog.
+professional site.
 
+.. figure:: images/tut04/homepage_finished.jpeg
+    :alt: The homepage with navbar and footer
 
+    The homepage with navbar and footer
+
+Now let's look at building a blog landing page and blog pages.

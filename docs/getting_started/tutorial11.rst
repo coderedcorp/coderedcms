@@ -5,7 +5,7 @@ Finally, let's talk about how to **password-protect** pages that you only want t
 permissions to be able to access when they visit the website. Maybe you want to hide a document page
 for special bulk pricing or an information page for customers behind a password. There is an easy way to do this from within the CMS.
 
-Navigate to the page that you want to add password-protection. (In out case "Bulk Sales") You need to either save it as a draft or publish
+Navigate to the page that you want to add password-protection. (In this case "Bulk Sales") You need to either save it as a draft or publish
 it before you can access the Password-Protect feature.  Go to the settings tab in the editing screen.
 
 The default setting for **Privacy** is Public, which means that the page will be available to view for anyone
@@ -38,5 +38,5 @@ super-complex. Our password Password-Protected page.
     The Privacy options pop-up screen.
 
 
-You can set up password-protected pages for sales presentations, for example, or to share private or specialized,
+You can set up password-protected pages for sales presentations or to share private or specialized,
 but not sensitive, information.

@@ -1,35 +1,35 @@
 Tutorial Part 5: Creating a Blog
 ================================
 
-We want to add a blog to our site, so let's get some practice with Article Pages!
-Then we will get some practice building a basic web page as well.
+We want to add a blog to our site, so let's look at Article Pages.
+
 
 Adding articles to the site
 ---------------------------
 
-Okay, Articles will be child pages (also known as sub-pages) for the **Article Landing Page**. This
-is important to remember because sub-pages can be accessed by the parent page (also known as the
-landing page).
+Article pages are child pages (also known as sub-pages) of an **Article Landing Page**. This
+is important because sub-pages can be accessed by the parent page.  Let's look at this in action.
 
 .. note::
-    We are going to use the "What's Happening at CRX-Pharma" page for our blog.
+    We are going to use the "What's Happening at CRX-Pharma" page created in part 02 for our blog.
+    Blogs are **Article Landing Pages** in Wagtail-CRX and are used interchangeably in this tutorial.
 
-Go to **Pages > Home** in wagtail admin. This screen will allow you to create child pages as seen in Part 02 of the tutorial.
+Go to **Pages > Home** in wagtail admin. This screen will allow you to create child pages as seen in part 02 of the tutorial.
 Ours looks like this:
 
 .. figure:: images/tut05/blog_start.jpeg
     :alt: Screen for adding pages under the Home page.
 
-    The admin screen for adding pages under the Home page.
+    The admin screen for adding pages under the Home page sorted by last updated.  Your's may look different depending on what you updated last.
 
 You should see the Article Landing with titled "What's New at CRX-Pharma". Hover over it to reveal more options.
-These options include: **Edit, View Live, Add child page, and More**.  If you click on **More** you'll see a drop down menu
+These options include: **Edit, View Live, Add child page,** and **More**.  If you click on **More** you'll see a drop down menu
 with **Move, Copy, Delete, Unpublish, and History**.
 
 * **Move** allows you to change where that page is in site's tree structure.
 * **Copy** will make a copy of the page.
 * **Delete** removes the page from the project.
-* **Unpublish** keep the page but it will no longer be accessible live.
+* **Unpublish** will keep the page but it will no longer be accessible live.
 * **History** allows you to see changes made to the page.
 
 For now, We want to add a few posts, so select **Add Child Page**. This will
@@ -56,7 +56,7 @@ case. We will want to fill in the following:
 
 * **Body** - Content for our article or blog
 
-Let's write a short blog about the story about a fictitious vaccine that CRX-Pharma created. Once we fill in the information we want to add above, we
+Let's write a short blog about a fictitious vaccine that CRX-Pharma created. Once we fill in the information we want to add above, we
 can select what we want to add to the body of the blog post. We will choose a **Text** block.
 We added `this image <https://pixabay.com/illustrations/pill-capsule-medicine-medical-1884775/>`_ in our text block with the Image tool in the text editor.
 This is what our editor looks like:
@@ -104,7 +104,7 @@ Publish and see what happens!
 
 Whoa! The blog posts are already showing up! What is this magic? Well, remember that this is a parent page type
 and the blog posts were children of this page. The option to "show children" is already pre-selected in the edit mode
-for the landing pages. We should go take a look at that now.
+for landing pages. Let's look at that now.
 
 Ways to display sub-pages on a landing page
 -------------------------------------------
@@ -121,7 +121,7 @@ Go back into the editor for the Blog landing page. You should see the following 
 
 * **Settings**
 
-We want the **Layout** tab. Click on that tab and you'll see something like this:
+We want the **Layout** tab. Click on that tab and you'll see this:
 
 .. figure:: images/tut05/landing_page_settings.jpeg
     :alt: The Layout tab for the Blog landing page
@@ -144,7 +144,7 @@ You can add more content below the Text block with our introduction, or make a n
 a new Responsive Grid Row to add a column with content.
 
 What we want to look at is the **Latest Pages** block. The Latest Pages block is extra powerful because you can access
-the sub-pages of **any landing page on the site**! You can look at it for now, but we are going to just use the "Show Child Pages"
-in Layout after all. We will go into more depth about this block and other content blocks in the future.
+the sub-pages of any landing page on the site. You can look at it for now, but we are going to use the "Show Child Pages"
+in the **Layout** tab after all.
 
 Remember to re-select "Show Child Pages" in Layout before publishing it.

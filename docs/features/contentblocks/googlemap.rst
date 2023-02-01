@@ -1,7 +1,14 @@
 Google Map Block
 ================
 
-Allows the user to add a Google Map location and display the location on the map. 
+Allows the user to add a Google Map location and display the location on the map.
+
+Example:
+
+.. figure:: images/google_map_preview.jpeg
+    :alt: A published Google Map
+
+    A Google Map of the Public Square offices in Cleveland (where we're located!)
 
 Field Reference
 ---------------
@@ -19,18 +26,14 @@ Fields and purposes:
 * **Advanced Settings** - Add custom CSS classes or a CSS ID to style the block with your custom CSS
 
 .. note::
-    Google Place IDs and Zoom both require a Google API Key. 
+    Google Place IDs and Zoom both require a Google API Key.
     Read more about `Google Maps API Keys <https://developers.google.com/maps/documentation/javascript/get-api-key>`_ .
 
-.. figure:: img/googlemap_settings.png
-    :alt: Our Google Map settings for Public Square, Cleveland, OH
+.. figure:: images/google_map_block.jpeg
+    :alt: Our Google Map settings for 55 Public Square, Cleveland, OH
 
-    Our Google Map settings for Public Square, Cleveland, OH
+    Our Google Map settings for 55 Public Square, Cleveland, OH
 
-.. figure:: img/googlemap_published.png
-    :alt: A published Google Map
-
-    A Google Map of the Public Square offices in Cleveland (where we're located!)
 
 
 

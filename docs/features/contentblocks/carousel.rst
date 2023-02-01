@@ -2,8 +2,15 @@ Carousel Block
 ==============
 
 Allows the user to create a carousel with image backgrounds and relevant blocks.
-Carousel automatically change slides, but also have arrow controls for the user to advance or return to the previous slide.
+Carousels automatically change slides, but also have arrow controls for the user to advance or return to the previous slide.
 Make a Carousel by going to **Snippets > Carousels** and clicking Add Carousel.
+
+Example:
+    .. figure:: images/carousel_example.jpeg
+        :alt:  default button styles
+
+        default button styles
+
 
 Field Reference
 ---------------
@@ -21,7 +28,7 @@ you can create a carousel to add to the page.  Here is a carousel editor with th
 
     The edit mode for building a carousel snippet
 
-Save your work and now you can select that carousel in a page editor. Ours is named Demo.  Here is a preview of for one of our slides:
+Save your work and now you can select that carousel in a page editor. This one is named Demo.  Here is a preview of for one of our slides:
 
 .. figure:: images/carousel_preview.jpeg
     :alt: Our carousel published on the page

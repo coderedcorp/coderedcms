@@ -9,6 +9,8 @@ Allows the user to fill out information to be displayed in a card. Crops the ima
     There is also a :ref:`card-grid` which groups cards into a grid and is a Layout Block;
     this Card Block only displays a single card.
 
+Example: See below.
+
 Field Reference
 ---------------
 
@@ -26,12 +28,12 @@ Fields and purposes:
 
 * **Advanced Settings > Template** - Multiple options for Card layouts.  See Below for reference.
 
-Explore `Bootstrap Cards <https://getbootstrap.com/docs/4.0/components/card/>`_ to get an understanding of the
-appearance and function of cards.
-
 Here is the same card, using different templates in the advanced settings:
 
-.. figure:: img/card_layout_options.jpeg
+.. figure:: images/card_layout_options.jpeg
     :alt: Grid of a card with different layout templates selected
 
     A Grid of a card with different layout templates selected.
+
+Explore `Bootstrap Cards <https://getbootstrap.com/docs/4.0/components/card/>`_ to get an understanding of the
+appearance and function of cards.

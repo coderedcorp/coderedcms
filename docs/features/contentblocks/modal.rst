@@ -2,6 +2,19 @@ Modal Block
 ===========
 
 Creates a popup box with a header, footer, and the ability to display the body as a block.
+Click the "X" in the corner or background of page to close it.
+
+Example: (Modal Open Button)
+    .. figure:: images/modal_button.jpeg
+        :alt: The webpage with an open modal button.
+
+        The webpage with an open modal button.  Can be styled like any other button see Button Block.
+
+(Modal Open)
+    .. figure:: images/modal_open.jpeg
+        :alt: The webpage with an open modal button.
+
+        The webpage with an open modal button.  Can be styled like any other button see Button Block.
 
 Field Reference
 ---------------
@@ -27,7 +40,7 @@ Fields and purposes:
 
 Once it is published, website visitors can click the button to see the popup message.
 
-.. figure:: img/cupcake_modal_sample.png
-    :alt: Our cupcake modal
+.. figure:: images/modal_editor.jpeg
+    :alt: modal editing block
 
-    Our cupcake modal as it appears on the page
+    Modal editing block

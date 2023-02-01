@@ -9,9 +9,9 @@ Field Reference
 
 This block includes a space for adding your custom HTML. Only use this block when you want to add something
 that can't be added with any of the other blocks, or that is not as integral to the page function as what
-would need to be in a template instead.  
+would need to be in a template instead.
 
-.. figure:: img/blocks_html.png
+.. figure:: images/html_block.jpeg
     :alt: An HTML block with a little HTML.
 
     A HTML block with some basic HTML.

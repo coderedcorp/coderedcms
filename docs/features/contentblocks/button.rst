@@ -4,6 +4,15 @@ Button Block
 The button block renders an HTML anchor styled as a button. This can be used to
 link to pages, documents, or external links.
 
+Example:
+
+.. figure:: images/button_example.jpeg
+    :alt:  default button styles
+
+    default button styles
+
+Note this screen shot was taken using the default bootstrap colors.  If you use a theme or change global colors with sass,
+they will likely be different colors.
 
 Field Reference
 ---------------

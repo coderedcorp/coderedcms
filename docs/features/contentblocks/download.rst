@@ -2,7 +2,9 @@ Download Block
 ==============
 
 The download block enables users to add documents to the CMS which website
-visitors can download from the site.
+visitors can download from the site.  The download block is a button and has the same options.
+
+Example: See Button Block.
 
 Field Reference
 ---------------
@@ -18,20 +20,18 @@ Field Reference
   ``CRX_FRONTEND_BTN_SIZE_CHOICES`` Django setting and is inserted as a CSS
   class in the HTML.
 
-* **Auto Download** - Enables automatic download upon click of the button
-
 * **Document Link** - Link to the document, which you will need to upload into the CMS
 
-* **Advanced Settings** - Add custom CSS classes or a CSS ID to style the block with your custom CSS
+* **Advanced Settings** - Add custom CSS classes or a CSS ID
 
-.. figure:: img/blocks_download.png
+.. figure:: images/download_block_editor.jpeg
     :alt: A download block and its settings.
 
     A download block and its settings.
 
-.. figure:: img/blocks_choose_doc.png
-    :alt: Choosing the document
+.. figure:: images/document_selection_modal.jpeg
+    :alt: The document selection modal
 
-    The popup for choosing which document you want to upload to the block for download by users
+    The modal to search current or upload new documents for users to download.
 
 When a website visitor clicks the button, the document is available for download in a new window.

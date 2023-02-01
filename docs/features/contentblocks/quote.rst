@@ -1,7 +1,13 @@
 Quote Block
 ===========
 
-Allows the user to enter a quote and an author. 
+Allows the user to enter a quote and an author.
+
+Example:
+    .. figure:: images/quote_example.jpeg
+        :alt: A quote block
+
+        A quote block
 
 Field Reference
 ---------------
@@ -14,12 +20,7 @@ Fields and purposes:
 
 * **Advanced Settings** - Add custom CSS classes or a CSS ID to style the block with your custom CSS
 
-.. figure:: img/quoteblock.png
+.. figure:: images/quote_editor.jpeg
     :alt: A quote block and its settings.
 
     A quote block and its settings.
-
-.. figure:: img/quote_published.png
-    :alt: A published quote.
-
-    A published quote.

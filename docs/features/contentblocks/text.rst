@@ -1,7 +1,11 @@
 Text Block
 ==========
 
-The text block allows the user to create formatted text with headers, lists, links, and media. 
+The text block allows the user to create formatted text with headers, lists, links, and media.
+This is one of the most versatile editors.  It's best to try out all the options to get a feel for what all it can do.
+Below is an example
+
+Example: See Below
 
 Field Reference
 ---------------
@@ -19,9 +23,14 @@ in the format bar, such as:
 
 * embed, link, document, or image -- media content that can be embedded in the block
 
-* undo and redo -- helpful in case you make a mistake or change your mind while writing 
+* undo and redo -- helpful in case you make a mistake or change your mind while writing
 
-.. figure:: img/textblock.png
-    :alt: A text block with some text.
+.. figure:: images/text_block_edit.jpeg
+    :alt: A text block with some of the options you have in the editor.
 
     A text block with some text.
+
+.. figure:: images/text_block_preview.jpeg
+    :alt: The text block the above editor produced.
+
+    The text block the above editor produced.

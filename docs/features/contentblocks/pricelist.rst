@@ -3,6 +3,12 @@ Price List Block
 
 Creates a price list with the name of the items and their prices
 
+Example:
+    .. figure:: images/price_list_example.jpeg
+        :alt: Demo Price List
+
+        Demo Price List
+
 Field Reference
 ---------------
 
@@ -20,7 +26,7 @@ Fields and purposes:
 
 * **Price** - The price for the Price List Item as text (add currency symbols as desired)
 
-.. figure:: img/pricelist_sample.png
-    :alt: Our published price list
+.. figure:: images/price_list_editor.jpeg
+    :alt: price list block in the editing screen
 
-    Our published price list
+    Price list block in the editing screen

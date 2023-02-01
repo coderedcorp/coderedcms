@@ -23,8 +23,8 @@ Content blocks are the blocks for adding various types of content to your site.
     modal
     pagepreview
     pricelist
-    reusablecontent
     quote
+    reusablecontent
     table
     text
 

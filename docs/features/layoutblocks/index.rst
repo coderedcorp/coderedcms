@@ -10,3 +10,4 @@ Layout blocks are the blocks for building your site in the CMS.
     column
     hero
     responsivegridrow
+    html

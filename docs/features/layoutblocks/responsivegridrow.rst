@@ -13,9 +13,9 @@ Fields and purposes:
 * **Content** - Starts with a Column (required) with content block choices
 
 You can add as many columns as you would like; however, a responsive grid row requires at least one column with
-at least one piece of content. 
+at least one piece of content.
 
-.. figure:: img/responsive_grid_row1.png
+.. figure:: img/responsive_grid.jpeg
     :alt: A responsive grid row block
 
     A responsive grid row block ready to add some content

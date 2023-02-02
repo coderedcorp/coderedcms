@@ -29,7 +29,7 @@ Fields and purposes:
 In the **Advanced Settings** you can add CSS classes. In our hero below, we added the Bootstrap class ``py-5`` to give
 the hero image more padding and show more of the image. We also selected the focal point in the Image Editor.
 
-.. figure:: img/hero_block.png 
+.. figure:: img/hero_block.jpeg
     :alt: Hero block published on the page
 
     Our published hero block with padding

@@ -37,14 +37,14 @@ we'll see you can add "h-100" to each card and they will be the same height.  Le
 
 In the page editor, go to each card and open the advanced settings.  Add "h-100" to the Custom CSS Class.
 
-.. figure:: img/h100.jpeg
+.. figure:: img/card_grid_h100.jpeg
     :alt: Card block with h-100 added to Custom CSS Class
 
     Card block with h-100 added to Custom CSS Class
 
 Save and preview
 
-.. figure:: img/card_grid_h100.jpeg
+.. figure:: img/card_grid_h100_preview.jpeg
     :alt: Card grid with bootstrap class h-100 added to every card
 
     Card grid with bootstrap class h-100 added to every card.

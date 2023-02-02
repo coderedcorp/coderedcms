@@ -829,16 +829,16 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             "@type": "Event",
             "name": self.title,
             "description": self.seo_description,
-            "startDate": next_occ.start,
-            "endDate": next_occ.end,
+            "startDate": next_occ[0],
+            "endDate": next_occ[1],
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": self.get_full_url,
+                "@id": self.get_full_url(),
             },
         }
 
         if self.seo_image:
-            sd_dict.update({"image": get_struct_data_images(self.seo_image)})
+            sd_dict.update({"image": get_struct_data_images(self.get_site(),self.seo_image)})
 
         if self.address:
             sd_dict.update(

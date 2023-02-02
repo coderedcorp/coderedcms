@@ -52,14 +52,13 @@
 </div>
 {% endif %}
 {% endblock %}
-
-{% endblock %}
-
-{% block struct_seo_extra %}
-{{ block.super }}
 {% if settings.wagtailseo.SeoSettings.struct_meta %}
 <script type="application/ld+json">
   {{ self.seo_struct_event_json | safe }}
 </script>
 {% endif %}
+{% endblock %}
+
+{% block struct_seo_extra %}
+{{ block.super }}
 {% endblock %}

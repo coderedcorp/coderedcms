@@ -35,8 +35,8 @@ Click add form fields. You will be presented with this block:
 * **Choices** are for the values that checkbox, radio, or dropdown inputs use.
 * **Default value** is a value that will be inside the input.
 
-For the "Contact Us" form we want a Name, Email, Phone, and Message field. Notice that we changed **Field type** to match the type of input.
-This will give some validation before the user is able to submit the form.  For instance, the field type "email" will require the input data matches an email format before
+For the "Contact Us" form we want a First Name, Last Name, Email, Phone, and Message field. Notice that we changed **Field type** to match the type of input.
+By selecting the correct field type, the input will have better validation.  For instance, the field type "email" will require the input data matches an email format before
 it allows the user to submit.  Field type "number" will only allow numbers and some symbols like the dash "-" and ".". This is ideal phone numbers or prices.
 Field type "Multi-line text" is great for messages as it gives more space on the page automatically.  Here's our editor and the form after we add these fields **Save draft** and **Preview**.
 
@@ -45,7 +45,7 @@ Field type "Multi-line text" is great for messages as it gives more space on the
 
     The form field editor with our inputs.
 
-.. figure:: images/tut08/contact_us_form.jpeg
+.. figure:: images/tut08/contact_us_form_preview.jpeg
     :alt:  Contact us form
 
     Our Contact us form.

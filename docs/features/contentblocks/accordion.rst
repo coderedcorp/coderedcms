@@ -1,3 +1,5 @@
+.. _accordion-block:
+
 Accordion Block
 ===============
 

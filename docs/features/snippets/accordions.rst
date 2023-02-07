@@ -2,6 +2,7 @@ Accordions
 ==========
 
 A representation of an accordion or other collapsible content.
+See :ref:`accordion-block`
 
 Usage
 -----

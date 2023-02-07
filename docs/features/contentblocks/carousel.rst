@@ -1,3 +1,5 @@
+.. _carousel-block:
+
 Carousel Block
 ==============
 

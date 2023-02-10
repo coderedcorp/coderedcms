@@ -15,7 +15,7 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
 )
 from wagtail.models import Orderable
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.images import get_image_model_string
 from coderedcms.fields import MonospaceField
 from coderedcms.settings import crx_settings
@@ -23,7 +23,7 @@ from coderedcms.models.snippet_models import Navbar, Footer
 
 
 @register_setting(icon="cr-desktop")
-class LayoutSettings(ClusterableModel, BaseSetting):
+class LayoutSettings(ClusterableModel, BaseSiteSetting):
     """
     Branding, navbar, and theme settings.
     """
@@ -257,7 +257,7 @@ class FooterOrderable(Orderable, models.Model):
 
 
 @register_setting(icon="cr-google")
-class AnalyticsSettings(BaseSetting):
+class AnalyticsSettings(BaseSiteSetting):
     """
     Tracking and Google Analytics.
     """

@@ -33,7 +33,6 @@ from django.template.response import TemplateResponse
 from django.utils.safestring import SafeData, mark_safe
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from wagtail.models import Page
 from wagtail.contrib.forms.models import (
     AbstractForm,
     AbstractEmailForm,
@@ -686,8 +685,6 @@ class SubmissionRevision(Model):
 
 
 class StreamFormMixin:
-    preview_modes = Page.DEFAULT_PREVIEW_MODES
-
     @property
     def current_step_session_key(self):
         return "%s:step" % self.pk
@@ -789,7 +786,7 @@ class StreamFormMixin:
             if is_complete:
                 return self.serve_success(request, *args, **kwargs)
             return HttpResponseRedirect(self.url)
-        return Page.serve(self, request, *args, **kwargs)
+        return super().serve(self, request, *args, **kwargs)
 
     def get_data_fields(self, by_step=False, add_metadata=True):
         if by_step:

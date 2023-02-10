@@ -1648,7 +1648,7 @@ class CoderedSubmissionRevision(SubmissionRevision, models.Model):
 
 
 class CoderedSessionFormSubmission(SessionFormSubmission):
-    
+
     INCOMPLETE = "incomplete"
     COMPLETE = "complete"
     REVIEWED = "reviewed"

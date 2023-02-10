@@ -881,6 +881,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
         # For each occurrence rule in all of the occurrence rules for this event.
         for occurrence in self.occurrences.all():
+
             # Add the qualifying generated event instances to the list.
             event_instances += [
                 instance
@@ -1281,6 +1282,7 @@ class CoderedFormMixin(models.Model):
         processed_data = {}
         # Handle file uploads
         for key, val in form.cleaned_data.items():
+
             if (
                 type(val) == InMemoryUploadedFile
                 or type(val) == TemporaryUploadedFile
@@ -1318,6 +1320,7 @@ class CoderedFormMixin(models.Model):
     def process_form_submission(
         self, request, form, form_submission, processed_data
     ):
+
         # Save to database
         if self.save_to_database:
             form_submission.save()
@@ -1331,6 +1334,7 @@ class CoderedFormMixin(models.Model):
             context = Context(self.data_to_dict(processed_data, request))
             # Render emails as if they are django templates.
             for email in self.confirmation_emails.all():
+
                 # Build email message parameters.
                 message_args = {}
                 # From
@@ -1435,6 +1439,7 @@ class CoderedFormMixin(models.Model):
         message.send()
 
     def render_landing_page(self, request, form_submission=None):
+
         """
         Renders the landing page.
 
@@ -1643,6 +1648,7 @@ class CoderedSubmissionRevision(SubmissionRevision, models.Model):
 
 
 class CoderedSessionFormSubmission(SessionFormSubmission):
+    
     INCOMPLETE = "incomplete"
     COMPLETE = "complete"
     REVIEWED = "reviewed"

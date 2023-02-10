@@ -4,7 +4,6 @@ from django.conf import settings
 
 
 class _DefaultSettings:
-
     CRX_PROTECTED_MEDIA_URL = "/protected/"
     CRX_PROTECTED_MEDIA_ROOT = os.path.join(settings.BASE_DIR, "protected")
     CRX_PROTECTED_MEDIA_UPLOAD_WHITELIST = []

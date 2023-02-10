@@ -244,7 +244,6 @@ class PageListBlock(BaseBlock):
         label = _("Latest Pages")
 
     def get_context(self, value, parent_context=None):
-
         context = super().get_context(value, parent_context=parent_context)
 
         indexer = value["indexed_by"].specific

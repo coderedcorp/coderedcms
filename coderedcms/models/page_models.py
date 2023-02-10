@@ -817,6 +817,8 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             if occurrences and None not in occurrences:
                 return sorted(occurrences, key=lambda tup: tup[0])[0]
 
+        # If both of the above methods fail to find a future occurrence,
+        # instead return the last occurrence.
         aoc = []
         for occurrence in self.occurrences.all():
             aoc += [instance for instance in occurrence.all_occurrences()]

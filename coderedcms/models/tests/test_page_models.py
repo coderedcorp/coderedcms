@@ -171,19 +171,6 @@ class CoderedEventIndexPageTestCase(AbstractPageTestCase, WagtailPageTests):
 class CoderedEventPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedEventPage
 
-    def setUp(self):
-        super().setUp()
-        self.occurence = EventOccurrence(
-            start=datetime.now(),
-            end=datetime.now() + timedelta(days=1),
-            event=self.basic_page,
-        )
-        self.occurence.save()
-
-    def tearDown(self) -> None:
-        super().tearDown()
-        self.occurence.delete()
-
 
 class CoderedStreamFormPageTestCase(AbstractPageTestCase, WagtailPageTests):
     model = CoderedStreamFormPage
@@ -214,6 +201,19 @@ class EventIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
 
 class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = EventPage
+
+    def setUp(self):
+        super().setUp()
+        self.occurence = EventOccurrence(
+            start=datetime.now(),
+            end=datetime.now() + timedelta(days=1),
+            event=self.basic_page,
+        )
+        self.occurence.save()
+
+    def tearDown(self) -> None:
+        super().tearDown()
+        self.occurence.delete()
 
 
 class LocationIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):

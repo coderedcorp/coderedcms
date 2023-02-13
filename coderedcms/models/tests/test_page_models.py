@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.test import Client
 from wagtail.test.utils import WagtailPageTests
 
@@ -20,6 +21,7 @@ from coderedcms.tests.testapp.models import (
     ArticlePage,
     EventIndexPage,
     EventPage,
+    EventOccurrence,
     FormPage,
     IndexTestPage,
     LocationIndexPage,
@@ -199,6 +201,19 @@ class EventIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
 
 class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     model = EventPage
+
+    def setUp(self):
+        super().setUp()
+        self.occurrence = EventOccurrence(
+            start=datetime.now(),
+            end=datetime.now() + timedelta(days=1),
+            event=self.basic_page,
+        )
+        self.occurrence.save()
+
+    def tearDown(self) -> None:
+        super().tearDown()
+        self.occurrence.delete()
 
 
 class LocationIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):

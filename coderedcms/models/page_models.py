@@ -7,7 +7,7 @@ import logging
 import os
 import warnings
 from datetime import date, datetime
-from typing import Dict, List, Optional, TYPE_CHECKING, Union
+from typing import Dict, List, Optional, TYPE_CHECKING, Union, Tuple
 
 # This is a requirement for icalendar, even if django doesn't require it
 import pytz
@@ -798,7 +798,9 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         return self.query_occurrences(num_of_instances_to_return=10)
 
     @property
-    def most_recent_occurrence(self):
+    def most_recent_occurrence(
+        self,
+    ) -> Tuple[datetime, datetime, BaseOccurrence]:
         """
         Gets the next upcoming, or last occurrence if the event has no more occurrences.
         """
@@ -828,6 +830,11 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     @property
     def seo_struct_event_dict(self) -> dict:
         next_occ = self.most_recent_occurrence
+        if not next_occ:
+            return {}
+        # The method returns a tuple of the start, end, and object. We only care about
+        # the object, so take it out of the tuple.
+        next_occ = next_occ[2]
         sd_dict = {
             "@context": "https://schema.org/",
             "@type": "Event",
@@ -837,12 +844,18 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             "endDate": next_occ.end,
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": self.get_full_url,
+                "@id": self.get_full_url(),
             },
         }
 
         if self.seo_image:
-            sd_dict.update({"image": get_struct_data_images(self.seo_image)})
+            sd_dict.update(
+                {
+                    "image": get_struct_data_images(
+                        self.get_site(), self.seo_image
+                    )
+                }
+            )
 
         if self.address:
             sd_dict.update(

@@ -204,16 +204,16 @@ class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
 
     def setUp(self):
         super().setUp()
-        self.occurence = EventOccurrence(
+        self.occurrence = EventOccurrence(
             start=datetime.now(),
             end=datetime.now() + timedelta(days=1),
             event=self.basic_page,
         )
-        self.occurence.save()
+        self.occurrence.save()
 
     def tearDown(self) -> None:
         super().tearDown()
-        self.occurence.delete()
+        self.occurrence.delete()
 
 
 class LocationIndexPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):

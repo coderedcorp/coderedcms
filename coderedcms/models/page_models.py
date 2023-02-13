@@ -827,7 +827,7 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
     @property
     def seo_struct_event_dict(self) -> dict:
-        next_occ = self.most_recent_occurrence
+        next_occ = self.most_recent_occurrence[2]
         sd_dict = {
             "@context": "https://schema.org/",
             "@type": "Event",
@@ -837,12 +837,18 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             "endDate": next_occ.end,
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": self.get_full_url,
+                "@id": self.get_full_url(),
             },
         }
 
         if self.seo_image:
-            sd_dict.update({"image": get_struct_data_images(self.seo_image)})
+            sd_dict.update(
+                {
+                    "image": get_struct_data_images(
+                        self.get_site(), self.seo_image
+                    )
+                }
+            )
 
         if self.address:
             sd_dict.update(

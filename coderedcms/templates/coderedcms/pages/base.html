@@ -166,6 +166,7 @@
   {% block custom_scripts %}{% endblock %}
 
   {% include "wagtailseo/struct_data.html" %}
+  {% block struct_seo_extra %}{% endblock %}
 
   {% block body_tracking_scripts %}
   {% if settings.coderedcms.AnalyticsSettings.gtm_id %}

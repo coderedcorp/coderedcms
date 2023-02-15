@@ -56,17 +56,17 @@ case. We will want to fill in the following:
 
 * **Body** - Content for our article or blog
 
-Let's write a short blog about a fictitious vaccine that CRX-Pharma created. Once we fill in the information we want to add above, we
-can select what we want to add to the body of the blog post. We will choose a **Text** block.
-We added `this image <https://pixabay.com/illustrations/pill-capsule-medicine-medical-1884775/>`_ in our text block with the Image tool in the text editor.
-This is what our editor looks like:
+Let's write a short blog about a fictitious vaccine that CRX-Pharma created. We added `this as our cover image <https://pixabay.com/illustrations/pill-capsule-medicine-medical-1884775/>`_ ,
+then filled out the the rest of the fields for our page.
+
+What our editor looks like:
 
 .. figure:: images/tut05/blog_editor.jpeg
     :alt: The edit screen for our first blog post.
 
     The edit screen for our first blog post.
 
-Now publish it and see what it looks like! This is what our blog post looks like:
+Now publish it and see what it looks like!
 
 .. figure:: images/tut05/blog_preview.jpeg
     :alt: Our first published blog post.
@@ -128,7 +128,7 @@ We want the **Layout** tab. Click on that tab and you'll see this:
 
     The Layout tab for the Blog landing page.
 
-We are using the default template, so skip over that for now. The sections titled
+We are using the default template, different templates have different layouts for child pages. The sections titled
 **"Show Child Pages"** and **"Child Page Display"** contain the settings for whether or not
 the sub-pages (blogs in this case) are automatically pulled onto the page, how many
 of them to show, and what fields or pieces of them to show as a preview.

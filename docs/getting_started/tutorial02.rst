@@ -71,7 +71,7 @@ After adding the pages the dashboard should look like this:
     The pages dashboard with the all the pages we just added.  Notice you can choose how to sort your pages, the default is most recently updated.
 
 
-The last pages we will make are children of a child page.
+The last page is a child of a child page.
 
 * Hover over "Our Products"
 * Choose **Add child page**
@@ -82,15 +82,8 @@ The last pages we will make are children of a child page.
     Create a child page of Our Products
 
 * Choose **Web Page**
-* Enter "Direct to Consumer" in the title field.
+* Enter "Bulk Sales" in the title field.
 * **Save** and **Publish**
-
-You should be redirected to admin screen for the Our Products Page.  Here you can add the last page by
-
- * Choosing **Add child page**
- * Choose **Web Page**
- * Enter "Bulk Sales" in the title field.
- * **Save** and **Publish**
 
 .. note::
     In the Pages Admin screen, there are options for editing, viewing, deleting, unpublishing,

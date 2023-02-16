@@ -58,7 +58,7 @@ You can add a new ``website`` folder in ``templates`` (because we will use it in
 but for now, you will want to add a ``snippets`` folder inside the ``templates\coderedcms`` folder
 so that your folder structure looks something like this:
 
-.. figure:: img/advanced_folder_structure1.png
+.. figure:: img/A01/advanced_folder_structure1.png
     :alt: Our folder structure for templates.
 
     Our folder structure for templates within our website app.

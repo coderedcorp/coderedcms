@@ -1,0 +1,24 @@
+v1.0.2 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Fix pagination display issues.
+
+* Fix card grid "deck" display issues.
+
+* Correctly insert custom ``id`` and ``class`` in accordion panels.
+
+* Fix errors when previewing Event pages from the Wagtail Admin.
+
+* Correctly insert structured data on Event pages.
+
+* Add blocks ``struct_seo`` and ``struct_seo_extra`` to ``base.html`` template, to enable easier overriding.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `1.0.2 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/43?closed=1>`_.

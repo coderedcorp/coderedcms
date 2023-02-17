@@ -1,0 +1,40 @@
+v1.0.3 release notes
+====================
+
+Bug fixes
+---------
+
+* Save stream form submissions in the correct format.
+
+Note: This bug was introduced in v1.0.0. If you were actively using ``CoderedStreamFormPage`` or ``CoderedStreamFormMixin`` (not the default configuration) with version 1.0.0, 1.0.1, or 1.0.2; and you are getting 500 errors when trying to view stream form submissions in the Wagtail admin, create a migration file with the following code or run it directly.
+
+.. code-block:: python
+
+   """
+   Wagtail 3.0 switched ``FormSubmission.form_data`` from
+   ``TextField`` to ``JSONField``. However, after the Wagtail 3 migration
+   ``CoderedStreamForm`` continued to treat it like a ``TextField`` and
+   manually dump stringified JSON into it. This migrations converts any
+   residual strings to JSON.
+   """
+
+   import json
+   from django.db import migrations
+   from website.models import YOUR_STREAMFORM_PAGE_MODEL as MyStreamFormPage
+
+   def destringify(apps, schema_editor):
+       for s in MyStreamFormPage.get_submission_class().objects.all():
+           if isinstance(s.form_data, str):
+               print(f"Fixing Submission {s.pk}")
+               s.form_data = json.loads(s.form_data)
+               s.save()
+
+   class Migration(migrations.Migration):
+
+       dependencies = [
+           ("coderedcms", "0035_remove_googleapisettings_site_and_more"),
+       ]
+
+       operations = [
+           migrations.RunPython(destringify),
+       ]

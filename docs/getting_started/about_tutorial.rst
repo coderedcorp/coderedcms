@@ -4,6 +4,11 @@ About The Tutorial
 It is recommended that you follow the tutorial as closely as possible. This allows you to troubleshoot most issues on your own.
 If you find an errors, typos, or discrepancies, please let us know.
 
+`Preview the demo project here <https://crxpharma.codered.cloud/>`_
+
+`Code for the demo project here <https://github.com/Zsvoboda87/wagtail-crx-demo>`_
+
+
 Screenshots
 -----------
 Visual Studio Code is used as the code editor for coding specific screenshots.  There are many extensions and themes available for Visual Studio Code.

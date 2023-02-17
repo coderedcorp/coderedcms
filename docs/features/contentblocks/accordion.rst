@@ -6,6 +6,9 @@ Accordion Block
 Creates a collapsible section with a button to toggle.
 Each Accordion has multiple sections or panels.
 
+`View example live <https://crxpharma.codered.cloud/demo-blocks/accordion-block/>`_
+
+
 Example:
 
 .. figure:: images/accordion_closed.jpeg

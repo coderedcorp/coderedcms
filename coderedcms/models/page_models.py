@@ -7,7 +7,7 @@ import logging
 import os
 import warnings
 from datetime import date, datetime
-from typing import Dict, List, Optional, TYPE_CHECKING, Union
+from typing import Dict, List, Optional, TYPE_CHECKING, Union, Tuple
 
 # This is a requirement for icalendar, even if django doesn't require it
 import pytz
@@ -798,7 +798,9 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
         return self.query_occurrences(num_of_instances_to_return=10)
 
     @property
-    def most_recent_occurrence(self):
+    def most_recent_occurrence(
+        self,
+    ) -> Tuple[datetime, datetime, BaseOccurrence]:
         """
         Gets the next upcoming, or last occurrence if the event has no more occurrences.
         """
@@ -807,23 +809,32 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             noc = self.next_occurrence()
             if noc:
                 return noc
-            aoc = []
-            for occurrence in self.occurrences.all():
-                aoc += [instance for instance in occurrence.all_occurrences()]
-            if len(aoc) > 0:
-                return aoc[-1]  # last one in the list
 
         except AttributeError:
             # Triggers when a preview is initiated on an
             # EventPage because it uses a FakeQuerySet object.
             # Here we manually compute the next_occurrence
             occurrences = [e.next_occurrence() for e in self.occurrences.all()]
-            if occurrences:
+            # If there are no more occurrences, we find the last one instead
+            if occurrences and None not in occurrences:
                 return sorted(occurrences, key=lambda tup: tup[0])[0]
+
+        # If both of the above methods fail to find a future occurrence,
+        # instead return the last occurrence.
+        aoc = []
+        for occurrence in self.occurrences.all():
+            aoc += [instance for instance in occurrence.all_occurrences()]
+        if len(aoc) > 0:
+            return aoc[-1]  # last one in the list
 
     @property
     def seo_struct_event_dict(self) -> dict:
         next_occ = self.most_recent_occurrence
+        if not next_occ:
+            return {}
+        # The method returns a tuple of the start, end, and object. We only care about
+        # the object, so take it out of the tuple.
+        next_occ = next_occ[2]
         sd_dict = {
             "@context": "https://schema.org/",
             "@type": "Event",
@@ -833,12 +844,18 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             "endDate": next_occ.end,
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": self.get_full_url,
+                "@id": self.get_full_url(),
             },
         }
 
         if self.seo_image:
-            sd_dict.update({"image": get_struct_data_images(self.seo_image)})
+            sd_dict.update(
+                {
+                    "image": get_struct_data_images(
+                        self.get_site(), self.seo_image
+                    )
+                }
+            )
 
         if self.address:
             sd_dict.update(
@@ -879,7 +896,6 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
 
         # For each occurrence rule in all of the occurrence rules for this event.
         for occurrence in self.occurrences.all():
-
             # Add the qualifying generated event instances to the list.
             event_instances += [
                 instance
@@ -1280,7 +1296,6 @@ class CoderedFormMixin(models.Model):
         processed_data = {}
         # Handle file uploads
         for key, val in form.cleaned_data.items():
-
             if (
                 type(val) == InMemoryUploadedFile
                 or type(val) == TemporaryUploadedFile
@@ -1318,7 +1333,6 @@ class CoderedFormMixin(models.Model):
     def process_form_submission(
         self, request, form, form_submission, processed_data
     ):
-
         # Save to database
         if self.save_to_database:
             form_submission.save()
@@ -1332,7 +1346,6 @@ class CoderedFormMixin(models.Model):
             context = Context(self.data_to_dict(processed_data, request))
             # Render emails as if they are django templates.
             for email in self.confirmation_emails.all():
-
                 # Build email message parameters.
                 message_args = {}
                 # From
@@ -1437,7 +1450,6 @@ class CoderedFormMixin(models.Model):
         message.send()
 
     def render_landing_page(self, request, form_submission=None):
-
         """
         Renders the landing page.
 
@@ -1646,7 +1658,6 @@ class CoderedSubmissionRevision(SubmissionRevision, models.Model):
 
 
 class CoderedSessionFormSubmission(SessionFormSubmission):
-
     INCOMPLETE = "incomplete"
     COMPLETE = "complete"
     REVIEWED = "reviewed"

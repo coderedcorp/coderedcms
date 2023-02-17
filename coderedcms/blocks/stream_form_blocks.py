@@ -15,7 +15,6 @@ from coderedcms.forms import (
 
 
 class CoderedFormAdvSettings(CoderedAdvSettings):
-
     condition_trigger_id = blocks.CharBlock(
         required=False,
         max_length=255,

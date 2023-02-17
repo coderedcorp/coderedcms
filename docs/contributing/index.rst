@@ -299,6 +299,25 @@ Or manually using sphinx:
 
 Output will be in ``docs/_build/html/`` directory.
 
+Updating Tutorial Documentation
+-------------------------------
+
+From time to time, the documentation for the tutorial will need to be updated. You can work directly in
+the tutorial site by loading the fixture file for its database (read more at :ref:`load-data`). 
+
+However, once you have worked in the tutorial site and gotten new screenshots for the **Getting Started** documentation,
+you will also need to update the fixture file, which is located in ``tutorial > mysite > website > fixtures``. 
+
+**These are the steps for updating the fixture:**
+
+1. From the command line, type ``python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 4 > dumpdata.json``
+
+2. The dumped data file will show up in the ``website`` folder. Open it and copy/paste its contents into a new file called ``database.json``. This will fix the encoding issue you would run into otherwise. Save the new fixture file and delete the one that was dumped. Also delete the one that is currently in the ``fixtures`` folder.
+
+3. Move the ``database.json`` file into the ``fixtures`` folder. 
+
+4. For testing ``loaddata``, please review the steps at  :ref:`load-data`. 
+
 
 Publishing a New Release
 ------------------------

@@ -293,7 +293,6 @@ class Steps(list):
 
 
 class SessionFormSubmission(AbstractFormSubmission):
-
     session_key = CharField(max_length=40, null=True, default=None)
     user = ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -60,7 +60,6 @@ class FormPageField(CoderedFormField):
 
 
 class FormConfirmEmail(CoderedEmail):
-
     page = ParentalKey("FormPage", related_name="confirmation_emails")
 
 

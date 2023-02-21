@@ -1679,7 +1679,7 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
         if "user" in submission_data:
             submission_data["user"] = str(submission_data["user"])
         submission = FormSubmission.objects.create(
-            form_data=json.dumps(submission_data, cls=StreamFormJSONEncoder),
+            form_data=submission_data,
             page=self.page,
         )
 

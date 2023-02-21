@@ -6,18 +6,6 @@ from django.core.management.templates import TemplateCommand
 from django.core.management.utils import get_random_secret_key
 
 
-CURRENT_PYTHON = sys.version_info[:2]
-REQUIRED_PYTHON = (3, 4)
-
-if CURRENT_PYTHON < REQUIRED_PYTHON:
-    sys.stderr.write(
-        "This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(
-            *(REQUIRED_PYTHON + CURRENT_PYTHON)
-        )
-    )
-    sys.exit(1)
-
-
 class CreateProject(TemplateCommand):
     """
     Based on django.core.management.startproject
@@ -59,6 +47,7 @@ class CreateProject(TemplateCommand):
 
         # Handle custom template logic
         import coderedcms
+        import wagtail
 
         crx_path = os.path.dirname(coderedcms.__file__)
         if not options["template"]:
@@ -99,6 +88,7 @@ class CreateProject(TemplateCommand):
 
         # Add additional custom options to the context.
         options["coderedcms_release"] = coderedcms.release
+        options["wagtail_release"] = wagtail.VERSION
 
         # Print a friendly message
         print(

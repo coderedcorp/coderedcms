@@ -1573,6 +1573,14 @@ class CoderedFormMixin(models.Model):
             return self.process_form_post(form, request)
         return self.process_form_get(form, request)
 
+    def get_preview_context(self, request, *args, **kwargs):
+        """
+        In preview mode, simlpy show a blank form but do not handle submissions.
+        """
+        ctx = super().get_preview_context(request, *args, **kwargs)
+        ctx["form"] = self.get_form(request, page=self, user=request.user)
+        return ctx
+
 
 class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
     """

@@ -12,7 +12,7 @@ ALLOWED_HOSTS = ["{{ domain }}"]
 # To send email from the server, we recommend django_sendmail_backend
 # Or specify your own email backend such as an SMTP server.
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#email-backend
-EMAIL_BACKEND = "django_sendmail_backend.backends.EmailBackend"
+# EMAIL_BACKEND = "django_sendmail_backend.backends.EmailBackend"
 
 # Default email address used to send messages from the website.
 DEFAULT_FROM_EMAIL = "{{ sitename }} <info@{{ domain_nowww }}>"
@@ -28,42 +28,6 @@ MANAGERS = ADMINS
 
 # Email address used to send error messages to ADMINS.
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'HOST': 'localhost',
-#        'NAME': '{{ project_name }}',
-#        'USER': '{{ project_name }}',
-#        'PASSWORD': '',
-#    }
-# }
-
-# Use template caching to speed up wagtail admin and front-end.
-# Requires reloading web server to pick up template changes.
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-                "wagtail.contrib.settings.context_processors.settings",
-            ],
-            "loaders": [
-                (
-                    "django.template.loaders.cached.Loader",
-                    [
-                        "django.template.loaders.filesystem.Loader",
-                        "django.template.loaders.app_directories.Loader",
-                    ],
-                ),
-            ],
-        },
-    },
-]
 
 CACHES = {
     "default": {

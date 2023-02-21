@@ -33,27 +33,29 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3 :: Only",
         "Framework :: Django",
         "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
         "Framework :: Wagtail",
-        "Framework :: Wagtail :: 2",
+        "Framework :: Wagtail :: 4",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
         "Topic :: Internet :: WWW/HTTP :: Site Management",
     ],
     python_requires=">=3.7",
     install_requires=[
-        "beautifulsoup4>=4.8,<4.10",  # should be the same as wagtail
+        "beautifulsoup4>=4.8,<4.12",  # should be the same as wagtail
         "django-eventtools==1.0.*",
-        "django-bootstrap5==21.3",
-        "Django>=3.2,<4.1",  # should be the same as wagtail
+        "django-bootstrap5==22.2",
+        "Django>=3.2,<4.2",  # should be the same as wagtail
         "geocoder==1.38.*",
         "icalendar==4.1.*",
-        "wagtail==3.*",
-        "wagtail-cache==2.*",
-        "wagtail-seo>=2.2,<3",
+        "wagtail>=4.0,<4.3",
+        "wagtail-cache>=2.2,<3",
+        "wagtail-seo>=2.3,<3",
     ],
     entry_points={
         "console_scripts": ["coderedcms=coderedcms.bin.coderedcms:main"]

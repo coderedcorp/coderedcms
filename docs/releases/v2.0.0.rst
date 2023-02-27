@@ -1,0 +1,31 @@
+v2.0.0 release notes
+====================
+
+
+New features
+------------
+
+* CRX no longer pins the minor version of Wagtail. 2.x series will work with any version of Wagtail 4.
+
+* Support Wagtail 4.0, 4.1, and 4.2.
+
+
+Upgrade considerations
+----------------------
+
+While there are no functional changes in CRX, there are many changes in Wagtail 4. Most CRX sites should not be impacted, however if your site implements custom functionality beyond what CRX provides, review the `Wagtail 4 release notes and upgrade considerations <https://docs.wagtail.org/en/stable/releases/4.0.html>`.
+
+If you are upgrading from an older version of CRX (0.x series) it is highly recommended to upgrade to 1.0 before attempting to upgrade to 2.0.
+
+As always, be sure to make and apply migrations after upgrading:
+
+.. code-block:: text
+
+   python manage.py makemigrations
+   python manage.py migrate
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `2.0.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/45?closed=1>`_.

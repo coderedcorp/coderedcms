@@ -217,6 +217,81 @@ class ClassifierTerm(Orderable, models.Model):
 
 
 @register_snippet
+class FilmStrip(ClusterableModel):
+    class Meta:
+        verbose_name = _("Film Strip")
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("Name"),
+    )
+    offset = models.IntegerField(default=0)
+
+    panels = [
+        MultiFieldPanel(
+            heading=_("Film Strip"),
+            children=[
+                FieldPanel("name"),
+                FieldPanel("offset"),
+            ],
+        ),
+        InlinePanel("film_panels", label=_("Panels")),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+class FilmPanel(Orderable, models.Model):
+    class Meta:
+        verbose_name = _("Film Panel")
+
+    film_strip = ParentalKey(
+        FilmStrip,
+        related_name="film_panels",
+        verbose_name=_("Film Panel"),
+    )
+    image = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_("Image"),
+    )
+    background_color = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Background color"),
+        help_text=_("Hexadecimal, rgba, or CSS color notation (e.g. #ff0011)"),
+    )
+    custom_css_class = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Custom CSS class"),
+    )
+    custom_id = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Custom ID"),
+    )
+
+    content = CoderedStreamField(
+        HTML_STREAMBLOCKS,
+        blank=True,
+        use_json_field=True,
+    )
+
+    panels = [
+        FieldPanel("image"),
+        FieldPanel("background_color"),
+        FieldPanel("custom_css_class"),
+        FieldPanel("custom_id"),
+        FieldPanel("content"),
+    ]
+
+
+@register_snippet
 class Navbar(models.Model):
     """
     Snippet for site navigation bars (header, main menu, etc.)

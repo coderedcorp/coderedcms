@@ -80,6 +80,19 @@ class CarouselBlock(BaseBlock):
         template = "coderedcms/blocks/carousel_block.html"
 
 
+class FilmStripBlock(BaseBlock):
+    """
+    Enables choosing a Film Strip Snippet.
+    """
+
+    film_strip = SnippetChooserBlock("coderedcms.FilmStrip")
+
+    class Meta:
+        icon = "image"
+        label = _("Film Strip")
+        template = "coderedcms/blocks/film_strip_block.html"
+
+
 class ImageGalleryBlock(BaseBlock):
     """
     Show a collection of images with interactive previews that expand to

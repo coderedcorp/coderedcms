@@ -134,4 +134,37 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+/** Film Strip Controls **/
+document.addEventListener("DOMContentLoaded", function () {
+  let strips = document.querySelectorAll("[data-block='film-strip']");
+  strips.forEach((el) => {
+    const leftButton = el.querySelector("[data-button='left']");
+    const rightButton = el.querySelector("[data-button='right']");
+    const container = el.querySelector("[data-block='film-container']");
+
+    leftButton.addEventListener("click", function () {
+      const panels = el.querySelectorAll("[data-block='film-panel']");
+      let currentBlock = parseInt(el.dataset.currentBlock) - 1;
+      if (currentBlock < 0) currentBlock = panels.length - 1;
+      el.dataset.currentBlock = currentBlock;
+
+      const elem = panels[currentBlock];
+      const left = elem.offsetLeft;
+
+      container.scroll({ top: 0, left: left, behavior: "smooth" });
+    });
+
+    rightButton.addEventListener("click", function () {
+      const panels = el.querySelectorAll("[data-block='film-panel']");
+      let currentBlock = parseInt(el.dataset.currentBlock) + 1;
+      if (currentBlock >= panels.length) currentBlock = 0;
+      el.dataset.currentBlock = currentBlock;
+
+      const elem = panels[currentBlock];
+      const left = elem.offsetLeft;
+
+      container.scroll({ top: 0, left: left, behavior: "smooth" });
+    });
+  });
+});
 /* @license-end */

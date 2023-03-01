@@ -1,0 +1,39 @@
+{% extends "coderedcms/blocks/base_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block block_render %}
+{% with value=self.film_strip %}
+<div class="w-100 position-relative" data-block='film-strip' data-current-block=0>
+  <div class="container-fluid p-0 h-100 w-100" style="overflow: hidden; overscroll-behavior: none;"
+    data-block="film-container">
+    <div class="row no-gutters h-100 flex-nowrap" data-block="film-row">
+
+      {% for panel in value.film_panels.all %}
+      <div class="col-lg-auto col-12 h-100" data-block='film-panel' style="max-width: 60%;">
+        {% image panel.image original as image %}
+        <div class="h-100 w-100 container" style="
+          {% if image %}
+            background-image: url({{image.url}}); background-size: cover; background-position: center;
+          {% endif %}
+          {% if panel.background_color %}
+            background-color: {{panel.background_color}}
+          {% endif %}
+        ">
+          {% include_block panel.content %}
+        </div>
+      </div>
+      {% endfor %}
+      <div class="col-12"></div>
+    </div>
+  </div>
+  <div class="row justify-content-between">
+
+    <button class="btn col-auto" style="z-index:1005;" data-button="left">
+      <i class="bi-arrow-left"></i> PREV
+    </button>
+    <button class="btn col-auto" style="z-index:1005;" data-button="right">
+      NEXT <i class="bi-arrow-right"></i>
+    </button>
+  </div>
+</div>
+{% endwith %}
+{% endblock %}

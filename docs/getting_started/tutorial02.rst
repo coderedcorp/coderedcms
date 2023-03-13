@@ -1,93 +1,92 @@
-Tutorial Part 2: Adding Content
-===============================
+Tutorial Part 2: Adding Pages
+=============================
 
-Now let's start adding some content to our site.
+We're going to add some placeholder pages to our project.
+We will go in more detail and build these pages out later in the tutorial.
+Having placeholder pages will help when we build out out the homepage, navbar, and footer.
+We will be able to link to the correct page as we make button, image, nav and other links.
+This a preference not a requirement for Wagtail-CRX.  You can build and link pages in any order.
 
+* Go back to the admin screen http://localhost:8000/admin/
+* In the side menu click **Pages** and then **Home**. This brings you here:
 
-Adding a hero unit to the home page
------------------------------------
+.. figure:: images/tut02/pages_home.jpeg
+    :alt: The pages dashboard.
 
-In the admin dashboard, select **Pages >**. This will open a tree-style view of all the pages
-on our site. For now, the only page is Home Page. Click the pencil icon to edit the page, or click
-"Home Page" and then the "Edit" button.
+    The pages dashboard.
 
-Here in the body section is where we can add our content. Each component in this section is called
-a "block" and provides a different format of content. Wagtail CRX is heavily based on Bootstrap CSS
-and its grid system, which means all content is based in rows and columns that dynamically stack depending
-on the visitor's screen size.
+* Click add child pages
+* Choose **Web Page** in the create-a-page screen. This action brings you to a new Web Page screen.
+* Enter "About Us" in the title field.
+* Click **Save draft** at the bottom of the browser.
 
-First, let's make a big flashy hero unit. A hero unit in Wagtail CRX is a block that allows for
-a full-width background image or background color, and has lots of padding by default.
+ .. figure:: images/tut02/about_us.jpeg
+    :alt: About Us Webpage start
 
-Select the **Hero Unit** block. Next set a background image or color - we are going to download and use
-`this image <https://pixabay.com/photos/cupcake-bakery-dessert-sweet-4457880/>`_ from `Pixabay <https://pixabay.com>`_.
+    The About Us webpage editor
 
-Now to add content to our hero unit, under the Content field select **Responsive Grid Row** and then
-a **Column**. Inside our column, we will add **Text** and format it.
+* Choose the up arrow ^ next to **Save draft**
+* Choose **Publish**
 
-Next, click the small "+" icon directly below the text field. This will let you add another block
-directly below the text, but still in the same column.
+  .. figure:: images/tut02/about_us_publish.jpeg
+    :alt: About Us Webpage start
 
-Select the **Button Link** block. We are going to add a "Learn More" button. Right now we don't have
-any other pages on our site, so for the time being set **Other link** to "http://example.com", and
-the **Button Title** to "Learn More".
+    The about us web page editor
 
-My editing page now looks like this (ignore the misplaced side menu, that is just a result of the screenshot):
+* This will redirect you to the pages admin screen with the newly created About Us page.
 
-.. figure:: img/tutorial_edit_home1.png
-    :alt: The home page editor after adding a hero unit.
+  .. figure:: images/tut02/pages_home_about_us.jpeg
+    :alt: The pages dashboard with the About Us Page
 
-    The home page editor after adding a hero unit.
+    The pages dashboard with the About Us Page
 
-Next click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
-Great success!
+Repeat this process again for the following web pages:
 
-.. figure:: img/tutorial_front_home1.png
-    :alt: The home page preview after adding a hero unit.
+* Careers
+* Our Products
+* Our Facility
 
-    The home page preview after adding a hero unit.
+Be sure to **Publish** each page.  Later when we setup links to these pages, they can give an error if the page is not published.
+In addition to web pages, we are going to add two different types of pages:
 
+**Form**
 
-Adding cards to the home page
------------------------------
+* Add a child page
+* Choose **Form**
+* Enter "Contact Us" in the title field.
+* **Save** and **Publish**
 
-Next, let's say our company offers three different baked goods, and we would like to add three
-uniformly-sized cards on the home page representing that. Go back to the tab with the home page
-editor. All the way at the bottom of the page, click the "+" icon directly below the "Hero Unit" block.
-This will add a new block directly below the hero unit.
+**Article Landing Page**
 
-Select the **Card Grid** block. The select **Card** to add the first card. Now fill out the **Title**,
-**Body**, and add a **Button Link** at the bottom.
+* Add a child page
+* Choose **Article Landing Page**
+* Enter "What's New at CRX-pharma" in the title field.
+* **Save** and **Publish**
 
-Next add and fill out two more cards by clicking the "+" icon directly below our current card block.
+After adding the pages the dashboard should look like this:
 
-The editing page now looks like this (ignore the misplaced side menu, that is just a result of the screenshot):
+.. figure:: images/tut02/pages_home_full.jpeg
+    :alt: The pages dashboard with the all the pages
 
-.. figure:: img/tutorial_edit_home2.png
-    :alt: The home page editor after adding a card grid with three cards.
-
-    The home page editor after adding a card grid with three cards.
-
-Next click the **Preview** button at the bottom, which will open up a preview of the home page in a new tab.
-Lookin' good!
-
-.. figure:: img/tutorial_front_home2.png
-    :alt: The home page preview after adding the card grid.
-
-    The home page preview after adding the card grid.
+    The pages dashboard with the all the pages we just added.  Notice you can choose how to sort your pages, the default is most recently updated.
 
 
-Adding more content to the home page
-------------------------------------
+The last page is a child of a child page.
 
-Continue following this pattern to add content. While the **Hero Unit** and **Card Grid** provide
-"special" content formats, the **Responsive Grid Row** is the most general purpose block for adding content,
-and you will probably find yourself using it the most all throughout your site. Of course, there is also an
-**HTML** block for inserting raw HTML if needed.
+* Hover over "Our Products"
+* Choose **Add child page**
 
-When you are finished editing the home page, click the arrow next to the "Save Draft" button and select **Publish**.
+.. figure:: images/tut02/child_of_child_hover.jpg
+    :alt: hover over our products
 
-.. figure:: img/tutorial_publish.png
-    :alt: Publishing a page.
+    Create a child page of Our Products
 
-    Publishing a page.
+* Choose **Web Page**
+* Enter "Bulk Sales" in the title field.
+* **Save** and **Publish**
+
+.. note::
+    In the Pages Admin screen, there are options for editing, viewing, deleting, unpublishing,
+    and to see the History of changes made on pages.  Explore these powerful tools!
+
+Now we have all these pages let's build out the rest of the site.

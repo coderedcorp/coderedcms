@@ -6,6 +6,7 @@ Getting Started
 
     install
     customize_design
+    about_tutorial.rst
     tutorial01
     tutorial02
     tutorial03
@@ -16,3 +17,4 @@ Getting Started
     tutorial08
     tutorial09
     tutorial10
+    tutorial11

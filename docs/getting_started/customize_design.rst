@@ -47,10 +47,8 @@ the order they were created in.
 
 Custom CSS
 ----------
-
-A Django app called ``website`` has been created to hold your custom changes. In website/static/
-there are custom.css and custom.js files that get loaded on every page by default. Adding
-anything to these files will automatically populate on the site and override any default styles.
+Each installation type (basic or sass) has it's own way of adding CSS.
+Check out :ref:`adding_custom_css` for instructions.
 By default, Bootstrap 5 is already included on the site.
 
 .. note::

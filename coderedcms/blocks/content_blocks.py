@@ -217,7 +217,7 @@ class NavSubLinkBlock(BaseBlock):
 
 class NavExternalLinkWithSubLinkBlock(NavSubLinkBlock, NavExternalLinkBlock):
     """
-    Extermal link with option for sub-links.
+    External link with option for sub-links.
     """
 
     class Meta:

@@ -11,6 +11,7 @@ functionality.
     carousels
     classifiers
     content_walls
+    filmstrip
     footers
     navigation_bars
     reusable_content

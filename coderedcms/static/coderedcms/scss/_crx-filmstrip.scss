@@ -1,0 +1,15 @@
+.crx-filmstrip-container {
+  overflow: hidden;
+  // If device does not support hover, it is most likely a touchscreen device.
+  // In that case, allow manual scrolling.
+  @media (hover: none) {
+    overflow-x: scroll;
+  }
+}
+
+.crx-filmstrip-panel {
+  min-width: 300px;
+  min-height: 300px;
+  padding: 40px;
+  text-align: center;
+}

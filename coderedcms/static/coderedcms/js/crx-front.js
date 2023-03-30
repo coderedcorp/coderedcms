@@ -132,10 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelectorAll("[data-masonry]").length > 0) {
     load_script(libs.masonry);
   }
-});
 
-/** Film Strip Controls **/
-document.addEventListener("DOMContentLoaded", function () {
+  /** Film Strip Controls **/
   let strips = document.querySelectorAll("[data-block='film-strip']");
   strips.forEach((el) => {
     const leftButton = el.querySelector("[data-button='left']");

@@ -225,16 +225,9 @@ class FilmStrip(ClusterableModel):
         max_length=255,
         verbose_name=_("Name"),
     )
-    offset = models.IntegerField(default=0)
 
     panels = [
-        MultiFieldPanel(
-            heading=_("Film Strip"),
-            children=[
-                FieldPanel("name"),
-                FieldPanel("offset"),
-            ],
-        ),
+        FieldPanel("name"),
         InlinePanel("film_panels", label=_("Panels")),
     ]
 
@@ -251,18 +244,24 @@ class FilmPanel(Orderable, models.Model):
         related_name="film_panels",
         verbose_name=_("Film Panel"),
     )
-    image = models.ForeignKey(
+    background_image = models.ForeignKey(
         get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name=_("Image"),
+        verbose_name=_("Background image"),
     )
     background_color = models.CharField(
         max_length=255,
         blank=True,
         verbose_name=_("Background color"),
+        help_text=_("Hexadecimal, rgba, or CSS color notation (e.g. #ff0011)"),
+    )
+    foreground_color = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Text color"),
         help_text=_("Hexadecimal, rgba, or CSS color notation (e.g. #ff0011)"),
     )
     custom_css_class = models.CharField(
@@ -275,7 +274,6 @@ class FilmPanel(Orderable, models.Model):
         blank=True,
         verbose_name=_("Custom ID"),
     )
-
     content = CoderedStreamField(
         HTML_STREAMBLOCKS,
         blank=True,
@@ -283,8 +281,9 @@ class FilmPanel(Orderable, models.Model):
     )
 
     panels = [
-        FieldPanel("image"),
+        FieldPanel("background_image"),
         FieldPanel("background_color"),
+        FieldPanel("foreground_color"),
         FieldPanel("custom_css_class"),
         FieldPanel("custom_id"),
         FieldPanel("content"),

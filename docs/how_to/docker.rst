@@ -66,7 +66,7 @@ extension). Copy the contents below into the file:
 
     # Finally, run the app on port 8000.
     EXPOSE 8000
-    CMD exec waitress serve --listen "*:8000" "myproject.wsgi:application"
+    CMD exec waitress-serve --listen "*:8000" "myproject.wsgi:application"
 
 
 The "Image as Environment" Approach

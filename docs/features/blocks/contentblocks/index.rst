@@ -14,6 +14,7 @@ Content blocks are the blocks for adding various types of content to your site.
     carousel
     download
     embedmedia
+    filmstrip
     googlemap
     html
     image
@@ -23,8 +24,7 @@ Content blocks are the blocks for adding various types of content to your site.
     modal
     pagepreview
     pricelist
-    reusablecontent
     quote
+    reusablecontent
     table
     text
-

@@ -7,7 +7,7 @@ import logging
 import os
 import warnings
 from datetime import date, datetime
-from typing import Dict, List, Optional, TYPE_CHECKING, Union, Tuple
+from typing import Dict, List, Optional, TYPE_CHECKING, Union, Tuple, Type
 
 # This is a requirement for icalendar, even if django doesn't require it
 import pytz
@@ -145,6 +145,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     # template = ''
     # ajax_template = ''
     # search_template = ''
+    mini_view = "coderedcms/pages/mini_view_page.html"
 
     ###############
     # Content fields
@@ -215,6 +216,23 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_("Filter child pages by"),
         help_text=_("Enable filtering child pages by these classifiers."),
+    )
+
+    #####################
+    # Related Page Fields
+    #####################
+
+    preferred_related_classifier_term = models.ForeignKey(
+        "coderedcms.Classifier",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_("Preffered Related Classifier Term"),
+        help_text=_(
+            "When getting related pages for this page, pages with this classifier will be"
+            " weightbed over other classifier terms."
+        ),
     )
 
     ###############
@@ -310,6 +328,10 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
                 ),
             ],
             heading=_("Show Child Pages"),
+        ),
+        MultiFieldPanel(
+            [FieldPanel("preferred_related_classifier_term")],
+            heading=_("Related Pages"),
         ),
     ]
 
@@ -455,6 +477,41 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
         return query
 
+    def get_related_query_model(self) -> Type[models.Model]:
+        """
+        Returns the model used for finding related content. By default this will be
+        siblings, and so will return itself.
+        """
+        if self.related_querymodel:
+            if isinstance(self.related_query_model, Union[str, models.Model]):
+                return resolve_model_string(
+                    self.related_querymodel, self._meta.app_label
+                )
+            else:
+                raise AttributeError(
+                    (
+                        f"The related_querymodel should be a model or str."
+                        f" The related_querymodel of {self} is {type(self.related_querymodel)}"
+                    )
+                )
+        return self
+
+    def get_related_pages(self) -> models.QuerySet:
+        """
+        Returns a queryset of the model type defined by realted_querymodel, defaulting to
+        self. Ordered by number of shared classifier terms, and then optionally by the
+        index_order_by.
+        """
+
+        related_querymodel = self.get_related_query_model()
+
+        r_ct = models.Q(classifier_terms__in=self.classifier_terms)
+        r_qs = related_querymodel.objects.live()
+        r_qs = r_qs.aggregate(r_ct=r_ct).order_by(r_ct)
+        if self.index_order_by:
+            r_qs.order_by(self.index_order_by)
+        return r_qs
+
     def get_content_walls(self, check_child_setting=True):
         current_content_walls = []
         if check_child_setting:
@@ -532,6 +589,9 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             check_child_setting=False
         )
         return context
+
+    def render_mini_view(self):
+        pass
 
 
 ###############################################################################

@@ -1,0 +1,7 @@
+{% extends "coderedcms/blocks/base_block.html" %}
+{% load coderedcms_tags%}
+{% block block_render %}
+{% with page=self.page.specific %}
+{% include_mini_render page request %}
+{% endwith %}
+{% endblock %}

@@ -145,7 +145,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     # template = ''
     # ajax_template = ''
     # search_template = ''
-    mini_view = "coderedcms/pages/mini_view_page.html"
+    mini_view_template = "coderedcms/mini_views/page_mini_view.html"
 
     ###############
     # Content fields
@@ -223,15 +223,15 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     #####################
 
     preferred_related_classifier_term = models.ForeignKey(
-        "coderedcms.Classifier",
+        "coderedcms.ClassifierTerm",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name=_("Preffered Related Classifier Term"),
+        verbose_name=_("Preferred Related Classifier Term"),
         help_text=_(
             "When getting related pages for this page, pages with this classifier will be"
-            " weightbed over other classifier terms."
+            " weighted over other classifier terms."
         ),
     )
 
@@ -477,24 +477,25 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
         return query
 
-    def get_related_query_model(self) -> Type[models.Model]:
+    @classmethod
+    def get_related_query_model(cls) -> Type[models.Model]:
         """
         Returns the model used for finding related content. By default this will be
         siblings, and so will return itself.
         """
-        if self.related_querymodel:
-            if isinstance(self.related_query_model, Union[str, models.Model]):
+        if hasattr(cls, "related_querymodel"):
+            if isinstance(cls.related_query_model, Union[str, models.Model]):
                 return resolve_model_string(
-                    self.related_querymodel, self._meta.app_label
+                    cls.related_querymodel, cls._meta.app_label
                 )
             else:
                 raise AttributeError(
                     (
                         f"The related_querymodel should be a model or str."
-                        f" The related_querymodel of {self} is {type(self.related_querymodel)}"
+                        f" The related_querymodel of {cls} is {type(cls.related_querymodel)}"
                     )
                 )
-        return self
+        return cls
 
     def get_related_pages(self) -> models.QuerySet:
         """
@@ -503,13 +504,30 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         index_order_by.
         """
 
+        order_by = []
+        # Get our related query model, and queryset. Exclude self, in case it is present
         related_querymodel = self.get_related_query_model()
+        r_qs = related_querymodel.objects.all().live().exclude(id=self.id)
 
-        r_ct = models.Q(classifier_terms__in=self.classifier_terms)
-        r_qs = related_querymodel.objects.live()
-        r_qs = r_qs.aggregate(r_ct=r_ct).order_by(r_ct)
+        # if we have a preferred classifier term, order by that
+        if self.preferred_related_classifier_term:
+            p_ct_q = models.Q(
+                classifier_terms=self.preferred_related_classifier_term
+            )
+            r_qs = r_qs.annotate(p_ct=p_ct_q)
+            order_by.append("-p_ct")
+
+        # order by number of shared classifier terms
+        r_ct_q = models.Q(classifier_terms__in=self.classifier_terms.all())
+        r_qs = r_qs.annotate(r_ct=models.Count(r_ct_q))
+        order_by.append("-r_ct")
+
+        # if we include an index_order_by, order the set based on that
         if self.index_order_by:
-            r_qs.order_by(self.index_order_by)
+            order_by.append(self.index_order_by)
+
+        # Order the related pages, then add distinct to deal with annotating based on a many to many
+        r_qs = r_qs.order_by(*order_by).distinct()
         return r_qs
 
     def get_content_walls(self, check_child_setting=True):
@@ -590,8 +608,23 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         )
         return context
 
-    def render_mini_view(self):
-        pass
+    def get_mini_render_template(self):
+        """
+        Get the template for use with the mini 'preview' render
+        """
+        return self.mini_view_template
+
+    def render_mini_view(self, request, *args, **kwargs):
+        """
+        Render this page a small 'preview' component, suitable for inclusion on other
+        pages.
+
+        Set mini_view_template on this model to override what template is used, or
+        override coderedcms/templates/pages/mini_view_page.html to change all instances.
+        """
+        ctx = self.get_context(request=request, *args, **kwargs)
+        template_name = self.get_mini_render_template()
+        return render_to_string(template_name, ctx, request)
 
 
 ###############################################################################

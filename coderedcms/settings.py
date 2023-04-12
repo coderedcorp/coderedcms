@@ -211,6 +211,10 @@ class _DefaultSettings:
         ],
         "pagepreviewblock": [
             (
+                "coderedcms/blocks/miniview_page.html",
+                "Miniview",
+            ),
+            (
                 "coderedcms/blocks/pagepreview_card.html",
                 "Card",
             ),

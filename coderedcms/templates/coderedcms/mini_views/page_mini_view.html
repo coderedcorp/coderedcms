@@ -1,0 +1,13 @@
+{% load coderedcms_tags wagtailimages_tags %}
+
+<div class="card" style="max-width: 36rem;">
+  {% if self.cover_image %}
+  {% image self.cover_image fill-400x300 as cover_img %}
+  <img src="{{cover_img.url}}" class="card-img-top" alt="cover_img.title">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{self.title}}</h5>
+    <p class="card-text">{{self.body_preview}}
+    </p>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import logging
 import os
 import warnings
 from datetime import date, datetime
-from typing import Dict, List, Optional, TYPE_CHECKING, Union, Tuple, Type
+from typing import Dict, List, Optional, TYPE_CHECKING, Union, Tuple
 
 # This is a requirement for icalendar, even if django doesn't require it
 import pytz
@@ -518,13 +518,13 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
                 self.related_query_pagemodel, Union[str, models.Model]
             ):
                 querymodel = resolve_model_string(
-                    self.related_query_pagemodel, cls._meta.app_label
+                    self.related_query_pagemodel, self._meta.app_label
                 )
                 r_qs = querymodel.objects.all().live()
             else:
                 raise AttributeError(
                     f"The related_querymodel should be a model or str."
-                    f" The related_querymodel of {cls} is {type(cls.related_querymodel)}"
+                    f" The related_querymodel of {self} is {type(self.related_querymodel)}"
                 )
         else:
             r_qs = self.get_parent().specific.get_index_children()
@@ -536,9 +536,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
         # If we have a preferred classifier term, order by that.
         if self.related_classifier_term:
-            p_ct_q = models.Q(
-                classifier_terms=self.related_classifier_term
-            )
+            p_ct_q = models.Q(classifier_terms=self.related_classifier_term)
             r_qs = r_qs.annotate(p_ct=p_ct_q)
             order_by.append("-p_ct")
 

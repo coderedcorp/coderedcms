@@ -546,7 +546,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         # shared classifier terms.
         if self.classifier_terms.exists():
             r_ct_q = models.Q(classifier_terms__in=self.classifier_terms.all())
-            r_qs = r_qs.annotate(r_ct=models.Count(r_ct_q))
+            r_qs = r_qs.annotate(r_ct=models.Count("classifier_terms", r_ct_q))
             order_by.append("-r_ct")
 
         # Order the related pages, then add distinct to deal with

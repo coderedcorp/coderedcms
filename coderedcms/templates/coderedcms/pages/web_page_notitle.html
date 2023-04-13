@@ -4,22 +4,6 @@
 {% include "coderedcms/snippets/navbar.html" %}
 {% endblock %}
 
-{% block index_filters %}
-{% if page.index_show_subpages and page.index_classifiers.exists %}
-<div class="container">
-  {% include "coderedcms/includes/classifier_dropdowns.html" with formclass="d-flex" formid="filter" %}
-</div>
-{% endif %}
-{% endblock %}
-
-{% block index_content %}
-{% if page.index_show_subpages %}
-<div class="container">
-  {{ block.super }}
-</div>
-{% endif %}
-{% endblock %}
-
 {% block footer %}
 {% include "coderedcms/snippets/footer.html" %}
 {% endblock %}

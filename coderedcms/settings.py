@@ -183,6 +183,7 @@ class _DefaultSettings:
                 "Card masonry - fluid brick pattern",
             ),
         ],
+        # TODO: Deprecate these templates in favor of miniviews.
         "pagelistblock": [
             (
                 "coderedcms/blocks/pagelist_block.html",
@@ -209,11 +210,8 @@ class _DefaultSettings:
                 "Article, card masonry - fluid brick pattern",
             ),
         ],
+        # TODO: Deprecate these templates in favor of miniviews.
         "pagepreviewblock": [
-            (
-                "coderedcms/blocks/miniview_page.html",
-                "Miniview",
-            ),
             (
                 "coderedcms/blocks/pagepreview_card.html",
                 "Card",

@@ -288,7 +288,7 @@ class PagePreviewBlock(BaseBlock):
     )
 
     class Meta:
-        template = "coderedcms/blocks/miniview_page.html"
+        template = "coderedcms/blocks/pagepreview_block.html"
         icon = "doc-empty-inverse"
         label = _("Page Preview")
 

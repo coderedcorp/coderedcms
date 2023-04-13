@@ -214,8 +214,3 @@ def get_plural_name_of_class(class_type):
         return class_type.__class__._meta.verbose_name_plural
     else:
         return class_type.__class__.__name__ + "s"
-
-
-@register.simple_tag
-def include_mini_render(page, request):
-    return page.render_mini_view(request)

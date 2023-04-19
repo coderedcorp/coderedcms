@@ -1,7 +1,7 @@
 Latest Pages Block
 ==================
 
-Creates a list of the most recently published pages with a specified length. 
+Creates a list of the most recently published pages with a specified length.
 
 Field Reference
 ---------------
@@ -12,21 +12,23 @@ Fields and purposes:
 
 * **Classified By** - Filters which pages are displayed by the classifier that you selected
 
-* **Show Body Preview** - If selected, shows a preview of what the page contains 
-
 * **Number of Pages to Show** - Limits how many pages are displayed to the number that you selected
 
-.. note::
-    There are also a few built-in templates available for this block under the **Advanced Settings** section.
-
-The pages are displayed as links with a line or so of text if the preview option is selected.
+Each page is rendered using the page model's "miniview" template.
+The template can be overridden per model with the ``miniview_template`` attribute, the default of which is `coderedcms/pages/page.mini.html <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/pages/pages.mini.html>`_.
 
 .. figure:: img/latestpages1.png
-    :alt: The Latest Pages block and its settings
+    :alt: The Latest Pages block and its settings.
 
-    The Latest Pages block and its settings
+    The Latest Pages block and its settings.
 
 .. figure:: img/latestpages2.png
-    :alt: The Latest Pages block as displayed on the website
+    :alt: The Latest Pages block as displayed on the website.
 
-    The Latest Pages block as displayed on the website
+    The Latest Pages block as displayed on the website.
+
+.. deprecated:: 2.1
+
+   * "Show Body Preview" field was deprecated in 2.1 and will be removed in 3.0.
+
+   * The additional built-in templates under this block's **Advanced Settings** are deprecated as of 2.1 and will be removed in 3.0. These have been replaced with identical miniview templates for Article and Form pages.

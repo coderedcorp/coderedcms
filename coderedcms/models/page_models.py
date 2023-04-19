@@ -146,6 +146,12 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     # ajax_template = ''
     # search_template = ''
 
+    # Template used in site search results.
+    search_template = "coderedcms/pages/search_result.html"
+
+    # Template used for related pages, Latest Pages block, and Page Preview block.
+    miniview_template = "coderedcms/pages/page.mini.html"
+
     ###############
     # Content fields
     ###############
@@ -215,6 +221,41 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         blank=True,
         verbose_name=_("Filter child pages by"),
         help_text=_("Enable filtering child pages by these classifiers."),
+    )
+
+    #####################
+    # Related Page Fields
+    #####################
+
+    # Subclasses can override this to query on a specific
+    # page model. By default sibling pages are used.
+    related_query_pagemodel = None
+
+    # Subclasses can override this to enabled related pages by default.
+    related_show_default = False
+
+    related_show = models.BooleanField(
+        default=related_show_default,
+        verbose_name=_("Show list of related pages"),
+    )
+
+    related_num = models.PositiveIntegerField(
+        default=3,
+        verbose_name=_("Number of related pages to show"),
+    )
+
+    related_classifier_term = models.ForeignKey(
+        "coderedcms.ClassifierTerm",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_("Preferred related classifier term"),
+        help_text=_(
+            "When getting related pages, pages with this term will be "
+            "weighted over other classifier terms. By default, pages with "
+            "the greatest number of classifiers in common are ranked highest."
+        ),
     )
 
     ###############
@@ -311,6 +352,14 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             ],
             heading=_("Show Child Pages"),
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel("related_show"),
+                FieldPanel("related_num"),
+                FieldPanel("related_classifier_term"),
+            ],
+            heading=_("Related Pages"),
+        ),
     ]
 
     promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
@@ -339,6 +388,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         if not self.id:
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
+            self.related_show = self.related_show_default
 
     @cached_classmethod
     def get_edit_handler(cls):
@@ -455,6 +505,55 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
         return query
 
+    def get_related_pages(self) -> models.QuerySet:
+        """
+        Returns a queryset of sibling pages, or the model type
+        defined by `self.related_query_pagemodel`. Ordered by number
+        of shared classifier terms.
+        """
+
+        # Get our related query model, and queryset.
+        if self.related_query_pagemodel:
+            if isinstance(
+                self.related_query_pagemodel, Union[str, models.Model]
+            ):
+                querymodel = resolve_model_string(
+                    self.related_query_pagemodel, self._meta.app_label
+                )
+                r_qs = querymodel.objects.all().live()
+            else:
+                raise AttributeError(
+                    f"The related_querymodel should be a model or str."
+                    f" The related_querymodel of {self} is {type(self.related_querymodel)}"
+                )
+        else:
+            r_qs = self.get_parent().specific.get_index_children()
+
+        # Exclude self to avoid infinite recursion.
+        r_qs = r_qs.exclude(pk=self.pk)
+
+        order_by = []
+
+        # If we have a preferred classifier term, order by that.
+        if self.related_classifier_term:
+            p_ct_q = models.Q(classifier_terms=self.related_classifier_term)
+            r_qs = r_qs.annotate(p_ct=p_ct_q)
+            order_by.append("-p_ct")
+
+        # If this page has a classifier, then order by number of
+        # shared classifier terms.
+        if self.classifier_terms.exists():
+            r_ct_q = models.Q(classifier_terms__in=self.classifier_terms.all())
+            r_qs = r_qs.annotate(r_ct=models.Count("classifier_terms", r_ct_q))
+            order_by.append("-r_ct")
+
+        # Order the related pages, then add distinct to deal with
+        # annotating based on a many to many.
+        if order_by:
+            r_qs = r_qs.order_by(*order_by).distinct()
+
+        return r_qs[: self.related_num]
+
     def get_content_walls(self, check_child_setting=True):
         current_content_walls = []
         if check_child_setting:
@@ -478,6 +577,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         """
         context = super().get_context(request)
 
+        # Show list of child pages.
         if self.index_show_subpages:
             # Get child pages
             all_children = self.get_index_children()
@@ -528,9 +628,16 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
             context["index_paginated"] = paged_children
             context["index_children"] = all_children
+
+        # Show a list of related pages.
+        if self.related_show:
+            context["related_pages"] = self.get_related_pages()
+
+        # Content walls.
         context["content_walls"] = self.get_content_walls(
             check_child_setting=False
         )
+
         return context
 
 
@@ -593,6 +700,9 @@ class CoderedArticlePage(CoderedWebPage):
         abstract = True
 
     template = "coderedcms/pages/article_page.html"
+    search_template = "coderedcms/pages/article_page.search.html"
+
+    related_show_default = True
 
     # Override body to provide simpler content
     body = StreamField(
@@ -1593,6 +1703,7 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
         abstract = True
 
     template = "coderedcms/pages/form_page.html"
+    miniview_template = "coderedcms/pages/form_page.mini.html"
     landing_page_template = "coderedcms/pages/form_page_landing.html"
 
     base_form_class = WagtailAdminFormPageForm

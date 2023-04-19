@@ -126,19 +126,40 @@
     {% block content_post_body %}{% endblock %}
 
     {% block index_filters %}
-    {% if page.index_show_subpages and page.index_classifiers.exists %}
-    {% include "coderedcms/includes/classifier_dropdowns.html" with formclass="d-flex" formid="filter" %}
-    {% endif %}
+    <div class="container">
+      {% if page.index_show_subpages and page.index_classifiers.exists %}
+      {% include "coderedcms/includes/classifier_dropdowns.html" with formclass="d-flex" formid="filter" %}
+      {% endif %}
+    </div>
     {% endblock %}
 
     {% block index_content %}
     {% if page.index_show_subpages %}
-    <ul>
-      {% for child in index_paginated %}
-      <li><a href="{% pageurl child %}">{{child.title}}</a></li>
-      {% endfor %}
-    </ul>
+    <div class="container">
+      <div class="row">
+        {% for child in index_paginated %}
+        <div class="col-sm-6 col-lg-4">
+          {% include child.miniview_template with page=child %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
     {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
+    {% endif %}
+    {% endblock %}
+
+    {% block related_content %}
+    {% if page.related_show %}
+    <div class="container">
+      <h2 class="text-center my-5">{% trans "Related" %}</h2>
+      <div class="row">
+        {% for rp in related_pages %}
+        <div class="col-sm-6 col-lg-4">
+          {% include rp.miniview_template with page=rp %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
     {% endif %}
     {% endblock %}
 

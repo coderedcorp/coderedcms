@@ -228,6 +228,7 @@ class PageListBlock(BaseBlock):
         label=_("Classified as"),
         help_text=_("Only show pages that are classified with this term."),
     )
+    # DEPRECATED: Remove in 3.0
     show_preview = blocks.BooleanBlock(
         required=False,
         default=False,

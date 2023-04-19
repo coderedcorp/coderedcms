@@ -8,5 +8,6 @@ Features
     import_export
     mailchimp
     page_types/index
+    related_pages
     searching
     snippets/index

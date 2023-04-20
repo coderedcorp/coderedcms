@@ -505,26 +505,32 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
         return query
 
-    def get_related_pages(self) -> models.QuerySet:
+    def get_related_pages(
+        self, pagetype: Union[str, models.Model] = None, num: int = None
+    ) -> models.QuerySet:
         """
         Returns a queryset of sibling pages, or the model type
-        defined by `self.related_query_pagemodel`. Ordered by number
-        of shared classifier terms.
+        defined by `pagetype` or `self.related_query_pagemodel`.
+        Ordered by number of shared classifier terms.
         """
 
+        if pagetype is None:
+            pagetype = self.related_query_pagemodel
+
+        if num is None:
+            num = self.related_num
+
         # Get our related query model, and queryset.
-        if self.related_query_pagemodel:
-            if isinstance(
-                self.related_query_pagemodel, Union[str, models.Model]
-            ):
+        if pagetype:
+            if isinstance(pagetype, Union[str, models.Model]):
                 querymodel = resolve_model_string(
-                    self.related_query_pagemodel, self._meta.app_label
+                    pagetype, self._meta.app_label
                 )
                 r_qs = querymodel.objects.all().live()
             else:
                 raise AttributeError(
-                    f"The related_querymodel should be a model or str."
-                    f" The related_querymodel of {self} is {type(self.related_querymodel)}"
+                    f"The `pagetype` or `related_page_querymodel` should be "
+                    f"a model or str, but {type(pagetype)} was provided."
                 )
         else:
             r_qs = self.get_parent().specific.get_index_children()
@@ -552,7 +558,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         if order_by:
             r_qs = r_qs.order_by(*order_by).distinct()
 
-        return r_qs[: self.related_num]
+        return r_qs[:num]
 
     def get_content_walls(self, check_child_setting=True):
         current_content_walls = []

@@ -1,0 +1,4 @@
+v2.1.1 release notes
+====================
+
+This release fixes a packaging issue that was published to PyPI with 2.1.0. All installations of 2.1.0 should use 2.1.1 instead.

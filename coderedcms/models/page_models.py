@@ -515,7 +515,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
         :param str pagetype: The model type to query on. This should
           be a string in the format "appname.Model".
-          Overrides ``self.related_page_querymodel``
+          Overrides ``self.related_query_pagemodel``
 
         :param int num: The number of results to return.
           Overrides ``self.related_num``.

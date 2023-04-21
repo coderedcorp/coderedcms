@@ -6,15 +6,26 @@ Wagtail CRX (previously CodeRed CMS) follows the
 
 * **Major** - significant changes that may not be backwards compatible.
 
-* **Minor** - new features, enhancements, and bug fixes that are most likely
-  but not guaranteed to be backwards compatible.
+* **Minor** - new features, enhancements, and bug fixes that are most likely but not guaranteed to be backwards compatible.
 
-* **Patch** - guaranteed to be backwards compatible. These changes are
-  reserved for bug, security, or documentation fixes only.
+* **Patch** - guaranteed to be backwards compatible. These changes are reserved for bug, security, or documentation fixes only.
+
+Supported Versions:
+
++--------------+---------+----------+---------------------------+
+| CRX version  | Wagtail | Python   | Support Status            |
++==============+=========+==========+===========================+
+| CRX 2.x      | 4.x     | 3.7-3.11 | Supported                 |
++--------------+---------+----------+---------------------------+
+| CRX 1.x      | 3.x     | 3.7-3.11 | Support contract required |
++--------------+---------+----------+---------------------------+
+| CRX 0.25     | 2.16    | 3.7-3.10 | Support contract required |
++--------------+---------+----------+---------------------------+
 
 .. toctree::
     :maxdepth: 1
 
+    v2.1.0
     v2.0.0
     v1.0.3
     v1.0.2

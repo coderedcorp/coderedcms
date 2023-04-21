@@ -1,0 +1,53 @@
+v2.1.0 release notes
+====================
+
+
+New features
+------------
+
+* New snippet and block: :doc:`/features/snippets/filmstrip`.
+
+* New system-wide feature: :doc:`/features/related_pages`.
+
+* New template rendering option for page models, the "miniview". Instead of a full page template, this is used to render a small preview of the page in other places on the site, usually in a Bootstrap card format. The miniview template is used by:
+
+  * :doc:`/features/related_pages`
+
+  * :doc:`/features/blocks/contentblocks/pagepreview`
+
+  * :doc:`/features/blocks/contentblocks/latestpages`
+
+
+Upgrade considerations
+----------------------
+
+The built-in template options under Page Preview and Latest Pages block **Advanced Settings** are deprecated as of 2.1 and will be removed in 3.0. These have been replaced with identical miniview templates for Article and Form pages. **If you have overridden these templates** it is recommended to set your custom instead on the page model's ``miniview_template`` field.
+
+The new related pages feature is on by default for any newly created pages based on ``CoderedArticlePage``.
+
+* If you do not want this feature, disable it by setting ``related_show_default=False`` on your Article model.
+
+* If you want this feature retroactively on existing pages, write a simple query or migration to turn it on for those pages:
+
+  .. code-block:: python
+
+     # To enable related pages on just Article pages:
+     from website.models import ArticlePage
+     ArticlePage.objects.all().update(related_show=True)
+
+     # To enable related pages on all pages of the site:
+     from coderedcms.models import CoderedPage
+     CoderedPage.objects.all().update(related_show=True)
+
+As always, be sure to make and apply migrations after upgrading:
+
+.. code-block:: text
+
+   python manage.py makemigrations
+   python manage.py migrate
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `2.1.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/46?closed=1>`_.

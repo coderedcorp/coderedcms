@@ -1,0 +1,12 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="card mb-3">
+  {% if page.cover_image %}
+  {% image page.cover_image fill-800x450 format-webp as card_img %}
+  <img class="card-img-top w-100" src="{{card_img.url}}" alt="{{card_img.title}}">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{page.title}}</h5>
+    <p class="card-text">{{page.body_preview}}</p>
+    <a class="card-link" href="{% pageurl page %}" title="{{page.title}}">Read more</a>
+  </div>
+</div>

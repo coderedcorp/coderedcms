@@ -1,0 +1,32 @@
+{% extends "coderedcms/blocks/base_block.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% block block_render %}
+{% with value=self.film_strip %}
+<div class="position-relative" data-block="film-strip" data-current-block='0'>
+  <div class="crx-filmstrip-container" data-block="film-container">
+    <div class="row g-0 flex-nowrap" data-block="film-row">
+      {% for panel in value.film_panels.all %}
+        {% image panel.background_image original as image %}
+        <div data-block="film-panel" class="col-auto col crx-filmstrip-panel {{panel.custom_css_class}}" {% if panel.custom_id %}id="{{panel.custom_id}}"{% endif %} style="
+          {% if image %}background-image: url({{image.url}}); background-size: cover; background-position: center;{% endif %}
+          {% if panel.background_color %}background-color: {{panel.background_color}}{% endif %}
+          {% if panel.foreground_color %}color: {{panel.foreground_color}}{% endif %}
+        ">
+          {% include_block panel.content %}
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+  {% block film_strip_buttons %}
+  <div class="row justify-content-between">
+    <button type="button" class="btn col-auto" data-button="left">
+      ← {% trans 'Previous' %}
+    </button>
+    <button type="button" class="btn col-auto" data-button="right">
+      {% trans 'Next' %} →
+    </button>
+  </div>
+  {% endblock film_strip_buttons %}
+</div>
+{% endwith %}
+{% endblock %}

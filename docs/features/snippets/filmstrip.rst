@@ -32,3 +32,7 @@ To add a slide to your carousel, click the "Add Slides" button.
 **Custom CSS class**: If you need to add a specific CSS class for this panel, add it here.
 **Custom ID**: If you need to add a specific ID for this panel, add it here.
 **Content**: A streamfield that contains the content blocks for the panel.
+
+.. versionadded:: 2.1
+
+   You must be on Wagtail CRX version 2.1 or higher to use Film Strips.

@@ -17,3 +17,7 @@ There is only one field.
 
 The selected page is rendered using the page model's "miniview" template.
 The template can be overridden per model with the ``miniview_template`` attribute, the default of which is `coderedcms/pages/page.mini.html <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/pages/pages.mini.html>`_.
+
+.. versionadded:: 2.1
+
+   Miniview templates were added in Wagtail CRX 2.1

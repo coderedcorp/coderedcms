@@ -10,9 +10,9 @@ Fields and purposes:
 
 * **Parent Page** - Shows a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab.
 
-* **Classified By** - Filters which pages are displayed by the classifier that you selected
+* **Classified By** - Filters which pages are displayed by the classifier that you selected.
 
-* **Number of Pages to Show** - Limits how many pages are displayed to the number that you selected
+* **Number of Pages to Show** - Limits how many pages are displayed to the number that you selected.
 
 Each page is rendered using the page model's "miniview" template.
 The template can be overridden per model with the ``miniview_template`` attribute, the default of which is `coderedcms/pages/page.mini.html <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/pages/pages.mini.html>`_.
@@ -26,6 +26,10 @@ The template can be overridden per model with the ``miniview_template`` attribut
     :alt: The Latest Pages block as displayed on the website.
 
     The Latest Pages block as displayed on the website.
+
+.. versionadded:: 2.1
+
+   Miniview templates were added in Wagtail CRX 2.1
 
 .. deprecated:: 2.1
 

@@ -1,10 +1,6 @@
 Related Pages
 =============
 
-.. versionadded:: 2.1
-
-    Added related pages system. You must be on Wagtail CRX version 2.1 or higher in order to follow this guide.
-
 Using the power of :doc:`/features/snippets/classifiers`, pages can automatically show a list of similarly classified pages. By default, this is enabled on :doc:`/features/page_types/article_pages`, but can be enabled on any page via the Wagtail Admin, or a 1-line code change on the page model.
 
 .. figure:: img/related_pages.png
@@ -61,3 +57,7 @@ If you'd instead prefer to totally customize the related algorithm, override the
        def get_related_pages(self) -> models.QuerySet:
            """Show most expensive products first."""
            return ProductPage.objects.live().order_by("-price")
+
+.. versionadded:: 2.1
+
+   You must be on Wagtail CRX version 2.1 or higher to use related pages.

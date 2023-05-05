@@ -47,3 +47,9 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 .crx-callout p {
     font-size: 1rem;
 }
+
+/* Hide the revision field.  It is set in clean. */
+input[type="hidden"][value="reusable_content"]
+  ~ section div[data-contentpath="revision"] {
+    display: none;
+}

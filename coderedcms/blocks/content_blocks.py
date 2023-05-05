@@ -15,6 +15,9 @@ from .base_blocks import (
     CollectionChooserBlock,
 )
 from .html_blocks import ButtonBlock
+from coderedcms.comparisons.snippet_comparisons import (
+    ReusableContentComparison,
+)
 
 
 class AccordionBlock(BaseBlock):
@@ -330,11 +333,23 @@ class ContentWallBlock(BaseBlock):
 class ReusableContentBlock(BaseBlock):
     """
     Enables choosing a ResusableContent snippet.
+    Stores the revision number for use with wagtail history.
     """
 
     content = SnippetChooserBlock("coderedcms.ReusableContent")
+    # The revision field is hidden on the editor.
+    revision = blocks.IntegerBlock(required=False)
 
     class Meta:
         icon = "cr-recycle"
         label = _("Reusable Content")
         template = "coderedcms/blocks/reusable_content_block.html"
+
+    def clean(self, value):
+        # Update the revision number on save.
+        value["revision"] = value["content"].latest_revision.id
+
+        return super().clean(value)
+
+    def get_comparison_class(self):
+        return ReusableContentComparison

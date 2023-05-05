@@ -2,7 +2,10 @@
 Snippets are for content that is re-usable in nature.
 """
 
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -12,7 +15,11 @@ from wagtail.admin.panels import (
     InlinePanel,
     MultiFieldPanel,
 )
-from wagtail.models import Orderable
+from wagtail.blocks import StreamValue
+from wagtail.models import (
+    Orderable,
+    RevisionMixin,
+)
 from wagtail.snippets.models import register_snippet
 from wagtail.images import get_image_model_string
 
@@ -383,7 +390,7 @@ class Footer(models.Model):
 
 
 @register_snippet
-class ReusableContent(models.Model):
+class ReusableContent(RevisionMixin, models.Model):
     """
     Snippet for resusable content in streamfields.
     """
@@ -402,11 +409,76 @@ class ReusableContent(models.Model):
         blank=True,
         use_json_field=True,
     )
+    revisions = GenericRelation(
+        "wagtailcore.Revision",
+        related_query_name="reusable_content",
+    )
 
     panels = [FieldPanel("name"), FieldPanel("content")]
 
     def __str__(self):
         return self.name
+
+
+def recursive_update_revision_in_raw_data(raw_data, pk, revision_id):
+    for block in raw_data:
+        if (
+            "type" in block
+            and block["type"] == "reusable_content"
+            and block["value"]["content"] == pk
+        ):
+            block["value"]["revision"] = revision_id
+
+        for key, value in block.items():
+            if type(value) is list:
+                recursive_update_revision_in_raw_data(value, pk, revision_id)
+
+            elif type(value) is dict:
+                recursive_update_revision_in_raw_data([value], pk, revision_id)
+
+    return raw_data
+
+
+def recursive_create_revisions_from_instance(instance, pk, revision_id):
+    for source, _reference_objects in instance.get_usage():
+        if hasattr(source, "specific"):
+            for field in source.specific._meta.fields:
+                field_value = getattr(source.specific, field.name)
+                if issubclass(type(field_value), StreamValue):
+                    raw_data = recursive_update_revision_in_raw_data(
+                        field_value._raw_data, pk, revision_id
+                    )
+                    field_value.raw_data = raw_data
+
+            source.specific.save_revision()
+
+        else:
+            for field in source._meta.fields:
+                field_value = getattr(source, field.name)
+                if issubclass(type(field_value), StreamValue):
+                    raw_data = recursive_update_revision_in_raw_data(
+                        field_value._raw_data, pk, revision_id
+                    )
+                    field_value.raw_data = raw_data
+
+            source.save_revision()
+
+
+@receiver(post_save)
+def create_revisions_of_content_using_reusable_content(sender, **kwargs):
+    if not issubclass(sender, ReusableContent):
+        return
+
+    instance = kwargs["instance"]
+    created = kwargs["created"]
+
+    # We don't need a new revision when this is a new reusable content
+    if created:
+        return
+
+    recursive_create_revisions_from_instance(
+        instance, instance.pk, instance.latest_revision_id
+    )
 
 
 @register_snippet

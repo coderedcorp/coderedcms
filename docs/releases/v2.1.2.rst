@@ -1,0 +1,8 @@
+v2.1.2 release notes
+====================
+
+Bug fixes:
+
+* Instead of throwing a server error, return None if "Latest Pages" block has invalid (i.e. deleted) classifier term.
+
+* Fix display issue with classifier terms in Wagtail Admin when editing a page.

@@ -5,7 +5,7 @@
   {% if group %}
   <div class="field-col col4">
     <ul class="crx-checkbox-group">
-      <li><label>{{ group }}</label>
+      <li><label class="w-field__label">{{ group }}</label>
         {% endif %}
         <ul {% if id %}id="{{ id }}_{{ index }}"{% endif %}>
           {% for option in options %}
@@ -18,9 +18,10 @@
   </div>
   {% endif %}
   {% if forloop.counter|divisibleby:3 %}
-  <div class="clearfix"></div>
+  <div style="clear:both;"></div>
   {% endif %}
   {% endfor %}
+  <div style="clear:both;"></div>
 </div>
 {% endwith %}
 {% else %}

@@ -7,7 +7,7 @@ from django.http import (
     HttpResponsePermanentRedirect,
     JsonResponse,
 )
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import (
     Paginator,
@@ -276,8 +276,8 @@ def event_get_calendar_events(request):
         page.get_calendar_events(start=start, end=end), safe=False
     )
 
-
 @login_required
+@permission_required("wagtailadmin.access_admin", login_url="wagtailadmin_login")
 def import_index(request):
     """
     Landing page to replace wagtailimportexport.
@@ -286,6 +286,7 @@ def import_index(request):
 
 
 @login_required
+@permission_required("wagtailadmin.access_admin", login_url="wagtailadmin_login")
 def import_pages_from_csv_file(request):
     """
     Overwrite of the `import_pages` view from wagtailimportexport.  By default, the `import_pages`

@@ -138,10 +138,7 @@ class Classifier(ClusterableModel):
         ordering = ["name"]
 
     slug = models.SlugField(
-        allow_unicode=True,
-        unique=True,
-        verbose_name=_("Slug"),
-        max_length=255
+        allow_unicode=True, unique=True, verbose_name=_("Slug"), max_length=255
     )
     name = models.CharField(
         max_length=255,

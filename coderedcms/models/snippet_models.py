@@ -189,6 +189,7 @@ class ClassifierTerm(Orderable, models.Model):
         allow_unicode=True,
         unique=True,
         verbose_name=_("Slug"),
+        max_length=255,
     )
     name = models.CharField(
         max_length=255,

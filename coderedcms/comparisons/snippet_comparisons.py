@@ -14,6 +14,9 @@ class ReusableContentComparison(BlockComparison):
     def get_revision(self, val):
         instance = val["content"]
         revision_id = val["revision"]
+        if revision_id is None:
+            revision = instance.revisions.latest('pk')
+            revision_id = revision.pk
         revision = get_object_or_404(instance.revisions, id=revision_id)
         return revision.as_object()
 

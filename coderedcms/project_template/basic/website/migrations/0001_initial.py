@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("coderedcms", "0038_reusablecontent_latest_revision"),
+        ("coderedcms", "0039_reusablecontent_latest_revision"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ("wagtailcore", "0083_workflowcontenttype"),
     ]

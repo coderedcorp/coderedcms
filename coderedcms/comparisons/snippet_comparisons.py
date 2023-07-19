@@ -22,6 +22,9 @@ class ReusableContentComparison(BlockComparison):
         return revision.as_object()
 
     def _get_revisions_diff(self):
+        if self.val_a is None:
+            return None
+
         instance = self.val_a["content"]
         revision_a = self.get_revision(self.val_a)
         revision_b = self.get_revision(self.val_b)
@@ -72,7 +75,21 @@ class ReusableContentComparison(BlockComparison):
             elif name == "content" and isinstance(block, SnippetChooserBlock):
                 # Override the diff to display the diff of the revision's
                 # content you are comparing, not the pk of the snippet.
-                htmlvalues.append(self._get_revisions_diff())
+                revisions_diff = self._get_revisions_diff()
+                if revisions_diff is not None:
+                    htmlvalues.append(revisions_diff)
+
+                else:
+                    comparison_class = get_comparison_class_for_block(block)
+
+                    htmlvalues.append(
+                        (
+                            label,
+                            comparison_class(
+                                block, True, True, val[name], val[name]
+                            ).htmlvalue(val[name]),
+                        )
+                    )
 
             else:
                 comparison_class = get_comparison_class_for_block(block)

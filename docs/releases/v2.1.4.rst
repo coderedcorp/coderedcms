@@ -1,0 +1,12 @@
+v2.1.4 release notes
+====================
+
+Bug fixes:
+
+* Fix bug creating ClassifierTerm when name is over 50 characters.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `2.1.4 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/49?closed=1>`_.

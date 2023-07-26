@@ -22,7 +22,7 @@ class ReusableContentComparison(BlockComparison):
         return revision.as_object()
 
     def _get_revisions_diff(self):
-        if self.val_a is None:
+        if self.val_a is None or self.val_b is None:
             return None
 
         instance = self.val_a["content"]

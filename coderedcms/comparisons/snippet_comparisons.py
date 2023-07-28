@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.utils.html import format_html
 from django.utils.html import format_html_join
@@ -16,15 +17,20 @@ class ReusableContentComparison(BlockComparison):
         instance = val["content"]
         revision_id = val["revision"]
         if revision_id is None:
-            revision = instance.revisions.latest("pk")
+            try:
+                revision = instance.revisions.latest("pk")
+            except ObjectDoesNotExist:
+                # There are no revisions set up for this reusable content yet.
+                return None
             revision_id = revision.pk
-        revision = get_object_or_404(instance.revisions, id=revision_id)
+        try:
+            revision = instance.revisions.get(id=revision_id)
+        except ObjectDoesNotExist:
+            # There are no revisions set up for this reusable content yet.
+            return None
         return revision.as_object()
 
     def _get_revisions_diff(self):
-        if self.val_a is None or self.val_b is None:
-            return None
-
         instance = self.val_a["content"]
         revision_a = self.get_revision(self.val_a)
         revision_b = self.get_revision(self.val_b)
@@ -41,6 +47,14 @@ class ReusableContentComparison(BlockComparison):
 
         htmldiffs = []
         for comp in comparison:
+            # If there are no revisions set up for a reusable content,then
+            # diff against the instance, so we can see the current data.
+            if revision_a is None:
+                revision_a = instance
+
+            if revision_b is None:
+                revision_b = instance
+
             diff = comp(revision_a, revision_b)
             htmldiffs.append(
                 (
@@ -76,20 +90,7 @@ class ReusableContentComparison(BlockComparison):
                 # Override the diff to display the diff of the revision's
                 # content you are comparing, not the pk of the snippet.
                 revisions_diff = self._get_revisions_diff()
-                if revisions_diff is not None:
-                    htmlvalues.append(revisions_diff)
-
-                else:
-                    comparison_class = get_comparison_class_for_block(block)
-
-                    htmlvalues.append(
-                        (
-                            label,
-                            comparison_class(
-                                block, True, True, val[name], val[name]
-                            ).htmlvalue(val[name]),
-                        )
-                    )
+                htmlvalues.append(revisions_diff)
 
             else:
                 comparison_class = get_comparison_class_for_block(block)

@@ -347,7 +347,12 @@ class ReusableContentBlock(BaseBlock):
 
     def clean(self, value):
         # Update the revision number on save.
-        value["revision"] = value["content"].latest_revision.id
+        if value["content"].latest_revision is None:
+            # If you are selecting a reusable content that does not
+            # have a revision yet, then there is no latest revision.
+            value["revision"] = ""
+        else:
+            value["revision"] = value["content"].latest_revision.id
 
         return super().clean(value)
 

@@ -130,7 +130,6 @@ class ReusableContentHistoryBaseTestCase(WagtailPageTests):
         add_url = reverse("wagtailsnippets_coderedcms_reusablecontent:add")
         with mock.patch(
             "coderedcms.blocks.content_blocks.ReusableContentBlock.clean",
-            autospec=True,
         ) as mocked_clean, mock.patch(
             "coderedcms.models.snippet_models.ReusableContent.save_revision",
         ) as mocked_save_revision:

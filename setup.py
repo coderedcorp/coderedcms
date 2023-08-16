@@ -50,7 +50,7 @@ setup(
         'geocoder==1.38.*',
         'icalendar==4.0.*',
         'wagtail==2.11.*',
-        'wagtailfontawesome>=1.2.*',
+        'wagtailfontawesome==1.2.1',
         'wagtail-cache==1.*',
         'wagtail-import-export>=0.2,<0.3'
     ],

@@ -19,16 +19,16 @@ Google Analytics
 ----------------
 
 There are two types of Google Analytics accounts --- "Google Analytics 4" (GA4)
-and "Universal Analytics" (for old accounts created before 2021):
+and "Universal Analytics" (which is discontinued as of July 2023):
 
 * **Google Analytics 4 (GA4)** account IDs begin with **G-**
 
-* **Universal Analytics** account IDs begin with **UA-**. Google is shutting
-  down UA accounts in July 2023, so it is recommended to use GA4 accounts
-  instead.
+* **Universal Analytics** account IDs begin with **UA-**. Google shut
+  down UA accounts in July 2023, so these will no longer work.
 
-* If you are using both account types, you can enter both IDs and the data will
-  populate both accounts.
+.. deprecated:: 3.0
+
+   Support for Universal Analytics was removed in CRX version 3.0.
 
 
 Google Tag Manager (GTM)

@@ -51,7 +51,7 @@ Updating Python code & Django templates
 
 #. Follow the `Wagtail 3 upgrade instructions
    <https://docs.wagtail.org/en/stable/releases/3.0.html#upgrade-considerations-changes-affecting-all-projects>`_.
-   This primarily involes running the following tool to update the Wagtail
+   This primarily involves running the following tool to update the Wagtail
    imports:
 
    .. code-block:: text

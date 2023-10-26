@@ -1412,8 +1412,8 @@ class CoderedFormMixin(models.Model):
         # Handle file uploads
         for key, val in form.cleaned_data.items():
             if (
-                type(val) == InMemoryUploadedFile
-                or type(val) == TemporaryUploadedFile
+                type(val) is InMemoryUploadedFile
+                or type(val) is TemporaryUploadedFile
             ):
                 # Save the file and get its URL
 

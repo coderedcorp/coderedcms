@@ -12,7 +12,7 @@ New features
   classifiers and orderable terms within each classifier. Then assign classifier terms
   to pages to enable filtering by specific classifier terms.
 * The current page in a navbar or dropdown is highlighted using the ``active`` CSS class.
-* The default streamfield on pages, resusable content snippets, footers, carousels, and modals
+* The default streamfield on pages, reusable content snippets, footers, carousels, and modals
   now includes more blocks including the "Latest pages" and "Page preview" blocks.
 
 

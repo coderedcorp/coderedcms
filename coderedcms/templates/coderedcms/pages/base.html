@@ -7,23 +7,15 @@
 
 <head>
   {% block tracking %}
-  {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id or settings.coderedcms.AnalyticsSettings.ga_g_tracking_id %}
+  {% if settings.coderedcms.AnalyticsSettings.ga_g_tracking_id %}
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}"></script>
-  {% else %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_g_tracking_id}}"></script>
-  {% endif %}
   <script>
     cr_track_clicks = {{settings.coderedcms.AnalyticsSettings.ga_track_button_clicks|yesno:"true,false"}};
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    // {% if settings.coderedcms.AnalyticsSettings.ga_tracking_id %}
-    gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_tracking_id}}');
-    // {% endif %} {% if settings.coderedcms.AnalyticsSettings.ga_g_tracking_id %}
     gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_g_tracking_id}}');
-    // {% endif %}
   </script>
   {% endif %}
   {% if settings.coderedcms.AnalyticsSettings.gtm_id %}

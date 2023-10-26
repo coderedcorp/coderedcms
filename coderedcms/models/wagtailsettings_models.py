@@ -265,14 +265,6 @@ class AnalyticsSettings(BaseSiteSetting):
     class Meta:
         verbose_name = _("Tracking")
 
-    ga_tracking_id = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_("UA Tracking ID"),
-        help_text=_(
-            'Your Google "Universal Analytics" tracking ID (begins with "UA-")'
-        ),
-    )
     ga_g_tracking_id = models.CharField(
         blank=True,
         max_length=255,
@@ -321,7 +313,6 @@ class AnalyticsSettings(BaseSiteSetting):
         MultiFieldPanel(
             [
                 FieldPanel("ga_g_tracking_id"),
-                FieldPanel("ga_tracking_id"),
                 FieldPanel("ga_track_button_clicks"),
             ],
             heading=_("Google Analytics"),

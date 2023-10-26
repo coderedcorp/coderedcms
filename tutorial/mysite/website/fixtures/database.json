@@ -4703,7 +4703,7 @@
                 "localhost",
                 80
             ],
-            "ga_tracking_id": "",
+            "ga_g_tracking_id": "",
             "ga_track_button_clicks": false
         }
     },
@@ -4995,4 +4995,3 @@
         }
     }
     ]
-    

@@ -17,7 +17,7 @@
 
 
 trigger:
-  - dev
+  - main
 
 
 stages:

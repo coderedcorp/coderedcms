@@ -2,7 +2,7 @@
 
 <#
 .SYNOPSIS
-Compares code coverage percent of local coverage.xml file to dev branch
+Compares code coverage percent of local coverage.xml file to main branch
 (Azure Pipeline API).
 
 .PARAMETER wd
@@ -41,25 +41,25 @@ $ApiBase = "https://dev.azure.com/$org/$project"
 
 
 # Get list of all recent builds.
-$devBuildJson = (
-    Invoke-WebRequest "$ApiBase/_apis/build/builds?branchName=refs/heads/dev&api-version=5.1"
+$mainBuildJson = (
+    Invoke-WebRequest "$ApiBase/_apis/build/builds?branchName=refs/heads/main&api-version=5.1"
 ).Content | ConvertFrom-Json
 
 # Get the latest matching build ID from the list of builds.
-foreach ($build in $devBuildJson.value) {
+foreach ($build in $mainBuildJson.value) {
     if ($build.definition.name -eq $pipeline_name) {
-        $devLatestId = $build.id
+        $mainLatestId = $build.id
         break
     }
 }
 
 # Retrieve code coverage for this build ID.
-$devCoverageJson = (
-    Invoke-WebRequest "$ApiBase/_apis/test/codecoverage?buildId=$devLatestId&api-version=5.1-preview.1"
+$mainCoverageJson = (
+    Invoke-WebRequest "$ApiBase/_apis/test/codecoverage?buildId=$mainLatestId&api-version=5.1-preview.1"
 ).Content | ConvertFrom-Json
-foreach ($cov in $devCoverageJson.coverageData.coverageStats) {
+foreach ($cov in $mainCoverageJson.coverageData.coverageStats) {
     if ($cov.label -eq "Lines") {
-        $devlinerate = [math]::Round(($cov.covered / $cov.total) * 100, 2)
+        $mainLinerate = [math]::Round(($cov.covered / $cov.total) * 100, 2)
     }
 }
 
@@ -84,21 +84,21 @@ $branchlinerate = [math]::Round([decimal]$BranchXML.coverage.'line-rate' * 100, 
 
 
 Write-Output ""
-Write-Output "Dev branch coverage rate:   $devlinerate%"
+Write-Output "Main branch coverage rate:  $mainLinerate%"
 Write-Output "This branch coverage rate:  $branchlinerate%"
 
-if ($devlinerate -eq 0) {
+if ($mainLinerate -eq 0) {
     $change = "Infinite"
 }
 else {
-    $change = [math]::Abs($branchlinerate - $devlinerate)
+    $change = [math]::Abs($branchlinerate - $mainLinerate)
 }
 
-if ($branchlinerate -gt $devlinerate) {
+if ($branchlinerate -gt $mainLinerate) {
     Write-Host "Coverage increased by $change% 😀" -ForegroundColor Green
     exit 0
 }
-elseif ($branchlinerate -eq $devlinerate) {
+elseif ($branchlinerate -eq $mainLinerate) {
     Write-Host "Coverage has not changed." -ForegroundColor Green
     exit 0
 }

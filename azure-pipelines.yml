@@ -39,6 +39,8 @@ stages:
           PYTHON_VERSION: '3.10'
         py3.11:
           PYTHON_VERSION: '3.11'
+        py3.12:
+          PYTHON_VERSION: '3.12'
 
     steps:
     - task: UsePythonVersion@0
@@ -85,7 +87,7 @@ stages:
     - task: UsePythonVersion@0
       displayName: 'Use Python version'
       inputs:
-        versionSpec: '3.11'
+        versionSpec: '3.12'
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt
@@ -138,7 +140,7 @@ stages:
     - task: UsePythonVersion@0
       displayName: 'Use Python version'
       inputs:
-        versionSpec: '3.11'
+        versionSpec: '3.12'
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt

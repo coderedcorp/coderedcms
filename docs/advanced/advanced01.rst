@@ -25,7 +25,7 @@ structure. This uses the standard Django template rendering engine. For example,
 formatting of the article page, copy ``coderedcms/templates/coderedcms/pages/article_page.html``
 to ``website/templates/coderedcms/pages/article_page.html`` and modify it.
 The `source code for built-in templates can be found on GitHub
-<https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/>`_.
+<https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/>`_.
 
 
 Example 1: Navbar Customization
@@ -33,7 +33,7 @@ Example 1: Navbar Customization
 
 The built-in template for the navbar can be found in ``templates/coderedcms/snippets/navbar.html``. This
 file may not actually be in your installation folders for your site; however, you can see its contents
-by visiting the Wagtail CRX source code here: `navbar.html <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/navbar.html>`_.
+by visiting the Wagtail CRX source code here: `navbar.html <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/snippets/navbar.html>`_.
 
 Let’s say that you want to have a 2-tiered navbar with the logo on the top tier and the menu items on the
 second tier. The default navbar does not have that as an option, so you will want to override this template.

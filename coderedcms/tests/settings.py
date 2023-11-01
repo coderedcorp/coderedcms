@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail",
     "wagtail.contrib.settings",
-    "wagtail.contrib.modeladmin",
     "wagtail.contrib.table_block",
     "wagtail.admin",
     # Django

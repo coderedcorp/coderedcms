@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.test import Client
+from django.utils import timezone
 from wagtail.test.utils import WagtailPageTests
 
 from coderedcms.models.page_models import (
@@ -205,8 +206,8 @@ class EventPageTestCase(ConcreteBasicPageTestCase, WagtailPageTests):
     def setUp(self):
         super().setUp()
         self.occurrence = EventOccurrence(
-            start=datetime.now(),
-            end=datetime.now() + timedelta(days=1),
+            start=timezone.now(),
+            end=timezone.now() + timedelta(days=1),
             event=self.basic_page,
         )
         self.occurrence.save()

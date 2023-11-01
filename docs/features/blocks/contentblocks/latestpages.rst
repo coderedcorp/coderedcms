@@ -15,7 +15,7 @@ Fields and purposes:
 * **Number of Pages to Show** - Limits how many pages are displayed to the number that you selected.
 
 Each page is rendered using the page model's "miniview" template.
-The template can be overridden per model with the ``miniview_template`` attribute, the default of which is `coderedcms/pages/page.mini.html <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/pages/pages.mini.html>`_.
+The template can be overridden per model with the ``miniview_template`` attribute, the default of which is `coderedcms/pages/page.mini.html <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/pages/pages.mini.html>`_.
 
 .. figure:: img/latestpages1.png
     :alt: The Latest Pages block and its settings.

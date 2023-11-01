@@ -46,7 +46,7 @@ admin related to rendering blocks, pages, and templates. By default, all
 CRX_FRONTEND_* settings are designed to work with Bootstrap 5 CSS framework, but
 these can be customized if using a different CSS framework or theme variant.
 
-`Available settings are defined here <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/settings.py>`.
+`Available settings are defined here <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/settings.py>`.
 
 
 CRX_PROTECTED_MEDIA_ROOT

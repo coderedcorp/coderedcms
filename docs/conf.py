@@ -66,7 +66,7 @@ html_theme = "sphinx_wagtail_theme"
 
 html_theme_options = {
     "project_name": "Wagtail + CodeRed Extensions",
-    "github_url": "https://github.com/coderedcorp/coderedcms/blob/dev/docs/",
+    "github_url": "https://github.com/coderedcorp/coderedcms/blob/main/docs/",
     "footer_links": (
         "Wagtail Hosting by CodeRed|https://www.codered.cloud/,"
         "Wagtail CRX on GitHub|https://github.com/coderedcorp/coderedcms,"

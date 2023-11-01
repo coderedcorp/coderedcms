@@ -44,13 +44,9 @@
 </div>
 {% endblock %}
 
-{% block coderedcms_assets %}
-{{ block.super }}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
-{% endblock %}
-
 {% block coderedcms_scripts %}
 {{ block.super }}
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js" integrity="sha256-sR+oJaZ3c0FHR6+kKaX1zeXReUGbzuNI8QTKpGHE0sg=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js" integrity="sha256-alsi6DkexWIdeVDEct5s7cnqsWgOqsh2ihuIZbU6H3I=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.9/index.global.min.js" integrity="sha256-gUOOsuvXIJriWP5FGvNLUHPduBqgnIyGuAxWiWtHxMo=" crossorigin="anonymous"></script>
 <script src="{% static 'coderedcms/js/crx-events.js' %}?v={% coderedcms_version %}"></script>
 {% endblock %}

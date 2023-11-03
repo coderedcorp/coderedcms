@@ -31,16 +31,21 @@ stages:
       vmImage: 'ubuntu-latest'
     strategy:
       matrix:
-        py3.8:
+        py3.8_wag5.0:
           PYTHON_VERSION: '3.8'
-        py3.9:
+          WAGTAIL_VERSION: '5.0.*'
+        py3.9_wag5.0:
           PYTHON_VERSION: '3.9'
-        py3.10:
+          WAGTAIL_VERSION: '5.0.*'
+        py3.10_wag5.0:
           PYTHON_VERSION: '3.10'
-        py3.11:
+          WAGTAIL_VERSION: '5.0.*'
+        py3.11_wag5.1:
           PYTHON_VERSION: '3.11'
-        py3.12:
+          WAGTAIL_VERSION: '5.1.*'
+        py3.12_wag5.2:
           PYTHON_VERSION: '3.12'
+          WAGTAIL_VERSION: '5.2.*'
 
     steps:
     - task: UsePythonVersion@0
@@ -49,7 +54,7 @@ stages:
         versionSpec: '$(PYTHON_VERSION)'
         architecture: 'x64'
 
-    - script: python -m pip install -r requirements-ci.txt
+    - script: python -m pip install -r requirements-ci.txt wagtail==$(WAGTAIL_VERSION)
       displayName: 'CR-QC: Install coderedcms from local repo'
 
     - script: coderedcms start testproject

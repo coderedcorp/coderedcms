@@ -71,6 +71,8 @@ stages:
 
     - script: |
         cd testproject/
+        touch requirements-dev.txt
+        python -m pip install -r requirements-dev.txt
         python manage.py makemigrations --check
       displayName: 'CR-QC: Check migrations'
 

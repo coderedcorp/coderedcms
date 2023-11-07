@@ -51,10 +51,10 @@ stages:
           PYTHON_VERSION: '3.12'
           WAGTAIL_VERSION: '5.2.*'
           TEMPLATE: 'basic'
-        py3.12_wag5.2_sass:
+        py3.12_wag5.2_pro:
           PYTHON_VERSION: '3.12'
           WAGTAIL_VERSION: '5.2.*'
-          TEMPLATE: 'sass'
+          TEMPLATE: 'pro'
 
     steps:
     - task: UsePythonVersion@0

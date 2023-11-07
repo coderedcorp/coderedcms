@@ -32,6 +32,24 @@ Open this directory in a command prompt, then:
    to log in and get to work!
 
 
+## Linting / pre-deployment
+
+To check for errors, run the following commands:
+
+```
+ruff check --fix .
+ruff format .
+mypy .
+pytest .
+```
+
+Before deploying, be sure to build the sass:
+
+```
+python manage.py sass -t compressed website/static/website/src/custom.scss website/static/website/css/
+```
+
+
 ## Documentation links
 
 * To customize the content, design, and features of the site see

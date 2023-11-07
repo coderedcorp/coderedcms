@@ -10,11 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+from pathlib import Path
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+# Build paths inside the project like this: BASE_DIR / "subdir".
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,6 +26,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     # This project
     "website",
+    "custom_media",
+    "custom_user",
     # Wagtail CRX (CodeRed Extensions)
     "coderedcms",
     "django_bootstrap5",
@@ -69,8 +71,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    # Error reporting. Uncomment this to receive emails when a 404 is triggered.
-    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     # CMS functionality
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     # Fetch from cache. Must be LAST.
@@ -104,7 +104,7 @@ WSGI_APPLICATION = "{{ project_name }}.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -127,6 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "custom_user.User"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
@@ -148,10 +150,10 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
 
@@ -167,11 +169,9 @@ WAGTAIL_SITE_NAME = "{{ sitename }}"
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
-WAGTAILSEARCH_BACKENDS = {
-    "default": {
-        "BACKEND": "wagtail.search.backends.database",
-    }
-}
+WAGTAILIMAGES_IMAGE_MODEL = "custom_media.CustomImage"
+
+WAGTAILDOCS_DOCUMENT_MODEL = "custom_media.CustomDocument"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

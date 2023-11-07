@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io, modified for use with CodeRed CMS.
+# Created by https://www.gitignore.io, modified for use with Wagtail CRX.
 
 #######################################
 ### Editors
@@ -197,7 +197,7 @@ tags
 *.pyc
 __pycache__/
 local_settings.py
-db.sqlite3
+*.sqlite3
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -315,6 +315,15 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Ruff
+.ruff_cache/
+
+
+
+#######################################
+### Operating Systems
+#######################################
+
 
 ### OSX ###
 
@@ -346,12 +355,6 @@ Temporary Items
 .apdisk
 
 
-
-#######################################
-### Operating Systems
-#######################################
-
-
 ### Windows ###
 
 # Windows thumbnail cache files
@@ -381,19 +384,18 @@ $RECYCLE.BIN/
 
 
 #######################################
-### CodeRed CMS
+### Wagtail CRX
 #######################################
 
-
-#### CodeRed CMS defaults ###
 
 # Cache
 cache/
 
 # File uploads from forms
-protected/
+/protected/
 
-# if you want to store original uploaded media files in version control,
-# replace "media/" with "media/images/"
-media/
-#media/images/
+# Media files
+/media/
+
+# Collected static files
+/static/

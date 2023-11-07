@@ -1,0 +1,33 @@
+[tool.black]
+line-length = 80
+extend-exclude = ["migrations"]
+
+[tool.django-stubs]
+django_settings_module = "{{ project_name }}.settings.dev"
+
+[tool.mypy]
+ignore_missing_imports = true
+plugins = ["mypy_django_plugin.main"]
+exclude = [
+    '^\..*',
+    'migrations',
+    'node_modules',
+    'venv',
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "{{ project_name }}.settings.dev"
+addopts = "--cov --cov-report html"
+python_files = "tests.py test_*.py"
+
+[tool.ruff]
+extend-exclude = ["migrations"]
+line-length = 80
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+case-sensitive = false
+force-single-line = true
+lines-after-imports = 2

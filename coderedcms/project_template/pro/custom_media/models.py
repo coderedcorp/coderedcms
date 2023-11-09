@@ -30,13 +30,19 @@ class CustomImage(AbstractImage):
         max_length=255,
         blank=True,
         verbose_name="Alt Text",
-        help_text="A description of this image used by search engines and screen readers.",
+        help_text=(
+            "A description of this image used by search engines and screen readers."
+        ),
     )
     credit = models.CharField(
         max_length=255,
         blank=True,
         verbose_name="Credit",
-        help_text="Credit or attribute the source of the image. Properly attributing images taken from online sources can reduce your risk of copyright infringement.",
+        help_text=(
+            "Credit or attribute the source of the image. "
+            "Properly attributing images taken from online sources can "
+            "reduce your risk of copyright infringement."
+        ),
     )
     admin_form_fields = Image.admin_form_fields + (
         "alt_text",

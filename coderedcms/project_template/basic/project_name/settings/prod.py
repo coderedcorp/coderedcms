@@ -32,7 +32,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(BASE_DIR, "cache"),  # noqa
+        "LOCATION": BASE_DIR / "cache",  # noqa
         "KEY_PREFIX": "coderedcms",
         "TIMEOUT": 14400,  # in seconds
     }

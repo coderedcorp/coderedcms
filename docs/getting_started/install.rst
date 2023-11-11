@@ -7,23 +7,20 @@ Basic Installation
 
 #. Make a directory (folder) for your project.
 #. Create a virtual environment.
-    **Not sure how to create a virtual environment?**
-    Creating a virtual environment for your project only involves a few commands.
-    See below:
 
     **Windows (PowerShell):**
 
     .. code-block:: ps1con
 
-        PS> python -m venv .\venv\
-        PS> .\venv\Scripts\Activate.ps1
+       PS> python -m venv .\venv\
+       PS> .\venv\Scripts\Activate.ps1
 
     **macOS, Linux:**
 
     .. code-block:: console
 
-        $ python -m venv ./venv/
-        $ source ./venv/bin/activate
+       $ python -m venv ./venv/
+       $ source ./venv/bin/activate
 
     You can name your virtual environment anything you like. It is just for your use
     on your computer.
@@ -32,8 +29,9 @@ Basic Installation
     environments here <https://docs.python.org/3/tutorial/venv.html>`_.
 
     .. note::
-        You will need to be in the directory (folder) of your Wagtail project and have your
-        virtual environment activated to install dependencies and run your site.
+
+       You will need to be in the directory (folder) of your Wagtail project and have your
+       virtual environment activated to install dependencies and run your site.
 
 #. Run ``pip install coderedcms``
 #. Run ``coderedcms start mysite --sitename "My Company Inc." --domain www.example.com``
@@ -55,20 +53,28 @@ Follow the tutorial to build: :doc:`tutorial01`.
 You can also play around with our tutorial database. Learn more: :ref:`load-data`.
 
 
-Installing with Sass Support
-----------------------------
+Professional Installation (includes Sass/SCSS)
+----------------------------------------------
 
-To create a project that is pre-configured to use Sass for CSS compilation:
+The professional boilerplate includes additional features pre-configured, such as:
+
+* Custom Image and Document models
+* Custom User model (using email address as username)
+* SCSS compilation (using Python, not Node.js)
+* Ruff, MyPy, Pytest tooling pre-configured
+
+To use the professional boilerplate, add ``--template pro`` to the start command:
 
 #. Run ``pip install coderedcms``
 #. Run
 
    .. code-block:: console
 
-       $ coderedcms start mysite --template sass --sitename "My Company Inc." --domain www.example.com
+      $ coderedcms start mysite --template pro --sitename "My Company Inc." --domain www.example.com
 
    .. note::
-       ``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.
+
+      ``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.
 
 #. Enter the ``mysite`` project with ``cd mysite/``.
 #. Install the development tooling with:
@@ -109,7 +115,7 @@ the project and play around with it. The database is located in ``website > fixt
 
 Follow these steps to upload it:
 
-1. Navigate to the tutorial project in the Command Line by going to ``coderedcms > tutorial > mysite``. 
+1. Navigate to the tutorial project in the Command Line by going to ``coderedcms > tutorial > mysite``.
 
 2. In a fresh virtual environment, type ``pip install -r requirements.txt`` to set up the requirements for the project.
 
@@ -117,7 +123,7 @@ Follow these steps to upload it:
 
 4. Do the initial migration for the tutorial site with ``python manage.py migrate``.
 
-5. Navigate to the ``database.json`` file in the Fixtures folder and copy the path to the file. 
+5. Navigate to the ``database.json`` file in the Fixtures folder and copy the path to the file.
 
 6. From the Command Line, type ``python manage.py loaddata "path/to/database.json"``, replacing that last part with the correct path to the file.
 
@@ -136,6 +142,11 @@ or at a URL using the ``--template`` option. Additionally, we provide some built
 | ``basic``  | The default starter project. The simplest option, good for most |
 |            | sites.                                                          |
 +------------+-----------------------------------------------------------------+
-| ``sass``   | Similar to basic, but with extra tooling to support SCSS to CSS |
-|            | compilation.                                                    |
+| ``pro``    | Custom Image, Document, User models. Extra tooling to support   |
+|            | SCSS to CSS compilation. Developer tooling such as ruff, mypy,  |
+|            | and pytest.                                                     |
 +------------+-----------------------------------------------------------------+
+
+.. versionchanged:: 3.0
+
+   The "pro" template was added in version 3.0. Previously it was named "sass" and had fewer features.

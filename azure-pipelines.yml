@@ -34,18 +34,27 @@ stages:
         py3.8_wag5.0:
           PYTHON_VERSION: '3.8'
           WAGTAIL_VERSION: '5.0.*'
+          TEMPLATE: 'basic'
         py3.9_wag5.0:
           PYTHON_VERSION: '3.9'
           WAGTAIL_VERSION: '5.0.*'
+          TEMPLATE: 'basic'
         py3.10_wag5.0:
           PYTHON_VERSION: '3.10'
           WAGTAIL_VERSION: '5.0.*'
+          TEMPLATE: 'basic'
         py3.11_wag5.1:
           PYTHON_VERSION: '3.11'
           WAGTAIL_VERSION: '5.1.*'
-        py3.12_wag5.2:
+          TEMPLATE: 'basic'
+        py3.12_wag5.2_basic:
           PYTHON_VERSION: '3.12'
           WAGTAIL_VERSION: '5.2.*'
+          TEMPLATE: 'basic'
+        py3.12_wag5.2_pro:
+          PYTHON_VERSION: '3.12'
+          WAGTAIL_VERSION: '5.2.*'
+          TEMPLATE: 'pro'
 
     steps:
     - task: UsePythonVersion@0
@@ -57,8 +66,15 @@ stages:
     - script: python -m pip install -r requirements-ci.txt wagtail==$(WAGTAIL_VERSION)
       displayName: 'CR-QC: Install coderedcms from local repo'
 
-    - script: coderedcms start testproject
+    - script: coderedcms start testproject --template $(TEMPLATE)
       displayName: 'CR-QC: Create starter project from template'
+
+    - script: |
+        cd testproject/
+        touch requirements-dev.txt
+        python -m pip install -r requirements-dev.txt
+        python manage.py makemigrations --check
+      displayName: 'CR-QC: Check migrations'
 
     - pwsh: ./ci/run-tests.ps1
       displayName: 'CR-QC: Run unit tests'
@@ -100,14 +116,6 @@ stages:
 
     - pwsh: ./ci/spellcheck.ps1
       displayName: 'CR-QC: Spelling'
-
-    - script: coderedcms start testproject
-      displayName: 'CR-QC: Generate a test project'
-
-    - script: |
-        cd testproject/
-        python manage.py makemigrations --check
-      displayName: 'CR-QC: Check migrations'
 
     - script: black --check .
       displayName: 'CR-QC: Black'

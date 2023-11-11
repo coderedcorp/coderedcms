@@ -1,10 +1,4 @@
-
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-from django import VERSION as DJANGO_VERSION
 from django.db import migrations
-
 from wagtail.models import Locale
 
 

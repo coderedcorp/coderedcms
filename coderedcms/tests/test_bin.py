@@ -88,7 +88,7 @@ class TestCoderedcmsStart(unittest.TestCase):
         )
         self.cleanup()
 
-    def test_template_sass(self):
+    def test_template_pro(self):
         self.setup()
         # Set args
         sys.argv = [
@@ -97,7 +97,7 @@ class TestCoderedcmsStart(unittest.TestCase):
             "myproject",
             self.TEST_DIR,
             "--template",
-            "sass",
+            "pro",
         ]
         # Run
         coderedcms_main()

@@ -1,0 +1,36 @@
+///
+/// Wagtail CRX Sass starter template
+///
+/// Import scss sources from the coderedcms pip package,
+/// or from your own local directory as needed.
+///
+
+// Use custom variables.
+@import "variables";
+
+// Import Bootstrap. Alternatively, change this to import individual components
+// of Bootstrap as needed.
+@import "coderedcms/vendor/bootstrap/scss/bootstrap";
+
+// Wagtail CRX tweaks. You'll probably want to disable some of these and use
+// your own styles instead.
+@import "coderedcms/scss/crx-article";
+@import "coderedcms/scss/crx-bs-overrides";
+@import "coderedcms/scss/crx-gallery";
+@import "coderedcms/scss/crx-hero";
+@import "coderedcms/scss/crx-location";
+@import "coderedcms/scss/crx-navbar";
+@import "coderedcms/scss/crx-pricelist";
+@import "coderedcms/scss/crx-richtext";
+
+// Add your custom styles here.
+
+// Adds a bit of spacing to "Responsive Grid Row" blocks.
+.crx-grid {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.crx-grid .crx-grid {
+  padding-top: 0;
+  padding-bottom: 0;
+}

@@ -1,0 +1,14 @@
+# Explicitly declare text files that should always be normalized and converted
+# to unix line endings, to reduce cross-platform development issues.
+*.css text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.rst text eol=lf
+*.sass text eol=lf
+*.scss text eol=lf
+*.ts text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf

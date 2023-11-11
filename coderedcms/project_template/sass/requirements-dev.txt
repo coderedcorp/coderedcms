@@ -1,2 +1,0 @@
-# Tooling for local development
-django-sass

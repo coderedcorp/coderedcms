@@ -1,0 +1,48 @@
+v3.0.0 release notes
+====================
+
+
+New features
+------------
+
+* Support Wagtail 5.0, 5.1, and 5.2.
+
+* Support Python 3.8 to 3.12
+
+* Includes Bootstrap 5.3
+
+* New projects now include ``EventPage`` and ``LocationPage`` in ``models.py`` by default.
+
+* New project template: ``pro``. This is the highly recommended starting point for larger projects or paying clients. It includes:
+
+  * Custom User, Image, and Document models by default.
+
+  * ``ruff`` linter and formater pre-configured.
+
+  * ``pytest`` pre-configured.
+
+  * ``mypy`` pre-configured.
+
+
+Bug fixes
+---------
+
+* Remove discontinued Google Analytics (Universal Analytics). This was shut down by Google in June 2023.
+
+* Fix issues with custom image models. A bug was introduced in some migrations with 2.0 which hard-coded the wagtail image class in some snippets.
+
+
+Upgrade considerations
+----------------------
+
+This should be a straightforward upgrade with no major functional changes.
+
+Be sure to read the `Wagtail 5 upgrade considerations <https://docs.wagtail.org/en/stable/releases/5.0.html#upgrade-considerations>`_.
+
+If you'd like to add our new developer tooling to your existing project, copy the `pyproject.toml <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/project_template/pro/pyproject.toml>`_ and `requirements-dev.txt <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/project_template/pro/requirements-dev.txt>`_. files.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `3.0.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/50?closed=1>`_.

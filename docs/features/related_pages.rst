@@ -13,7 +13,7 @@ Related page formatting
 ------------------------
 
 Each related page is rendered using the page model's "miniview" template.
-The template can be overridden per model with the ``miniview_template`` attribute, the default of which is `coderedcms/pages/page.mini.html <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/pages/pages.mini.html>`_.
+The template can be overridden per model with the ``miniview_template`` attribute, the default of which is `coderedcms/pages/page.mini.html <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/pages/pages.mini.html>`_.
 
 If related pages are enabled, a ``QuerySet`` of pages is added to the context as ``related_pages``. This ``QuerySet`` can also be retrieved by calling ``page.get_related_pages()``.
 

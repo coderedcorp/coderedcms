@@ -4,6 +4,7 @@ import coderedcms.fields
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
+from wagtail.images import get_image_model_string
 
 
 class Migration(migrations.Migration):
@@ -92,7 +93,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name="+",
-                        to="wagtailimages.image",
+                        to=get_image_model_string(),
                         verbose_name="Background image",
                     ),
                 ),

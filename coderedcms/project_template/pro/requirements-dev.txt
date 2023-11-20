@@ -1,0 +1,11 @@
+# Install normal requirements
+-r requirements.txt
+
+# Tooling for local development
+django-sass
+django-stubs
+mypy
+pytest
+pytest-cov
+pytest-django
+ruff

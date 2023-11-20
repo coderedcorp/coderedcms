@@ -27,7 +27,7 @@ override the ``navbar.html`` file included with Wagtail CRX.
 It is advisable to initially copy the contents of `Wagtail CRX navbar.html`_, but
 not necessary.
 
-.. _Wagtail CRX navbar.html: https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/navbar.html
+.. _Wagtail CRX navbar.html: https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/snippets/navbar.html
 
 
 Footer
@@ -63,4 +63,4 @@ footer.html`_, but not necessary.
     select a different navbar/footer per site in a multisite installation OR render several navbars/footers in selected order
     on a single site.
 
-.. _Wagtail CRX footer.html: https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/snippets/footer.html
+.. _Wagtail CRX footer.html: https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/snippets/footer.html

@@ -61,9 +61,17 @@ class CreateProject(TemplateCommand):
         if os.path.isdir(template_path):
             options["template"] = template_path
 
+        # Assume all files are NOT Django templates.
+        options["extensions"] = ["toml"]
         # Treat these files as Django templates to render the boilerplate.
-        options["extensions"] = ["py", "md", "txt"]
-        options["files"] = ["Dockerfile"]
+        options["files"] = [
+            "0002_initial_data.py",
+            "base.py",
+            "manage.py",
+            "README.md",
+            "requirements.txt",
+            "wsgi.py",
+        ]
 
         # Set options
         message = "Creating a Wagtail CRX project called %(project_name)s"

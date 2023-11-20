@@ -1,5 +1,5 @@
 """
-Snippets are for content that is re-usable in nature.
+Snippets are for content that is reusable in nature.
 """
 
 from django.db import models
@@ -387,7 +387,7 @@ class Footer(models.Model):
 @register_snippet
 class ReusableContent(models.Model):
     """
-    Snippet for resusable content in streamfields.
+    Snippet for reusable content in streamfields.
     """
 
     class Meta:

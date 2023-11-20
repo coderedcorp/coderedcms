@@ -5,5 +5,5 @@ v0.18.2 release notes
 Bug fixes
 ---------
 
-* Fix re-usable content snippet template bug introduced in 0.18.1.
+* Fix reusable content snippet template bug introduced in 0.18.1.
 * Pin version of ``django-taggit`` to fix breakage in new version.

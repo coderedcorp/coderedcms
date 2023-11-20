@@ -10,12 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-from django.utils.translation import gettext_lazy as _
+from pathlib import Path
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+# Build paths inside the project like this: BASE_DIR / "subdir".
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,7 +45,6 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail",
     "wagtail.contrib.settings",
-    "wagtail.contrib.modeladmin",
     "wagtail.contrib.table_block",
     "wagtail.admin",
     # Django
@@ -71,8 +69,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    #  Error reporting. Uncomment this to receive emails when a 404 is triggered.
-    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     # CMS functionality
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     # Fetch from cache. Must be LAST.
@@ -106,7 +102,7 @@ WSGI_APPLICATION = "{{ project_name }}.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -129,17 +125,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
 
-# To add or change language of the project, modify the list below.
 LANGUAGE_CODE = "en-us"
-
-LANGUAGES = [("en-us", _("English"))]
 
 TIME_ZONE = "America/New_York"
 
-USE_I18N = True
+USE_I18N = False
 
 USE_TZ = True
 
@@ -152,10 +146,10 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
 
@@ -171,11 +165,6 @@ WAGTAIL_SITE_NAME = "{{ sitename }}"
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
-WAGTAILSEARCH_BACKENDS = {
-    "default": {
-        "BACKEND": "wagtail.search.backends.database",
-    }
-}
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

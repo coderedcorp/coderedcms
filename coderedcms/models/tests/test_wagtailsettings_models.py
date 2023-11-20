@@ -23,7 +23,7 @@ class AnalyticsSettingsTestCase(WagtailPageTests):
 
         # Populate settings.
         self.settings = AnalyticsSettings.for_site(self.site)
-        self.settings.ga_tracking_id = "UA-123"
+        self.settings.ga_g_tracking_id = "G-123"
         self.settings.head_scripts = "<script>evil_tracker</script>"
         self.settings.body_scripts = "<script>annoying_tracker</script>"
         self.settings.save()
@@ -35,12 +35,12 @@ class AnalyticsSettingsTestCase(WagtailPageTests):
         response = self.client.get(self.homepage.url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-    def test_ga_tracking_id(self):
+    def test_ga_g_tracking_id(self):
         """
-        Make sure the ga_tracking_id is present.
+        Make sure the ga_g_tracking_id is present.
         """
         response = self.client.get(self.homepage.url, follow=True)
-        self.assertIn(self.settings.ga_tracking_id, str(response.content), 1)
+        self.assertIn(self.settings.ga_g_tracking_id, str(response.content), 1)
 
     def test_head_scripts(self):
         """

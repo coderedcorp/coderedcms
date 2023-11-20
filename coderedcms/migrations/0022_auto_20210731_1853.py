@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+from wagtail.images import get_image_model_string
 
 
 class Migration(migrations.Migration):
@@ -20,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='coderedpage',
             name='og_image',
-            field=models.ForeignKey(blank=True, help_text='Shown when linking to this page on social media.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Preview image'),
+            field=models.ForeignKey(blank=True, help_text='Shown when linking to this page on social media.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to=get_image_model_string(), verbose_name='Preview image'),
         ),
         migrations.AlterField(
             model_name='coderedpage',

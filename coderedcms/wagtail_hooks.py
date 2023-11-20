@@ -8,7 +8,8 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.menu import MenuItem
 from wagtail import hooks
-from wagtail.models import UserPagePermissionsProxy, get_page_models
+from wagtail.models import get_page_models
+from wagtail.models import UserPagePermissionsProxy
 from wagtailcache.cache import clear_cache
 
 from coderedcms import __version__
@@ -19,15 +20,6 @@ def global_admin_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
         static("coderedcms/css/crx-admin.css"),
-        __version__,
-    )
-
-
-@hooks.register("insert_editor_css")
-def editor_css():
-    return format_html(
-        '<link rel="stylesheet" type="text/css" href="{}?v={}">',
-        static("coderedcms/css/crx-editor.css"),
         __version__,
     )
 
@@ -103,7 +95,6 @@ def crx_forms(user, editable_forms):
         if issubclass(model, CoderedFormMixin)
     ]
     form_types = list(ContentType.objects.get_for_models(*form_models).values())
-
     editable_forms = UserPagePermissionsProxy(user).editable_pages()
     editable_forms = editable_forms.filter(content_type__in=form_types)
 

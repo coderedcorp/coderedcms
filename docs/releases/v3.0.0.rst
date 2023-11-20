@@ -17,7 +17,7 @@ New features
 
   * Custom User, Image, and Document models by default.
 
-  * ``ruff`` linter and formater pre-configured.
+  * ``ruff`` linter and formatter pre-configured.
 
   * ``pytest`` pre-configured.
 

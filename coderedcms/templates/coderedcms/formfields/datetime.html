@@ -1,4 +1,4 @@
-<input type="datetime-local" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %} {% if widget.value !=None %}value="{{ widget.value|stringformat:'s' }}"{% endif %}>
+<input type="datetime-local" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %} {% if widget.value != None %}value="{{ widget.value|stringformat:'s' }}"{% endif %}>
 <noscript>
   <small class="form-text text-muted">Format mm/dd/yyyy 4:00 PM</small>
 </noscript>

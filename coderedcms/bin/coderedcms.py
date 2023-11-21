@@ -68,8 +68,10 @@ class CreateProject(TemplateCommand):
             "0002_initial_data.py",
             "base.py",
             "manage.py",
+            "prod.py",
             "README.md",
             "requirements.txt",
+            "staging.py",
             "wsgi.py",
         ]
 

@@ -1,0 +1,20 @@
+v3.0.1 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Reduce size of monospace fonts in Wagtail Admin.
+
+* Show Wagtail Form submissions in addition to ``CoderedFormPage`` submissions in the Wagtail Admin.
+
+* Fix template bug with datetime fields in forms.
+
+* Fix project template boilerplate which had a few errors when starting new projects.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `3.0.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/51?closed=1>`_.

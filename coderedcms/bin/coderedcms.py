@@ -67,6 +67,7 @@ class CreateProject(TemplateCommand):
         options["files"] = [
             "0002_initial_data.py",
             "base.py",
+            "dev.py",
             "manage.py",
             "prod.py",
             "README.md",

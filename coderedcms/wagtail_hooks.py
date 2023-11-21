@@ -88,11 +88,12 @@ def crx_forms(user, editable_forms):
     and wagtail.contrib.forms.get_form_types()
     """
     from coderedcms.models import CoderedFormMixin
+    from wagtail.contrib.forms.models import FormMixin
 
     form_models = [
         model
         for model in get_page_models()
-        if issubclass(model, CoderedFormMixin)
+        if issubclass(model, (FormMixin, CoderedFormMixin))
     ]
     form_types = list(ContentType.objects.get_for_models(*form_models).values())
     editable_forms = UserPagePermissionsProxy(user).editable_pages()

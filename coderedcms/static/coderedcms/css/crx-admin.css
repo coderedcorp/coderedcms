@@ -13,6 +13,7 @@ textarea.monospace,
 .monospace textarea {
   font-family: var(--w-font-mono);
   font-weight: normal;
+  font-weight: 1rem;
 }
 
 .input input[type='color']{

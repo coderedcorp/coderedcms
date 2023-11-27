@@ -66,7 +66,7 @@ def search(request):
                 # Workaround for Wagtail MySQL search bug.
                 # See: https://github.com/wagtail/wagtail/issues/11273
                 backend = get_search_backend()
-                if type(backend) == MySQLSearchBackend:
+                if type(backend) is MySQLSearchBackend:
                     results = model.objects.live()
                 else:
                     results = results.type(model)

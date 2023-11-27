@@ -63,7 +63,11 @@
   {% for page in results_paginated %}
   <div class="mb-5">
     {% with page=page.specific %}
+    {% if page.search_template %}
     {% include page.search_template %}
+    {% else %}
+    {% include "coderedcms/pages/search_result.html" %}
+    {% endif %}
     {% endwith %}
   </div>
   {% endfor %}

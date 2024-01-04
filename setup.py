@@ -37,6 +37,7 @@ setup(
         "Framework :: Django",
         "Framework :: Django :: 4.1",
         "Framework :: Django :: 4.2",
+        "Framework :: Django :: 5.0",
         "Framework :: Wagtail",
         "Framework :: Wagtail :: 5",
         "Topic :: Internet :: WWW/HTTP",
@@ -48,7 +49,7 @@ setup(
         "beautifulsoup4>=4.8,<4.12",  # should be the same as wagtail
         "django-eventtools==1.0.*",
         "django-bootstrap5==23.3",
-        "Django>=4.1,<4.3",  # should be the same as wagtail
+        "Django>=4.1,<5.1",  # should be the same as wagtail
         "geocoder==1.38.*",
         "icalendar==5.0.*",
         "wagtail>=5.0,<6.0",

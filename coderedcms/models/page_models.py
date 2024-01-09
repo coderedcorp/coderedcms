@@ -489,7 +489,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
                 classifier=self.index_order_by_classifier,
                 # Reverse ManyToMany of `coderedpage.classifier_terms`.
                 coderedpage=models.OuterRef("pk"),
-            )
+            )[:1]
             query = query.annotate(
                 term_sort_order=models.Subquery(terms.values("sort_order"))
             )

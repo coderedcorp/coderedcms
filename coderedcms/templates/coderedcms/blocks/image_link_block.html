@@ -5,6 +5,6 @@
   data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.alt_text}}'
   {% endif %}
   title="{{ self.alt_text|safe }}" {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
-  {% image self.image max-1600x1600 format-webp as self_image %}
+  {% image self.image max-1600x1600 format-webp preserve-svg as self_image %}
   <img src="{{self_image.url}}" class="img-fluid {{self.settings.custom_css_class}}" alt="{{self.alt_text|safe}}">
 </a>

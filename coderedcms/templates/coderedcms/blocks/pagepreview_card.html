@@ -2,7 +2,7 @@
 <div class="card mb-3 {{self.settings.custom_css_class}}" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
   {% with page=self.page.specific %}
   {% if page.cover_image %}
-  {% image page.cover_image fill-800x450 format-webp as card_img %}
+  {% image page.cover_image fill-800x450 format-webp preserve-svg as card_img %}
   <img class="card-img-top w-100" src="{{card_img.url}}" alt="{{card_img.title}}">
   {% endif %}
   <div class="card-body">

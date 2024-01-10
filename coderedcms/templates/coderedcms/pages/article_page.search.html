@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
 <div class="row">
   {% if page.cover_image %}
-  {% image page.cover_image fill-800x450 format-webp as cover_image %}
+  {% image page.cover_image fill-800x450 format-webp preserve-svg as cover_image %}
   <div class="col-4 col-md-3 col-lg-2">
     <a href="{{page.url}}" title="{{page.title}}">
       <img src="{{cover_image.url}}" class="w-100" alt="{{page.title}}">

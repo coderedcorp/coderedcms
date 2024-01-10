@@ -129,7 +129,7 @@ def favicon(request):
     icon = LayoutSettings.for_request(request).favicon
     if icon:
         return HttpResponsePermanentRedirect(
-            icon.get_rendition("fill-256x256|format-webp").url
+            icon.get_rendition("fill-256x256|format-webp|preserve-svg").url
         )
     raise Http404()
 

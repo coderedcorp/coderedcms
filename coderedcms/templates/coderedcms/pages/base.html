@@ -68,11 +68,11 @@
   {% block favicon %}
   {% if settings.coderedcms.LayoutSettings.favicon %}
   {# See https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/ #}
-  {% image settings.coderedcms.LayoutSettings.favicon fill-256x256 format-webp as favicon_webp %}
-  {% image settings.coderedcms.LayoutSettings.favicon fill-120x120 format-png as favicon_iphone %}
-  {% image settings.coderedcms.LayoutSettings.favicon fill-180x180 format-png as favicon_iphone_plus %}
-  {% image settings.coderedcms.LayoutSettings.favicon fill-152x152 format-png as favicon_ipad %}
-  {% image settings.coderedcms.LayoutSettings.favicon fill-167x167 format-png as favicon_ipad_pro %}
+  {% image settings.coderedcms.LayoutSettings.favicon fill-256x256 format-webp preserve-svg as favicon_webp %}
+  {% image settings.coderedcms.LayoutSettings.favicon fill-120x120 format-png preserve-svg as favicon_iphone %}
+  {% image settings.coderedcms.LayoutSettings.favicon fill-180x180 format-png preserve-svg as favicon_iphone_plus %}
+  {% image settings.coderedcms.LayoutSettings.favicon fill-152x152 format-png preserve-svg as favicon_ipad %}
+  {% image settings.coderedcms.LayoutSettings.favicon fill-167x167 format-png preserve-svg as favicon_ipad_pro %}
   <link rel="icon" type="image/webp" href="{{ favicon_webp.url }}">
   <link rel="apple-touch-icon" href="{{ favicon_iphone_plus.url }}">
   <link rel="apple-touch-icon" sizes="120x120" href="{{ favicon_iphone.url }}">

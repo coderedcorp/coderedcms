@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="card mb-3">
   {% if page.cover_image %}
-  {% image page.cover_image fill-800x450 format-webp as card_img %}
+  {% image page.cover_image fill-800x450 format-webp preserve-svg as card_img %}
   <img class="card-img-top w-100" src="{{card_img.url}}" alt="{{card_img.title}}">
   {% endif %}
   <div class="card-body">

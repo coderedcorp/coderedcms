@@ -10,7 +10,7 @@
     {% if ga_event_label %}data-ga-event-label="{{ ga_event_label }}"{% endif %}
     {% if ga_event_category %}data-ga-event-category="{{ ga_event_category }}"{% endif %}>
     {% if value.image %}
-    {% image value.image max-256x256 format-webp as img %}
+    {% image value.image max-256x256 format-webp preserve-svg as img %}
     <img src="{{img.url}}" class="w-100" alt="{{img.image.title}}">
     {% elif value.display_text %}
     {{value.display_text|safe}}

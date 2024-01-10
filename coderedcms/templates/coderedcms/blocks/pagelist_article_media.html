@@ -6,7 +6,7 @@
 <div class="d-flex">
   {% if article.cover_image %}
   <div class="flex-shrink-0">
-    {% image article.cover_image fill-800x450 format-webp as cover_image %}
+    {% image article.cover_image fill-800x450 format-webp preserve-svg as cover_image %}
     <a href="{{article.url}}"><img class="me-3" src="{{cover_image.url}}" alt="{{cover_image.title}}"></a>
   </div>
   {% endif %}

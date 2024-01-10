@@ -128,9 +128,16 @@ def serve_protected_file(request, path):
 def favicon(request):
     icon = LayoutSettings.for_request(request).favicon
     if icon:
-        return HttpResponsePermanentRedirect(
-            icon.get_rendition("fill-256x256|format-webp").url
-        )
+        # Try to convert to webp, otherwise pass original file format
+        # This will happen mainly if the file is an SVG
+        try:
+            return HttpResponsePermanentRedirect(
+                icon.get_rendition("fill-256x256|format-webp").url
+            )
+        except AttributeError:
+            return HttpResponsePermanentRedirect(
+                icon.get_rendition("fill-256x256").url
+            )
     raise Http404()
 
 

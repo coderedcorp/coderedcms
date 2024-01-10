@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="card mb-3 bg-dark text-white {{self.settings.custom_css_class}}" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}
-  {% if self.image %}{% image self.image fill-800x450 format-webp as card_img %}style="background-image:url('{{card_img.url}}');"{% endif %}>
+  {% if self.image %}{% image self.image fill-800x450 format-webp preserve-svg as card_img %}style="background-image:url('{{card_img.url}}');"{% endif %}>
   <div class="card-body">
     {% if self.title %}<h5 class="card-title">{{self.title}}</h5>{% endif %}
     {% if self.subtitle %}<h6 class="card-subtitle mb-2 text-muted">{{self.subtitle}}</h6>{% endif %}

@@ -8,4 +8,4 @@
 
 {# NOTE: this must be on a single line, otherwise Django templates will create
   whitespace, and wagtail will think the whitespace is the custom logo! #}
-{% block branding_logo %}{% if settings.coderedcms.LayoutSettings.logo %}<div class="crx-logo-container {{settings.coderedcms.LayoutSettings.navbar_color_scheme}}">{% image settings.coderedcms.LayoutSettings.logo original format-webp as logo_image %}<img src="{{ logo_image.url }}" class="crx-logo-custom" alt="Dashboard"></div>{% endif %}{% endblock %}
+{% block branding_logo %}{% if settings.coderedcms.LayoutSettings.logo %}<div class="crx-logo-container {{settings.coderedcms.LayoutSettings.navbar_color_scheme}}">{% image settings.coderedcms.LayoutSettings.logo original format-webp preserve-svg as logo_image %}<img src="{{ logo_image.url }}" class="crx-logo-custom" alt="Dashboard"></div>{% endif %}{% endblock %}

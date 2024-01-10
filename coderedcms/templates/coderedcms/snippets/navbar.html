@@ -4,7 +4,7 @@
   <div class="container{% if settings.coderedcms.LayoutSettings.navbar_content_fluid %}-fluid{% endif %}">
     <a class="navbar-brand" href="/">
       {% if settings.coderedcms.LayoutSettings.logo %}
-      {% image settings.coderedcms.LayoutSettings.logo original format-webp as logo %}
+      {% image settings.coderedcms.LayoutSettings.logo original format-webp preserve-svg as logo %}
       <img src="{{logo.url}}" alt="{{site.site_name}}">
       {% else %}
       {{site.site_name}}

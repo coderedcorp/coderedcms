@@ -153,7 +153,7 @@ stages:
     - task: UsePythonVersion@0
       displayName: 'Use Python version'
       inputs:
-        versionSpec: '3.12'
+        versionSpec: '3.11'
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt

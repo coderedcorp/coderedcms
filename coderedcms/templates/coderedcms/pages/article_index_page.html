@@ -10,7 +10,7 @@
       {% if self.show_images %}
       <a href="{% pageurl article %}" title="{{article.title}}" class="text-white-50">
         {% if article.cover_image %}
-        {% image article.specific.cover_image fill-1600x900 format-webp as cover_image %}
+        {% image article.specific.cover_image fill-1600x900 format-webp preserve-svg as cover_image %}
         <img src="{{cover_image.url}}" class="w-100" alt="{{article.title}}">
         {% endif %}
       </a>

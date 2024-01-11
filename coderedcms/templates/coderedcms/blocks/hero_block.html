@@ -2,7 +2,7 @@
 {% if not self.fluid %}
 <div class="container">
 {% endif %}
-{% image self.background_image max-1600x1600 format-webp as background_image %}
+{% image self.background_image max-1600x1600 format-webp preserve-svg as background_image %}
 <div class="hero-bg {% if self.is_parallax %}parallax{% endif %} {% if self.tile_image %}tile{% endif %} {{self.settings.custom_css_class}}"
   style="{% if self.background_color %}background-color:{{self.background_color}};{% endif %}{% if background_image %}background-image:url({{background_image.url}});{% endif %}"
   {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>

@@ -1,0 +1,18 @@
+v3.0.3 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Support Django 5, which was added in Wagtail 5.2.2.
+
+* Support SVG images.
+
+* Fix bug that happens when ordering child pages by Classifier, if a child page contains muliple ClassifierTerms belonging to that Classifier.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `3.0.3 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/53?closed=1>`_.

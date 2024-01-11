@@ -23,7 +23,7 @@
     {% block event_cover_image %}
     {% if event.cover_image %}
     <div class="col-md">
-      {% image event.cover_image fill-1600x900 format-webp as cover_image %}
+      {% image event.cover_image fill-1600x900 format-webp preserve-svg as cover_image %}
       <a href="{{ event.url }}" title="{{ event.title }}"><img src="{{ cover_image.url }}" class="w-100" alt="{{ event.title }}"></a>
     </div>
     {% endif %}

@@ -3,7 +3,7 @@
 
 {% block content_pre_body %}
 {% if self.cover_image %}
-{% image page.cover_image fill-1600x900 format-webp as cover_image %}
+{% image page.cover_image fill-1600x900 format-webp preserve-svg as cover_image %}
 <div class="hero-bg mb-5" style="background-image:url({{cover_image.url}});">
   <div class="hero-fg">
     <div class="container">

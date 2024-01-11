@@ -4,8 +4,8 @@
 <section class="{{self.settings.custom_css_class}}" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{%endif %}>
   <div class="row">
     {% for picture in pictures %}
-    {% image picture fill-800x450 format-webp as picture_image %}
-    {% image picture max-1600x1600 format-webp as original_image %}
+    {% image picture fill-800x450 format-webp preserve-svg as picture_image %}
+    {% image picture max-1600x1600 format-webp preserve-svg as original_image %}
     <div class="col-sm-6 col-md-4 col-lg-3 my-3">
       <a href="#" class="lightbox-preview" data-bs-toggle="modal" data-bs-target="#modal-{{modal_id}}">
         <img class="img-thumbnail w-100" src="{{picture_image.url}}" data-original-src="{{original_image.url}}"

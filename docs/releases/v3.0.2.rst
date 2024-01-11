@@ -5,7 +5,7 @@ v3.0.2 release notes
 Bug fixes
 ---------
 
-* Fix site search: when searching by specific page models (``search_filterable=True``) on MySQL databases, no search results would be returned. We have applied a workaround to this bug in Wagtail, with one small caveat: for example when filtering by a model ``WebPage``, the search results on SQLite and Postgres will return results for ``WebPage`` and anything inherting from ``WebPage``. On MySQL, it will ONLY return ``WebPage`` results. *However, the bug still persists in the Wagtail Admin search and will need to be fixed in a future version of Wagtail.*
+* Fix site search: when searching by specific page models (``search_filterable=True``) on MySQL databases, no search results would be returned. We have applied a workaround to this bug in Wagtail, with one small caveat: for example when filtering by a model ``WebPage``, the search results on SQLite and Postgres will return results for ``WebPage`` and anything inheriting from ``WebPage``. On MySQL, it will ONLY return ``WebPage`` results. *However, the bug still persists in the Wagtail Admin search and will need to be fixed in a future version of Wagtail.*
 
 
 Thank you!

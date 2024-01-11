@@ -18,7 +18,7 @@
       style="{% if item.background_color %}background-color: {{item.background_color}};{% endif %}">
       {% block carousel_slide_image %}
       {% if item.image %}
-      {% image item.image fill-1600x900 format-webp as carouselimage %}
+      {% image item.image fill-1600x900 format-webp preserve-svg as carouselimage %}
       <img class="d-block w-100" src="{{carouselimage.url}}" alt="{{carouselimage.image.title}}">
       {% endif %}
       {% endblock %}

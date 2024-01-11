@@ -2,7 +2,7 @@
 <div class="row">
   {% if self.image %}
   <div class="col-md-4">
-    {% image self.image max-1600x1600 format-webp as imagedata %}
+    {% image self.image max-1600x1600 format-webp preserve-svg as imagedata %}
     <img src="{{imagedata.url}}" alt="Photo of {{self.name}}" class="w-100">
   </div>
   <div class="col-md-8" style="overflow-x: hidden;">

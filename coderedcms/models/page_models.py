@@ -80,7 +80,7 @@ from coderedcms.blocks import (
 from coderedcms.fields import CoderedStreamField, ColorField
 from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
-from coderedcms.models.wagtailsettings_models import LayoutSettings
+from coderedcms.models.wagtailsettings_models import get_settings_model
 from coderedcms.wagtail_flexible_forms.blocks import (
     FormFieldBlock,
     FormStepBlock,
@@ -432,7 +432,9 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         if logo:
             return logo
         else:
-            layout_settings = LayoutSettings.for_site(self.get_site())
+            layout_settings = get_settings_model("layout").for_site(
+                self.get_site()
+            )
             if layout_settings.logo:
                 return layout_settings.logo
         return None
@@ -1470,9 +1472,11 @@ class CoderedFormMixin(models.Model):
                         context
                     )
                 else:
-                    genemail = LayoutSettings.for_request(
-                        request
-                    ).from_email_address
+                    genemail = (
+                        get_settings_model("layout")
+                        .for_request(request)
+                        .from_email_address
+                    )
                     if genemail:
                         message_args["from_email"] = genemail
                 # Reply-to
@@ -1536,7 +1540,9 @@ class CoderedFormMixin(models.Model):
             message_args["subject"] = self.subject
         else:
             message_args["subject"] = self.title
-        genemail = LayoutSettings.for_request(request).from_email_address
+        genemail = (
+            get_settings_model("layout").for_request(request).from_email_address
+        )
         if genemail:
             message_args["from_email"] = genemail
         if self.reply_address:
@@ -1593,10 +1599,10 @@ class CoderedFormMixin(models.Model):
             if isinstance(value, list):
                 dictionary[new_key] = ", ".join(value)
             else:
-                dictionary[
-                    new_key
-                ] = utils.attempt_protected_media_value_conversion(
-                    request, value
+                dictionary[new_key] = (
+                    utils.attempt_protected_media_value_conversion(
+                        request, value
+                    )
                 )
 
         return dictionary
@@ -2108,16 +2114,16 @@ class CoderedLocationPage(CoderedWebPage):
     def save(self, *args, **kwargs):
         if (
             self.auto_update_latlng
-            and LayoutSettings.for_site(
-                Site.objects.get(is_default_site=True)
-            ).google_maps_api_key
+            and get_settings_model("layout")
+            .for_site(Site.objects.get(is_default_site=True))
+            .google_maps_api_key
         ):
             try:
                 g = geocoder.google(
                     self.address,
-                    key=LayoutSettings.for_site(
-                        Site.objects.get(is_default_site=True)
-                    ).google_maps_api_key,
+                    key=get_settings_model("layout")
+                    .for_site(Site.objects.get(is_default_site=True))
+                    .google_maps_api_key,
                 )
                 self.latitude = g.latlng[0]
                 self.longitude = g.latlng[1]
@@ -2129,9 +2135,11 @@ class CoderedLocationPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context["google_api_key"] = LayoutSettings.for_site(
-            Site.objects.get(is_default_site=True)
-        ).google_maps_api_key
+        context["google_api_key"] = (
+            get_settings_model("layout")
+            .for_site(Site.objects.get(is_default_site=True))
+            .google_maps_api_key
+        )
         return context
 
 
@@ -2225,7 +2233,9 @@ class CoderedLocationIndexPage(CoderedWebPage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request)
-        context["google_api_key"] = LayoutSettings.for_site(
-            Site.objects.get(is_default_site=True)
-        ).google_maps_api_key
+        context["google_api_key"] = (
+            get_settings_model("layout")
+            .for_site(Site.objects.get(is_default_site=True))
+            .google_maps_api_key
+        )
         return context

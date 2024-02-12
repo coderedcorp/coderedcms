@@ -367,3 +367,39 @@ class AnalyticsSettings(SettingsCheckMixin, AbstractAnalyticsSettings):
     ENABLE_SETTINGS = "CRX_ENABLE_ANALYTICS_SETTINGS"
 
 
+def get_settings_model_string(model):
+    """
+    Get the dotted ``app.Model`` name for the model as a string.
+    """
+    if model == "layout":
+        return getattr(
+            settings, "CRX_LAYOUT_SETTINGS_MODEL", "coderedcms.LayoutSettings"
+        )
+    elif model == "analytics":
+        return getattr(
+            settings,
+            "CRX_ANALYTICS_SETTINGS_MODEL",
+            "coderedcms.AnalyticsSettings",
+        )
+
+
+def get_settings_model(model):
+    """
+    Get the model from the setting or default.
+
+    Defaults to the standard :class:`~coderedcms.LayoutSettings` model
+    if no custom model is defined.
+    """
+    from django.apps import apps
+
+    model_string = get_settings_model_string(model)
+    try:
+        return apps.get_model(model_string, require_ready=False)
+    except ValueError:
+        raise ImproperlyConfigured(
+            f"The setting for {model} must be of the form 'app_label.model_name'"
+        )
+    except LookupError:
+        raise ImproperlyConfigured(
+            f"The setting for {model} refers to model '{model_string}' that has not been installed"
+        )

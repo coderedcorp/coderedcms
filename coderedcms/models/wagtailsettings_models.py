@@ -4,6 +4,8 @@ Settings are user-configurable on a per-site basis (multisite).
 Global project or developer settings should be defined in coderedcms.settings.py .
 """
 
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -22,13 +24,37 @@ from coderedcms.settings import crx_settings
 from coderedcms.models.snippet_models import Navbar, Footer
 
 
-@register_setting(icon="cr-desktop")
-class LayoutSettings(ClusterableModel, BaseSiteSetting):
-    """
-    Branding, navbar, and theme settings.
-    """
+def maybe_register_setting(**kwargs):
+    """Decorator that conditionally registers a settings class."""
+
+    def check_if_enabled(model):
+        if model.enabled():
+            register_setting(model, **kwargs)
+        return model
+
+    return check_if_enabled
+
+
+class SettingsCheckMixin(object):
+    """Check if a setting is enabled."""
+
+    @classmethod
+    def enabled(cls):
+        """True unless explicitly disabled in settings."""
+        if (
+            hasattr(settings, cls.ENABLE_SETTINGS)
+            and getattr(settings, cls.ENABLE_SETTINGS) is False
+        ):
+            return False
+        else:
+            return True
+
+
+class AbstractLayoutSettings(ClusterableModel, BaseSiteSetting):
+    """All of the fields and panels used in the LayoutSettings model."""
 
     class Meta:
+        abstract = True
         verbose_name = _("CRX Settings")
 
     logo = models.ForeignKey(
@@ -199,18 +225,18 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         """
         super().__init__(*args, **kwargs)
         # Set choices dynamically.
-        self._meta.get_field(
-            "frontend_theme"
-        ).choices = crx_settings.CRX_FRONTEND_THEME_CHOICES
-        self._meta.get_field(
-            "navbar_collapse_mode"
-        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES
-        self._meta.get_field(
-            "navbar_color_scheme"
-        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES
-        self._meta.get_field(
-            "navbar_format"
-        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_CHOICES
+        self._meta.get_field("frontend_theme").choices = (
+            crx_settings.CRX_FRONTEND_THEME_CHOICES
+        )
+        self._meta.get_field("navbar_collapse_mode").choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES
+        )
+        self._meta.get_field("navbar_color_scheme").choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES
+        )
+        self._meta.get_field("navbar_format").choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_CHOICES
+        )
         # Set default dynamically.
         if not self.id:
             self.frontend_theme = crx_settings.CRX_FRONTEND_THEME_DEFAULT
@@ -222,6 +248,11 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT
             )
             self.navbar_format = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_DEFAULT
+
+
+@maybe_register_setting(icon="cr-desktop")
+class LayoutSettings(SettingsCheckMixin, AbstractLayoutSettings):
+    ENABLE_SETTINGS = "CRX_ENABLE_LAYOUT_SETTINGS"
 
 
 class NavbarOrderable(Orderable, models.Model):
@@ -256,13 +287,11 @@ class FooterOrderable(Orderable, models.Model):
     panels = [FieldPanel("footer")]
 
 
-@register_setting(icon="cr-google")
-class AnalyticsSettings(BaseSiteSetting):
-    """
-    Tracking and Google Analytics.
-    """
+class AbstractAnalyticsSettings(BaseSiteSetting):
+    """All of the fields and panels used in the AnalyticsSettings model."""
 
     class Meta:
+        abstract = True
         verbose_name = _("Tracking")
 
     ga_g_tracking_id = models.CharField(
@@ -331,3 +360,10 @@ class AnalyticsSettings(BaseSiteSetting):
             heading=_("Other Tracking Scripts"),
         ),
     ]
+
+
+@maybe_register_setting(icon="cr-google")
+class AnalyticsSettings(SettingsCheckMixin, AbstractAnalyticsSettings):
+    ENABLE_SETTINGS = "CRX_ENABLE_ANALYTICS_SETTINGS"
+
+

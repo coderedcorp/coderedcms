@@ -16,3 +16,4 @@ website with Wagtail CRX.
     docker
     use_custom_image_model
     convert_image_model
+    use_custom_settings_model

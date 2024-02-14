@@ -130,14 +130,9 @@ def favicon(request):
     if icon:
         # Try to convert to webp, otherwise pass original file format
         # This will happen mainly if the file is an SVG
-        try:
-            return HttpResponsePermanentRedirect(
-                icon.get_rendition("fill-256x256|format-webp").url
-            )
-        except AttributeError:
-            return HttpResponsePermanentRedirect(
-                icon.get_rendition("fill-256x256").url
-            )
+        return HttpResponsePermanentRedirect(
+            icon.get_rendition("fill-256x256|format-webp|preserve-svg").url
+        )
     raise Http404()
 
 

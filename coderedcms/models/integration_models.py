@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel
 from wagtail import hooks
 
+from coderedcms.api.mailchimp import MailchimpApi
+
 import json
 
 
@@ -81,8 +83,6 @@ class MailchimpSubscriberIntegrationWidget(Input):
         return selectable_lists
 
     def build_list_library(self):
-        from coderedcms.api.mailchimp import MailchimpApi
-        
         mailchimp = MailchimpApi()
         list_library = {}
         if mailchimp.is_active:
@@ -126,8 +126,6 @@ class MailchimpSubscriberIntegration(models.Model):
     subscriber_json_data = models.TextField(blank=True, verbose_name=_("List"))
 
     def integration_operation(self, instance, **kwargs):
-        from coderedcms.api.mailchimp import MailchimpApi
-
         mailchimp = MailchimpApi()
         if mailchimp.is_active:
             submission_dict = kwargs["form_submission"].get_data()

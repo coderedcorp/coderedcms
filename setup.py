@@ -46,15 +46,15 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        "beautifulsoup4>=4.8,<4.12",  # should be the same as wagtail
+        "beautifulsoup4>=4.8,<4.13",  # should be the same as wagtail
         "django-eventtools==1.0.*",
         "django-bootstrap5==23.3",
-        "Django>=4.1,<5.1",  # should be the same as wagtail
+        "Django>=4.2,<6.0",  # should be the same as wagtail
         "geocoder==1.38.*",
         "icalendar==5.0.*",
-        "wagtail>=5.0,<6.0",
-        "wagtail-cache>=2.3,<3",
-        "wagtail-seo>=2.4,<3",
+        "wagtail>=6.0,<7.0",
+        "wagtail-cache>=2.4,<3",
+        "wagtail-seo>=2.5,<3",
     ],
     entry_points={
         "console_scripts": ["coderedcms=coderedcms.bin.coderedcms:main"]

@@ -9,7 +9,7 @@ Bug fixes
 
 * Support SVG images.
 
-* Fix bug that happens when ordering child pages by Classifier, if a child page contains muliple ClassifierTerms belonging to that Classifier.
+* Fix bug that happens when ordering child pages by Classifier, if a child page contains multiple ClassifierTerms belonging to that Classifier.
 
 
 Thank you!

@@ -33,27 +33,27 @@ stages:
       matrix:
         py3.8_wag5.0:
           PYTHON_VERSION: '3.8'
-          WAGTAIL_VERSION: '5.0.*'
+          WAGTAIL_VERSION: '6.0.*'
           TEMPLATE: 'basic'
         py3.9_wag5.0:
           PYTHON_VERSION: '3.9'
-          WAGTAIL_VERSION: '5.0.*'
+          WAGTAIL_VERSION: '6.0.*'
           TEMPLATE: 'basic'
         py3.10_wag5.0:
           PYTHON_VERSION: '3.10'
-          WAGTAIL_VERSION: '5.0.*'
+          WAGTAIL_VERSION: '6.0.*'
           TEMPLATE: 'basic'
         py3.11_wag5.1:
           PYTHON_VERSION: '3.11'
-          WAGTAIL_VERSION: '5.1.*'
+          WAGTAIL_VERSION: '6.0.*'
           TEMPLATE: 'basic'
         py3.12_wag5.2_basic:
           PYTHON_VERSION: '3.12'
-          WAGTAIL_VERSION: '5.2.*'
+          WAGTAIL_VERSION: '6.0.*'
           TEMPLATE: 'basic'
         py3.12_wag5.2_pro:
           PYTHON_VERSION: '3.12'
-          WAGTAIL_VERSION: '5.2.*'
+          WAGTAIL_VERSION: '6.0.*'
           TEMPLATE: 'pro'
 
     steps:

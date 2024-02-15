@@ -31,9 +31,9 @@ class MailchimpSubscriberIntegrationWidget(Input):
         ctx["widget"]["extra_js"] = self.render_js(
             name, list_library, json_value
         )
-        ctx["widget"][
-            "selectable_mailchimp_lists"
-        ] = self.get_selectable_mailchimp_lists(list_library)
+        ctx["widget"]["selectable_mailchimp_lists"] = (
+            self.get_selectable_mailchimp_lists(list_library)
+        )
         ctx["widget"]["stored_mailchimp_list"] = self.get_stored_mailchimp_list(
             json_value
         )
@@ -94,27 +94,25 @@ class MailchimpSubscriberIntegrationWidget(Input):
                     "interest_categories": {},
                 }
 
-                list_library[mlist["id"]][
-                    "merge_fields"
-                ] = mailchimp.get_merge_fields_for_list(mlist["id"])[
-                    "merge_fields"
-                ]
-                list_library[mlist["id"]][
-                    "interest_categories"
-                ] = mailchimp.get_interest_categories_for_list(mlist["id"])[
-                    "categories"
-                ]
+                list_library[mlist["id"]]["merge_fields"] = (
+                    mailchimp.get_merge_fields_for_list(mlist["id"])[
+                        "merge_fields"
+                    ]
+                )
+                list_library[mlist["id"]]["interest_categories"] = (
+                    mailchimp.get_interest_categories_for_list(mlist["id"])[
+                        "categories"
+                    ]
+                )
 
                 for category in list_library[mlist["id"]][
                     "interest_categories"
                 ]:
-                    category[
-                        "interests"
-                    ] = mailchimp.get_interests_for_interest_category(
-                        mlist["id"], category["id"]
-                    )[
-                        "interests"
-                    ]
+                    category["interests"] = (
+                        mailchimp.get_interests_for_interest_category(
+                            mlist["id"], category["id"]
+                        )["interests"]
+                    )
 
         return list_library
 

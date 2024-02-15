@@ -6,6 +6,7 @@ HTML blocks should NOT contain more sub-blocks or sub-streamfields.
 They must be safe to nest within more robust "content blocks" without
 creating recursion.
 """
+
 import logging
 from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock

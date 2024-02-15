@@ -15,7 +15,7 @@ from coderedcms.forms import SearchForm
 from coderedcms.models.snippet_models import Navbar, Footer
 from coderedcms.settings import crx_settings as crx_settings_obj
 from coderedcms.settings import get_bootstrap_setting
-from coderedcms.models import get_settings_model
+from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 register = template.Library()
 
@@ -70,7 +70,7 @@ def get_pictures(collection_id):
 
 @register.simple_tag(takes_context=True)
 def get_navbar_css(context):
-    layout = get_settings_model("layout").for_request(context["request"])
+    layout = LayoutSettings.for_request(context["request"])
     fixed = "fixed-top" if layout.navbar_fixed else ""
     return " ".join(
         [
@@ -85,7 +85,7 @@ def get_navbar_css(context):
 
 @register.simple_tag(takes_context=True)
 def get_navbars(context) -> "QuerySet[Navbar]":
-    layout = get_settings_model("layout").for_request(context["request"])
+    layout = LayoutSettings.for_request(context["request"])
     navbarorderables = layout.site_navbar.all()
     navbars = Navbar.objects.filter(
         navbarorderable__in=navbarorderables
@@ -95,7 +95,7 @@ def get_navbars(context) -> "QuerySet[Navbar]":
 
 @register.simple_tag(takes_context=True)
 def get_footers(context) -> "QuerySet[Footer]":
-    layout = get_settings_model("layout").for_request(context["request"])
+    layout = LayoutSettings.for_request(context["request"])
     footerorderables = layout.site_footer.all()
     footers = Footer.objects.filter(
         footerorderable__in=footerorderables

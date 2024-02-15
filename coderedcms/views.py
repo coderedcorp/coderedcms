@@ -26,7 +26,7 @@ from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
 from coderedcms import utils
 from coderedcms.forms import SearchForm
-from coderedcms.models import CoderedPage, get_settings_model
+from coderedcms.models import CoderedPage, LayoutSettings
 from coderedcms.importexport import (
     convert_csv_to_json,
     import_pages,
@@ -78,10 +78,7 @@ def search(request):
         if results:
             results = results.search(search_query)
             paginator = Paginator(
-                results,
-                get_settings_model("layout")
-                .for_request(request)
-                .search_num_results,
+                results, LayoutSettings.for_request(request).search_num_results
             )
             page = request.GET.get("p", 1)
             try:
@@ -129,7 +126,7 @@ def serve_protected_file(request, path):
 
 
 def favicon(request):
-    icon = get_settings_model("layout").for_request(request).favicon
+    icon = LayoutSettings.for_request(request).favicon
     if icon:
         # Try to convert to webp, otherwise pass original file format
         # This will happen mainly if the file is an SVG

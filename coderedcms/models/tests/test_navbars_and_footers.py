@@ -4,8 +4,8 @@ from wagtail.models import Site
 
 from coderedcms.tests.testapp.models import WebPage
 from coderedcms.models.snippet_models import Footer, Navbar
-from coderedcms.models import (
-    get_settings_model,
+from coderedcms.models.wagtailsettings_models import (
+    LayoutSettings,
     NavbarOrderable,
     FooterOrderable,
 )
@@ -35,20 +35,16 @@ class NavbarFooterTestCase(WagtailPageTests):
         )
 
         # Populate settings.
-        self.settings = get_settings_model("layout").for_site(self.site)
+        self.settings = LayoutSettings.for_site(self.site)
         # layout = self.settings
         self.navbarorderable = NavbarOrderable.objects.create(
             sort_order=0,
-            navbar_chooser=get_settings_model("layout").objects.get(
-                id=self.settings.id
-            ),
+            navbar_chooser=LayoutSettings.objects.get(id=self.settings.id),
             navbar=Navbar.objects.get(id=self.navbar.id),
         )
         self.footerorderable = FooterOrderable.objects.create(
             sort_order=0,
-            footer_chooser=get_settings_model("layout").objects.get(
-                id=self.settings.id
-            ),
+            footer_chooser=LayoutSettings.objects.get(id=self.settings.id),
             footer=Footer.objects.get(id=self.footer.id),
         )
         # save settings
@@ -87,9 +83,7 @@ class NavbarFooterTestCase(WagtailPageTests):
         """
         self.navbarorderable2 = NavbarOrderable.objects.create(
             sort_order=1,
-            navbar_chooser=get_settings_model("layout").objects.get(
-                id=self.settings.id
-            ),
+            navbar_chooser=LayoutSettings.objects.get(id=self.settings.id),
             navbar=Navbar.objects.get(id=self.navbar2.id),
         )
         # get the navbar (orderable)
@@ -129,9 +123,7 @@ class NavbarFooterTestCase(WagtailPageTests):
         """
         self.footerorderable2 = FooterOrderable.objects.create(
             sort_order=1,
-            footer_chooser=get_settings_model("layout").objects.get(
-                id=self.settings.id
-            ),
+            footer_chooser=LayoutSettings.objects.get(id=self.settings.id),
             footer=Footer.objects.get(id=self.footer2.id),
         )
         # get the footer (orderable)

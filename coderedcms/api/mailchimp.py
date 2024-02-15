@@ -1,5 +1,5 @@
 from wagtail.models import Site
-from coderedcms.models import get_settings_model
+from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 import requests
 
@@ -13,9 +13,7 @@ class MailchimpApi:
 
     def set_access_token(self, site=None):
         site = site or Site.objects.get(is_default_site=True)
-        self.access_token = (
-            get_settings_model("layout").for_site(site).mailchimp_api_key
-        )
+        self.access_token = LayoutSettings.for_site(site).mailchimp_api_key
         if self.access_token:
             self.set_base_url()
             self.is_active = True

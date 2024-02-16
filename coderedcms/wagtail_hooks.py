@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.menu import MenuItem
 from wagtail import hooks
 from wagtail.models import get_page_models
-from wagtail.models import UserPagePermissionsProxy
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtailcache.cache import clear_cache
 
 from coderedcms import __version__
@@ -96,7 +96,9 @@ def crx_forms(user, editable_forms):
         if issubclass(model, (FormMixin, CoderedFormMixin))
     ]
     form_types = list(ContentType.objects.get_for_models(*form_models).values())
-    editable_forms = UserPagePermissionsProxy(user).editable_pages()
+    editable_forms = PagePermissionPolicy().instances_user_has_permission_for(
+        user, "change"
+    )
     editable_forms = editable_forms.filter(content_type__in=form_types)
 
     return editable_forms

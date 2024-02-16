@@ -1,6 +1,7 @@
 """
 Enhancements to wagtail.contrib.forms.
 """
+
 import csv
 import os
 from django import forms

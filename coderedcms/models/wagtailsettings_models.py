@@ -199,18 +199,18 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         """
         super().__init__(*args, **kwargs)
         # Set choices dynamically.
-        self._meta.get_field(
-            "frontend_theme"
-        ).choices = crx_settings.CRX_FRONTEND_THEME_CHOICES
-        self._meta.get_field(
-            "navbar_collapse_mode"
-        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES
-        self._meta.get_field(
-            "navbar_color_scheme"
-        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES
-        self._meta.get_field(
-            "navbar_format"
-        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_CHOICES
+        self._meta.get_field("frontend_theme").choices = (
+            crx_settings.CRX_FRONTEND_THEME_CHOICES
+        )
+        self._meta.get_field("navbar_collapse_mode").choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES
+        )
+        self._meta.get_field("navbar_color_scheme").choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES
+        )
+        self._meta.get_field("navbar_format").choices = (
+            crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_CHOICES
+        )
         # Set default dynamically.
         if not self.id:
             self.frontend_theme = crx_settings.CRX_FRONTEND_THEME_DEFAULT

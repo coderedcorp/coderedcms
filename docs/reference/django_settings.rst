@@ -83,5 +83,5 @@ The URL for protected media files from form file uploads. Defaults to
 CRX_DISABLE_SITE_SETTINGS
 -------------------------
 
-If set to ``True``, the site settings page will not be registered. This is useful if
+If set to ``True``, the site settings models will not be registered. This is useful if
 you if you want to define your own site settings models. Defaults to ``False``.

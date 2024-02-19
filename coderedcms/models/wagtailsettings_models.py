@@ -5,7 +5,6 @@ Global project or developer settings should be defined in coderedcms.settings.py
 """
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -27,34 +26,25 @@ from coderedcms.models.snippet_models import Navbar, Footer
 def maybe_register_setting(**kwargs):
     """Decorator that conditionally registers a settings class."""
 
-    def check_if_enabled(model):
-        if model.enabled():
+    def check_if_site_settings_disabled(model):
+        if (
+            not hasattr(settings, "CRX_DISABLE_SITE_SETTINGS")
+            or getattr(settings, "CRX_DISABLE_SITE_SETTINGS") is False
+        ):
             register_setting(model, **kwargs)
+
         return model
 
-    return check_if_enabled
+    return check_if_site_settings_disabled
 
 
-class SettingsCheckMixin(object):
-    """Check if a setting is enabled."""
-
-    @classmethod
-    def enabled(cls):
-        """True unless explicitly disabled in settings."""
-        if (
-            hasattr(settings, cls.ENABLE_SETTINGS)
-            and getattr(settings, cls.ENABLE_SETTINGS) is False
-        ):
-            return False
-        else:
-            return True
-
-
-class AbstractLayoutSettings(ClusterableModel, BaseSiteSetting):
-    """All of the fields and panels used in the LayoutSettings model."""
+@maybe_register_setting(icon="cr-desktop")
+class LayoutSettings(ClusterableModel, BaseSiteSetting):
+    """
+    Branding, navbar, and theme settings.
+    """
 
     class Meta:
-        abstract = True
         verbose_name = _("CRX Settings")
 
     logo = models.ForeignKey(
@@ -250,11 +240,6 @@ class AbstractLayoutSettings(ClusterableModel, BaseSiteSetting):
             self.navbar_format = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_DEFAULT
 
 
-@maybe_register_setting(icon="cr-desktop")
-class LayoutSettings(SettingsCheckMixin, AbstractLayoutSettings):
-    ENABLE_SETTINGS = "CRX_ENABLE_LAYOUT_SETTINGS"
-
-
 class NavbarOrderable(Orderable, models.Model):
     navbar_chooser = ParentalKey(
         LayoutSettings,
@@ -287,11 +272,13 @@ class FooterOrderable(Orderable, models.Model):
     panels = [FieldPanel("footer")]
 
 
-class AbstractAnalyticsSettings(BaseSiteSetting):
-    """All of the fields and panels used in the AnalyticsSettings model."""
+@maybe_register_setting(icon="cr-google")
+class AnalyticsSettings(BaseSiteSetting):
+    """
+    Tracking and Google Analytics.
+    """
 
     class Meta:
-        abstract = True
         verbose_name = _("Tracking")
 
     ga_g_tracking_id = models.CharField(
@@ -360,10 +347,3 @@ class AbstractAnalyticsSettings(BaseSiteSetting):
             heading=_("Other Tracking Scripts"),
         ),
     ]
-
-
-@maybe_register_setting(icon="cr-google")
-class AnalyticsSettings(SettingsCheckMixin, AbstractAnalyticsSettings):
-    ENABLE_SETTINGS = "CRX_ENABLE_ANALYTICS_SETTINGS"
-
-

@@ -7,7 +7,7 @@ from django.db.models.query import QuerySet
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
 from wagtail.models import Collection
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 
 from coderedcms import utils, __version__
 from coderedcms.blocks import CoderedAdvSettings
@@ -65,7 +65,7 @@ def is_active_page(context, curr_page, other_page):
 @register.simple_tag
 def get_pictures(collection_id):
     collection = Collection.objects.get(id=collection_id)
-    return Image.objects.filter(collection=collection)
+    return get_image_model().objects.filter(collection=collection)
 
 
 @register.simple_tag(takes_context=True)

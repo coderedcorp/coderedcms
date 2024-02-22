@@ -14,6 +14,7 @@ Maintains version of coderedcms.
 
 See: https://www.python.org/dev/peps/pep-0440/
 """
+
 release = ["3", "0", "0", "", "dev0"]
 
 

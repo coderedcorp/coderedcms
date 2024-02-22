@@ -1,6 +1,7 @@
 """
 Create or customize your page models here.
 """
+
 from coderedcms.forms import CoderedFormField
 from coderedcms.models import CoderedArticleIndexPage
 from coderedcms.models import CoderedArticlePage

@@ -3,6 +3,7 @@ Custom overrides of Wagtail Document and Image models. All other
 models related to website content should most likely go in
 ``website.models`` instead.
 """
+
 from django.db import models
 from wagtail.documents.models import AbstractDocument
 from wagtail.documents.models import Document

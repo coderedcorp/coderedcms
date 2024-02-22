@@ -381,9 +381,9 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             "*", []
         ) + crx_settings.CRX_FRONTEND_TEMPLATES_PAGES.get(klassname, [])
 
-        self._meta.get_field(
-            "index_order_by"
-        ).choices = self.index_order_by_choices
+        self._meta.get_field("index_order_by").choices = (
+            self.index_order_by_choices
+        )
         self._meta.get_field("custom_template").choices = template_choices
         if not self.id:
             self.index_order_by = self.index_order_by_default
@@ -1225,9 +1225,11 @@ class CoderedEventIndexPage(CoderedWebPage):
                 event_data = {
                     "title": event.title,
                     "start": local_start.strftime("%Y-%m-%dT%H:%M:%S%z"),
-                    "end": local_end.strftime("%Y-%m-%dT%H:%M:%S%z")
-                    if local_end
-                    else "",
+                    "end": (
+                        local_end.strftime("%Y-%m-%dT%H:%M:%S%z")
+                        if local_end
+                        else ""
+                    ),
                     "description": "",
                 }
                 if event.url:
@@ -1593,10 +1595,10 @@ class CoderedFormMixin(models.Model):
             if isinstance(value, list):
                 dictionary[new_key] = ", ".join(value)
             else:
-                dictionary[
-                    new_key
-                ] = utils.attempt_protected_media_value_conversion(
-                    request, value
+                dictionary[new_key] = (
+                    utils.attempt_protected_media_value_conversion(
+                        request, value
+                    )
                 )
 
         return dictionary

@@ -7,6 +7,7 @@ or simply deprecate all of this functionality.
 
 See: https://github.com/torchbox/wagtail-import-export/
 """
+
 import csv
 import copy
 

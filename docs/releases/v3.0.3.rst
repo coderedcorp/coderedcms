@@ -11,6 +11,11 @@ Bug fixes
 
 * Fix bug that happens when ordering child pages by Classifier, if a child page contains multiple ClassifierTerms belonging to that Classifier.
 
+Upgrade considerations
+----------------------
+
+* As described in the `Wagtail documentation <https://docs.wagtail.org/en/stable/topics/images.html#id8>`_, enabling SVG support requires adding the following to the Django settings file: ``WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]``.
+
 
 Thank you!
 ----------

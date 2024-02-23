@@ -4,6 +4,7 @@ Settings are user-configurable on a per-site basis (multisite).
 Global project or developer settings should be defined in coderedcms.settings.py .
 """
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -22,7 +23,22 @@ from coderedcms.settings import crx_settings
 from coderedcms.models.snippet_models import Navbar, Footer
 
 
-@register_setting(icon="cr-desktop")
+def maybe_register_setting(**kwargs):
+    """Decorator that conditionally registers a settings class."""
+
+    def check_if_site_settings_disabled(model):
+        if (
+            not hasattr(settings, "CRX_DISABLE_SITE_SETTINGS")
+            or getattr(settings, "CRX_DISABLE_SITE_SETTINGS") is False
+        ):
+            register_setting(model, **kwargs)
+
+        return model
+
+    return check_if_site_settings_disabled
+
+
+@maybe_register_setting(icon="cr-desktop")
 class LayoutSettings(ClusterableModel, BaseSiteSetting):
     """
     Branding, navbar, and theme settings.
@@ -256,7 +272,7 @@ class FooterOrderable(Orderable, models.Model):
     panels = [FieldPanel("footer")]
 
 
-@register_setting(icon="cr-google")
+@maybe_register_setting(icon="cr-google")
 class AnalyticsSettings(BaseSiteSetting):
     """
     Tracking and Google Analytics.

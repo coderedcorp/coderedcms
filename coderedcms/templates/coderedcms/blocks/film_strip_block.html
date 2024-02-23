@@ -7,11 +7,16 @@
     <div class="row g-0 flex-nowrap" data-block="film-row">
       {% for panel in value.film_panels.all %}
         {% image panel.background_image original as image %}
-        <div data-block="film-panel" class="col-auto col crx-filmstrip-panel {{panel.custom_css_class}}" {% if panel.custom_id %}id="{{panel.custom_id}}"{% endif %} style="
-          {% if image %}background-image: url({{image.url}}); background-size: cover; background-position: center;{% endif %}
-          {% if panel.background_color %}background-color: {{panel.background_color}};{% endif %}
-          {% if panel.foreground_color %}color: {{panel.foreground_color}};{% endif %}
-        ">
+        <div 
+          data-block="film-panel" 
+          class="col-auto col crx-filmstrip-panel {{panel.custom_css_class}}" 
+          {% if panel.custom_id %}id="{{panel.custom_id}}"{% endif %} 
+          style="
+            {% if image %}background-image: url({{image.url}}); background-size: cover; background-position: center;{% endif %}
+            {% if panel.background_color %}background-color: {{panel.background_color}};{% endif %}
+            {% if panel.foreground_color %}color: {{panel.foreground_color}};{% endif %}
+          "
+        >
           {% include_block panel.content %}
         </div>
         {% endfor %}

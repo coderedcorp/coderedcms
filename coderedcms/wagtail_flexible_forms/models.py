@@ -206,9 +206,9 @@ class Steps(list):
     def current(self, new_index: int):
         if not isinstance(new_index, int):
             raise TypeError("Use an integer to set the new current step.")
-        self.request.session[
-            self.page.current_step_session_key
-        ] = self.clamp_index(new_index)
+        self.request.session[self.page.current_step_session_key] = (
+            self.clamp_index(new_index)
+        )
 
     def forward(self, increment: int = 1):
         self.current = self.current_index + increment

@@ -2,7 +2,7 @@
 -e .
 
 # Requirements, in addition to coderedcms, needed for CI runner.
-black==24.2.0
+black==24.3.0
 codespell
 flake8
 pytest-cov

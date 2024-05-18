@@ -1,0 +1,16 @@
+v3.0.4 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Use absolute URL to sitemap in robots.txt file.
+
+* Fix image gallery block when using custom Image models.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `3.0.4 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/55?closed=1>`_.

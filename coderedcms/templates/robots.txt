@@ -1,3 +1,5 @@
+{% load wagtailcore_tags %}
+{% wagtail_site as site %}
 User-agent: *
 Disallow: /admin/
 
@@ -7,4 +9,4 @@ Disallow: /django-admin/
 User-agent: *
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: {{ site.root_url }}/sitemap.xml

@@ -1,6 +1,9 @@
 {% load coderedcms_tags %}
-{% if "CRX_BANNER"|crx_settings %}
-<div class="crx-banner" style="background-color:{{ 'CRX_BANNER_BACKGROUND'|crx_settings }}; color:{{ 'CRX_BANNER_TEXT_COLOR'|crx_settings }}; text-align:center; padding:4px;">
-  {{ "CRX_BANNER"|crx_settings|safe }}
+{% django_setting "CRX_BANNER" as crx_banner %}
+{% django_setting "CRX_BANNER_BACKGROUND" as crx_banner_background %}
+{% django_setting "CRX_BANNER_TEXT_COLOR" as crx_banner_text_color %}
+{% if crx_banner %}
+<div class="crx-banner" style="background-color:{{ crx_banner_background }}; color:{{ crx_banner_text_color }}; text-align:center; padding:4px;">
+  {{ crx_banner|safe }}
 </div>
 {% endif %}

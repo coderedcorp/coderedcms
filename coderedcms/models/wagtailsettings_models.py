@@ -4,7 +4,6 @@ Settings are user-configurable on a per-site basis (multisite).
 Global project or developer settings should be defined in coderedcms.settings.py .
 """
 
-from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -23,22 +22,19 @@ from coderedcms.settings import crx_settings
 from coderedcms.models.snippet_models import Navbar, Footer
 
 
-def maybe_register_setting(**kwargs):
+def maybe_register_setting(disable: bool, **kwargs):
     """Decorator that conditionally registers a settings class."""
 
-    def check_if_site_settings_disabled(model):
-        if (
-            not hasattr(settings, "CRX_DISABLE_SITE_SETTINGS")
-            or getattr(settings, "CRX_DISABLE_SITE_SETTINGS") is False
-        ):
+    def check_if_disabled(model):
+        if not disable:
             register_setting(model, **kwargs)
 
         return model
 
-    return check_if_site_settings_disabled
+    return check_if_disabled
 
 
-@maybe_register_setting(icon="cr-desktop")
+@maybe_register_setting(crx_settings.CRX_DISABLE_LAYOUT, icon="cr-desktop")
 class LayoutSettings(ClusterableModel, BaseSiteSetting):
     """
     Branding, navbar, and theme settings.
@@ -155,14 +151,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         help_text=_("The API Key used for Mailchimp."),
     )
 
-    panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel("logo"),
-                FieldPanel("favicon"),
-            ],
-            heading=_("Branding"),
-        ),
+    navbar_panels = [
         MultiFieldPanel(
             [
                 FieldPanel("navbar_color_scheme"),
@@ -175,21 +164,34 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             ],
             heading=_("Site Navbar Layout"),
         ),
-        MultiFieldPanel(
-            [
-                FieldPanel("frontend_theme"),
-            ],
-            heading=_("Theming"),
-        ),
         InlinePanel(
             "site_navbar",
             help_text=_("Choose one or more navbars for your site."),
             heading=_("Site Navbars"),
         ),
+    ]
+
+    footer_panels = [
         InlinePanel(
             "site_footer",
             help_text=_("Choose one or more footers for your site."),
             heading=_("Site Footers"),
+        ),
+    ]
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("logo"),
+                FieldPanel("favicon"),
+            ],
+            heading=_("Branding"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("frontend_theme"),
+            ],
+            heading=_("Theming"),
         ),
         MultiFieldPanel(
             [
@@ -207,6 +209,10 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             heading=_("API Keys"),
         ),
     ]
+    if not crx_settings.CRX_DISABLE_NAVBAR:
+        panels += navbar_panels
+    if not crx_settings.CRX_DISABLE_FOOTER:
+        panels += footer_panels
 
     def __init__(self, *args, **kwargs):
         """
@@ -272,7 +278,7 @@ class FooterOrderable(Orderable, models.Model):
     panels = [FieldPanel("footer")]
 
 
-@maybe_register_setting(icon="cr-google")
+@maybe_register_setting(crx_settings.CRX_DISABLE_ANALYTICS, icon="cr-google")
 class AnalyticsSettings(BaseSiteSetting):
     """
     Tracking and Google Analytics.

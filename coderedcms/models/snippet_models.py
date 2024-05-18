@@ -15,13 +15,25 @@ from wagtail.admin.panels import (
 from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 from wagtail.images import get_image_model_string
-
 from coderedcms.blocks import (
     HTML_STREAMBLOCKS,
     LAYOUT_STREAMBLOCKS,
     NAVIGATION_STREAMBLOCKS,
 )
 from coderedcms.fields import CoderedStreamField
+from coderedcms.settings import crx_settings
+
+
+def maybe_register_snippet(disable: bool, **kwargs):
+    """Decorator that conditionally registers a snippet model."""
+
+    def check_if_disabled(model):
+        if not disable:
+            register_snippet(model, **kwargs)
+
+        return model
+
+    return check_if_disabled
 
 
 @register_snippet
@@ -292,7 +304,7 @@ class FilmPanel(Orderable, models.Model):
     ]
 
 
-@register_snippet
+@maybe_register_snippet(crx_settings.CRX_DISABLE_NAVBAR)
 class Navbar(models.Model):
     """
     Snippet for site navigation bars (header, main menu, etc.)
@@ -338,7 +350,7 @@ class Navbar(models.Model):
         return self.name
 
 
-@register_snippet
+@maybe_register_snippet(crx_settings.CRX_DISABLE_FOOTER)
 class Footer(models.Model):
     """
     Snippet for website footer content.

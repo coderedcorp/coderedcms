@@ -16,6 +16,7 @@ Upgrade considerations
 
 * As described in the `Wagtail documentation <https://docs.wagtail.org/en/stable/topics/images.html#id8>`_, enabling SVG support requires adding the following to the Django settings file: ``WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]``.
 
+
 Thank you!
 ----------
 

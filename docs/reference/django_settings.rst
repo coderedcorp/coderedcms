@@ -38,6 +38,36 @@ CRX_BANNER_TEXT_COLOR
 String of a valid CSS color code to change the text color of the banner.
 
 
+CRX_DISABLE_ANALYTICS
+---------------------
+
+If set to ``True``, the ``AnalyticsSettings`` model ( "Tracking" in Wagtail Admin) will not be registered. All tracking and analytics features will be disabled. Note that all buttons and links throughout CRX have "Advanced Settings" to customize the tracking behavior --- if disabled these will do nothing. Defaults to ``False``.
+
+
+CRX_DISABLE_LAYOUT
+------------------
+
+If set to ``True``, the ``LayoutSettings`` model ( "CRX Settings" in Wagtail Admin) will not be registered. Many features such as the ability to set a logo, favion, Google Maps keys, etc. will not be available.
+
+If you're looking to customize the navbar and footer, it is NOT recommended to disable this, but instead use the ``CRX_DISABLE_NAVBAR`` and ``CRX_DISABLE_FOOTER`` settings. This way the logo and various other features remain customizable by the user. The Layout Settings, and the logo in particular, are used **extensively** throughout CRX and therefore may cause unexpected breakage if disabled. Defaults to ``False``.
+
+
+CRX_DISABLE_NAVBAR
+------------------
+
+If set to ``True``, the built-in ``Navbar`` model and related settings will be hidden from the Wagtail Admin.
+
+This is recommended for most sites that want to build their own more advanced navbar.
+
+
+CRX_DISABLE_FOOTER
+------------------
+
+If set to ``True``, the built-in ``Footer`` model and related settings will be hidden from the Wagtail Admin.
+
+This is recommended for most sites that want to build their own more advanced footer.
+
+
 CRX_FRONTEND_*
 --------------
 
@@ -79,9 +109,3 @@ CRX_PROTECTED_MEDIA_URL
 
 The URL for protected media files from form file uploads. Defaults to
 ``'/protected/'``
-
-CRX_DISABLE_SITE_SETTINGS
--------------------------
-
-If set to ``True``, the site settings models will not be registered. This is useful if
-you if you want to define your own site settings models. Defaults to ``False``.

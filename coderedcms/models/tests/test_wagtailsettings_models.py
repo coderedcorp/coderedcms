@@ -73,21 +73,12 @@ class MaybeRegisterSettingTestCase(WagtailPageTests):
         super().setUp()
         self.dummy_settings = object()
 
-    @patch("coderedcms.models.wagtailsettings_models.register_setting")
-    def test_decorator_default(self, mock_register_setting):
-        """Test that the decorator calls register_setting
-        with no override setting (default)."""
-        maybe_register_setting(icon="foobar")(self.dummy_settings)
-        mock_register_setting.assert_called_once_with(
-            self.dummy_settings, icon="foobar"
-        )
-
-    @override_settings(CRX_DISABLE_SITE_SETTINGS=False)
+    @override_settings(CRX_DISABLE_LAYOUT=False)
     @patch("coderedcms.models.wagtailsettings_models.register_setting")
     def test_decorator_enabled(self, mock_register_setting):
         """Test that the decorator calls register_setting
         when override setting is False."""
-        maybe_register_setting(icon="foobar")(self.dummy_settings)
+        maybe_register_setting(False, icon="foobar")(self.dummy_settings)
         mock_register_setting.assert_called_once_with(
             self.dummy_settings, icon="foobar"
         )
@@ -97,5 +88,5 @@ class MaybeRegisterSettingTestCase(WagtailPageTests):
     def test_decorator_disabled(self, mock_register_setting):
         """Test that the decorator does not call register_setting
         when override setting is False."""
-        maybe_register_setting(icon="foobar")(self.dummy_settings)
+        maybe_register_setting(True, icon="foobar")(self.dummy_settings)
         mock_register_setting.assert_not_called()

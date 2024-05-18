@@ -79,3 +79,9 @@ CRX_PROTECTED_MEDIA_URL
 
 The URL for protected media files from form file uploads. Defaults to
 ``'/protected/'``
+
+CRX_DISABLE_SITE_SETTINGS
+-------------------------
+
+If set to ``True``, the site settings models will not be registered. This is useful if
+you if you want to define your own site settings models. Defaults to ``False``.

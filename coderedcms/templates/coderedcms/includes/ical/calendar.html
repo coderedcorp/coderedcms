@@ -1,4 +1,5 @@
 {% load coderedcms_tags %}
+{% django_setting "TIME_ZONE" as time_zone %}
 <div
   data-block="calendar"
   data-default-date="{% now 'Y-m-d' %}"
@@ -6,9 +7,9 @@
   data-event-display="{{ page.fullcalendar_event_display }}"
   data-event-source-url="{% url 'event_get_calendar_events' %}"
   data-page-id="{{ page.id }}"
-  data-timezone="{{ 'TIME_ZONE'|django_settings }}">
+  data-timezone="{{ time_zone }}">
   <noscript>JavaScript is required to view the Calendar.</noscript>
 </div>
 <div class="text-end text-muted">
-  <i>Listed in {{ 'TIME_ZONE'|django_settings }} time.</i>
+  <i>Listed in {{ time_zone }} time.</i>
 </div>

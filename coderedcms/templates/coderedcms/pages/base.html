@@ -2,12 +2,14 @@
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
 {% wagtail_site as site %}
+{% django_setting "CRX_DISABLE_ANALYTICS" as disable_analytics %}
+{% django_setting "CRX_DISABLE_LAYOUT" as disable_layout %}
 <!doctype html>
 <html prefix="og: http://ogp.me/ns#" lang="{{ LANGUAGE_CODE }}">
 
 <head>
   {% block tracking %}
-  {% if settings.coderedcms.AnalyticsSettings.ga_g_tracking_id %}
+  {% if not disable_analytics and settings.coderedcms.AnalyticsSettings.ga_g_tracking_id %}
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{settings.coderedcms.AnalyticsSettings.ga_g_tracking_id}}"></script>
   <script>
@@ -18,7 +20,7 @@
     gtag('config', '{{settings.coderedcms.AnalyticsSettings.ga_g_tracking_id}}');
   </script>
   {% endif %}
-  {% if settings.coderedcms.AnalyticsSettings.gtm_id %}
+  {% if not disable_analytics and settings.coderedcms.AnalyticsSettings.gtm_id %}
   <!-- Google Tag Manager -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -29,7 +31,7 @@
   </script>
   <!-- End Google Tag Manager -->
   {% endif %}
-  {% if settings.coderedcms.AnalyticsSettings.head_scripts %}
+  {% if not disable_analytics and settings.coderedcms.AnalyticsSettings.head_scripts %}
   {{settings.coderedcms.AnalyticsSettings.head_scripts|safe}}
   {% endif %}
   {% endblock %}
@@ -37,8 +39,12 @@
   {# Pass in CMS variables to JavaScript #}
   <script>
     cr_site_url = "{{site.root_url}}";
-    cr_external_new_tab = {{settings.coderedcms.LayoutSettings.external_new_tab|yesno:"true,false"}};
     cr_version = "{% coderedcms_version %}";
+    {% if not disable_layout %}
+    cr_external_new_tab = {{settings.coderedcms.LayoutSettings.external_new_tab|yesno:"true,false"}};
+    {% else %}
+    cr_external_new_tab = false;
+    {% endif %}
   </script>
 
   <meta charset="utf-8">
@@ -56,7 +62,8 @@
   {% endblock %}
 
   {% block coderedcms_assets %}
-  {% if "DEBUG"|django_settings %}
+  {% django_setting "DEBUG" as debug %}
+  {% if debug %}
   <link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.css' %}?v={% coderedcms_version %}">
   {% else %}
   <link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.min.css' %}?v={% coderedcms_version %}">
@@ -66,7 +73,7 @@
   {% block custom_assets %}{% endblock %}
 
   {% block favicon %}
-  {% if settings.coderedcms.LayoutSettings.favicon %}
+  {% if not disable_layout and settings.coderedcms.LayoutSettings.favicon %}
   {# See https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/ #}
   {% image settings.coderedcms.LayoutSettings.favicon fill-256x256 format-webp preserve-svg as favicon_webp %}
   {% image settings.coderedcms.LayoutSettings.favicon fill-120x120 format-png preserve-svg as favicon_iphone %}
@@ -184,6 +191,7 @@
   {% endblock %}
 
   {% block body_tracking_scripts %}
+  {% if not disable_analytics %}
   {% if settings.coderedcms.AnalyticsSettings.gtm_id %}
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{settings.coderedcms.AnalyticsSettings.gtm_id}}"
@@ -192,6 +200,7 @@
   {% endif %}
   {% if settings.coderedcms.AnalyticsSettings.body_scripts %}
   {{settings.coderedcms.AnalyticsSettings.body_scripts|safe}}
+  {% endif %}
   {% endif %}
   {% endblock %}
 </body>

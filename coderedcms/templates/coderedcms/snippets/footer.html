@@ -1,5 +1,6 @@
 {% load wagtailcore_tags coderedcms_tags %}
-{% if settings.coderedcms.LayoutSettings.site_footer %}
+{% django_setting "CRX_DISABLE_LAYOUT" as disable_layout %}
+{% if not disable_layout and settings.coderedcms.LayoutSettings.site_footer %}
 <footer>
   {% get_footers as footers %}
   {% for footer in footers %}

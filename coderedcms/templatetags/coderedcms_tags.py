@@ -127,17 +127,12 @@ def process_form_cell(request, cell):
 
 
 @register.filter
-def crx_settings(value):
-    return getattr(crx_settings_obj, value)
-
-
-@register.filter
 def bootstrap_settings(value):
     return get_bootstrap_setting(value)
 
 
-@register.filter
-def django_settings(value):
+@register.simple_tag
+def django_setting(value):
     return getattr(crx_settings_obj, value)
 
 

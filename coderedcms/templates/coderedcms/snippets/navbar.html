@@ -1,5 +1,7 @@
 {% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n %}
 {% wagtail_site as site %}
+{% django_setting "CRX_DISABLE_LAYOUT" as disable_layout %}
+{% if not disable_layout %}
 <nav class="navbar {% get_navbar_css %}">
   <div class="container{% if settings.coderedcms.LayoutSettings.navbar_content_fluid %}-fluid{% endif %}">
     <a class="navbar-brand" href="/">
@@ -49,3 +51,15 @@
 {% endif %}
 {% endif %}
 {% endblock %}
+
+{% else %}
+
+<nav class="navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      {{site.site_name}}
+    </a>
+  </div>
+</nav>
+
+{% endif %}

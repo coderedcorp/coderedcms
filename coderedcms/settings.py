@@ -257,6 +257,11 @@ class _DefaultSettings:
     CRX_BANNER_BACKGROUND = "#ff0"
     CRX_BANNER_TEXT_COLOR = "#000"
 
+    CRX_DISABLE_ANALYTICS = False
+    CRX_DISABLE_LAYOUT = False
+    CRX_DISABLE_NAVBAR = False
+    CRX_DISABLE_FOOTER = False
+
     def __getattribute__(self, attr: str):
         # First load from Django settings.
         # If it does not exist, load from _DefaultSettings.

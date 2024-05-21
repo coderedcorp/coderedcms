@@ -1,6 +1,7 @@
-{% load wagtailimages_tags %}
+{% load coderedcms_tags wagtailimages_tags %}
+{% django_setting "CRX_DISABLE_ANALYTICS" as disable_analytics %}
 <a href="{{self.url}}"
-  {% if settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}
+  {% if not disable_analytics and settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}
   data-ga-event-category='{{self.settings.ga_tracking_event_category|default:"ImageLink"}}'
   data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.alt_text}}'
   {% endif %}

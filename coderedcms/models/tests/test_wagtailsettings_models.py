@@ -1,9 +1,14 @@
-from django.test import Client
+from unittest.mock import patch
+
+from django.test import Client, override_settings
 from wagtail.test.utils import WagtailPageTests
 from wagtail.models import Site
 
 from coderedcms.tests.testapp.models import WebPage
-from coderedcms.models.wagtailsettings_models import AnalyticsSettings
+from coderedcms.models.wagtailsettings_models import (
+    AnalyticsSettings,
+    maybe_register_setting,
+)
 
 
 class AnalyticsSettingsTestCase(WagtailPageTests):
@@ -55,3 +60,33 @@ class AnalyticsSettingsTestCase(WagtailPageTests):
         """
         response = self.client.get(self.homepage.url, follow=True)
         self.assertInHTML(self.settings.body_scripts, str(response.content), 1)
+
+
+class MaybeRegisterSettingTestCase(WagtailPageTests):
+    """Testing the maybe_register_setting decorator.
+
+    These tests use a dummy settings object to test the two paths
+    through the decorator which determine whether or not register_settings
+    is called."""
+
+    def setUp(self):
+        super().setUp()
+        self.dummy_settings = object()
+
+    @override_settings(CRX_DISABLE_LAYOUT=False)
+    @patch("coderedcms.models.wagtailsettings_models.register_setting")
+    def test_decorator_enabled(self, mock_register_setting):
+        """Test that the decorator calls register_setting
+        when override setting is False."""
+        maybe_register_setting(False, icon="foobar")(self.dummy_settings)
+        mock_register_setting.assert_called_once_with(
+            self.dummy_settings, icon="foobar"
+        )
+
+    @override_settings(CRX_DISABLE_SITE_SETTINGS=True)
+    @patch("coderedcms.models.wagtailsettings_models.register_setting")
+    def test_decorator_disabled(self, mock_register_setting):
+        """Test that the decorator does not call register_setting
+        when override setting is False."""
+        maybe_register_setting(True, icon="foobar")(self.dummy_settings)
+        mock_register_setting.assert_not_called()

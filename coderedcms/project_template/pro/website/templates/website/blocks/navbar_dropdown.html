@@ -1,0 +1,19 @@
+{% load wagtailcore_tags %}
+<div class="nav-item dropdown custom-dropdown-full">
+  <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ self.title }}
+  </button>
+  <div class="dropdown-menu">
+    <div class="container">
+      <span class="d-none d-lg-block mb-5 display-3">{{ self.title }}</span>
+      <div class="row">
+        <div class="col-lg-6 mb-3">
+          {% for item in self.links %}{% include_block item with a_class="dropdown-item" %}{% endfor %}
+        </div>
+        <div class="col-lg-6">
+          {% for item in self.description %}{% include_block item %}{% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+{% load coderedcms_tags %}
+{% django_setting "CRX_DISABLE_ANALYTICS" as disable_analytics %}
+<div class="{{ li_class }}">
+  {% is_active_page page self.page_link as is_active_url %}
+  <a
+    class="{{ a_class }} {% if is_active_url %}active{% endif %} {{ value.settings.custom_css_class }}"
+    {% if self.settings.custom_css_id %}id="{{ self.settings.custom_css_class }}"{% endif %}
+    href="{{self.url}}"
+    {% if not disable_analytics and settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}
+    data-ga-event-category='{{self.settings.ga_tracking_event_category|default:"Navbar"}}'
+    data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.get_title}}'
+    {% endif %}
+    title="{{ self.get_title|safe }}">
+    {{ self.get_title|safe }}
+  </a>
+</div>

@@ -2,6 +2,11 @@
 Create or customize your page models here.
 """
 
+from coderedcms.blocks import HTML_STREAMBLOCKS
+from coderedcms.blocks import LAYOUT_STREAMBLOCKS
+from coderedcms.blocks import BaseBlock
+from coderedcms.blocks import BaseLinkBlock
+from coderedcms.blocks import LinkStructValue
 from coderedcms.forms import CoderedFormField
 from coderedcms.models import CoderedArticleIndexPage
 from coderedcms.models import CoderedArticlePage
@@ -13,7 +18,12 @@ from coderedcms.models import CoderedFormPage
 from coderedcms.models import CoderedLocationIndexPage
 from coderedcms.models import CoderedLocationPage
 from coderedcms.models import CoderedWebPage
+from django.db import models
 from modelcluster.fields import ParentalKey
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail.snippets.models import register_snippet
 
 
 class ArticlePage(CoderedArticlePage):
@@ -148,3 +158,102 @@ class WebPage(CoderedWebPage):
         verbose_name = "Web Page"
 
     template = "coderedcms/pages/web_page.html"
+
+
+# -- Navbar & Footer ----------------------------------------------------------
+
+
+class NavbarLinkBlock(BaseLinkBlock):
+    """
+    Simple link in the navbar.
+    """
+
+    class Meta:
+        icon = "link"
+        label = "Link"
+        template = "website/blocks/navbar_link.html"
+        value_class = LinkStructValue
+
+
+class NavbarDropdownBlock(BaseBlock):
+    """
+    Custom dropdown menu with heading, links, and rich content.
+    """
+
+    class Meta:
+        icon = "arrow-down"
+        label = "Dropdown"
+        template = "website/blocks/navbar_dropdown.html"
+
+    title = blocks.CharBlock(
+        max_length=255,
+        required=True,
+        label="Title",
+    )
+    links = blocks.StreamBlock(
+        [("link", NavbarLinkBlock())],
+        required=True,
+        label="Links",
+    )
+    description = blocks.StreamBlock(
+        HTML_STREAMBLOCKS,
+        required=False,
+        label="Description",
+    )
+
+
+@register_snippet
+class Navbar(models.Model):
+    """
+    Custom navigation bar / menu.
+    """
+
+    class Meta:
+        verbose_name = "Navigation Bar"
+
+    name = models.CharField(
+        max_length=255,
+    )
+    content = StreamField(
+        [
+            ("link", NavbarLinkBlock()),
+            ("dropdown", NavbarDropdownBlock()),
+        ],
+        use_json_field=True,
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("content"),
+    ]
+
+    def __str__(self) -> str:
+        return self.name
+
+
+@register_snippet
+class Footer(models.Model):
+    """
+    Custom footer for bottom of pages on the site.
+    """
+
+    class Meta:
+        verbose_name = "Footer"
+
+    name = models.CharField(
+        max_length=255,
+    )
+    content = StreamField(
+        LAYOUT_STREAMBLOCKS,
+        verbose_name="Content",
+        blank=True,
+        use_json_field=True,
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("content"),
+    ]
+
+    def __str__(self) -> str:
+        return self.name

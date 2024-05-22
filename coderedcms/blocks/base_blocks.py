@@ -115,11 +115,6 @@ class ButtonMixin(blocks.StructBlock):
     Standard style and size options for buttons.
     """
 
-    button_title = blocks.CharBlock(
-        max_length=255,
-        required=True,
-        label=_("Button Title"),
-    )
     button_style = blocks.ChoiceBlock(
         choices=crx_settings.CRX_FRONTEND_BTN_STYLE_CHOICES,
         default=crx_settings.CRX_FRONTEND_BTN_STYLE_DEFAULT,
@@ -282,8 +277,27 @@ class BaseLayoutBlock(BaseBlock):
 
 class LinkStructValue(blocks.StructValue):
     """
-    Generates a URL for blocks with multiple link choices.
+    Generates a URL and Title for blocks with multiple link choices.
+    Designed to be used with ``BaseLinkBlock``.
     """
+
+    @property
+    def get_title(self):
+        title = self.get("title")
+        button_title = self.get("button_title")
+        page = self.get("page_link")
+        doc = self.get("doc_link")
+        ext = self.get("other_link")
+        if title:
+            return title
+        if button_title:
+            return button_title
+        if page:
+            return page.title
+        elif doc:
+            return doc.title
+        else:
+            return ext
 
     @property
     def url(self):
@@ -317,6 +331,11 @@ class BaseLinkBlock(BaseBlock):
         required=False,
         max_length=255,
         label=_("Other link"),
+    )
+    button_title = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Title"),
     )
 
     advsettings_class = CoderedAdvTrackingSettings

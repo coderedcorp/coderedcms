@@ -60,6 +60,7 @@ from .base_blocks import (  # noqa
     CoderedAdvSettings,
     CoderedAdvTrackingSettings,
     CollectionChooserBlock,
+    LinkStructValue,
 )
 
 # Collections of blocks commonly used together.

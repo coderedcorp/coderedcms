@@ -188,3 +188,9 @@ TAGGIT_CASE_INSENSITIVE = True
 # Sets default for primary key IDs
 # See https://docs.djangoproject.com/en/{{ docs_version }}/ref/models/fields/#bigautofield
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Disable built-in CRX Navbar and Footer since this project has a
+# custom implementation.
+CRX_DISABLE_NAVBAR = True
+CRX_DISABLE_FOOTER = True

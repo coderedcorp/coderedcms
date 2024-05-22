@@ -1,0 +1,14 @@
+{% load wagtailcore_tags website_tags %}
+<footer class="bg-light">
+
+  {# Loop through all Footer snippets and dynamically render the `content` StreamField. #}
+
+  {% get_website_footers as footers %}
+  {% for footer in footers %}
+  <div>
+    {% for item in footer.content %}
+    {% include_block item with settings=settings %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+</footer>

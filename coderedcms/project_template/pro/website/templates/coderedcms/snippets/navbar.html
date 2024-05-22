@@ -1,0 +1,43 @@
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags coderedcms_tags i18n website_tags %}
+{% wagtail_site as site %}
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container">
+
+    {# Allow the Logo to be user-customizable via the CRX Settings in the Wagtail Admin. #}
+
+    <a class="navbar-brand" href="/">
+      {% django_setting "CRX_DISABLE_LAYOUT" as disable_layout %}
+      {% if not disable_layout and settings.coderedcms.LayoutSettings.logo %}
+      {% image settings.coderedcms.LayoutSettings.logo original format-webp preserve-svg as logo %}
+      <img src="{{logo.url}}" alt="{{site.site_name}}">
+      {% else %}
+      {{site.site_name}}
+      {% endif %}
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+      aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+
+      {# Loop through all Navbar snippets and dynamically render the `content` StreamField. #}
+
+      {% get_website_navbars as navbars %}
+      {% for navbar in navbars %}
+      <div class="navbar-nav me-auto">
+        {% for item in navbar.content %}
+        {% include_block item with li_class="nav-item" a_class="nav-link" %}
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      <div class="navbar-nav d-flex">
+        <div class="nav-item">
+          <a href="{% url 'crx_search' %}" class="nav-link">Search</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

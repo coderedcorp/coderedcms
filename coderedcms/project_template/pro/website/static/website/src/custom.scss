@@ -34,3 +34,27 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+
+
+// Full-width dropdowns in our custom Navbar.
+.custom-dropdown-full {
+  position: initial;
+
+  .dropdown-menu {
+    background-color: darken($dark, 5%);
+    border-radius: 0;
+    border: none;
+    margin: 0;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.25em;
+      padding: 40px 0;
+      width: 100%;
+    }
+  }
+
+  .container {
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+}

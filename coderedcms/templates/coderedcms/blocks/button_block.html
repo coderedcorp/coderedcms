@@ -3,14 +3,10 @@
 <a href="{{self.url}}"
   {% if not disable_analytics and settings.coderedcms.AnalyticsSettings.ga_track_button_clicks %}
   data-ga-event-category='{{self.settings.ga_tracking_event_category|default:"Button"}}'
-  data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.button_title}}'
+  data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.get_title}}'
   {% endif %}
   title="{{ self.button_title|safe }}"
   class="btn {{ self.button_style }} {{ self.button_size }} {{ self.settings.custom_css_class }}"
   {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
-  {% if self.button_title %}
-  {{ self.button_title|safe }}
-  {% else %}
-  {{ self.url }}
-  {% endif %}
+  {{ self.get_title|safe }}
 </a>

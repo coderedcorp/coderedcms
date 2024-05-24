@@ -4,7 +4,7 @@ Installation
 ============
 
 .. note::
-     The tutorial uses Sass Support. It is recommended to use sass to follow along with the tutorial.  See:
+     The tutorial uses the pro template. We recommend all serious websites start with the pro template for best flexibility:
      :ref:`sass_install`
 
 
@@ -34,60 +34,86 @@ Basic Installation
     Learn more about virtual environments by visiting the `Python documentation on virtual
     environments here <https://docs.python.org/3/tutorial/venv.html>`_.
 
-    .. note::
 
-       You will need to be in the directory (folder) of your Wagtail project and have your
-       virtual environment activated to install dependencies and run your site.
+#. In your virtual environment, install CRX:
 
-#. Run ``pip install coderedcms``
-#. Run ``coderedcms start mysite --sitename "My Company Inc." --domain www.example.com``
+   .. code-block:: console
 
-   .. note::
-       ``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.
+      $ pip install coderedcms
 
-#. Enter the ``mysite`` project with ``cd mysite/``.
-#. Run ``python manage.py migrate`` to create the core models.
-#. Run ``python manage.py createsuperuser`` to create the initial admin user.
-#. Run ``python manage.py runserver`` to launch the development server, and go to
-   http://localhost:8000 in your browser, or http://localhost:8000/admin/ to log in
-   with your admin account.
+#. Create a new project:
+
+   .. code-block:: console
+
+      $ coderedcms start mysite --sitename "My Company Inc." --domain "www.example.com"
+
+   *``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.*
+
+#. Next, enter the new project folder and set up Django.
+
+   .. code-block:: console
+
+      $ python manage.py migrate
+      $ python manage.py createsuperuser
+
+#. Now, you can run a local development server:
+
+   .. code-block:: console
+
+      $ python manage.py runserver
+
+   Go to http://localhost:8000 in your browser, or http://localhost:8000/admin/ to log in with your admin account.
 
 ✨🎉 You now have Wagtail CRX up and running! 🎉✨
 
 .. _sass_install:
 
-Professional Installation (includes Sass/SCSS)
-----------------------------------------------
+Professional Installation
+-------------------------
 
 The professional boilerplate includes additional features pre-configured, such as:
 
-* Custom Image and Document models
-* Custom User model (using email address as username)
-* SCSS compilation (using Python, not Node.js)
-* Ruff, MyPy, Pytest tooling pre-configured
+* Custom Image and Document models.
+* Custom User model (using email address as username).
+* Custom Navbar and Footer.
+* SCSS compilation (using Python, not Node.js).
+* Ruff, MyPy, Pytest tooling pre-configured.
 
 To use the professional boilerplate, add ``--template pro`` to the start command:
 
-#. Run ``pip install coderedcms``
-#. Run
+#. In your virtual environment, install CRX:
 
    .. code-block:: console
 
-      $ coderedcms start mysite --template pro --sitename "My Company Inc." --domain www.example.com
+      $ pip install coderedcms
 
-   .. note::
+#. Create a new project:
 
-      ``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.
+   .. code-block:: console
 
-#. Enter the ``mysite`` project with ``cd mysite/``.
+      $ coderedcms start mysite --template pro --sitename "My Company Inc." --domain "www.example.com"
+
+   *``--sitename`` and ``--domain`` are optional to pre-populate settings of your website.*
+
+#. Next, enter the new project folder:
+
+   .. code-block:: console
+
+      $ cd mysite/
+
 #. Install the development tooling with:
 
    .. code-block:: console
 
-       $ pip install -r requirements.txt -r requirements-dev.txt
+      $ pip install -r requirements-dev.txt
 
-#. Run ``python manage.py migrate`` to create the core models.
-#. Run ``python manage.py createsuperuser`` to create the initial admin user.
+#. Next, set up Django.
+
+   .. code-block:: console
+
+      $ python manage.py migrate
+      $ python manage.py createsuperuser
+
 #. Compile the scss code into CSS:
 
    .. code-block:: console
@@ -99,9 +125,13 @@ To use the professional boilerplate, add ``--template pro`` to the start command
        ``--watch`` option and run it in a separate terminal. For more options,
        see `django-sass <https://github.com/coderedcorp/django-sass/>`_.
 
-#. Run ``python manage.py runserver`` to launch the development server, and go to
-   http://localhost:8000 in your browser, or http://localhost:8000/admin/ to log in
-   with your admin account.
+#. Now, you can run a local development server:
+
+   .. code-block:: console
+
+      $ python manage.py runserver
+
+   Go to http://localhost:8000 in your browser, or http://localhost:8000/admin/ to log in with your admin account.
 
 When working with Sass, you will want to look at the base.html file provided at:
 ``mysite/website/templates/coderedcms/pages/base.html`` to load in any custom
@@ -122,8 +152,8 @@ or at a URL using the ``--template`` option. Additionally, we provide some built
 |            | sites.                                                          |
 +------------+-----------------------------------------------------------------+
 | ``pro``    | Custom Image, Document, User models. Extra tooling to support   |
-|            | SCSS to CSS compilation. Developer tooling such as ruff, mypy,  |
-|            | and pytest.                                                     |
+|            | SCSS to CSS compilation. Custom Navbar and Footer. Developer    |
+|            | tooling such as ruff, mypy, and pytest.                         |
 +------------+-----------------------------------------------------------------+
 
 .. versionchanged:: 3.0

@@ -33,8 +33,6 @@ Menu / navigation bars
 Navbars are top navigation elements that create a "main menu" experience. Navbars are managed
 as snippets. They render from top down based on the order they were created in.
 
-:ref:`navbar-global`
-
 :ref:`navbar`
 
 Footers

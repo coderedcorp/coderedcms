@@ -284,4 +284,4 @@ Hopefully you were able to follow along and your page looks like this:
 
     home page after tutorial part 3 (note: the images of the doctors were cropped to be square)
 
-Next we will look at building a Navbar and Footer
+Next we will look at building a Navbar and Footer.

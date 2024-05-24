@@ -2,7 +2,7 @@ Tutorial Part 1: Site Name, Logo, and Global Colors
 ===============================================================
 
 .. note::
-   For this tutorial, we will assume the name of your project is ``mysite``.
+   For this tutorial, we will assume the name of your project is ``mysite`` and you started using the ``pro`` template.
 
 After :doc:`install`, you are greeted with a bare-bones website.
 Let's start filling things out.
@@ -108,49 +108,6 @@ logo and favicon show up on your site.
 
     The logo on our website.
 
-.. _navbar-global:
-
-Changing navbar and global site colors (Theme variant)
-------------------------------------------------------
-
-The default style is a light-colored navbar and the standard Bootstrap colors.
-But if you have a white or light colored logo, you might prefer a dark navbar.
-To change the navbar color, go to **Settings > CRX Settings** in the admin screen and alter the following settings:
-
-* **Navbar color scheme:** Dark
-* **Navbar CSS class:** ``bg-dark`` (or some other CSS class. See
-  `Bootstrap color utilities <https://getbootstrap.com/docs/5.2/utilities/colors/#background-color>`_)
-
-.. figure:: images/tut01/navbar_settings.jpeg
-    :alt: Navbar settings.
-
-    Navbar settings at **Settings > CRX Settings**
-
-Click "Save" and go to http://localhost:8000/ to see your new navbar. Great success! There are
-many other settings here for controlling the layout of the navbar. Play with them and pick
-what works best for you. Once again, most of these settings utilize default Bootstrap styles.
-
-.. figure:: images/tut01/dark_navbar.jpg
-    :alt: Our site with a dark navbar.
-
-    Our site with a dark navbar.
-
-This look isn't ideal for the CRX-pharma website, so in the admin screen lets navigate back to **Settings > CRX Settings**.
-Then change our settings back to the defaults:
-
- * **Navbar color scheme:** Light
- * **Navbar CSS class:** ``bg-light``
-
-and **Save.**
-
-**Theme Variant**
-
-Beyond the navbar, you can swap out the entire Bootstrap CSS theme in use. We provide a few simple
-themes from `Bootswatch <https://bootswatch.com/>`_. Select an option from the **Theme variant**
-setting, click "Save", and view your site. If you are going to be doing a lot of heavy CSS customization,
-you might want to stick with the default to ensure compatibility with the Bootstrap documentation.  For CRX-Pharma,
-we are going to use the default theme and use Sass to change our colors.
-
 .. _global-sass-colors:
 
 Global Site Colors with Sass
@@ -207,5 +164,3 @@ Now hard refresh your browser at http://localhost:8000 and you should see the ne
     Buttons are a great example of this. When adding a button or button link, they are options for style.
     The default style is "primary" which references the sass variable we set in the _variables.scss file.  So with one line of code,
     anything that references primary will be dark blue (`#1b477d`).
-
-

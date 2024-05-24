@@ -1,23 +1,19 @@
 Tutorial Part 4: Navbar & Footer
 ================================
 
-Let's begin to work on our navigation and footer setup.
+While CRX comes with a very rudimentary Navbar and Footer, the ``pro`` project template comes with a more realistic customizable Navbar and Footer in your local project. In this guide, we will look at how to customize the ``pro`` Navbar and Footer.
 
 .. _navbar:
 
-Customizing the navigation
---------------------------
+Navbar and Footer Source Code
+-----------------------------
 
-The general layout of your navbar can be found in the **Settings > CRX Settings**
-section of the Wagtail Admin. We previously discussed choosing a dark or
-light navbar and adding Bootstrap classes, but you can also add/remove the
-Search bar, set it to fixed (stays at the top even when you scroll) or full-width,
-decide on which screen size it will collapse into a menu hamburger, and whether to
-center the logo at the top or keep it toward the left-hand side.
+Your project has a custom implemented navbar and footer, the associated files are:
 
-.. note::
-    It's recommended to review all of the available settings, and go ahead
-    and play around with them!
+* Wagtail snippets at bottom of ``website/models.py``
+* Starting point: ``website/templates/coderedcms/snippets/navbar.html`` and ``footer.html``. These override the built-in navbar and footer from CRX, and will therefore be present on all pages automatically.
+* A few custom blocks in: ``website/templates/website/blocks/navbar_link.html`` and ``navbar_dropdown.html``.
+
 
 Create your Navbar
 ------------------
@@ -28,52 +24,25 @@ to share. To build your Navbar, go to **Snippets > Navigation Bars**.
 There is a button in the top right corner named **Add Navigation Bar**.
 Click on this button to start! (Alternatively, you can also click on the link that says "Why not add one?")
 
-.. figure:: images/tut04/new_nav_edit.jpeg
-    :alt: The edit screen for adding a navbar.
-
-    The edit screen for adding a new navbar
-
-Giving the navbar a name is required. Also note, as you use different editing interfaces in Wagtail-CRX, required fields are marked with a red asterisk (*).
+Giving the navbar a name is required. Also note, as you use different editing interfaces in Wagtail, required fields are marked with a red asterisk (*).
 Since, this will be a site wide navigation bar we have named it Main Nav Bar.
 
-There are three types of links that you can add to your navbar. Let's briefly describe each one:
+* The **Link** blocks are the ``NavbarLinkBlock`` defined in ``website/models.py``.
+* The **Dropdown** block is defined in ``NavbarDropdown`` in ``website/models.py``.
+* You can see from looking at the ``Navbar`` snippet in ``website/models.py``, that it is defining fields with StreamBlocks of these.
 
-* **Page link with sub-links** - Add links to pages from within your website. Add sub-links for dropdown items.
+Let's add **Links** to our navigation bar.
 
-* **External link with sub-links** - Add external links from other websites to your site, as well as sub-links.
-
-* **Document link with sub-links** - Add document links with sub-links to your navbar.
-
-Let's add **Page Links** to our navigation bar.
-
-* Add **Page link with sub-links**
 * Click "choose page" and link to "Home"
-* Add another **Page link with sub-links** by selecting the "+" at the bottom of the page.
+* Add another by selecting the "+" at the bottom of the page.
 * Click "choose page" and link to "About Us"
-* Add another **Page link with sub-links** by selecting the "+" at the bottom of the page.
+* Add another by selecting the "+" at the bottom of the page.
 * Click "choose page" and link to "Our Products"
-* At the bottom of this block check "Show Child Pages"
-* Add another **Page link with sub-links** by selecting the "+" at the bottom of the page.
+* Add another by selecting the "+" at the bottom of the page.
 * Click "choose page" and link to "Contact Us"
 * **Save**
 
-.. figure:: images/tut04/nav_links_edit.jpeg
-    :alt: Adding a menu item with page link.
-
-    The edit screen with our first navbar item.
-
-Site Navbars Settings
----------------------
-
-To use the newly created navbar, go to **Settings > CRX Settings** and scroll down to **Site Navbars**. Click on the plus sign
-to select your new navbar and add it to your site. Then Save.  View your homepage and you should see it.  Also the links should be working.
-It's recommended that you test your work as you go.  If things aren't working, make sure the pages we made in part 2 are published.
-Reference the screenshots to make sure they match.
-
-.. figure:: images/tut04/home_page_navbar.jpeg
-    :alt: Preview of navbar
-
-    Navbar on the homepage
+The new navbar will now automatically be loaded into the ``website/templates/coderedcms/snippets/navbar.html`` by calling the ``get_website_navbars`` template tag defined in: ``website/templatetags/website_tags.py``.
 
 .. _footer:
 
@@ -188,17 +157,6 @@ Our Editing Page:
     Footer Editing Page
 
 Once you're happy with your Footer, hit **Save**. Let's see what it looks like!
-
-Site Footers Settings
----------------------
-
-After you create your footer, go to **Settings > CRX Settings** and scroll down to **Site Footers**. Click on the plus sign
-to select your new footer and add it to your site. Click Save. Navigate to the home page and view your work. Here's ours:
-
-.. figure:: images/tut04/footer_no_style.jpeg
-    :alt: Footer before CSS
-
-    Footer after editing and before CSS
 
 Let's change the Bootstrap default blue links by adding custom CSS to give it a nicer look.
 

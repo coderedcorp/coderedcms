@@ -2,6 +2,7 @@ Carousels
 =========
 
 A representation of a carousel, slider or similar construct.
+See :ref:`carousel-block`
 
 Usage
 -----

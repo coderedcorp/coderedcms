@@ -1,43 +1,71 @@
-Tutorial Part 10: Password-Protected Pages
-==========================================
+Tutorial Part 10: Images
+========================
 
-Finally, let's talk about how to **password-protect** pages that you only want those with proper
-permissions to be able to access when they visit the website. You may want to hide a document page
-for special bulk pricing on custom cupcake orders or an information page for customers behind a password,
-and there is an easy way to do this from within the CMS.
+The Media you add to your site in the CMS is an important part of your page design. Images catch people's eyes,
+and good images make good impressions. Let's go over some ways that you can optimize your images for
+your website.
 
-Navigate to the page that you want to add password-protection. You need to either save it as a draft or publish
-it before you can access the Password-Protect feature.
-Look up in the right-hand corner at the Privacy setting.
+Preparing your images for upload
+--------------------------------
 
-.. figure:: img/tutorial_password_protect_edit1.png
-    :alt: Draft page with Publish options in right-hand corner.
+The CMS will accept the following file types for images:
 
-    Draft page with Publish options in right-hand corner.
+* **GIF**
 
-The default setting for **Privacy** is Public, which means that the page will be available to view for anyone
-who comes to the website once it has been published. You can change this by clicking on the word "Public" and revealing the pop-up that
-has more Privacy options, shown below.
+* **JPEG/JPG**
 
-.. figure:: img/tutorial_password_protect_options.png
-    :alt: Privacy options pop-up.
+* **PNG**
 
-    The Privacy options pop-up screen.
+* **WEBP**
+
+If your image is not saved in any of these formats, you need to convert your image or save your image again
+in one of these formats.
+
+To keep your website fast, large image files should never be uploaded. If your
+image file exceeds **10.0 MB**, it will not be able to be uploaded. You will
+need to decrease the file size. This can be done using an editing program, like
+Photoshop or `GIMP (free) <https://www.gimp.org/>`_. You can also use sites like
+`BeFunky <https://www.befunky.com/>`_ to re-size your images. Make them smaller
+by changing the dimensions of the image.
 
 .. note::
-    Any privacy setting that you set on a parent or landing page is applied to all of the child or sub-pages as well.
 
-Select the level of privacy that you want.
+    Photos should ideally be no larger than around 200KB to 300KB. A file size
+    that is too large will slow down your site. Ideally, images published on a
+    website should not be more than 2,000px for the width or the height. Check
+    out this awesome tutorial on `Image Sizes from Shutterstock
+    <https://www.shutterstock.com/blog/common-aspect-ratios-photo-image-sizes>`_
+    to learn more.
 
-* **Private, accessible to logged-in users**: Only available to those who are logged into the CMS
+In some cases, you may want to crop your image so that the part that you want to
+focus on is more in the frame.
 
-* **Private, accessible with the following password**: Only available from  the frontend with a password that you set
+Ways to upload your images
+--------------------------
 
-* **Private, accessible to users in specific groups**: Only available to groups that you set in the CMS, like Moderators or Editors
+While you have already practiced uploading images from within the page editors, you can also upload images in bulk.
+Go to **Images** from the admin bar. There, you will see images you have already uploaded.  You can click on an image to see additional options for that image.
+You can also click **Add an image**, that takes you to a screen to either drag and drop your images into the upload area,
+or upload them from your computer using the upload button. Use descriptive names and/or image tags for the images so
+that you can easily search for them and use them in your pages. These tags are for admin use only --- they do not appear
+anywhere to visitors of your website.
 
-For a simple way to protect content on your site from unauthorized readers, select **Private, accessible with the following password**
-and choose a password. If the page doesn't contain any sensitive information, the password doesn't necessarily need to be
-super-complex.
+.. figure:: images/tut10/bulk_image_uploader.jpeg
+    :alt: Upload admin for Images.
 
-You can set up password-protected pages for sales presentations, for example, or to share private or specialized,
-but not sensitive, information.
+    The upload admin for Images.
+
+CMS editing tools for images
+----------------------------
+
+While the majority of your image editing should be done in an actual image editor, Wagtail does provide some tools to help you
+optimize your images for your site.
+
+.. figure:: images/tut10/image_editor.jpeg
+    :alt: CMS editor for Images.
+
+    The CMS editor for Images.
+
+The title can either be the name of the image or a custom title. You can also add tags to your images for easy searching in the CMS.
+The **Focal Point** is optional, but it defines the image's most important region. Move your cursor over the image while you see a + sign,
+then release your cursor or mouse when you have finished defining the focal point.

@@ -12,7 +12,7 @@ A long horizontal row of scrollable panels, similar to a reel of film.
 Usage
 -----
 
-You define your film strips and their panels in the **Snippets > Film Strips** section of the admin.  Once defined, any page with a body streamfield can show that film strip by selecting it with a :doc:`/features/blocks/contentblocks/filmstrip`.
+You define your film strips and their panels in the **Snippets > Film Strips** section of the admin.  Once defined, any page with a body streamfield can show that film strip by selecting it with a :doc:`/features/contentblocks/filmstrip`.
 
 Fields
 ------

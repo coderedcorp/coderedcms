@@ -43,7 +43,7 @@ Look at your folder structure for your project. By default, your project starts 
 In that directory there will be this path to base.html `templates/coderedcms/pages/base.html.`.  This file is here for your convenience,
 you can add imports (like a google font) and it will override the default ``coderedcms`` base.html template.  In the `website/templates/coderedcms` folder
 you are able override other ``coderedcms`` templates.  To do this, the file structure and name must match the default templates.
-The `source code for built-in templates can be found on GitHub <https://github.com/coderedcorp/coderedcms/blob/dev/coderedcms/templates/coderedcms/>`_.
+The `source code for built-in templates can be found on GitHub <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/>`_.
 
 Many of your custom templates will go into your ``website`` folder because they are not overriding the
 default templates in the CMS but either extending them or creating completely new ones specific to

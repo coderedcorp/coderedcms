@@ -13,9 +13,9 @@ New features
 
   * :doc:`/features/related_pages`
 
-  * :doc:`/features/blocks/contentblocks/pagepreview`
+  * :doc:`/features/contentblocks/pagepreview`
 
-  * :doc:`/features/blocks/contentblocks/latestpages`
+  * :doc:`/features/contentblocks/latestpages`
 
 
 Upgrade considerations

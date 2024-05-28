@@ -1,104 +1,154 @@
-Tutorial Part 7: Forms & Contact Pages
-======================================
+Tutorial Part 7: Create Categories with Classifiers
+===================================================
 
-Now we need a way for our customers to contact us. We could just make a simple
-web page with our address, phone number, and email, but we want to make some forms
-that specify what our customers are looking for. Good thing there is a special page type
-just for forms!
+Now we actually want to go back to our blog posts and organize them. We can do
+that by adding **Classifiers** to our pages so that we can access them via their
+category.
 
-Adding a Form page to your site
--------------------------------
+What are Classifiers?
+---------------------
 
-Just like before, we will go to the admin to make a new page under Home page. This time we are
-going to select **Form** for our page type. This is what a new Form page looks like:
+Classifiers are essentially categories that you give to an item. For our pharmaceutical company,
+classifiers that we might use could be something like:
 
-.. figure:: img/tutorial_new_form_page.png
-    :alt: A new Form page.
+* **Vaccines:** Covid-19, Chickenpox, Tetanus, Monkeypox etc.
 
-    A new Form page ready for us to build.
+* **Types of health issues:** Cancers, Autoimmune, Heart Disease, Diabetes, etc.
 
-Creating the Form page
-----------------------
+* **Types of content:** News, Press, Interviews, FAQs, etc.
 
-1. Give your form a name.
+Adding Classifiers in the CMS
+-----------------------------
 
-2. Add a cover image if you want to include one.
+You can start adding Classifiers by going to **Snippets > Classifiers**. Select that you want to add a new
+Classifier, and you would do this for each Classifier that you want to add.
 
-3. Begin adding your fields. Select the **Add Form Fields**.
+For the purposes of this tutorial, we are going to add a Content Types classifier and a Vaccines
+classifier.
 
-4. **Label** and **Field Type** are required, while the others are optional.
+.. figure:: images/tut07/new_classifiers.jpeg
+    :alt: Screen for adding a new Classifier.
 
-5. Make a field required or not. Some fields that should be required are Name, Phone, Email, and Message.
+    The admin screen for adding a new Classifier.
 
-6. The **Field Types** available include: Text, Choice, Date & Time, File Upload, and Other.
+The first Classifier we are adding will be for Vaccines. For Name, we would put Vaccines because this is the
+generalized heading for the category. Then we would click the **Add Classifier Terms** button to begin adding the
+sub-categories below that main term.
 
-7. For fields like Name, you would choose **single-line text**.
+**Save** and Add more Classifiers for type of health issues and types of content.  Here's our editor after those additions:
 
-8. For fields like Message, you would choose **multi-line text.**
+.. figure:: images/tut07/page_edit_classifiers.jpeg
+    :alt: The Classifiers that we added.
 
-9. Custom field types such as **Email** and **URL** are available.
-
-10. After you build the Form Fields, you can add more page content.
-
-11. In **Form Settings**, you can select a Thank You page (if you've made one).
-
-12. Choose the **Button Text** and **Button Style**.
-
-13. In **Form Submissions**, add the email address (or addresses) where you want the submissions to go. You can also add a prepared subject line here.
-
-14. Save and/or publish the form.
-
-.. figure:: img/tutorial__form_edit.png
-    :alt: Our form with fields.
-
-    A Form page with fields and settings.
-
-Then this is what the form looks like on the frontend:
-
-.. figure:: img/tutorial_form_published.png
-    :alt: A form that has been published.
-
-    Our published form page.
-
-For practice, make a few more forms. We probably need some Forms for General Inquiries,
-Career Interest, Special Event Requests, etc.
-
-Setting up Confirmation Emails
-------------------------------
-
-Confirmation emails would be a good way to provide great customer service. So, we have decided to also add a Confirmation
-email after someone fills out the Custom Cupcake Order form. Scroll down to the last field on the Form Page in editor
-mode for the **Confirmation Emails** section.
-
-Our From Address will be our email address that is designated for orders with a BCC to our bakery owner. We've added the
-subject line "Order Received!" and a message that says "Thank you for your order! We have received it and will contact
-you within 24 hours for more details and to arrange payment!"
-
-Confirmation Emails uses Django template language and HTML for best results. To learn more, read :ref:`confirmation-emails`.
+    The edit screen for the Classifiers that we added.
 
 .. note::
+    We realize that you could decide that you want to add Classifiers in the middle of building your pages.
+    If you have not already added Classifiers in Snippets, you can click the Classify tab in the page editor and
+    select that you want to create Classifiers. It will take you to the Snippets editor for Classifiers to do so.
 
-    By default when running locally, confirmation emails are not sent, but are
-    instead printed to the command line.
+Selecting Classifiers for your pages
+------------------------------------
 
-Creating our Contact Us page
-----------------------------
+Okay, now we have some Classifiers to work with. Let's head back to our blog posts and start categorizing them.
+In the admin screen **Pages> Home > What's New at CRX-Pharma > Any Article Page** click the pencil to go editing screen.  (alternatively, click the title and then edit).
+Next click the **Classify** tab and you'll see the classifiers we setup.
 
-You could use a single form as your Contact Us page, but we want to show you that you can add several forms
-to your Contact Us page. We are going to add three forms to our contact page.
+.. figure:: images/tut07/page_edit_classifiers.jpeg
+    :alt: The Classifiers are visible in blog pages now.
 
-First, make a Web Page under Home page that has the title of Contact Us. Add a title, cover image, and a Responsive
-Grid Row. Once we get to the content blocks, select the Text block and add the titles of your web forms, then link to
-their pages. You can continue to add content to this page as you'd like. This is what we did:
+    The edit screen for the Classifiers that we can choose from in a blog post.
 
-.. figure:: img/tutorial_contact_us_edit.png
-    :alt: Edit mode for our Contact Us page.
+You can choose as many classifiers as you like. For our blog "Oral Vaccines now available", we
+are going to choose classifiers Press Release, News, and Covid-19.  For the "Cancer Drug Breakthrough" article, we classified it as Cancer, Press Release, and News.
+Additionally, we classified the "Now partnered with a great charity" with news and FAQs.
 
-    The edit screen for our Contact Us page.
+Using Classifiers across the site
+---------------------------------
 
-Publish the page and see the result. This is how our Contact Us page looks so far:
+One of the places where you might use the Classifiers is in a **Latest Pages** content block. For practice and
+to see this in action, let's add a Latest Pages to our About Us page.  Use the side menu in the admin screen to navigate to **Pages > Home > About Us**.
 
-.. figure:: img/tutorial_contact_us_published.png
-    :alt: The published Contact Us page.
+* Choose **Edit**
+* Add a **Responsive Grid Row**
+* Choose **Latest Pages**
+* In the **Parent Page** Choose "What's New at CRX-Pharma"
+* In **Classified by** choose "Types of Content > news"
+* **Save draft** and **Preview**
 
-    The published Contact Us page. We will customize the style later on.
+.. figure:: images/tut07/latest_page_block.jpeg
+    :alt: Editing the Latest Pages content block.
+
+    Editing the Latest Pages content block.
+
+.. figure:: images/tut07/news_classifier.jpeg
+    :alt: About us page with News Classifier selected
+
+    About us page with News Classifier selected in latest page block.
+
+Let's make a few changes to see the difference. In the editing screen,
+
+* Change **classified by** to "Health Issues > Cancer"
+* Select **Show body preview**
+* **Save** and **Preview**
+
+.. figure:: images/tut07/cancer_classifier.jpeg
+    :alt:  About us page with cancer Classifier selected.
+
+    About us page with cancer Classifier selected.
+
+Notice that, only pages with the correct classifier show up.  If you were to publish a new page with the selected classifier this page will
+automatically update with the new post.  Take a look at the advanced settings for the latest pages block.
+There are different templates you can use for displaying article pages.
+
+Using Classifiers on an Article Landing Page
+--------------------------------------------
+
+You can also use Classifiers on an Article Landing Page. If we go to the "What's New at CRX-Pharma" page and look at the **Layout** tab in
+editor mode, we can see our Classifiers in the **Show Child Pages** setting. If we only wanted to show press releases for that pages we can select that option.
+For now keep it as is.
+
+.. note::
+    If you're coming from WordPress, you can think of Classifiers as equivalent to WordPress Categories
+    and Classifier Terms as equivalent to WordPress Taxonomies.
+
+For more info on classifiers, see: :doc:`/features/snippets/classifiers`.
+
+About Us Page Layout
+--------------------
+
+For the rest of this section we can just take a few minutes and build out the "About Us" page.  This gives us a chance to demonstrate how to add content blocks above
+blocks already on the page.
+
+* Find the **Responsive Grid Row** block in the editing screen.
+* Click on the "+" icon directly above it.  Now we can add a block above the Latest Pages we just setup.
+* Choose **Responsive Grid Row** , then **Column**, then 1/2 Column for **Column size**
+* Choose **Image link**
+* Use **Page link** and select the "Our Facility" page
+* Make another 1/2 column
+* Choose **Text**
+* Make an h2 heading with "Founded in 2013" and some placeholder text underneath.
+* Click the "+" directly under the text editor
+* Choose "Quote"
+* Enter this Albert Einstein quote: "The true sign of intelligence is not knowledge but imagination."
+* Directly above the **Latest Pages** block (in the same column) add a **Text** block
+* Enter "Current News:" as an H3
+* **Save** and **Publish**
+
+.. figure:: images/tut07/about_us_edit1.jpeg
+    :alt:  About Us Page edit screen 1 of 2
+
+    About Us Page edit screen 1 of 2
+
+.. figure:: images/tut07/about_us_edit2.jpeg
+    :alt:  About Us Page edit screen 2 of 2
+
+    About Us Page edit screen 2 of 2
+
+.. figure:: images/tut07/about_us_preview.jpeg
+    :alt:  About Us Page after editing
+
+    About Us Page after editing.
+
+As you can see, you have tons of options when it comes to adding new content.
+Sometimes it takes a couple tries to get it right, however with a little practice it becomes second nature.

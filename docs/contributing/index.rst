@@ -303,10 +303,10 @@ Output will be in ``docs/_build/html/`` directory.
 Updating Tutorial Documentation
 -------------------------------
 
-From time to time, the documentation for the tutorial will need to be updated. You can work directly in
-the tutorial site by loading the fixture file for its database (read more at :ref:`load-data`).
+.. From time to time, the documentation for the tutorial will need to be updated. You can work directly in
+.. the tutorial site by loading the fixture file for its database (read more at :ref:`load-data`).
 
-However, once you have worked in the tutorial site and gotten new screenshots for the **Getting Started** documentation,
+Once you have worked in the tutorial site and gotten new screenshots for the **Getting Started** documentation,
 you will also need to update the fixture file, which is located in ``tutorial > mysite > website > fixtures``.
 
 **These are the steps for updating the fixture:**
@@ -317,7 +317,7 @@ you will also need to update the fixture file, which is located in ``tutorial > 
 
 3. Move the ``database.json`` file into the ``fixtures`` folder.
 
-4. For testing ``loaddata``, please review the steps at  :ref:`load-data`.
+.. 4. For testing ``loaddata``, please review the steps at  :ref:`load-data`.
 
 
 Publishing a New Release

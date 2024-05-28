@@ -33,8 +33,6 @@ Menu / navigation bars
 Navbars are top navigation elements that create a "main menu" experience. Navbars are managed
 as snippets. They render from top down based on the order they were created in.
 
-:ref:`navbar-global`
-
 :ref:`navbar`
 
 Footers
@@ -47,10 +45,8 @@ the order they were created in.
 
 Custom CSS
 ----------
-
-A Django app called ``website`` has been created to hold your custom changes. In website/static/
-there are custom.css and custom.js files that get loaded on every page by default. Adding
-anything to these files will automatically populate on the site and override any default styles.
+Each installation type (basic or sass) has it's own way of adding CSS.
+Check out :ref:`adding_custom_css` for instructions.
 By default, Bootstrap 5 is already included on the site.
 
 .. note::

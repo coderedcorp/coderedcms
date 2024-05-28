@@ -4,7 +4,8 @@ Features
 .. toctree::
     :maxdepth: 2
 
-    blocks/index
+    contentblocks/index
+    layoutblocks/index
     import_export
     mailchimp
     page_types/index

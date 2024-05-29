@@ -1,0 +1,99 @@
+v4.0.0 release notes
+====================
+
+
+New features
+------------
+
+* Support Wagtail 6.0 and 6.1.
+
+* Support Python 3.8 to 3.12.
+
+* Update Bootstrap to 5.3.3
+
+* New: Ability to disable built-in Navbar, Footer, Analytics Settings, and CRX Settings. See :doc:`/reference/django_settings`.
+
+* New: enhancements to ``pro`` project template:
+
+  * Includes new custom Navbar and Footer snippets. Built-in CRX Navbar and Footer are disabled. This is the recommended approach as it will be much more customizable for professional website builds.
+
+  * Fix missing Filmstrip sass module.
+
+* Improvements to rich text rendering:
+
+  * Left and right image positions now have a max-width of 40%. This makes the images look more natural when laid out on the page.
+
+  * Full-width images will use the full size of the image, centered, rather than forcing the image to 100% width. This looks much more natural for small images or icons.
+
+  * Headings will now break to a new line below a left or right aligned image. This is a more expected behavior.
+
+  * These are all CSS-only changes, and therefore can be easily overridden as needed.
+
+* Improve rendering of search form. Removed the green check icon, which is unexpected on a single-field form.
+
+
+Bug fixes
+---------
+
+* Fix template error (Server 500 error) when a page is deleted which is referenced in a Page Preview block.
+
+
+Upgrade considerations
+----------------------
+
+After upgrading, be sure to generate and apply new migrations as so:
+
+.. code-block::
+
+   python manage.py makemigrations
+   python manage.py migrate
+
+Be sure to also review the API changes below, and the `Wagtail 6 upgrade considerations <https://docs.wagtail.org/en/stable/releases/6.0.html#upgrade-considerations-removal-of-deprecated-features-from-wagtail-4-2-5-1>`_.
+
+Theme dropdown removed
+~~~~~~~~~~~~~~~~~~~~~~
+
+**Theme** dropdown has been removed from **Settings > CRX Settings**. If you were using it, you can manually add a Bootswatch theme by adding/editing the following to: ``website/templates/coderedcms/pages/base.html``:
+
+.. code-block:: django
+
+   {% block frontend_assets %}
+   <link rel="stylesheet" href="your bootswatch theme here">
+   {% endblock %}
+
+The appropriate href for the ``<link>`` tag can be found here: https://cdnjs.com/libraries/bootswatch
+
+Template tag changes
+~~~~~~~~~~~~~~~~~~~~
+
+``crx_settings`` and ``django_settings`` filters have been removed (these were identical functions). They have been replaced with a more useful template tag ``django_setting``. Find and replace them in your templates.
+
+Before (with the example ``TIME_ZONE`` setting):
+
+.. code-block:: django
+
+   <span>{{ "TIME_ZONE"|crx_settings }}</span>
+   <span>{{ "TIME_ZONE"|django_settings }}</span>
+
+After:
+
+.. code-block:: django
+
+   {% django_setting "TIME_ZONE" as time_zone %}
+   <span>{{ time_zone }}</span>
+
+
+Block changes
+~~~~~~~~~~~~~
+
+* ``button_title`` has been moved from ``ButtonMixin`` to ``BaseLinkBlock``. In practice, these two are used together and this change has no effect.
+
+* ``get_title`` utility function added to ``LinkStructValue``. This will generate a title based on ``button_title``, page title, or document title.
+
+These two changes provide great utility to the new custom Navbar in the ``pro`` template.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `4.0.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/54?closed=1>`_.

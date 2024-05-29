@@ -2,6 +2,7 @@ import os
 import shutil
 import sys
 import unittest
+
 from coderedcms.bin.coderedcms import main as coderedcms_main
 
 

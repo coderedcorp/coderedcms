@@ -1,23 +1,21 @@
-import pytest
 import unittest
-
 from ast import literal_eval
 from datetime import timedelta
 
-from django.urls import reverse
+import pytest
 from django.test import Client
 from django.test.utils import override_settings
+from django.urls import reverse
 from django.utils import timezone
-
-from wagtail.models import Site, Page
-from wagtail.images.tests.utils import Image, get_test_image_file
+from wagtail.images.tests.utils import Image
+from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Page
+from wagtail.models import Site
 
 from coderedcms.models import LayoutSettings
-from coderedcms.tests.testapp.models import (
-    EventPage,
-    EventIndexPage,
-    EventOccurrence,
-)
+from coderedcms.tests.testapp.models import EventIndexPage
+from coderedcms.tests.testapp.models import EventOccurrence
+from coderedcms.tests.testapp.models import EventPage
 
 
 @pytest.mark.django_db

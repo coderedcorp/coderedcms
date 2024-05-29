@@ -1,6 +1,5 @@
 [tool.black]
 line-length = 80
-target-version = ['py37', 'py38', 'py39', 'py310']
 exclude = '''
 (
   /(
@@ -21,3 +20,40 @@ exclude = '''
   )/
 )
 '''
+
+[tool.codespell]
+skip = 'migrations,vendor,_build,*.css.map,*.jpg,*.png,*.pyc'
+ignore-words-list = 'assertIn'
+
+[tool.django-stubs]
+django_settings_module = "coderedcms.tests.settings"
+
+[tool.mypy]
+ignore_missing_imports = true
+plugins = ["mypy_django_plugin.main"]
+exclude = [
+    '^\..*',
+    'migrations',
+    'node_modules',
+    'venv',
+    'testproject',
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "coderedcms.tests.settings"
+addopts = "--cov --cov-report html --cov-report xml --junitxml junit/test-results.xml"
+python_files = "tests.py test_*.py"
+junit_family = "xunit2"
+junit_suite_name = "coderedcms"
+
+[tool.ruff]
+extend-exclude = ["migrations", "testproject"]
+line-length = 80
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+case-sensitive = false
+force-single-line = true
+lines-after-imports = 2

@@ -1,19 +1,18 @@
-from coderedcms.models.page_models import CoderedPage
 from modelcluster.fields import ParentalKey
+
 from coderedcms.forms import CoderedFormField
-from coderedcms.models import (
-    CoderedArticlePage,
-    CoderedArticleIndexPage,
-    CoderedEventIndexPage,
-    CoderedEventPage,
-    CoderedEventOccurrence,
-    CoderedEmail,
-    CoderedFormPage,
-    CoderedLocationIndexPage,
-    CoderedLocationPage,
-    CoderedStreamFormPage,
-    CoderedWebPage,
-)
+from coderedcms.models import CoderedArticleIndexPage
+from coderedcms.models import CoderedArticlePage
+from coderedcms.models import CoderedEmail
+from coderedcms.models import CoderedEventIndexPage
+from coderedcms.models import CoderedEventOccurrence
+from coderedcms.models import CoderedEventPage
+from coderedcms.models import CoderedFormPage
+from coderedcms.models import CoderedLocationIndexPage
+from coderedcms.models import CoderedLocationPage
+from coderedcms.models import CoderedStreamFormPage
+from coderedcms.models import CoderedWebPage
+from coderedcms.models.page_models import CoderedPage
 
 
 class ArticlePage(CoderedArticlePage):

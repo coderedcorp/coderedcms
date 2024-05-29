@@ -1,13 +1,13 @@
 import mimetypes
 
 from django.contrib.contenttypes.models import ContentType
-from django.templatetags.static import static
 from django.http.response import HttpResponse
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.menu import MenuItem
 from wagtail import hooks
+from wagtail.admin.menu import MenuItem
 from wagtail.models import get_page_models
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtailcache.cache import clear_cache
@@ -87,8 +87,9 @@ def crx_forms(user, editable_forms):
     of its existence. Essentially this is a fork of wagtail.contrib.forms.get_forms_for_user()
     and wagtail.contrib.forms.get_form_types()
     """
-    from coderedcms.models import CoderedFormMixin
     from wagtail.contrib.forms.models import FormMixin
+
+    from coderedcms.models import CoderedFormMixin
 
     form_models = [
         model

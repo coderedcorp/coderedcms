@@ -9,7 +9,8 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from coderedcms.settings import crx_settings
 
-from .base_blocks import BaseLayoutBlock, CoderedAdvColumnSettings
+from .base_blocks import BaseLayoutBlock
+from .base_blocks import CoderedAdvColumnSettings
 
 
 # Level 1 layout blocks

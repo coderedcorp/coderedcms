@@ -38,6 +38,12 @@ Bug fixes
 * Fix template error (Server 500 error) when a page is deleted which is referenced in a Page Preview block.
 
 
+Maintenance
+-----------
+
+* Ruff is now used for formatting and linting in place of black and flake8.
+
+
 Upgrade considerations
 ----------------------
 

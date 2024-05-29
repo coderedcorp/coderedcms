@@ -6,94 +6,102 @@ import json
 import logging
 import os
 import warnings
-from datetime import date, datetime
-from typing import Dict, List, Optional, TYPE_CHECKING, Union, Tuple
+from datetime import date
+from datetime import datetime
+from pathlib import Path
+from typing import TYPE_CHECKING
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Tuple
+from typing import Union
+
+import geocoder
 
 # This is a requirement for icalendar, even if django doesn't require it
 import pytz
-
-import geocoder
 from django import forms
 from django.conf import settings
 from django.contrib import messages
-from django.core.files.uploadedfile import (
-    InMemoryUploadedFile,
-    TemporaryUploadedFile,
-)
 from django.core.files.storage import FileSystemStorage
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.core.mail import EmailMessage
-from django.core.paginator import (
-    Paginator,
-    InvalidPage,
-    EmptyPage,
-    PageNotAnInteger,
-)
+from django.core.paginator import EmptyPage
+from django.core.paginator import InvalidPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models.signals import post_delete, post_save
+from django.db.models.signals import post_delete
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.template import Context, Template
+from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.template import Context
+from django.template import Template
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from eventtools.models import BaseEvent, BaseOccurrence
+from eventtools.models import BaseEvent
+from eventtools.models import BaseOccurrence
 from icalendar import Alarm
 from icalendar import Event as ICalEvent
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from pathlib import Path
+from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalManyToManyField
 from taggit.models import TaggedItemBase
-from wagtail.admin.panels import (
-    FieldPanel,
-    FieldRowPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    ObjectList,
-    TabbedInterface,
-)
 from wagtail import hooks
-from wagtail.fields import StreamField
-from wagtail.models import Orderable, PageBase, Page, Site
-from wagtail.coreutils import resolve_model_string
-from wagtail.contrib.forms.panels import FormSubmissionsPanel
+from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldRowPanel
+from wagtail.admin.panels import InlinePanel
+from wagtail.admin.panels import MultiFieldPanel
+from wagtail.admin.panels import ObjectList
+from wagtail.admin.panels import TabbedInterface
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
-from wagtail.images import get_image_model_string
 from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
+from wagtail.coreutils import resolve_model_string
+from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
+from wagtail.models import Orderable
+from wagtail.models import Page
+from wagtail.models import PageBase
+from wagtail.models import Site
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
-from wagtailseo.models import SeoMixin, TwitterCard
-from wagtailseo.utils import get_struct_data_images, StructDataEncoder
+from wagtailseo.models import SeoMixin
+from wagtailseo.models import TwitterCard
+from wagtailseo.utils import StructDataEncoder
+from wagtailseo.utils import get_struct_data_images
 
 from coderedcms import utils
-from coderedcms.blocks import (
-    CONTENT_STREAMBLOCKS,
-    LAYOUT_STREAMBLOCKS,
-    STREAMFORM_BLOCKS,
-    ContentWallBlock,
-)
-from coderedcms.fields import CoderedStreamField, ColorField
-from coderedcms.forms import CoderedFormBuilder, CoderedSubmissionsListView
+from coderedcms.blocks import CONTENT_STREAMBLOCKS
+from coderedcms.blocks import LAYOUT_STREAMBLOCKS
+from coderedcms.blocks import STREAMFORM_BLOCKS
+from coderedcms.blocks import ContentWallBlock
+from coderedcms.fields import CoderedStreamField
+from coderedcms.fields import ColorField
+from coderedcms.forms import CoderedFormBuilder
+from coderedcms.forms import CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import LayoutSettings
-from coderedcms.wagtail_flexible_forms.blocks import (
-    FormFieldBlock,
-    FormStepBlock,
-)
-from coderedcms.wagtail_flexible_forms.models import (
-    Step,
-    Steps,
-    StreamFormMixin,
-    StreamFormJSONEncoder,
-    SessionFormSubmission,
-    SubmissionRevision,
-)
 from coderedcms.settings import crx_settings
+from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock
+from coderedcms.wagtail_flexible_forms.blocks import FormStepBlock
+from coderedcms.wagtail_flexible_forms.models import SessionFormSubmission
+from coderedcms.wagtail_flexible_forms.models import Step
+from coderedcms.wagtail_flexible_forms.models import Steps
+from coderedcms.wagtail_flexible_forms.models import StreamFormJSONEncoder
+from coderedcms.wagtail_flexible_forms.models import StreamFormMixin
+from coderedcms.wagtail_flexible_forms.models import SubmissionRevision
 from coderedcms.widgets import ClassifierSelectWidget
 
 
@@ -381,9 +389,9 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
             "*", []
         ) + crx_settings.CRX_FRONTEND_TEMPLATES_PAGES.get(klassname, [])
 
-        self._meta.get_field("index_order_by").choices = (
-            self.index_order_by_choices
-        )
+        self._meta.get_field(
+            "index_order_by"
+        ).choices = self.index_order_by_choices
         self._meta.get_field("custom_template").choices = template_choices
         if not self.id:
             self.index_order_by = self.index_order_by_default

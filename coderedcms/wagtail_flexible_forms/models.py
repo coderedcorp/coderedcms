@@ -1,12 +1,11 @@
+import datetime
+import json
+import os
 from collections import OrderedDict
 from importlib import import_module
 from itertools import zip_longest
-import json
-import os
 from pathlib import Path
 
-from PIL import Image
-import datetime
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
@@ -14,32 +13,35 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.storage import default_storage
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import (
-    CharField,
-    TextField,
-    DateTimeField,
-    Model,
-    ForeignKey,
-    PROTECT,
-    CASCADE,
-    QuerySet,
-)
+from django.db.models import CASCADE
+from django.db.models import PROTECT
+from django.db.models import CharField
+from django.db.models import DateTimeField
+from django.db.models import ForeignKey
+from django.db.models import Model
+from django.db.models import QuerySet
+from django.db.models import TextField
 from django.db.models.fields.files import FieldFile
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-from django.forms import Form, ImageField, FileField, URLField, EmailField
+from django.forms import EmailField
+from django.forms import FileField
+from django.forms import Form
+from django.forms import ImageField
+from django.forms import URLField
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
-from django.utils.safestring import SafeData, mark_safe
+from django.utils.safestring import SafeData
+from django.utils.safestring import mark_safe
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from wagtail.contrib.forms.models import (
-    AbstractForm,
-    AbstractEmailForm,
-    AbstractFormSubmission,
-)
+from PIL import Image
+from wagtail.contrib.forms.models import AbstractEmailForm
+from wagtail.contrib.forms.models import AbstractForm
+from wagtail.contrib.forms.models import AbstractFormSubmission
 
-from .blocks import FormStepBlock, FormFieldBlock
+from .blocks import FormFieldBlock
+from .blocks import FormStepBlock
 
 
 class Step:
@@ -513,10 +515,13 @@ class SessionFormSubmission(AbstractFormSubmission):
             self.form_page.get_data_fields(by_step=True),
             self.get_steps_data(raw=raw),
         ):
-            yield step, [
-                (field_name, field_label, step_data[field_name])
-                for field_name, field_label in step_data_fields
-            ]
+            yield (
+                step,
+                [
+                    (field_name, field_label, step_data[field_name])
+                    for field_name, field_label in step_data_fields
+                ],
+            )
 
 
 @receiver(post_delete, sender=SessionFormSubmission)

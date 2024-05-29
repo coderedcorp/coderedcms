@@ -1,4 +1,3 @@
-# Python Django
 # Test a Django project on multiple versions of Python.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
@@ -13,12 +12,9 @@
 #
 # Use PowerShell Core for any utility scripts so they are re-usable across
 # Windows, macOS, and Linux.
-#
-
 
 trigger:
   - main
-
 
 stages:
 - stage: Unit_Tests
@@ -71,7 +67,6 @@ stages:
 
     - script: |
         cd testproject/
-        touch requirements-dev.txt
         python -m pip install -r requirements-dev.txt
         python manage.py makemigrations --check
       displayName: 'CR-QC: Check migrations'
@@ -117,11 +112,11 @@ stages:
     - pwsh: ./ci/spellcheck.ps1
       displayName: 'CR-QC: Spelling'
 
-    - script: black --check .
-      displayName: 'CR-QC: Black'
+    - script: ruff format --check .
+      displayName: 'CR-QC: Ruff Format'
 
-    - script: flake8 .
-      displayName: 'CR-QC: Flake8'
+    - script: ruff check .
+      displayName: 'CR-QC: Ruff Check'
 
   - job: codecov
     displayName: Code Coverage

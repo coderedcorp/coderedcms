@@ -7,19 +7,16 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-)
+from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import InlinePanel
+from wagtail.admin.panels import MultiFieldPanel
+from wagtail.images import get_image_model_string
 from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
-from wagtail.images import get_image_model_string
-from coderedcms.blocks import (
-    HTML_STREAMBLOCKS,
-    LAYOUT_STREAMBLOCKS,
-    NAVIGATION_STREAMBLOCKS,
-)
+
+from coderedcms.blocks import HTML_STREAMBLOCKS
+from coderedcms.blocks import LAYOUT_STREAMBLOCKS
+from coderedcms.blocks import NAVIGATION_STREAMBLOCKS
 from coderedcms.fields import CoderedStreamField
 from coderedcms.settings import crx_settings
 

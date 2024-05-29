@@ -1,16 +1,17 @@
-from django.urls import include, path, re_path
-from wagtail.contrib.sitemaps.views import sitemap
+from django.urls import include
+from django.urls import path
+from django.urls import re_path
 from wagtail import urls as wagtailcore_urls
+from wagtail.contrib.sitemaps.views import sitemap
+
 from coderedcms.settings import crx_settings
-from coderedcms.views import (
-    event_generate_ical_for_calendar,
-    event_generate_recurring_ical_for_event,
-    event_generate_single_ical_for_event,
-    event_get_calendar_events,
-    favicon,
-    robots,
-    serve_protected_file,
-)
+from coderedcms.views import event_generate_ical_for_calendar
+from coderedcms.views import event_generate_recurring_ical_for_event
+from coderedcms.views import event_generate_single_ical_for_event
+from coderedcms.views import event_get_calendar_events
+from coderedcms.views import favicon
+from coderedcms.views import robots
+from coderedcms.views import serve_protected_file
 
 
 urlpatterns = [

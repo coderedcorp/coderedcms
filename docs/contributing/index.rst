@@ -206,18 +206,17 @@ For example, here is how you would add tests for a new abstract page type,
 Static Analysis
 ---------------
 
-All code should be formatted with ``black`` before committing:
+All code should be formatted with ``ruff`` before committing:
 
 .. code-block:: console
 
-    $ black .
+    $ ruff format .
 
-Flake8 is used to check for syntax and style errors. To analyze the entire
-codebase, run:
+Ruff is also used to check for syntax and style errors. To analyze the entire codebase, run:
 
 .. code-block:: console
 
-    $ flake8 .
+    $ ruff check --fix .
 
 
 Contributor Guidelines

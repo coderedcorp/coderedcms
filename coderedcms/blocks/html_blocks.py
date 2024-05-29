@@ -8,21 +8,20 @@ creating recursion.
 """
 
 import logging
+
 from django.utils.translation import gettext_lazy as _
-from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail import blocks
+from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from .base_blocks import (
-    BaseBlock,
-    BaseLinkBlock,
-    ButtonMixin,
-    ClassifierTermChooserBlock,
-    CoderedAdvTrackingSettings,
-    LinkStructValue,
-)
+from .base_blocks import BaseBlock
+from .base_blocks import BaseLinkBlock
+from .base_blocks import ButtonMixin
+from .base_blocks import ClassifierTermChooserBlock
+from .base_blocks import CoderedAdvTrackingSettings
+from .base_blocks import LinkStructValue
 
 
 logger = logging.getLogger("coderedcms")

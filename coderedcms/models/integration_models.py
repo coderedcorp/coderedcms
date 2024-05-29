@@ -1,15 +1,15 @@
+import json
+
 from django.db import models
 from django.forms.widgets import Input
-from django.template import Context, Template
+from django.template import Context
+from django.template import Template
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
-
-from wagtail.admin.panels import FieldPanel
 from wagtail import hooks
+from wagtail.admin.panels import FieldPanel
 
 from coderedcms.api.mailchimp import MailchimpApi
-
-import json
 
 
 class MailchimpSubscriberIntegrationWidget(Input):
@@ -95,14 +95,14 @@ class MailchimpSubscriberIntegrationWidget(Input):
                 }
 
                 list_library[mlist["id"]]["merge_fields"] = (
-                    mailchimp.get_merge_fields_for_list(mlist["id"])[
-                        "merge_fields"
-                    ]
+                    mailchimp.get_merge_fields_for_list(
+                        mlist["id"]
+                    )["merge_fields"]
                 )
                 list_library[mlist["id"]]["interest_categories"] = (
-                    mailchimp.get_interest_categories_for_list(mlist["id"])[
-                        "categories"
-                    ]
+                    mailchimp.get_interest_categories_for_list(
+                        mlist["id"]
+                    )["categories"]
                 )
 
                 for category in list_library[mlist["id"]][

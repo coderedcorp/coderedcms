@@ -314,16 +314,29 @@ License: https://github.com/coderedcorp/coderedcms/blob/main/LICENSE
 .richtext-image.left {
   float: left;
   margin: 0 1em 1em 0;
+  max-width: 40%;
+  width: auto;
+  height: auto;
 }
 
 .richtext-image.right {
   float: right;
   margin: 0 0 1em 1em;
+  max-width: 40%;
+  width: auto;
+  height: auto;
 }
 
 .richtext-image.full-width {
-  width: 100%;
+  max-width: 100%;
+  width: auto;
   height: auto;
+  display: block;
+  margin: 1em auto;
+}
+
+h2[data-block-key], h3[data-block-key], h4[data-block-key], h5[data-block-key], h6[data-block-key] {
+  clear: both;
 }
 
 /*# sourceMappingURL=crx-front.css.map */

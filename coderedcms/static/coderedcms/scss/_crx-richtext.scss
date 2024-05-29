@@ -4,15 +4,31 @@
   &.left {
     float: left;
     margin: 0 1em 1em 0;
+    max-width: 40%;
+    width: auto;
+    height: auto;
   }
 
   &.right {
     float: right;
     margin: 0 0 1em 1em;
+    max-width: 40%;
+    width: auto;
+    height: auto;
   }
 
   &.full-width {
-    width: 100%;
+    max-width: 100%;
+    width: auto;
     height: auto;
+    display: block;
+    margin: 1em auto;
+  }
+}
+
+// Headings after a floating image should break onto a new line.
+h2, h3, h4, h5, h6 {
+  &[data-block-key] {
+    clear: both;
   }
 }

@@ -24,10 +24,12 @@
   <form class="mt-5" action="{% url 'crx_search' %}" method="GET">
     <div class="row">
       <div class="col-8 col-sm-9">
-        {% bootstrap_form form size="lg" layout="inline" server_side_validation=False %}
+        {% for field in form %}
+        {% bootstrap_field field size="lg" show_label=False wrapper_class=None success_css_class=None server_side_validation=False %}
+        {% endfor %}
       </div>
       <div class="col-4 col-sm-3">
-        <button class="btn btn-lg w-100 btn-outline-primary" type="submit">{% trans "Search" %}</button>
+        <button class="btn btn-lg w-100 btn-primary" type="submit">{% trans "Search" %}</button>
       </div>
     </div>
   </form>

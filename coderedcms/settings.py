@@ -112,36 +112,6 @@ class _DefaultSettings:
         ),
     ]
 
-    CRX_FRONTEND_THEME_DEFAULT = ""
-    CRX_FRONTEND_THEME_CHOICES = [
-        ("", "Default - Classic Bootstrap"),
-        ("cerulean", "Cerulean - A calm blue sky"),
-        ("cosmo", "Cosmo - An ode to Metro"),
-        ("cyborg", "Cyborg - Jet black and electric blue"),
-        ("darkly", "Darkly - Flatly in night mode"),
-        ("flatly", "Flatly - Flat and modern"),
-        ("journal", "Journal - Crisp like a new sheet of paper"),
-        ("litera", "Litera - The medium is the message"),
-        ("lumen", "Lumen - Light and shadow"),
-        ("lux", "Lux - A touch of class"),
-        ("materia", "Materia - Material is the metaphor"),
-        ("minty", "Minty - A fresh feel"),
-        ("morph", "Morph - A neumorphic layer"),
-        ("pulse", "Pulse - A trace of purple"),
-        ("quartz", "Quartz - A glassmorphic layer"),
-        ("sandstone", "Sandstone - A touch of warmth"),
-        ("simplex", "Simplex - Mini and minimalist"),
-        ("sketchy", "Sketchy - A hand-drawn look for mockups and mirth"),
-        ("slate", "Slate - Shades of gunmetal gray"),
-        ("solar", "Solar - A dark spin on Solarized"),
-        ("spacelab", "Spacelab - Silvery and sleek"),
-        ("superhero", "Superhero - The brave and the blue"),
-        ("united", "United - Ubuntu orange and unique font"),
-        ("vapor", "Vapor - A cyberpunk aesthetic"),
-        ("yeti", "Yeti - A friendly foundation"),
-        ("zephyr", "Zephyr - Breezy and beautiful"),
-    ]
-
     CRX_FRONTEND_TEMPLATES_BLOCKS = {
         "cardblock": [
             (

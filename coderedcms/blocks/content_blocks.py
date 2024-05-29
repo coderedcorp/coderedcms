@@ -9,12 +9,10 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from .base_blocks import (
-    BaseBlock,
-    BaseLayoutBlock,
-    ButtonMixin,
-    CollectionChooserBlock,
-)
+from .base_blocks import BaseBlock
+from .base_blocks import BaseLayoutBlock
+from .base_blocks import ButtonMixin
+from .base_blocks import CollectionChooserBlock
 from .html_blocks import ButtonBlock
 
 

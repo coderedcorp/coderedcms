@@ -1,6 +1,9 @@
-from django.urls import include, path
+from django.urls import include
+from django.urls import path
 from wagtail.admin import urls as wagtailadmin_urls
-from coderedcms.views import import_index, import_pages_from_csv_file
+
+from coderedcms.views import import_index
+from coderedcms.views import import_pages_from_csv_file
 
 
 urlpatterns = [

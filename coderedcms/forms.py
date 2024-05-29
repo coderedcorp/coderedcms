@@ -4,20 +4,22 @@ Enhancements to wagtail.contrib.forms.
 
 import csv
 import os
+
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
+from wagtail.contrib.forms.forms import FormBuilder
+from wagtail.contrib.forms.models import AbstractFormField
 from wagtail.contrib.forms.views import (
     SubmissionsListView as WagtailSubmissionsListView,
 )
-from wagtail.contrib.forms.forms import FormBuilder
-from wagtail.contrib.forms.models import AbstractFormField
 
 from coderedcms.settings import crx_settings
 from coderedcms.utils import attempt_protected_media_value_conversion
+
 
 FORM_FIELD_CHOICES = (
     (

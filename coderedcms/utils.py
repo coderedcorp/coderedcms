@@ -1,5 +1,5 @@
-from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 from django.utils.html import mark_safe
 
 from coderedcms.settings import crx_settings

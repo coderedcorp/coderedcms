@@ -1,14 +1,13 @@
 from django.test import Client
-from wagtail.test.utils import WagtailPageTests
 from wagtail.models import Site
+from wagtail.test.utils import WagtailPageTests
 
+from coderedcms.models.snippet_models import Footer
+from coderedcms.models.snippet_models import Navbar
+from coderedcms.models.wagtailsettings_models import FooterOrderable
+from coderedcms.models.wagtailsettings_models import LayoutSettings
+from coderedcms.models.wagtailsettings_models import NavbarOrderable
 from coderedcms.tests.testapp.models import WebPage
-from coderedcms.models.snippet_models import Footer, Navbar
-from coderedcms.models.wagtailsettings_models import (
-    LayoutSettings,
-    NavbarOrderable,
-    FooterOrderable,
-)
 
 
 class NavbarFooterTestCase(WagtailPageTests):

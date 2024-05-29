@@ -8,18 +8,19 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    HelpPanel,
-    MultiFieldPanel,
-)
-from wagtail.models import Orderable
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import HelpPanel
+from wagtail.admin.panels import InlinePanel
+from wagtail.admin.panels import MultiFieldPanel
+from wagtail.contrib.settings.models import BaseSiteSetting
+from wagtail.contrib.settings.models import register_setting
 from wagtail.images import get_image_model_string
+from wagtail.models import Orderable
+
 from coderedcms.fields import MonospaceField
+from coderedcms.models.snippet_models import Footer
+from coderedcms.models.snippet_models import Navbar
 from coderedcms.settings import crx_settings
-from coderedcms.models.snippet_models import Navbar, Footer
 
 
 def maybe_register_setting(disable: bool, **kwargs):
@@ -208,15 +209,15 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         """
         super().__init__(*args, **kwargs)
         # Set choices dynamically.
-        self._meta.get_field("navbar_collapse_mode").choices = (
-            crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES
-        )
-        self._meta.get_field("navbar_color_scheme").choices = (
-            crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES
-        )
-        self._meta.get_field("navbar_format").choices = (
-            crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_CHOICES
-        )
+        self._meta.get_field(
+            "navbar_collapse_mode"
+        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES
+        self._meta.get_field(
+            "navbar_color_scheme"
+        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES
+        self._meta.get_field(
+            "navbar_format"
+        ).choices = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_CHOICES
         # Set default dynamically.
         if not self.id:
             self.navbar_class = crx_settings.CRX_FRONTEND_NAVBAR_CLASS_DEFAULT

@@ -46,8 +46,9 @@ class CreateProject(TemplateCommand):
         options["secret_key"] = get_random_secret_key()
 
         # Handle custom template logic
-        import coderedcms
         import wagtail
+
+        import coderedcms
 
         crx_path = os.path.dirname(coderedcms.__file__)
         if not options["template"]:

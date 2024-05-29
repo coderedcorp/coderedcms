@@ -2,10 +2,10 @@
 -e .
 
 # Requirements, in addition to coderedcms, needed for CI runner.
-black==24.2.0
 codespell
-flake8
+pytest
 pytest-cov
 pytest-django
+ruff
 sphinx
 sphinx-wagtail-theme

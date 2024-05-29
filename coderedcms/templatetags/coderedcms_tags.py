@@ -1,21 +1,24 @@
-import string
 import random
+import string
 
 from bs4 import BeautifulSoup
 from django import template
 from django.db.models.query import QuerySet
 from django.forms import ClearableFileInput
 from django.utils.html import mark_safe
-from wagtail.models import Collection
 from wagtail.images import get_image_model
+from wagtail.models import Collection
 
-from coderedcms import utils, __version__
+from coderedcms import __version__
+from coderedcms import utils
 from coderedcms.blocks import CoderedAdvSettings
 from coderedcms.forms import SearchForm
-from coderedcms.models.snippet_models import Navbar, Footer
+from coderedcms.models.snippet_models import Footer
+from coderedcms.models.snippet_models import Navbar
+from coderedcms.models.wagtailsettings_models import LayoutSettings
 from coderedcms.settings import crx_settings as crx_settings_obj
 from coderedcms.settings import get_bootstrap_setting
-from coderedcms.models.wagtailsettings_models import LayoutSettings
+
 
 register = template.Library()
 

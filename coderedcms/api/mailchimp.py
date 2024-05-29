@@ -1,7 +1,7 @@
-from wagtail.models import Site
-from coderedcms.models.wagtailsettings_models import LayoutSettings
-
 import requests
+from wagtail.models import Site
+
+from coderedcms.models.wagtailsettings_models import LayoutSettings
 
 
 class MailchimpApi:

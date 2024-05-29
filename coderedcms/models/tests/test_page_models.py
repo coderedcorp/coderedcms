@@ -1,35 +1,33 @@
 from datetime import timedelta
+
 from django.test import Client
 from django.utils import timezone
 from wagtail.test.utils import WagtailPageTests
 
-from coderedcms.models.page_models import (
-    CoderedArticleIndexPage,
-    CoderedArticlePage,
-    CoderedEventIndexPage,
-    CoderedEventPage,
-    CoderedFormPage,
-    CoderedLocationIndexPage,
-    CoderedLocationPage,
-    CoderedPage,
-    CoderedStreamFormPage,
-    CoderedWebPage,
-    get_page_models,
-)
-from coderedcms.models.snippet_models import Classifier, ClassifierTerm
-from coderedcms.tests.testapp.models import (
-    ArticleIndexPage,
-    ArticlePage,
-    EventIndexPage,
-    EventPage,
-    EventOccurrence,
-    FormPage,
-    IndexTestPage,
-    LocationIndexPage,
-    LocationPage,
-    StreamFormPage,
-    WebPage,
-)
+from coderedcms.models.page_models import CoderedArticleIndexPage
+from coderedcms.models.page_models import CoderedArticlePage
+from coderedcms.models.page_models import CoderedEventIndexPage
+from coderedcms.models.page_models import CoderedEventPage
+from coderedcms.models.page_models import CoderedFormPage
+from coderedcms.models.page_models import CoderedLocationIndexPage
+from coderedcms.models.page_models import CoderedLocationPage
+from coderedcms.models.page_models import CoderedPage
+from coderedcms.models.page_models import CoderedStreamFormPage
+from coderedcms.models.page_models import CoderedWebPage
+from coderedcms.models.page_models import get_page_models
+from coderedcms.models.snippet_models import Classifier
+from coderedcms.models.snippet_models import ClassifierTerm
+from coderedcms.tests.testapp.models import ArticleIndexPage
+from coderedcms.tests.testapp.models import ArticlePage
+from coderedcms.tests.testapp.models import EventIndexPage
+from coderedcms.tests.testapp.models import EventOccurrence
+from coderedcms.tests.testapp.models import EventPage
+from coderedcms.tests.testapp.models import FormPage
+from coderedcms.tests.testapp.models import IndexTestPage
+from coderedcms.tests.testapp.models import LocationIndexPage
+from coderedcms.tests.testapp.models import LocationPage
+from coderedcms.tests.testapp.models import StreamFormPage
+from coderedcms.tests.testapp.models import WebPage
 
 
 class BasicPageTestCase:

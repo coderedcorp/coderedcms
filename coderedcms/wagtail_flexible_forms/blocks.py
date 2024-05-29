@@ -1,22 +1,20 @@
+from anyascii import anyascii
 from django import forms
 from django.db.models import BLANK_CHOICE_DASH
 from django.utils.dateparse import parse_datetime
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from anyascii import anyascii
-from wagtail.blocks import (
-    StructBlock,
-    TextBlock,
-    CharBlock,
-    BooleanBlock,
-    ListBlock,
-    StreamBlock,
-    DateBlock,
-    TimeBlock,
-    DateTimeBlock,
-    ChoiceBlock,
-    RichTextBlock,
-)
+from wagtail.blocks import BooleanBlock
+from wagtail.blocks import CharBlock
+from wagtail.blocks import ChoiceBlock
+from wagtail.blocks import DateBlock
+from wagtail.blocks import DateTimeBlock
+from wagtail.blocks import ListBlock
+from wagtail.blocks import RichTextBlock
+from wagtail.blocks import StreamBlock
+from wagtail.blocks import StructBlock
+from wagtail.blocks import TextBlock
+from wagtail.blocks import TimeBlock
 
 
 class FormFieldBlock(StructBlock):

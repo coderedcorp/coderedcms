@@ -1,37 +1,38 @@
 import mimetypes
 import os
 from datetime import datetime
-from django.http import (
-    Http404,
-    HttpResponse,
-    HttpResponsePermanentRedirect,
-    JsonResponse,
-)
-from django.contrib.auth.decorators import login_required, permission_required
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.contrib.contenttypes.models import ContentType
-from django.core.paginator import (
-    Paginator,
-    InvalidPage,
-    EmptyPage,
-    PageNotAnInteger,
-)
-from django.shortcuts import redirect, render
+from django.core.paginator import EmptyPage
+from django.core.paginator import InvalidPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
+from django.http import Http404
+from django.http import HttpResponse
+from django.http import HttpResponsePermanentRedirect
+from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.utils import timezone
-from django.utils.translation import ngettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 from icalendar import Calendar
 from wagtail.admin import messages
-from wagtail.models import Page, get_page_models
+from wagtail.models import Page
+from wagtail.models import get_page_models
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
+
 from coderedcms import utils
 from coderedcms.forms import SearchForm
-from coderedcms.models import CoderedPage, LayoutSettings
-from coderedcms.importexport import (
-    convert_csv_to_json,
-    import_pages,
-    ImportPagesFromCSVFileForm,
-)
+from coderedcms.importexport import ImportPagesFromCSVFileForm
+from coderedcms.importexport import convert_csv_to_json
+from coderedcms.importexport import import_pages
+from coderedcms.models import CoderedPage
+from coderedcms.models import LayoutSettings
 from coderedcms.settings import crx_settings
 from coderedcms.templatetags.coderedcms_tags import get_name_of_class
 

@@ -1,6 +1,9 @@
 import os
+
 from setuptools import setup
+
 from coderedcms import __version__
+
 
 with open(
     os.path.join(os.path.dirname(__file__), "README.md"), encoding="utf8"

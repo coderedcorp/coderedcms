@@ -5,63 +5,57 @@ single `blocks` module.
 """
 
 from django.utils.translation import gettext_lazy as _
-
 from wagtail import blocks
 
-from .stream_form_blocks import (
-    CoderedStreamFormCharFieldBlock,
-    CoderedStreamFormCheckboxesFieldBlock,
-    CoderedStreamFormCheckboxFieldBlock,
-    CoderedStreamFormDateFieldBlock,
-    CoderedStreamFormDateTimeFieldBlock,
-    CoderedStreamFormDropdownFieldBlock,
-    CoderedStreamFormFileFieldBlock,
-    CoderedStreamFormImageFieldBlock,
-    CoderedStreamFormNumberFieldBlock,
-    CoderedStreamFormRadioButtonsFieldBlock,
-    CoderedStreamFormStepBlock,
-    CoderedStreamFormTextFieldBlock,
-    CoderedStreamFormTimeFieldBlock,
-)
-from .html_blocks import (
-    ButtonBlock,
-    EmbedGoogleMapBlock,
-    ImageBlock,
-    ImageLinkBlock,
-    DownloadBlock,
-    EmbedVideoBlock,
-    PageListBlock,
-    PagePreviewBlock,
-    QuoteBlock,
-    RichTextBlock,
-    TableBlock,
-)
-from .content_blocks import (  # noqa
-    AccordionBlock,
-    CardBlock,
-    CarouselBlock,
-    ContentWallBlock,
-    FilmStripBlock,
-    ImageGalleryBlock,
-    ModalBlock,
-    NavDocumentLinkWithSubLinkBlock,
-    NavExternalLinkWithSubLinkBlock,
-    NavPageLinkWithSubLinkBlock,
-    PriceListBlock,
-    ReusableContentBlock,
-)
-from .layout_blocks import CardGridBlock, GridBlock, HeroBlock
-from .base_blocks import (  # noqa
-    BaseBlock,
-    BaseLayoutBlock,
-    BaseLinkBlock,
-    ClassifierTermChooserBlock,
-    CoderedAdvColumnSettings,
-    CoderedAdvSettings,
-    CoderedAdvTrackingSettings,
-    CollectionChooserBlock,
-    LinkStructValue,
-)
+from .base_blocks import BaseBlock  # noqa
+from .base_blocks import BaseLayoutBlock  # noqa
+from .base_blocks import BaseLinkBlock  # noqa
+from .base_blocks import ClassifierTermChooserBlock  # noqa
+from .base_blocks import CoderedAdvColumnSettings  # noqa
+from .base_blocks import CoderedAdvSettings  # noqa
+from .base_blocks import CoderedAdvTrackingSettings  # noqa
+from .base_blocks import CollectionChooserBlock  # noqa
+from .base_blocks import LinkStructValue  # noqa
+from .content_blocks import AccordionBlock
+from .content_blocks import CardBlock
+from .content_blocks import CarouselBlock
+from .content_blocks import ContentWallBlock  # noqa
+from .content_blocks import FilmStripBlock
+from .content_blocks import ImageGalleryBlock
+from .content_blocks import ModalBlock
+from .content_blocks import NavDocumentLinkWithSubLinkBlock
+from .content_blocks import NavExternalLinkWithSubLinkBlock
+from .content_blocks import NavPageLinkWithSubLinkBlock
+from .content_blocks import PriceListBlock
+from .content_blocks import ReusableContentBlock
+from .html_blocks import ButtonBlock
+from .html_blocks import DownloadBlock
+from .html_blocks import EmbedGoogleMapBlock
+from .html_blocks import EmbedVideoBlock
+from .html_blocks import ImageBlock
+from .html_blocks import ImageLinkBlock
+from .html_blocks import PageListBlock
+from .html_blocks import PagePreviewBlock
+from .html_blocks import QuoteBlock
+from .html_blocks import RichTextBlock
+from .html_blocks import TableBlock
+from .layout_blocks import CardGridBlock
+from .layout_blocks import GridBlock
+from .layout_blocks import HeroBlock
+from .stream_form_blocks import CoderedStreamFormCharFieldBlock
+from .stream_form_blocks import CoderedStreamFormCheckboxesFieldBlock
+from .stream_form_blocks import CoderedStreamFormCheckboxFieldBlock
+from .stream_form_blocks import CoderedStreamFormDateFieldBlock
+from .stream_form_blocks import CoderedStreamFormDateTimeFieldBlock
+from .stream_form_blocks import CoderedStreamFormDropdownFieldBlock
+from .stream_form_blocks import CoderedStreamFormFileFieldBlock
+from .stream_form_blocks import CoderedStreamFormImageFieldBlock
+from .stream_form_blocks import CoderedStreamFormNumberFieldBlock
+from .stream_form_blocks import CoderedStreamFormRadioButtonsFieldBlock
+from .stream_form_blocks import CoderedStreamFormStepBlock
+from .stream_form_blocks import CoderedStreamFormTextFieldBlock
+from .stream_form_blocks import CoderedStreamFormTimeFieldBlock
+
 
 # Collections of blocks commonly used together.
 

@@ -1,14 +1,13 @@
 from unittest.mock import patch
 
-from django.test import Client, override_settings
-from wagtail.test.utils import WagtailPageTests
+from django.test import Client
+from django.test import override_settings
 from wagtail.models import Site
+from wagtail.test.utils import WagtailPageTests
 
+from coderedcms.models.wagtailsettings_models import AnalyticsSettings
+from coderedcms.models.wagtailsettings_models import maybe_register_setting
 from coderedcms.tests.testapp.models import WebPage
-from coderedcms.models.wagtailsettings_models import (
-    AnalyticsSettings,
-    maybe_register_setting,
-)
 
 
 class AnalyticsSettingsTestCase(WagtailPageTests):

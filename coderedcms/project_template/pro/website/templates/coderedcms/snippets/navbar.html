@@ -26,14 +26,14 @@
 
       {% get_website_navbars as navbars %}
       {% for navbar in navbars %}
-      <div class="navbar-nav me-auto">
+      <div class="navbar-nav">
         {% for item in navbar.content %}
         {% include_block item with li_class="nav-item" a_class="nav-link" %}
         {% endfor %}
       </div>
       {% endfor %}
 
-      <div class="navbar-nav d-flex">
+      <div class="navbar-nav ms-auto">
         <div class="nav-item">
           <a href="{% url 'crx_search' %}" class="nav-link">Search</a>
         </div>

@@ -68,7 +68,8 @@ foreach ($cov in $mainCoverageJson.coverageData.coverageStats) {
 
 
 # Get current code coverage from coverage.xml file.
-$coveragePath = Get-ChildItem -Recurse -Filter "coverage.xml" $wd
+# Use the first one, if there are multiple i.e. from multiple runs.
+$coveragePath = (Get-ChildItem -Recurse -Filter "coverage.xml" $wd)[0]
 if (Test-Path -Path $coveragePath) {
     [xml]$BranchXML = Get-Content $coveragePath
 }

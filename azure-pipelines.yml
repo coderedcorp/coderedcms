@@ -81,11 +81,10 @@ stages:
         testResultsFiles: '**/test-*.xml'
         testRunTitle: 'Publish test results for Python $(python.version)'
 
-    - task: PublishCodeCoverageResults@1
+    - task: PublishCodeCoverageResults@2
       displayName: 'Publish code coverage report'
       condition: succeededOrFailed()
       inputs:
-        codeCoverageTool: Cobertura
         summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
 
 

@@ -1,0 +1,19 @@
+v4.0.1 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Fix site name on login screen (bug introduced in 4.0).
+
+Changes
+-------
+
+* Use favicon instead of logo in Wagtail Admin. Starting with 4.0, sites with navbar settings disabled do not have the ability to change the light/dark navbar setting, which was being used in the admin to put a light or dark background on the logo. Because if this, a white logo on the default light background is unreadable. Determining if the logo is light or dark was a perpetual problem. To simplify it, we've switched to using the favicon. The favicon is much more suitable for this kind of situation.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `4.0.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/57?closed=1>`_.

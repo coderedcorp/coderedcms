@@ -27,21 +27,13 @@ textarea.monospace,
 .crx-logo-custom {
   width: auto;
   height: auto;
-  max-height: 80px;
   max-width: 100%;
   display: block;
 }
-.crx-logo-container {
-  box-sizing: border-box;
-  margin: 0 15px;
-}
-.crx-logo-container.navbar-light {
-  background-color: #fff;
-  border-radius: 6px;
-  padding: 0.25em;
-}
-.crx-logo-container.navbar-dark {
-  background-color: transparent;
+
+.sidebar-custom-branding {
+  padding: 20px;
+  margin: 0;
 }
 
 

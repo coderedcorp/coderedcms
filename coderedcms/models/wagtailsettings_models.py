@@ -60,6 +60,10 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         on_delete=models.SET_NULL,
         related_name="favicon",
         verbose_name=_("Favicon"),
+        help_text=_(
+            "Small icon used in the browser tab. Should be square, and look "
+            "good against light and dark backgrounds, similar to an app icon."
+        ),
     )
     navbar_color_scheme = models.CharField(
         blank=True,

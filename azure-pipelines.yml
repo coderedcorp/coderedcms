@@ -27,10 +27,6 @@ stages:
       vmImage: 'ubuntu-latest'
     strategy:
       matrix:
-        py3.8:
-          PYTHON_VERSION: '3.8'
-          WAGTAIL_VERSION: '6.0.*'
-          TEMPLATE: 'basic'
         py3.9:
           PYTHON_VERSION: '3.9'
           WAGTAIL_VERSION: '6.0.*'
@@ -43,13 +39,17 @@ stages:
           PYTHON_VERSION: '3.11'
           WAGTAIL_VERSION: '6.1.*'
           TEMPLATE: 'basic'
-        py3.12_basic:
+        py3.12:
           PYTHON_VERSION: '3.12'
-          WAGTAIL_VERSION: '6.1.*'
+          WAGTAIL_VERSION: '6.2.*'
           TEMPLATE: 'basic'
-        py3.12_pro:
-          PYTHON_VERSION: '3.12'
-          WAGTAIL_VERSION: '6.1.*'
+        py3.13_basic:
+          PYTHON_VERSION: '3.13'
+          WAGTAIL_VERSION: '<7'
+          TEMPLATE: 'basic'
+        py3.13_pro:
+          PYTHON_VERSION: '3.13'
+          WAGTAIL_VERSION: '<7'
           TEMPLATE: 'pro'
 
     steps:
@@ -102,7 +102,7 @@ stages:
     - task: UsePythonVersion@0
       displayName: 'Use Python version'
       inputs:
-        versionSpec: '3.12'
+        versionSpec: '3.13'
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt
@@ -147,7 +147,7 @@ stages:
     - task: UsePythonVersion@0
       displayName: 'Use Python version'
       inputs:
-        versionSpec: '3.12'
+        versionSpec: '3.13'
         architecture: 'x64'
 
     - script: python -m pip install -r requirements-ci.txt

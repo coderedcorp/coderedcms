@@ -24,6 +24,8 @@ classifiers = [
     "Framework :: Django",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
     "Framework :: Wagtail",
     "Framework :: Wagtail :: 6",
     "Topic :: Internet :: WWW/HTTP",
@@ -33,10 +35,10 @@ classifiers = [
 dependencies = [
     "beautifulsoup4>=4.8,<4.13",  # should be the same as wagtail
     "django-eventtools==1.0.*",
-    "django-bootstrap5==24.2",
+    "django-bootstrap5==24.3",
     "Django>=4.2,<6.0",  # should be the same as wagtail
     "geocoder==1.38.*",
-    "icalendar==5.0.*",
+    "icalendar==6.0.*",
     "wagtail>=6.0,<7.0",
     "wagtail-cache>=2.4,<3",
     "wagtail-seo>=2.5,<3",

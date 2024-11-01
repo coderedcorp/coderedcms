@@ -45,11 +45,11 @@ stages:
           TEMPLATE: 'basic'
         py3.13_basic:
           PYTHON_VERSION: '3.13'
-          WAGTAIL_VERSION: '<7'
+          WAGTAIL_VERSION: '6.3.*'
           TEMPLATE: 'basic'
         py3.13_pro:
           PYTHON_VERSION: '3.13'
-          WAGTAIL_VERSION: '<7'
+          WAGTAIL_VERSION: '6.3.*'
           TEMPLATE: 'pro'
 
     steps:

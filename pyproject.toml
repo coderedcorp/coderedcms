@@ -15,7 +15,6 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -39,7 +38,7 @@ dependencies = [
     "Django>=4.2,<6.0",  # should be the same as wagtail
     "geocoder==1.38.*",
     "icalendar==6.0.*",
-    "wagtail>=6.0,<7.0",
+    "wagtail>=6.3,<7.0",
     "wagtail-cache>=2.4,<3",
     "wagtail-seo>=2.5,<3",
 ]
@@ -48,7 +47,7 @@ dynamic = ["version"]
 license = {file = "LICENSE.txt"}
 name = "coderedcms"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 
 [project.scripts]
 coderedcms = "coderedcms.bin.coderedcms:main"

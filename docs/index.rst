@@ -76,4 +76,5 @@ Contents
    how_to/index
    reference/index
    contributing/index
+   Deploying & hosting <hosting/index>
    releases/index

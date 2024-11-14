@@ -1,0 +1,63 @@
+v4.1.0 release notes
+====================
+
+
+New features
+------------
+
+* Support Wagtail 6.3 exclusively.
+
+* Support Python 3.9 to 3.13.
+
+* Improve visual consistency of miniview and search templates, including uniform height when rendered in rows, i.e. Related Pages.
+
+* New miniview template for Article and Event pages, which show more contextual details about each page type.
+
+* All miniview templates now include variables ``h`` to set the heading level, and ``miniview_css_class`` to add CSS to the top level card.
+
+* New search template for Event pages which shows more contextual details.
+
+
+Bug fixes
+---------
+
+* Fix modal and download buttons by restoring ``button_title`` field on ``ButtonMixin`` (which was previously refactored in v4.0).
+
+* Fix accessibility warnings about inconsistent heading levels of Related Pages.
+
+* Fix visual overflow of Carousel block.
+
+* Fix default field type on Form page fields.
+
+
+Maintenance
+-----------
+
+* Update to the latest fullcalendar, icalendar, and django-bootstrap5 versions.
+
+
+Upgrade considerations
+----------------------
+
+After upgrading, be sure to generate and apply new migrations as so:
+
+.. code-block::
+
+   python manage.py makemigrations
+   python manage.py migrate
+
+Template changes
+~~~~~~~~~~~~~~~~
+
+The default Article Index and Event Index page templates now use the respective miniview template to list child pages. This results in a slight visual difference.
+
+Block changes
+~~~~~~~~~~~~~
+
+* ``button_title`` has been re-added to ``ButtonMixin``.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `4.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/56?closed=1>`_.

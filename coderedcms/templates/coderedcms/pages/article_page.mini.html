@@ -10,6 +10,8 @@
     <{{ h|default:"h3" }} class="h5 card-title">
       <a href="{% pageurl page %}">{{ page.title }}</a>
     </{{ h|default:"h3" }}>
+    {% if page.caption %}<p class="lead">{{page.caption}}</p>{% endif %}
+    <p class="card-text"><i>{{ page.seo_published_at|date }}</i></p>
     <p class="card-text">{{ page.body_preview }}</p>
   </div>
 </div>

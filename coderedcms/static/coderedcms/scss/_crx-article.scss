@@ -2,9 +2,11 @@
 
 .crx-article {
   .article-body {
-    max-width: 800px;
     @media (min-width: 768px) {
       font-size: 1.2em;
+    }
+    @media (min-width: 992px) {
+      max-width: 800px;
     }
   }
   .article-author-img {

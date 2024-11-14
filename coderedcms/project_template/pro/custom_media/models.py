@@ -23,18 +23,9 @@ class CustomDocument(AbstractDocument):
 
 class CustomImage(AbstractImage):
     """
-    A custom Wagtail Image model with fields for alt text and
-    credit/attribution.
+    A custom Wagtail Image model with fields for credit/attribution.
     """
 
-    alt_text = models.CharField(
-        max_length=255,
-        blank=True,
-        verbose_name="Alt Text",
-        help_text=(
-            "A description of this image used by search engines and screen readers."
-        ),
-    )
     credit = models.CharField(
         max_length=255,
         blank=True,
@@ -45,10 +36,7 @@ class CustomImage(AbstractImage):
             "reduce your risk of copyright infringement."
         ),
     )
-    admin_form_fields = Image.admin_form_fields + (
-        "alt_text",
-        "credit",
-    )
+    admin_form_fields = Image.admin_form_fields + ("credit",)
 
 
 class CustomRendition(AbstractRendition):

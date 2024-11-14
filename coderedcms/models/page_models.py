@@ -713,6 +713,7 @@ class CoderedArticlePage(CoderedWebPage):
         abstract = True
 
     template = "coderedcms/pages/article_page.html"
+    miniview_template = "coderedcms/pages/article_page.mini.html"
     search_template = "coderedcms/pages/article_page.search.html"
 
     related_show_default = True
@@ -856,6 +857,7 @@ class CoderedArticleIndexPage(CoderedWebPage):
         ("-date_display", "Display publish date, newest first"),
     ) + CoderedWebPage.index_order_by_choices
 
+    # DEPRECATED: Remove these show_* options in 5.0
     show_images = models.BooleanField(
         default=True,
         verbose_name=_("Show images"),
@@ -889,6 +891,10 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     class Meta:
         verbose_name = _("CodeRed Event")
         abstract = True
+
+    template = "coderedcms/pages/event_page.html"
+    miniview_template = "coderedcms/pages/event_page.mini.html"
+    search_template = "coderedcms/pages/event_page.search.html"
 
     calendar_color = ColorField(
         blank=True,

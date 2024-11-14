@@ -53,10 +53,10 @@ Changes are then made as a pull request against the ``main`` branch.
 The ``main`` branch is the primary working branch, representing the development
 version of coderedcms.
 
-Releases are maintained in ``release/X.Y`` branches, where X is the Major
-version and Y is the Minor version. Maintenance patches are applied in ``main``
-(if applicable) and then merged or cherry-picked into the respective release
-branch.
+Releases are maintained in ``release/X`` branches, where X is the
+Major version. Maintenance patches are applied in ``main`` (if
+applicable) and then merged or cherry-picked into the respective
+release branch.
 
 
 A Note on Cross-Platform Support
@@ -277,7 +277,7 @@ To build a publicly consumable pip package, run:
 
 .. code-block:: console
 
-    $ python setup.py sdist bdist_wheel
+    $ python -m build
 
 
 Building Documentation
@@ -299,25 +299,6 @@ Or manually using sphinx:
 
 Output will be in ``docs/_build/html/`` directory.
 
-Updating Tutorial Documentation
--------------------------------
-
-.. From time to time, the documentation for the tutorial will need to be updated. You can work directly in
-.. the tutorial site by loading the fixture file for its database (read more at :ref:`load-data`).
-
-Once you have worked in the tutorial site and gotten new screenshots for the **Getting Started** documentation,
-you will also need to update the fixture file, which is located in ``tutorial > mysite > website > fixtures``.
-
-**These are the steps for updating the fixture:**
-
-1. From the command line, type ``python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 4 > dumpdata.json``
-
-2. The dumped data file will show up in the ``website`` folder. Open it and copy/paste its contents into a new file called ``database.json``. This will fix the encoding issue you would run into otherwise. Save the new fixture file and delete the one that was dumped. Also delete the one that is currently in the ``fixtures`` folder.
-
-3. Move the ``database.json`` file into the ``fixtures`` folder.
-
-.. 4. For testing ``loaddata``, please review the steps at  :ref:`load-data`.
-
 
 Publishing a New Release
 ------------------------
@@ -335,7 +316,7 @@ Next build a pip package:
 
 .. code-block:: console
 
-    $ python setup.py sdist bdist_wheel
+    $ python -m build
 
 Then upload the pip package to the Python Package Index:
 
@@ -354,7 +335,3 @@ Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under the 
 .. code-block:: console
 
    $ cr upload --path ./docs/_build/html/ --remote /www/wagtail-crx/ docs
-
-Note that we do not release separate documentation versions for minor or
-maintenance releases. Update the existing major version docs with release notes
-and other changes.

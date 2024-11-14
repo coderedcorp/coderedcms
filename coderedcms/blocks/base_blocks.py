@@ -127,6 +127,11 @@ class ButtonMixin(blocks.StructBlock):
         required=False,
         label=_("Button Size"),
     )
+    button_title = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Title"),
+    )
 
 
 class CoderedAdvSettings(blocks.StructBlock):

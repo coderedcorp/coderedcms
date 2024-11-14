@@ -147,10 +147,10 @@
     {% if page.related_show %}
     <div class="container">
       <h2 class="text-center my-5">{% trans "Related" %}</h2>
-      <div class="row">
+      <div class="row g-4">
         {% for rp in related_pages %}
         <div class="col-sm-6 col-lg-4">
-          {% include rp.miniview_template with page=rp %}
+          {% include rp.miniview_template with page=rp miniview_css_class="h-100" %}
         </div>
         {% endfor %}
       </div>

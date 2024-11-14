@@ -31,7 +31,7 @@ Content Tab
 Implementation
 --------------
 
-The event functionality is built-in to Wagtail CRX but it is not enabled by default.
+The event functionality is built-in to Wagtail CRX which includes the ability to show events on a calendar, generate ical entries, and automatically rotate events based on next upcoming occurrences.
 
 There are two abstract pages available when dealing with events.  The first ``CoderedEventPage`` holds
 the information regarding an event.  Dates, location, etc. all will fall under this page.  The
@@ -80,17 +80,16 @@ create the new pages in your project.
 
 Now when going to the wagtail admin, you can create an Event Landing Page, and child Event Pages.
 
+.. note::
+
+   Events require timezone support to be enabled in Django. Be sure to set ``USE_TZ = True`` and ``TIME_ZONE`` in your settings.
+
+   All dates and times inputted via the Wagtail Admin, and rendered on the calendar and throughout the site, will be converted to ``TIME_ZONE`` from your Django settings.
+
+   For example, if ``TIME_ZONE`` is set to ``America/New_York``, then entering an event for 2021-12-31 09:00 in the Wagtail admin will be saved as 9am New York time. It will also be displayed on the website as 9am New York time.
+
+   If you then changed ``TIME_ZONE`` to ``America/Chicago``, the event time will automatically be displayed as 8am Chicago time.
+
 .. versionadded:: 0.22
 
-    All dates and times inputted via the Wagtail Admin, and rendered on the
-    calendar and throughout the site, will be converted to ``TIME_ZONE`` from
-    your Django settings. It is highly recommended to set ``TIME_ZONE`` and
-    ``USE_TZ = True`` in your Django settings for the Event pages to function
-    correctly.
-
-    For example, if ``TIME_ZONE`` is set to ``America/New_York``, then entering
-    an event for 2021-12-31 09:00 in the Wagtail admin will be saved as 9am New
-    York time. It will also be displayed on the website as 9am New York time.
-
-    If you then changed ``TIME_ZONE`` to ``America/Chicago``, the event time
-    will automatically be displayed as 8am Chicago time.
+   Events were added in 0.22

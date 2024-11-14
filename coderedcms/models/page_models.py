@@ -713,6 +713,7 @@ class CoderedArticlePage(CoderedWebPage):
         abstract = True
 
     template = "coderedcms/pages/article_page.html"
+    miniview_template = "coderedcms/pages/article_page.mini.html"
     search_template = "coderedcms/pages/article_page.search.html"
 
     related_show_default = True
@@ -889,6 +890,10 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     class Meta:
         verbose_name = _("CodeRed Event")
         abstract = True
+
+    template = "coderedcms/pages/event_page.html"
+    miniview_template = "coderedcms/pages/event_page.mini.html"
+    search_template = "coderedcms/pages/event_page.search.html"
 
     calendar_color = ColorField(
         blank=True,

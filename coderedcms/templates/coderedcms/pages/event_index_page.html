@@ -18,35 +18,20 @@
 {% endblock %}
 {% block index_content %}
 <div class="container">
-  {% for event in index_paginated %}
-  <div class="row">
-    {% block event_cover_image %}
-    {% if event.cover_image %}
-    <div class="col-md">
-      {% image event.cover_image fill-1600x900 format-webp preserve-svg as cover_image %}
-      <a href="{{ event.url }}" title="{{ event.title }}"><img src="{{ cover_image.url }}" class="w-100" alt="{{ event.title }}"></a>
+  <div class="row g-4">
+    {% for event in index_paginated %}
+    <div class="col-sm-6 col-lg-4">
+      {% include event.miniview_template with page=event miniview_css_class="h-100" %}
     </div>
-    {% endif %}
-    {% endblock %}
-    {% block event_body_preview %}
-    <div class="col-md">
-      <h3><a href="{{ event.url }}">{{ event.title }}</a></h3>
-      <p>{{ event.most_recent_occurrence.0 }}</p>
-      <p>{{ event.body_preview }}</p>
-    </div>
-    {% endblock %}
+    {% endfor %}
   </div>
-  {% if not forloop.last %}
-  <hr>
-  {% endif %}
-  {% endfor %}
   {% include "coderedcms/includes/pagination.html" with items=index_paginated %}
 </div>
 {% endblock %}
 
 {% block coderedcms_scripts %}
 {{ block.super }}
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js" integrity="sha256-alsi6DkexWIdeVDEct5s7cnqsWgOqsh2ihuIZbU6H3I=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.9/index.global.min.js" integrity="sha256-gUOOsuvXIJriWP5FGvNLUHPduBqgnIyGuAxWiWtHxMo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js" integrity="sha256-ZztCtsADLKbUFK/X6nOYnJr0eelmV2X3dhLDB/JK6fM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.15/index.global.min.js" integrity="sha256-TslkUnYKZuqQj4Ueu1WQesikFvl2DADWslCx3EfBHZM=" crossorigin="anonymous"></script>
 <script src="{% static 'coderedcms/js/crx-events.js' %}?v={% coderedcms_version %}"></script>
 {% endblock %}

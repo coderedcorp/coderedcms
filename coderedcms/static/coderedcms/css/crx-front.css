@@ -3,13 +3,15 @@ Wagtail CRX (https://www.coderedcorp.com/cms/)
 Copyright 2018-2023 CodeRed LLC
 License: https://github.com/coderedcorp/coderedcms/blob/main/LICENSE
 */
-.crx-article .article-body {
-  max-width: 800px;
-}
-
 @media (min-width: 768px) {
   .crx-article .article-body {
     font-size: 1.2em;
+  }
+}
+
+@media (min-width: 992px) {
+  .crx-article .article-body {
+    max-width: 800px;
   }
 }
 

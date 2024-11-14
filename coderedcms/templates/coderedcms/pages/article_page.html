@@ -18,7 +18,7 @@
       <span class="article-author">{{self.seo_author}}</span>
       <span class="mx-2">&bull;</span>
       {% endif %}
-      <span class="article-date">{{ self.seo_published_at }}</span>
+      <span class="article-date">{{ self.seo_published_at|date }}</span>
     </p>
   </div>
   {% endblock %}

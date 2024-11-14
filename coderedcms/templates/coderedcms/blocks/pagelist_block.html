@@ -1,11 +1,11 @@
 {% extends "coderedcms/blocks/base_block.html" %}
 {% load wagtailcore_tags %}
 {% block block_render %}
-<div class="row">
+<div class="row g-4">
   {% for page in pages %}
   <div class="col-sm-6 col-lg-4">
     {% with page=page.specific %}
-    {% include page.miniview_template %}
+    {% include page.miniview_template with miniview_css_class="h-100" %}
     {% endwith %}
   </div>
   {% endfor %}

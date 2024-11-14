@@ -3,23 +3,24 @@
   {% if page.cover_image %}
   {% image page.cover_image fill-800x450 format-webp preserve-svg as cover_image %}
   <div class="col-4 col-md-3 col-lg-2">
-    <a href="{{page.url}}" title="{{page.title}}">
-      <img src="{{cover_image.url}}" class="w-100" alt="{{page.title}}">
+    <a href="{{ page.url }}" title="{{ page.title }}">
+      <img src="{{ cover_image.url }}" class="w-100" alt="{{ page.title }}">
     </a>
   </div>
   {% endif %}
   <div class="col">
     <div class="d-flex align-items-center">
-      <h2 class="h4"><a href="{{page.url}}">{{page.title}}</a></h2>
-      {% if page.content_type.model_class in pagetypes %}<small class="ms-3 badge badge-secondary">{{page.search_name}}</small>{% endif %}
+      <h2 class="h4"><a href="{{ page.url }}">{{ page.title }}</a></h2>
+      {% if page.content_type.model_class in pagetypes %}
+      <small class="ms-3 badge badge-secondary">{{page.search_name}}</small>
+      {% endif %}
     </div>
-    {% if page.caption %}
-    <p class="lead">{{page.caption}}</p>
-    {% endif %}
     <p class="text-muted">
-      <span class="article-author">{{page.seo_author}}</span>
+      <span>{{ page.most_recent_occurrence.0 }}</span>
+      {% if page.address %}
       <span class="mx-2">&bull;</span>
-      <span class="article-date">{{ page.seo_published_at|date }}</span>
+      <span>{{ page.address }}</span>
+      {% endif %}
     </p>
     {% if page.search_description %}
     <p>{{page.search_description|safe}}</p>

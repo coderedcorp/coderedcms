@@ -7,21 +7,7 @@
   <div class="row">
     <div class="col-md-9">
       {% for article in index_paginated %}
-      {% if self.show_images %}
-      <a href="{% pageurl article %}" title="{{article.title}}" class="text-white-50">
-        {% if article.cover_image %}
-        {% image article.specific.cover_image fill-1600x900 format-webp preserve-svg as cover_image %}
-        <img src="{{cover_image.url}}" class="w-100" alt="{{article.title}}">
-        {% endif %}
-      </a>
-      {% endif %}
-      <h3><a href="{% pageurl article %}">{{article.title}}</a></h3>
-      {% if self.show_captions and article.specific.caption %}<p class="lead">{{article.specific.caption}}</p>{% endif %}
-      {% if self.show_meta %}<p>{{article.specific.seo_published_at}} &bull; {{article.specific.seo_author}}</p>{% endif %}
-      {% if self.show_preview_text %}<p>{{article.specific.body_preview}}</p>{% endif %}
-      {% if not forloop.last %}
-      <hr>
-      {% endif %}
+      {% include article.miniview_template with page=article h="h2" miniview_css_class="mb-5" %}
       {% endfor %}
     </div>
     {% if page.index_classifiers.exists %}

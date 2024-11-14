@@ -21,7 +21,7 @@
   <div class="row g-4">
     {% for event in index_paginated %}
     <div class="col-sm-6 col-lg-4">
-      {% include event.miniview_template with page=event miniview_css_class="h-100" %}
+      {% include event.miniview_template with page=event h="h2" miniview_css_class="h-100" %}
     </div>
     {% endfor %}
   </div>

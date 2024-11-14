@@ -857,6 +857,7 @@ class CoderedArticleIndexPage(CoderedWebPage):
         ("-date_display", "Display publish date, newest first"),
     ) + CoderedWebPage.index_order_by_choices
 
+    # DEPRECATED: Remove these show_* options in 5.0
     show_images = models.BooleanField(
         default=True,
         verbose_name=_("Show images"),

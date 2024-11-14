@@ -7,9 +7,9 @@
   </a>
   {% endif %}
   <div class="card-body">
-    <h5 class="card-title">
+    <{{ h|default:"h3" }} class="h5 card-title">
       <a href="{% pageurl page %}">{{ page.title }}</a>
-    </h5>
+    </{{ h|default:"h3" }}>
     <p class="card-text">{{ page.most_recent_occurrence.0 }}</p>
     <p class="card-text">{{ page.body_preview }}</p>
   </div>

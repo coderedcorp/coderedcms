@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-md-9">
       {% for article in index_paginated %}
-      {% include article.miniview_template with page=article miniview_css_class="mb-5" %}
+      {% include article.miniview_template with page=article h="h2" miniview_css_class="mb-5" %}
       {% endfor %}
     </div>
     {% if page.index_classifiers.exists %}

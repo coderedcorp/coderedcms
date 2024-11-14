@@ -1,6 +1,6 @@
 {% load coderedcms_tags %}
 <div class="d-flex align-items-center">
-  <h4><a href="{{page.url}}">{{page.title}}</a></h4>
+  <h2 class="h4"><a href="{{page.url}}">{{page.title}}</a></h2>
   {% if page.content_type.model_class in pagetypes %}
   <small class="ms-3 badge badge-secondary">{{page|get_name_of_class}}</small>
   {% endif %}

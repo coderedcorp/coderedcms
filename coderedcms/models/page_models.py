@@ -1214,6 +1214,11 @@ class CoderedEventIndexPage(CoderedWebPage):
 
         return super().get_index_children()
 
+    def get_context(self, request, *args, **kwargs):
+        ctx = super().get_context(request, *args, **kwargs)
+        ctx["time_zone"] = settings.get("TIME_ZONE", "")
+        return ctx
+
     def get_calendar_events(
         self, start: Union[datetime, date], end: Union[datetime, date]
     ) -> List[Dict[str, str]]:

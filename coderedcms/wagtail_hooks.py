@@ -1,7 +1,5 @@
-import mimetypes
 
 from django.contrib.contenttypes.models import ContentType
-from django.http.response import HttpResponse
 from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.html import format_html

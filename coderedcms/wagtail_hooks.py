@@ -105,21 +105,6 @@ def crx_forms(user, editable_forms):
     return editable_forms
 
 
-@hooks.register("before_serve_document")
-def serve_document_directly(document, request):
-    """
-    This hook prevents documents from being downloaded unless
-    specified by an <a> tag with the download attribute.
-    """
-    content_type, content_encoding = mimetypes.guess_type(document.filename)
-    response = HttpResponse(document.file.read(), content_type=content_type)
-    response["Content-Disposition"] = 'inline;filename="{0}"'.format(
-        document.filename
-    )
-    response["Content-Encoding"] = content_encoding
-    return response
-
-
 class ImportExportMenuItem(MenuItem):
     def is_shown(self, request):
         return request.user.is_superuser

@@ -35,9 +35,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models.signals import post_delete
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import redirect
@@ -76,6 +73,10 @@ from wagtail.models import PageBase
 from wagtail.models import Site
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod
+from wagtail_flexible_forms.models import AbstractSessionFormSubmission
+from wagtail_flexible_forms.models import AbstractSubmissionRevision
+from wagtail_flexible_forms.models import StreamFormJSONEncoder
+from wagtail_flexible_forms.models import StreamFormMixin
 from wagtailcache.cache import WagtailCacheMixin
 from wagtailseo.models import SeoMixin
 from wagtailseo.models import TwitterCard
@@ -94,14 +95,6 @@ from coderedcms.forms import CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import LayoutSettings
 from coderedcms.settings import crx_settings
-from coderedcms.wagtail_flexible_forms.blocks import FormFieldBlock
-from coderedcms.wagtail_flexible_forms.blocks import FormStepBlock
-from coderedcms.wagtail_flexible_forms.models import SessionFormSubmission
-from coderedcms.wagtail_flexible_forms.models import Step
-from coderedcms.wagtail_flexible_forms.models import Steps
-from coderedcms.wagtail_flexible_forms.models import StreamFormJSONEncoder
-from coderedcms.wagtail_flexible_forms.models import StreamFormMixin
-from coderedcms.wagtail_flexible_forms.models import SubmissionRevision
 from coderedcms.widgets import ClassifierSelectWidget
 
 
@@ -1793,46 +1786,18 @@ class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
         return FormSubmission
 
 
-class CoderedSubmissionRevision(SubmissionRevision, models.Model):
+class CoderedSubmissionRevision(AbstractSubmissionRevision):
     pass
 
 
-class CoderedSessionFormSubmission(SessionFormSubmission):
-    INCOMPLETE = "incomplete"
-    COMPLETE = "complete"
-    REVIEWED = "reviewed"
-    APPROVED = "approved"
-    REJECTED = "rejected"
-    STATUSES = (
-        (INCOMPLETE, _("Not submitted")),
-        (COMPLETE, _("Complete")),
-        (REVIEWED, _("Under consideration")),
-        (APPROVED, _("Approved")),
-        (REJECTED, _("Rejected")),
-    )
-    status = models.CharField(
-        max_length=10, choices=STATUSES, default=INCOMPLETE
-    )
+class CoderedSessionFormSubmission(AbstractSessionFormSubmission):
+    """
+    Customize how certain fields are rendered.
+    """
 
-    def create_normal_submission(self, delete_self=True):
-        submission_data = self.get_data()
-        if "user" in submission_data:
-            submission_data["user"] = str(submission_data["user"])
-        submission = FormSubmission.objects.create(
-            form_data=submission_data,
-            page=self.page,
-        )
-
-        if delete_self:
-            CoderedSubmissionRevision.objects.filter(
-                submission_id=self.id
-            ).delete()
-            self.delete()
-
-        return submission
-
-    def render_email(self, value):
-        return value
+    @staticmethod
+    def get_revision_class():
+        return CoderedSubmissionRevision
 
     def render_link(self, value):
         return "{0}{1}".format(crx_settings.CRX_PROTECTED_MEDIA_URL, value)
@@ -1844,75 +1809,10 @@ class CoderedSessionFormSubmission(SessionFormSubmission):
         return "{0}{1}".format(crx_settings.CRX_PROTECTED_MEDIA_URL, value)
 
 
-@receiver(post_save)
-def create_submission_changed_revision(sender, **kwargs):
-    if not issubclass(sender, SessionFormSubmission):
-        return
-    submission = kwargs["instance"]
-    created = kwargs["created"]
-    CoderedSubmissionRevision.create_from_submission(
-        submission,
-        (
-            CoderedSubmissionRevision.CREATED
-            if created
-            else CoderedSubmissionRevision.CHANGED
-        ),
-    )
-
-
-@receiver(post_delete)
-def create_submission_deleted_revision(sender, **kwargs):
-    if not issubclass(sender, CoderedSessionFormSubmission):
-        return
-    submission = kwargs["instance"]
-    CoderedSubmissionRevision.create_from_submission(
-        submission, SubmissionRevision.DELETED
-    )
-
-
-class CoderedStep(Step):
-    def get_markups_and_bound_fields(self, form):
-        for struct_child in self.form_fields:
-            block = struct_child.block
-            if isinstance(block, FormFieldBlock):
-                struct_value = struct_child.value
-                field_name = block.get_slug(struct_value)
-                yield form[field_name], "field", struct_child
-            else:
-                yield mark_safe(struct_child), "markup"
-
-
-class CoderedSteps(Steps):
-    def __init__(self, page, request=None):
-        self.page = page
-        # TODO: Make it possible to change the `form_fields` attribute.
-        self.form_fields = page.form_fields
-        self.request = request
-        has_steps = any(
-            isinstance(struct_child.block, FormStepBlock)
-            for struct_child in self.form_fields
-        )
-        if has_steps:
-            steps = [
-                CoderedStep(self, i, form_field)
-                for i, form_field in enumerate(self.form_fields)
-            ]
-        else:
-            steps = [CoderedStep(self, 0, self.form_fields)]
-        super(Steps, self).__init__(steps)
-
-
 class CoderedStreamFormMixin(StreamFormMixin):
-    class Meta:
-        abstract = True
-
-    def get_steps(self, request=None):
-        if not hasattr(self, "steps"):
-            steps = CoderedSteps(self, request=request)
-            if request is None:
-                return steps
-            self.steps = steps
-        return self.steps
+    """
+    Customize the classes used to store submissions.
+    """
 
     @staticmethod
     def get_submission_class():
@@ -1921,37 +1821,6 @@ class CoderedStreamFormMixin(StreamFormMixin):
     @staticmethod
     def get_session_submission_class():
         return CoderedSessionFormSubmission
-
-    def get_submission(self, request):
-        Submission = self.get_session_submission_class()
-        if request.user.is_authenticated:
-            user_submission = (
-                Submission.objects.filter(user=request.user, page=self)
-                .order_by("-pk")
-                .first()
-            )
-            if user_submission is None:
-                return Submission(user=request.user, page=self, form_data="[]")
-            return user_submission
-
-        # Custom code to ensure that anonymous users get a session key.
-        if not request.session.session_key:
-            request.session.create()
-
-        user_submission = (
-            Submission.objects.filter(
-                session_key=request.session.session_key, page=self
-            )
-            .order_by("-pk")
-            .first()
-        )
-        if user_submission is None:
-            return Submission(
-                session_key=request.session.session_key,
-                page=self,
-                form_data="[]",
-            )
-        return user_submission
 
 
 class CoderedStreamFormPage(
@@ -1981,15 +1850,18 @@ class CoderedStreamFormPage(
         if form.is_valid():
             is_complete = self.steps.update_data()
             if is_complete:
-                submission = self.get_submission(request)
+                # TODO: Need to decide if we should do this here, or
+                # let wagtail_flexible_forms do it in ``serve()``.
+                form_submission = self.create_final_submission(
+                    request, delete_session=True
+                )
                 self.process_form_submission(
                     request=request,
                     form=form,
-                    form_submission=submission,
-                    processed_data=submission.get_data(),
+                    form_submission=form_submission,
+                    processed_data=form_submission.get_data(),
                 )
-                normal_submission = submission.create_normal_submission()
-                return self.render_landing_page(request, normal_submission)
+                return self.render_landing_page(request, form_submission)
             return HttpResponseRedirect(self.url)
         return self.process_form_get(form, request)
 

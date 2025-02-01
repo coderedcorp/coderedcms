@@ -1850,8 +1850,10 @@ class CoderedStreamFormPage(
         if form.is_valid():
             is_complete = self.steps.update_data()
             if is_complete:
-                # TODO: Need to decide if we should do this here, or
-                # let wagtail_flexible_forms do it in ``serve()``.
+                # NOTE: normally this happens in
+                # ``wagtail_flexible_forms.StreamFormMixin.serve()``
+                # but we are overriding it in ``CoderedFormMixin``.
+                # This is a potentially confusing architecture.
                 form_submission = self.create_final_submission(
                     request, delete_session=True
                 )

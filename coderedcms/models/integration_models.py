@@ -95,14 +95,14 @@ class MailchimpSubscriberIntegrationWidget(Input):
                 }
 
                 list_library[mlist["id"]]["merge_fields"] = (
-                    mailchimp.get_merge_fields_for_list(
-                        mlist["id"]
-                    )["merge_fields"]
+                    mailchimp.get_merge_fields_for_list(mlist["id"])[
+                        "merge_fields"
+                    ]
                 )
                 list_library[mlist["id"]]["interest_categories"] = (
-                    mailchimp.get_interest_categories_for_list(
-                        mlist["id"]
-                    )["categories"]
+                    mailchimp.get_interest_categories_for_list(mlist["id"])[
+                        "categories"
+                    ]
                 )
 
                 for category in list_library[mlist["id"]][

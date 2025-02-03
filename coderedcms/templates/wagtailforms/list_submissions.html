@@ -1,39 +1,49 @@
-{% load i18n coderedcms_tags %}
-
-<div class="overflow">
-    <table class="listing">
-        <col />
-        <col />
-        <col />
-        <thead>
-            <tr>
-                <th colspan="{{ data_headings|length|add:1 }}">
-                    <button class="button no" id="delete-submissions" style="visibility: hidden">{% trans "Delete selected submissions" %}</button>
-                </th>
-            </tr>
-            <tr>
-                <th><input type="checkbox" id="select-all" /></th>
-                {% for heading in data_headings %}
-                    <th id="{{ heading.name }}" class="{% if heading.order %}ordered {{ heading.order }}{% endif %}">
-                      {% if heading.order %}<a href="?order_by={% if heading.order == 'ascending' %}-{% endif %}{{ heading.name }}">{{ heading.label }}</a>{% else %}{{ heading.label }}{% endif %}
-                    </th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data_rows %}
+{% extends "wagtailadmin/generic/listing_results.html" %}
+{% load i18n l10n coderedcms_tags %}
+{% block results %}
+    <form class="w-overflow-auto" data-controller="w-bulk" data-w-bulk-action-inactive-class="w-invisible" action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
+        <input type="hidden" value="{{ next_url }}" name="next">
+        <table class="listing">
+            <col />
+            <col />
+            <col />
+            <thead>
                 <tr>
-                    <td>
-                        <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id }}" />
-                    </td>
-                    {% for cell in row.fields %}
-                        <td>
-                            {% process_form_cell request cell %}
-                        </td>
+                    <th><input type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" /></th>
+                    {% for heading in data_headings %}
+                        <th id="{{ heading.name }}" class="{% if heading.order %}ordered icon {% if heading.order == 'ascending' %}icon-arrow-up-after{% else %}icon-arrow-down-after{% endif %}{% endif %}">
+                            {% if heading.order %}<a href="?order_by={% if heading.order == 'ascending' %}-{% endif %}{{ heading.name }}">{{ heading.label }}</a>{% else %}{{ heading.label }}{% endif %}
+                        </th>
                     {% endfor %}
-                    <td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {% for row in data_rows %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id|unlocalize }}" data-action="w-bulk#toggle" data-w-bulk-target="item" />
+                        </td>
+                        {% for cell in row.fields %}
+                            <td>
+                                {% process_form_cell request cell %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="nice-padding">
+            <button class="button no w-invisible" data-w-bulk-target="action">
+                {% trans "Delete selected submissions" %}
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block no_results_message %}
+    <p>
+        {% blocktrans trimmed with title=form_page.title %}
+            There have been no submissions of the '{{ title }}' form.
+        {% endblocktrans %}
+    </p>
+{% endblock %}

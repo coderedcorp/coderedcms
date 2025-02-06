@@ -1,0 +1,15 @@
+{% extends "wagtailcore/shared/block_preview.html" %}
+{% load static coderedcms_tags %}
+
+{% block css %}
+{{ block.super }}
+{% django_setting "DEBUG" as debug %}
+{% if debug %}
+<link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.css' %}?v={% coderedcms_version %}">
+{% else %}
+<link rel="stylesheet" href="{% static 'coderedcms/css/crx-front.min.css' %}?v={% coderedcms_version %}">
+{% endif %}
+<link rel="stylesheet"
+  href="{% static 'coderedcms/vendor/bootstrap/dist/css/bootstrap.min.css' %}?v={% coderedcms_version %}">
+
+{% endblock %}

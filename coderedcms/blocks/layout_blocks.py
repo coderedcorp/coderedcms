@@ -34,6 +34,16 @@ class ColumnBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/column_block.html"
         icon = "placeholder"
         label = "Column"
+        preview_template = "wagtailcore/shared/block_preview.html"
+        description = "Renders the content in a column."
+        preview_value = (
+            {
+                "settings": {
+                    "custom_template": "",
+                },
+                "content": [("text", "<h1>This is a column!</h1>")],
+            },
+        )
 
 
 class GridBlock(BaseLayoutBlock):
@@ -50,6 +60,33 @@ class GridBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/grid_block.html"
         icon = "cr-columns"
         label = _("Responsive Grid Row")
+        preview_template = "wagtailcore/shared/block_preview.html"
+        description = "Renders a row of columns."
+        preview_value = {
+            "settings": {
+                "custom_template": "",
+            },
+            "content": [
+                (
+                    "content",
+                    {
+                        "settings": {
+                            "custom_template": "",
+                        },
+                        "content": [("text", "<h1>This is a row block!</h1>")],
+                    },
+                ),
+                (
+                    "content",
+                    {
+                        "settings": {
+                            "custom_template": "",
+                        },
+                        "content": [("text", "<h1>With Two Columns!</h1>")],
+                    },
+                ),
+            ],
+        }
 
     def __init__(self, local_blocks=None, **kwargs):
         super().__init__(local_blocks=[("content", ColumnBlock(local_blocks))])
@@ -111,3 +148,35 @@ class HeroBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/hero_block.html"
         icon = "cr-newspaper-o"
         label = "Hero Unit"
+        preview_value = {
+            "settings": {
+                "custom_template": "",
+            },
+            "background_color": "#ff0011",
+            "foreground_color": "#ffffff",
+            "content": [
+                (
+                    "row",
+                    {
+                        "settings": {
+                            "custom_template": "",
+                        },
+                        "content": [
+                            (
+                                "content",
+                                {
+                                    "settings": {
+                                        "custom_template": "",
+                                    },
+                                    "content": [
+                                        ("text", "<h1>This is a hero block!")
+                                    ],
+                                },
+                            )
+                        ],
+                    },
+                )
+            ],
+        }
+        preview_template = "wagtailcore/shared/block_preview.html"
+        description = "Wrapper with color and image background options."

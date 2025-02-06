@@ -41,7 +41,7 @@ dependencies = [
     "wagtail>=6.3,<7.0",
     "wagtail-cache>=2.4,<3",
     "wagtail-flexible-forms==2.*",
-    "wagtail-seo>=2.5,<3",
+    "wagtail-seo==3.*",
 ]
 description = "Wagtail + CodeRed Extensions enabling rapid development of marketing-focused websites."
 dynamic = ["version"]

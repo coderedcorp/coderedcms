@@ -363,7 +363,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         ),
     ]
 
-    promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
+    promote_panels = SeoMixin.seo_meta_panels
 
     settings_panels = Page.settings_panels + [
         FieldPanel("content_walls"),

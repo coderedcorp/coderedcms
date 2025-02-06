@@ -1,14 +1,9 @@
 Stream Forms
 ============
 
-Wagtail CRX integrates with ``wagtail_flexible_forms`` (https://github.com/noripyt/wagtail-flexible-forms).
+Wagtail CRX integrates with `wagtail-flexible-forms <https://github.com/coderedcorp/wagtail-flexible-forms>`_.
 A Stream Form enables forms built from StreamFields for advanced functionality such as multi-step forms,
 mixed content and form fields, and conditional logic.
-
-.. note::
-    Underlying functionality of Stream Forms may change in future versions as ``wagtail_flexible_forms``
-    is planned to be merged directly into Wagtail. We recommend using the simpler ``CoderedFormPage``
-    for forms that do not require advanced functionality (such as contact forms, etc.).
 
 
 Usage

@@ -34,12 +34,19 @@ def copy_struct_org(apps, schema_editor):
     Site = apps.get_model("wagtailcore", "Site")
 
     for site in Site.objects.all().select_related("root_page"):
-        homepage = site.root_page.specific
-        if page:
-            seo_settings, _ = SeoSettings.objects.get_or_create(site=site)
-            for field in STRUCT_ORG_FIELDS:
-                setattr(seo_settings, field, getattr(page, field))
-            seo_settings.save()
+        # We are assuming that all pages in coderedcms inherit from
+        # ``CoderedPage``, which is what contains the SEO data. If the
+        # root page is not a CoderedPage, then simply skip it as it
+        # will likely be the site owner's reponsibility to handle this
+        # migration manually.
+        if not hasattr(site.root_page, "coderedpage"):
+            return
+        page = site.root_page.coderedpage
+        seo_settings, _ = SeoSettings.objects.get_or_create(site=site)
+        for field in STRUCT_ORG_FIELDS:
+            print(f"Copy {page.title} : {field}")
+            setattr(seo_settings, field, getattr(page, field))
+        seo_settings.save()
 
 
 def reverse_struct_org(apps, schema_editor):
@@ -54,10 +61,12 @@ def reverse_struct_org(apps, schema_editor):
         "site", "site__root_page"
     ):
         page = seo_setting.site.root_page
-        if page:
-            for field in STRUCT_ORG_FIELDS:
-                setattr(page, field, getattr(seo_settings, field))
-            page.save()
+        if not hasattr(page, "coderedpage"):
+            return
+        cr_page = page.coderedpage
+        for field in STRUCT_ORG_FIELDS:
+            setattr(cr_page, field, getattr(seo_settings, field))
+        cr_page.save()
 
 
 class Migration(migrations.Migration):

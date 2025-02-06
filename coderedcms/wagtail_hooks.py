@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.models import get_page_models
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 from wagtailcache.cache import clear_cache
 
 from coderedcms import __version__
@@ -84,22 +84,32 @@ def crx_forms(user, editable_forms):
     of its existence. Essentially this is a fork of wagtail.contrib.forms.get_forms_for_user()
     and wagtail.contrib.forms.get_form_types()
     """
-    from wagtail.contrib.forms.models import FormMixin
 
     from coderedcms.models import CoderedFormMixin
 
+    # Get content types of pages that inherit from CRX mixins.
     form_models = [
         model
         for model in get_page_models()
-        if issubclass(model, (FormMixin, CoderedFormMixin))
+        if issubclass(model, (CoderedFormMixin,))
     ]
     form_types = list(ContentType.objects.get_for_models(*form_models).values())
-    editable_forms = PagePermissionPolicy().instances_user_has_permission_for(
-        user, "change"
-    )
-    editable_forms = editable_forms.filter(content_type__in=form_types)
 
-    return editable_forms
+    # Get all pages this user can access.
+    all_editable_pages = (
+        page_permission_policy.instances_user_has_permission_for(user, "change")
+    )
+    crx_editable_forms = all_editable_pages.filter(content_type__in=form_types)
+
+    # Combine the previous hook's ``editable_forms`` with our ``editable_forms``.
+    combined_forms_pks = list(
+        crx_editable_forms.values_list("pk", flat=True)
+    ) + list(editable_forms.values_list("pk", flat=True))
+    combined_editable_forms = all_editable_pages.filter(
+        pk__in=combined_forms_pks
+    )
+
+    return combined_editable_forms
 
 
 class ImportExportMenuItem(MenuItem):

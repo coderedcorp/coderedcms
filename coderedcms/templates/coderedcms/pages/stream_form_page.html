@@ -19,15 +19,15 @@
   {% endblock %}
 
   {% block stream_form %}
-  <form class="stream-form {{ page.form_css_class }}" id="{{ page.form_id }}" action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
+  <form class="stream-form {{ page.form_css_class }}" id="{{ page.form_id }}" action="{% pageurl self %}" method="POST" enctype="{{ form_enctype }}">
     {% csrf_token %}
 
     {% block stream_form_fields %}
     {% for item in markups_and_bound_fields %}
-    {% if item.1 == 'markup' %}
-    {% include_block item.0 %}
-    {% else %}
-    {% include "coderedcms/includes/stream_forms/render_field.html" with block=item.2 field=item.0 %}
+    {% if item.type == "markup" %}
+    {% include_block item.block %}
+    {% elif item.type == "field" %}
+    {% include "coderedcms/includes/stream_forms/render_field.html" with block=item.block field=item.field %}
     {% endif %}
     {% endfor %}
     {% endblock %}

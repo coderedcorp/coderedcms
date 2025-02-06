@@ -10,7 +10,7 @@ from coderedcms.forms import CoderedDateTimeInput
 from coderedcms.forms import CoderedTimeField
 from coderedcms.forms import CoderedTimeInput
 from coderedcms.forms import SecureFileField
-from coderedcms.wagtail_flexible_forms import blocks as form_blocks
+from wagtail_flexible_forms import blocks as form_blocks
 
 
 class CoderedFormAdvSettings(CoderedAdvSettings):

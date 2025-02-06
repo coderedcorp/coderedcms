@@ -1613,6 +1613,7 @@ class CoderedFormMixin(models.Model):
     preview_modes = [
         ("form", _("Form")),
         ("landing", _("Thank you page")),
+        ("wagtail-seo", _("SEO Preview")),
     ]
 
     def serve_preview(self, request, mode):

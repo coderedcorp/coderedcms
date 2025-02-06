@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
+from wagtail_flexible_forms import blocks as form_blocks
 
 from coderedcms.blocks.base_blocks import BaseBlock
 from coderedcms.blocks.base_blocks import CoderedAdvSettings
@@ -10,7 +11,6 @@ from coderedcms.forms import CoderedDateTimeInput
 from coderedcms.forms import CoderedTimeField
 from coderedcms.forms import CoderedTimeInput
 from coderedcms.forms import SecureFileField
-from wagtail_flexible_forms import blocks as form_blocks
 
 
 class CoderedFormAdvSettings(CoderedAdvSettings):

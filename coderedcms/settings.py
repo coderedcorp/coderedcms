@@ -154,44 +154,6 @@ class _DefaultSettings:
                 "Card masonry - fluid brick pattern",
             ),
         ],
-        # DEPRECATED: Remove in 3.0.
-        "pagelistblock": [
-            (
-                "coderedcms/blocks/pagelist_block.html",
-                "General, simple list",
-            ),
-            (
-                "coderedcms/blocks/pagelist_list_group.html",
-                "General, list group navigation panel",
-            ),
-            (
-                "coderedcms/blocks/pagelist_article_media.html",
-                "Article, media format",
-            ),
-            (
-                "coderedcms/blocks/pagelist_article_card_group.html",
-                "Article, card group - attached cards of equal size",
-            ),
-            (
-                "coderedcms/blocks/pagelist_article_card_deck.html",
-                "Article, card deck - separate cards of equal size",
-            ),
-            (
-                "coderedcms/blocks/pagelist_article_card_columns.html",
-                "Article, card masonry - fluid brick pattern",
-            ),
-        ],
-        # DEPRECATED: Remove in 3.0
-        "pagepreviewblock": [
-            (
-                "coderedcms/blocks/pagepreview_card.html",
-                "Card",
-            ),
-            (
-                "coderedcms/blocks/pagepreview_form.html",
-                "Form inputs",
-            ),
-        ],
         # templates that are available for all block types
         "*": [
             ("", "Default"),

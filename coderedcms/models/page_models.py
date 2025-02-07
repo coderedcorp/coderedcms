@@ -850,35 +850,6 @@ class CoderedArticleIndexPage(CoderedWebPage):
         ("-date_display", "Display publish date, newest first"),
     ) + CoderedWebPage.index_order_by_choices
 
-    # DEPRECATED: Remove these show_* options in 5.0
-    show_images = models.BooleanField(
-        default=True,
-        verbose_name=_("Show images"),
-    )
-    show_captions = models.BooleanField(
-        default=True,
-    )
-    show_meta = models.BooleanField(
-        default=True,
-        verbose_name=_("Show author and date info"),
-    )
-    show_preview_text = models.BooleanField(
-        default=True,
-        verbose_name=_("Show preview text"),
-    )
-
-    layout_panels = CoderedWebPage.layout_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("show_images"),
-                FieldPanel("show_captions"),
-                FieldPanel("show_meta"),
-                FieldPanel("show_preview_text"),
-            ],
-            heading=_("Child page display"),
-        ),
-    ]
-
 
 class CoderedEventPage(CoderedWebPage, BaseEvent):
     class Meta:

@@ -363,7 +363,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         ),
     ]
 
-    promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
+    promote_panels = SeoMixin.seo_meta_panels
 
     settings_panels = Page.settings_panels + [
         FieldPanel("content_walls"),
@@ -1613,6 +1613,7 @@ class CoderedFormMixin(models.Model):
     preview_modes = [
         ("form", _("Form")),
         ("landing", _("Thank you page")),
+        ("wagtail-seo", _("SEO Preview")),
     ]
 
     def serve_preview(self, request, mode):

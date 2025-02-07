@@ -18,7 +18,7 @@ pip-wheel-metadata/
 
 # Environments
 .env
-.venv
+.venv*
 env/
 venv/
 ENV/

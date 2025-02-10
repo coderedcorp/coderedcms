@@ -69,9 +69,9 @@ class Carousel(ClusterableModel):
         MultiFieldPanel(
             heading=_("Slider"),
             children=[
-                FieldPanel("name"),
-                FieldPanel("show_controls"),
-                FieldPanel("show_indicators"),
+                "name",
+                "show_controls",
+                "show_indicators",
             ],
         ),
         InlinePanel("carousel_slides", label=_("Slides")),
@@ -127,11 +127,11 @@ class CarouselSlide(Orderable, models.Model):
     )
 
     panels = [
-        FieldPanel("image"),
-        FieldPanel("background_color"),
-        FieldPanel("custom_css_class"),
-        FieldPanel("custom_id"),
-        FieldPanel("content"),
+        "image",
+        "background_color",
+        "custom_css_class",
+        "custom_id",
+        "content",
     ]
 
 
@@ -158,7 +158,7 @@ class Classifier(ClusterableModel):
     )
 
     panels = [
-        FieldPanel("name"),
+        "name",
         InlinePanel("terms", label=_("Classifier Terms")),
     ]
 
@@ -206,7 +206,7 @@ class ClassifierTerm(Orderable, models.Model):
     )
 
     panels = [
-        FieldPanel("name"),
+        "name",
     ]
 
     def save(self, *args, **kwargs):
@@ -238,7 +238,7 @@ class FilmStrip(ClusterableModel):
     )
 
     panels = [
-        FieldPanel("name"),
+        "name",
         InlinePanel("film_panels", label=_("Panels")),
     ]
 
@@ -292,12 +292,12 @@ class FilmPanel(Orderable, models.Model):
     )
 
     panels = [
-        FieldPanel("background_image"),
-        FieldPanel("background_color"),
-        FieldPanel("foreground_color"),
-        FieldPanel("custom_css_class"),
-        FieldPanel("custom_id"),
-        FieldPanel("content"),
+        "background_image",
+        "background_color",
+        "foreground_color",
+        "custom_css_class",
+        "custom_id",
+        "content",
     ]
 
 
@@ -332,15 +332,15 @@ class Navbar(models.Model):
     )
 
     panels = [
-        FieldPanel("name"),
+        "name",
         MultiFieldPanel(
             [
-                FieldPanel("custom_css_class"),
-                FieldPanel("custom_id"),
+                "custom_css_class",
+                "custom_id",
             ],
             heading=_("Attributes"),
         ),
-        FieldPanel("menu_items"),
+        "menu_items",
     ]
 
     def __str__(self):
@@ -378,15 +378,15 @@ class Footer(models.Model):
     )
 
     panels = [
-        FieldPanel("name"),
+        "name",
         MultiFieldPanel(
             [
-                FieldPanel("custom_css_class"),
-                FieldPanel("custom_id"),
+                "custom_css_class",
+                "custom_id",
             ],
             heading=_("Attributes"),
         ),
-        FieldPanel("content"),
+        "content",
     ]
 
     def __str__(self):
@@ -414,7 +414,10 @@ class ReusableContent(models.Model):
         use_json_field=True,
     )
 
-    panels = [FieldPanel("name"), FieldPanel("content")]
+    panels = [
+        "name",
+        "content",
+    ]
 
     def __str__(self):
         return self.name
@@ -437,7 +440,7 @@ class Accordion(ClusterableModel):
         MultiFieldPanel(
             heading=_("Accordion"),
             children=[
-                FieldPanel("name"),
+                "name",
             ],
         ),
         InlinePanel("accordion_panels", label=_("Panels")),
@@ -479,10 +482,10 @@ class AccordionPanel(Orderable, models.Model):
     )
 
     panels = [
-        FieldPanel("custom_css_class"),
-        FieldPanel("custom_id"),
-        FieldPanel("name"),
-        FieldPanel("content"),
+        "custom_css_class",
+        "custom_id",
+        "name",
+        "content",
     ]
 
 
@@ -520,13 +523,13 @@ class ContentWall(models.Model):
     panels = [
         MultiFieldPanel(
             [
-                FieldPanel("name"),
-                FieldPanel("is_dismissible"),
-                FieldPanel("show_once"),
+                "name",
+                "is_dismissible",
+                "show_once",
             ],
             heading=_("Content Wall"),
         ),
-        FieldPanel("content"),
+        "content",
     ]
 
     def __str__(self):
@@ -584,12 +587,12 @@ class CoderedEmail(ClusterableModel):
     panels = [
         MultiFieldPanel(
             [
-                FieldPanel("to_address"),
-                FieldPanel("from_address"),
-                FieldPanel("cc_address"),
-                FieldPanel("bcc_address"),
-                FieldPanel("subject"),
-                FieldPanel("body"),
+                "to_address",
+                "from_address",
+                "cc_address",
+                "bcc_address",
+                "subject",
+                "body",
             ],
             _("Email Message"),
         ),

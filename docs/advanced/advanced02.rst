@@ -191,9 +191,9 @@ We need to add other fields to be be in alignment with the outline we looked at 
 
         # Add custom fields to the body
         body_content_panels = CoderedWebPage.body_content_panels + [
-            FieldPanel("description"),
-            FieldPanel("photo"),
-            FieldPanel("need_prescription"),
+            "description",
+            "photo",
+            "need_prescription",
         ]
 
 

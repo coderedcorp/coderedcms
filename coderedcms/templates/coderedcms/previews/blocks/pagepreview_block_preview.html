@@ -1,0 +1,9 @@
+{% extends "wagtailcore/shared/block_preview.html" %}
+
+
+{% block content %}
+<div class="container py-3">
+  {{block_def.value}}
+  {% include 'coderedcms/pages/page.mini.html' %}
+</div>
+{% endblock %}

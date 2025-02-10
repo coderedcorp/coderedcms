@@ -223,8 +223,8 @@ class Navbar(models.Model):
     )
 
     panels = [
-        FieldPanel("name"),
-        FieldPanel("content"),
+        "name",
+        "content",
     ]
 
     def __str__(self) -> str:
@@ -251,8 +251,8 @@ class Footer(models.Model):
     )
 
     panels = [
-        FieldPanel("name"),
-        FieldPanel("content"),
+        "name",
+        "content",
     ]
 
     def __str__(self) -> str:

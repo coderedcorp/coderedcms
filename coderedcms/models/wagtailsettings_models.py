@@ -148,13 +148,13 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
     navbar_panels = [
         MultiFieldPanel(
             [
-                FieldPanel("navbar_color_scheme"),
-                FieldPanel("navbar_class"),
-                FieldPanel("navbar_fixed"),
-                FieldPanel("navbar_content_fluid"),
-                FieldPanel("navbar_collapse_mode"),
-                FieldPanel("navbar_format"),
-                FieldPanel("navbar_search"),
+                "navbar_color_scheme",
+                "navbar_class",
+                "navbar_fixed",
+                "navbar_content_fluid",
+                "navbar_collapse_mode",
+                "navbar_format",
+                "navbar_search",
             ],
             heading=_("Site Navbar Layout"),
         ),
@@ -176,23 +176,23 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
     panels = [
         MultiFieldPanel(
             [
-                FieldPanel("logo"),
-                FieldPanel("favicon"),
+                "logo",
+                "favicon",
             ],
             heading=_("Branding"),
         ),
         MultiFieldPanel(
             [
-                FieldPanel("from_email_address"),
-                FieldPanel("search_num_results"),
-                FieldPanel("external_new_tab"),
+                "from_email_address",
+                "search_num_results",
+                "external_new_tab",
             ],
             heading=_("General"),
         ),
         MultiFieldPanel(
             [
-                FieldPanel("google_maps_api_key"),
-                FieldPanel("mailchimp_api_key"),
+                "google_maps_api_key",
+                "mailchimp_api_key",
             ],
             heading=_("API Keys"),
         ),
@@ -243,7 +243,7 @@ class NavbarOrderable(Orderable, models.Model):
         on_delete=models.CASCADE,
     )
 
-    panels = [FieldPanel("navbar")]
+    panels = ["navbar"]
 
 
 class FooterOrderable(Orderable, models.Model):
@@ -259,7 +259,7 @@ class FooterOrderable(Orderable, models.Model):
         on_delete=models.CASCADE,
     )
 
-    panels = [FieldPanel("footer")]
+    panels = ["footer"]
 
 
 @maybe_register_setting(crx_settings.CRX_DISABLE_ANALYTICS, icon="cr-google")
@@ -318,21 +318,21 @@ class AnalyticsSettings(BaseSiteSetting):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("ga_g_tracking_id"),
-                FieldPanel("ga_track_button_clicks"),
+                "ga_g_tracking_id",
+                "ga_track_button_clicks",
             ],
             heading=_("Google Analytics"),
         ),
         MultiFieldPanel(
             [
-                FieldPanel("gtm_id"),
+                "gtm_id",
             ],
             heading=_("Google Tag Manager"),
         ),
         MultiFieldPanel(
             [
-                FieldPanel("head_scripts"),
-                FieldPanel("body_scripts"),
+                "head_scripts",
+                "body_scripts",
             ],
             heading=_("Other Tracking Scripts"),
         ),

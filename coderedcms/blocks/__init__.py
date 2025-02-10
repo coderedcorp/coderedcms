@@ -60,7 +60,12 @@ from .stream_form_blocks import CoderedStreamFormTimeFieldBlock
 # Collections of blocks commonly used together.
 
 HTML_STREAMBLOCKS = [
-    ("text", RichTextBlock(icon="cr-font")),
+    (
+        "text",
+        RichTextBlock(
+            icon="cr-font",
+        ),
+    ),
     ("button", ButtonBlock()),
     ("image", ImageBlock()),
     ("image_link", ImageLinkBlock()),
@@ -70,6 +75,8 @@ HTML_STREAMBLOCKS = [
             icon="code",
             form_classname="monospace",
             label=_("HTML"),
+            description="Raw html content.",
+            preview_value="<h1>Raw html</h1><table class='table'><tr><td>Table in html</td></tr></table>",
         ),
     ),
     ("download", DownloadBlock()),
@@ -143,7 +150,11 @@ LAYOUT_STREAMBLOCKS = [
     (
         "html",
         blocks.RawHTMLBlock(
-            icon="code", form_classname="monospace", label=_("HTML")
+            icon="code",
+            form_classname="monospace",
+            label=_("HTML"),
+            description="Raw html content.",
+            preview_value="<h1>Raw html</h1><table class='table'><tr><td>Table in html</td></tr></table>",
         ),
     ),
 ]

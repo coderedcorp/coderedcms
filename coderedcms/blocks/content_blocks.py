@@ -64,6 +64,15 @@ class CardBlock(BaseBlock):
         template = "coderedcms/blocks/card_foot.html"
         icon = "cr-list-alt"
         label = _("Card")
+        description = (
+            "A component of information with image, text, and buttons."
+        )
+        preview_value = {
+            "settings": {"custom_template": ""},
+            "title": "Preview Card",
+            "subtitle": "Optional Subtitle",
+            "description": "Card content, which is rich text formatable.",
+        }
 
 
 class CarouselBlock(BaseBlock):
@@ -302,6 +311,39 @@ class PriceListBlock(BaseBlock):
         template = "coderedcms/blocks/pricelist_block.html"
         icon = "cr-usd"
         label = _("Price List")
+        preview_value = {
+            "settings": {"custom_template": ""},
+            "heading": "Example Price List",
+            "items": [
+                (
+                    "item",
+                    {
+                        "settings": {"custom_template": ""},
+                        "name": "Price 1",
+                        "description": "An example price",
+                        "price": "$10/month",
+                    },
+                ),
+                (
+                    "item",
+                    {
+                        "settings": {"custom_template": ""},
+                        "name": "Price 2",
+                        "description": "An example price",
+                        "price": "$100/year",
+                    },
+                ),
+                (
+                    "item",
+                    {
+                        "settings": {"custom_template": ""},
+                        "name": "Price 3",
+                        "description": "An example price",
+                        "price": "$1/day",
+                    },
+                ),
+            ],
+        }
 
 
 class ContentWallBlock(BaseBlock):

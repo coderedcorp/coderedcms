@@ -13,3 +13,9 @@
   href="{% static 'coderedcms/vendor/bootstrap/dist/css/bootstrap.min.css' %}?v={% coderedcms_version %}">
 
 {% endblock %}
+
+{% block content %}
+<div class="container py-3">
+  {{ block.super }}
+</div>
+{% endblock %}

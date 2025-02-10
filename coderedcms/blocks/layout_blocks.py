@@ -34,7 +34,6 @@ class ColumnBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/column_block.html"
         icon = "placeholder"
         label = "Column"
-        preview_template = "wagtailcore/shared/block_preview.html"
         description = "Renders the content in a column."
         preview_value = (
             {
@@ -60,7 +59,6 @@ class GridBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/grid_block.html"
         icon = "cr-columns"
         label = _("Responsive Grid Row")
-        preview_template = "wagtailcore/shared/block_preview.html"
         description = "Renders a row of columns."
         preview_value = {
             "settings": {
@@ -106,6 +104,33 @@ class CardGridBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/cardgrid_deck.html"
         icon = "cr-th-large"
         label = _("Card Grid")
+        description = "Renders a row of cards."
+        preview_value = {
+            "settings": {"custom_template": ""},
+            "content": [
+                (
+                    "card",
+                    {
+                        "settings": {"custom_template": ""},
+                        "title": "Card 1",
+                    },
+                ),
+                (
+                    "card",
+                    {
+                        "settings": {"custom_template": ""},
+                        "title": "Card 2",
+                    },
+                ),
+                (
+                    "card",
+                    {
+                        "settings": {"custom_template": ""},
+                        "title": "Card 3",
+                    },
+                ),
+            ],
+        }
 
 
 class HeroBlock(BaseLayoutBlock):
@@ -148,6 +173,7 @@ class HeroBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/hero_block.html"
         icon = "cr-newspaper-o"
         label = "Hero Unit"
+        description = "Wrapper with color and image background options."
         preview_value = {
             "settings": {
                 "custom_template": "",
@@ -178,5 +204,3 @@ class HeroBlock(BaseLayoutBlock):
                 )
             ],
         }
-        preview_template = "wagtailcore/shared/block_preview.html"
-        description = "Wrapper with color and image background options."

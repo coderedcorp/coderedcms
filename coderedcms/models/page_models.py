@@ -332,7 +332,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     ###############
 
     content_panels = Page.content_panels + [
-        FieldPanel("cover_image"),
+        "cover_image",
     ]
 
     body_content_panels = []
@@ -341,19 +341,19 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
 
     classify_panels = [
         FieldPanel("classifier_terms", widget=ClassifierSelectWidget()),
-        FieldPanel("tags"),
+        "tags",
     ]
 
     layout_panels = [
         MultiFieldPanel(
-            [FieldPanel("custom_template")], heading=_("Visual Design")
+            ["custom_template"], heading=_("Visual Design")
         ),
         MultiFieldPanel(
             [
-                FieldPanel("index_show_subpages"),
-                FieldPanel("index_num_per_page"),
-                FieldPanel("index_order_by_classifier"),
-                FieldPanel("index_order_by"),
+                "index_show_subpages",
+                "index_num_per_page",
+                "index_order_by_classifier",
+                "index_order_by",
                 FieldPanel(
                     "index_classifiers", widget=forms.CheckboxSelectMultiple()
                 ),
@@ -362,9 +362,9 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("related_show"),
-                FieldPanel("related_num"),
-                FieldPanel("related_classifier_term"),
+                "related_show",
+                "related_num",
+                "related_classifier_term",
             ],
             heading=_("Related Pages"),
         ),
@@ -373,7 +373,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
 
     settings_panels = Page.settings_panels + [
-        FieldPanel("content_walls"),
+        "content_walls",
     ]
 
     integration_panels = []
@@ -686,7 +686,7 @@ class CoderedWebPage(CoderedPage):
 
     # Panels
     body_content_panels = [
-        FieldPanel("body"),
+        "body",
     ]
 
     @property
@@ -827,12 +827,12 @@ class CoderedArticlePage(CoderedWebPage):
     ]
 
     content_panels = CoderedWebPage.content_panels + [
-        FieldPanel("caption"),
+        "caption",
         MultiFieldPanel(
             [
-                FieldPanel("author"),
-                FieldPanel("author_display"),
-                FieldPanel("date_display"),
+                "author",
+                "author_display",
+                "date_display",
             ],
             _("Publication Info"),
         ),
@@ -877,10 +877,10 @@ class CoderedArticleIndexPage(CoderedWebPage):
     layout_panels = CoderedWebPage.layout_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("show_images"),
-                FieldPanel("show_captions"),
-                FieldPanel("show_meta"),
-                FieldPanel("show_preview_text"),
+                "show_images",
+                "show_captions",
+                "show_meta",
+                "show_preview_text",
             ],
             heading=_("Child page display"),
         ),
@@ -906,8 +906,8 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
     content_panels = CoderedWebPage.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("calendar_color"),
-                FieldPanel("address"),
+                "calendar_color",
+                "address",
             ],
             heading=_("Event information"),
         ),
@@ -1164,8 +1164,8 @@ class CoderedEventIndexPage(CoderedWebPage):
     layout_panels = CoderedWebPage.layout_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("default_calendar_view"),
-                FieldPanel("event_style"),
+                "default_calendar_view",
+                "event_style",
             ],
             heading=_("Calendar Style"),
         )
@@ -1372,22 +1372,22 @@ class CoderedFormMixin(models.Model):
     body_content_panels = [
         MultiFieldPanel(
             [
-                FieldPanel("thank_you_page"),
-                FieldPanel("button_text"),
-                FieldPanel("button_style"),
-                FieldPanel("button_size"),
-                FieldPanel("button_css_class"),
-                FieldPanel("form_css_class"),
-                FieldPanel("form_id"),
+                "thank_you_page",
+                "button_text",
+                "button_style",
+                "button_size",
+                "button_css_class",
+                "form_css_class",
+                "form_id",
             ],
             _("Form Settings"),
         ),
         MultiFieldPanel(
             [
-                FieldPanel("save_to_database"),
-                FieldPanel("to_address"),
-                FieldPanel("reply_address"),
-                FieldPanel("subject"),
+                "save_to_database",
+                "to_address",
+                "reply_address",
+                "subject",
             ],
             _("Form Submissions"),
         ),
@@ -1398,15 +1398,15 @@ class CoderedFormMixin(models.Model):
             [
                 FieldRowPanel(
                     [
-                        FieldPanel("form_golive_at"),
-                        FieldPanel("form_expire_at"),
+                        "form_golive_at",
+                        "form_expire_at",
                     ],
                     classname="label-above",
                 ),
             ],
             _("Form Scheduled Publishing"),
         ),
-        FieldPanel("spam_protection"),
+        "spam_protection",
     ]
 
     @property
@@ -1972,7 +1972,7 @@ class CoderedStreamFormPage(
     encoder = StreamFormJSONEncoder
 
     body_content_panels = (
-        [FieldPanel("form_fields")]
+        ["form_fields"]
         + CoderedFormMixin.body_content_panels
         + [InlinePanel("confirmation_emails", label=_("Confirmation Emails"))]
     )
@@ -2062,16 +2062,16 @@ class CoderedLocationPage(CoderedWebPage):
     )
 
     content_panels = CoderedWebPage.content_panels + [
-        FieldPanel("address"),
-        FieldPanel("website"),
-        FieldPanel("phone_number"),
+        "address",
+        "website",
+        "phone_number",
     ]
 
     layout_panels = CoderedWebPage.layout_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("map_title"),
-                FieldPanel("map_description"),
+                "map_title",
+                "map_description",
             ],
             heading=_("Map Layout"),
         ),
@@ -2080,9 +2080,9 @@ class CoderedLocationPage(CoderedWebPage):
     settings_panels = CoderedWebPage.settings_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("auto_update_latlng"),
-                FieldPanel("latitude"),
-                FieldPanel("longitude"),
+                "auto_update_latlng",
+                "latitude",
+                "longitude",
             ],
             heading=_("Location Settings"),
         ),
@@ -2191,9 +2191,9 @@ class CoderedLocationIndexPage(CoderedWebPage):
     layout_panels = CoderedWebPage.layout_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("center_latitude"),
-                FieldPanel("center_longitude"),
-                FieldPanel("zoom"),
+                "center_latitude",
+                "center_longitude",
+                "zoom",
             ],
             heading=_("Map Display"),
         ),

@@ -78,8 +78,8 @@ model (Snippet example below)::
             blank=True,
         )
         panels = [
-            FieldPanel('name')
-            FieldPanel('classifier_terms'),
+            'name'
+            'classifier_terms',
         ]
 
 
@@ -91,7 +91,7 @@ use the built-in ``ClassifierSelectWidget``::
         from coderedcms.widgets import ClassifierSelectWidget
 
         panels = [
-            FieldPanel('name')
+            'name',
             FieldPanel('classifier_terms', widget=ClassifierSelectWidget()),
         ]
 

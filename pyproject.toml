@@ -37,7 +37,7 @@ dependencies = [
     "django-bootstrap5==24.3",
     "Django>=4.2,<6.0",  # should be the same as wagtail
     "geocoder==1.38.*",
-    "icalendar==6.0.*",
+    "icalendar==6.1.*",
     "wagtail>=6.3,<7.0",
     "wagtail-cache>=2.4,<3",
     "wagtail-seo>=2.5,<3",

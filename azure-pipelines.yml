@@ -27,6 +27,8 @@ stages:
       vmImage: 'ubuntu-latest'
     strategy:
       matrix:
+        # Oldest versions of python should use the oldest versions of
+        # wagtail we support, for testing purposes.
         py3.9:
           PYTHON_VERSION: '3.9'
           WAGTAIL_VERSION: '6.3.*'
@@ -37,19 +39,19 @@ stages:
           TEMPLATE: 'basic'
         py3.11:
           PYTHON_VERSION: '3.11'
-          WAGTAIL_VERSION: '6.3.*'
+          WAGTAIL_VERSION: '6.4.*'
           TEMPLATE: 'basic'
         py3.12:
           PYTHON_VERSION: '3.12'
-          WAGTAIL_VERSION: '6.3.*'
+          WAGTAIL_VERSION: '6.*'
           TEMPLATE: 'basic'
         py3.13_basic:
           PYTHON_VERSION: '3.13'
-          WAGTAIL_VERSION: '6.3.*'
+          WAGTAIL_VERSION: '6.*'
           TEMPLATE: 'basic'
         py3.13_pro:
           PYTHON_VERSION: '3.13'
-          WAGTAIL_VERSION: '6.3.*'
+          WAGTAIL_VERSION: '6.*'
           TEMPLATE: 'pro'
 
     steps:

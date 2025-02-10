@@ -186,7 +186,9 @@ def event_generate_single_ical_for_event(request):
 
     # Generate the ical file.
     ical = Calendar()
+    # Our product name that is generating this file.
     ical.add("prodid", "-//Wagtail CRX//")
+    # Version of the ical standard.
     ical.add("version", "2.0")
     ical.add_component(
         event.create_single_ical(dt_start=dt_start, dt_end=dt_end)

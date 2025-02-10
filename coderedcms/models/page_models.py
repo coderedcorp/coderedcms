@@ -8,6 +8,7 @@ import os
 import warnings
 from datetime import date
 from datetime import datetime
+from datetime import timezone as dttimezone
 from pathlib import Path
 from typing import TYPE_CHECKING
 from typing import Dict
@@ -17,9 +18,6 @@ from typing import Tuple
 from typing import Union
 
 import geocoder
-
-# This is a requirement for icalendar, even if django doesn't require it
-import pytz
 from django import forms
 from django.conf import settings
 from django.contrib import messages
@@ -1027,13 +1025,15 @@ class CoderedEventPage(CoderedWebPage, BaseEvent):
             ical_event.add("location", self.address)
 
         if dt_start:
-            # Convert to utc to remove timezone confusion
-            dt_start = dt_start.astimezone(pytz.utc)
+            # Convert to UTC to remove timezone confusion in ical
+            # clients (i.e. Outlook).
+            dt_start = dt_start.astimezone(dttimezone.utc)
             ical_event.add("dtstart", dt_start)
 
             if dt_end:
-                # Convert to utc to remove timezone confusion
-                dt_end = dt_end.astimezone(pytz.utc)
+                # Convert to UTC to remove timezone confusion in ical
+                # clients (i.e. Outlook).
+                dt_end = dt_end.astimezone(dttimezone.utc)
                 ical_event.add("dtend", dt_end)
 
             # Add a reminder alarm

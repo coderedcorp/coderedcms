@@ -1,0 +1,18 @@
+v4.1.1 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Fix various issues related to document downloads, including collections/permissions, and inline vs octect-stream downloads.
+
+* Fix broken pagination of form submissions in the Wagtail admin.
+
+* Fix ``ModuleNotFoundError: No module named 'pytz'`` when installing with Wagtail 6.4. While this release of CRX will work with Wagtail 6.4, official support will be upcoming in CRX 5.0.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `4.1.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/61?closed=1>`_.

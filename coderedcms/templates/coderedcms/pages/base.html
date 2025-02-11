@@ -190,7 +190,7 @@
   {% block spam_service_scripts %}
   {% with settings.coderedcms.LayoutSettings as ls %}
   {% if ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
-  <script src="https://www.google.com/recaptcha/api.js?render={{ settings.coderedcms.LayoutSettings.recaptcha_public_key }}"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render={{ ls.recaptcha_public_key }}"></script>
   {% elif ls.spam_service == ls.SpamService.RECAPTCHA_V2 %}
   <script src="https://www.google.com/recaptcha/api.js"></script>
   {% endif %}

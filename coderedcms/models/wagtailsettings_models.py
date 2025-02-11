@@ -4,6 +4,7 @@ Settings are user-configurable on a per-site basis (multisite).
 Global project or developer settings should be defined in coderedcms.settings.py .
 """
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -45,8 +46,8 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         verbose_name = _("CRX Settings")
 
     class SpamService(models.TextChoices):
-        NONE = "", _("None")
-        HONEYPOT = "field", _("Basic - honeypot technique")
+        NONE = ("", _("None"))
+        HONEYPOT = ("honeypot", _("Basic - honeypot technique"))
         RECAPTCHA_V3 = (
             "recaptcha3",
             _("reCAPTCHA v3 - Invisible (requires API key)"),
@@ -145,26 +146,38 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         default=False, verbose_name=_("Open all external links in new tab")
     )
     spam_service = models.CharField(
+        blank=True,
         max_length=10,
-        choices=SpamService,
+        choices=SpamService.choices,
         default=SpamService.HONEYPOT,
         verbose_name=_("Spam Protection"),
         help_text=_(
             "Choose a technique or 3rd party service to help block spam submissions."
         ),
     )
-    google_recaptcha_public_key = models.CharField(
+    recaptcha_threshold = models.DecimalField(
+        default=0.5,
+        max_digits=2,
+        decimal_places=1,
+        verbose_name=_("reCAPTCHA Threshold"),
+        help_text=_(
+            "reCAPTCHA v3 returns a score (0.0 is very likely a bot, "
+            "1.0 is very likely a good interaction). "
+            "Reject submissions below this score (recommended 0.5)."
+        ),
+    )
+    recaptcha_public_key = models.CharField(
         blank=True,
         max_length=255,
-        verbose_name=_("Google reCAPTCHA Site (Public) Key"),
+        verbose_name=_("reCAPTCHA Site Key (Public)"),
         help_text=_(
             "Create this key in the Google reCAPTCHA or Google Cloud dashboard."
         ),
     )
-    google_recaptcha_secret_key = models.CharField(
+    recaptcha_secret_key = models.CharField(
         blank=True,
         max_length=255,
-        verbose_name=_("Google reCAPTCHA Secret (Private) Key"),
+        verbose_name=_("reCAPTCHA Secret Key (Private)"),
         help_text=_(
             "Create this key in the Google reCAPTCHA or Google Cloud dashboard."
         ),
@@ -229,8 +242,9 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         MultiFieldPanel(
             [
                 FieldPanel("spam_service"),
-                FieldPanel("google_recaptcha_public_key"),
-                FieldPanel("google_recaptcha_secret_key"),
+                FieldPanel("recaptcha_threshold"),
+                FieldPanel("recaptcha_public_key"),
+                FieldPanel("recaptcha_secret_key"),
             ],
             heading=_("Form Settings"),
         ),
@@ -273,6 +287,17 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 crx_settings.CRX_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT
             )
             self.navbar_format = crx_settings.CRX_FRONTEND_NAVBAR_FORMAT_DEFAULT
+
+    def clean(self):
+        """
+        Make sure reCAPTCHA keys are set if selected.
+        """
+        if self.spam_service in [
+            self.SpamService.RECAPTCHA_V3,
+            self.SpamService.RECAPTCHA_V2,
+        ] and not (self.recaptcha_public_key and self.recaptcha_secret_key):
+            raise ValidationError(_("API keys are required to use reCAPTCHA."))
+        return super().clean()
 
 
 class NavbarOrderable(Orderable, models.Model):

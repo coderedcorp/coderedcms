@@ -7,23 +7,37 @@
 </div>
 {% elif ls.spam_service == ls.SpamService.RECAPTCHA_V2 %}
 <div class="mb-3">
-  <div class="g-recaptcha" data-sitekey="{{ ls.google_recaptcha_public_key }}"></div>
+  <div class="g-recaptcha" data-sitekey="{{ ls.recaptcha_public_key }}"></div>
 </div>
 {% endif %}
 
 {% if ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
+<input type="hidden" name="g-recaptcha-response">
 <button
   type="button"
-  class="g-recaptcha btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}"
-  data-sitekey="{{ ls.google_recaptcha_public_key }}"
-  data-callback="recaptchaSubmit{{ page.pk }}"
-  data-action="submit"
+  class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}"
+  onclick="recaptchaSubmit('{{ page.get_form_id }}')"
   >
   {{ button_text|default:page.button_text }}
 </button>
 <script>
-  function recaptchaSubmit{{ page.pk }}(token) {
-    document.getElementById("{{ page.get_form_id }}").submit();
+  function recaptchaSubmit(formId) {
+    var form = document.getElementById(formId);
+    if (form.reportValidity()) {
+      grecaptcha.ready(function() {
+        grecaptcha.execute(
+          '{{ ls.recaptcha_public_key }}',
+          {action: 'submit'}
+        ).then(function(token) {
+          // Set value for every token input on the page.
+          document.getElementsByName("g-recaptcha-response").forEach(
+            function(el) {el.value = token}
+          );
+          var form = document.getElementById(formId);
+          form.submit();
+        });
+      });
+    }
   }
 </script>
 {% else %}

@@ -188,9 +188,13 @@
   {% endblock %}
 
   {% block spam_service_scripts %}
-  {% if settings.coderedcms.LayoutSettings.google_recaptcha_public_key %}
+  {% with settings.coderedcms.LayoutSettings as ls %}
+  {% if ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
+  <script src="https://www.google.com/recaptcha/api.js?render={{ settings.coderedcms.LayoutSettings.recaptcha_public_key }}"></script>
+  {% elif ls.spam_service == ls.SpamService.RECAPTCHA_V2 %}
   <script src="https://www.google.com/recaptcha/api.js"></script>
   {% endif %}
+  {% endwith %}
   {% endblock %}
 
   {% block body_tracking_scripts %}

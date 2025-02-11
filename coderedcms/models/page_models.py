@@ -1229,9 +1229,6 @@ class CoderedFormMixin(models.Model):
     class Meta:
         abstract = True
 
-    # See: https://developers.google.com/recaptcha/docs/v3
-    RECAPTCHA_THRESHOLD: float = 0.5
-
     submissions_list_view_class = CoderedSubmissionsListView
     encoder = DjangoJSONEncoder
 
@@ -1639,15 +1636,15 @@ class CoderedFormMixin(models.Model):
         elif ls.spam_service == ls.SpamService.RECAPTCHA_V3:
             rr = verify_response(
                 request.POST.get("g-recaptcha-response", ""),
-                ls.google_recaptcha_secret_key,
+                ls.recaptcha_secret_key,
                 utils.get_ip(request),
             )
             # Score ranges from 0 (likely spam) to 1 (likely good).
-            return rr.score < self.RECAPTCHA_THRESHOLD
+            return rr.score < ls.recaptcha_threshold
         elif ls.spam_service == ls.SpamService.RECAPTCHA_V2:
             rr = verify_response(
                 request.POST.get("g-recaptcha-response", ""),
-                ls.google_recaptcha_secret_key,
+                ls.recaptcha_secret_key,
                 utils.get_ip(request),
             )
             return not rr.success

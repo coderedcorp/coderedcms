@@ -92,6 +92,7 @@ from coderedcms.forms import CoderedFormBuilder
 from coderedcms.forms import CoderedSubmissionsListView
 from coderedcms.models.snippet_models import ClassifierTerm
 from coderedcms.models.wagtailsettings_models import LayoutSettings
+from coderedcms.recaptcha import verify_response
 from coderedcms.settings import crx_settings
 from coderedcms.widgets import ClassifierSelectWidget
 
@@ -1228,6 +1229,9 @@ class CoderedFormMixin(models.Model):
     class Meta:
         abstract = True
 
+    # See: https://developers.google.com/recaptcha/docs/v3
+    RECAPTCHA_THRESHOLD: float = 0.5
+
     submissions_list_view_class = CoderedSubmissionsListView
     encoder = DjangoJSONEncoder
 
@@ -1372,6 +1376,15 @@ class CoderedFormMixin(models.Model):
         ),
         FieldPanel("spam_protection"),
     ]
+
+    @property
+    def get_form_id(self):
+        """
+        Returns a suitable HTML element ID.
+        """
+        if self.form_id:
+            return self.form_id.strip()
+        return f"crx-form-{self.pk}"
 
     @property
     def form_live(self):
@@ -1613,12 +1626,31 @@ class CoderedFormMixin(models.Model):
             return form_class(request.POST, request.FILES, *args, **form_params)
         return form_class(*args, **form_params)
 
-    def contains_spam(self, request):
+    def contains_spam(self, request) -> bool:
         """
-        Checks to see if the spam honeypot was filled out.
+        Checks if the site's spam_service identifies spam.
         """
-        if request.POST.get("cr-decoy-comments", None):
-            return True
+        if not self.spam_protection:
+            return False
+        ls = LayoutSettings.for_site(self.get_site())
+        if ls.spam_service == ls.SpamService.HONEYPOT:
+            if request.POST.get("cr-decoy-comments", None):
+                return True
+        elif ls.spam_service == ls.SpamService.RECAPTCHA_V3:
+            rr = verify_response(
+                request.POST.get("g-recaptcha-response", ""),
+                ls.google_recaptcha_secret_key,
+                utils.get_ip(request),
+            )
+            # Score ranges from 0 (likely spam) to 1 (likely good).
+            return rr.score < self.RECAPTCHA_THRESHOLD
+        elif ls.spam_service == ls.SpamService.RECAPTCHA_V2:
+            rr = verify_response(
+                request.POST.get("g-recaptcha-response", ""),
+                ls.google_recaptcha_secret_key,
+                utils.get_ip(request),
+            )
+            return not rr.success
         return False
 
     def process_spam_request(self, form, request):
@@ -1664,7 +1696,7 @@ class CoderedFormMixin(models.Model):
     def serve(self, request, *args, **kwargs):
         form = self.get_form(request, page=self, user=request.user)
         if request.method == "POST":
-            if self.spam_protection and self.contains_spam(request):
+            if self.contains_spam(request):
                 return self.process_spam_request(form, request)
             return self.process_form_post(form, request)
         return self.process_form_get(form, request)

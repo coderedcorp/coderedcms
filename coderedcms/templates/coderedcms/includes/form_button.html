@@ -1,0 +1,34 @@
+{% load i18n %}
+{% with settings.coderedcms.LayoutSettings as ls %}
+{% if ls.spam_service == ls.SpamService.HONEYPOT %}
+<div style="overflow:hidden;width:0;height:0;" aria-hidden="true">
+  <label for="cr-decoy-comments">{% trans 'Leave this blank if you are a human' %}</label>
+  <textarea rows="1" name="cr-decoy-comments" id="cr-decoy-comments"></textarea>
+</div>
+{% elif ls.spam_service == ls.SpamService.RECAPTCHA_V2 %}
+<div class="mb-3">
+  <div class="g-recaptcha" data-sitekey="{{ ls.google_recaptcha_public_key }}"></div>
+</div>
+{% endif %}
+
+{% if ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
+<button
+  type="button"
+  class="g-recaptcha btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}"
+  data-sitekey="{{ ls.google_recaptcha_public_key }}"
+  data-callback="recaptchaSubmit{{ page.pk }}"
+  data-action="submit"
+  >
+  {{ button_text|default:page.button_text }}
+</button>
+<script>
+  function recaptchaSubmit{{ page.pk }}(token) {
+    document.getElementById("{{ page.get_form_id }}").submit();
+  }
+</script>
+{% else %}
+<button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+  {{ button_text|default:page.button_text }}
+</button>
+{% endif %}
+{% endwith %}

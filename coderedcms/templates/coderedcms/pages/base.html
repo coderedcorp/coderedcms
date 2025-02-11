@@ -187,6 +187,12 @@
     {% block struct_seo_extra %}{% endblock %}
   {% endblock %}
 
+  {% block spam_service_scripts %}
+  {% if settings.coderedcms.LayoutSettings.google_recaptcha_public_key %}
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  {% endif %}
+  {% endblock %}
+
   {% block body_tracking_scripts %}
   {% if not disable_analytics %}
   {% if settings.coderedcms.AnalyticsSettings.gtm_id %}

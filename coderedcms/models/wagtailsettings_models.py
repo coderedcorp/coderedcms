@@ -44,6 +44,18 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
     class Meta:
         verbose_name = _("CRX Settings")
 
+    class SpamService(models.TextChoices):
+        NONE = "", _("None")
+        HONEYPOT = "field", _("Basic - honeypot technique")
+        RECAPTCHA_V3 = (
+            "recaptcha3",
+            _("reCAPTCHA v3 - Invisible (requires API key)"),
+        )
+        RECAPTCHA_V2 = (
+            "recaptcha2",
+            _("reCAPTCHA v2 - I am not a robot (requires API key)"),
+        )
+
     logo = models.ForeignKey(
         get_image_model_string(),
         null=True,
@@ -132,6 +144,31 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
     external_new_tab = models.BooleanField(
         default=False, verbose_name=_("Open all external links in new tab")
     )
+    spam_service = models.CharField(
+        max_length=10,
+        choices=SpamService,
+        default=SpamService.HONEYPOT,
+        verbose_name=_("Spam Protection"),
+        help_text=_(
+            "Choose a technique or 3rd party service to help block spam submissions."
+        ),
+    )
+    google_recaptcha_public_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Google reCAPTCHA Site (Public) Key"),
+        help_text=_(
+            "Create this key in the Google reCAPTCHA or Google Cloud dashboard."
+        ),
+    )
+    google_recaptcha_secret_key = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("Google reCAPTCHA Secret (Private) Key"),
+        help_text=_(
+            "Create this key in the Google reCAPTCHA or Google Cloud dashboard."
+        ),
+    )
     google_maps_api_key = models.CharField(
         blank=True,
         max_length=255,
@@ -188,6 +225,14 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 FieldPanel("external_new_tab"),
             ],
             heading=_("General"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("spam_service"),
+                FieldPanel("google_recaptcha_public_key"),
+                FieldPanel("google_recaptcha_secret_key"),
+            ],
+            heading=_("Form Settings"),
         ),
         MultiFieldPanel(
             [

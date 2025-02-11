@@ -37,6 +37,13 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
         icon = "cr-hand-pointer-o"
         label = _("Button Link")
         value_class = LinkStructValue
+        preview_value = {
+            "settings": {"custom_template": ""},
+            "button_title": "Example Button",
+            "other_link": "https://www.example.com",
+            "button_style": "btn-primary",
+            "button_size": "",
+        }
 
 
 class DownloadBlock(ButtonMixin, BaseBlock):
@@ -96,6 +103,12 @@ class EmbedGoogleMapBlock(BaseBlock):
         template = "coderedcms/blocks/google_map.html"
         icon = "cr-map"
         label = _("Google Map")
+        preview_value = {
+            "settings": {"custom_template": ""},
+            "map_title": "Codered Headquarters",
+            "place_id": "ChIJWYxmGn7wMIgRf_Jq3ivHAsM",
+            "map_zoom_level": 14,
+        }
 
 
 class EmbedVideoBlock(BaseBlock):
@@ -131,6 +144,8 @@ class H1Block(BaseBlock):
         template = "coderedcms/blocks/h1_block.html"
         icon = "cr-header"
         label = _("Heading 1")
+        description = "An <h1> heading."
+        preview_value = "An H1 Heading."
 
 
 class H2Block(BaseBlock):
@@ -147,6 +162,8 @@ class H2Block(BaseBlock):
         template = "coderedcms/blocks/h2_block.html"
         icon = "cr-header"
         label = _("Heading 2")
+        description = "An <h2> heading."
+        preview_value = "An H2 Heading."
 
 
 class H3Block(BaseBlock):
@@ -163,6 +180,8 @@ class H3Block(BaseBlock):
         template = "coderedcms/blocks/h3_block.html"
         icon = "cr-header"
         label = _("Heading 3")
+        description = "An <h3> heading."
+        preview_value = "An H3 Heading."
 
 
 class TableBlock(BaseBlock):
@@ -237,6 +256,17 @@ class PageListBlock(BaseBlock):
         template = "coderedcms/blocks/pagelist_block.html"
         icon = "list-ul"
         label = _("Latest Pages")
+        description = "Renders a preview of selected pages."
+        preview_value = {"settings": {"custom_template": ""}}
+
+    def get_preview_value(self):
+        from wagtail.models import Page
+
+        val = super().get_preview_value()
+        val["indexed_by"] = Page.objects.live().first()
+        val["num_posts"] = 3
+
+        return val
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -286,6 +316,26 @@ class PagePreviewBlock(BaseBlock):
         template = "coderedcms/blocks/pagepreview_block.html"
         icon = "doc-empty-inverse"
         label = _("Page Preview")
+        description = "Renders a preview of a specific page."
+        preview_value = ""
+        preview_template = (
+            "coderedcms/previews/blocks/pagepreview_block_preview.html"
+        )
+
+    def get_preview_value(self):
+        from wagtail.models import Page
+
+        return {
+            "settings": {"custom_template": ""},
+            "page": Page.objects.live().first(),
+        }
+
+    def get_preview_context(self, value, parent_context=None):
+        ctx = super().get_preview_context(value, parent_context)
+        value = self.get_preview_value()
+        ctx["page"] = value.get("page")
+
+        return ctx
 
 
 class QuoteBlock(BaseBlock):
@@ -308,8 +358,16 @@ class QuoteBlock(BaseBlock):
         template = "coderedcms/blocks/quote_block.html"
         icon = "openquote"
         label = _("Quote")
+        description = "A <blockquote>."
+        preview_value = {
+            "settings": {"custom_template": ""},
+            "text": "A block quote example.",
+            "author": "Codered",
+        }
 
 
 class RichTextBlock(blocks.RichTextBlock):
     class Meta:
         template = "coderedcms/blocks/rich_text_block.html"
+        description = ("Rich text content.",)
+        preview_value = "<h1>Some Sample Text!</h1><br><p>It is able to be <i>Italic</i> and <b>bold</b> as well."

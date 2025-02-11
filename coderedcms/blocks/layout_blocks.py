@@ -34,6 +34,15 @@ class ColumnBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/column_block.html"
         icon = "placeholder"
         label = "Column"
+        description = "Renders the content in a column."
+        preview_value = (
+            {
+                "settings": {
+                    "custom_template": "",
+                },
+                "content": [("text", "<h1>This is a column!</h1>")],
+            },
+        )
 
 
 class GridBlock(BaseLayoutBlock):
@@ -50,6 +59,32 @@ class GridBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/grid_block.html"
         icon = "cr-columns"
         label = _("Responsive Grid Row")
+        description = "Renders a row of columns."
+        preview_value = {
+            "settings": {
+                "custom_template": "",
+            },
+            "content": [
+                (
+                    "content",
+                    {
+                        "settings": {
+                            "custom_template": "",
+                        },
+                        "content": [("text", "<h1>This is a row block!</h1>")],
+                    },
+                ),
+                (
+                    "content",
+                    {
+                        "settings": {
+                            "custom_template": "",
+                        },
+                        "content": [("text", "<h1>With Two Columns!</h1>")],
+                    },
+                ),
+            ],
+        }
 
     def __init__(self, local_blocks=None, **kwargs):
         super().__init__(local_blocks=[("content", ColumnBlock(local_blocks))])
@@ -69,6 +104,33 @@ class CardGridBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/cardgrid_deck.html"
         icon = "cr-th-large"
         label = _("Card Grid")
+        description = "Renders a row of cards."
+        preview_value = {
+            "settings": {"custom_template": ""},
+            "content": [
+                (
+                    "card",
+                    {
+                        "settings": {"custom_template": ""},
+                        "title": "Card 1",
+                    },
+                ),
+                (
+                    "card",
+                    {
+                        "settings": {"custom_template": ""},
+                        "title": "Card 2",
+                    },
+                ),
+                (
+                    "card",
+                    {
+                        "settings": {"custom_template": ""},
+                        "title": "Card 3",
+                    },
+                ),
+            ],
+        }
 
 
 class HeroBlock(BaseLayoutBlock):
@@ -111,3 +173,34 @@ class HeroBlock(BaseLayoutBlock):
         template = "coderedcms/blocks/hero_block.html"
         icon = "cr-newspaper-o"
         label = "Hero Unit"
+        description = "Wrapper with color and image background options."
+        preview_value = {
+            "settings": {
+                "custom_template": "",
+            },
+            "background_color": "#ff0011",
+            "foreground_color": "#ffffff",
+            "content": [
+                (
+                    "row",
+                    {
+                        "settings": {
+                            "custom_template": "",
+                        },
+                        "content": [
+                            (
+                                "content",
+                                {
+                                    "settings": {
+                                        "custom_template": "",
+                                    },
+                                    "content": [
+                                        ("text", "<h1>This is a hero block!")
+                                    ],
+                                },
+                            )
+                        ],
+                    },
+                )
+            ],
+        }

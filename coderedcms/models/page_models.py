@@ -336,9 +336,7 @@ class CoderedPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CoderedPageMeta):
     ]
 
     layout_panels = [
-        MultiFieldPanel(
-            ["custom_template"], heading=_("Visual Design")
-        ),
+        MultiFieldPanel(["custom_template"], heading=_("Visual Design")),
         MultiFieldPanel(
             [
                 "index_show_subpages",

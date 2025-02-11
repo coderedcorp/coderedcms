@@ -21,7 +21,6 @@ from coderedcms.models import CoderedWebPage
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.snippets.models import register_snippet
 

@@ -1,0 +1,82 @@
+v5.0.0 release notes
+====================
+
+5.0 is currently in beta. All features are complete except for the addition of Wagtail Block Previews (Wagtail 6.4), which may take extensive time to complete based on the large number of blocks provided by CRX.
+
+New features
+------------
+
+* Support Wagtail 6.4.
+
+* Support Python 3.9 to 3.13.
+
+* NEW: SEO preview on each page. Read more on our blog post `SEO Previews in Wagtail <https://www.coderedcorp.com/blog/seo-previews-in-wagtail/>`_.
+
+* NEW: spam protection with Google reCAPTCHA v2 and v3 on forms. See: :doc:`/features/spam-protection`
+
+
+Maintenance
+-----------
+
+* ``wagtail_flexible_forms`` module has been split out into its own package. No action is required. See `wagtail-flexible-forms <https://docs.coderedcorp.com/wagtail-flexible-forms/>`_.
+
+* Large cleanup of deprecated code. See upgrade considerations below.
+
+
+Upgrade considerations
+----------------------
+
+In addition to the changes below, be sure to read the `Wagtail 6.4 upgrade considerations <https://docs.wagtail.org/en/stable/releases/6.4.html#upgrade-considerations-changes-affecting-all-projects>`_.
+
+
+SEO fields have moved
+~~~~~~~~~~~~~~~~~~~~~
+
+Structured data about the organization was previously available on every page (under the **SEO** tab in the page editor). Now, organization data has been moved into the site settings under **Settings > SEO**.
+
+For most sites, no action is required, as the organization data is automatically copied from each site's Home Page to these settings.
+
+However, if you were previously using custom organization data on many separate pages, you'll need to follow the `wagtail-seo 3 upgrade instructions <https://docs.coderedcorp.com/wagtail-seo/getting-started/migration-3.html>`_
+
+Preview options removed from Pages and Blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For most sites, no action is required as these have been deprecated and replaced by miniview templates back in :doc:`version 2.1 <v2.1.0>`.
+
+However, if you have any custom code using these deprecated fields or templates, replace them with custom miniview templates on relevant page models instead.
+
+* ``PagePreviewBlock`` fields removed:
+
+  * show_previews
+
+* ``CoderedArticleIndexPage`` fields removed:
+
+  * show_images
+
+  * show_captions
+
+  * show_meta
+
+  * show_preview_text
+
+* Template options (in block Advanced Settings) have been removed from ``PageListBlock`` and ``PagePreviewBlock``.
+
+* If you have ``CRX_FRONTEND_TEMPLATES_BLOCKS`` in your Django settings, remove the ``pagelistblock`` and ``pagepreviewblock`` entries from that dictionary.
+
+* Corresponding ``pagelist_*.html`` and ``pagepreview_*.html`` templates have been removed from the project.
+
+Migrations
+~~~~~~~~~~
+
+After upgrading, be sure to generate and apply new migrations as so:
+
+.. code-block::
+
+   python manage.py makemigrations
+   python manage.py migrate
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `5.0.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/54?closed=1>`_.

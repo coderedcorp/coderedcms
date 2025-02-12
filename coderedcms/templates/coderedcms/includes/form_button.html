@@ -1,17 +1,18 @@
 {% load i18n %}
 {% with settings.coderedcms.LayoutSettings as ls %}
-{% if ls.spam_service == ls.SpamService.HONEYPOT %}
+
+{% if page.spam_protection and ls.spam_service == ls.SpamService.HONEYPOT %}
 <div style="overflow:hidden;width:0;height:0;" aria-hidden="true">
   <label for="cr-decoy-comments">{% trans 'Leave this blank if you are a human' %}</label>
   <textarea rows="1" name="cr-decoy-comments" id="cr-decoy-comments"></textarea>
 </div>
-{% elif ls.spam_service == ls.SpamService.RECAPTCHA_V2 %}
+{% elif page.spam_protection and ls.spam_service == ls.SpamService.RECAPTCHA_V2 %}
 <div class="mb-3">
   <div class="g-recaptcha" data-sitekey="{{ ls.recaptcha_public_key }}"></div>
 </div>
 {% endif %}
 
-{% if ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
+{% if page.spam_protection and ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
 <input type="hidden" name="g-recaptcha-response">
 <button
   type="button"
@@ -45,4 +46,5 @@
   {{ button_text|default:page.button_text }}
 </button>
 {% endif %}
+
 {% endwith %}

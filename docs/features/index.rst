@@ -6,9 +6,10 @@ Features
 
     contentblocks/index
     layoutblocks/index
-    import_export
-    mailchimp
     page_types/index
+    snippets/index
     related_pages
     searching
-    snippets/index
+    spam-protection
+    import_export
+    mailchimp

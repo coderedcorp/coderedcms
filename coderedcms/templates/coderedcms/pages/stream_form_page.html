@@ -32,12 +32,6 @@
     {% endfor %}
     {% endblock %}
 
-    {% block captcha %}
-    {% if page.spam_protection %}
-    {% include "coderedcms/includes/form_honeypot.html" %}
-    {% endif %}
-    {% endblock %}
-
     {% block stream_form_actions %}
     <div class="form-group mt-5 row">
       <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
@@ -47,9 +41,11 @@
           Previous
         </a>
         {% endif %}
-        <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
-          {% if steps|last == step %}{{ page.button_text }}{% else %}Next{% endif %}
-        </button>
+        {% if steps|last == step %}
+        {% include "coderedcms/includes/form_button.html" with button_text=page.button_text %}
+        {% else %}
+        {% include "coderedcms/includes/form_button.html" with button_text="Next" %}
+        {% endif %}
       </div>
     </div>
     {% endblock %}

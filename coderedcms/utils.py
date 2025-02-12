@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
+from django.http import HttpRequest
 from django.utils.html import mark_safe
 
 from coderedcms.settings import crx_settings
@@ -45,3 +46,23 @@ def fix_ical_datetime_format(dt_str):
         dt_str = dt_str[:-3] + dt_str[-2:]
         return dt_str
     return dt_str
+
+
+def get_ip(request: HttpRequest) -> str:
+    """
+    Get the real IP address from a request.
+    """
+    for header in [
+        "X-Forwarded-For",
+        "X-Real-Ip",
+        "X-Client-Ip",
+        "Cf-Connecting-Ip",
+        "Remote-Addr",
+    ]:
+        ip = request.headers.get(header, "")
+        # Forwarded for headers can contain multiple IPs, the first being the
+        # real IP and subsequent being proxies along the way.
+        # We only need the first.
+        if ip:
+            return ip.split(",")[0]
+    return ""

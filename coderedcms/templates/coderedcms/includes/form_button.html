@@ -1,0 +1,50 @@
+{% load i18n %}
+{% with settings.coderedcms.LayoutSettings as ls %}
+
+{% if page.spam_protection and ls.spam_service == ls.SpamService.HONEYPOT %}
+<div style="overflow:hidden;width:0;height:0;" aria-hidden="true">
+  <label for="cr-decoy-comments">{% trans 'Leave this blank if you are a human' %}</label>
+  <textarea rows="1" name="cr-decoy-comments" id="cr-decoy-comments"></textarea>
+</div>
+{% elif page.spam_protection and ls.spam_service == ls.SpamService.RECAPTCHA_V2 %}
+<div class="mb-3">
+  <div class="g-recaptcha" data-sitekey="{{ ls.recaptcha_public_key }}"></div>
+</div>
+{% endif %}
+
+{% if page.spam_protection and ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
+<input type="hidden" name="g-recaptcha-response">
+<button
+  type="button"
+  class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}"
+  onclick="recaptchaSubmit('{{ page.get_form_id }}')"
+  >
+  {{ button_text|default:page.button_text }}
+</button>
+<script>
+  function recaptchaSubmit(formId) {
+    var form = document.getElementById(formId);
+    if (form.reportValidity()) {
+      grecaptcha.ready(function() {
+        grecaptcha.execute(
+          '{{ ls.recaptcha_public_key }}',
+          {action: 'submit'}
+        ).then(function(token) {
+          // Set value for every token input on the page.
+          document.getElementsByName("g-recaptcha-response").forEach(
+            function(el) {el.value = token}
+          );
+          var form = document.getElementById(formId);
+          form.submit();
+        });
+      });
+    }
+  }
+</script>
+{% else %}
+<button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+  {{ button_text|default:page.button_text }}
+</button>
+{% endif %}
+
+{% endwith %}

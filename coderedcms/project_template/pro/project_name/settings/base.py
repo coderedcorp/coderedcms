@@ -194,3 +194,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # custom implementation.
 CRX_DISABLE_NAVBAR = True
 CRX_DISABLE_FOOTER = True
+
+# Default to True to maintain existing behavior for existing installations.
+CRX_NO_SITE_NAVBAR_FALLBACK = True
+CRX_NO_SITE_FOOTER_FALLBACK = True

@@ -12,9 +12,6 @@ register = template.Library()
 def get_website_navbars(context):
     """Get the navbars for the current site.
 
-    If CRX_NAVBAR_FALLBACK is True and no navbars are associated with the current site, returns all navbars.
-    If we can't determine the current site, returns all navbars regardless of the fallback setting.
-
     Args:
         context: The template context which contains the current request
 
@@ -26,7 +23,7 @@ def get_website_navbars(context):
         request = context['request']
         # Get the current site from the request
         current_site = Site.find_for_request(request)
-        # Get navbars associated with the current site
+        # Get navbars associated with the current site, if any
         site_navbars = Navbar.objects.filter(site=current_site)
 
         return site_navbars
@@ -40,9 +37,6 @@ def get_website_navbars(context):
 def get_website_footers(context):
     """Get the footers for the current site.
 
-    If CRX_NO_SITE_FOOTER_FALLBACK is True and no footers are associated with the current site, returns all
-    footers. If we can't determine the current site, returns all footers regardless of the fallback setting.
-
     Args:
         context: The template context which contains the current request
 
@@ -54,7 +48,7 @@ def get_website_footers(context):
         request = context['request']
         # Get the current site from the request
         current_site = Site.find_for_request(request)
-        # Get footers associated with the current site
+        # Get footers associated with the current site, if any
         site_footers = Footer.objects.filter(site=current_site)
 
         return site_footers

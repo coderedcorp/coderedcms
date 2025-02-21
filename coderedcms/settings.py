@@ -195,9 +195,6 @@ class _DefaultSettings:
     CRX_DISABLE_NAVBAR = False
     CRX_DISABLE_FOOTER = False
 
-    CRX_NO_SITE_NAVBAR_FALLBACK = False
-    CRX_NO_SITE_FOOTER_FALLBACK = False
-
     def __getattribute__(self, attr: str):
         # First load from Django settings.
         # If it does not exist, load from _DefaultSettings.

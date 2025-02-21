@@ -1,4 +1,3 @@
-from coderedcms.settings import crx_settings
 from django import template
 from wagtail.models import Site
 
@@ -30,11 +29,6 @@ def get_website_navbars(context):
         # Get navbars associated with the current site
         site_navbars = Navbar.objects.filter(site=current_site)
 
-        # If no navbars are found for the current site and fallback is enabled,
-        # return all navbars
-        if not site_navbars.exists() and getattr(crx_settings, 'CRX_NO_SITE_NAVBAR_FALLBACK', False):
-            return Navbar.objects.all()
-
         return site_navbars
 
     except (KeyError, AttributeError):
@@ -62,11 +56,6 @@ def get_website_footers(context):
         current_site = Site.find_for_request(request)
         # Get footers associated with the current site
         site_footers = Footer.objects.filter(site=current_site)
-
-        # If no footers are found for the current site and fallback is enabled,
-        # return all footers
-        if not site_footers.exists() and getattr(crx_settings, 'CRX_NO_SITE_FOOTER_FALLBACK', False):
-            return Footer.objects.all()
 
         return site_footers
 

@@ -20,7 +20,7 @@ def get_website_navbars(context):
     """
     try:
         # Get the current request from context
-        request = context['request']
+        request = context["request"]
         # Get the current site from the request
         current_site = Site.find_for_request(request)
         # Get navbars associated with the current site, if any
@@ -45,7 +45,7 @@ def get_website_footers(context):
     """
     try:
         # Get the current request from context
-        request = context['request']
+        request = context["request"]
         # Get the current site from the request
         current_site = Site.find_for_request(request)
         # Get footers associated with the current site, if any

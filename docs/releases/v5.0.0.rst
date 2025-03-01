@@ -1,7 +1,7 @@
 v5.0.0 release notes
 ====================
 
-5.0 is currently in beta. All features are complete except for the addition of Wagtail Block Previews (Wagtail 6.4), which may take extensive time to complete based on the large number of blocks provided by CRX.
+Note: 5.0.0 is identical to the 5.0.0b1 beta released a few weeks prior. Support for Wagtail's new block previews will be coming in a later release due to time needed to update the hundreds of Bootstrap blocks CRX provides.
 
 New features
 ------------

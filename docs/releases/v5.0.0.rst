@@ -38,8 +38,48 @@ For most sites, no action is required, as the organization data is automatically
 
 However, if you were previously using custom organization data on many separate pages, you'll need to follow the `wagtail-seo 3 upgrade instructions <https://docs.coderedcorp.com/wagtail-seo/getting-started/migration-3.html>`_
 
-Preview options removed from Pages and Blocks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Form template has changed
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have any custom form page templates, they will need updated. Form page template and miniview templates have changed to support new reCAPTCHA fields.
+
+* Form ID changed to: ``<form id={{ page.get_form_id }}>``.
+* Removed ``{% block captcha %}`` and ``form_honeypot.html``.
+* Replace submit button with ``{% include "coderedcms/includes/form_button.html" %}``.
+
+See diff below:
+
+.. code-block:: diff
+
+    {{ block.super }}
+    {% if page.form_live %}
+    <div class="container my-5">
+   -  <form class="{{ page.form_css_class }}" id="{{ page.form_id }}" action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
+   +  <form class="{{ page.form_css_class }}" id="{{ page.get_form_id }}" action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+   -
+   -    {% block captcha %}
+   -    {% if page.spam_protection %}
+   -    {% include "coderedcms/includes/form_honeypot.html" %}
+   -    {% endif %}
+   -    {% endblock %}
+   -
+        <div class="row">
+          <div class="{{'horizontal_label_class'|bootstrap_settings}}"></div>
+          <div class="{{'horizontal_field_class'|bootstrap_settings}}">
+   -        <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+   -          {{ page.button_text }}
+   -        </button>
+   +        {% include "coderedcms/includes/form_button.html" %}
+          </div>
+        </div>
+      </form>
+
+
+``show_*`` options removed from Pages and Blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For most sites, no action is required as these have been deprecated and replaced by miniview templates back in :doc:`version 2.1 <v2.1.0>`.
 
@@ -70,10 +110,10 @@ Migrations
 
 After upgrading, be sure to generate and apply new migrations as so:
 
-.. code-block::
+.. code-block:: console
 
-   python manage.py makemigrations
-   python manage.py migrate
+   $ python manage.py makemigrations
+   $ python manage.py migrate
 
 
 Thank you!

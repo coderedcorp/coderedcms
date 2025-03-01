@@ -9,9 +9,9 @@
     {% if self.subtitle %}<h6 class="card-subtitle mb-2 text-muted">{{self.subtitle}}</h6>{% endif %}
     <div class="card-text">{{self.description}}</div>
   </div>
-  <div class="card-footer">
-    {% for button in self.links %}
-    {% include_block button %}
-    {% endfor %}
-  </div>
+  {% for button in self.links %}
+    <div class="card-footer">
+      {% include_block button %}
+    </div>
+  {% endfor %}
 </div>

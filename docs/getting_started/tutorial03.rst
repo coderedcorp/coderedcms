@@ -194,10 +194,8 @@ Lookin' good!
     The home page preview after adding the card grid.
 
 .. note::
- At this point you may notice that the cards aren't the same height.  You can fix this two ways.  One you can add the bootstrap
- CSS class of h-100 to each card, two you can add `$card-height: 100%` in the _variables.scss.  If you use the sass option remember to compile the sass files.
- This is the most basic use case of card-grid check out :ref:`card-grid` for more information.
-
+ At this point you may notice that the cards aren't the same height.  
+ 
 To make all the cards equal height, We added bootstrap class h-100 to each card as seen here:
 
 .. figure:: images/tut03/h_100.jpeg

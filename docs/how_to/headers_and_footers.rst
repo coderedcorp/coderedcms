@@ -3,64 +3,49 @@ Customize Navbar and Footer
 
 Navbar
 ------
-
-The navbar (also known as Navigation Bar, Header, or Menu) is a shared piece
+The navbar (also known as Navigation Bar, Header, or Menu) is a shared piece of
 navigation. Wagtail CRX shows an area for the navbar at the top of most pages on
 the site. The logo and style of the navbar can be customized under **Settings >
-Layout**. The links shown in the navbar can be customized by creating a "Navbar"
-snippet under **Snippets > Navbar**.
+Layout**.
 
-.. note::
+For the basic template, create and manage navbars under **Snippets > Navbar**. Then use
+**Settings > CRX Settings** to select which navbars to display and their ordering. The
+Site Navbar Layout includes settings for the whole navbar, while the Site Navbar chooser
+allows you to select specific navbars for your site.
 
-    Each Navbar snippet is rendered sequentially in the navbar area. This currently
-    does not support multi-site, i.e. all Navbar snippets are present on all sites.
+For the pro template, create navbars under **Snippets > Navbar** and select the specific
+site for each navbar within the navbar snippet edit page. Navbars are ordered by the
+default model ordering.
 
-Customizing the design of the stock navbar can be accomplished by baked in
-Django template overrides.
+Customizing the design of the stock navbar can be accomplished through Django template
+overrides. Create a `templates/coderedcms/snippets` directory in your project,
+most likely in the `website` directory.
 
-Create a ``templates\coderedcms\snippets`` directory in your project,
-most likely in the ``website`` directory.
+In that directory create a file called `navbar.html`. This file will then
+override the `navbar.html` file included with Wagtail CRX.
 
-In that directory create a file called ``navbar.html``. This file will then
-override the ``navbar.html`` file included with Wagtail CRX.
-
-It is advisable to initially copy the contents of `Wagtail CRX navbar.html`_, but
-not necessary.
-
-.. _Wagtail CRX navbar.html: https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/snippets/navbar.html
-
+It is advisable to initially copy the contents of Wagtail CRX navbar.html
+See `Wagtail CRX navbar.html <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/snippets/navbar.html>`_,
+but not necessary.
 
 Footer
 ------
-
 The footer is a shared piece of content shown at the bottom of every page on the
-site. Content can be added to the footer by creating a "Footer" snippet under
-**Snippets > Footer**.
+site. Create footers under **Snippets > Footer**.
 
-.. note::
+For the basic template, use **Settings > CRX Settings** to select which footers to
+display and specify their ordering through the Site Footers setting.
 
-    Each Footer snippet is rendered sequentially in the footer area. This
-    currently does not support multi-site, i.e. all Footer snippets are present
-    on all sites.
+For the pro template, select the specific site within each footer snippet edit page.
+Footers are ordered by the default model ordering.
 
-Customizing the design of the sock footer can be accomplished similarly to the
-navbar, by overriding the Django template.
+Customizing the design of the stock footer can be accomplished similarly to the
+navbar, by overriding the Django template. Create a `templates/coderedcms/snippets/`
+directory in your project, most likely in the `website` directory.
 
-Create a ``templates/coderedcms/snippets/`` directory in your project,
-most likely in the ``website`` directory.
-
-In that directory create a filed named ``footer.html``. This file will then
-override the ``footer.html`` file included with Wagtail CRX.
+In that directory create a file named `footer.html`. This file will then
+override the `footer.html` file included with Wagtail CRX.
 
 Similarly, it is advisable to initially copy the contents of `Wagtail CRX
-footer.html`_, but not necessary.
-
-.. note::
-
-    You can now create more than one navbar menu or footer and choose which ones to render on your site. In **Settings > CRX Settings**,
-    select your navbars in **Site Navbars**. Select your footers in **Site Footers**. The Site Navbar Layout includes settings for the whole
-    navbar, while the Site Navbar chooser allows you to choose which menu you want for your site. This features allows you to
-    select a different navbar/footer per site in a multisite installation OR render several navbars/footers in selected order
-    on a single site.
-
-.. _Wagtail CRX footer.html: https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/snippets/footer.html
+footer.html <https://github.com/coderedcorp/coderedcms/blob/main/coderedcms/templates/coderedcms/snippets/footer.html>`_,
+but not necessary.

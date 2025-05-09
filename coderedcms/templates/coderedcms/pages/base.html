@@ -192,9 +192,10 @@
   {% if ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
   <script src="https://www.google.com/recaptcha/api.js?render={{ ls.recaptcha_public_key }}"></script>
   <script>
-    function recaptchaSubmit(button, formId) {
+    function recaptchaSubmit(formId) {
       let form = document.getElementById(formId);
-      let spinner = document.getElementById(`${formId}buttonSpinner`);
+      let spinner = document.getElementById(`${formId}ButtonSpinner`);
+      let button = document.getElementById(`${formId}Button`)
       if (form.reportValidity()) {
         grecaptcha.ready(function() {
           button.disabled = true;

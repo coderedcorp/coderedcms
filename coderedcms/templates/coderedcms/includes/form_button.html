@@ -16,11 +16,12 @@
 <input type="hidden" name="g-recaptcha-response">
 <button
   type="button"
+  id="{{page.get_form_id}}Button"
   class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}"
-  onclick="recaptchaSubmit(this, '{{ page.get_form_id }}')"
+  onclick="recaptchaSubmit('{{ page.get_form_id }}')"
   >
   {{ button_text|default:page.button_text }}
-  <span class="d-none ps-1" id="{{page.get_form_id}}buttonSpinner">
+  <span class="d-none ps-1" id="{{page.get_form_id}}ButtonSpinner">
     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
     <span class="visually-hidden" role="status">Submitting...</span>
   </span>

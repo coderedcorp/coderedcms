@@ -194,11 +194,11 @@
   <script>
     function recaptchaSubmit(button, formId) {
       let form = document.getElementById(formId);
+      let spinner = document.getElementById(`${formId}buttonSpinner`);
       if (form.reportValidity()) {
-        button.disabled = true;
-        let spinner = document.getElementById(`${formId}buttonSpinner`);
-        spinner.classList.remove("d-none");
         grecaptcha.ready(function() {
+          button.disabled = true;
+          spinner.classList.remove("d-none");
           grecaptcha.execute(
             '{{ ls.recaptcha_public_key }}',
             {action: 'submit'}
@@ -208,10 +208,11 @@
               function(el) {el.value = token}
             );
             document.getElementById(formId).submit();
+          }).finally(function() {
+            button.disabled = false;
+            spinner.classList.add('d-none')
           })
         });
-        button.disabled = false;
-        spinner.classList.add('d-none')
       }
     }
   </script>

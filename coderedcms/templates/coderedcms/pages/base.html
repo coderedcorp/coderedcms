@@ -192,9 +192,12 @@
   {% if ls.spam_service == ls.SpamService.RECAPTCHA_V3 %}
   <script src="https://www.google.com/recaptcha/api.js?render={{ ls.recaptcha_public_key }}"></script>
   <script>
-    function recaptchaSubmit(formId) {
-      var form = document.getElementById(formId);
+    function recaptchaSubmit(button, formId) {
+      let form = document.getElementById(formId);
       if (form.reportValidity()) {
+        button.disabled = true;
+        let spinner = document.getElementById(`${formId}buttonSpinner`);
+        spinner.classList.remove("d-none");
         grecaptcha.ready(function() {
           grecaptcha.execute(
             '{{ ls.recaptcha_public_key }}',
@@ -205,8 +208,10 @@
               function(el) {el.value = token}
             );
             document.getElementById(formId).submit();
-          });
+          })
         });
+        button.disabled = false;
+        spinner.classList.add('d-none')
       }
     }
   </script>

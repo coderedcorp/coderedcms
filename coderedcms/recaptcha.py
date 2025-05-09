@@ -10,7 +10,7 @@ logger = logging.getLogger("coderedcms")
 
 
 class RecaptchaResponse(typing.NamedTuple):
-    success: bool | None
+    success: typing.Union[bool, None]
     score: float
     error_codes: typing.List[str]
     original_data: typing.Dict[str, typing.Any]

@@ -1640,7 +1640,10 @@ class CoderedFormMixin(models.Model):
                 utils.get_ip(request),
             )
             # Score ranges from 0 (likely spam) to 1 (likely good).
-            return rr.score < ls.recaptcha_threshold
+            if rr.success and rr.score >= 0:
+                return rr.score < ls.recaptcha_threshold
+            else:
+                return True
         elif ls.spam_service == ls.SpamService.RECAPTCHA_V2:
             rr = verify_response(
                 request.POST.get("g-recaptcha-response", ""),

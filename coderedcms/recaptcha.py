@@ -10,7 +10,7 @@ logger = logging.getLogger("coderedcms")
 
 
 class RecaptchaResponse(typing.NamedTuple):
-    success: bool
+    success: typing.Union[bool, None]
     score: float
     error_codes: typing.List[str]
     original_data: typing.Dict[str, typing.Any]
@@ -43,11 +43,12 @@ def verify_response(recaptcha_response: str, secret_key: str, remoteip: str):
     response = urlopen(request)
     data = json.loads(response.read().decode("utf8"))
     response.close()
-    logger.info(f"reCAPTCHA response: {data}")
-    # Default to good (likely not spam) values if they are not present.
-    return RecaptchaResponse(
-        success=data.get("success", True),
-        score=data.get("score", 1.0),
+    # Default to sentinel values if not provided by Google.
+    rr = RecaptchaResponse(
+        success=data.get("success", None),
+        score=data.get("score", -1.0),
         error_codes=data.get("error-codes", []),
         original_data=data,
     )
+    logger.info(f"reCAPTCHA response: {rr}")
+    return rr

@@ -1,0 +1,20 @@
+v5.0.1 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Fix bug where some spam form submissions were allowed through when using reCAPTCHA v3.
+
+
+New features
+------------
+
+* While submitting a recaptcha v3 form, the button is disabled and shows a spinner.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `5.0.1 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/62?closed=1>`_.

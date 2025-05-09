@@ -20,7 +20,7 @@
   onclick="recaptchaSubmit(this, '{{ page.get_form_id }}')"
   >
   {{ button_text|default:page.button_text }}
-  <span class="d-none" id="{{page.get_form_id}}buttonSpinner">
+  <span class="d-none ps-1" id="{{page.get_form_id}}buttonSpinner">
     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
     <span class="visually-hidden" role="status">Submitting...</span>
   </span>

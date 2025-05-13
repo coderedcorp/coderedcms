@@ -221,9 +221,17 @@ class Navbar(models.Model):
         ],
         use_json_field=True,
     )
+    site = models.ForeignKey(
+        "wagtailcore.Site",
+        on_delete=models.CASCADE,
+        related_name="navbars",
+        null=True,
+        blank=True,
+    )
 
     panels = [
         FieldPanel("name"),
+        FieldPanel("site"),
         FieldPanel("content"),
     ]
 
@@ -249,9 +257,17 @@ class Footer(models.Model):
         blank=True,
         use_json_field=True,
     )
+    site = models.ForeignKey(
+        "wagtailcore.Site",
+        on_delete=models.CASCADE,
+        related_name="footers",
+        null=True,
+        blank=True,
+    )
 
     panels = [
         FieldPanel("name"),
+        FieldPanel("site"),
         FieldPanel("content"),
     ]
 

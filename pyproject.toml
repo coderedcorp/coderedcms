@@ -1,7 +1,7 @@
 # -- PACKAGE --------------------------
 
 [build-system]
-requires = ["setuptools>=65.5"]
+requires = ["setuptools>=78.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -25,23 +25,25 @@ classifiers = [
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
     "Framework :: Wagtail",
     "Framework :: Wagtail :: 6",
+    "Framework :: Wagtail :: 7",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     "Topic :: Internet :: WWW/HTTP :: Site Management",
 ]
 dependencies = [
-    "beautifulsoup4>=4.8,<4.13",  # should be the same as wagtail
+    "beautifulsoup4>=4.8,<5",  # should be the same as wagtail
     "django-eventtools==1.0.*",
-    "django-bootstrap5==24.3",
-    "Django>=4.2,<6.0",  # should be the same as wagtail
+    "django-bootstrap5==24.3", # Latest is 25.1 as of 2025-07-25
+    "Django>=4.2",  # should be the same as wagtail
     "geocoder==1.38.*",
-    "icalendar==6.1.*",
-    "wagtail>=6.3,<7.0",
-    "wagtail-cache>=2.4,<3",
-    "wagtail-flexible-forms==2.*",
-    "wagtail-seo==3.*",
+    "icalendar==6.1.*", # Latest is 6.3.1 as of 2025-07-25
+    "wagtail>=6.3,<8.0",
+    "wagtail-cache>=2.4,<4",
+    "wagtail-flexible-forms==2.1.*",
+    "wagtail-seo==3.1.*",
 ]
 description = "Wagtail + CodeRed Extensions enabling rapid development of marketing-focused websites."
 dynamic = ["version"]

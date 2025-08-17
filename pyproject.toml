@@ -38,8 +38,8 @@ dependencies = [
     "Django>=4.2,<6.0",  # should be the same as wagtail
     "geocoder==1.38.*",
     "icalendar==6.1.*",
-    "wagtail>=6.3,<7.0",
-    "wagtail-cache>=2.4,<3",
+    "wagtail>=7.0,<7.2",
+    "wagtail-cache>=3.0,<4",
     "wagtail-flexible-forms==2.*",
     "wagtail-seo==3.*",
 ]

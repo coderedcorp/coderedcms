@@ -31,7 +31,7 @@ stages:
         # wagtail we support, for testing purposes.
         py3.9:
           PYTHON_VERSION: '3.9'
-          WAGTAIL_VERSION: '7.*'
+          WAGTAIL_VERSION: '6.3.*'
           TEMPLATE: 'basic'
         py3.10:
           PYTHON_VERSION: '3.10'

@@ -4,5 +4,5 @@
 # Requirements, in addition to coderedcms, needed for development.
 build
 libsass
-setuptools>=65.5
+setuptools>=78.0
 twine

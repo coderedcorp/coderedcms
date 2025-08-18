@@ -1,0 +1,21 @@
+v6.0.0 release notes
+====================
+
+Note: 6.0.0 is identical to the 5.0.1 released a few weeks prior. Support for Wagtail's new block previews will be coming in a later release due to time needed to update the hundreds of Bootstrap blocks CRX provides.
+
+New features
+------------
+
+* Support Wagtail 6.0 and 7.0 LTS.
+
+* Update django-bootstrap5 to 25.2 for supporting Django 5.2
+
+* Update wagtail-cache to 3.0 for Wagtail 7.0 LTS
+
+* Update wagtail-flexible-forms to 2.1 for Wagtail 7.0 LTS
+
+* Update wagtail-seo to 3.1 for Wagtail 7.0 LTS
+
+
+Thank you!
+----------

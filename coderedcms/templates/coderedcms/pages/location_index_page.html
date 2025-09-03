@@ -38,6 +38,6 @@
 {% endblock %}
 {% block coderedcms_scripts %}
 {{ block.super }}
-<script src="{% static 'coderedcms/js/crx-maps.js' %}?v={% coderedcms_version %}"></script>
+<script src="{% static 'coderedcms/js/crx-maps.min.js' %}?v={% coderedcms_version %}"></script>
 <script defer src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initMap&libraries=places"></script>
 {% endblock %}

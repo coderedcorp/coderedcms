@@ -1,0 +1,13 @@
+v5.0.2 release notes
+====================
+
+
+New features
+------------
+
+* Minified versions of included JavaScript files are now included.
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `5.0.2 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/63?closed=1>`_.

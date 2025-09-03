@@ -33,6 +33,7 @@ Supported Versions:
 .. toctree::
     :maxdepth: 1
 
+    v5.0.2
     v5.0.1
     v5.0.0
     v4.1.1

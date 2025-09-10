@@ -112,7 +112,7 @@ license header comment states copyright, ownership, license, and also provides c
 
     /*!
     Wagtail CRX (https://www.coderedcorp.com/cms/)
-    Copyright 2018-2023 CodeRed LLC
+    Copyright 2018-2025 CodeRed LLC
     License: https://github.com/coderedcorp/coderedcms/blob/main/LICENSE
     @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
     */
@@ -120,6 +120,12 @@ license header comment states copyright, ownership, license, and also provides c
     ... script code here ...
 
     /* @license-end */
+
+When editing JavaScript files, be sure to minify them. The minified files must also be committed to version control as they are distributed as part of our package.
+
+.. code-block:: console
+
+   $ python minify.py
 
 
 Upgrading 3rd-Party CSS/JavaScript Libraries

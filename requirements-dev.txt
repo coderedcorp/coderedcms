@@ -3,6 +3,7 @@
 
 # Requirements, in addition to coderedcms, needed for development.
 build
+jsmin
 libsass
 setuptools>=78.0
 twine

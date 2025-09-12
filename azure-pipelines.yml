@@ -29,21 +29,17 @@ stages:
       matrix:
         # Oldest versions of python should use the oldest versions of
         # wagtail we support, for testing purposes.
-        py3.9:
-          PYTHON_VERSION: '3.9'
-          WAGTAIL_VERSION: '6.3.*'
-          TEMPLATE: 'basic'
         py3.10:
           PYTHON_VERSION: '3.10'
-          WAGTAIL_VERSION: '7.*'
+          WAGTAIL_VERSION: '7.0.*'
           TEMPLATE: 'basic'
         py3.11:
           PYTHON_VERSION: '3.11'
-          WAGTAIL_VERSION: '7.*'
+          WAGTAIL_VERSION: '7.1.*'
           TEMPLATE: 'basic'
         py3.12:
           PYTHON_VERSION: '3.12'
-          WAGTAIL_VERSION: '7.*'
+          WAGTAIL_VERSION: '7.1.*'
           TEMPLATE: 'basic'
         py3.13_basic:
           PYTHON_VERSION: '3.13'

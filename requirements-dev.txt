@@ -5,5 +5,5 @@
 build
 jsmin
 libsass
-setuptools>=65.5
+setuptools>=78.0
 twine

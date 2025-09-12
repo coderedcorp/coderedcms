@@ -122,5 +122,5 @@ def register_import_export_menu_item():
     return ImportExportMenuItem(
         _("Import"),
         reverse("import_index"),
-        classnames="icon icon-download",
+        icon_name="upload",
     )

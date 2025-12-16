@@ -3,7 +3,7 @@
   {% if page.cover_image %}
   {% image page.cover_image fill-800x450 format-webp preserve-svg as card_img %}
   <a href="{% pageurl page %}" title="{{ page.title }}">
-    <img class="card-img-top w-100" src="{{ card_img.url }}" alt="{{ card_img.title }}">
+    <img class="card-img-top w-100" src="{{ card_img.url }}" alt="{{ card_img.alt }}">
   </a>
   {% endif %}
   <div class="card-body">

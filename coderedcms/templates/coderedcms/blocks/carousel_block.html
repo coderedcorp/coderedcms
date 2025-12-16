@@ -19,7 +19,7 @@
       {% block carousel_slide_image %}
       {% if item.image %}
       {% image item.image fill-1600x900 format-webp preserve-svg as carouselimage %}
-      <img class="d-block w-100" src="{{carouselimage.url}}" alt="{{carouselimage.image.title}}">
+      <img class="d-block w-100" src="{{carouselimage.url}}" alt="{{carouselimage.image.alt}}">
       {% endif %}
       {% endblock %}
       <div class="carousel-caption d-none d-md-block">

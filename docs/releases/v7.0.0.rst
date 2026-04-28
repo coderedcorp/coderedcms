@@ -1,0 +1,26 @@
+v7.0.0 release notes
+====================
+
+
+New features
+------------
+
+* Support Wagtail 7.3.
+
+* Support Django 6.0.
+
+* Support Python 3.14.
+
+
+Upgrade considerations
+----------------------
+
+Dropped support for Python 3.10 and 3.11, which are not supported by Django 6.
+
+Be sure to read the `Wagtail 7.3 upgrade considerations <https://docs.wagtail.org/en/stable/releases/7.3.html#upgrade-considerations-changes-affecting-all-projects>`_ and the `Django 6.0 release notes <https://docs.djangoproject.com/en/6.0/releases/6.0/>`_.
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `7.0.0 on GitHub <https://github.com/coderedcorp/coderedcms/milestone/65?closed=1>`_.

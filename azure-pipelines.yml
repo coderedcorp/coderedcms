@@ -28,26 +28,28 @@ stages:
     strategy:
       matrix:
         # Oldest versions of python should use the oldest versions of
-        # wagtail we support, for testing purposes.
-        py3.10:
-          PYTHON_VERSION: '3.10'
-          WAGTAIL_VERSION: '7.0.*'
-          TEMPLATE: 'basic'
-        py3.11:
-          PYTHON_VERSION: '3.11'
-          WAGTAIL_VERSION: '7.1.*'
-          TEMPLATE: 'basic'
+        # wagtail we support, for testing purposes. Wagtail 7.0 LTS
+        # predates Django 6 and its metadata leaves Django uncapped, so
+        # we pin Django explicitly on that slot.
         py3.12:
           PYTHON_VERSION: '3.12'
-          WAGTAIL_VERSION: '7.1.*'
+          WAGTAIL_VERSION: '7.0.*'
+          DJANGO_VERSION: '<6.0'
           TEMPLATE: 'basic'
-        py3.13_basic:
+        py3.13:
           PYTHON_VERSION: '3.13'
-          WAGTAIL_VERSION: '7.*'
+          WAGTAIL_VERSION: '7.3.*'
+          DJANGO_VERSION: ''
           TEMPLATE: 'basic'
-        py3.13_pro:
-          PYTHON_VERSION: '3.13'
+        py3.14_basic:
+          PYTHON_VERSION: '3.14'
           WAGTAIL_VERSION: '7.*'
+          DJANGO_VERSION: ''
+          TEMPLATE: 'basic'
+        py3.14_pro:
+          PYTHON_VERSION: '3.14'
+          WAGTAIL_VERSION: '7.*'
+          DJANGO_VERSION: ''
           TEMPLATE: 'pro'
 
     steps:
@@ -57,7 +59,7 @@ stages:
         versionSpec: '$(PYTHON_VERSION)'
         architecture: 'x64'
 
-    - script: python -m pip install -r requirements-ci.txt wagtail==$(WAGTAIL_VERSION)
+    - script: python -m pip install -r requirements-ci.txt "wagtail==$(WAGTAIL_VERSION)" "Django$(DJANGO_VERSION)"
       displayName: 'CR-QC: Install coderedcms from local repo'
 
     - script: coderedcms start testproject --template $(TEMPLATE)

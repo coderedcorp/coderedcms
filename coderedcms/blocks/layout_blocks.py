@@ -33,7 +33,7 @@ class ColumnBlock(BaseLayoutBlock):
     class Meta:
         template = "coderedcms/blocks/column_block.html"
         icon = "placeholder"
-        label = "Column"
+        label = _("Column")
 
 
 class GridBlock(BaseLayoutBlock):

@@ -1,0 +1,21 @@
+v6.0.1 release notes
+====================
+
+
+Bug fixes
+---------
+
+* Fixed a 404 error when viewing form submissions in the Wagtail admin. Wagtail
+  7.x guards its admin submissions view with ``isinstance(page, FormMixin)`` and
+  now calls ``page.get_submissions()``, which CodeRed form pages did not
+  satisfy. ``CoderedFormPage`` and ``CoderedStreamFormPage`` now inherit
+  Wagtail's ``FormMixin`` (last in the MRO, so existing behavior is unchanged),
+  restoring the submissions view for both standard and advanced form pages.
+  (`#710 <https://github.com/coderedcorp/coderedcms/issues/710>`_)
+
+
+Thank you!
+----------
+
+Thanks to everyone who contributed to `6.0.1 on GitHub
+<https://github.com/coderedcorp/coderedcms/issues/710>`_.

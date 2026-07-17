@@ -60,6 +60,7 @@ from wagtail.admin.panels import MultiFieldPanel
 from wagtail.admin.panels import ObjectList
 from wagtail.admin.panels import TabbedInterface
 from wagtail.contrib.forms.forms import WagtailAdminFormPageForm
+from wagtail.contrib.forms.models import FormMixin
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.coreutils import resolve_model_string
@@ -1710,10 +1711,18 @@ class CoderedFormMixin(models.Model):
         return ctx
 
 
-class CoderedFormPage(CoderedFormMixin, CoderedWebPage):
+class CoderedFormPage(CoderedFormMixin, CoderedWebPage, FormMixin):
     """
     This is basically a clone of wagtail.contrib.forms.models.AbstractForm
     with changes in functionality and extending CoderedWebPage vs wagtailcore.Page.
+
+    Wagtail's ``FormMixin`` is inherited last so this page satisfies the
+    ``isinstance(page, FormMixin)`` guard Wagtail 7.x added to its admin
+    submissions view, and gains the ``get_submissions()`` /
+    ``get_submissions_list_view_class()`` API that view now relies on. Being
+    last in the MRO, it only fills methods CodeRed does not already define, so
+    existing behavior is unchanged.
+    See https://github.com/coderedcorp/coderedcms/issues/710
     """
 
     class Meta:
@@ -1828,8 +1837,12 @@ class CoderedStreamFormMixin(StreamFormMixin):
 
 
 class CoderedStreamFormPage(
-    CoderedFormMixin, CoderedStreamFormMixin, CoderedWebPage
+    CoderedFormMixin, CoderedStreamFormMixin, CoderedWebPage, FormMixin
 ):
+    # ``FormMixin`` is inherited last (after ``StreamFormMixin``) so it only
+    # satisfies Wagtail 7.x's ``isinstance`` guard and supplies
+    # ``get_submissions()`` without shadowing the StreamForm field/handling
+    # methods. See https://github.com/coderedcorp/coderedcms/issues/710
     class Meta:
         verbose_name = _("CodeRed Advanced Form Page")
         abstract = True

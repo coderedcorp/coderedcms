@@ -3,7 +3,7 @@
   {% if self.title %}<h5 class="card-header">{{self.title}}</h5>{% endif %}
   {% if self.image %}
   {% image self.image fill-800x450 format-webp preserve-svg as card_img %}
-  <img class="w-100" src="{{card_img.url}}" alt="{{card_img.title}}">
+  <img class="w-100" src="{{card_img.url}}" alt="{{card_img.alt}}">
   {% endif %}
   <div class="card-body">
     {% if self.subtitle %}<h6 class="card-subtitle mb-2 text-muted">{{self.subtitle}}</h6>{% endif %}

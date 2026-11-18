@@ -6,6 +6,6 @@ codespell
 pytest
 pytest-cov
 pytest-django
-ruff
+ruff==0.15.*
 sphinx
 sphinx-wagtail-theme

@@ -103,7 +103,7 @@ Publish and see what happens!
     The published Blog landing page.
 
 Whoa! The blog posts are already showing up! What is this magic? Well, remember that this is a parent page type
-and the blog posts were children of this page. The option to "show children" is already pre-selected in the edit mode
+and the blog posts were children of this page. The option to "show children" is already preselected in the edit mode
 for landing pages. Let's look at that now.
 
 Ways to display sub-pages on a landing page

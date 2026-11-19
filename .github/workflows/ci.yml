@@ -53,22 +53,6 @@ jobs:
       - name: "CR-QC: Run unit tests"
         run: pytest ./coderedcms/
 
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-py${{ matrix.python }}-wag${{ matrix.wagtail }}-${{ matrix.template }}
-          path: junit/test-results.xml
-          if-no-files-found: warn
-
-      - name: Upload coverage
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-py${{ matrix.python }}-wag${{ matrix.wagtail }}-${{ matrix.template }}
-          path: coverage.xml
-          if-no-files-found: warn
-
   linters:
     name: Linters
     needs: unit-tests

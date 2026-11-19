@@ -47,7 +47,7 @@ jobs:
       - name: "CR-QC: Check migrations"
         run: |
           cd testproject
-          python -m pip install -r requirements-dev.txt
+          python -m pip install -r requirements.txt
           python manage.py makemigrations --check
 
       - name: "CR-QC: Run unit tests"

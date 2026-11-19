@@ -3,19 +3,11 @@
 The professional WordPress alternative for building marketing websites with
 Wagtail and Bootstrap.
 
-[Website](https://www.coderedcorp.com/cms/)
-|
-[Documentation](https://docs.coderedcorp.com/wagtail-crx/)
-|
-[Blog](https://www.coderedcorp.com/blog/tag/django-wagtail/)
-
+[Documentation](https://docs.coderedcorp.com/wagtail-crx/) | [Release notes & supported versions](https://docs.coderedcorp.com/wagtail-crx/releases/)
 
 ## Status
 
-|                        |                      |
-|------------------------|----------------------|
-| Python Package         | [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Django Version](https://img.shields.io/pypi/djversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Wheel](https://img.shields.io/pypi/wheel/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI](https://img.shields.io/pypi/v/coderedcms)](https://pypi.org/project/coderedcms/) |
-| Build                  | [![Build Status](https://dev.azure.com/coderedcorp/cr-github/_apis/build/status/coderedcms?branchName=main)](https://dev.azure.com/coderedcorp/coderedcms/_build/latest?definitionId=1&branchName=main) [![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/coderedcorp/cr-github/1/main)](https://dev.azure.com/coderedcorp/cr-github/_build/latest?definitionId=1&branchName=main) [![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/coderedcorp/cr-github/1/main)](https://dev.azure.com/coderedcorp/cr-github/_build/latest?definitionId=1&branchName=main) |
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Django Version](https://img.shields.io/pypi/djversions/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/coderedcms)](https://pypi.org/project/coderedcms/) [![PyPI](https://img.shields.io/pypi/v/coderedcms)](https://pypi.org/project/coderedcms/)
 
 
 ## What is Wagtail CRX?

@@ -65,11 +65,6 @@ A Note on Cross-Platform Support
 Wagtail CRX works equally well on Windows, macOS, and Linux. When adding new features
 or new dependencies, ensure that these utilize proper cross-platform utilities in Python.
 
-To ease local development of Wagtail CRX, we have some automation scripts using
-cross-platform `PowerShell Core <https://github.com/powershell/powershell>`_.
-Throughout this contributing guide, you will encounter various PowerShell
-scripts which provide an easy way of running quality control measures.
-
 Our goal is that users of any platform can develop or host a Wagtail CRX website easily.
 
 
@@ -152,22 +147,8 @@ report and code coverage report:
 
     $ pytest coderedcms/
 
-Or more conveniently, run the PowerShell script, which will also print out the
-code coverage percentage in the console:
-
-.. code-block:: console
-
-    $ ./ci/run-tests.ps1
-
 Detailed test coverage reports are now available by opening ``htmlcov/index.html``
 in your browser (which is ignored by version control).
-
-To compare your current code coverage against the code coverage of the main
-branch (based on latest Azure Pipeline build from main) run:
-
-.. code-block:: console
-
-    $ ./ci/compare-codecov.ps1
 
 
 Adding New Tests
@@ -290,20 +271,13 @@ Building Documentation
 ----------------------
 
 For every code or feature change, be sure to update the docs in the repository.
-To build the documentation run the PowerShell script, which will also check for
-errors in the documentation:
+To build the documentation, which will also check for errors:
 
 .. code-block:: console
 
-    $ ./ci/make-docs.ps1
+    $ sphinx-build -M html ./docs/ ./docs/_build/ -W
 
-Or manually using sphinx:
-
-.. code-block:: console
-
-    $ sphinx-build -M html docs/ docs/_build/ -W
-
-Output will be in ``docs/_build/html/`` directory.
+Output will be in ``./docs/_build/html/`` directory.
 
 
 Publishing a New Release
@@ -334,7 +308,7 @@ Finally build and update docs:
 
 .. code-block:: console
 
-    $ ./ci/make-docs.ps1
+    $ sphinx-build -M html ./docs/ ./docs/_build -W
 
 Copy the contents of ``docs/_build/html/`` to the CodeRed docs server under the existing version directory. Using the ``cr`` tool:
 
